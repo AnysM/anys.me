@@ -697,18 +697,34 @@
     .footer-links { justify-content: center; }
   }
 </style>
+  <link rel="stylesheet" href="nav.css">
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Anys <em>Mechkar</em></a>
-  <ul class="nav-links">
-    <li><a href="#peinture">Peinture</a></li>
-    <li><a href="#butoh">Butoh</a></li>
-    <li><a href="#desert">Desert Mirage</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-  </ul>
+<nav class="site-nav">
+  <a href="index.html" class="site-nav__logo">Anys <em>Mechkar</em></a>
+  <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+  </button>
+  <div class="site-nav__overlay">
+    <div class="site-nav__menu">
+      <a href="index.html" class="site-nav__link"><span class="site-nav__link-num">00</span>Accueil</a>
+      <a href="hommes.html" class="site-nav__link"><span class="site-nav__link-num">01</span>L'Homme</a>
+      <a href="entrepreneurs.html" class="site-nav__link"><span class="site-nav__link-num">02</span>L'Entrepreneur <span class="site-nav__link-accent">Créatif</span></a>
+      <a href="essence.html" class="site-nav__link"><span class="site-nav__link-num">03</span>La Quête <span class="site-nav__link-accent">de Soi</span></a>
+      <a href="art.html" class="site-nav__link"><span class="site-nav__link-num">04</span>L'Art <span class="site-nav__link-accent">et le Mouvement</span></a>
+      <div class="site-nav__sep"></div>
+      <div class="site-nav__sub">
+        <a href="story.html" class="site-nav__sub-link">Mon chemin</a>
+        <a href="index.html#rencontre" class="site-nav__sub-link">Méditation offerte</a>
+        <a href="index.html#evenements" class="site-nav__sub-link">Événements</a>
+        <a href="index.html#contact" class="site-nav__sub-link">Contact</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -920,5 +936,6 @@
   reveals.forEach(el => observer.observe(el));
 </script>
 
+<script src="nav.js"></script>
 </body>
 </html>
