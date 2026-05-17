@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qui je suis — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:    #0E0C0A;
+    --surface:  #181410;
+    --surface2: #201A14;
+    --cream:    #F0EAE1;
+    --muted:    #8C7E72;
+    --faint:    #2E2620;
+    --blue:     #1B3A7A;
+    --coral:    #C45C3A;
+    --yellow:   #D4942A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Lora', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, var(--black), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    color: var(--cream);
+    text-decoration: none;
+  }
+
+  .nav-logo em { font-style: italic; color: var(--muted); }
+
+  .nav-back {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-back:hover { color: var(--cream); }
+
+  /* ── HERO ── */
+  .story-hero {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 60% at 80% 30%, #1B3A7A14 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 10% 80%, #C45C3A0C 0%, transparent 60%);
+  }
+
+  .story-hero-img {
+    position: absolute;
+    top: 0; right: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(135deg, #181410 0%, #201A14 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-hero-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .story-hero-img::after {
+    content: 'Portrait';
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .story-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+  }
+
+  .story-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .story-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .story-title em {
+    font-style: italic;
+    color: var(--muted);
+    display: block;
+  }
+
+  .story-intro {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.6;
+    color: var(--cream);
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.6s;
+  }
+
+  /* ── RÉCIT ── */
+  .story-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  /* Chapitre */
+  .chapter {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 48px;
+    margin-bottom: 96px;
+    position: relative;
+  }
+
+  .chapter-number {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 80px;
+    line-height: 1;
+    color: var(--faint);
+    padding-top: 4px;
+    user-select: none;
+  }
+
+  .chapter-content {}
+
+  .chapter-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .chapter-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 28px;
+  }
+
+  .chapter-text {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  .chapter-text p + p {
+    margin-top: 20px;
+  }
+
+  /* Placeholder vocal */
+  .vocal-placeholder {
+    margin-top: 28px;
+    padding: 24px 28px;
+    border: 1px dashed var(--faint);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .vocal-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--coral);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .vocal-icon::after {
+    content: '◉';
+    font-size: 12px;
+    color: var(--coral);
+  }
+
+  .vocal-note {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--faint);
+    line-height: 1.6;
+  }
+
+  /* Citation intermédiaire */
+  .story-quote {
+    margin: 0 0 96px;
+    padding: 60px 48px;
+    text-align: center;
+    position: relative;
+  }
+
+  .story-quote::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--yellow));
+  }
+
+  .story-quote::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to top, transparent, var(--yellow));
+  }
+
+  .story-quote-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(26px, 4vw, 40px);
+    line-height: 1.5;
+    color: var(--cream);
+  }
+
+  .story-quote-text em {
+    font-style: normal;
+    color: var(--yellow);
+  }
+
+  /* ── PRATIQUES ── */
+  .practices {
+    padding: 80px 48px;
+    background: var(--surface);
+  }
+
+  .practices-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .practices-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 48px;
+  }
+
+  .practices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .practice-item {
+    background: var(--black);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .practice-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    color: var(--cream);
+  }
+
+  .practice-desc {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  .practice-accent {
+    width: 24px;
+    height: 1px;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+
+  /* ── HD ── */
+  .hd-section {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 100px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hd-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+
+  .hd-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.2;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  .hd-text {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .hd-visual {
+    background: var(--surface);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px;
+  }
+
+  .hd-type {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--cream);
+    text-align: center;
+  }
+
+  .hd-code {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .hd-sep {
+    width: 32px;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  .hd-anchors {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .hd-anchor {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--faint);
+    color: var(--muted);
+  }
+
+  /* ── CTA FINAL ── */
+  .story-cta {
+    text-align: center;
+    padding: 100px 48px;
+    background: var(--surface);
+  }
+
+  .story-cta-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.4;
+    color: var(--cream);
+    margin-bottom: 48px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-grid {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-card {
+    flex: 1;
+    min-width: 160px;
+    max-width: 200px;
+    padding: 28px 20px;
+    background: var(--black);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+  }
+
+  .cta-card:nth-child(1):hover { border-color: var(--coral); }
+  .cta-card:nth-child(2):hover { border-color: var(--yellow); }
+  .cta-card:nth-child(3):hover { border-color: var(--blue); }
+  .cta-card:nth-child(4):hover { border-color: var(--coral); }
+
+  .cta-card-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--cream);
+  }
+
+  .cta-card-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--muted);
+  }
+
+  .footer-note {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .story-hero { padding: 0 24px 60px; }
+    .story-hero-img { display: none; }
+    .story-body { padding: 60px 24px; }
+    .chapter { grid-template-columns: 1fr; gap: 0; }
+    .chapter-number { font-size: 48px; margin-bottom: 12px; }
+    .practices { padding: 60px 24px; }
+    .practices-grid { grid-template-columns: 1fr; }
+    .hd-section { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+    .story-cta { padding: 60px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html" class="nav-logo">Anys <em>Mechkar</em></a>
+  <a href="/index.html" class="nav-back">← Retour</a>
+</nav>
+
+<!-- HERO -->
+<section class="story-hero">
+  <div class="story-hero-bg"></div>
+  <div class="story-hero-img"></div>
+  <div class="story-hero-content">
+    <div class="story-eyebrow">Mon chemin</div>
+    <div class="story-title">
+      Qui<em>je suis</em>
+    </div>
+    <div class="story-intro">
+      Pas un parcours linéaire. Une série de seuils traversés — chacun révélant quelque chose que je ne savais pas chercher.
+    </div>
+  </div>
+</section>
+
+<!-- RÉCIT -->
+<div class="story-body">
+
+  <!-- CHAPITRE 1 -->
+  <div class="chapter">
+    <div class="chapter-number">I</div>
+    <div class="chapter-content">
+      <div class="chapter-label" style="color: var(--yellow)">Le point de départ</div>
+      <div class="chapter-title">L'ingénieur qui construisait des produits</div>
+      <div class="chapter-text">
+        <p>Pendant des années, j'ai construit des produits numériques. J'étais bon dans ce que je faisais — résoudre des problèmes, structurer des systèmes, livrer des résultats. Le monde attendait ça de moi, et je le livrais.</p>
+        <p>Mais quelque chose manquait. Une profondeur que les méthodes classiques ne touchaient pas. Une question qui revenait sans se formuler clairement : est-ce que c'est vraiment ça ?</p>
+      </div>
+      <div class="vocal-placeholder">
+        <div class="vocal-icon"></div>
+        <div class="vocal-note">Espace réservé — à compléter avec ton vocal : ce que tu vivais vraiment à cette période, ce qui manquait concrètement.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CITATION 1 -->
+  <div class="story-quote">
+    <div class="story-quote-text">
+      Il y a un moment où l'on réalise que l'on a construit<br>
+      une vie qui ne nous <em>ressemble pas vraiment.</em>
+    </div>
+  </div>
+
+  <!-- CHAPITRE 2 -->
+  <div class="chapter">
+    <div class="chapter-number">II</div>
+    <div class="chapter-content">
+      <div class="chapter-label" style="color: var(--coral)">Le basculement</div>
+      <div class="chapter-title">Ce que le corps a commencé à dire</div>
+      <div class="chapter-text">
+        <p>La transformation n'est pas venue d'une idée. Elle est venue du corps. Les arts internes, le Kung Fu, le Butoh — des pratiques qui n'expliquent pas, qui font traverser. Chaque discipline m'a appris quelque chose que l'intellect ne pouvait pas atteindre.</p>
+        <p>La méditation m'a appris à ne pas fuir le silence. Le Butoh m'a appris que l'ombre est une porte, pas un mur. Les arts internes m'ont appris que la force naît du relâchement.</p>
+      </div>
+      <div class="vocal-placeholder">
+        <div class="vocal-icon"></div>
+        <div class="vocal-note">Espace réservé — à compléter avec ton vocal : le moment précis du basculement, ce que tu as traversé concrètement.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPITRE 3 -->
+  <div class="chapter">
+    <div class="chapter-number">III</div>
+    <div class="chapter-content">
+      <div class="chapter-label" style="color: var(--blue)">La découverte</div>
+      <div class="chapter-title">Peindre, danser, accompagner</div>
+      <div class="chapter-text">
+        <p>Quelque chose s'est ouvert quand j'ai arrêté de chercher à performer et que j'ai commencé à créer. La peinture est devenue un espace de révélation — pas d'expression au sens habituel, mais de lecture. Ce que la toile montre que l'on ne savait pas encore.</p>
+        <p>C'est là que j'ai compris ce que je voulais transmettre. Pas une méthode. Un espace. La possibilité pour chacun de retrouver sa propre couleur — sans forcer, sans imiter, sans se perdre dans ce que les autres attendent.</p>
+      </div>
+      <div class="vocal-placeholder">
+        <div class="vocal-icon"></div>
+        <div class="vocal-note">Espace réservé — à compléter avec ton vocal : tes découvertes clés, ce que la peinture et le Butoh t'ont révélé sur toi-même.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CITATION 2 -->
+  <div class="story-quote">
+    <div class="story-quote-text">
+      La transformation n'est pas une idée.<br>
+      C'est une expérience qui passe<br>
+      par le <em>corps.</em>
+    </div>
+  </div>
+
+  <!-- CHAPITRE 4 -->
+  <div class="chapter">
+    <div class="chapter-number">IV</div>
+    <div class="chapter-content">
+      <div class="chapter-label" style="color: var(--yellow)">Aujourd'hui</div>
+      <div class="chapter-title">Guider depuis ce que j'ai traversé</div>
+      <div class="chapter-text">
+        <p>Aujourd'hui j'accompagne des hommes, des entrepreneurs, des créatifs — pas depuis une posture de sachant, mais depuis ce que j'ai moi-même traversé. Les retraites dans le désert marocain, les cercles d'hommes, les programmes de transformation — tout ça est né d'une pratique vivante, pas d'une théorie.</p>
+        <p>Ce que je propose n'est pas du coaching. C'est un retour à soi. Par le corps, le souffle, l'archétype, le mouvement, la création. Depuis un espace de non-effort.</p>
+      </div>
+      <div class="vocal-placeholder">
+        <div class="vocal-icon"></div>
+        <div class="vocal-note">Espace réservé — à compléter avec ton vocal : ta vision de l'accompagnement aujourd'hui, ce qui te distingue, ce que tu veux vraiment transmettre.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PRATIQUES -->
+<section class="practices">
+  <div class="practices-inner">
+    <div class="practices-label">Pratiques & disciplines</div>
+    <div class="practices-grid">
+
+      <div class="practice-item">
+        <div class="practice-name">Butoh</div>
+        <div class="practice-desc">Art de la danse japonaise de l'ombre. Le corps comme espace de connaissance, le mouvement comme rituel.</div>
+        <div class="practice-accent" style="background: var(--coral);"></div>
+      </div>
+
+      <div class="practice-item">
+        <div class="practice-name">Arts internes</div>
+        <div class="practice-desc">Kung Fu et pratiques énergétiques. La force qui naît du relâchement, la présence qui précède le geste.</div>
+        <div class="practice-accent" style="background: var(--yellow);"></div>
+      </div>
+
+      <div class="practice-item">
+        <div class="practice-name">Méditation</div>
+        <div class="practice-desc">Enseignant en méditation. L'art de ne pas fuir le silence — et de trouver ce qu'il contient.</div>
+        <div class="practice-accent" style="background: var(--blue);"></div>
+      </div>
+
+      <div class="practice-item">
+        <div class="practice-name">Peinture</div>
+        <div class="practice-desc">Série 33 Révolutions. La toile comme miroir — ce qu'elle révèle que l'on ne savait pas encore.</div>
+        <div class="practice-accent" style="background: var(--coral);"></div>
+      </div>
+
+      <div class="practice-item">
+        <div class="practice-name">Fractalogie</div>
+        <div class="practice-desc">Méthode d'identification des schémas fractals comportementaux. Ce qui se répète révèle ce qui attend.</div>
+        <div class="practice-accent" style="background: var(--yellow);"></div>
+      </div>
+
+      <div class="practice-item">
+        <div class="practice-name">Prisme Origine</div>
+        <div class="practice-desc">Tzolkin, BaZi, Human Design. Trois systèmes anciens pour lire la nature essentielle de chacun.</div>
+        <div class="practice-accent" style="background: var(--blue);"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HUMAN DESIGN -->
+<section>
+  <div class="hd-section">
+    <div>
+      <div class="hd-label">Human Design</div>
+      <div class="hd-title">Projecteur Émotionnel 4/6</div>
+      <div class="hd-text">
+        Le Projecteur est né pour guider — pas pour initier, pas pour produire, mais pour voir ce que les autres ne voient pas encore en eux-mêmes. Le profil 4/6 : une fondation relationnelle profonde, et une vie qui se divise en phases de transmission progressive.
+      </div>
+    </div>
+    <div class="hd-visual">
+      <div class="hd-type">Projecteur<br>Émotionnel</div>
+      <div class="hd-sep"></div>
+      <div class="hd-code">4 / 6</div>
+      <div class="hd-anchors">
+        <span class="hd-anchor">Maroc</span>
+        <span class="hd-anchor">France</span>
+        <span class="hd-anchor">Asie</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="story-cta">
+  <div class="story-cta-title">
+    Quelque chose résonne ?<br>
+    Voilà où ça peut mener.
+  </div>
+  <div class="cta-grid">
+    <a href="/hommes" class="cta-card">
+      <div class="cta-card-label" style="color:var(--coral)">Pour les hommes</div>
+      <div class="cta-card-title">L'Homme</div>
+    </a>
+    <a href="/entrepreneurs" class="cta-card">
+      <div class="cta-card-label" style="color:var(--yellow)">Pour les créatifs</div>
+      <div class="cta-card-title">L'Entrepreneur</div>
+    </a>
+    <a href="/essence" class="cta-card">
+      <div class="cta-card-label" style="color:var(--muted)">Pour la quête</div>
+      <div class="cta-card-title">La Quête de Soi</div>
+    </a>
+    <a href="/art" class="cta-card">
+      <div class="cta-card-label" style="color:var(--coral)">L'univers créatif</div>
+      <div class="cta-card-title">L'Art</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+</body>
+</html>
