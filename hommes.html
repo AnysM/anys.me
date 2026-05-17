@@ -41,48 +41,6 @@
     opacity: 0.35;
   }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 48px;
-    background: linear-gradient(to bottom, var(--black) 60%, transparent);
-  }
-
-  .nav-logo {
-    font-family: 'EB Garamond', serif;
-    font-size: 18px;
-    color: var(--cream);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-  }
-
-  .nav-logo em { font-style: italic; color: var(--muted); }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: 'Lora', serif;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--cream); }
-
-  .nav-links a.active { color: var(--coral); }
-
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
@@ -829,8 +787,6 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
-    .nav-links { display: none; }
     #hero { grid-template-columns: 1fr; min-height: 100vh; }
     .hero-right { display: none; }
     .hero-left { padding: 120px 24px 72px; }

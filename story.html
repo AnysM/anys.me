@@ -41,39 +41,6 @@
     opacity: 0.35;
   }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 48px;
-    background: linear-gradient(to bottom, var(--black), transparent);
-  }
-
-  .nav-logo {
-    font-family: 'EB Garamond', serif;
-    font-size: 18px;
-    color: var(--cream);
-    text-decoration: none;
-  }
-
-  .nav-logo em { font-style: italic; color: var(--muted); }
-
-  .nav-back {
-    font-family: 'Lora', serif;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .nav-back:hover { color: var(--cream); }
-
   /* ── HERO ── */
   .story-hero {
     min-height: 70vh;
@@ -533,7 +500,6 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
     .story-hero { padding: 0 24px 60px; }
     .story-hero-img { display: none; }
     .story-body { padding: 60px 24px; }
