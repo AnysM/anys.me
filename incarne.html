@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IN CARNE — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0E0C0A; --surface: #181410; --surface2: #201A14; --cream: #F0EAE1; --muted: #8C7E72; --faint: #2E2620; --blue: #1B3A7A; --coral: #C45C3A; --yellow: #D4942A; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--cream); font-family: 'Lora', serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.35; }
+
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 20% 50%, #C45C3A08 0%, transparent 70%), radial-gradient(ellipse 50% 40% at 80% 30%, #D4942A06 0%, transparent 60%); }
+  .hero-img { position: absolute; inset: 0; background: linear-gradient(160deg, #0E0804 0%, #181008 50%, #0A0604 100%); display: flex; align-items: center; justify-content: center; }
+  .hero-img::after { content: 'Photo · IN CARNE'; font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); }
+  .hero-mask { position: absolute; bottom: 0; left: 0; right: 0; height: 65%; background: linear-gradient(to top, var(--black) 25%, transparent); z-index: 1; }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
+  .hero-title { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(64px, 12vw, 140px); line-height: 0.9; color: var(--cream); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.5s; letter-spacing: 0.02em; }
+  .hero-tagline { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 28px); line-height: 1.6; color: var(--cream); max-width: 560px; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s; }
+  .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.8s; }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-label { font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .hero-meta-value { font-family: 'EB Garamond', serif; font-style: italic; font-size: 18px; color: var(--cream); }
+  .hero-price { font-family: 'EB Garamond', serif; font-style: italic; font-size: 44px; color: var(--coral); }
+  .hero-cta { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); background: var(--coral); padding: 16px 36px; text-decoration: none; transition: background 0.3s; opacity: 0; animation: fadeUp 0.9s ease forwards 0.9s; }
+  .hero-cta:hover { background: var(--cream); color: var(--black); }
+
+  /* INTRO */
+  #intro { padding: 100px 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; max-width: 1100px; margin: 0 auto; }
+  .intro-label { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--coral); margin-bottom: 20px; }
+  .intro-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(24px, 3.2vw, 38px); line-height: 1.55; color: var(--cream); margin-bottom: 32px; }
+  .intro-text em { font-style: normal; color: var(--coral); }
+  .intro-body { font-family: 'Lora', serif; font-size: 16px; line-height: 1.9; color: var(--muted); }
+  .intro-body p + p { margin-top: 16px; }
+
+  /* PHASES */
+  #phases { padding: 80px 48px; background: var(--surface); }
+  .phases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; background: var(--faint); }
+  .phase-card { background: var(--black); padding: 48px 36px; display: flex; flex-direction: column; gap: 18px; }
+  .phase-num { font-family: 'EB Garamond', serif; font-style: italic; font-size: 64px; color: var(--faint); line-height: 1; }
+  .phase-name { font-family: 'EB Garamond', serif; font-size: 32px; color: var(--cream); line-height: 1; }
+  .phase-desc { font-family: 'Lora', serif; font-size: 14px; line-height: 1.75; color: var(--muted); }
+  .phase-card:nth-child(1) .phase-name { color: var(--blue); }
+  .phase-card:nth-child(2) .phase-name { color: var(--yellow); }
+  .phase-card:nth-child(3) .phase-name { color: var(--coral); }
+
+  /* ARCHÉTYPES */
+  #archetypes { padding: 80px 48px; }
+  .archetypes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 48px; background: var(--faint); }
+  .archetype-card { background: var(--surface); padding: 28px 24px; text-align: center; transition: background 0.3s; }
+  .archetype-card:hover { background: var(--surface2); }
+  .archetype-num { font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.2em; color: var(--faint); margin-bottom: 8px; }
+  .archetype-name { font-family: 'EB Garamond', serif; font-style: italic; font-size: 20px; color: var(--cream); line-height: 1.3; }
+
+  /* CITATION */
+  .page-quote { padding: 80px 48px; text-align: center; background: var(--surface); position: relative; }
+  .page-quote::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--coral)); }
+  .page-quote-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 38px); line-height: 1.55; color: var(--cream); max-width: 700px; margin: 0 auto; }
+  .page-quote-text em { font-style: normal; color: var(--coral); }
+
+  /* POUR QUI */
+  #pourqui { padding: 100px 48px; }
+  .pourqui-list { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  .pourqui-item { background: var(--surface); padding: 24px 32px; display: flex; align-items: baseline; gap: 20px; font-family: 'Lora', serif; font-size: 16px; color: var(--muted); line-height: 1.6; }
+  .pourqui-item::before { content: '·'; color: var(--coral); font-size: 20px; flex-shrink: 0; }
+
+  /* FORMAT */
+  #format { padding: 80px 48px 100px; background: var(--surface); }
+  .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; background: var(--faint); }
+  .format-item { background: var(--black); padding: 36px 36px; }
+  .format-label { font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .format-value { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(20px, 2.5vw, 28px); color: var(--cream); line-height: 1.3; }
+  .format-note { font-family: 'Lora', serif; font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  /* CTA */
+  #cta-final { padding: 100px 48px; text-align: center; max-width: 600px; margin: 0 auto; }
+  .cta-title { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(28px, 4vw, 48px); line-height: 1.3; color: var(--cream); margin-bottom: 20px; }
+  .cta-body { font-family: 'Lora', serif; font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 36px; }
+  .cta-price { font-family: 'EB Garamond', serif; font-style: italic; font-size: 52px; color: var(--coral); display: block; margin-bottom: 12px; }
+  .cta-price-note { font-family: 'Lora', serif; font-size: 12px; color: var(--muted); margin-bottom: 28px; display: block; }
+  .btn-main { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); background: var(--coral); padding: 18px 48px; text-decoration: none; transition: background 0.3s; }
+  .btn-main:hover { background: var(--cream); color: var(--black); }
+
+  footer { padding: 28px 48px; border-top: 1px solid var(--faint); display: flex; align-items: center; justify-content: space-between; }
+  .footer-name { font-family: 'EB Garamond', serif; font-style: italic; font-size: 15px; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--muted); }
+  .footer-note { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    #hero { padding: 0 24px 64px; }
+    #intro { grid-template-columns: 1fr; padding: 72px 24px; gap: 28px; }
+    #phases { padding: 60px 24px; }
+    .phases-grid { grid-template-columns: 1fr; }
+    #archetypes { padding: 60px 24px; }
+    .archetypes-grid { grid-template-columns: repeat(2, 1fr); }
+    .page-quote { padding: 60px 24px; }
+    #pourqui { padding: 64px 24px; }
+    #format { padding: 60px 24px 72px; }
+    .format-grid { grid-template-columns: 1fr; }
+    #cta-final { padding: 72px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="site-nav__logo">Anys <em>Mechkar</em></a>
+  <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+  </button>
+  <div class="site-nav__overlay">
+    <div class="site-nav__menu">
+      <a href="index.html" class="site-nav__link"><span class="site-nav__link-num">00</span>Accueil</a>
+      <a href="essence.html" class="site-nav__link"><span class="site-nav__link-num">01</span>La Quête <span class="site-nav__link-accent">de Soi</span></a>
+      <a href="art.html" class="site-nav__link"><span class="site-nav__link-num">02</span>L'Art <span class="site-nav__link-accent">et le Mouvement</span></a>
+      <a href="hommes.html" class="site-nav__link"><span class="site-nav__link-num">03</span>L'Homme</a>
+      <a href="entrepreneurs.html" class="site-nav__link"><span class="site-nav__link-num">04</span>L'Entrepreneur <span class="site-nav__link-accent">Créatif</span></a>
+      <div class="site-nav__sep"></div>
+      <div class="site-nav__sub">
+        <a href="story.html" class="site-nav__sub-link">Mon chemin</a>
+        <a href="evenements.html" class="site-nav__sub-link">Événements</a>
+        <a href="index.html#rencontre" class="site-nav__sub-link">Méditation offerte</a>
+        <a href="index.html#contact" class="site-nav__sub-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-mask"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Programme initiatique · 6 mois</div>
+    <div class="hero-title">IN CARNE</div>
+    <div class="hero-tagline">Un voyage de 6 mois pour incarner pleinement qui tu es — à travers 8 archétypes, 3 phases, une seule direction.</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Durée</span>
+        <span class="hero-meta-value">6 mois</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Format</span>
+        <span class="hero-meta-value">Collectif + individuel</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Saison</span>
+        <span class="hero-meta-value">1 — en cours</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Investissement</span>
+        <span class="hero-price">3 500€</span>
+      </div>
+    </div>
+    <a href="index.html#contact" class="hero-cta">Rejoindre la liste d'attente →</a>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="reveal">
+    <div class="intro-label">Ce que c'est vraiment</div>
+  </div>
+  <div class="reveal">
+    <div class="intro-text">
+      Pas une formation.<br>Pas du coaching.<br>Une <em>initiation.</em>
+    </div>
+    <div class="intro-body">
+      <p>IN CARNE est un programme de 6 mois conçu pour les hommes qui veulent traverser quelque chose de réel. Pas apprendre des techniques — traverser des seuils. Rencontrer les parts d'eux-mêmes qu'ils ont mises de côté, et les intégrer.</p>
+      <p>8 archétypes, 3 phases, un groupe resserré. Du travail individuel et collectif, des pratiques corporelles, des espaces de parole, des rituels. Quelque chose qui laisse une trace.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<section id="phases">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px;">Le chemin</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15;">Trois phases. Un seul mouvement.</div>
+  <div class="phases-grid">
+    <div class="phase-card reveal">
+      <div class="phase-num">I</div>
+      <div class="phase-name">Purifier</div>
+      <div class="phase-desc">Dégager ce qui encombre — les masques, les patterns, les héritages non digérés. Ce qu'on a mis de côté pour tenir debout.</div>
+    </div>
+    <div class="phase-card reveal">
+      <div class="phase-num">II</div>
+      <div class="phase-name">Forger</div>
+      <div class="phase-desc">Construire ce qui tient — une identité stable, un feu propre, une direction. Non plus en réaction, mais depuis son centre.</div>
+    </div>
+    <div class="phase-card reveal">
+      <div class="phase-num">III</div>
+      <div class="phase-name">Rayonner</div>
+      <div class="phase-desc">Exprimer ce qui est vrai — dans ses relations, son travail, sa façon d'être au monde. Depuis la plénitude, pas la peur.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHÉTYPES -->
+<section id="archetypes">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px;">Les 8 archétypes</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Les figures intérieures qui t'habitent.</div>
+  <div class="archetypes-grid">
+    <div class="archetype-card reveal"><div class="archetype-num">01</div><div class="archetype-name">Le Guerrier</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">02</div><div class="archetype-name">Le Magicien</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">03</div><div class="archetype-name">L'Artiste</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">04</div><div class="archetype-name">L'Amant</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">05</div><div class="archetype-name">Le Compagnon</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">06</div><div class="archetype-name">Le Roi</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">07</div><div class="archetype-name">L'Enfant Originel</div></div>
+    <div class="archetype-card reveal"><div class="archetype-num">08</div><div class="archetype-name">Le Vieux Sage</div></div>
+  </div>
+</section>
+
+<!-- CITATION -->
+<div class="page-quote reveal">
+  <div class="page-quote-text">
+    Ce n'est pas toi qui manques de quelque chose.<br>
+    C'est toi qui n'as pas encore <em>tout rencontré</em> de toi-même.
+  </div>
+</div>
+
+<!-- POUR QUI -->
+<section id="pourqui">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px; display:block;">Pour qui</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Ce programme est pour toi si…</div>
+  <div class="pourqui-list">
+    <div class="pourqui-item reveal">Tu es un homme qui sent qu'il y a une version plus entière, plus souveraine de lui-même — et qui n'y a pas encore accès.</div>
+    <div class="pourqui-item reveal">Tu en as assez de tourner en rond dans les mêmes schémas — dans tes relations, ton travail, ta façon d'être.</div>
+    <div class="pourqui-item reveal">Tu cherches quelque chose de plus profond que du coaching ou du développement personnel — une vraie transformation.</div>
+    <div class="pourqui-item reveal">Tu es prêt à t'engager sur 6 mois, avec un groupe et avec toi-même.</div>
+  </div>
+</section>
+
+<!-- FORMAT -->
+<section id="format">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px;">Format & investissement</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Ce que ça comprend.</div>
+  <div class="format-grid">
+    <div class="format-item reveal">
+      <div class="format-label">Durée</div>
+      <div class="format-value">6 mois</div>
+    </div>
+    <div class="format-item reveal">
+      <div class="format-label">Format</div>
+      <div class="format-value">Collectif + accompagnement individuel</div>
+    </div>
+    <div class="format-item reveal">
+      <div class="format-label">Accès</div>
+      <div class="format-value">En ligne + espaces en présentiel</div>
+    </div>
+    <div class="format-item reveal">
+      <div class="format-label">Groupe</div>
+      <div class="format-value">Resserré — places limitées</div>
+      <div class="format-note">Pour une expérience profonde et un vrai suivi.</div>
+    </div>
+    <div class="format-item reveal">
+      <div class="format-label">Investissement</div>
+      <div class="format-value" style="color:var(--coral);">3 500€</div>
+      <div class="format-note">Paiement en plusieurs fois possible — contacte-moi.</div>
+    </div>
+    <div class="format-item reveal">
+      <div class="format-label">Prochaine saison</div>
+      <div class="format-value">Saison 2 — date à venir</div>
+      <div class="format-note">Rejoins la liste d'attente pour être informé en premier.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta-final">
+  <div class="cta-title reveal">Prêt à traverser les 6 prochains mois autrement ?</div>
+  <div class="cta-body reveal">La saison 1 est en cours. Rejoins la liste d'attente pour la saison 2 — et sois informé en premier.</div>
+  <span class="cta-price reveal">3 500€</span>
+  <span class="cta-price-note reveal">6 mois · Paiement en plusieurs fois possible</span>
+  <a href="index.html#contact" class="btn-main reveal">Rejoindre la liste d'attente →</a>
+</section>
+
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="hommes.html">L'Homme</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

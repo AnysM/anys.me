@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prisme Origine — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0E0C0A; --surface: #181410; --surface2: #201A14; --cream: #F0EAE1; --muted: #8C7E72; --faint: #2E2620; --blue: #1B3A7A; --coral: #C45C3A; --yellow: #D4942A; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--cream); font-family: 'Lora', serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.35; }
+
+  #hero { min-height: 85vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; background: var(--black); }
+  .hero-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, #1B3A7A0A 0%, transparent 70%); }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
+  .hero-title { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(44px, 7vw, 96px); line-height: 0.95; color: var(--cream); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.5s; }
+  .hero-title em { font-style: italic; color: var(--muted); display: block; font-size: 0.7em; }
+  .hero-tagline { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); line-height: 1.6; color: var(--cream); max-width: 520px; margin-bottom: 52px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s; }
+  .hero-offres { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 600px; margin-bottom: 40px; background: var(--faint); opacity: 0; animation: fadeUp 0.9s ease forwards 0.8s; }
+  .hero-offre { background: var(--surface); padding: 24px 28px; }
+  .hero-offre-label { font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .hero-offre-name { font-family: 'EB Garamond', serif; font-size: 18px; color: var(--cream); margin-bottom: 4px; }
+  .hero-offre-price { font-family: 'EB Garamond', serif; font-style: italic; font-size: 28px; color: var(--blue); }
+  .hero-offre-detail { font-family: 'Lora', serif; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .hero-cta { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); background: var(--blue); padding: 16px 36px; text-decoration: none; transition: background 0.3s; opacity: 0; animation: fadeUp 0.9s ease forwards 0.9s; }
+  .hero-cta:hover { background: var(--cream); color: var(--black); }
+
+  /* INTRO */
+  #intro { padding: 100px 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; max-width: 1100px; margin: 0 auto; }
+  .intro-label { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; }
+  .intro-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3vw, 34px); line-height: 1.55; color: var(--cream); margin-bottom: 28px; }
+  .intro-text em { font-style: normal; color: var(--blue); }
+  .intro-body { font-family: 'Lora', serif; font-size: 16px; line-height: 1.9; color: var(--muted); }
+  .intro-body p + p { margin-top: 16px; }
+
+  /* SYSTÈMES */
+  #systemes { padding: 80px 48px; background: var(--surface); }
+  .systemes-grid { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  .systeme { background: var(--black); padding: 36px 40px; display: grid; grid-template-columns: 60px 1fr; gap: 28px; align-items: start; border-left: 2px solid var(--faint); transition: border-color 0.3s; }
+  .systeme:hover { border-left-color: var(--blue); }
+  .systeme-symbol { font-size: 36px; line-height: 1; color: var(--blue); font-family: serif; }
+  .systeme-name { font-family: 'EB Garamond', serif; font-size: 28px; color: var(--cream); margin-bottom: 8px; }
+  .systeme-subtitle { font-family: 'EB Garamond', serif; font-style: italic; font-size: 16px; color: var(--muted); margin-bottom: 10px; }
+  .systeme-desc { font-family: 'Lora', serif; font-size: 14px; line-height: 1.75; color: var(--muted); }
+
+  /* CITATION */
+  .page-quote { padding: 80px 48px; text-align: center; position: relative; }
+  .page-quote::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--blue)); }
+  .page-quote-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 38px); line-height: 1.55; color: var(--cream); max-width: 680px; margin: 0 auto; }
+  .page-quote-text em { font-style: normal; color: var(--blue); }
+
+  /* CE QUE ÇA RÉVÈLE */
+  #revele { padding: 80px 48px; background: var(--surface); }
+  .revele-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 48px; background: var(--faint); }
+  .revele-item { background: var(--black); padding: 32px 32px; display: flex; gap: 16px; align-items: flex-start; }
+  .revele-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 8px; }
+  .revele-text { font-family: 'Lora', serif; font-size: 15px; line-height: 1.75; color: var(--muted); }
+
+  /* OFFRES */
+  #offres { padding: 80px 48px 100px; }
+  .offres-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; background: var(--faint); }
+  .offre-card { background: var(--surface); padding: 52px 44px; display: flex; flex-direction: column; gap: 20px; }
+  .offre-card:first-child { background: var(--surface2); }
+  .offre-tag { display: inline-block; font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--blue); color: var(--blue); padding: 5px 12px; align-self: flex-start; }
+  .offre-name { font-family: 'EB Garamond', serif; font-size: clamp(28px, 3.5vw, 40px); color: var(--cream); line-height: 1.1; }
+  .offre-price { font-family: 'EB Garamond', serif; font-style: italic; font-size: 48px; color: var(--blue); }
+  .offre-duration { font-family: 'Lora', serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .offre-includes { display: flex; flex-direction: column; gap: 8px; }
+  .offre-include { display: flex; align-items: baseline; gap: 12px; font-family: 'Lora', serif; font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .offre-include::before { content: '·'; color: var(--blue); font-size: 18px; flex-shrink: 0; }
+  .offre-cta { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); background: var(--blue); padding: 14px 28px; text-decoration: none; transition: background 0.3s; align-self: flex-start; margin-top: 8px; }
+  .offre-cta:hover { background: var(--cream); color: var(--black); }
+
+  footer { padding: 28px 48px; border-top: 1px solid var(--faint); display: flex; align-items: center; justify-content: space-between; }
+  .footer-name { font-family: 'EB Garamond', serif; font-style: italic; font-size: 15px; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--muted); }
+  .footer-note { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    #hero { padding: 0 24px 64px; }
+    .hero-offres { grid-template-columns: 1fr; }
+    #intro { grid-template-columns: 1fr; padding: 72px 24px; gap: 28px; }
+    #systemes { padding: 60px 24px; }
+    .systeme { grid-template-columns: 40px 1fr; gap: 16px; padding: 28px 24px; }
+    .page-quote { padding: 60px 24px; }
+    #revele { padding: 60px 24px; }
+    .revele-grid { grid-template-columns: 1fr; }
+    #offres { padding: 60px 24px 72px; }
+    .offres-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="site-nav__logo">Anys <em>Mechkar</em></a>
+  <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+  </button>
+  <div class="site-nav__overlay">
+    <div class="site-nav__menu">
+      <a href="index.html" class="site-nav__link"><span class="site-nav__link-num">00</span>Accueil</a>
+      <a href="essence.html" class="site-nav__link"><span class="site-nav__link-num">01</span>La Quête <span class="site-nav__link-accent">de Soi</span></a>
+      <a href="art.html" class="site-nav__link"><span class="site-nav__link-num">02</span>L'Art <span class="site-nav__link-accent">et le Mouvement</span></a>
+      <a href="hommes.html" class="site-nav__link"><span class="site-nav__link-num">03</span>L'Homme</a>
+      <a href="entrepreneurs.html" class="site-nav__link"><span class="site-nav__link-num">04</span>L'Entrepreneur <span class="site-nav__link-accent">Créatif</span></a>
+      <div class="site-nav__sep"></div>
+      <div class="site-nav__sub">
+        <a href="story.html" class="site-nav__sub-link">Mon chemin</a>
+        <a href="evenements.html" class="site-nav__sub-link">Événements</a>
+        <a href="index.html#rencontre" class="site-nav__sub-link">Méditation offerte</a>
+        <a href="index.html#contact" class="site-nav__sub-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Outil de lecture profonde</div>
+    <div class="hero-title">Prisme Origine<em>Ta nature essentielle</em></div>
+    <div class="hero-tagline">Trois systèmes anciens croisés pour révéler qui tu es vraiment — ta façon d'être au monde, tes cycles, ta couleur unique.</div>
+    <div class="hero-offres">
+      <div class="hero-offre">
+        <div class="hero-offre-label">Lecture Human Design</div>
+        <div class="hero-offre-name">Session HD</div>
+        <div class="hero-offre-price">120€</div>
+        <div class="hero-offre-detail">1h30</div>
+      </div>
+      <div class="hero-offre">
+        <div class="hero-offre-label">Lecture complète</div>
+        <div class="hero-offre-name">Prisme Origine</div>
+        <div class="hero-offre-price">350€</div>
+        <div class="hero-offre-detail">2h + portrait + œuvre</div>
+      </div>
+    </div>
+    <a href="index.html#contact" class="hero-cta">Réserver une session →</a>
+  </div>
+</section>
+
+<section id="intro">
+  <div class="reveal">
+    <div class="intro-label">Ce que c'est</div>
+  </div>
+  <div class="reveal">
+    <div class="intro-text">Pas un test de personnalité.<br>Une <em>boussole.</em></div>
+    <div class="intro-body">
+      <p>Prisme Origine croise trois systèmes de connaissance de soi — Tzolkin, BaZi, Human Design — pour donner une lecture multidimensionnelle de qui tu es. Non pas pour te mettre dans une case, mais pour te donner des clés.</p>
+      <p>Des clés pour comprendre comment tu fonctionnes, ce qui te nourrit et ce qui te draine, tes cycles naturels, ta façon de prendre des décisions. Une cartographie de ton être essentiel.</p>
+    </div>
+  </div>
+</section>
+
+<section id="systemes">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--blue); margin-bottom:14px;">Les trois systèmes</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Trois langages. Une seule vérité.</div>
+  <div class="systemes-grid">
+    <div class="systeme reveal">
+      <div class="systeme-symbol">☽</div>
+      <div>
+        <div class="systeme-name">Tzolkin</div>
+        <div class="systeme-subtitle">Calendrier maya sacré</div>
+        <div class="systeme-desc">Révèle ton énergie de naissance, ton ton galactique et ta façon d'exprimer ton essence dans le monde. Une lecture de ta fréquence fondamentale.</div>
+      </div>
+    </div>
+    <div class="systeme reveal">
+      <div class="systeme-symbol">木</div>
+      <div>
+        <div class="systeme-name">BaZi</div>
+        <div class="systeme-subtitle">Astrologie chinoise des quatre piliers</div>
+        <div class="systeme-desc">Dévoile tes cycles de vie, ta nature profonde et les éléments qui t'équilibrent. Comprendre les saisons de ta vie.</div>
+      </div>
+    </div>
+    <div class="systeme reveal">
+      <div class="systeme-symbol">◎</div>
+      <div>
+        <div class="systeme-name">Human Design</div>
+        <div class="systeme-subtitle">Synthèse de cinq systèmes</div>
+        <div class="systeme-desc">Chakras, astrologie, I Ching, Kabbale, physique quantique. Révèle ta mécanique énergétique, ta stratégie de vie et ta façon de prendre des décisions juste.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-quote reveal">
+  <div class="page-quote-text">
+    Tu n'as pas besoin de te changer.<br>
+    Tu as besoin de te <em>connaître.</em>
+  </div>
+</div>
+
+<section id="revele">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--blue); margin-bottom:14px;">Ce que la session révèle</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Ce que tu repars avec.</div>
+  <div class="revele-grid">
+    <div class="revele-item reveal"><div class="revele-dot"></div><div class="revele-text">Ta nature essentielle et tes dons naturels</div></div>
+    <div class="revele-item reveal"><div class="revele-dot"></div><div class="revele-text">Tes cycles — quand agir, quand attendre, quand te retirer</div></div>
+    <div class="revele-item reveal"><div class="revele-dot"></div><div class="revele-text">Ce qui te draine et ce qui te nourrit vraiment</div></div>
+    <div class="revele-item reveal"><div class="revele-dot"></div><div class="revele-text">Ta stratégie de vie et ton autorité intérieure</div></div>
+    <div class="revele-item reveal"><div class="revele-dot"></div><div class="revele-text">Ta façon unique d'être en relation et au travail</div></div>
+    <div class="revele-item reveal"><div class="revele-dot"></div><div class="revele-text">Les thèmes de vie qui t'habitent depuis toujours</div></div>
+  </div>
+</section>
+
+<section id="offres">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--blue); margin-bottom:14px;">Deux formules</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Choisis ton niveau de lecture.</div>
+  <div class="offres-grid">
+    <div class="offre-card reveal">
+      <span class="offre-tag">Entrée</span>
+      <div class="offre-name">Lecture Human Design</div>
+      <div class="offre-price">120€</div>
+      <div class="offre-duration">1h30</div>
+      <div class="offre-includes">
+        <div class="offre-include">Lecture complète de ton profil Human Design</div>
+        <div class="offre-include">Type, stratégie, autorité, profil, centres</div>
+        <div class="offre-include">Session en visio ou présentiel</div>
+        <div class="offre-include">Enregistrement de la session</div>
+      </div>
+      <a href="index.html#contact" class="offre-cta">Réserver →</a>
+    </div>
+    <div class="offre-card reveal">
+      <span class="offre-tag" style="border-color:var(--yellow); color:var(--yellow);">Complet</span>
+      <div class="offre-name">Prisme Origine</div>
+      <div class="offre-price" style="color:var(--yellow);">350€</div>
+      <div class="offre-duration">2 heures</div>
+      <div class="offre-includes">
+        <div class="offre-include">Lecture croisée Tzolkin + BaZi + Human Design</div>
+        <div class="offre-include">Portrait écrit — document de référence personnel</div>
+        <div class="offre-include">Œuvre originale créée pour toi</div>
+        <div class="offre-include">Session en visio ou présentiel</div>
+        <div class="offre-include">Enregistrement de la session</div>
+      </div>
+      <a href="index.html#contact" class="offre-cta" style="background:var(--yellow); color:var(--black);">Réserver →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="essence.html">La Quête de Soi</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

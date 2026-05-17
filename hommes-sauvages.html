@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hommes Sauvages — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0E0C0A; --surface: #181410; --surface2: #201A14; --cream: #F0EAE1; --muted: #8C7E72; --faint: #2E2620; --blue: #1B3A7A; --coral: #C45C3A; --yellow: #D4942A; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--cream); font-family: 'Lora', serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.35; }
+
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 15% 60%, #C45C3A0A 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 85% 30%, #D4942A06 0%, transparent 60%); }
+  .hero-img { position: absolute; inset: 0; background: linear-gradient(170deg, #080604 0%, #100C06 50%, #060402 100%); display: flex; align-items: center; justify-content: center; }
+  .hero-img::after { content: 'Photo · Hommes Sauvages · Nature'; font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); }
+  .hero-mask { position: absolute; bottom: 0; left: 0; right: 0; height: 65%; background: linear-gradient(to top, var(--black) 25%, transparent); z-index: 1; }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
+  .hero-title { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(52px, 9vw, 112px); line-height: 0.92; color: var(--cream); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.5s; }
+  .hero-tagline { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 28px); line-height: 1.6; color: var(--cream); max-width: 560px; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s; }
+  .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.8s; }
+  .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-label { font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .hero-meta-value { font-family: 'EB Garamond', serif; font-style: italic; font-size: 18px; color: var(--cream); }
+  .hero-cta { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); background: var(--coral); padding: 16px 36px; text-decoration: none; transition: background 0.3s; opacity: 0; animation: fadeUp 0.9s ease forwards 0.9s; }
+  .hero-cta:hover { background: var(--cream); color: var(--black); }
+
+  #intro { padding: 100px 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; max-width: 1100px; margin: 0 auto; }
+  .intro-label { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--coral); margin-bottom: 20px; }
+  .intro-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3vw, 34px); line-height: 1.55; color: var(--cream); margin-bottom: 28px; }
+  .intro-text em { font-style: normal; color: var(--coral); }
+  .intro-body { font-family: 'Lora', serif; font-size: 16px; line-height: 1.9; color: var(--muted); }
+  .intro-body p + p { margin-top: 16px; }
+
+  .page-quote { padding: 80px 48px; text-align: center; background: var(--surface); position: relative; }
+  .page-quote::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--coral)); }
+  .page-quote-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 38px); line-height: 1.55; color: var(--cream); max-width: 680px; margin: 0 auto; }
+  .page-quote-text em { font-style: normal; color: var(--coral); }
+
+  #programme { padding: 80px 48px; }
+  .prog-grid { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+  .prog-step { background: var(--surface); padding: 32px 36px; display: flex; gap: 24px; align-items: flex-start; border-left: 2px solid var(--faint); transition: border-color 0.3s; }
+  .prog-step:hover { border-left-color: var(--coral); }
+  .prog-icon { font-size: 24px; flex-shrink: 0; padding-top: 2px; }
+  .prog-name { font-family: 'EB Garamond', serif; font-size: 24px; color: var(--cream); margin-bottom: 6px; }
+  .prog-desc { font-family: 'Lora', serif; font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+  #pratique { padding: 80px 48px 100px; background: var(--surface); }
+  .pratique-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; background: var(--faint); }
+  .pratique-item { background: var(--black); padding: 32px 28px; }
+  .pratique-label { font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .pratique-value { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(18px, 2vw, 24px); color: var(--cream); line-height: 1.3; }
+  .pratique-note { font-family: 'Lora', serif; font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  #cta-final { padding: 100px 48px; text-align: center; max-width: 560px; margin: 0 auto; }
+  .cta-title { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(28px, 4vw, 44px); line-height: 1.3; color: var(--cream); margin-bottom: 20px; }
+  .cta-body { font-family: 'Lora', serif; font-size: 15px; line-height: 1.8; color: var(--muted); margin-bottom: 36px; }
+  .btn-main { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); background: var(--coral); padding: 18px 48px; text-decoration: none; transition: background 0.3s; }
+  .btn-main:hover { background: var(--cream); color: var(--black); }
+  .cta-note { font-family: 'Lora', serif; font-size: 12px; font-style: italic; color: var(--faint); margin-top: 16px; display: block; }
+
+  footer { padding: 28px 48px; border-top: 1px solid var(--faint); display: flex; align-items: center; justify-content: space-between; }
+  .footer-name { font-family: 'EB Garamond', serif; font-style: italic; font-size: 15px; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--muted); }
+  .footer-note { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    #hero { padding: 0 24px 64px; }
+    #intro { grid-template-columns: 1fr; padding: 72px 24px; gap: 28px; }
+    .page-quote { padding: 60px 24px; }
+    #programme { padding: 60px 24px; }
+    #pratique { padding: 60px 24px 72px; }
+    .pratique-grid { grid-template-columns: 1fr; }
+    #cta-final { padding: 72px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="site-nav__logo">Anys <em>Mechkar</em></a>
+  <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+  </button>
+  <div class="site-nav__overlay">
+    <div class="site-nav__menu">
+      <a href="index.html" class="site-nav__link"><span class="site-nav__link-num">00</span>Accueil</a>
+      <a href="essence.html" class="site-nav__link"><span class="site-nav__link-num">01</span>La Quête <span class="site-nav__link-accent">de Soi</span></a>
+      <a href="art.html" class="site-nav__link"><span class="site-nav__link-num">02</span>L'Art <span class="site-nav__link-accent">et le Mouvement</span></a>
+      <a href="hommes.html" class="site-nav__link"><span class="site-nav__link-num">03</span>L'Homme</a>
+      <a href="entrepreneurs.html" class="site-nav__link"><span class="site-nav__link-num">04</span>L'Entrepreneur <span class="site-nav__link-accent">Créatif</span></a>
+      <div class="site-nav__sep"></div>
+      <div class="site-nav__sub">
+        <a href="story.html" class="site-nav__sub-link">Mon chemin</a>
+        <a href="evenements.html" class="site-nav__sub-link">Événements</a>
+        <a href="index.html#rencontre" class="site-nav__sub-link">Méditation offerte</a>
+        <a href="index.html#contact" class="site-nav__sub-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-mask"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Immersion · 5 jours · Nature</div>
+    <div class="hero-title">Hommes<br>Sauvages</div>
+    <div class="hero-tagline">Présence au vivant, mouvement et fraternité. 5 jours dans la nature pour retrouver le feu, le corps, ce que ça veut dire d'être un homme.</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Dates</span>
+        <span class="hero-meta-value">Août 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Format</span>
+        <span class="hero-meta-value">Lundi au samedi</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Co-animé avec</span>
+        <span class="hero-meta-value">Alex</span>
+      </div>
+    </div>
+    <a href="index.html#contact" class="hero-cta">Être informé des dates →</a>
+  </div>
+</section>
+
+<section id="intro">
+  <div class="reveal">
+    <div class="intro-label">Ce que c'est</div>
+  </div>
+  <div class="reveal">
+    <div class="intro-text">Pas de téléphone.<br>Pas de confort <em>superflu.</em><br>Juste des hommes et le vivant.</div>
+    <div class="intro-body">
+      <p>Hommes Sauvages est une immersion radicale dans la nature. 5 jours pour se délester de ce qui doit être laissé — les masques, les rôles, la fatigue d'être quelqu'un — et repartir avec quelque chose de plus essentiel.</p>
+      <p>Cérémonies, rituels, marches, hutte de sudation, cercles de parole. Guidés par Alex et Anys, deux hommes qui ont eux-mêmes traversé ces seuils et qui tiennent l'espace pour que tu puisses faire de même.</p>
+    </div>
+  </div>
+</section>
+
+<div class="page-quote reveal">
+  <div class="page-quote-text">La nature ne ment pas.<br>Elle te renvoie à ce que tu es <em>vraiment.</em></div>
+</div>
+
+<section id="programme">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px;">Ce qu'on traverse</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">5 jours. Plusieurs seuils.</div>
+  <div class="prog-grid">
+    <div class="prog-step reveal">
+      <div class="prog-icon">🌿</div>
+      <div>
+        <div class="prog-name">Cérémonies et rituels</div>
+        <div class="prog-desc">Des espaces sacrés pour marquer les passages, honorer ce qui se termine et accueillir ce qui commence.</div>
+      </div>
+    </div>
+    <div class="prog-step reveal">
+      <div class="prog-icon">🔥</div>
+      <div>
+        <div class="prog-name">Hutte de sudation</div>
+        <div class="prog-desc">Un rite de purification par la chaleur et la vapeur. Ce qui entre dans la hutte n'en ressort pas forcément.</div>
+      </div>
+    </div>
+    <div class="prog-step reveal">
+      <div class="prog-icon">🌲</div>
+      <div>
+        <div class="prog-name">Marches et présence au vivant</div>
+        <div class="prog-desc">Le corps en mouvement dans la nature. Laisser la forêt, la terre, le silence faire leur travail.</div>
+      </div>
+    </div>
+    <div class="prog-step reveal">
+      <div class="prog-icon">◉</div>
+      <div>
+        <div class="prog-name">Cercles de parole</div>
+        <div class="prog-desc">Des espaces de parole vraie entre hommes. Pas de jugement, pas de conseil non demandé. Juste la présence et l'écoute.</div>
+      </div>
+    </div>
+    <div class="prog-step reveal">
+      <div class="prog-icon">◈</div>
+      <div>
+        <div class="prog-name">Mouvement authentique</div>
+        <div class="prog-desc">Le corps comme outil de connaissance. Bouger depuis ce qui est là, pas depuis ce qu'on pense devoir faire.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pratique">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px;">Informations pratiques</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Tout ce qu'il faut savoir.</div>
+  <div class="pratique-grid">
+    <div class="pratique-item reveal">
+      <div class="pratique-label">Dates</div>
+      <div class="pratique-value">Août 2026</div>
+      <div class="pratique-note">Dates exactes à confirmer — inscris-toi pour être informé.</div>
+    </div>
+    <div class="pratique-item reveal">
+      <div class="pratique-label">Format</div>
+      <div class="pratique-value">Lundi au samedi</div>
+      <div class="pratique-note">5 jours d'immersion totale en nature.</div>
+    </div>
+    <div class="pratique-item reveal">
+      <div class="pratique-label">Lieu</div>
+      <div class="pratique-value">Dans la nature</div>
+      <div class="pratique-note">Lieu confirmé à l'inscription.</div>
+    </div>
+    <div class="pratique-item reveal">
+      <div class="pratique-label">Co-animé par</div>
+      <div class="pratique-value">Anys Mechkar & Alex</div>
+    </div>
+    <div class="pratique-item reveal">
+      <div class="pratique-label">Ce qu'on ne prend pas</div>
+      <div class="pratique-value">Téléphone</div>
+      <div class="pratique-note">Déconnexion totale. Le monde peut attendre 5 jours.</div>
+    </div>
+    <div class="pratique-item reveal">
+      <div class="pratique-label">Tarif</div>
+      <div class="pratique-value" style="color:var(--coral);">À confirmer</div>
+      <div class="pratique-note">Contacte-nous pour les informations tarifaires.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cta-final">
+  <div class="cta-title reveal">Prêt à plonger ?</div>
+  <div class="cta-body reveal">Les dates pour août 2026 se confirment bientôt. Inscris-toi pour être parmi les premiers informés — et avoir accès en priorité.</div>
+  <a href="index.html#contact" class="btn-main reveal">Être informé en priorité →</a>
+  <span class="cta-note reveal">Août 2026 · Co-animé avec Alex · 5 jours en nature</span>
+</section>
+
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="hommes.html">L'Homme</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

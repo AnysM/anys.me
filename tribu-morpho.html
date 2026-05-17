@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Tribu Morpho — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #0E0C0A; --surface: #181410; --surface2: #201A14; --cream: #F0EAE1; --muted: #8C7E72; --faint: #2E2620; --blue: #1B3A7A; --coral: #C45C3A; --yellow: #D4942A; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--cream); font-family: 'Lora', serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 100; opacity: 0.35; }
+
+  #hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 70% 30%, #D4942A08 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 70%, #1B3A7A06 0%, transparent 60%); }
+  .hero-img { position: absolute; inset: 0; background: linear-gradient(160deg, #0C0A06 0%, #161008 50%, #0A0806 100%); display: flex; align-items: center; justify-content: center; }
+  .hero-img::after { content: 'Photo · La Tribu Morpho'; font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--faint); }
+  .hero-mask { position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, var(--black) 25%, transparent); z-index: 1; }
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
+  .hero-eyebrow { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--yellow); margin-bottom: 20px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.3s; }
+  .hero-title { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(44px, 7vw, 96px); line-height: 0.95; color: var(--cream); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.5s; }
+  .hero-title em { font-style: italic; color: var(--muted); display: block; font-size: 0.65em; }
+  .hero-tagline { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(18px, 2.2vw, 26px); line-height: 1.6; color: var(--cream); max-width: 520px; margin-bottom: 52px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s; }
+  .hero-cta { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--yellow); padding: 16px 36px; text-decoration: none; transition: background 0.3s; opacity: 0; animation: fadeUp 0.9s ease forwards 0.8s; }
+  .hero-cta:hover { background: var(--cream); }
+
+  #intro { padding: 100px 48px; display: grid; grid-template-columns: 1fr 2fr; gap: 64px; max-width: 1100px; margin: 0 auto; }
+  .intro-label { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--yellow); margin-bottom: 20px; }
+  .intro-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3vw, 34px); line-height: 1.55; color: var(--cream); margin-bottom: 28px; }
+  .intro-text em { font-style: normal; color: var(--yellow); }
+  .intro-body { font-family: 'Lora', serif; font-size: 16px; line-height: 1.9; color: var(--muted); }
+  .intro-body p + p { margin-top: 16px; }
+
+  .page-quote { padding: 80px 48px; text-align: center; background: var(--surface); position: relative; }
+  .page-quote::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--yellow)); }
+  .page-quote-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 38px); line-height: 1.55; color: var(--cream); max-width: 680px; margin: 0 auto; }
+  .page-quote-text em { font-style: normal; color: var(--yellow); }
+
+  /* CE QU'ON TROUVE */
+  #contenu { padding: 80px 48px; }
+  .contenu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; background: var(--faint); }
+  .contenu-item { background: var(--surface); padding: 36px 28px; display: flex; flex-direction: column; gap: 12px; }
+  .contenu-icon { font-size: 24px; }
+  .contenu-name { font-family: 'EB Garamond', serif; font-size: 22px; color: var(--cream); }
+  .contenu-desc { font-family: 'Lora', serif; font-size: 13px; line-height: 1.7; color: var(--muted); }
+
+  /* TIERS */
+  #tiers { padding: 80px 48px 100px; background: var(--surface); }
+  .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; background: var(--faint); }
+  .tier { background: var(--black); padding: 48px 36px; display: flex; flex-direction: column; gap: 18px; border-bottom: 3px solid transparent; transition: border-color 0.3s; }
+  .tier:hover { border-bottom-color: var(--yellow); }
+  .tier-tag { display: inline-block; font-family: 'Lora', serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid var(--yellow); color: var(--yellow); padding: 4px 10px; align-self: flex-start; }
+  .tier-name { font-family: 'EB Garamond', serif; font-size: 32px; color: var(--cream); line-height: 1; }
+  .tier-price { font-family: 'EB Garamond', serif; font-style: italic; font-size: 40px; color: var(--yellow); line-height: 1; }
+  .tier-condition { font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); }
+  .tier-sep { width: 32px; height: 1px; background: var(--faint); }
+  .tier-includes { display: flex; flex-direction: column; gap: 8px; }
+  .tier-include { display: flex; align-items: baseline; gap: 10px; font-family: 'Lora', serif; font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .tier-include::before { content: '·'; color: var(--yellow); font-size: 16px; flex-shrink: 0; }
+  .tier-cta { display: inline-block; font-family: 'Lora', serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--yellow); padding: 14px 24px; text-decoration: none; transition: background 0.3s; align-self: flex-start; margin-top: auto; }
+  .tier-cta:hover { background: var(--cream); }
+
+  /* TICKET */
+  .ticket-note { background: var(--surface2); padding: 28px 36px; margin-top: 2px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .ticket-label { font-family: 'Lora', serif; font-size: 13px; line-height: 1.6; color: var(--muted); }
+  .ticket-price { font-family: 'EB Garamond', serif; font-style: italic; font-size: 28px; color: var(--yellow); white-space: nowrap; }
+
+  footer { padding: 28px 48px; border-top: 1px solid var(--faint); display: flex; align-items: center; justify-content: space-between; }
+  .footer-name { font-family: 'EB Garamond', serif; font-style: italic; font-size: 15px; color: var(--muted); }
+  .footer-links { display: flex; gap: 24px; list-style: none; }
+  .footer-links a { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--muted); }
+  .footer-note { font-family: 'Lora', serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    #hero { padding: 0 24px 64px; }
+    #intro { grid-template-columns: 1fr; padding: 72px 24px; gap: 28px; }
+    .page-quote { padding: 60px 24px; }
+    #contenu { padding: 60px 24px; }
+    .contenu-grid { grid-template-columns: 1fr; }
+    #tiers { padding: 60px 24px 72px; }
+    .tiers-grid { grid-template-columns: 1fr; }
+    .ticket-note { flex-direction: column; align-items: flex-start; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="site-nav__logo">Anys <em>Mechkar</em></a>
+  <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+  </button>
+  <div class="site-nav__overlay">
+    <div class="site-nav__menu">
+      <a href="index.html" class="site-nav__link"><span class="site-nav__link-num">00</span>Accueil</a>
+      <a href="essence.html" class="site-nav__link"><span class="site-nav__link-num">01</span>La Quête <span class="site-nav__link-accent">de Soi</span></a>
+      <a href="art.html" class="site-nav__link"><span class="site-nav__link-num">02</span>L'Art <span class="site-nav__link-accent">et le Mouvement</span></a>
+      <a href="hommes.html" class="site-nav__link"><span class="site-nav__link-num">03</span>L'Homme</a>
+      <a href="entrepreneurs.html" class="site-nav__link"><span class="site-nav__link-num">04</span>L'Entrepreneur <span class="site-nav__link-accent">Créatif</span></a>
+      <div class="site-nav__sep"></div>
+      <div class="site-nav__sub">
+        <a href="story.html" class="site-nav__sub-link">Mon chemin</a>
+        <a href="evenements.html" class="site-nav__sub-link">Événements</a>
+        <a href="index.html#rencontre" class="site-nav__sub-link">Méditation offerte</a>
+        <a href="index.html#contact" class="site-nav__sub-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-img"></div>
+  <div class="hero-mask"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Incubateur vivant · Communauté</div>
+    <div class="hero-title">La Tribu Morpho<em>Entreprendre depuis son essence</em></div>
+    <div class="hero-tagline">Un espace de co-création, de mentorat collectif et de croissance pour ceux qui vivent leur métier comme une vocation.</div>
+    <a href="#tiers" class="hero-cta">Voir les niveaux d'adhésion →</a>
+  </div>
+</section>
+
+<section id="intro">
+  <div class="reveal">
+    <div class="intro-label">Ce que c'est</div>
+  </div>
+  <div class="reveal">
+    <div class="intro-text">L'entrepreneuriat comme<br><em>chemin spirituel.</em><br>Pas une course.</div>
+    <div class="intro-body">
+      <p>La Tribu Morpho est née d'une conviction simple : on crée mieux ensemble, et on crée surtout mieux quand on est aligné avec ce qu'on est vraiment.</p>
+      <p>Un incubateur vivant pour entrepreneurs créatifs, accompagnants, artistes qui veulent structurer leur activité sans perdre leur âme. Des sessions de mentorat collectif, une communauté de pairs, des ressources et des outils — le tout dans un esprit de coopération plutôt que de compétition.</p>
+    </div>
+  </div>
+</section>
+
+<div class="page-quote reveal">
+  <div class="page-quote-text">Ce que tu crées est le reflet de ce que tu es.<br>Autant que ce soit <em>vrai.</em></div>
+</div>
+
+<section id="contenu">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--yellow); margin-bottom:14px;">Ce que tu trouves dans la Tribu</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Plus qu'une communauté.</div>
+  <div class="contenu-grid">
+    <div class="contenu-item reveal">
+      <div class="contenu-icon">◉</div>
+      <div class="contenu-name">Mentorat collectif</div>
+      <div class="contenu-desc">Sessions régulières où chacun avance sur son projet avec le regard et l'intelligence du groupe.</div>
+    </div>
+    <div class="contenu-item reveal">
+      <div class="contenu-icon">◈</div>
+      <div class="contenu-name">Communauté de pairs</div>
+      <div class="contenu-desc">Des entrepreneurs créatifs qui se comprennent, se soutiennent et se challengent mutuellement.</div>
+    </div>
+    <div class="contenu-item reveal">
+      <div class="contenu-icon">◇</div>
+      <div class="contenu-name">Ressources & outils</div>
+      <div class="contenu-desc">Méthodes, templates, replays des sessions — tout ce qui aide à structurer et développer son activité.</div>
+    </div>
+    <div class="contenu-item reveal">
+      <div class="contenu-icon">◆</div>
+      <div class="contenu-name">Système de tickets</div>
+      <div class="contenu-desc">Des tickets pour accéder à des sessions individuelles, des ateliers ou des espaces spéciaux — cumulables selon ton niveau.</div>
+    </div>
+    <div class="contenu-item reveal">
+      <div class="contenu-icon">○</div>
+      <div class="contenu-name">Accès aux espaces</div>
+      <div class="contenu-desc">Retraites, ateliers, événements — des espaces physiques et en ligne réservés aux membres.</div>
+    </div>
+    <div class="contenu-item reveal">
+      <div class="contenu-icon">●</div>
+      <div class="contenu-name">Accompagnement</div>
+      <div class="contenu-desc">Selon ton niveau, un suivi individuel pour avancer sur ce qui compte vraiment pour toi.</div>
+    </div>
+  </div>
+</section>
+
+<section id="tiers">
+  <div class="reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--yellow); margin-bottom:14px;">Adhésion</div>
+  <div class="reveal" style="font-family:'EB Garamond',serif; font-size:clamp(28px,4vw,44px); color:var(--cream); line-height:1.15; margin-bottom:0;">Trois niveaux d'engagement.</div>
+  <div class="tiers-grid">
+    <div class="tier reveal">
+      <span class="tier-tag">I</span>
+      <div class="tier-name">Essentiel</div>
+      <div class="tier-price">59€<span style="font-size:0.4em; color:var(--muted);">/mois</span></div>
+      <div class="tier-sep"></div>
+      <div class="tier-includes">
+        <div class="tier-include">Accès à la communauté</div>
+        <div class="tier-include">Ressources et replays</div>
+        <div class="tier-include">Sessions collectives</div>
+      </div>
+      <a href="https://la-tribu-morpho.netlify.app" target="_blank" class="tier-cta">Rejoindre →</a>
+    </div>
+    <div class="tier reveal">
+      <span class="tier-tag">II</span>
+      <div class="tier-name">Ancrage</div>
+      <div class="tier-price">97€<span style="font-size:0.4em; color:var(--muted);">/mois</span></div>
+      <div class="tier-condition">3 mois minimum</div>
+      <div class="tier-sep"></div>
+      <div class="tier-includes">
+        <div class="tier-include">Tout Essentiel</div>
+        <div class="tier-include">Mentorat collectif mensuel</div>
+        <div class="tier-include">1 ticket/mois</div>
+        <div class="tier-include">Suivi de projet</div>
+      </div>
+      <a href="https://la-tribu-morpho.netlify.app" target="_blank" class="tier-cta">Rejoindre →</a>
+    </div>
+    <div class="tier reveal">
+      <span class="tier-tag">III</span>
+      <div class="tier-name">Rayonnement</div>
+      <div class="tier-price">197€<span style="font-size:0.4em; color:var(--muted);">/mois</span></div>
+      <div class="tier-condition">3 mois minimum</div>
+      <div class="tier-sep"></div>
+      <div class="tier-includes">
+        <div class="tier-include">Tout Ancrage</div>
+        <div class="tier-include">3 tickets/mois</div>
+        <div class="tier-include">Accès prioritaire aux espaces</div>
+        <div class="tier-include">Accompagnement individuel</div>
+      </div>
+      <a href="https://la-tribu-morpho.netlify.app" target="_blank" class="tier-cta">Rejoindre →</a>
+    </div>
+  </div>
+  <div class="ticket-note reveal">
+    <div class="ticket-label">
+      <strong style="color:var(--cream); font-family:'EB Garamond',serif; font-size:18px;">Ticket à l'unité</strong><br>
+      Pour accéder à des sessions individuelles, des ateliers ou des espaces spéciaux sans engagement mensuel.
+    </div>
+    <div class="ticket-price">90€ / ticket</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="entrepreneurs.html">L'Entrepreneur Créatif</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
