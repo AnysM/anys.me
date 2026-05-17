@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Homme — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:    #0E0C0A;
+    --surface:  #181410;
+    --surface2: #201A14;
+    --cream:    #F0EAE1;
+    --muted:    #8C7E72;
+    --faint:    #2E2620;
+    --blue:     #1B3A7A;
+    --coral:    #C45C3A;
+    --yellow:   #D4942A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Lora', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, var(--black) 60%, transparent);
+  }
+
+  .nav-logo {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo em { font-style: italic; color: var(--muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--cream); }
+
+  .nav-links a.active { color: var(--coral); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 64px 80px 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .hero-right-inner {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1C1510 0%, #201810 60%, #141008 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-right-inner::after {
+    content: 'Photo retraite · Brotherhood';
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 35%);
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #C45C3A0C 0%, transparent 70%);
+    top: 40%; left: -80px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(52px, 8vw, 108px);
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--muted);
+    display: block;
+    font-size: 0.75em;
+  }
+
+  .hero-tagline {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 26px);
+    line-height: 1.6;
+    color: var(--cream);
+    max-width: 440px;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--coral);
+    padding: 15px 32px;
+    text-decoration: none;
+    transition: background 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.9s;
+  }
+
+  .hero-cta:hover { background: var(--cream); }
+
+  /* ── INTRO NARRATIVE ── */
+  #intro {
+    padding: 110px 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .intro-aside {
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .aside-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+
+  .aside-sep {
+    width: 32px;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  .intro-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(24px, 3.2vw, 38px);
+    line-height: 1.55;
+    color: var(--cream);
+    margin-bottom: 36px;
+  }
+
+  .intro-text em {
+    font-style: normal;
+    color: var(--coral);
+  }
+
+  .intro-body {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  .intro-body p + p { margin-top: 18px; }
+
+  /* ── CITATION ── */
+  .page-quote {
+    padding: 80px 48px;
+    text-align: center;
+    position: relative;
+    background: var(--surface);
+  }
+
+  .page-quote::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--coral));
+  }
+
+  .page-quote-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(24px, 3.5vw, 40px);
+    line-height: 1.55;
+    color: var(--cream);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .page-quote-text em {
+    font-style: normal;
+    color: var(--coral);
+  }
+
+  /* ── OFFRES ── */
+  #offres {
+    padding: 100px 48px;
+  }
+
+  .offres-header {
+    margin-bottom: 64px;
+  }
+
+  .section-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 4.5vw, 50px);
+    line-height: 1.15;
+    color: var(--cream);
+  }
+
+  /* ── IN CARNE ── */
+  .offre-incarne {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+    background: var(--faint);
+  }
+
+  .incarne-left {
+    background: var(--surface);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .offre-tag {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--coral);
+    color: var(--coral);
+    padding: 5px 12px;
+    align-self: flex-start;
+  }
+
+  .offre-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.05;
+    color: var(--cream);
+  }
+
+  .offre-subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .offre-desc {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .offre-cta {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--coral);
+    padding: 14px 28px;
+    text-decoration: none;
+    transition: background 0.3s;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .offre-cta:hover { background: var(--cream); }
+
+  .incarne-right {
+    background: var(--surface2);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Phases */
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .phase {
+    padding: 20px 24px;
+    background: var(--black);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .phase-num {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--faint);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .phase-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .phase-desc {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* Archétypes */
+  .archetypes-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .archetypes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .archetype {
+    background: var(--black);
+    padding: 14px 12px;
+    text-align: center;
+  }
+
+  .archetype-name {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .incarne-meta {
+    display: flex;
+    gap: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--faint);
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .meta-value {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    color: var(--cream);
+  }
+
+  /* ── BROTHERHOOD ── */
+  .offre-brotherhood {
+    background: var(--surface);
+    padding: 64px 56px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .brotherhood-main {}
+
+  .brotherhood-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bv-item {
+    background: var(--black);
+    padding: 20px 20px;
+    border-left: 2px solid var(--coral);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bv-label {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+
+  .bv-value {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    color: var(--cream);
+    font-style: italic;
+  }
+
+  /* ── TÉMOIGNAGES ── */
+  #temoignages {
+    padding: 80px 48px 100px;
+    background: var(--surface);
+  }
+
+  .temoignages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+    background: var(--faint);
+  }
+
+  .temoignage {
+    background: var(--black);
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .temo-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--cream);
+    flex: 1;
+  }
+
+  .temo-sep {
+    width: 24px;
+    height: 1px;
+    background: var(--coral);
+  }
+
+  .temo-author {
+    font-family: 'Lora', serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .temo-placeholder {
+    background: var(--surface);
+    padding: 44px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .temo-placeholder span {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--faint);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── LEAD MAGNET ── */
+  #rencontre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+  }
+
+  .rencontre-left {
+    background: var(--surface2);
+    padding: 72px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rencontre-left::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1B3A7A12 0%, transparent 70%);
+  }
+
+  .rencontre-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .rencontre-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .rencontre-desc {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 360px;
+  }
+
+  .rencontre-right {
+    background: var(--surface);
+    padding: 72px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .form-label-top {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .form-field label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-field input {
+    background: var(--black);
+    border: 1px solid var(--faint);
+    padding: 13px 16px;
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .form-field input::placeholder { color: var(--faint); }
+  .form-field input:focus { border-color: var(--yellow); }
+
+  .form-submit {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--yellow);
+    border: none;
+    padding: 15px 28px;
+    cursor: pointer;
+    transition: background 0.3s;
+    align-self: flex-start;
+  }
+
+  .form-submit:hover { background: var(--cream); }
+
+  .form-note {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--faint);
+  }
+
+  /* ── AUTRES PORTES ── */
+  #autres-portes {
+    padding: 80px 48px 100px;
+  }
+
+  .portes-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+    background: var(--faint);
+  }
+
+  .porte-mini {
+    background: var(--surface);
+    padding: 36px 32px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.3s;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .porte-mini:nth-child(1):hover { border-color: var(--yellow); background: var(--black); }
+  .porte-mini:nth-child(2):hover { border-color: var(--blue);   background: var(--black); }
+  .porte-mini:nth-child(3):hover { border-color: var(--coral);  background: var(--black); }
+
+  .porte-mini-label {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .porte-mini-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--cream);
+  }
+
+  .porte-mini-arrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-top: auto;
+    transition: color 0.3s;
+  }
+
+  .porte-mini:hover .porte-mini-arrow { color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 48px;
+    border-top: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--muted); }
+
+  .footer-note {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; min-height: 100vh; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 72px; }
+    #intro { grid-template-columns: 1fr; padding: 72px 24px; gap: 28px; }
+    .page-quote { padding: 60px 24px; }
+    #offres { padding: 64px 24px; }
+    .offre-incarne { grid-template-columns: 1fr; }
+    .incarne-left, .incarne-right { padding: 48px 28px; }
+    .offre-brotherhood { grid-template-columns: 1fr; padding: 48px 28px; gap: 36px; }
+    #temoignages { padding: 60px 24px 72px; }
+    .temoignages-grid { grid-template-columns: 1fr; }
+    #rencontre { grid-template-columns: 1fr; }
+    .rencontre-left, .rencontre-right { padding: 52px 28px; }
+    #autres-portes { padding: 60px 24px 72px; }
+    .portes-mini { grid-template-columns: 1fr; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Anys <em>Mechkar</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html#narrative">Mon chemin</a></li>
+    <li><a href="index.html#portes">Chemins</a></li>
+    <li><a href="index.html#evenements">Événements</a></li>
+    <li><a href="index.html#rencontre">Méditation</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-glow"></div>
+    <div class="hero-eyebrow">Premier chemin</div>
+    <div class="hero-title">
+      L'Homme<em>Revenir à soi</em>
+    </div>
+    <div class="hero-tagline">
+      Pas la masculinité toxique. Pas la sensibilité sans verticalité. Quelque chose de plus juste — un homme ancré dans son feu, sa douceur, sa souveraineté.
+    </div>
+    <a href="#offres" class="hero-cta">Voir les programmes →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner"></div>
+  </div>
+</section>
+
+<!-- INTRO NARRATIVE -->
+<section id="intro">
+  <div class="intro-aside reveal">
+    <div class="aside-label">Ce que j'ai traversé</div>
+    <div class="aside-sep"></div>
+  </div>
+  <div class="reveal">
+    <div class="intro-text">
+      On nous a appris à performer.<br>
+      Pas à <em>être.</em>
+    </div>
+    <div class="intro-body">
+      <p>La masculinité qu'on nous a transmise était souvent incomplète. Trop dure d'un côté, trop effacée de l'autre. Entre la force brute et la dissolution de soi, il manquait quelque chose — un homme qui tient, qui sent, qui crée, qui protège depuis un espace de plénitude et non de peur.</p>
+      <p>J'ai cherché ça longtemps. Dans les arts internes, dans le Butoh, dans les cercles d'hommes, dans le désert. Et ce que j'ai trouvé, c'est que la vraie force d'un homme ne vient pas de ce qu'il contrôle — elle vient de ce qu'il a accepté en lui.</p>
+      <p>Ces espaces sont nés de ce chemin. Pour les hommes qui sentent qu'il y a plus — et qui sont prêts à aller le chercher.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CITATION -->
+<div class="page-quote reveal">
+  <div class="page-quote-text">
+    Un homme qui se connaît vraiment<br>
+    n'a plus besoin de prouver quoi que ce soit.<br>
+    Il <em>rayonne.</em>
+  </div>
+</div>
+
+<!-- OFFRES -->
+<section id="offres">
+  <div class="offres-header reveal">
+    <div class="section-label">Les programmes</div>
+    <div class="section-title">Deux espaces.<br>Une seule direction.</div>
+  </div>
+
+  <!-- IN CARNE -->
+  <div class="offre-incarne reveal">
+    <div class="incarne-left">
+      <span class="offre-tag">Programme · 120 jours</span>
+      <div class="offre-title">IN CARNE</div>
+      <div class="offre-subtitle">Un voyage initiatique à travers 8 archétypes de l'homme.</div>
+      <div class="offre-desc">
+        120 jours structurés pour traverser les grandes dimensions de la psyché masculine. Pas une formation. Pas du coaching. Une initiation — avec tout ce que ça implique de descente, de forge et de rayonnement.
+      </div>
+      <a href="https://incarne.netlify.app" target="_blank" class="offre-cta">Rejoindre la liste d'attente →</a>
+    </div>
+    <div class="incarne-right">
+
+      <div>
+        <div class="archetypes-label">Les 8 archétypes</div>
+        <div class="archetypes-grid">
+          <div class="archetype"><div class="archetype-name">Le Guerrier</div></div>
+          <div class="archetype"><div class="archetype-name">Le Magicien</div></div>
+          <div class="archetype"><div class="archetype-name">L'Artiste</div></div>
+          <div class="archetype"><div class="archetype-name">L'Amant</div></div>
+          <div class="archetype"><div class="archetype-name">Le Compagnon</div></div>
+          <div class="archetype"><div class="archetype-name">Le Roi</div></div>
+          <div class="archetype"><div class="archetype-name">L'Enfant Originel</div></div>
+          <div class="archetype"><div class="archetype-name">Le Vieux Sage</div></div>
+        </div>
+      </div>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-num">I</div>
+          <div>
+            <div class="phase-name">Purifier</div>
+            <div class="phase-desc">Dégager ce qui encombre — les masques, les patterns, les héritages non digérés.</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">II</div>
+          <div>
+            <div class="phase-name">Forger</div>
+            <div class="phase-desc">Construire ce qui tient — une identité stable, un feu propre, une direction.</div>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-num">III</div>
+          <div>
+            <div class="phase-name">Rayonner</div>
+            <div class="phase-desc">Exprimer ce qui est vrai — dans ses relations, son travail, sa vie.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="incarne-meta">
+        <div class="meta-item">
+          <div class="meta-label">Durée</div>
+          <div class="meta-value">120 jours</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Format</div>
+          <div class="meta-value">Collectif + individuel</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Saison</div>
+          <div class="meta-value">1 — en cours</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BROTHERHOOD CIRCLE -->
+  <div class="offre-brotherhood reveal">
+    <div class="brotherhood-main">
+      <span class="offre-tag" style="border-color:var(--yellow);color:var(--yellow)">Retraite · Immersive</span>
+      <div class="offre-title" style="margin-top:20px; margin-bottom:16px;">Brotherhood Circle</div>
+      <div class="offre-subtitle" style="margin-bottom:24px;">Des retraites immersives au Maroc pour retrouver la fraternité, le feu, la verticalité.</div>
+      <div class="offre-desc" style="max-width:520px; margin-bottom:32px;">
+        Dans le désert ou à Essaouira — des espaces hors du temps où des hommes se retrouvent pour traverser ensemble. Pas un séminaire. Un rite de passage collectif, guidé par la terre, le silence et la présence des autres.
+      </div>
+      <a href="index.html#contact" class="offre-cta" style="background:var(--yellow);">Être informé des prochaines dates →</a>
+    </div>
+    <div class="brotherhood-visual">
+      <div class="bv-item">
+        <div class="bv-label">Lieu</div>
+        <div class="bv-value">Désert du Sahara · Essaouira</div>
+      </div>
+      <div class="bv-item">
+        <div class="bv-label">Format</div>
+        <div class="bv-value">4 à 7 jours en immersion</div>
+      </div>
+      <div class="bv-item">
+        <div class="bv-label">Prochaine date</div>
+        <div class="bv-value">À venir — rejoindre la liste</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section id="temoignages">
+  <div class="section-label reveal">Ce qu'ils en disent</div>
+  <div class="temoignages-grid">
+    <div class="temoignage reveal">
+      <div class="temo-text">« Espace réservé — témoignage participant IN CARNE saison 0 ou 1. »</div>
+      <div class="temo-sep"></div>
+      <div class="temo-author">Prénom · Saison 0</div>
+    </div>
+    <div class="temoignage reveal">
+      <div class="temo-text">« Espace réservé — témoignage participant Brotherhood Circle. »</div>
+      <div class="temo-sep"></div>
+      <div class="temo-author">Prénom · Brotherhood</div>
+    </div>
+    <div class="temo-placeholder reveal">
+      <span>Témoignage à venir</span>
+    </div>
+    <div class="temo-placeholder reveal">
+      <span>Témoignage à venir</span>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section id="rencontre">
+  <div class="rencontre-left">
+    <div class="rencontre-eyebrow">Méditation offerte</div>
+    <div class="rencontre-title">La Rencontre</div>
+    <div class="rencontre-desc">
+      15 minutes pour rencontrer ton univers intérieur, tes alliés, les parts de toi qui attendent. Un premier pas vers ce chemin.
+    </div>
+  </div>
+  <div class="rencontre-right">
+    <div class="form-label-top">Accès immédiat et gratuit</div>
+    <div class="form-field">
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" placeholder="Ton prénom">
+    </div>
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="ton@email.com">
+    </div>
+    <button class="form-submit">Recevoir la méditation →</button>
+    <div class="form-note">Aucun spam. Tu peux te désinscrire à tout moment.</div>
+  </div>
+</section>
+
+<!-- AUTRES PORTES -->
+<section id="autres-portes">
+  <div class="section-label reveal">Continuer l'exploration</div>
+  <div class="section-title reveal">D'autres chemins t'attendent.</div>
+  <div class="portes-mini">
+    <a href="entrepreneurs.html" class="porte-mini">
+      <div class="porte-mini-label">Chemin 02</div>
+      <div class="porte-mini-title">L'Entrepreneur Créatif</div>
+      <div class="porte-mini-arrow">Entrer →</div>
+    </a>
+    <a href="essence.html" class="porte-mini">
+      <div class="porte-mini-label">Chemin 03</div>
+      <div class="porte-mini-title">La Quête de Soi</div>
+      <div class="porte-mini-arrow">Entrer →</div>
+    </a>
+    <a href="art.html" class="porte-mini">
+      <div class="porte-mini-label">Chemin 04</div>
+      <div class="porte-mini-title">L'Art et le Mouvement</div>
+      <div class="porte-mini-arrow">Entrer →</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="story.html">Mon chemin</a></li>
+    <li><a href="art.html">Univers artistique</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
