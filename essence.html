@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Quête de Soi — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:    #0E0C0A;
+    --surface:  #181410;
+    --surface2: #201A14;
+    --cream:    #F0EAE1;
+    --muted:    #8C7E72;
+    --faint:    #2E2620;
+    --blue:     #1B3A7A;
+    --coral:    #C45C3A;
+    --yellow:   #D4942A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Lora', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, var(--black) 60%, transparent);
+  }
+
+  .nav-logo {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-logo em { font-style: italic; color: var(--muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--cream); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 64px 80px 48px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right-inner {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #0E100E 0%, #121814 60%, #0A0C0E 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-right-inner::after {
+    content: 'Photo · Prisme Origine';
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 35%);
+    z-index: 1;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1B3A7A0C 0%, transparent 70%);
+    top: 40%; left: -80px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(44px, 6.5vw, 88px);
+    line-height: 1.0;
+    color: var(--cream);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--muted);
+    display: block;
+    font-size: 0.78em;
+  }
+
+  .hero-tagline {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.2vw, 26px);
+    line-height: 1.6;
+    color: var(--cream);
+    max-width: 440px;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--blue);
+    padding: 15px 32px;
+    text-decoration: none;
+    transition: background 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.9s;
+  }
+
+  .hero-cta:hover { background: var(--cream); }
+
+  /* ── INTRO ── */
+  #intro {
+    padding: 110px 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .intro-aside {
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .aside-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .aside-sep {
+    width: 32px;
+    height: 1px;
+    background: var(--faint);
+  }
+
+  .intro-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(24px, 3.2vw, 38px);
+    line-height: 1.55;
+    color: var(--cream);
+    margin-bottom: 36px;
+  }
+
+  .intro-text em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .intro-body {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+
+  .intro-body p + p { margin-top: 18px; }
+
+  /* ── CITATION ── */
+  .page-quote {
+    padding: 80px 48px;
+    text-align: center;
+    position: relative;
+    background: var(--surface);
+  }
+
+  .page-quote::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--blue));
+  }
+
+  .page-quote-text {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(24px, 3.5vw, 40px);
+    line-height: 1.55;
+    color: var(--cream);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .page-quote-text em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  /* ── LABELS ── */
+  .section-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 4.5vw, 50px);
+    line-height: 1.15;
+    color: var(--cream);
+  }
+
+  /* ── PRISME ORIGINE ── */
+  #prisme {
+    padding: 100px 48px 0;
+  }
+
+  .prisme-header {
+    margin-bottom: 56px;
+  }
+
+  .prisme-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--faint);
+    margin-bottom: 2px;
+  }
+
+  .prisme-left {
+    background: var(--surface);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .offre-tag {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    padding: 5px 12px;
+    align-self: flex-start;
+  }
+
+  .offre-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.05;
+    color: var(--cream);
+  }
+
+  .offre-subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .offre-desc {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .offre-cta {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--blue);
+    padding: 14px 28px;
+    text-decoration: none;
+    transition: background 0.3s;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .offre-cta:hover { background: var(--cream); color: var(--black); }
+
+  .prisme-right {
+    background: var(--surface2);
+    padding: 64px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  /* Les 3 systèmes */
+  .systemes-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .systemes {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .systeme {
+    background: var(--black);
+    padding: 24px 24px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    border-left: 2px solid var(--faint);
+    transition: border-color 0.3s;
+  }
+
+  .systeme:hover { border-left-color: var(--blue); }
+
+  .systeme-icon {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--blue);
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .systeme-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 20px;
+    color: var(--cream);
+    margin-bottom: 5px;
+  }
+
+  .systeme-desc {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  /* Ce que ça révèle */
+  .prisme-reveals {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--faint);
+  }
+
+  .prisme-reveal-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .prisme-reveal-item::before {
+    content: '·';
+    color: var(--blue);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ── ACCOMPAGNEMENT ── */
+  #accompagnement {
+    padding: 0 48px 0;
+  }
+
+  .accomp-inner {
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 64px;
+    padding: 64px 56px;
+    align-items: start;
+  }
+
+  .accomp-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .accomp-item {
+    background: var(--black);
+    padding: 20px 20px;
+    border-left: 2px solid var(--faint);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.3s;
+  }
+
+  .accomp-item:hover { border-left-color: var(--blue); }
+
+  .accomp-item-label {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .accomp-item-value {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--cream);
+  }
+
+  /* ── INITIATIONS ── */
+  #initiations {
+    padding: 0 48px 100px;
+    background: var(--black);
+  }
+
+  .initiations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+    background: var(--faint);
+  }
+
+  .initiation-card {
+    background: var(--surface);
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.4s, background 0.4s;
+  }
+
+  .initiation-card:hover {
+    background: var(--surface2);
+  }
+
+  .initiation-card:nth-child(1):hover { border-color: var(--coral); }
+  .initiation-card:nth-child(2):hover { border-color: var(--yellow); }
+  .initiation-card:nth-child(3):hover { border-color: var(--blue); }
+
+  .init-tag {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .init-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3vw, 36px);
+    line-height: 1.15;
+    color: var(--cream);
+  }
+
+  .init-desc {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .init-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 16px;
+    border-top: 1px solid var(--faint);
+  }
+
+  .init-meta-item {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    display: flex;
+    gap: 8px;
+  }
+
+  .init-meta-item span:first-child {
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 9px;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── FRACTALOGIE ── */
+  #fractalogie {
+    padding: 80px 48px;
+    background: var(--surface);
+  }
+
+  .frac-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    max-width: 1000px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .frac-visual {
+    position: relative;
+    aspect-ratio: 1;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .frac-center {
+    text-align: center;
+    z-index: 2;
+  }
+
+  .frac-word {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--cream);
+    display: block;
+    line-height: 1.3;
+  }
+
+  .frac-word-small {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 8px;
+  }
+
+  /* Cercles concentriques décoratifs */
+  .frac-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--faint);
+  }
+
+  .frac-circle-1 { width: 80%;  height: 80%;  }
+  .frac-circle-2 { width: 55%;  height: 55%;  border-color: #2E2620AA; }
+  .frac-circle-3 { width: 30%;  height: 30%;  border-color: var(--blue); opacity: 0.3; }
+
+  .frac-content {}
+
+  .frac-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+
+  .frac-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 3.5vw, 44px);
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 24px;
+  }
+
+  .frac-desc {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .frac-cta {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 4px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .frac-cta:hover { color: var(--blue); }
+
+  /* ── LEAD MAGNET ── */
+  #rencontre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+  }
+
+  .rencontre-left {
+    background: var(--surface2);
+    padding: 72px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rencontre-left::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #1B3A7A10 0%, transparent 70%);
+  }
+
+  .rencontre-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .rencontre-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1;
+    color: var(--cream);
+  }
+
+  .rencontre-desc {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 360px;
+  }
+
+  .rencontre-right {
+    background: var(--surface);
+    padding: 72px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .form-label-top {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .form-field label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-field input {
+    background: var(--black);
+    border: 1px solid var(--faint);
+    padding: 13px 16px;
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .form-field input::placeholder { color: var(--faint); }
+  .form-field input:focus { border-color: var(--blue); }
+
+  .form-submit {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--blue);
+    border: none;
+    padding: 15px 28px;
+    cursor: pointer;
+    transition: background 0.3s;
+    align-self: flex-start;
+  }
+
+  .form-submit:hover { background: var(--cream); color: var(--black); }
+
+  .form-note {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--faint);
+  }
+
+  /* ── AUTRES PORTES ── */
+  #autres-portes {
+    padding: 80px 48px 100px;
+  }
+
+  .portes-mini {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 48px;
+    background: var(--faint);
+  }
+
+  .porte-mini {
+    background: var(--surface);
+    padding: 36px 32px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .porte-mini:nth-child(1):hover { border-color: var(--coral); background: var(--black); }
+  .porte-mini:nth-child(2):hover { border-color: var(--yellow); background: var(--black); }
+  .porte-mini:nth-child(3):hover { border-color: var(--coral); background: var(--black); }
+
+  .porte-mini-label {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .porte-mini-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--cream);
+  }
+
+  .porte-mini-arrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-top: auto;
+    transition: color 0.3s;
+  }
+
+  .porte-mini:hover .porte-mini-arrow { color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 48px;
+    border-top: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--muted); }
+
+  .footer-note {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; min-height: 100vh; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 72px; }
+    #intro { grid-template-columns: 1fr; padding: 72px 24px; gap: 28px; }
+    .page-quote { padding: 60px 24px; }
+    #prisme { padding: 64px 24px 0; }
+    .prisme-inner { grid-template-columns: 1fr; }
+    .prisme-left, .prisme-right { padding: 48px 28px; }
+    #accompagnement { padding: 0 24px 0; }
+    .accomp-inner { grid-template-columns: 1fr; padding: 48px 28px; gap: 36px; }
+    #initiations { padding: 60px 24px 72px; }
+    .initiations-grid { grid-template-columns: 1fr; }
+    #fractalogie { padding: 60px 24px; }
+    .frac-inner { grid-template-columns: 1fr; gap: 40px; }
+    #rencontre { grid-template-columns: 1fr; }
+    .rencontre-left, .rencontre-right { padding: 52px 28px; }
+    #autres-portes { padding: 60px 24px 72px; }
+    .portes-mini { grid-template-columns: 1fr; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Anys <em>Mechkar</em></a>
+  <ul class="nav-links">
+    <li><a href="index.html#narrative">Mon chemin</a></li>
+    <li><a href="index.html#portes">Chemins</a></li>
+    <li><a href="index.html#evenements">Événements</a></li>
+    <li><a href="index.html#rencontre">Méditation</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-glow"></div>
+    <div class="hero-eyebrow">Troisième chemin</div>
+    <div class="hero-title">
+      La Quête<em>de Soi</em>
+    </div>
+    <div class="hero-tagline">
+      Sous les rôles, les habitudes, les attentes des autres — il y a quelque chose qui n'a jamais bougé. Ces espaces sont conçus pour le retrouver.
+    </div>
+    <a href="#prisme" class="hero-cta">Explorer les outils →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-inner"></div>
+  </div>
+</section>
+
+<!-- INTRO NARRATIVE -->
+<section id="intro">
+  <div class="intro-aside reveal">
+    <div class="aside-label">Ce que j'ai cherché</div>
+    <div class="aside-sep"></div>
+  </div>
+  <div class="reveal">
+    <div class="intro-text">
+      On ne se perd pas d'un coup.<br>
+      On s'éloigne de soi <em>progressivement</em> —<br>
+      couche après couche.
+    </div>
+    <div class="intro-body">
+      <p>J'ai cherché longtemps quelque chose que je ne savais pas nommer. Une cohérence intérieure. Un sentiment d'être juste là où je dois être — pas en train de performer une version de moi-même, mais en train d'être vraiment là.</p>
+      <p>Les systèmes de connaissance de soi — Human Design, Tzolkin, BaZi — ne m'ont pas donné une identité. Ils m'ont donné des clés pour reconnaître ce que je savais déjà, mais que je n'avais pas encore osé habiter pleinement.</p>
+      <p>La Fractalogie m'a permis de voir les schémas qui se répétaient — et de comprendre que ce qui revient sans cesse pointe vers ce qui attend d'être traversé. Ces outils et ces espaces sont là pour ça.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CITATION -->
+<div class="page-quote reveal">
+  <div class="page-quote-text">
+    Ce que tu cherches à l'extérieur<br>
+    n'est qu'un reflet de ce qui attend<br>
+    d'être reconnu <em>en toi.</em>
+  </div>
+</div>
+
+<!-- PRISME ORIGINE -->
+<section id="prisme">
+  <div class="prisme-header reveal">
+    <div class="section-label">Outil de lecture profonde</div>
+    <div class="section-title">Prisme Origine</div>
+  </div>
+
+  <div class="prisme-inner reveal">
+    <div class="prisme-left">
+      <span class="offre-tag">Profil · Sur mesure</span>
+      <div class="offre-title">Prisme Origine</div>
+      <div class="offre-subtitle">Trois systèmes anciens croisés pour lire ta nature essentielle.</div>
+      <div class="offre-desc">
+        Pas un test de personnalité. Une boussole. Tzolkin, BaZi et Human Design se croisent pour révéler non seulement qui tu es, mais comment tu fonctionnes — ta façon d'être au monde, tes cycles, tes dons naturels, ce qui te draine et ce qui te nourrit.
+      </div>
+      <a href="index.html#contact" class="offre-cta">Découvrir mon Prisme →</a>
+    </div>
+    <div class="prisme-right">
+
+      <div class="systemes-label">Les trois systèmes</div>
+      <div class="systemes">
+        <div class="systeme">
+          <div class="systeme-icon">☽</div>
+          <div>
+            <div class="systeme-name">Tzolkin</div>
+            <div class="systeme-desc">Calendrier maya sacré. Révèle ton énergie de naissance, ton ton galactique et ta façon d'exprimer ton essence dans le monde.</div>
+          </div>
+        </div>
+        <div class="systeme">
+          <div class="systeme-icon">木</div>
+          <div>
+            <div class="systeme-name">BaZi</div>
+            <div class="systeme-desc">Astrologie chinoise des quatre piliers. Dévoile tes cycles de vie, ta nature profonde et les éléments qui t'équilibrent.</div>
+          </div>
+        </div>
+        <div class="systeme">
+          <div class="systeme-icon">◎</div>
+          <div>
+            <div class="systeme-name">Human Design</div>
+            <div class="systeme-desc">Synthèse des chakras, de l'astrologie, du I Ching et de la Kabbale. Révèle ta mécanique énergétique et ta stratégie de vie.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prisme-reveals">
+        <div class="prisme-reveal-item">Ta nature essentielle et tes dons naturels</div>
+        <div class="prisme-reveal-item">Tes cycles — quand agir, quand attendre</div>
+        <div class="prisme-reveal-item">Ce qui te draine, ce qui te nourrit</div>
+        <div class="prisme-reveal-item">Ta façon unique d'être au monde</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACCOMPAGNEMENT INDIVIDUEL -->
+<section id="accompagnement">
+  <div class="accomp-inner reveal">
+    <div>
+      <span class="offre-tag" style="border-color:var(--yellow);color:var(--yellow); margin-bottom:24px; display:inline-block;">Accompagnement · Profond</span>
+      <div class="offre-title" style="margin-bottom:16px;">Individuel</div>
+      <div class="offre-subtitle" style="margin-bottom:24px;">Un espace sur mesure pour traverser ce qui t'appelle vraiment.</div>
+      <div class="offre-desc" style="max-width:520px; margin-bottom:32px;">
+        Pour ceux qui veulent aller plus loin que les outils — un travail en profondeur, à ton rythme. Identifier les schémas fractals qui reviennent. Comprendre ce qu'ils révèlent. Traverser le seuil. Le Prisme Origine comme boussole de départ, la Fractalogie comme méthode de lecture, la présence somatique comme ancrage.
+      </div>
+      <a href="index.html#contact" class="offre-cta" style="background:var(--yellow); color:var(--black);">Prendre contact →</a>
+    </div>
+    <div class="accomp-sidebar">
+      <div class="accomp-item">
+        <div class="accomp-item-label">Méthode principale</div>
+        <div class="accomp-item-value">Fractalogie</div>
+      </div>
+      <div class="accomp-item">
+        <div class="accomp-item-label">Boussole</div>
+        <div class="accomp-item-value">Prisme Origine</div>
+      </div>
+      <div class="accomp-item">
+        <div class="accomp-item-label">Ancrage</div>
+        <div class="accomp-item-value">Présence somatique</div>
+      </div>
+      <div class="accomp-item">
+        <div class="accomp-item-label">Format</div>
+        <div class="accomp-item-value">En ligne ou présentiel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INITIATIONS -->
+<section id="initiations">
+  <div style="padding: 80px 0 0;">
+    <div class="section-label reveal">Espaces d'initiation</div>
+    <div class="section-title reveal">Des espaces hors du temps<br>pour traverser des seuils.</div>
+
+    <div class="initiations-grid">
+
+      <a href="art.html" class="initiation-card reveal">
+        <div class="init-tag">Résidence artistique</div>
+        <div class="init-title">Desert Mirage Journey</div>
+        <div class="init-desc">
+          12 jours dans le Sahara marocain. Une résidence initiatique autour du concept japonais de Ma — l'espace entre les choses. Co-créée avec Yi Chen, danseuse Butoh.
+        </div>
+        <div class="init-meta">
+          <div class="init-meta-item">
+            <span>Dates</span>
+            10 — 21 décembre 2026
+          </div>
+          <div class="init-meta-item">
+            <span>Lieu</span>
+            Sahara marocain
+          </div>
+        </div>
+      </a>
+
+      <a href="hommes.html" class="initiation-card reveal">
+        <div class="init-tag">Immersion · Hommes</div>
+        <div class="init-title">Hommes Sauvages</div>
+        <div class="init-desc">
+          5 jours dans la nature. Présence au vivant, mouvement et fraternité. Cérémonies, rituels, hutte de sudation, cercles de parole. Pour se délester et repartir le feu ravivé.
+        </div>
+        <div class="init-meta">
+          <div class="init-meta-item">
+            <span>Dates</span>
+            Août 2026 — à confirmer
+          </div>
+          <div class="init-meta-item">
+            <span>Format</span>
+            Lundi au samedi
+          </div>
+        </div>
+      </a>
+
+      <a href="hommes.html" class="initiation-card reveal" style="grid-column: 1 / -1; max-width: 50%;">
+        <div class="init-tag">Retraite hommes</div>
+        <div class="init-title">Brotherhood Circle</div>
+        <div class="init-desc">
+          Des retraites immersives en Pologne pour retrouver la fraternité, le feu et la verticalité. Un rite de passage collectif guidé par la terre et la présence.
+        </div>
+        <div class="init-meta">
+          <div class="init-meta-item">
+            <span>Lieu</span>
+            Pologne
+          </div>
+          <div class="init-meta-item">
+            <span>Dates</span>
+            À venir après Hommes Sauvages
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FRACTALOGIE -->
+<section id="fractalogie">
+  <div class="frac-inner">
+    <div class="frac-visual">
+      <div class="frac-circle frac-circle-1"></div>
+      <div class="frac-circle frac-circle-2"></div>
+      <div class="frac-circle frac-circle-3"></div>
+      <div class="frac-center">
+        <span class="frac-word">Ce qui revient</span>
+        <span class="frac-word" style="color:var(--blue);">révèle</span>
+        <span class="frac-word">ce qui attend.</span>
+        <span class="frac-word-small">Fractalogie</span>
+      </div>
+    </div>
+    <div class="frac-content reveal">
+      <div class="frac-label">Méthode</div>
+      <div class="frac-title">La Fractalogie</div>
+      <div class="frac-desc">
+        Une méthode de lecture des schémas fractals comportementaux. Ce qui se répète dans ta vie — dans tes relations, tes projets, tes blocages — n'est pas une coïncidence. C'est un signal. La Fractalogie aide à le décoder pour comprendre ce qui attend d'être traversé.
+      </div>
+      <a href="index.html#contact" class="frac-cta">En savoir plus →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section id="rencontre">
+  <div class="rencontre-left">
+    <div class="rencontre-eyebrow">Méditation offerte</div>
+    <div class="rencontre-title">La Rencontre</div>
+    <div class="rencontre-desc">
+      15 minutes pour rencontrer ton univers intérieur, tes alliés, tes archétypes. Une porte d'entrée vers ta quête de soi — depuis l'intérieur.
+    </div>
+  </div>
+  <div class="rencontre-right">
+    <div class="form-label-top">Accès immédiat et gratuit</div>
+    <div class="form-field">
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" placeholder="Ton prénom">
+    </div>
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="ton@email.com">
+    </div>
+    <button class="form-submit">Recevoir la méditation →</button>
+    <div class="form-note">Aucun spam. Tu peux te désinscrire à tout moment.</div>
+  </div>
+</section>
+
+<!-- AUTRES PORTES -->
+<section id="autres-portes">
+  <div class="section-label reveal">Continuer l'exploration</div>
+  <div class="section-title reveal">D'autres chemins t'attendent.</div>
+  <div class="portes-mini">
+    <a href="hommes.html" class="porte-mini">
+      <div class="porte-mini-label">Chemin 01</div>
+      <div class="porte-mini-title">L'Homme</div>
+      <div class="porte-mini-arrow">Entrer →</div>
+    </a>
+    <a href="entrepreneurs.html" class="porte-mini">
+      <div class="porte-mini-label">Chemin 02</div>
+      <div class="porte-mini-title">L'Entrepreneur Créatif</div>
+      <div class="porte-mini-arrow">Entrer →</div>
+    </a>
+    <a href="art.html" class="porte-mini">
+      <div class="porte-mini-label">Chemin 04</div>
+      <div class="porte-mini-title">L'Art et le Mouvement</div>
+      <div class="porte-mini-arrow">Entrer →</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="story.html">Mon chemin</a></li>
+    <li><a href="art.html">Univers artistique</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
