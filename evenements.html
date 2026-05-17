@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Événements — Anys Mechkar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:    #0E0C0A;
+    --surface:  #181410;
+    --surface2: #201A14;
+    --cream:    #F0EAE1;
+    --muted:    #8C7E72;
+    --faint:    #2E2620;
+    --blue:     #1B3A7A;
+    --coral:    #C45C3A;
+    --yellow:   #D4942A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Lora', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.35;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 52vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 30%, #D4942A06 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, #C45C3A06 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 8vw, 100px);
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--muted);
+    display: block;
+    font-size: 0.75em;
+  }
+
+  .hero-tagline {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+
+  /* ── FILTRES ── */
+  #filtres {
+    padding: 40px 48px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--faint);
+    padding-bottom: 32px;
+  }
+
+  .filtre-label {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 8px;
+  }
+
+  .filtre-btn {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--faint);
+    padding: 7px 16px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .filtre-btn:hover { color: var(--cream); border-color: var(--muted); }
+
+  .filtre-btn.active {
+    color: var(--black);
+    background: var(--cream);
+    border-color: var(--cream);
+  }
+
+  .filtre-btn[data-type="retraite"].active  { background: var(--coral);  border-color: var(--coral);  color: var(--cream); }
+  .filtre-btn[data-type="programme"].active { background: var(--blue);   border-color: var(--blue);   color: var(--cream); }
+  .filtre-btn[data-type="residence"].active { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+  .filtre-btn[data-type="cercle"].active    { background: var(--coral);  border-color: var(--coral);  color: var(--cream); }
+
+  /* ── LISTE ÉVÉNEMENTS ── */
+  #evenements {
+    padding: 0 48px 120px;
+  }
+
+  /* Année */
+  .annee-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 48px 0 20px;
+    border-bottom: 1px solid var(--faint);
+    margin-bottom: 2px;
+  }
+
+  .annee-num {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--faint);
+    line-height: 1;
+  }
+
+  .annee-count {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Événement */
+  .event-row {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    align-items: stretch;
+    gap: 0;
+    background: var(--surface);
+    margin-bottom: 2px;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+    position: relative;
+  }
+
+  .event-row:hover { background: var(--surface2); }
+  .event-row[data-type="retraite"]:hover  { border-left-color: var(--coral); }
+  .event-row[data-type="programme"]:hover { border-left-color: var(--blue); }
+  .event-row[data-type="residence"]:hover { border-left-color: var(--yellow); }
+  .event-row[data-type="cercle"]:hover    { border-left-color: var(--coral); }
+
+  .event-date-col {
+    padding: 28px 24px;
+    border-right: 1px solid var(--faint);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .event-mois {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .event-jour {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--yellow);
+    line-height: 1.1;
+  }
+
+  .event-body {
+    padding: 28px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .event-titre {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .event-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .event-lieu {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .event-lieu::before {
+    content: '·';
+    color: var(--faint);
+  }
+
+  .event-desc {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 520px;
+  }
+
+  .event-right {
+    padding: 28px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 12px;
+    min-width: 180px;
+  }
+
+  .event-tag {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .tag-retraite  { border-color: var(--coral);  color: var(--coral);  }
+  .tag-programme { border-color: var(--blue);   color: var(--blue);   }
+  .tag-residence { border-color: var(--yellow); color: var(--yellow); }
+  .tag-cercle    { border-color: var(--coral);  color: var(--coral);  }
+
+  .event-statut {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .event-statut.ouvert { color: var(--yellow); }
+  .event-statut.encours { color: var(--blue); }
+  .event-statut.complet { color: var(--muted); }
+
+  .event-cta {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream);
+    border-bottom: 1px solid var(--faint);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: border-color 0.3s;
+  }
+
+  .event-row:hover .event-cta { border-color: var(--yellow); }
+
+  /* Événement passé */
+  .event-row.passe {
+    opacity: 0.45;
+  }
+
+  .event-row.passe:hover { opacity: 0.7; }
+
+  /* ── SECTION RÉCURRENTS ── */
+  #recurrents {
+    padding: 80px 48px 100px;
+    background: var(--surface);
+  }
+
+  .recurrents-title {
+    font-family: 'EB Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 48px;
+  }
+
+  .recurrents-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--faint);
+  }
+
+  .recurrent-card {
+    background: var(--black);
+    padding: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .recurrent-card:hover { background: var(--surface2); border-bottom-color: var(--coral); }
+
+  .recurrent-rythme {
+    font-family: 'Lora', serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+
+  .recurrent-titre {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .recurrent-desc {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .recurrent-meta {
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding-top: 12px;
+    border-top: 1px solid var(--faint);
+  }
+
+  /* ── NEWSLETTER ── */
+  #newsletter {
+    padding: 80px 48px 100px;
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .newsletter-title {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.3;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  .newsletter-body {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--faint);
+    border-right: none;
+    padding: 14px 18px;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  .newsletter-input::placeholder { color: var(--faint); }
+  .newsletter-input:focus { border-color: var(--yellow); }
+
+  .newsletter-btn {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--yellow);
+    border: none;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap;
+  }
+
+  .newsletter-btn:hover { background: var(--cream); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 28px 48px;
+    border-top: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--muted); }
+
+  .footer-note {
+    font-family: 'Lora', serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── HIDDEN (filtre) ── */
+  .event-row.hidden { display: none; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { padding: 0 24px 52px; }
+    #filtres { padding: 32px 24px 28px; }
+    #evenements { padding: 0 24px 80px; }
+    .event-row { grid-template-columns: 100px 1fr; }
+    .event-right { display: none; }
+    .event-body { padding: 20px 20px; }
+    .event-date-col { padding: 20px 16px; }
+    #recurrents { padding: 60px 24px 72px; }
+    .recurrents-grid { grid-template-columns: 1fr; }
+    #newsletter { padding: 60px 24px 72px; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-input { border-right: 1px solid var(--faint); border-bottom: none; }
+    footer { padding: 24px; flex-direction: column; gap: 14px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="site-nav__logo">Anys <em>Mechkar</em></a>
+  <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+    <span class="site-nav__burger-line"></span>
+  </button>
+  <div class="site-nav__overlay">
+    <div class="site-nav__menu">
+      <a href="index.html" class="site-nav__link"><span class="site-nav__link-num">00</span>Accueil</a>
+      <a href="hommes.html" class="site-nav__link"><span class="site-nav__link-num">01</span>L'Homme</a>
+      <a href="entrepreneurs.html" class="site-nav__link"><span class="site-nav__link-num">02</span>L'Entrepreneur <span class="site-nav__link-accent">Créatif</span></a>
+      <a href="essence.html" class="site-nav__link"><span class="site-nav__link-num">03</span>La Quête <span class="site-nav__link-accent">de Soi</span></a>
+      <a href="art.html" class="site-nav__link"><span class="site-nav__link-num">04</span>L'Art <span class="site-nav__link-accent">et le Mouvement</span></a>
+      <div class="site-nav__sep"></div>
+      <div class="site-nav__sub">
+        <a href="story.html" class="site-nav__sub-link">Mon chemin</a>
+        <a href="index.html#rencontre" class="site-nav__sub-link">Méditation offerte</a>
+        <a href="evenements.html" class="site-nav__sub-link">Événements</a>
+        <a href="index.html#contact" class="site-nav__sub-link">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Tous les espaces</div>
+    <div class="hero-title">
+      Événements<em>& Programmes</em>
+    </div>
+    <div class="hero-tagline">
+      Retraites, résidences, programmes — les prochains espaces pour traverser quelque chose ensemble.
+    </div>
+  </div>
+</section>
+
+<!-- FILTRES -->
+<div id="filtres">
+  <span class="filtre-label">Filtrer</span>
+  <button class="filtre-btn active" data-type="tous">Tous</button>
+  <button class="filtre-btn" data-type="retraite">Retraites</button>
+  <button class="filtre-btn" data-type="programme">Programmes</button>
+  <button class="filtre-btn" data-type="residence">Résidences</button>
+  <button class="filtre-btn" data-type="cercle">Cercles</button>
+</div>
+
+<!-- LISTE -->
+<section id="evenements">
+
+  <div class="annee-header reveal">
+    <span class="annee-num">2026</span>
+    <span class="annee-count">5 espaces</span>
+  </div>
+
+  <!-- Desert Mirage -->
+  <a href="art.html#desert" class="event-row reveal" data-type="residence">
+    <div class="event-date-col">
+      <span class="event-mois">Déc.</span>
+      <span class="event-jour">10 — 21</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">Desert Mirage Journey</div>
+      <div class="event-meta">
+        <span class="event-lieu">Sahara marocain</span>
+        <span class="event-lieu">12 jours</span>
+        <span class="event-lieu">Avec Yi Chen</span>
+      </div>
+      <div class="event-desc">
+        Une résidence artistique et initiatique dans le désert. Thème 2026 : 間 Ma — l'espace entre les choses.
+      </div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-residence">Résidence</span>
+      <span class="event-statut ouvert">Inscriptions ouvertes</span>
+      <span class="event-cta">Découvrir →</span>
+    </div>
+  </a>
+
+  <!-- Brotherhood Circle Pologne -->
+  <a href="hommes.html#offres" class="event-row reveal" data-type="retraite">
+    <div class="event-date-col">
+      <span class="event-mois">Automne</span>
+      <span class="event-jour">À venir</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">Brotherhood Circle — Pologne</div>
+      <div class="event-meta">
+        <span class="event-lieu">Pologne</span>
+        <span class="event-lieu">Plusieurs jours</span>
+      </div>
+      <div class="event-desc">
+        Une retraite immersive pour retrouver la fraternité, le feu et la verticalité. Après Hommes Sauvages.
+      </div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-retraite">Retraite hommes</span>
+      <span class="event-statut ouvert">Liste d'attente</span>
+      <span class="event-cta">Rejoindre →</span>
+    </div>
+  </a>
+
+  <!-- Hommes Sauvages -->
+  <a href="hommes.html#offres" class="event-row reveal" data-type="retraite">
+    <div class="event-date-col">
+      <span class="event-mois">Août</span>
+      <span class="event-jour">À confirmer</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">Hommes Sauvages</div>
+      <div class="event-meta">
+        <span class="event-lieu">Nature</span>
+        <span class="event-lieu">Lun. — Sam.</span>
+        <span class="event-lieu">Avec Alex</span>
+      </div>
+      <div class="event-desc">
+        5 jours d'immersion — présence au vivant, mouvement et fraternité. Cérémonies, rituels, hutte de sudation.
+      </div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-retraite">Immersion</span>
+      <span class="event-statut ouvert">Dates à confirmer</span>
+      <span class="event-cta">Être informé →</span>
+    </div>
+  </a>
+
+  <!-- IN CARNE Saison 1 -->
+  <a href="hommes.html#offres" class="event-row reveal" data-type="programme">
+    <div class="event-date-col">
+      <span class="event-mois">Mars</span>
+      <span class="event-jour">Saison 1</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">IN CARNE — Programme 120 jours</div>
+      <div class="event-meta">
+        <span class="event-lieu">En ligne</span>
+        <span class="event-lieu">120 jours</span>
+      </div>
+      <div class="event-desc">
+        Un voyage initiatique à travers 8 archétypes. 3 phases : Purifier, Forger, Rayonner. Saison 1 en cours.
+      </div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-programme">Programme</span>
+      <span class="event-statut encours">En cours</span>
+      <span class="event-cta">Liste d'attente →</span>
+    </div>
+  </a>
+
+  <!-- Tribu Morpho -->
+  <a href="entrepreneurs.html#tribu" class="event-row reveal" data-type="programme">
+    <div class="event-date-col">
+      <span class="event-mois">Continu</span>
+      <span class="event-jour">Ouvert</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">La Tribu Morpho</div>
+      <div class="event-meta">
+        <span class="event-lieu">En ligne</span>
+        <span class="event-lieu">Mensuel</span>
+      </div>
+      <div class="event-desc">
+        Incubateur vivant pour entrepreneurs créatifs. Sessions de mentorat collectif, communauté, co-création.
+      </div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-programme">Communauté</span>
+      <span class="event-statut ouvert">Inscriptions ouvertes</span>
+      <span class="event-cta">Rejoindre →</span>
+    </div>
+  </a>
+
+  <!-- Séparateur passé -->
+  <div class="annee-header reveal" style="margin-top: 40px;">
+    <span class="annee-num" style="font-size:32px; color: var(--faint);">Passés</span>
+    <span class="annee-count">Quelques espaces traversés</span>
+  </div>
+
+  <!-- Season 0 IN CARNE -->
+  <div class="event-row passe reveal" data-type="programme" style="cursor:default;">
+    <div class="event-date-col">
+      <span class="event-mois">2025</span>
+      <span class="event-jour">Saison 0</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">IN CARNE — Saison 0</div>
+      <div class="event-meta">
+        <span class="event-lieu">En ligne</span>
+      </div>
+      <div class="event-desc">Première cohorte — Matthieu, Christophe, David, Jeremy.</div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-programme">Programme</span>
+      <span class="event-statut complet">Terminé</span>
+    </div>
+  </div>
+
+  <!-- Brotherhood Maroc -->
+  <div class="event-row passe reveal" data-type="retraite" style="cursor:default;">
+    <div class="event-date-col">
+      <span class="event-mois">2025</span>
+      <span class="event-jour">Édition</span>
+    </div>
+    <div class="event-body">
+      <div class="event-titre">Brotherhood Circle — Maroc</div>
+      <div class="event-meta">
+        <span class="event-lieu">Désert · Essaouira</span>
+      </div>
+      <div class="event-desc">Retraite d'hommes au Sahara marocain et à Essaouira.</div>
+    </div>
+    <div class="event-right">
+      <span class="event-tag tag-retraite">Retraite</span>
+      <span class="event-statut complet">Terminé</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- RÉCURRENTS -->
+<section id="recurrents">
+  <div class="section-label reveal" style="font-family:'Lora',serif; font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--coral); margin-bottom:14px;">Espaces réguliers</div>
+  <div class="recurrents-title reveal">Ce qui revient,<br>tous les 15 jours.</div>
+
+  <div class="recurrents-grid">
+
+    <a href="https://chat.whatsapp.com/DGdAPAUZMAOBBNSf0pnqz7?mode=gi_t" target="_blank" class="recurrent-card reveal">
+      <div class="recurrent-rythme">Tous les 15 jours · Gratuit</div>
+      <div class="recurrent-titre">Le Chaudron</div>
+      <div class="recurrent-desc">
+        Un cercle de parole pour les hommes. On pose les masques, on s'écoute vraiment, on se retrouve. Un espace ouvert, sans engagement.
+      </div>
+      <div class="recurrent-meta">Mardi à 17h30 · Rejoindre sur WhatsApp →</div>
+    </a>
+
+    <a href="entrepreneurs.html#tribu" class="recurrent-card reveal" style="border-bottom-color:var(--yellow);">
+      <div class="recurrent-rythme" style="color:var(--yellow);">Mensuel · La Tribu Morpho</div>
+      <div class="recurrent-titre">Mentorat collectif</div>
+      <div class="recurrent-desc">
+        Sessions de mentorat collectif pour les membres de la Tribu Morpho. Co-création, partage, avancées concrètes.
+      </div>
+      <div class="recurrent-meta">1 fois par mois · Membres Tribu Morpho →</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-title reveal">
+    Ne manque pas<br>les prochains espaces.
+  </div>
+  <div class="newsletter-body reveal">
+    Reçois les dates en avant-première — retraites, programmes, cercles — avant l'annonce publique.
+  </div>
+  <div class="newsletter-form reveal">
+    <input type="email" class="newsletter-input" placeholder="ton@email.com">
+    <button class="newsletter-btn">S'inscrire →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Anys Mechkar</div>
+  <ul class="footer-links">
+    <li><a href="story.html">Mon chemin</a></li>
+    <li><a href="art.html">Univers artistique</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="footer-note">neoqii · 2026</div>
+</footer>
+
+<script src="nav.js"></script>
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Filtres
+  const filtres = document.querySelectorAll('.filtre-btn');
+  const rows = document.querySelectorAll('.event-row[data-type]');
+
+  filtres.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filtres.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const type = btn.dataset.type;
+      rows.forEach(row => {
+        if (type === 'tous' || row.dataset.type === type) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
