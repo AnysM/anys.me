@@ -2,82 +2,137 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const items = (await getCollection('agenda'))
-  .filter((e) => e.data.publie)
-  .sort((a, b) => {
-    const da = a.data.date ? a.data.date.getTime() : Infinity;
-    const db = b.data.date ? b.data.date.getTime() : Infinity;
-    return da - db || a.data.ordre - b.data.ordre;
-  })
-  .slice(0, 3);
+const dates = (await getCollection('agenda'))
+  .filter((e) => e.data.publie && e.data.date)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+  .slice(0, 4);
 
-const fmt = (d) => d ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d) : 'Dates à venir';
+const fmt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+
+const temoins = [
+  { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
+  { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
+  { t: "Infloressence, c'est un voyage sonore et poétique où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
+];
 ---
 <Base title="Anys Mechkar">
-  <section style="padding-top: 26vh;">
+  <!-- HERO -->
+  <section style="padding-top: clamp(4rem, 12vh, 8rem); padding-bottom: clamp(3rem, 8vw, 5rem);">
     <div class="wrap">
-      <p class="eyebrow">Présence, soin, accompagnement</p>
-      <h1>Anys <em>Mechkar</em></h1>
-      <p style="margin-top: 1.4rem; font-size: 1.2rem;">
-        J'accompagne celles et ceux qui traversent un passage. Des soins du corps,
-        des espaces individuels et collectifs, et des expériences qui se vivent en présence.
+      <h1 style="max-width: 15ch;">Revenir à sa couleur.</h1>
+      <p class="lead" style="margin-top: 1.6rem;">
+        Soins du corps, accompagnement et espaces de présence. Par le corps,
+        le mouvement et la création, depuis un endroit de non-effort.
       </p>
-      <div style="margin-top: 2.2rem; display:flex; gap: 1rem; flex-wrap: wrap;">
+      <div style="margin-top: 2.2rem; display:flex; gap: 0.9rem; flex-wrap: wrap;">
         <a class="btn btn--solid" href="/agenda">Voir l'agenda</a>
         <a class="btn" href="/soins">Les soins</a>
       </div>
     </div>
   </section>
 
-  <section style="background: var(--surface); padding-top: clamp(3rem,7vw,5rem); padding-bottom: clamp(3rem,7vw,5rem);">
-    <div class="wrap">
-      <p class="eyebrow">À venir</p>
-      <h2>Prochaines dates</h2>
-      {items.length === 0 ? (
-        <p><em>Les prochaines propositions seront annoncées ici.</em></p>
-      ) : (
-        <div class="grid" style="margin-top: 1.6rem;">
-          {items.map((e) => (
-            <a class="card" href={e.data.lien ?? '/agenda'} style="text-decoration:none;">
-              <span class="card__tag">{e.data.categorie}</span>
-              <span class="card__date">{fmt(e.data.date)}</span>
-              <span class="card__title">{e.data.titre}</span>
-              {e.data.resume && <p style="color:var(--muted); font-size:0.95rem;">{e.data.resume}</p>}
-              <span class="card__meta">{e.data.lieu}</span>
-            </a>
-          ))}
-        </div>
-      )}
-      <p style="margin-top: 1.8rem;"><a class="btn" href="/agenda">Tout l'agenda</a></p>
+  <!-- PRESENTATION -->
+  <section style="background: var(--paper2); padding-top: clamp(3rem,7vw,5rem); padding-bottom: clamp(3rem,7vw,5rem);">
+    <div class="wrap split">
+      <h2 style="margin:0;">Qui je suis</h2>
+      <div>
+        <p>J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur, une question sans réponse évidente.</p>
+        <p>La réponse est venue par le corps. Par le Butoh, les arts internes, la méditation, la peinture. Des pratiques qui ne m'ont pas appris à faire mieux, mais à me souvenir de ce que j'étais déjà.</p>
+        <p>Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel, à travers des soins, un cheminement individuel ou collectif, et des expériences qui se vivent en présence. Guide, créateur et initiateur.</p>
+      </div>
     </div>
   </section>
 
+  <!-- OFFRES -->
   <section>
     <div class="wrap">
-      <div class="grid">
-        <div class="card">
-          <span class="card__tag">soins</span>
-          <span class="card__title">Massage à l'huile & soin énergétique</span>
-          <p style="color:var(--muted); font-size:0.95rem;">Un temps pour le corps, réservable en ligne.</p>
-          <span class="card__meta"><a href="/soins" style="color:var(--yellow); text-decoration:none;">Découvrir →</a></span>
+      <h2>Ce que je propose</h2>
+      <div class="offres" style="margin-top: 2.4rem;">
+        <div class="offre">
+          <h3>Soins</h3>
+          <p>Massage à l'huile et soin énergétique. Un temps pour le corps, à réserver en ligne.</p>
+          <a href="/soins">Découvrir les soins</a>
         </div>
-        <div class="card">
-          <span class="card__tag">accompagnement</span>
-          <span class="card__title">En individuel & en collectif</span>
-          <p style="color:var(--muted); font-size:0.95rem;">Un chemin personnel, ou un cheminement à plusieurs.</p>
-          <span class="card__meta"><a href="/accompagnement" style="color:var(--yellow); text-decoration:none;">Découvrir →</a></span>
+        <div class="offre">
+          <h3>Accompagnement</h3>
+          <p>Un chemin en individuel, ou un cheminement à plusieurs en collectif.</p>
+          <a href="/accompagnement">En savoir plus</a>
         </div>
-        <div class="card">
-          <span class="card__tag">art</span>
-          <span class="card__title">Indigo Enoqii</span>
-          <p style="color:var(--muted); font-size:0.95rem;">Mon univers artistique et mes œuvres.</p>
-          <span class="card__meta"><a href="https://enoqii.art" target="_blank" rel="noopener" style="color:var(--yellow); text-decoration:none;">Visiter ↗</a></span>
+        <div class="offre">
+          <h3>Ateliers et voyages sonores</h3>
+          <p>Infloressence à Chanka Studio, et les voyages sonores immersifs.</p>
+          <a href="/agenda">Voir les dates</a>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- AGENDA -->
+  <section style="background: var(--paper2);">
+    <div class="wrap">
+      <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
+        <h2 style="margin:0;">Prochaines dates</h2>
+        <a href="/agenda" style="text-decoration:none; font-weight:500;">Tout l'agenda</a>
+      </div>
+      <div style="margin-top: 1.8rem;">
+        {dates.length === 0 ? (
+          <p class="muted">Les prochaines dates seront publiées ici.</p>
+        ) : dates.map((e) => (
+          <div class="evt">
+            <div class="evt__date">{fmt(e.data.date)}</div>
+            <div>
+              <div class="evt__title">{e.data.titre}</div>
+              <div class="evt__meta">
+                {e.data.lieu}
+                {e.data.lien && <> · <a href={e.data.lien}>{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a></>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMOIGNAGES -->
+  <section class="temoins">
+    <div class="wrap">
+      <h2>Ils l'ont traversé</h2>
+      <div class="grid">
+        {temoins.map((x) => (
+          <div class="temoin">
+            <p>{x.t}</p>
+            <cite><b>{x.n}</b><br />{x.c}</cite>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENAIRES -->
+  <section>
+    <div class="wrap">
+      <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
+        <h2 style="margin:0;">Partenaires</h2>
+        <a href="/partenaires" style="text-decoration:none; font-weight:500;">Les découvrir</a>
+      </div>
+      <div class="parts">
+        <div class="part"><div class="part__name">Meïsō</div><div class="part__desc">Flottaison et bien-être, Lyon.</div></div>
+        <div class="part"><div class="part__name">Chanka Studio</div><div class="part__desc"><a href="https://chanka-studio-lyon.fr" target="_blank" rel="noopener">Arts et pratiques, Lyon.</a></div></div>
+        <div class="part"><div class="part__name">Blast</div><div class="part__desc">Collectif artistique.</div></div>
+        <div class="part"><div class="part__name">TAMAKEAPA</div><div class="part__desc">Partenaire.</div></div>
+        <div class="part"><div class="part__name">Espriterre</div><div class="part__desc">Le travail d'Alex, en nature.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ART -->
+  <section style="background: var(--ink); color: var(--paper); padding: clamp(3rem,7vw,4.5rem) 0;">
+    <div class="wrap" style="display:flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+      <div>
+        <h2 style="color: var(--paper); margin-bottom: 0.3rem;">Indigo Enoqii</h2>
+        <p style="color:#D9D8E6;">Mon univers artistique et mes œuvres.</p>
+      </div>
+      <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener" style="color: var(--paper); border-color: var(--paper);">Visiter la boutique</a>
+    </div>
+  </section>
 </Base>
-
-<!-- refonte deploy trigger -->
-
-<!-- trigger 1789167676 -->

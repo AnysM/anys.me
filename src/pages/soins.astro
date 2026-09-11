@@ -2,29 +2,28 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Soins — Anys Mechkar">
-  <section style="padding-top: 22vh;">
+  <section style="padding-top: clamp(3rem, 9vh, 6rem);">
     <div class="narrow">
-      <p class="eyebrow">Le corps comme porte</p>
       <h1>Soins</h1>
+      <p class="lead" style="margin-top: 1.2rem;">Un temps pour le corps, réservable en ligne.</p>
 
       <div style="margin-top: 2.6rem;">
-        <h2>Massage à l'huile</h2>
-        <p>Un soin du corps enveloppant, à l'huile chaude. Un temps de relâchement profond où le toucher redonne de l'espace et de la présence.</p>
-        <p style="color:var(--muted); margin-top:0.6rem;"><em>Durée et tarif à préciser.</em></p>
+        <h3>Massage à l'huile</h3>
+        <p>Un soin du corps enveloppant, à l'huile chaude. Un relâchement profond, où le toucher redonne de l'espace et de la présence.</p>
+        <p class="muted" style="margin-top:0.4rem;">Durée et tarif à préciser.</p>
       </div>
 
-      <div style="margin-top: 2.6rem;">
-        <h2>Soin énergétique</h2>
+      <div style="margin-top: 2.4rem;">
+        <h3>Soin énergétique</h3>
         <p>Un accompagnement plus subtil, à l'écoute des mouvements internes, pour dénouer et remettre en circulation.</p>
-        <p style="color:var(--muted); margin-top:0.6rem;"><em>Durée et tarif à préciser.</em></p>
+        <p class="muted" style="margin-top:0.4rem;">Durée et tarif à préciser.</p>
       </div>
 
-      <div style="margin-top: 2.8rem;">
+      <div style="margin-top: 2.6rem;">
         <a class="btn btn--solid" href="#reserver">Réserver un créneau</a>
       </div>
-
-      <div id="reserver" style="margin-top: 2.4rem; padding: 1.6rem; border: 1px dashed var(--faint); border-radius: 4px; color: var(--muted);">
-        <em>Emplacement du calendrier de réservation (Cal.com + paiement Stripe). À brancher une fois ton compte créé.</em>
+      <div id="reserver" style="margin-top: 1.6rem; padding: 1.4rem 1.6rem; border: 1px solid var(--faint); border-radius: 8px; background:#fff; color: var(--muted);">
+        Emplacement du calendrier de réservation et de paiement. À brancher une fois ton compte prêt.
       </div>
     </div>
   </section>

@@ -2,37 +2,55 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const items = (await getCollection('agenda'))
-  .filter((e) => e.data.publie)
-  .sort((a, b) => {
-    const da = a.data.date ? a.data.date.getTime() : Infinity;
-    const db = b.data.date ? b.data.date.getTime() : Infinity;
-    return da - db || a.data.ordre - b.data.ordre;
-  });
+const all = (await getCollection('agenda')).filter((e) => e.data.publie);
+const dates = all
+  .filter((e) => e.data.date)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const sansDate = all
+  .filter((e) => !e.data.date)
+  .sort((a, b) => a.data.ordre - b.data.ordre);
 
-const fmt = (d) => d ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d) : 'Dates à venir';
+const fmt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
 ---
 <Base title="Agenda — Anys Mechkar">
-  <section style="padding-top: 22vh;">
+  <section style="padding-top: clamp(3rem, 9vh, 6rem);">
     <div class="wrap">
-      <p class="eyebrow">Ce qui arrive</p>
       <h1>Agenda</h1>
-      <p style="margin-top: 1.2rem;">Soins, ateliers, retraites, immersions et voyages sonores. Chaque proposition à sa date.</p>
+      <p class="lead" style="margin-top: 1.2rem;">Ateliers, retraites, immersions et voyages sonores. Chaque proposition à sa date.</p>
 
-      {items.length === 0 ? (
-        <p style="margin-top:2rem;"><em>Les prochaines dates seront publiées ici.</em></p>
-      ) : (
-        <div class="grid" style="margin-top: 2.4rem;">
-          {items.map((e) => (
-            <div class="card">
-              <span class="card__tag">{e.data.categorie}</span>
-              <span class="card__date">{fmt(e.data.date)}</span>
-              <span class="card__title">{e.data.titre}</span>
-              {e.data.resume && <p style="color:var(--muted); font-size:0.95rem;">{e.data.resume}</p>}
-              <span class="card__meta">
+      <div style="margin-top: 2.8rem;">
+        {dates.length === 0 ? (
+          <p class="muted">Les prochaines dates seront publiées ici.</p>
+        ) : dates.map((e) => (
+          <div class="evt">
+            <div class="evt__date">{fmt(e.data.date)}</div>
+            <div>
+              <div class="evt__title">{e.data.titre}</div>
+              {e.data.resume && <p class="evt__meta">{e.data.resume}</p>}
+              <div class="evt__meta">
                 {e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}
-                {e.data.lien && <><br /><a href={e.data.lien} target="_blank" rel="noopener" style="color:var(--yellow); text-decoration:none;">{e.data.reservable ? 'Réserver ↗' : 'En savoir plus ↗'}</a></>}
-              </span>
+                {e.data.lien && <> · <a href={e.data.lien}>{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a></>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {sansDate.length > 0 && (
+        <div style="margin-top: 3.5rem;">
+          <h2>En continu et sur inscription</h2>
+          <p class="muted" style="margin-bottom: 1rem;">Des propositions régulières ou dont les dates s'annoncent au fil de l'eau.</p>
+          {sansDate.map((e) => (
+            <div class="evt">
+              <div class="evt__date">Sur inscription</div>
+              <div>
+                <div class="evt__title">{e.data.titre}</div>
+                {e.data.resume && <p class="evt__meta">{e.data.resume}</p>}
+                <div class="evt__meta">
+                  {e.data.lieu}
+                  {e.data.lien && <> · <a href={e.data.lien}>En savoir plus</a></>}
+                </div>
+              </div>
             </div>
           ))}
         </div>

@@ -2,26 +2,24 @@
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Accompagnement — Anys Mechkar">
-  <section style="padding-top: 22vh;">
+  <section style="padding-top: clamp(3rem, 9vh, 6rem);">
     <div class="narrow">
-      <p class="eyebrow">Cheminer</p>
       <h1>Accompagnement</h1>
+      <p class="lead" style="margin-top: 1.2rem;">Un chemin en individuel, ou un cheminement à plusieurs.</p>
 
       <div style="margin-top: 2.6rem;">
-        <h2>En individuel</h2>
+        <h3>En individuel</h3>
         <p>Un espace à toi, dans la durée, pour traverser un passage et retrouver ta direction. On avance à ton rythme, au plus près de ce qui se joue.</p>
-        <div style="margin-top: 1.2rem;">
-          <a class="btn btn--solid" href="#reserver-1-1">Prendre rendez-vous</a>
-        </div>
-        <div id="reserver-1-1" style="margin-top: 1.6rem; padding: 1.6rem; border: 1px dashed var(--faint); border-radius: 4px; color: var(--muted);">
-          <em>Emplacement de la prise de rendez-vous (Cal.com + Stripe).</em>
+        <div style="margin-top: 1rem;"><a class="btn btn--solid" href="#rdv">Prendre rendez-vous</a></div>
+        <div id="rdv" style="margin-top: 1.4rem; padding: 1.4rem 1.6rem; border: 1px solid var(--faint); border-radius: 8px; background:#fff; color: var(--muted);">
+          Emplacement de la prise de rendez-vous et du paiement.
         </div>
       </div>
 
       <div style="margin-top: 3rem;">
-        <h2>En collectif</h2>
-        <p>Un cheminement à plusieurs, pour ceux qui avancent mieux en groupe. Cette proposition est en préparation.</p>
-        <p style="color:var(--muted); margin-top:0.6rem;"><em>En préparation. Les contours seront précisés bientôt.</em></p>
+        <h3>En collectif</h3>
+        <p>Un cheminement de groupe, pour ceux qui avancent mieux à plusieurs. Cette proposition remplacera IN CARNE et La Tribu Morpho.</p>
+        <p class="muted" style="margin-top:0.4rem;">En préparation. Les contours seront précisés bientôt.</p>
       </div>
     </div>
   </section>

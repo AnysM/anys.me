@@ -1,27 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
-
 const partenaires = [
-  { nom: 'Meïsō', desc: 'Centre de flottaison et de bien-être, Lyon.', lien: '' },
-  { nom: 'Chanka Studio', desc: 'Studio où se tiennent les ateliers Infloressence.', lien: 'https://chanka-studio-lyon.fr' },
+  { nom: 'Meïsō', desc: 'Centre de flottaison et de bien-être, à Lyon.', lien: '' },
+  { nom: 'Chanka Studio', desc: "Studio d'arts et de pratiques à Lyon, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
   { nom: 'Blast', desc: 'Collectif artistique.', lien: '' },
-  { nom: 'TAMAKEAPA', desc: '', lien: '' },
+  { nom: 'TAMAKEAPA', desc: 'Partenaire.', lien: '' },
   { nom: 'Espriterre', desc: "Le travail d'Alex, en nature.", lien: '' },
 ];
 ---
 <Base title="Partenaires — Anys Mechkar">
-  <section style="padding-top: 22vh;">
+  <section style="padding-top: clamp(3rem, 9vh, 6rem);">
     <div class="wrap">
-      <p class="eyebrow">Compagnons de route</p>
       <h1>Partenaires</h1>
-      <p style="margin-top: 1.2rem;">Les lieux, collectifs et personnes avec qui je crée.</p>
-
-      <div class="grid" style="margin-top: 2.4rem;">
+      <p class="lead" style="margin-top: 1.2rem;">Les lieux, collectifs et personnes avec qui je crée.</p>
+      <div class="parts" style="margin-top: 2.6rem;">
         {partenaires.map((p) => (
-          <div class="card">
-            <span class="card__title">{p.nom}</span>
-            {p.desc && <p style="color:var(--muted); font-size:0.95rem;">{p.desc}</p>}
-            {p.lien && <span class="card__meta"><a href={p.lien} target="_blank" rel="noopener" style="color:var(--yellow); text-decoration:none;">Visiter ↗</a></span>}
+          <div class="part">
+            <div class="part__name">{p.nom}</div>
+            <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.desc}</a> : p.desc}</div>
           </div>
         ))}
       </div>
