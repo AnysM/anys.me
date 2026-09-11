@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+
+const partenaires = [
+  { nom: 'Meïsō', desc: 'Centre de flottaison et de bien-être, Lyon.', lien: '' },
+  { nom: 'Chanka Studio', desc: 'Studio où se tiennent les ateliers Infloressence.', lien: 'https://chanka-studio-lyon.fr' },
+  { nom: 'Blast', desc: 'Collectif artistique.', lien: '' },
+  { nom: 'TAMAKEAPA', desc: '', lien: '' },
+  { nom: 'Espriterre', desc: "Le travail d'Alex, en nature.", lien: '' },
+];
+---
+<Base title="Partenaires — Anys Mechkar">
+  <section style="padding-top: 22vh;">
+    <div class="wrap">
+      <p class="eyebrow">Compagnons de route</p>
+      <h1>Partenaires</h1>
+      <p style="margin-top: 1.2rem;">Les lieux, collectifs et personnes avec qui je crée.</p>
+
+      <div class="grid" style="margin-top: 2.4rem;">
+        {partenaires.map((p) => (
+          <div class="card">
+            <span class="card__title">{p.nom}</span>
+            {p.desc && <p style="color:var(--muted); font-size:0.95rem;">{p.desc}</p>}
+            {p.lien && <span class="card__meta"><a href={p.lien} target="_blank" rel="noopener" style="color:var(--yellow); text-decoration:none;">Visiter ↗</a></span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

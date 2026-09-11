@@ -1,0 +1,128 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:    #0E0C0A;
+  --surface:  #181410;
+  --surface2: #201A14;
+  --cream:    #F0EAE1;
+  --muted:    #8C7E72;
+  --faint:    #2E2620;
+  --blue:     #1B3A7A;
+  --coral:    #C45C3A;
+  --yellow:   #D4942A;
+  --measure:  68ch;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: 'Lora', serif;
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.35;
+}
+
+h1, h2, h3, .display {
+  font-family: 'EB Garamond', serif;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+h1 { font-size: clamp(2.4rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin-bottom: 0.6em; }
+h3 { font-size: 1.25rem; }
+
+p { max-width: var(--measure); }
+p + p { margin-top: 1em; }
+
+a { color: inherit; }
+
+em { color: var(--muted); font-style: italic; }
+
+.wrap { width: min(92%, 1080px); margin-inline: auto; }
+.narrow { width: min(92%, 720px); margin-inline: auto; }
+
+section { padding: clamp(4rem, 10vw, 7rem) 0; }
+
+.eyebrow {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: 'EB Garamond', serif;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+  padding: 0.75em 1.6em;
+  border: 1px solid var(--muted);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn:hover { background: var(--cream); color: var(--black); border-color: var(--cream); }
+.btn--solid { background: var(--coral); border-color: var(--coral); color: var(--cream); }
+.btn--solid:hover { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px clamp(20px, 5vw, 48px);
+  background: linear-gradient(to bottom, var(--black) 55%, transparent);
+}
+.nav__logo {
+  font-family: 'EB Garamond', serif; font-size: 19px; letter-spacing: 0.05em;
+  text-decoration: none;
+}
+.nav__logo em { color: var(--muted); }
+.nav__links { display: flex; gap: clamp(14px, 2.4vw, 30px); align-items: center; }
+.nav__links a {
+  font-family: 'EB Garamond', serif; font-size: 15px; letter-spacing: 0.03em;
+  text-decoration: none; color: var(--cream); opacity: 0.82; transition: opacity 0.25s;
+}
+.nav__links a:hover { opacity: 1; }
+.nav__links a.ext { color: var(--yellow); }
+@media (max-width: 760px) {
+  .nav__links { gap: 12px; font-size: 13px; flex-wrap: wrap; justify-content: flex-end; max-width: 62%; }
+}
+
+/* FOOTER */
+.foot { border-top: 1px solid var(--faint); padding: 3rem 0; color: var(--muted); font-size: 0.9rem; }
+.foot a { color: var(--muted); text-decoration: none; }
+.foot a:hover { color: var(--cream); }
+.foot__row { display: flex; flex-wrap: wrap; gap: 1.4rem; justify-content: space-between; align-items: baseline; }
+
+/* CARDS (agenda) */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.4rem; }
+.card {
+  background: var(--surface); border: 1px solid var(--faint); border-radius: 4px;
+  padding: 1.8rem; display: flex; flex-direction: column; gap: 0.7rem;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.card:hover { border-color: var(--muted); transform: translateY(-2px); }
+.card__tag {
+  font-family: 'EB Garamond', serif; font-style: italic; color: var(--yellow);
+  font-size: 0.85rem; letter-spacing: 0.05em; text-transform: lowercase;
+}
+.card__date { color: var(--muted); font-size: 0.9rem; }
+.card__title { font-family: 'EB Garamond', serif; font-size: 1.4rem; }
+.card__meta { color: var(--muted); font-size: 0.9rem; margin-top: auto; }

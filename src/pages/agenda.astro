@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('agenda'))
+  .filter((e) => e.data.publie)
+  .sort((a, b) => {
+    const da = a.data.date ? a.data.date.getTime() : Infinity;
+    const db = b.data.date ? b.data.date.getTime() : Infinity;
+    return da - db || a.data.ordre - b.data.ordre;
+  });
+
+const fmt = (d) => d ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d) : 'Dates à venir';
+---
+<Base title="Agenda — Anys Mechkar">
+  <section style="padding-top: 22vh;">
+    <div class="wrap">
+      <p class="eyebrow">Ce qui arrive</p>
+      <h1>Agenda</h1>
+      <p style="margin-top: 1.2rem;">Soins, ateliers, retraites, immersions et voyages sonores. Chaque proposition à sa date.</p>
+
+      {items.length === 0 ? (
+        <p style="margin-top:2rem;"><em>Les prochaines dates seront publiées ici.</em></p>
+      ) : (
+        <div class="grid" style="margin-top: 2.4rem;">
+          {items.map((e) => (
+            <div class="card">
+              <span class="card__tag">{e.data.categorie}</span>
+              <span class="card__date">{fmt(e.data.date)}</span>
+              <span class="card__title">{e.data.titre}</span>
+              {e.data.resume && <p style="color:var(--muted); font-size:0.95rem;">{e.data.resume}</p>}
+              <span class="card__meta">
+                {e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}
+                {e.data.lien && <><br /><a href={e.data.lien} target="_blank" rel="noopener" style="color:var(--yellow); text-decoration:none;">{e.data.reservable ? 'Réserver ↗' : 'En savoir plus ↗'}</a></>}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

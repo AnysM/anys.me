@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('agenda'))
+  .filter((e) => e.data.publie)
+  .sort((a, b) => {
+    const da = a.data.date ? a.data.date.getTime() : Infinity;
+    const db = b.data.date ? b.data.date.getTime() : Infinity;
+    return da - db || a.data.ordre - b.data.ordre;
+  })
+  .slice(0, 3);
+
+const fmt = (d) => d ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d) : 'Dates à venir';
+---
+<Base title="Anys Mechkar">
+  <section style="padding-top: 26vh;">
+    <div class="wrap">
+      <p class="eyebrow">Présence, soin, accompagnement</p>
+      <h1>Anys <em>Mechkar</em></h1>
+      <p style="margin-top: 1.4rem; font-size: 1.2rem;">
+        J'accompagne celles et ceux qui traversent un passage. Des soins du corps,
+        des espaces individuels et collectifs, et des expériences qui se vivent en présence.
+      </p>
+      <div style="margin-top: 2.2rem; display:flex; gap: 1rem; flex-wrap: wrap;">
+        <a class="btn btn--solid" href="/agenda">Voir l'agenda</a>
+        <a class="btn" href="/soins">Les soins</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: var(--surface); padding-top: clamp(3rem,7vw,5rem); padding-bottom: clamp(3rem,7vw,5rem);">
+    <div class="wrap">
+      <p class="eyebrow">À venir</p>
+      <h2>Prochaines dates</h2>
+      {items.length === 0 ? (
+        <p><em>Les prochaines propositions seront annoncées ici.</em></p>
+      ) : (
+        <div class="grid" style="margin-top: 1.6rem;">
+          {items.map((e) => (
+            <a class="card" href={e.data.lien ?? '/agenda'} style="text-decoration:none;">
+              <span class="card__tag">{e.data.categorie}</span>
+              <span class="card__date">{fmt(e.data.date)}</span>
+              <span class="card__title">{e.data.titre}</span>
+              {e.data.resume && <p style="color:var(--muted); font-size:0.95rem;">{e.data.resume}</p>}
+              <span class="card__meta">{e.data.lieu}</span>
+            </a>
+          ))}
+        </div>
+      )}
+      <p style="margin-top: 1.8rem;"><a class="btn" href="/agenda">Tout l'agenda</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid">
+        <div class="card">
+          <span class="card__tag">soins</span>
+          <span class="card__title">Massage à l'huile & soin énergétique</span>
+          <p style="color:var(--muted); font-size:0.95rem;">Un temps pour le corps, réservable en ligne.</p>
+          <span class="card__meta"><a href="/soins" style="color:var(--yellow); text-decoration:none;">Découvrir →</a></span>
+        </div>
+        <div class="card">
+          <span class="card__tag">accompagnement</span>
+          <span class="card__title">En individuel & en collectif</span>
+          <p style="color:var(--muted); font-size:0.95rem;">Un chemin personnel, ou un cheminement à plusieurs.</p>
+          <span class="card__meta"><a href="/accompagnement" style="color:var(--yellow); text-decoration:none;">Découvrir →</a></span>
+        </div>
+        <div class="card">
+          <span class="card__tag">art</span>
+          <span class="card__title">Indigo Enoqii</span>
+          <p style="color:var(--muted); font-size:0.95rem;">Mon univers artistique et mes œuvres.</p>
+          <span class="card__meta"><a href="https://enoqii.art" target="_blank" rel="noopener" style="color:var(--yellow); text-decoration:none;">Visiter ↗</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+const { title = 'Anys Mechkar', description = "Soins, accompagnements et agenda d'Anys Mechkar." } = Astro.props;
+const path = Astro.url.pathname;
+const on = (p) => path === p ? ' style="opacity:1"' : '';
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav__logo" href="/">Anys <em>Mechkar</em></a>
+    <div class="nav__links">
+      <a href="/agenda">Agenda</a>
+      <a href="/soins">Soins</a>
+      <a href="/accompagnement">Accompagnement</a>
+      <a href="/partenaires">Partenaires</a>
+      <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art ↗</a>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__row">
+      <span>© {new Date().getFullYear()} Anys Mechkar</span>
+      <span>
+        <a href="/agenda">Agenda</a> ·
+        <a href="/soins">Soins</a> ·
+        <a href="/accompagnement">Accompagnement</a> ·
+        <a href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+      </span>
+      <a href="mailto:contact@anys.me">contact@anys.me</a>
+    </div>
+  </footer>
+</body>
+</html>
