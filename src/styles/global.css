@@ -27,8 +27,8 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, .display {
-  font-family: 'EB Garamond', Georgia, serif;
+h1, h2, .display {
+  font-family: 'Quintessential', 'Lora', Georgia, serif;
   font-weight: 500;
   line-height: 1.12;
   letter-spacing: 0.005em;
@@ -44,7 +44,7 @@ a { color: var(--cream); text-decoration: none; }
 em { font-style: italic; }
 
 .eyebrow {
-  font-family: 'EB Garamond', serif; color: var(--ochre);
+  font-family: 'Lora', serif; color: var(--ochre);
   letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.82rem;
 }
 
@@ -52,11 +52,11 @@ em { font-style: italic; }
 .narrow  { width: min(88%, 640px);  margin-inline: auto; }
 section  { padding: clamp(4.5rem, 12vw, 8rem) 0; }
 
-.lead  { font-family: 'EB Garamond', serif; font-size: clamp(1.3rem, 2.8vw, 1.7rem); font-style: italic; color: var(--cream); max-width: 30ch; line-height: 1.4; }
+.lead  { font-family: 'Lora', serif; font-size: clamp(1.3rem, 2.8vw, 1.7rem); font-style: italic; color: var(--cream); max-width: 30ch; line-height: 1.4; }
 .muted { color: var(--muted); }
 
 .btn {
-  display: inline-block; font-family: 'EB Garamond', serif; font-size: 1.05rem;
+  display: inline-block; font-family: 'Lora', serif; font-size: 1.05rem;
   letter-spacing: 0.06em; padding: 0.72em 1.9em; border: 1px solid var(--muted);
   border-radius: 1px; color: var(--cream); background: transparent;
   transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
@@ -72,10 +72,11 @@ section  { padding: clamp(4.5rem, 12vw, 8rem) 0; }
   padding: 22px clamp(20px, 5vw, 48px);
   background: linear-gradient(to bottom, var(--night) 72%, transparent);
 }
-.nav__logo { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 22px; letter-spacing: 0.02em; color: var(--cream); }
+.nav__logo { font-family: 'Quintessential', serif; font-size: 22px; letter-spacing: 0.02em; color: var(--cream); }
+.nav__logo em { font-style: normal; color: var(--muted); }
 .nav__logo em { color: var(--muted); }
 .nav__links { display: flex; gap: clamp(16px, 2.4vw, 32px); align-items: center; }
-.nav__links a { font-family: 'EB Garamond', serif; font-size: 16px; letter-spacing: 0.03em; color: var(--cream); opacity: 0.72; transition: opacity 0.2s; }
+.nav__links a { font-family: 'Lora', serif; font-size: 16px; letter-spacing: 0.03em; color: var(--cream); opacity: 0.72; transition: opacity 0.2s; }
 .nav__links a:hover { opacity: 1; }
 .nav__links a.ext { color: var(--ochre); opacity: 0.9; }
 
@@ -94,7 +95,7 @@ section  { padding: clamp(4.5rem, 12vw, 8rem) 0; }
 }
 .menu__links { display: flex; flex-direction: column; gap: clamp(0.6rem, 2.6vh, 1.4rem); }
 .menu__link {
-  font-family: 'EB Garamond', serif; font-weight: 500; font-size: clamp(2.3rem, 11vw, 3.4rem);
+  font-family: 'Quintessential', serif; font-size: clamp(2.2rem, 10vw, 3.2rem);
   letter-spacing: 0.01em; line-height: 1.1; color: var(--cream);
   opacity: 0; transform: translateY(14px);
   transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2,0.7,0.2,1), color 0.25s ease;
@@ -139,8 +140,8 @@ body.menu-open .menu__foot { opacity: 1; transform: none; }
 /* AGENDA */
 .evt { display: grid; grid-template-columns: 10rem 1fr; gap: 1.4rem; padding: 1.8rem 0; border-top: 1px solid var(--faint); }
 .evt:last-child { border-bottom: 1px solid var(--faint); }
-.evt__date { font-family: 'EB Garamond', serif; font-style: italic; color: var(--ochre); font-size: 1.1rem; }
-.evt__title { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.5rem; }
+.evt__date { font-family: 'Lora', serif; font-style: italic; color: var(--ochre); font-size: 1.1rem; }
+.evt__title { font-family: 'Lora', serif; font-weight: 500; font-size: 1.5rem; }
 .evt__meta { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; }
 .evt__meta a { color: var(--cream); border-bottom: 1px solid var(--faint); }
 @media (max-width: 620px) { .evt { grid-template-columns: 1fr; gap: 0.3rem; } }
@@ -148,18 +149,18 @@ body.menu-open .menu__foot { opacity: 1; transform: none; }
 /* TEMOIGNAGES */
 .temoins { background: var(--surface); }
 .temoins .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 3rem; margin-top: 2.6rem; }
-.temoin p { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.3rem; line-height: 1.5; color: var(--cream); }
+.temoin p { font-family: 'Lora', serif; font-style: italic; font-size: 1.3rem; line-height: 1.5; color: var(--cream); }
 .temoin cite { display: block; margin-top: 1rem; font-style: normal; color: var(--muted); font-size: 0.9rem; }
 .temoin cite b { color: var(--ochre); font-weight: 500; }
 
 /* PARTENAIRES */
 .parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 2.2rem; margin-top: 2.4rem; }
-.part__name { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.25rem; }
+.part__name { font-family: 'Lora', serif; font-weight: 500; font-size: 1.25rem; }
 .part__desc { color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem; }
 .part__desc a { color: var(--ochre); }
 
 /* IMAGE (emplacement photo) */
-.photo { width: 100%; aspect-ratio: 4 / 5; background: var(--surface2); border: 1px solid var(--faint); display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: 'EB Garamond', serif; font-style: italic; }
+.photo { width: 100%; aspect-ratio: 4 / 5; background: var(--surface2); border: 1px solid var(--faint); display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: 'Lora', serif; font-style: italic; }
 .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .split { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2rem, 6vw, 4.5rem); align-items: center; }
