@@ -11,35 +11,32 @@ const fmt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'lo
 const temoins = [
   { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
   { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
-  { t: "Un voyage sonore et poétique où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
+  { t: "Un voyage où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
 ];
 ---
 <Base title="Anys Mechkar">
   <!-- HERO -->
-  <section style="padding-top: clamp(4rem, 13vh, 8rem); padding-bottom: clamp(3.5rem, 9vw, 6rem); background: radial-gradient(ellipse at 22% 12%, rgba(123,120,232,0.24), transparent 55%), radial-gradient(ellipse at 92% 96%, rgba(217,97,63,0.10), transparent 52%);">
+  <section style="padding-top: clamp(4rem, 14vh, 9rem); padding-bottom: clamp(4rem, 10vw, 7rem);">
     <div class="wrap">
-      <p class="hand" style="font-size: 1.4rem; margin-bottom: 0.6rem; transform: rotate(-3deg); display: inline-block;">présence</p>
-      <h1 style="max-width: 15ch;">Revenir à sa couleur.</h1>
-      <p class="lead" style="margin-top: 1.6rem;">
-        Soins du corps, accompagnement et espaces de présence. Par le corps,
-        le mouvement et la création, depuis un endroit de non-effort.
-      </p>
-      <div style="margin-top: 2.2rem; display:flex; gap: 0.9rem; flex-wrap: wrap;">
+      <p class="eyebrow">Guide · Créateur · Initiateur</p>
+      <h1 style="max-width: 12ch; margin-top: 1.6rem;">Révéler ta couleur unique.</h1>
+      <p class="lead" style="margin-top: 2rem;">Par le corps, le mouvement, la création, depuis un espace de non-effort.</p>
+      <div style="margin-top: 2.6rem; display:flex; gap: 1rem; flex-wrap: wrap;">
         <a class="btn btn--solid" href="/agenda">Voir l'agenda</a>
         <a class="btn" href="/soins">Les soins</a>
       </div>
     </div>
   </section>
 
-  <!-- PRESENTATION -->
+  <!-- PRESENTATION avec photo -->
   <section style="background: var(--surface);">
     <div class="wrap split">
-      <h2 style="margin:0;">Qui je suis</h2>
+      <div class="photo" aria-label="Portrait d'Anys">Portrait à venir</div>
       <div>
-        <p>J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur, une question sans réponse évidente.</p>
-        <p>La réponse est venue par le corps. Par le Butoh, les arts internes, la méditation, la peinture. Des pratiques qui ne m'ont pas appris à faire mieux, mais à me souvenir de ce que j'étais déjà.</p>
-        <p>Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel, à travers des soins, un cheminement individuel ou collectif, et des expériences qui se vivent en présence. Guide, créateur et initiateur.</p>
-        <p class="hand" style="font-size: 1.5rem; margin-top: 1.4rem;">Anys</p>
+        <p class="eyebrow" style="margin-bottom: 1.2rem;">Qui je suis</p>
+        <p>J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur.</p>
+        <p>La réponse est venue par le corps. Le Butoh, les arts internes, la méditation, la peinture. Des pratiques qui ne m'ont pas appris à faire mieux, mais à me souvenir de ce que j'étais déjà.</p>
+        <p>Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel. Par des soins, un cheminement individuel ou collectif, et des expériences qui se vivent en présence.</p>
       </div>
     </div>
   </section>
@@ -47,21 +44,21 @@ const temoins = [
   <!-- OFFRES -->
   <section>
     <div class="wrap">
-      <h2>Ce que je propose</h2>
-      <div class="offres" style="margin-top: 2.4rem;">
+      <p class="eyebrow">Ce que je propose</p>
+      <div class="offres" style="margin-top: 2.6rem;">
         <div class="offre">
           <h3>Soins</h3>
-          <p>Massage à l'huile et soin énergétique. Un temps pour le corps, à réserver en ligne.</p>
-          <a href="/soins">Découvrir les soins</a>
+          <p>Massage à l'huile et soin énergétique. Un temps pour le corps.</p>
+          <a href="/soins">Découvrir</a>
         </div>
         <div class="offre">
           <h3>Accompagnement</h3>
-          <p>Un chemin en individuel, ou un cheminement à plusieurs en collectif.</p>
+          <p>Un chemin en individuel, ou un cheminement à plusieurs.</p>
           <a href="/accompagnement">En savoir plus</a>
         </div>
         <div class="offre">
           <h3>Ateliers et voyages sonores</h3>
-          <p>Infloressence à Chanka Studio, et les voyages sonores immersifs.</p>
+          <p>Infloressence à Chanka Studio, et les voyages sonores.</p>
           <a href="/agenda">Voir les dates</a>
         </div>
       </div>
@@ -72,10 +69,10 @@ const temoins = [
   <section style="background: var(--surface);">
     <div class="wrap">
       <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
-        <h2 style="margin:0;">Prochaines dates</h2>
-        <a href="/agenda" style="text-decoration:none; font-weight:500; color: var(--ochre);">Tout l'agenda</a>
+        <p class="eyebrow" style="margin:0;">Prochaines dates</p>
+        <a href="/agenda" style="color: var(--ochre); border-bottom: 1px solid var(--faint); padding-bottom: 2px;">Tout l'agenda</a>
       </div>
-      <div style="margin-top: 1.8rem;">
+      <div style="margin-top: 2rem;">
         {dates.length === 0 ? (
           <p class="muted">Les prochaines dates seront publiées ici.</p>
         ) : dates.map((e) => (
@@ -97,7 +94,7 @@ const temoins = [
   <!-- TEMOIGNAGES -->
   <section class="temoins">
     <div class="wrap">
-      <h2>Ils l'ont traversé</h2>
+      <p class="eyebrow">Traversées</p>
       <div class="grid">
         {temoins.map((x) => (
           <div class="temoin">
@@ -112,10 +109,7 @@ const temoins = [
   <!-- PARTENAIRES -->
   <section>
     <div class="wrap">
-      <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
-        <h2 style="margin:0;">Partenaires</h2>
-        <a href="/partenaires" style="text-decoration:none; font-weight:500; color: var(--ochre);">Les découvrir</a>
-      </div>
+      <p class="eyebrow">Partenaires</p>
       <div class="parts">
         <div class="part"><div class="part__name">Meïsō</div><div class="part__desc">Flottaison et bien-être, Lyon.</div></div>
         <div class="part"><div class="part__name">Chanka Studio</div><div class="part__desc"><a href="https://chanka-studio-lyon.fr" target="_blank" rel="noopener">Arts et pratiques, Lyon.</a></div></div>
@@ -127,13 +121,12 @@ const temoins = [
   </section>
 
   <!-- ART -->
-  <section style="background: radial-gradient(ellipse at 50% 120%, rgba(123,120,232,0.28), transparent 60%), var(--indigo-deep);">
-    <div class="wrap" style="display:flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
-      <div>
-        <h2 style="margin-bottom: 0.3rem;">Indigo Enoqii</h2>
-        <p style="color: #D9D5EC;">Mon univers artistique et mes œuvres.</p>
-      </div>
-      <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener">Visiter la boutique</a>
+  <section style="background: var(--surface); text-align: center;">
+    <div class="narrow">
+      <p class="eyebrow">Indigo Enoqii</p>
+      <h2 style="margin-top: 1rem;">Mon univers artistique</h2>
+      <p class="muted" style="margin: 1rem auto 2rem;">Mes œuvres, dans la boutique.</p>
+      <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener">Visiter</a>
     </div>
   </section>
 </Base>
