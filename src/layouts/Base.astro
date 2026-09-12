@@ -1,6 +1,12 @@
 ---
 import '../styles/global.css';
-const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence, à Lyon et ailleurs. Anys Mechkar." } = Astro.props;
+const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur." } = Astro.props;
+const links = [
+  { href: '/agenda', label: 'Agenda' },
+  { href: '/soins', label: 'Soins' },
+  { href: '/accompagnement', label: 'Accompagnement' },
+  { href: '/partenaires', label: 'Partenaires' },
+];
 ---
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,19 +17,29 @@ const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces 
   <meta name="description" content={description} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@300;400;500;600&family=Homemade+Apple&display=swap" rel="stylesheet" />
 </head>
 <body>
   <nav class="nav">
     <a class="nav__logo" href="/">Anys Mechkar</a>
     <div class="nav__links">
-      <a href="/agenda">Agenda</a>
-      <a href="/soins">Soins</a>
-      <a href="/accompagnement">Accompagnement</a>
-      <a href="/partenaires">Partenaires</a>
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
       <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
     </div>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="menu" id="menu">
+    <nav class="menu__links">
+      {links.map((l) => <a class="menu__link" href={l.href}>{l.label}</a>)}
+      <a class="menu__link" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+    </nav>
+    <div class="menu__foot">
+      <a href="mailto:contact@anysmechkar.com">contact@anysmechkar.com</a>
+    </div>
+  </div>
 
   <main>
     <slot />
@@ -41,5 +57,27 @@ const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces 
       <a href="mailto:contact@anysmechkar.com">contact@anysmechkar.com</a>
     </div>
   </footer>
+
+  <script is:inline>
+    (function () {
+      var body = document.body;
+      var burger = document.querySelector('.burger');
+      if (!burger) return;
+      function setOpen(open) {
+        body.classList.toggle('menu-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      }
+      burger.addEventListener('click', function () {
+        setOpen(!body.classList.contains('menu-open'));
+      });
+      document.querySelectorAll('.menu__link').forEach(function (a) {
+        a.addEventListener('click', function () { setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
 </body>
 </html>

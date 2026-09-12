@@ -6,19 +6,19 @@ const dates = (await getCollection('agenda'))
   .filter((e) => e.data.publie && e.data.date)
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
   .slice(0, 4);
-
 const fmt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
 
 const temoins = [
   { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
   { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
-  { t: "Infloressence, c'est un voyage sonore et poétique où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
+  { t: "Un voyage sonore et poétique où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
 ];
 ---
 <Base title="Anys Mechkar">
   <!-- HERO -->
-  <section style="padding-top: clamp(4rem, 12vh, 8rem); padding-bottom: clamp(3rem, 8vw, 5rem);">
+  <section style="padding-top: clamp(4rem, 13vh, 8rem); padding-bottom: clamp(3.5rem, 9vw, 6rem); background: radial-gradient(ellipse at 22% 12%, rgba(123,120,232,0.24), transparent 55%), radial-gradient(ellipse at 92% 96%, rgba(217,97,63,0.10), transparent 52%);">
     <div class="wrap">
+      <p class="hand" style="font-size: 1.4rem; margin-bottom: 0.6rem; transform: rotate(-3deg); display: inline-block;">présence</p>
       <h1 style="max-width: 15ch;">Revenir à sa couleur.</h1>
       <p class="lead" style="margin-top: 1.6rem;">
         Soins du corps, accompagnement et espaces de présence. Par le corps,
@@ -32,13 +32,14 @@ const temoins = [
   </section>
 
   <!-- PRESENTATION -->
-  <section style="background: var(--paper2); padding-top: clamp(3rem,7vw,5rem); padding-bottom: clamp(3rem,7vw,5rem);">
+  <section style="background: var(--surface);">
     <div class="wrap split">
       <h2 style="margin:0;">Qui je suis</h2>
       <div>
         <p>J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur, une question sans réponse évidente.</p>
         <p>La réponse est venue par le corps. Par le Butoh, les arts internes, la méditation, la peinture. Des pratiques qui ne m'ont pas appris à faire mieux, mais à me souvenir de ce que j'étais déjà.</p>
         <p>Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel, à travers des soins, un cheminement individuel ou collectif, et des expériences qui se vivent en présence. Guide, créateur et initiateur.</p>
+        <p class="hand" style="font-size: 1.5rem; margin-top: 1.4rem;">Anys</p>
       </div>
     </div>
   </section>
@@ -68,11 +69,11 @@ const temoins = [
   </section>
 
   <!-- AGENDA -->
-  <section style="background: var(--paper2);">
+  <section style="background: var(--surface);">
     <div class="wrap">
       <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
         <h2 style="margin:0;">Prochaines dates</h2>
-        <a href="/agenda" style="text-decoration:none; font-weight:500;">Tout l'agenda</a>
+        <a href="/agenda" style="text-decoration:none; font-weight:500; color: var(--ochre);">Tout l'agenda</a>
       </div>
       <div style="margin-top: 1.8rem;">
         {dates.length === 0 ? (
@@ -100,7 +101,7 @@ const temoins = [
       <div class="grid">
         {temoins.map((x) => (
           <div class="temoin">
-            <p>{x.t}</p>
+            <p>« {x.t} »</p>
             <cite><b>{x.n}</b><br />{x.c}</cite>
           </div>
         ))}
@@ -113,7 +114,7 @@ const temoins = [
     <div class="wrap">
       <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
         <h2 style="margin:0;">Partenaires</h2>
-        <a href="/partenaires" style="text-decoration:none; font-weight:500;">Les découvrir</a>
+        <a href="/partenaires" style="text-decoration:none; font-weight:500; color: var(--ochre);">Les découvrir</a>
       </div>
       <div class="parts">
         <div class="part"><div class="part__name">Meïsō</div><div class="part__desc">Flottaison et bien-être, Lyon.</div></div>
@@ -126,13 +127,13 @@ const temoins = [
   </section>
 
   <!-- ART -->
-  <section style="background: var(--ink); color: var(--paper); padding: clamp(3rem,7vw,4.5rem) 0;">
+  <section style="background: radial-gradient(ellipse at 50% 120%, rgba(123,120,232,0.28), transparent 60%), var(--indigo-deep);">
     <div class="wrap" style="display:flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
       <div>
-        <h2 style="color: var(--paper); margin-bottom: 0.3rem;">Indigo Enoqii</h2>
-        <p style="color:#D9D8E6;">Mon univers artistique et mes œuvres.</p>
+        <h2 style="margin-bottom: 0.3rem;">Indigo Enoqii</h2>
+        <p style="color: #D9D5EC;">Mon univers artistique et mes œuvres.</p>
       </div>
-      <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener" style="color: var(--paper); border-color: var(--paper);">Visiter la boutique</a>
+      <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener">Visiter la boutique</a>
     </div>
   </section>
 </Base>
