@@ -16,13 +16,18 @@ const links = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
 </head>
 <body>
   <nav class="site-nav">
-    <a class="site-nav__logo" href="/">Anys <em>Mechkar</em></a>
+    <a class="site-nav__logo" href="/"><img src="/img/logo.png" alt="Anys Mechkar" /><span>Anys Mechkar</span></a>
+    <div class="site-nav__links">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+    </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
       <span class="site-nav__burger-line"></span>
       <span class="site-nav__burger-line"></span>
@@ -31,9 +36,7 @@ const links = [
     <div class="site-nav__overlay">
       <div class="site-nav__menu">
         {links.map((l, i) => (
-          <a class="site-nav__link" href={l.href}>
-            <span class="site-nav__link-num">{String(i + 1).padStart(2, '0')}</span>{l.label}
-          </a>
+          <a class="site-nav__link" href={l.href}><span class="site-nav__link-num">{String(i + 1).padStart(2, '0')}</span>{l.label}</a>
         ))}
         <div class="site-nav__sep"></div>
         <div class="site-nav__sub">
@@ -52,10 +55,7 @@ const links = [
     <div class="wrap foot__row">
       <span>© {new Date().getFullYear()} Anys Mechkar</span>
       <span>
-        <a href="/agenda">Agenda</a> ·
-        <a href="/soins">Soins</a> ·
-        <a href="/accompagnement">Accompagnement</a> ·
-        <a href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+        <a href="/agenda">Agenda</a> · <a href="/soins">Soins</a> · <a href="/accompagnement">Accompagnement</a> · <a href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
       </span>
       <a href="mailto:contact@anysmechkar.com">contact@anysmechkar.com</a>
     </div>
@@ -66,28 +66,14 @@ const links = [
       var nav = document.querySelector('.site-nav');
       var burger = document.querySelector('.site-nav__burger');
       if (!nav || !burger) return;
-      window.addEventListener('scroll', function () {
-        nav.classList.toggle('scrolled', window.scrollY > 40);
-      }, { passive: true });
+      window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+      function close() { nav.classList.remove('site-nav--open'); burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }
       burger.addEventListener('click', function () {
-        var isOpen = nav.classList.toggle('site-nav--open');
-        burger.setAttribute('aria-expanded', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        var open = nav.classList.toggle('site-nav--open');
+        burger.setAttribute('aria-expanded', open); document.body.style.overflow = open ? 'hidden' : '';
       });
-      document.querySelectorAll('.site-nav__link, .site-nav__sub-link').forEach(function (link) {
-        link.addEventListener('click', function () {
-          nav.classList.remove('site-nav--open');
-          burger.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        });
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && nav.classList.contains('site-nav--open')) {
-          nav.classList.remove('site-nav--open');
-          burger.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
-        }
-      });
+      document.querySelectorAll('.site-nav__link, .site-nav__sub-link').forEach(function (a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     })();
   </script>
 </body>

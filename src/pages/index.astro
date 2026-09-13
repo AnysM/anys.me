@@ -5,9 +5,15 @@ import { getCollection } from 'astro:content';
 const dates = (await getCollection('agenda'))
   .filter((e) => e.data.publie && e.data.date)
   .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
-  .slice(0, 4);
+  .slice(0, 3);
 const fmt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
 
+const offres = [
+  { t: 'Soins', s: "Massage à l'huile · Soin énergétique", img: '/img/tile-soins.jpg', href: '/soins' },
+  { t: 'Accompagnement', s: 'Individuel · Collectif', img: '/img/tile-accompagnement.jpg', href: '/accompagnement' },
+  { t: 'Ateliers & voyages sonores', s: 'Infloressence · Le Triangle', img: '/img/tile-ateliers.jpg', href: '/agenda' },
+  { t: 'Indigo Enoqii', s: 'Peinture · Œuvres', img: '/img/tile-art.jpg', href: 'https://enoqii.art' },
+];
 const temoins = [
   { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
   { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
@@ -15,68 +21,62 @@ const temoins = [
 ];
 ---
 <Base title="Anys Mechkar">
-  <!-- HERO (identique v1) -->
+  <!-- HERO -->
   <section id="hero">
+    <span class="dot" style="width:6px;height:6px;background:var(--coral);top:32%;right:6%"></span>
+    <span class="dot" style="width:4px;height:4px;background:var(--cream);top:44%;right:3%;opacity:.7"></span>
+    <span class="dot" style="width:5px;height:5px;background:var(--gold);top:58%;left:44%;opacity:.5"></span>
     <div class="hero-left">
-      <div class="hero-glow"></div>
-      <div class="hero-eyebrow">Guide · Créateur · Initiateur</div>
-      <div class="hero-name">Anys<em>Mechkar</em></div>
-      <div class="hero-tagline">Révéler ta couleur unique.<br />Par le corps, le mouvement, la création,<br />depuis un espace de non-effort.</div>
-      <div class="hero-actions">
-        <a href="/agenda" class="hero-cta-primary">Voir l'agenda</a>
-        <a href="/soins" class="hero-cta-secondary">Les soins →</a>
-      </div>
+      <p class="eyebrow">Guide · Créateur · Initiateur</p>
+      <div class="hero-name" style="margin-top:22px;"><span class="top">Révéler ta</span><span class="serif-i">couleur unique.</span></div>
+      <p class="lead" style="margin-top:26px;">J'accompagne celles et ceux qui traversent un passage, par le corps, le mouvement et la création, depuis un espace de non-effort.</p>
+      <a class="cta" href="/agenda" style="margin-top:36px;">Voir l'agenda <span class="line"></span></a>
     </div>
-    <div class="hero-right">
-      <img src="/img/portrait.jpg" alt="Anys Mechkar" />
-    </div>
-    <div class="hero-scroll"><div class="scroll-line"></div><span>Continuer</span></div>
+    <div class="hero-right"><img src="/img/univers-art.jpg" alt="Œuvre d'Indigo Enoqii" /></div>
+    <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
 
-  <!-- PRESENTATION -->
-  <section style="background: var(--surface);">
-    <div class="narrow">
-      <p class="eyebrow">Qui je suis</p>
-      <div style="margin-top: 1.6rem;">
-        <p>J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur.</p>
-        <p>La réponse est venue par le corps. Le Butoh, les arts internes, la méditation, la peinture. Des pratiques qui ne m'ont pas appris à faire mieux, mais à me souvenir de ce que j'étais déjà.</p>
-        <p>Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel. Par des soins, un cheminement individuel ou collectif, et des expériences qui se vivent en présence.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- OFFRES -->
+  <!-- PARCOURS / PROPOSE -->
   <section>
-    <div class="wrap">
-      <p class="eyebrow">Ce que je propose</p>
-      <div class="offres" style="margin-top: 2.6rem;">
-        <div class="offre">
-          <h3>Soins</h3>
-          <p>Massage à l'huile et soin énergétique. Un temps pour le corps.</p>
-          <a href="/soins">Découvrir</a>
-        </div>
-        <div class="offre">
-          <h3>Accompagnement</h3>
-          <p>Un chemin en individuel, ou un cheminement à plusieurs.</p>
-          <a href="/accompagnement">En savoir plus</a>
-        </div>
-        <div class="offre">
-          <h3>Ateliers et voyages sonores</h3>
-          <p>Infloressence à Chanka Studio, et les voyages sonores.</p>
-          <a href="/agenda">Voir les dates</a>
+    <div class="wrap cols">
+      <div class="col">
+        <div class="num">01</div>
+        <h2>Mon parcours</h2>
+        <p class="muted">J'ai passé des années à construire. Puis quelque chose s'est mis à tirer de l'intérieur. La réponse est venue par le corps : le Butoh, les arts internes, la méditation, la peinture.</p>
+        <a class="cta" href="/accompagnement" style="margin-top:22px;">En savoir plus <span class="line"></span></a>
+      </div>
+      <div class="col"><img class="mid-img" src="/img/univers-mid.jpg" alt="Présence" /></div>
+      <div class="col">
+        <div class="num">02</div>
+        <h2>Ce que je propose</h2>
+        <div class="links-list">
+          <a href="/soins">Soins</a>
+          <a href="/accompagnement">Accompagnement</a>
+          <a href="/agenda">Ateliers & voyages sonores</a>
+          <a href="https://enoqii.art" target="_blank" rel="noopener">Indigo Enoqii</a>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- TUILES -->
+  <section class="tiles" style="padding:0;">
+    {offres.map((o) => (
+      <a class="tile" href={o.href}>
+        <img src={o.img} alt={o.t} />
+        <div class="tile-body"><h3>{o.t}</h3><span>{o.s}</span><span class="arw">→</span></div>
+      </a>
+    ))}
   </section>
 
   <!-- AGENDA -->
-  <section style="background: var(--surface);">
+  <section>
     <div class="wrap">
-      <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
-        <p class="eyebrow" style="margin:0;">Prochaines dates</p>
-        <a href="/agenda" style="color: var(--ochre); border-bottom: 1px solid var(--faint); padding-bottom: 2px;">Tout l'agenda</a>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+        <p class="eyebrow">Prochaines dates</p>
+        <a class="cta" href="/agenda">Tout l'agenda <span class="line"></span></a>
       </div>
-      <div style="margin-top: 2rem;">
+      <div style="margin-top:1.8rem;">
         {dates.length === 0 ? (
           <p class="muted">Les prochaines dates seront publiées ici.</p>
         ) : dates.map((e) => (
@@ -84,10 +84,7 @@ const temoins = [
             <div class="evt__date">{fmt(e.data.date)}</div>
             <div>
               <div class="evt__title">{e.data.titre}</div>
-              <div class="evt__meta">
-                {e.data.lieu}
-                {e.data.lien && <> · <a href={e.data.lien}>{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a></>}
-              </div>
+              <div class="evt__meta">{e.data.lieu}{e.data.lien && <> · <a href={e.data.lien}>{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a></>}</div>
             </div>
           </div>
         ))}
@@ -95,19 +92,14 @@ const temoins = [
     </div>
   </section>
 
-  <!-- AMBIANCE -->
-  <section class="band" style="background-image: url('/img/band.jpg');" aria-hidden="true"></section>
-
-  <!-- TEMOIGNAGES -->
-  <section class="temoins">
+  <!-- TEMOIGNAGES (photo en fond, voile) -->
+  <section class="temoins veil">
+    <div class="veil-bg" style="background-image:url('/img/band.jpg')"></div>
     <div class="wrap">
       <p class="eyebrow">Traversées</p>
       <div class="grid">
         {temoins.map((x) => (
-          <div class="temoin">
-            <p>« {x.t} »</p>
-            <cite><b>{x.n}</b><br />{x.c}</cite>
-          </div>
+          <div class="temoin"><p>« {x.t} »</p><cite><b>{x.n}</b> — {x.c}</cite></div>
         ))}
       </div>
     </div>
@@ -116,32 +108,16 @@ const temoins = [
   <!-- PARTENAIRES -->
   <section>
     <div class="wrap">
-      <p class="eyebrow">Partenaires</p>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+        <p class="eyebrow">Partenaires</p>
+        <a class="cta" href="/partenaires">Les découvrir <span class="line"></span></a>
+      </div>
       <div class="parts">
         <div class="part"><div class="part__name">Meïsō</div><div class="part__desc">Flottaison et bien-être, Lyon.</div></div>
         <div class="part"><div class="part__name">Chanka Studio</div><div class="part__desc"><a href="https://chanka-studio-lyon.fr" target="_blank" rel="noopener">Arts et pratiques, Lyon.</a></div></div>
         <div class="part"><div class="part__name">Blast</div><div class="part__desc">Collectif artistique.</div></div>
         <div class="part"><div class="part__name">TAMAKEAPA</div><div class="part__desc">Partenaire.</div></div>
         <div class="part"><div class="part__name">Espriterre</div><div class="part__desc">Le travail d'Alex, en nature.</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ART -->
-  <section style="background: var(--surface);">
-    <div class="wrap">
-      <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <p class="eyebrow">Indigo Enoqii</p>
-          <h2 style="margin-top: 0.8rem;">Mon univers artistique</h2>
-        </div>
-        <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener">La boutique</a>
-      </div>
-      <div class="gallery">
-        <img src="/img/art-1.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
-        <img src="/img/art-2.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
-        <img src="/img/art-3.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
-        <img src="/img/art-4.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
       </div>
     </div>
   </section>
