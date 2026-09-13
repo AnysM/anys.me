@@ -53,6 +53,7 @@ em { font-style: italic; }
 section  { padding: clamp(4.5rem, 12vw, 8rem) 0; }
 
 .lead  { font-family: 'Sorts Mill Goudy', serif; font-size: clamp(1.3rem, 2.8vw, 1.7rem); font-style: italic; color: var(--cream); max-width: 30ch; line-height: 1.4; }
+.lead.tactile { font-family: 'Syne Tactile', cursive; font-style: normal; line-height: 1.5; font-size: clamp(1.15rem, 2.4vw, 1.5rem); }
 .muted { color: var(--muted); }
 
 .btn {
@@ -149,7 +150,7 @@ body.menu-open .menu__foot { opacity: 1; transform: none; }
 /* TEMOIGNAGES */
 .temoins { background: var(--surface); }
 .temoins .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 3rem; margin-top: 2.6rem; }
-.temoin p { font-family: 'Sorts Mill Goudy', serif; font-style: italic; font-size: 1.3rem; line-height: 1.5; color: var(--cream); }
+.temoin p { font-family: 'Syne Tactile', 'Syne', cursive; font-size: 1.12rem; line-height: 1.6; color: var(--cream); }
 .temoin cite { display: block; margin-top: 1rem; font-style: normal; color: var(--muted); font-size: 0.9rem; }
 .temoin cite b { color: var(--ochre); font-weight: 500; }
 
