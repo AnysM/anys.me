@@ -167,3 +167,33 @@ body.menu-open .menu__foot { opacity: 1; transform: none; }
 @media (max-width: 760px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
 
 .placeholder { padding: 1.4rem 1.6rem; border: 1px solid var(--faint); border-radius: 2px; background: var(--surface); color: var(--muted); }
+
+/* ── IMAGES : hero, bande d'ambiance, galerie ── */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex; align-items: center;
+  background-size: cover; background-position: center;
+  padding: clamp(3rem, 10vh, 6rem) 0;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, rgba(14,12,10,0.92) 0%, rgba(14,12,10,0.72) 42%, rgba(14,12,10,0.42) 100%);
+}
+.hero .wrap { position: relative; z-index: 2; }
+
+.band {
+  position: relative;
+  min-height: 48vh;
+  background-size: cover; background-position: center;
+  padding: 0;
+}
+.band::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(14,12,10,0.35), rgba(14,12,10,0.15) 45%, rgba(14,12,10,0.55));
+}
+
+.gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-top: 2.4rem; }
+.gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border: 1px solid var(--faint); transition: opacity 0.3s ease; }
+.gallery img:hover { opacity: 0.85; }
+@media (max-width: 700px) { .gallery { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; } }

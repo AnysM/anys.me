@@ -16,7 +16,7 @@ const temoins = [
 ---
 <Base title="Anys Mechkar">
   <!-- HERO -->
-  <section style="padding-top: clamp(4rem, 14vh, 9rem); padding-bottom: clamp(4rem, 10vw, 7rem);">
+  <section class="hero" style="background-image: url('/img/hero.jpg');">
     <div class="wrap">
       <p class="eyebrow">Guide · Créateur · Initiateur</p>
       <h1 style="max-width: 12ch; margin-top: 1.6rem;">Révéler ta couleur unique.</h1>
@@ -31,7 +31,7 @@ const temoins = [
   <!-- PRESENTATION avec photo -->
   <section style="background: var(--surface);">
     <div class="wrap split">
-      <div class="photo" aria-label="Portrait d'Anys">Portrait à venir</div>
+      <div class="photo"><img src="/img/portrait.jpg" alt="Portrait d'Anys Mechkar" width="1000" height="1250" loading="lazy" /></div>
       <div>
         <p class="eyebrow" style="margin-bottom: 1.2rem;">Qui je suis</p>
         <p>J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur.</p>
@@ -91,6 +91,9 @@ const temoins = [
     </div>
   </section>
 
+  <!-- AMBIANCE -->
+  <section class="band" style="background-image: url('/img/band.jpg');" aria-hidden="true"></section>
+
   <!-- TEMOIGNAGES -->
   <section class="temoins">
     <div class="wrap">
@@ -121,12 +124,21 @@ const temoins = [
   </section>
 
   <!-- ART -->
-  <section style="background: var(--surface); text-align: center;">
-    <div class="narrow">
-      <p class="eyebrow">Indigo Enoqii</p>
-      <h2 style="margin-top: 1rem;">Mon univers artistique</h2>
-      <p class="muted" style="margin: 1rem auto 2rem;">Mes œuvres, dans la boutique.</p>
-      <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener">Visiter</a>
+  <section style="background: var(--surface);">
+    <div class="wrap">
+      <div style="display:flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <p class="eyebrow">Indigo Enoqii</p>
+          <h2 style="margin-top: 0.8rem;">Mon univers artistique</h2>
+        </div>
+        <a class="btn" href="https://enoqii.art" target="_blank" rel="noopener">La boutique</a>
+      </div>
+      <div class="gallery">
+        <img src="/img/art-1.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
+        <img src="/img/art-2.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
+        <img src="/img/art-3.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
+        <img src="/img/art-4.jpg" alt="Œuvre d'Indigo Enoqii" width="900" height="900" loading="lazy" />
+      </div>
     </div>
   </section>
 </Base>
