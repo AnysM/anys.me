@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/nav.css';
 const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur." } = Astro.props;
 const links = [
   { href: '/agenda', label: 'Agenda' },
@@ -20,26 +21,28 @@ const links = [
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <nav class="nav">
-    <a class="nav__logo" href="/">Anys <em>Mechkar</em></a>
-    <div class="nav__links">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
-      <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
-    </div>
-    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
-      <span></span><span></span>
+  <nav class="site-nav">
+    <a class="site-nav__logo" href="/">Anys <em>Mechkar</em></a>
+    <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
+      <span class="site-nav__burger-line"></span>
+      <span class="site-nav__burger-line"></span>
+      <span class="site-nav__burger-line"></span>
     </button>
-  </nav>
-
-  <div class="menu" id="menu">
-    <nav class="menu__links">
-      {links.map((l, i) => <a class="menu__link" href={l.href}><span class="menu__num">{String(i + 1).padStart(2, "0")}</span>{l.label}</a>)}
-      <a class="menu__link" href="https://enoqii.art" target="_blank" rel="noopener"><span class="menu__num">05</span>Art</a>
-    </nav>
-    <div class="menu__foot">
-      <a href="mailto:contact@anysmechkar.com">contact@anysmechkar.com</a>
+    <div class="site-nav__overlay">
+      <div class="site-nav__menu">
+        {links.map((l, i) => (
+          <a class="site-nav__link" href={l.href}>
+            <span class="site-nav__link-num">{String(i + 1).padStart(2, '0')}</span>{l.label}
+          </a>
+        ))}
+        <div class="site-nav__sep"></div>
+        <div class="site-nav__sub">
+          <a class="site-nav__sub-link" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+          <a class="site-nav__sub-link" href="mailto:contact@anysmechkar.com">Contact</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </nav>
 
   <main>
     <slot />
@@ -60,17 +63,31 @@ const links = [
 
   <script is:inline>
     (function () {
-      var body = document.body;
-      var burger = document.querySelector('.burger');
-      if (!burger) return;
-      function setOpen(open) {
-        body.classList.toggle('menu-open', open);
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-      }
-      burger.addEventListener('click', function () { setOpen(!body.classList.contains('menu-open')); });
-      document.querySelectorAll('.menu__link').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+      var nav = document.querySelector('.site-nav');
+      var burger = document.querySelector('.site-nav__burger');
+      if (!nav || !burger) return;
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+      }, { passive: true });
+      burger.addEventListener('click', function () {
+        var isOpen = nav.classList.toggle('site-nav--open');
+        burger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      document.querySelectorAll('.site-nav__link, .site-nav__sub-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          nav.classList.remove('site-nav--open');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('site-nav--open')) {
+          nav.classList.remove('site-nav--open');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+      });
     })();
   </script>
 </body>
