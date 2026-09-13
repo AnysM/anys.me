@@ -1,0 +1,175 @@
+---
+const offres = [
+  { t: 'Soins', s: "Massage à l'huile · Soin énergétique", img: '/img/tile-soins.jpg', href: '/soins' },
+  { t: 'Accompagnement', s: 'Individuel · Collectif', img: '/img/tile-accompagnement.jpg', href: '/accompagnement' },
+  { t: 'Ateliers & voyages sonores', s: 'Infloressence · Le Triangle', img: '/img/tile-ateliers.jpg', href: '/agenda' },
+  { t: 'Indigo Enoqii', s: 'Peinture · Œuvres', img: '/img/tile-art.jpg', href: 'https://enoqii.art' },
+];
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anys Mechkar — Univers (test)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=EB+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --navy:#0A0F20; --navy2:#0E1530; --panel:#131B3A;
+      --cream:#ECE7DE; --muted:#8A90A8; --gold:#D8A24C; --red:#C4472F;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:
+        radial-gradient(1200px 700px at 78% 8%, rgba(40,60,120,0.35), transparent 60%),
+        radial-gradient(900px 600px at 10% 90%, rgba(120,70,40,0.14), transparent 60%),
+        var(--navy);
+      color:var(--cream); font-family:'Jost',system-ui,sans-serif; font-weight:300;
+      line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    .wrap{width:min(92%,1240px);margin-inline:auto}
+    .caps{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:0.14em}
+    .serif-i{font-family:'EB Garamond',serif;font-style:italic}
+    .gold{color:var(--gold)}
+    a{color:inherit;text-decoration:none}
+
+    /* NAV */
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:26px clamp(20px,4vw,48px);position:relative;z-index:10}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand svg{width:26px;height:26px}
+    .brand span{font-family:'Jost',sans-serif;letter-spacing:0.32em;font-size:15px;text-transform:uppercase}
+    .nav-links{display:flex;gap:34px}
+    .nav-links a{font-family:'Jost',sans-serif;letter-spacing:0.18em;text-transform:uppercase;font-size:12px;color:var(--cream);opacity:0.72;transition:opacity .2s}
+    .nav-links a:hover{opacity:1}
+    @media(max-width:860px){.nav-links{display:none}}
+
+    /* HERO */
+    .hero{display:grid;grid-template-columns:1fr 1fr;min-height:82vh;align-items:center;position:relative}
+    .hero-left{padding:0 clamp(20px,4vw,64px) 60px clamp(20px,4vw,48px);position:relative;z-index:2}
+    .eyebrow{display:flex;align-items:center;gap:14px;font-family:'Jost',sans-serif;letter-spacing:0.3em;text-transform:uppercase;font-size:11px;color:var(--gold);margin-bottom:26px}
+    .eyebrow::after{content:'';width:46px;height:1px;background:var(--gold);opacity:0.6}
+    .hero h1{font-weight:300;line-height:1.02;font-size:clamp(38px,5.6vw,78px);letter-spacing:0.02em}
+    .hero h1 .serif-i{font-weight:400;letter-spacing:0;text-transform:none;font-size:1.04em}
+    .hero p.sub{font-family:'Jost',sans-serif;color:#C9CBD8;font-size:clamp(15px,1.4vw,17px);max-width:34ch;margin-top:26px;line-height:1.9;font-weight:300}
+    .cta{display:inline-flex;align-items:center;gap:16px;margin-top:38px;font-family:'Jost',sans-serif;letter-spacing:0.22em;text-transform:uppercase;font-size:12px;color:var(--cream)}
+    .cta .line{width:44px;height:1px;background:var(--gold)}
+    .cta:hover .line{width:64px;transition:width .3s}
+    .hero-right{position:relative;height:100%;min-height:60vh}
+    .hero-right img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--navy) 0%,transparent 42%);z-index:1}
+    .hero-right::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,var(--navy) 0%,transparent 20%,transparent 80%,var(--navy) 100%);z-index:1}
+    .scroll{position:absolute;bottom:26px;left:clamp(20px,4vw,48px);display:flex;align-items:center;gap:14px;font-family:'Jost',sans-serif;letter-spacing:0.24em;text-transform:uppercase;font-size:10px;color:var(--muted);z-index:2}
+    .scroll .l{width:1px;height:34px;background:linear-gradient(to bottom,var(--gold),transparent)}
+    .dot{position:absolute;border-radius:50%}
+    @media(max-width:860px){
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .hero-right{order:-1;min-height:42vh;height:42vh}
+      .hero-right::before{background:linear-gradient(to top,var(--navy) 0%,transparent 55%)}
+      .hero-left{padding:34px 22px 70px}
+    }
+
+    /* SECTIONS NUMEROTEES */
+    .cols{display:grid;grid-template-columns:1fr 0.9fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(48px,8vw,96px) 0}
+    .num{font-family:'EB Garamond',serif;font-style:italic;color:var(--gold);font-size:18px;display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .num::after{content:'';width:40px;height:1px;background:var(--gold);opacity:0.5}
+    .col h2{font-family:'Jost',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:0.14em;font-size:clamp(20px,2.4vw,28px);margin-bottom:18px}
+    .col p{font-family:'Jost',sans-serif;color:#B9BCCB;font-weight:300;font-size:15px;line-height:1.9}
+    .col .more{display:inline-flex;align-items:center;gap:12px;margin-top:22px;font-family:'Jost',sans-serif;letter-spacing:0.2em;text-transform:uppercase;font-size:11px;color:var(--gold)}
+    .col .more::after{content:'→'}
+    .links-list a{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-family:'Jost',sans-serif;letter-spacing:0.16em;text-transform:uppercase;font-size:13px;transition:color .2s}
+    .links-list a:hover{color:var(--gold)}
+    .links-list a::after{content:'→';color:var(--gold)}
+    .mid-img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid rgba(216,162,76,0.25)}
+    @media(max-width:860px){.cols{grid-template-columns:1fr;gap:40px}.mid-img{aspect-ratio:16/10}}
+
+    /* TUILES */
+    .tiles{display:grid;grid-template-columns:repeat(4,1fr)}
+    .tile{position:relative;aspect-ratio:3/4;overflow:hidden;display:flex;align-items:flex-end}
+    .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .tile:hover img{transform:scale(1.05)}
+    .tile::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,15,32,0.92) 0%,rgba(10,15,32,0.15) 55%,transparent 100%)}
+    .tile-body{position:relative;z-index:1;padding:26px 24px}
+    .tile-body h3{font-family:'EB Garamond',serif;font-weight:500;font-size:clamp(19px,1.6vw,24px);line-height:1.1}
+    .tile-body span{display:block;margin-top:8px;font-family:'Jost',sans-serif;letter-spacing:0.16em;text-transform:uppercase;font-size:10px;color:var(--muted)}
+    .tile-body .arw{color:var(--gold);margin-top:12px;display:inline-block}
+    @media(max-width:860px){.tiles{grid-template-columns:1fr 1fr}}
+
+    .foot{padding:48px 0;color:var(--muted);font-family:'Jost',sans-serif;font-size:12px;letter-spacing:0.08em;text-align:center;border-top:1px solid rgba(255,255,255,0.06);margin-top:8px}
+    .banner{background:var(--gold);color:var(--navy);text-align:center;padding:8px;font-family:'Jost',sans-serif;letter-spacing:0.18em;text-transform:uppercase;font-size:11px}
+  </style>
+</head>
+<body>
+  <div class="banner">Page de test — direction cosmique</div>
+  <nav class="nav">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 1l2.2 7.2L21.5 12l-7.3 3.8L12 23l-2.2-7.2L2.5 12l7.3-3.8z" fill="#D8A24C"/></svg>
+      <span>Anys Mechkar</span>
+    </a>
+    <div class="nav-links">
+      <a href="#parcours">Univers</a>
+      <a href="/soins">Soins</a>
+      <a href="/accompagnement">Accompagnement</a>
+      <a href="/agenda">Agenda</a>
+      <a href="https://enoqii.art">Art</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="dot" style="width:6px;height:6px;background:var(--red);top:34%;right:6%"></span>
+    <span class="dot" style="width:4px;height:4px;background:var(--cream);top:46%;right:3%;opacity:.7"></span>
+    <span class="dot" style="width:5px;height:5px;background:var(--gold);top:58%;left:44%;opacity:.5"></span>
+    <div class="hero-left">
+      <div class="eyebrow">Anys Mechkar</div>
+      <h1><span class="caps">Révéler ta</span><br /><span class="serif-i">couleur unique.</span></h1>
+      <p class="sub">Guide, créateur et initiateur. J'accompagne celles et ceux qui traversent un passage, par le corps, le mouvement et la création, depuis un espace de non-effort.</p>
+      <a class="cta" href="/agenda">Voir l'agenda <span class="line"></span></a>
+    </div>
+    <div class="hero-right">
+      <img src="/img/univers-art.jpg" alt="Œuvre d'Indigo Enoqii" />
+    </div>
+    <div class="scroll"><span class="l"></span>Scroll</div>
+  </section>
+
+  <!-- SECTIONS NUMEROTEES -->
+  <div class="wrap" id="parcours">
+    <div class="cols">
+      <div class="col">
+        <div class="num">01</div>
+        <h2>Mon parcours</h2>
+        <p>J'ai passé des années à construire. Puis quelque chose s'est mis à tirer de l'intérieur. La réponse est venue par le corps : le Butoh, les arts internes, la méditation, la peinture.</p>
+        <a class="more" href="/accompagnement">En savoir plus</a>
+      </div>
+      <div class="col"><img class="mid-img" src="/img/univers-mid.jpg" alt="Présence" /></div>
+      <div class="col">
+        <div class="num">02</div>
+        <h2>Ce que je propose</h2>
+        <div class="links-list">
+          <a href="/soins">Soins</a>
+          <a href="/accompagnement">Accompagnement</a>
+          <a href="/agenda">Ateliers & voyages sonores</a>
+          <a href="https://enoqii.art">Indigo Enoqii</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TUILES -->
+  <section class="tiles">
+    {offres.map((o) => (
+      <a class="tile" href={o.href}>
+        <img src={o.img} alt={o.t} />
+        <div class="tile-body">
+          <h3>{o.t}</h3>
+          <span>{o.s}</span>
+          <span class="arw">→</span>
+        </div>
+      </a>
+    ))}
+  </section>
+
+  <div class="foot">© {new Date().getFullYear()} Anys Mechkar · contact@anysmechkar.com</div>
+</body>
+</html>
