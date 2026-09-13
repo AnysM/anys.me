@@ -1,0 +1,62 @@
+---
+const pairings = [
+  { n: 1, nom: "Sprat + Sorts Mill Goudy", disp: "'Sprat'", body: "'Sorts Mill Goudy'", note: "La plus singulière. Titres tranchants et élégants, texte chaud et littéraire." },
+  { n: 2, nom: "Sprat Light + Sorts Mill Goudy", disp: "'SpratLight'", body: "'Sorts Mill Goudy'", note: "Même esprit, titres plus fins et aériens." },
+  { n: 3, nom: "Bodoni + Sorts Mill Goudy", disp: "'Libre Bodoni'", body: "'Sorts Mill Goudy'", note: "Élégance classique, contraste fort. (le test actuel)" },
+  { n: 4, nom: "Bodoni + Goudy Bookletter", disp: "'Libre Bodoni'", body: "'Goudy Bookletter 1911'", note: "Éditorial, chaleureux, très lisible." },
+  { n: 5, nom: "Syne + Sorts Mill Goudy", disp: "'Syne'", body: "'Sorts Mill Goudy'", note: "Twist moderne et artistique en titre." },
+  { n: 6, nom: "Sorts Mill Goudy seule", disp: "'Sorts Mill Goudy'", body: "'Sorts Mill Goudy'", note: "Une seule famille, épure chaude et intemporelle." },
+];
+const para = "J'ai passé des années à construire. Des produits, des systèmes, une vie qui avait l'air d'aller. Puis quelque chose s'est mis à tirer de l'intérieur. La réponse est venue par le corps.";
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choix de typo — Anys Mechkar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400;0,500;0,600&family=Sorts+Mill+Goudy:ital@0;1&family=Goudy+Bookletter+1911&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    @font-face { font-family: 'Sprat'; src: url('/fonts/sprat-regular.woff2') format('woff2'); font-display: swap; }
+    @font-face { font-family: 'SpratLight'; src: url('/fonts/sprat-regularlight.woff2') format('woff2'); font-display: swap; }
+    :root { --night:#0E0C0A; --surface:#141009; --cream:#F0EAE1; --muted:#8C7E72; --faint:#2E2620; --ochre:#D4942A; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--night); color: var(--cream); font-family: 'Sorts Mill Goudy', serif; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    .wrap { width: min(90%, 780px); margin-inline: auto; }
+    header { padding: 3.5rem 0 1rem; border-bottom: 1px solid var(--faint); }
+    header h1 { font-family: 'Libre Bodoni', serif; font-weight: 500; font-size: 1.8rem; }
+    header p { color: var(--muted); margin-top: 0.6rem; font-size: 1rem; }
+    .card { padding: 3rem 0; border-bottom: 1px solid var(--faint); }
+    .tag { color: var(--ochre); letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.78rem; font-family: 'Sorts Mill Goudy', serif; }
+    .name { color: var(--muted); font-size: 0.95rem; margin-top: 0.3rem; }
+    .eyebrow { color: var(--ochre); letter-spacing: 0.22em; text-transform: uppercase; font-size: 0.78rem; margin-top: 1.8rem; }
+    .h1 { font-weight: 500; line-height: 1.1; font-size: clamp(2.6rem, 9vw, 4rem); margin-top: 1rem; letter-spacing: 0.005em; }
+    .para { margin-top: 1.4rem; font-size: 1.15rem; color: #E6DFD3; max-width: 42ch; }
+    .foot { padding: 3rem 0 5rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Choix de typographie</h1>
+      <p>Six pairings, avec ta vraie phrase et ton texte. Dis-moi le numéro que tu préfères (ou deux, pour affiner).</p>
+    </div>
+  </header>
+
+  {pairings.map((p) => (
+    <section class="card">
+      <div class="wrap">
+        <div class="tag">Option {p.n}</div>
+        <div class="name">{p.nom} — {p.note}</div>
+        <div class="eyebrow">Guide · Créateur · Initiateur</div>
+        <div class="h1" style={`font-family: ${p.disp}, serif;`}>Révéler ta couleur unique.</div>
+        <p class="para" style={`font-family: ${p.body}, serif;`}>{para}</p>
+      </div>
+    </section>
+  ))}
+
+  <div class="foot"><div class="wrap">Reviens me dire le numéro, je l'applique partout sur le site.</div></div>
+</body>
+</html>
