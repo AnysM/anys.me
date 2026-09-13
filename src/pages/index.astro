@@ -24,10 +24,10 @@ const temoins = [
   { t: "Un voyage où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
 ];
 const partenaires = [
-  { n: 'Meïsō', img: '/img/univers-mid.jpg', d: 'Centre de flottaison et de bien-être, à Lyon.' },
-  { n: 'Chanka Studio', img: '/img/u-atelier.jpg', d: "Studio d'arts et de pratiques, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
-  { n: 'Blast', img: '/img/art-1.jpg', d: 'Collectif artistique.' },
-  { n: 'TAMAKEAPA', img: '/img/breath-desert.jpg', d: 'Partenaire.' },
+  { n: 'Meïsō', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon.' },
+  { n: 'Chanka Studio', img: '/img/u-atelier.jpg', logo: '/img/logo-chanka.svg', d: "Studio d'arts et de pratiques, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
+  { n: 'Blast', img: '/img/blast.jpg', d: 'Collectif artistique.' },
+  { n: 'TAMAKEAPA', img: '/img/breath-desert.jpg', logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
   { n: 'Espriterre', img: '/img/u-soin.jpg', d: "Le travail d'Alex, en nature." },
 ];
 ---
@@ -139,7 +139,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media"><img src={p.img} alt={p.n} /></div>
+            <div class="part__media"><img src={p.img} alt={p.n} />{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>
