@@ -1,8 +1,10 @@
 ---
-titre: "Infloressence — porte ouverte"
+titre: "Infloressence — atelier"
 categorie: atelier
-lieu: "Chanka Studio, 51 quai Saint-Vincent, Lyon 1er"
-resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours sur l'année."
+date: 2026-09-27
+lieu: "Chanka Studio, Lyon"
+image: "/img/u-atelier.jpg"
+resume: "Méditation, Butoh et voyage sonore."
 lien: "https://chanka-studio-lyon.fr"
 reservable: false
 ordre: 1

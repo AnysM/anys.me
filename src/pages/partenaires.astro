@@ -9,10 +9,12 @@ const partenaires = [
 ];
 ---
 <Base title="Partenaires — Anys Mechkar">
-  <section style="padding-top: clamp(3rem, 9vh, 6rem);">
+  <section class="page-hero"><img src="/img/u-atelier.jpg" alt="" />
+    <div class="wrap"><p class="eyebrow">Compagnons de route</p><h1>Partenaires</h1></div>
+  </section>
+  <section>
     <div class="wrap">
-      <h1>Partenaires</h1>
-      <p class="lead" style="margin-top: 1.2rem;">Les lieux, collectifs et personnes avec qui je crée.</p>
+      <p class="lead">Les lieux, collectifs et personnes avec qui je crée.</p>
       <div class="parts" style="margin-top: 2.6rem;">
         {partenaires.map((p) => (
           <div class="part">

@@ -33,7 +33,7 @@ h1, h2, .display {
   font-family: 'Jost', sans-serif; font-weight: 400;
   text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.1; color: var(--cream);
 }
-h1 { font-size: clamp(2rem, 5vw, 3.4rem); }
+h1 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
 h2 { font-size: clamp(1.5rem, 3.2vw, 2.2rem); margin-bottom: 0.6em; }
 h3 { font-family: 'EB Garamond', serif; font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 1.4rem; line-height: 1.2; }
 
@@ -116,14 +116,29 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .tile-body .arw { color: var(--gold); margin-top: 12px; display: inline-block; }
 @media (max-width: 860px) { .tiles { grid-template-columns: 1fr 1fr; } }
 
-/* AGENDA */
-.evt { display: grid; grid-template-columns: 9rem 1fr; gap: 1.4rem; padding: 1.8rem 0; border-top: 1px solid var(--faint); }
-.evt:last-child { border-bottom: 1px solid var(--faint); }
-.evt__date { font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; line-height: 1.3; }
-.evt__title { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.5rem; }
-.evt__meta { color: var(--muted); font-size: 0.8rem; margin-top: 0.3rem; font-family: 'Jost', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+/* AGENDA — cartes d'événement */
+.evt { display: grid; grid-template-columns: 240px 1fr; background: var(--surface); border: 1px solid var(--faint); border-radius: 8px; overflow: hidden; margin-bottom: 1.2rem; transition: border-color 0.3s, transform 0.3s; }
+.evt:hover { border-color: rgba(216,162,76,0.5); transform: translateY(-2px); }
+.evt__img { position: relative; min-height: 175px; }
+.evt__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.evt__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(17,26,56,0) 55%, var(--surface)); }
+.evt__body { padding: 1.5rem 1.8rem; display: flex; flex-direction: column; gap: 0.5rem; justify-content: center; }
+.evt__date { display: flex; align-items: baseline; gap: 10px; font-family: 'Jost', sans-serif; }
+.evt__date .d { font-size: 2.3rem; font-weight: 400; color: var(--cream); line-height: 1; }
+.evt__date .m { text-transform: uppercase; letter-spacing: 0.18em; color: var(--gold); font-size: 0.82rem; }
+.evt__date .y { color: var(--muted); font-size: 0.82rem; }
+.evt__date .soon { text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); font-size: 0.85rem; }
+.evt__title { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.5rem; color: var(--cream); }
+.evt__meta { color: var(--muted); font-family: 'Jost', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.7rem; }
 .evt__meta a { color: var(--gold); text-transform: none; letter-spacing: 0; }
-@media (max-width: 620px) { .evt { grid-template-columns: 1fr; gap: 0.3rem; } }
+@media (max-width: 640px) { .evt { grid-template-columns: 1fr; } .evt__img { min-height: 180px; } .evt__img::after { background: linear-gradient(to bottom, rgba(17,26,56,0) 55%, var(--surface)); } }
+
+/* Hero de page intérieure */
+.page-hero { position: relative; min-height: 40vh; display: flex; align-items: flex-end; overflow: hidden; padding: 120px 0 clamp(2rem, 5vw, 3.4rem); }
+.page-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.page-hero::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(10,15,32,0.94), rgba(10,15,32,0.5)); }
+.page-hero .wrap, .page-hero .narrow { position: relative; z-index: 2; }
+.page-hero h1 { margin: 0.6rem 0 0; }
 
 /* Photo en fond, voile bleu nuit */
 .veil { position: relative; overflow: hidden; }

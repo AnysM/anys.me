@@ -10,6 +10,7 @@ const agenda = defineCollection({
     lieu: z.string().optional(),
     prix: z.string().optional(),
     resume: z.string().optional(),
+    image: z.string().optional(),
     lien: z.string().optional(),
     reservable: z.boolean().default(false),
     ordre: z.number().default(0),

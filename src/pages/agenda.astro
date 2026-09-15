@@ -3,56 +3,52 @@ import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
-const dates = all
-  .filter((e) => e.data.date)
-  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
-const sansDate = all
-  .filter((e) => !e.data.date)
-  .sort((a, b) => a.data.ordre - b.data.ordre);
-
-const fmt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+const dates = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const sansDate = all.filter((e) => !e.data.date).sort((a, b) => a.data.ordre - b.data.ordre);
+const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(d).replace('.', ''), yr: d.getFullYear() });
 ---
 <Base title="Agenda — Anys Mechkar">
-  <section style="padding-top: clamp(3rem, 9vh, 6rem);">
-    <div class="wrap">
-      <h1>Agenda</h1>
-      <p class="lead" style="margin-top: 1.2rem;">Ateliers, retraites, immersions et voyages sonores. Chaque proposition à sa date.</p>
+  <section class="page-hero"><img src="/img/breath-art.jpg" alt="" />
+    <div class="wrap"><p class="eyebrow">Ce qui arrive</p><h1>Agenda</h1></div>
+  </section>
 
-      <div style="margin-top: 2.8rem;">
-        {dates.length === 0 ? (
-          <p class="muted">Les prochaines dates seront publiées ici.</p>
-        ) : dates.map((e) => (
-          <div class="evt">
-            <div class="evt__date">{fmt(e.data.date)}</div>
-            <div>
-              <div class="evt__title">{e.data.titre}</div>
-              {e.data.resume && <p class="evt__meta">{e.data.resume}</p>}
-              <div class="evt__meta">
-                {e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}
-                {e.data.lien && <> · <a href={e.data.lien}>{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a></>}
-              </div>
-            </div>
+  <section>
+    <div class="wrap">
+      <p class="lead" style="margin-bottom:2.4rem;">Soins, ateliers, retraites, immersions et voyages sonores. Chaque proposition à sa date.</p>
+
+      {dates.map((e) => {
+        const p = dparts(e.data.date);
+        return (
+        <div class="evt">
+          <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
+          <div class="evt__body">
+            <div class="evt__date"><span class="d">{p.day}</span><span class="m">{p.mon}</span><span class="y">{p.yr}</span></div>
+            <div class="evt__title">{e.data.titre}</div>
+            {e.data.resume && <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{e.data.resume}</div>}
+            <div class="evt__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
+            {e.data.lien && <a class="cta" href={e.data.lien} style="margin-top:0.4rem;">{e.data.reservable ? 'Réserver' : 'En savoir plus'} <span class="line"></span></a>}
           </div>
-        ))}
-      </div>
+        </div>
+        );
+      })}
 
       {sansDate.length > 0 && (
-        <div style="margin-top: 3.5rem;">
-          <h2>En continu et sur inscription</h2>
-          <p class="muted" style="margin-bottom: 1rem;">Des propositions régulières ou dont les dates s'annoncent au fil de l'eau.</p>
-          {sansDate.map((e) => (
-            <div class="evt">
-              <div class="evt__date">Sur inscription</div>
-              <div>
-                <div class="evt__title">{e.data.titre}</div>
-                {e.data.resume && <p class="evt__meta">{e.data.resume}</p>}
-                <div class="evt__meta">
-                  {e.data.lieu}
-                  {e.data.lien && <> · <a href={e.data.lien}>En savoir plus</a></>}
+        <div style="margin-top:3rem;">
+          <p class="eyebrow">En continu et sur inscription</p>
+          <div style="margin-top:1.6rem;">
+            {sansDate.map((e) => (
+              <div class="evt">
+                <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
+                <div class="evt__body">
+                  <div class="evt__date"><span class="soon">Sur inscription</span></div>
+                  <div class="evt__title">{e.data.titre}</div>
+                  {e.data.resume && <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{e.data.resume}</div>}
+                  <div class="evt__meta">{e.data.lieu}</div>
+                  {e.data.lien && <a class="cta" href={e.data.lien} style="margin-top:0.4rem;">En savoir plus <span class="line"></span></a>}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
