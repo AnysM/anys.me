@@ -1,13 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-const soins = [
-  { t: "Massage à l'huile", img: '/img/u-soin.jpg', tag: 'Sur rendez-vous',
-    d: "Un soin du corps enveloppant, à l'huile chaude. Un relâchement profond, où le toucher dénoue les tensions, redonne de l'espace et ramène à la présence.",
-    meta: 'Durée et tarif à préciser' },
-  { t: 'Soin énergétique', img: '/img/meiso-photo.jpg', tag: 'Sur rendez-vous',
-    d: "Un accompagnement plus subtil, à l'écoute des mouvements internes. On dénoue ce qui est retenu et on remet en circulation, pour retrouver fluidité et ancrage.",
-    meta: 'Durée et tarif à préciser' },
-];
+import { getCollection } from 'astro:content';
+const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Soins — Anys Mechkar">
   <section class="page-hero"><img src="/img/hero-soins.jpg" alt="" />
@@ -15,22 +9,21 @@ const soins = [
   </section>
   <section>
     <div class="narrow">
-      <p class="lead">Un temps pour le corps, à réserver en ligne.</p>
+      <p class="lead">Un temps pour le corps. 1h30, 80€, sur rendez-vous.</p>
       <div style="margin-top:2.4rem;">
-        {soins.map((s) => (
-          <div class="evt">
-            <div class="evt__img"><img src={s.img} alt={s.t} /></div>
+        {soins.map((o) => (
+          <a class="evt" href={`/offre/${o.id}`}>
+            <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
             <div class="evt__body">
-              <div class="evt__date"><span class="soon">{s.tag}</span></div>
-              <div class="evt__title">{s.t}</div>
-              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{s.d}</div>
-              <div class="evt__meta">{s.meta}</div>
-              <a class="cta" href="#reserver" style="margin-top:0.4rem;">Réserver <span class="line"></span></a>
+              <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
+              <div class="evt__title">{o.data.titre}</div>
+              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{o.data.resume}</div>
+              <div class="evt__meta">{o.data.prix}</div>
+              <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
-      <div id="reserver" class="placeholder" style="margin-top:1.6rem;">Emplacement du calendrier de réservation et de paiement (Amelia + Stripe). À brancher une fois ton compte prêt.</div>
     </div>
   </section>
 </Base>

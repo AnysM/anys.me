@@ -19,16 +19,16 @@ const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR',
       {dates.map((e) => {
         const p = dparts(e.data.date);
         return (
-        <div class="evt">
+        <a class="evt" href={`/agenda/${e.id}`}>
           <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
           <div class="evt__body">
             <div class="evt__date"><span class="d">{p.day}</span><span class="m">{p.mon}</span><span class="y">{p.yr}</span></div>
             <div class="evt__title">{e.data.titre}</div>
             {e.data.resume && <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{e.data.resume}</div>}
             <div class="evt__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
-            {e.data.lien && <a class="cta" href={e.data.lien} style="margin-top:0.4rem;">{e.data.reservable ? 'Réserver' : 'En savoir plus'} <span class="line"></span></a>}
+            <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
           </div>
-        </div>
+        </a>
         );
       })}
 
@@ -37,16 +37,16 @@ const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR',
           <p class="eyebrow">En continu et sur inscription</p>
           <div style="margin-top:1.6rem;">
             {sansDate.map((e) => (
-              <div class="evt">
+              <a class="evt" href={`/agenda/${e.id}`}>
                 <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
                 <div class="evt__body">
                   <div class="evt__date"><span class="soon">Sur inscription</span></div>
                   <div class="evt__title">{e.data.titre}</div>
                   {e.data.resume && <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{e.data.resume}</div>}
-                  <div class="evt__meta">{e.data.lieu}</div>
-                  {e.data.lien && <a class="cta" href={e.data.lien} style="margin-top:0.4rem;">En savoir plus <span class="line"></span></a>}
+                  <div class="evt__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
+                  <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>

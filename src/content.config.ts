@@ -18,4 +18,20 @@ const agenda = defineCollection({
   }),
 });
 
-export const collections = { agenda };
+const offres = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/offres' }),
+  schema: z.object({
+    titre: z.string(),
+    categorie: z.enum(['soin', 'accompagnement']),
+    image: z.string().optional(),
+    prix: z.string().optional(),
+    tag: z.string().optional(),
+    resume: z.string().optional(),
+    lien: z.string().optional(),
+    reservable: z.boolean().default(true),
+    ordre: z.number().default(0),
+    publie: z.boolean().default(true),
+  }),
+});
+
+export const collections = { agenda, offres };

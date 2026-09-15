@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const offres = (await getCollection('offres')).filter((o) => o.data.publie);
+  return offres.map((o) => ({ params: { id: o.id }, props: { o } }));
+}
+const { o } = Astro.props;
+const { Content } = await render(o);
+---
+<Base title={`${o.data.titre} — Anys Mechkar`}>
+  <section class="page-hero"><img src={o.data.image ?? '/img/hero-soins.jpg'} alt="" />
+    <div class="narrow"><p class="eyebrow">{o.data.tag ?? (o.data.categorie === 'soin' ? 'Soin' : 'Accompagnement')}</p><h1>{o.data.titre}</h1></div>
+  </section>
+  <section>
+    <div class="narrow">
+      {o.data.prix && <p class="lead">{o.data.prix}</p>}
+      <div style="margin-top:1.4rem; color:#B9BCCB; font-size:1.05rem; line-height:1.9;"><Content /></div>
+      {o.data.reservable !== false && (
+        <>
+          <div style="margin-top:2rem;"><a class="btn btn--solid" href="#reserver">Réserver</a></div>
+          <div id="reserver" class="placeholder" style="margin-top:1.4rem;">Emplacement de la prise de rendez-vous et du paiement.</div>
+        </>
+      )}
+      <p style="margin-top:2.4rem;"><a class="cta" href={o.data.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></p>
+    </div>
+  </section>
+</Base>

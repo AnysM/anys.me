@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const evs = (await getCollection('agenda')).filter((e) => e.data.publie);
+  return evs.map((e) => ({ params: { id: e.id }, props: { e } }));
+}
+const { e } = Astro.props;
+const d = e.data.date;
+const fmt = d ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d) : 'Sur inscription';
+const meta = [e.data.lieu, e.data.prix].filter(Boolean).join(' · ');
+---
+<Base title={`${e.data.titre} — Anys Mechkar`}>
+  <section class="page-hero"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt="" />
+    <div class="wrap"><p class="eyebrow">{fmt}</p><h1>{e.data.titre}</h1></div>
+  </section>
+  <section>
+    <div class="narrow">
+      {meta && <p class="lead">{meta}</p>}
+      {e.data.resume && <p style="margin-top:1.4rem; color:#B9BCCB; font-size:1.05rem; line-height:1.9;">{e.data.resume}</p>}
+      {e.data.lien && (
+        <div style="margin-top:2rem;">
+          <a class="btn btn--solid" href={e.data.lien} target={e.data.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a>
+        </div>
+      )}
+      <p style="margin-top:2.4rem;"><a class="cta" href="/agenda">← Tout l'agenda</a></p>
+    </div>
+  </section>
+</Base>

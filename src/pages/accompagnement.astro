@@ -1,16 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-const items = [
-  { t: 'Accompagnement individuel', img: '/img/portrait.jpg', tag: '1:1',
-    d: "Un espace à toi, dans la durée, pour traverser un passage et retrouver ta direction. On avance à ton rythme, au plus près de ce qui se joue. J'y mêle la Fractalogie, ma méthode pour repérer les schémas qui se répètent.",
-    meta: 'Format, durée et tarif à préciser', cta: 'Prendre rendez-vous', href: '#rdv' },
-  { t: 'Prisme Origine', img: '/img/art-1.jpg', tag: 'Lecture',
-    d: "Une lecture de ton système, à partir du Human Design, du Tzolk'in, du BaZi et des Gene Keys. Pour éclairer ta nature profonde et ta direction.",
-    meta: 'Lecture 120€ (1h30) · Complète 350€ (2h, avec portrait écrit et œuvre originale)', cta: 'Réserver', href: '#rdv' },
-  { t: 'Accompagnement collectif', img: '/img/u-accompagnement.jpg', tag: 'Collectif',
-    d: "Un cheminement à plusieurs, pour celles et ceux qui avancent mieux en groupe. Cette proposition prendra la suite d'IN CARNE et de La Tribu Morpho.",
-    meta: 'En préparation, les contours seront précisés bientôt', cta: '', href: '' },
-];
+import { getCollection } from 'astro:content';
+const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Accompagnement — Anys Mechkar">
   <section class="page-hero"><img src="/img/hero-accompagnement.jpg" alt="" />
@@ -20,20 +11,19 @@ const items = [
     <div class="narrow">
       <p class="lead">Un chemin en individuel, une lecture de ton système, ou un cheminement à plusieurs.</p>
       <div style="margin-top:2.4rem;">
-        {items.map((s) => (
-          <div class="evt">
-            <div class="evt__img"><img src={s.img} alt={s.t} /></div>
+        {items.map((o) => (
+          <a class="evt" href={`/offre/${o.id}`}>
+            <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
             <div class="evt__body">
-              <div class="evt__date"><span class="soon">{s.tag}</span></div>
-              <div class="evt__title">{s.t}</div>
-              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{s.d}</div>
-              <div class="evt__meta">{s.meta}</div>
-              {s.cta && <a class="cta" href={s.href} style="margin-top:0.4rem;">{s.cta} <span class="line"></span></a>}
+              <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
+              <div class="evt__title">{o.data.titre}</div>
+              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{o.data.resume}</div>
+              <div class="evt__meta">{o.data.prix}</div>
+              <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
             </div>
-          </div>
+          </a>
         ))}
       </div>
-      <div id="rdv" class="placeholder" style="margin-top:1.6rem;">Emplacement de la prise de rendez-vous et du paiement pour les séances individuelles.</div>
     </div>
   </section>
 </Base>
