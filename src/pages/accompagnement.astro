@@ -4,18 +4,21 @@ const items = [
   { t: 'Accompagnement individuel', img: '/img/portrait.jpg', tag: '1:1',
     d: "Un espace à toi, dans la durée, pour traverser un passage et retrouver ta direction. On avance à ton rythme, au plus près de ce qui se joue. J'y mêle la Fractalogie, ma méthode pour repérer les schémas qui se répètent.",
     meta: 'Format, durée et tarif à préciser', cta: 'Prendre rendez-vous', href: '#rdv' },
+  { t: 'Prisme Origine', img: '/img/art-1.jpg', tag: 'Lecture',
+    d: "Une lecture de ton système, à partir du Human Design, du Tzolk'in, du BaZi et des Gene Keys. Pour éclairer ta nature profonde et ta direction.",
+    meta: 'Lecture 120€ (1h30) · Complète 350€ (2h, avec portrait écrit et œuvre originale)', cta: 'Réserver', href: '#rdv' },
   { t: 'Accompagnement collectif', img: '/img/u-accompagnement.jpg', tag: 'Collectif',
     d: "Un cheminement à plusieurs, pour celles et ceux qui avancent mieux en groupe. Cette proposition prendra la suite d'IN CARNE et de La Tribu Morpho.",
     meta: 'En préparation, les contours seront précisés bientôt', cta: '', href: '' },
 ];
 ---
 <Base title="Accompagnement — Anys Mechkar">
-  <section class="page-hero"><img src="/img/u-accompagnement.jpg" alt="" />
+  <section class="page-hero"><img src="/img/hero-accompagnement.jpg" alt="" />
     <div class="narrow"><p class="eyebrow">Cheminer</p><h1>Accompagnement</h1></div>
   </section>
   <section>
     <div class="narrow">
-      <p class="lead">Un chemin en individuel, ou un cheminement à plusieurs.</p>
+      <p class="lead">Un chemin en individuel, une lecture de ton système, ou un cheminement à plusieurs.</p>
       <div style="margin-top:2.4rem;">
         {items.map((s) => (
           <div class="evt">
