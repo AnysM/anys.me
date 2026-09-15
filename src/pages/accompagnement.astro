@@ -1,5 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+const items = [
+  { t: 'Accompagnement individuel', img: '/img/portrait.jpg', tag: '1:1',
+    d: "Un espace à toi, dans la durée, pour traverser un passage et retrouver ta direction. On avance à ton rythme, au plus près de ce qui se joue. J'y mêle la Fractalogie, ma méthode pour repérer les schémas qui se répètent.",
+    meta: 'Format, durée et tarif à préciser', cta: 'Prendre rendez-vous', href: '#rdv' },
+  { t: 'Accompagnement collectif', img: '/img/u-accompagnement.jpg', tag: 'Collectif',
+    d: "Un cheminement à plusieurs, pour celles et ceux qui avancent mieux en groupe. Cette proposition prendra la suite d'IN CARNE et de La Tribu Morpho.",
+    meta: 'En préparation, les contours seront précisés bientôt', cta: '', href: '' },
+];
 ---
 <Base title="Accompagnement — Anys Mechkar">
   <section class="page-hero"><img src="/img/u-accompagnement.jpg" alt="" />
@@ -8,21 +16,21 @@ import Base from '../layouts/Base.astro';
   <section>
     <div class="narrow">
       <p class="lead">Un chemin en individuel, ou un cheminement à plusieurs.</p>
-
-      <div style="margin-top: 2.6rem;">
-        <h3>En individuel</h3>
-        <p>Un espace à toi, dans la durée, pour traverser un passage et retrouver ta direction. On avance à ton rythme, au plus près de ce qui se joue.</p>
-        <div style="margin-top: 1rem;"><a class="btn btn--solid" href="#rdv">Prendre rendez-vous</a></div>
-        <div id="rdv" class="placeholder" style="margin-top: 1.4rem;">
-          Emplacement de la prise de rendez-vous et du paiement.
-        </div>
+      <div style="margin-top:2.4rem;">
+        {items.map((s) => (
+          <div class="evt">
+            <div class="evt__img"><img src={s.img} alt={s.t} /></div>
+            <div class="evt__body">
+              <div class="evt__date"><span class="soon">{s.tag}</span></div>
+              <div class="evt__title">{s.t}</div>
+              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{s.d}</div>
+              <div class="evt__meta">{s.meta}</div>
+              {s.cta && <a class="cta" href={s.href} style="margin-top:0.4rem;">{s.cta} <span class="line"></span></a>}
+            </div>
+          </div>
+        ))}
       </div>
-
-      <div style="margin-top: 3rem;">
-        <h3>En collectif</h3>
-        <p>Un cheminement de groupe, pour ceux qui avancent mieux à plusieurs. Cette proposition remplacera IN CARNE et La Tribu Morpho.</p>
-        <p class="muted" style="margin-top:0.4rem;">En préparation. Les contours seront précisés bientôt.</p>
-      </div>
+      <div id="rdv" class="placeholder" style="margin-top:1.6rem;">Emplacement de la prise de rendez-vous et du paiement pour les séances individuelles.</div>
     </div>
   </section>
 </Base>

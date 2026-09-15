@@ -1,5 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+const soins = [
+  { t: "Massage à l'huile", img: '/img/u-soin.jpg', tag: 'Sur rendez-vous',
+    d: "Un soin du corps enveloppant, à l'huile chaude. Un relâchement profond, où le toucher dénoue les tensions, redonne de l'espace et ramène à la présence.",
+    meta: 'Durée et tarif à préciser' },
+  { t: 'Soin énergétique', img: '/img/meiso-photo.jpg', tag: 'Sur rendez-vous',
+    d: "Un accompagnement plus subtil, à l'écoute des mouvements internes. On dénoue ce qui est retenu et on remet en circulation, pour retrouver fluidité et ancrage.",
+    meta: 'Durée et tarif à préciser' },
+];
 ---
 <Base title="Soins — Anys Mechkar">
   <section class="page-hero"><img src="/img/u-soin.jpg" alt="" />
@@ -7,26 +15,22 @@ import Base from '../layouts/Base.astro';
   </section>
   <section>
     <div class="narrow">
-      <p class="lead">Un temps pour le corps, réservable en ligne.</p>
-
-      <div style="margin-top: 2.6rem;">
-        <h3>Massage à l'huile</h3>
-        <p>Un soin du corps enveloppant, à l'huile chaude. Un relâchement profond, où le toucher redonne de l'espace et de la présence.</p>
-        <p class="muted" style="margin-top:0.4rem;">Durée et tarif à préciser.</p>
+      <p class="lead">Un temps pour le corps, à réserver en ligne.</p>
+      <div style="margin-top:2.4rem;">
+        {soins.map((s) => (
+          <div class="evt">
+            <div class="evt__img"><img src={s.img} alt={s.t} /></div>
+            <div class="evt__body">
+              <div class="evt__date"><span class="soon">{s.tag}</span></div>
+              <div class="evt__title">{s.t}</div>
+              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{s.d}</div>
+              <div class="evt__meta">{s.meta}</div>
+              <a class="cta" href="#reserver" style="margin-top:0.4rem;">Réserver <span class="line"></span></a>
+            </div>
+          </div>
+        ))}
       </div>
-
-      <div style="margin-top: 2.4rem;">
-        <h3>Soin énergétique</h3>
-        <p>Un accompagnement plus subtil, à l'écoute des mouvements internes, pour dénouer et remettre en circulation.</p>
-        <p class="muted" style="margin-top:0.4rem;">Durée et tarif à préciser.</p>
-      </div>
-
-      <div style="margin-top: 2.6rem;">
-        <a class="btn btn--solid" href="#reserver">Réserver un créneau</a>
-      </div>
-      <div id="reserver" class="placeholder" style="margin-top: 1.6rem;">
-        Emplacement du calendrier de réservation et de paiement. À brancher une fois ton compte prêt.
-      </div>
+      <div id="reserver" class="placeholder" style="margin-top:1.6rem;">Emplacement du calendrier de réservation et de paiement (Amelia + Stripe). À brancher une fois ton compte prêt.</div>
     </div>
   </section>
 </Base>
