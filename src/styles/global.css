@@ -245,3 +245,24 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 /* ── Emplacement photo ── */
 .photo-slot { aspect-ratio: 16/9; border: 1px dashed var(--faint); border-radius: 8px; background: var(--surface); display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: 'EB Garamond', serif; font-style: italic; margin: 1.8rem 0; overflow: hidden; }
 .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Grille d'événements ── */
+.egrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.6rem; margin-top: 2rem; }
+.ecard { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--faint); border-radius: 10px; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+.ecard:hover { border-color: rgba(216,162,76,0.5); transform: translateY(-3px); }
+.ecard__img { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+.ecard__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.ecard:hover .ecard__img img { transform: scale(1.04); }
+.ecard__tag { position: absolute; top: 12px; left: 12px; z-index: 1; background: rgba(10,15,32,0.82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid var(--faint); color: var(--gold); font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.58rem; padding: 5px 11px; border-radius: 100px; }
+.ecard__body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.45rem; flex: 1; }
+.ecard__date { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; color: var(--gold); }
+.ecard__title { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.45rem; color: var(--cream); line-height: 1.12; }
+.ecard__meta { color: var(--muted); font-size: 0.85rem; margin-top: auto; padding-top: 0.4rem; }
+
+/* ── Groupes d'agenda ── */
+.group + .group { margin-top: clamp(2.8rem, 6vw, 4.5rem); }
+.group__title { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 1.05rem; color: var(--cream); display: flex; align-items: center; gap: 18px; }
+.group__title::after { content: ''; flex: 1; height: 1px; background: var(--faint); }
+
+/* ── Titres de section plus présents ── */
+h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }

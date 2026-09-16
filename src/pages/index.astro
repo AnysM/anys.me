@@ -105,23 +105,20 @@ const partenaires = [
   ))}
 
   <!-- AGENDA -->
-  <section>
+  <section style="background:var(--surface);">
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
         <p class="eyebrow">Prochaines dates</p>
         <a class="cta" href="/agenda">Tout l'agenda <span class="line"></span></a>
       </div>
-      <div style="margin-top:1.8rem;">
+      <div class="egrid">
         {homeEvents.map((e) => (
-          <a class="evt" href={`/agenda/${e.id}`}>
-            <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
-            <div class="evt__body">
-              {e.data.date
-                ? <div class="evt__date"><span class="d">{dparts(e.data.date).day}</span><span class="m">{dparts(e.data.date).mon}</span><span class="y">{dparts(e.data.date).yr}</span></div>
-                : <div class="evt__date"><span class="soon">{e.data.rythme ?? 'Sur inscription'}</span></div>}
-              <div class="evt__title">{e.data.titre}</div>
-              <div class="evt__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
-              <span class="cta" style="margin-top:0.3rem;">Découvrir <span class="line"></span></span>
+          <a class="ecard" href={`/agenda/${e.id}`}>
+            <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{e.data.categorie === 'voyage-sonore' ? 'Voyage sonore' : e.data.categorie}</span></div>
+            <div class="ecard__body">
+              <div class="ecard__date">{e.data.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(e.data.date).replace('.', '') : (e.data.rythme ?? 'Sur inscription')}</div>
+              <div class="ecard__title">{e.data.titre}</div>
+              <div class="ecard__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
             </div>
           </a>
         ))}
@@ -158,7 +155,7 @@ const partenaires = [
   </section>
 
   <!-- PARTENAIRES -->
-  <section>
+  <section style="background:var(--surface);">
     <div class="wrap">
       <p class="eyebrow">Partenaires</p>
       <div class="parts">
