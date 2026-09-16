@@ -7,23 +7,38 @@ export async function getStaticPaths() {
 }
 const { o } = Astro.props;
 const { Content } = await render(o);
+const d = o.data;
+const infos = [];
+if (d.duree) infos.push({ k: 'Durée', v: d.duree });
+if (d.prix && !d.tarifs) infos.push({ k: 'Tarif', v: d.prix });
+if (d.format) infos.push({ k: 'Format', v: d.format });
+if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
 ---
-<Base title={`${o.data.titre} — Anys Mechkar`}>
-  <section class="page-hero"><img src={o.data.image ?? '/img/hero-soins.jpg'} alt="" />
-    <div class="narrow"><p class="eyebrow">{o.data.tag ?? (o.data.categorie === 'soin' ? 'Soin' : 'Accompagnement')}</p><h1>{o.data.titre}</h1></div>
+<Base title={`${d.titre} — Anys Mechkar`}>
+  <section class="page-hero"><img src={d.image ?? '/img/hero-soins.jpg'} alt="" />
+    <div class="narrow"><p class="eyebrow">{d.tag ?? (d.categorie === 'soin' ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
   </section>
   <section>
     <div class="narrow">
-      {o.data.prix && <p class="lead">{o.data.prix}</p>}
-      <div style="margin-top:1.4rem; color:#B9BCCB; font-size:1.05rem; line-height:1.9;"><Content /></div>
-      {o.data.reservable !== false && (
+      {infos.length > 0 && (
+        <div class="encart">
+          <div class="encart__title">Infos pratiques</div>
+          <div class="infos">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
+        </div>
+      )}
+      {d.tarifs && (
+        <div class="tarifs">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>
+      )}
+      <div class="prose"><Content /></div>
+      <div class="photo-slot">Photo à venir</div>
+      {d.reservable !== false && (
         <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
-          <a class="btn btn--solid" href="mailto:contact@anys.me?subject=Réservation%20{o.data.titre}">Écrire</a>
+          <a class="btn btn--solid" href={`mailto:contact@anys.me?subject=${encodeURIComponent(d.titre)}`}>Écrire</a>
           <a class="btn" href="#appel">Prendre rendez-vous</a>
         </div>
       )}
-      {o.data.reservable !== false && <div id="appel" class="placeholder" style="margin-top:1.4rem;">Formulaire court et prise de rendez-vous à brancher ici.</div>}
-      <p style="margin-top:2.4rem;"><a class="cta" href={o.data.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></p>
+      {d.reservable !== false && <div id="appel" class="placeholder" style="margin-top:1.4rem;">Formulaire court et prise de rendez-vous à brancher ici.</div>}
+      <p style="margin-top:2.4rem;"><a class="cta" href={d.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></p>
     </div>
   </section>
 </Base>

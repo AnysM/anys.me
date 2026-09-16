@@ -7,21 +7,27 @@ export async function getStaticPaths() {
 }
 const { e } = Astro.props;
 const { Content } = await render(e);
-const d = e.data.date;
-const quand = d ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d) : (e.data.rythme ?? 'Sur inscription');
-const meta = [e.data.lieu, e.data.prix].filter(Boolean).join(' · ');
+const d = e.data;
+const quand = d.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d.date) : (d.rythme ?? 'Sur inscription');
+const infos = [{ k: 'Quand', v: quand }];
+if (d.lieu) infos.push({ k: 'Lieu', v: d.lieu });
+if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
 ---
-<Base title={`${e.data.titre} — Anys Mechkar`}>
-  <section class="page-hero"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt="" />
-    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{e.data.titre}</h1></div>
+<Base title={`${d.titre} — Anys Mechkar`}>
+  <section class="page-hero"><img src={d.image ?? '/img/u-immersion.jpg'} alt="" />
+    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1></div>
   </section>
   <section>
     <div class="narrow">
-      {meta && <p class="lead">{meta}</p>}
-      <div style="margin-top:1.4rem; color:#B9BCCB; font-size:1.05rem; line-height:1.9;"><Content /></div>
-      {e.data.lien && (
+      <div class="encart">
+        <div class="encart__title">Infos pratiques</div>
+        <div class="infos">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
+      </div>
+      <div class="prose"><Content /></div>
+      <div class="photo-slot">Photo à venir</div>
+      {d.lien && (
         <div style="margin-top:2rem;">
-          <a class="btn btn--solid" href={e.data.lien} target={e.data.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{e.data.reservable ? 'Réserver' : 'En savoir plus'}</a>
+          <a class="btn btn--solid" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{d.reservable ? 'Réserver' : 'En savoir plus'}</a>
         </div>
       )}
       <p style="margin-top:2.4rem;"><a class="cta" href="/agenda">← Tout l'agenda</a></p>

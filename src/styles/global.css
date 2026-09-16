@@ -214,3 +214,34 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .part__media img { width: 100%; height: 100%; object-fit: cover; }
 .part__media::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,15,32,0.55), rgba(10,15,32,0.15)); }
 .part__logo { position: absolute; left: 14px; bottom: 12px; z-index: 1; max-height: 26px; max-width: 60%; opacity: 0.95; }
+
+/* ── Contenu structuré (prose) ── */
+.prose { max-width: 64ch; }
+.prose > * + * { margin-top: 1rem; }
+.prose h2 { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 1rem; color: var(--gold); margin-top: 2.6rem; }
+.prose h3 { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.4rem; color: var(--cream); text-transform: none; letter-spacing: 0; margin-top: 2rem; }
+.prose p { color: #B9BCCB; line-height: 1.9; }
+.prose strong { color: var(--cream); font-weight: 500; }
+.prose ul { list-style: none; padding: 0; }
+.prose li { position: relative; padding-left: 1.5em; color: #B9BCCB; line-height: 1.7; margin-top: 0.5rem; }
+.prose li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 8px; height: 1px; background: var(--gold); }
+.prose blockquote { border-left: 2px solid var(--gold); padding: 0.2rem 0 0.2rem 1.4rem; margin: 1.8rem 0; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.3rem; line-height: 1.5; color: var(--cream); }
+.prose blockquote p { color: var(--cream); }
+
+/* ── Encart ── */
+.encart { background: var(--surface); border: 1px solid var(--faint); border-left: 3px solid var(--gold); border-radius: 8px; padding: 1.4rem 1.6rem; margin: 1.8rem 0; }
+.encart__title { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.68rem; color: var(--gold); margin-bottom: 1rem; }
+.infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem 1.6rem; }
+.infos .k { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.6rem; color: var(--muted); }
+.infos .v { color: var(--cream); font-size: 1rem; margin-top: 0.25rem; }
+
+/* ── Cartes tarifs ── */
+.tarifs { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 1rem; margin: 1.8rem 0; }
+.tarif { background: var(--surface); border: 1px solid var(--faint); border-radius: 8px; padding: 1.4rem; }
+.tarif .label { font-family: 'EB Garamond', serif; font-size: 1.2rem; color: var(--cream); }
+.tarif .prix { font-family: 'Jost', sans-serif; color: var(--gold); font-size: 1.35rem; margin-top: 0.4rem; }
+.tarif .detail { color: var(--muted); font-size: 0.85rem; margin-top: 0.4rem; line-height: 1.6; }
+
+/* ── Emplacement photo ── */
+.photo-slot { aspect-ratio: 16/9; border: 1px dashed var(--faint); border-radius: 8px; background: var(--surface); display: flex; align-items: center; justify-content: center; color: var(--muted); font-family: 'EB Garamond', serif; font-style: italic; margin: 1.8rem 0; overflow: hidden; }
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; }
