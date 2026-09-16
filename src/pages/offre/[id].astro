@@ -20,24 +20,21 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
   </section>
   <section>
     <div class="narrow">
-      {infos.length > 0 && (
-        <div class="encart">
-          <div class="encart__title">Infos pratiques</div>
-          <div class="infos">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
-        </div>
-      )}
-      {d.tarifs && (
-        <div class="tarifs">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>
-      )}
       <div class="prose"><Content /></div>
       <div class="photo-slot">Photo à venir</div>
+      {(infos.length > 0 || d.tarifs) && (
+        <div class="encart">
+          <div class="encart__title">Infos & tarifs</div>
+          {infos.length > 0 && <div class="infos">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
+          {d.tarifs && <div class="tarifs" style="margin:1.2rem 0 0;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
+        </div>
+      )}
       {d.reservable !== false && (
-        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+        <div style="margin-top:1.8rem; display:flex; gap:1rem; flex-wrap:wrap;">
           <a class="btn btn--solid" href="/contact">Écrire</a>
           <a class="btn" href="/contact#appel">Prendre un appel</a>
         </div>
       )}
-      
       <p style="margin-top:2.4rem;"><a class="cta" href={d.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></p>
     </div>
   </section>

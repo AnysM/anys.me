@@ -2,17 +2,64 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
+const outils = [
+  'Méditation de pleine conscience',
+  'Pratiques de mouvement et de respiration, danse Butoh',
+  'Écoute active, coaching non directif et mentorat',
+  'Jeu des 7 interlocuteurs et archétypes, psychologie jungienne',
+  'Connaissance de soi avec Prisme Origine, Human Design, Tzolk\u2019in, BaZi',
+];
 ---
 <Base title="Accompagnement — Anys Mechkar">
   <section class="page-hero"><img src="/img/hero-accompagnement.jpg" alt="" />
     <div class="narrow"><p class="eyebrow">Cheminer</p><h1>Accompagnement</h1></div>
   </section>
+
+  <!-- CŒUR À CŒUR -->
+  <section class="coeur">
+    <div class="wrap split">
+      <div class="photo"><img src="/img/portrait-2.jpg" alt="Anys Mechkar" /></div>
+      <div class="coeur__text">
+        <p>Je t'accompagne à traverser une crise existentielle, achever une transition de vie ou aboutir un projet de cœur.</p>
+        <p>Je t'aide dans la compréhension profonde de qui tu es, pour retrouver alignement, souveraineté et pouvoir créateur. Mon parcours m'a permis de traverser tout ça, et chacune de ces crises a été une initiation pour me rapprocher de qui je suis vraiment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POUR QUI -->
   <section>
     <div class="narrow">
-      <p class="lead">Je t'accompagne à traverser une crise existentielle, achever une transition de vie ou aboutir un projet de cœur.</p>
-      <p style="margin-top:1.4rem; color:#B9BCCB; line-height:1.9;">Je t'aide dans la compréhension profonde de qui tu es, pour retrouver alignement, souveraineté et pouvoir créateur. Il y a deux profils, en général. Ceux qui passent leur temps à vouloir guérir, à tout comprendre, et ceux qui pensent y arriver tout seuls. Les premiers ont oublié de vivre, bloqués à regarder leur problème sans pouvoir le traverser. Les seconds foncent sans jamais s'arrêter, jusqu'à ce que les crises les arrêtent. Burnout, licenciement, rupture, maladie.</p>
-      <p style="margin-top:0.9rem; color:#B9BCCB; line-height:1.9;">Toutes ces crises sont des opportunités de réajuster. Douloureuses, mais si on regarde depuis le bon endroit, elles nous offrent l'occasion de nous arrêter et de nous poser les vraies questions. Quand est-ce que je me suis trahi ? Quand est-ce que je me suis oublié ? Ai-je vraiment choisi ma vie en conscience ? Mon parcours m'a permis de traverser tout ça, et chacune de ces crises a été une initiation pour me rapprocher de qui je suis vraiment.</p>
-      <p style="margin-top:0.9rem; color:#B9BCCB; line-height:1.9;">Les outils : méditation de pleine conscience, pratiques de mouvement et de respiration (danse Butô), écoute active et mentorat non directif, jeu des 7 interlocuteurs et archétypes, et la connaissance de soi avec Prisme Origine (Human Design, Tzolk'in, BaZi). Un accompagnement avec moi, c'est avant tout un espace qui favorise le déploiement. Je ne tire pas sur la fleur pour la faire pousser : je suis comme un jardinier qui offre les conditions optimales. Le reste t'appartient.</p>
+      <p class="eyebrow">Pour qui</p>
+      <h2 style="margin-top:0.8rem;">Deux façons de se perdre</h2>
+      <p style="margin-top:1.2rem; color:#C2C5D2; line-height:1.9;">Il y a deux profils, en général. Ceux qui passent leur temps à vouloir guérir, à tout comprendre, et ceux qui pensent y arriver tout seuls. Les premiers ont oublié de vivre, bloqués à regarder leur problème sans pouvoir le traverser. Les seconds foncent sans jamais s'arrêter, jusqu'à ce que les crises les arrêtent. Burnout, licenciement, rupture, maladie.</p>
+      <p style="margin-top:0.9rem; color:#C2C5D2; line-height:1.9;">Toutes ces crises sont des opportunités de réajuster. Douloureuses, mais si on regarde depuis le bon endroit, elles nous offrent l'occasion de nous arrêter et de nous poser les vraies questions. Quand est-ce que je me suis trahi ? Quand est-ce que je me suis oublié ? Ai-je vraiment choisi ma vie en conscience ?</p>
+    </div>
+  </section>
+
+  <!-- LES OUTILS -->
+  <section style="padding:0;">
+    <div class="univers rev">
+      <div class="univers__img"><img src="/img/u-accompagnement.jpg" alt="" /></div>
+      <div class="univers__body">
+        <p class="eyebrow" style="margin-bottom:0.6rem;">Les outils</p>
+        <h2>De la vision au prochain pas</h2>
+        <div class="pratiques" style="margin-top:1.4rem;">{outils.map((o) => <span>{o}</span>)}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MA POSTURE (bloc de couleur) -->
+  <section class="bloc-or passage">
+    <div class="narrow">
+      <p>Je ne tire pas sur la fleur pour la faire pousser. Je suis comme un jardinier qui offre les conditions optimales. Le reste t'appartient.</p>
+    </div>
+  </section>
+
+  <!-- LES FORMULES -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Les formules</p>
+      <h2 style="margin-top:0.8rem;">Trouver le bon cadre</h2>
       <div style="margin-top:2.4rem;">
         {items.map((o) => (
           <a class="evt" href={`/offre/${o.id}`}>
@@ -20,8 +67,8 @@ const items = (await getCollection('offres')).filter((o) => o.data.publie && o.d
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
               <div class="evt__title">{o.data.titre}</div>
-              <div class="evt__meta" style="text-transform:none;letter-spacing:0;color:#B9BCCB;">{o.data.resume}</div>
-              <div class="evt__meta">{o.data.prix}</div>
+              <div class="evt__desc">{o.data.resume}</div>
+              {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
               <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
             </div>
           </a>
