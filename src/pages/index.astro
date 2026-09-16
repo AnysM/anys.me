@@ -116,9 +116,15 @@ const partenaires = [
           <a class="ecard" href={`/agenda/${e.id}`}>
             <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{e.data.categorie === 'voyage-sonore' ? 'Voyage sonore' : e.data.categorie}</span></div>
             <div class="ecard__body">
-              <div class="ecard__date">{e.data.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(e.data.date).replace('.', '') : (e.data.rythme ?? 'Sur inscription')}</div>
+              <div class="ecard__when">{e.data.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(e.data.date).replace('.', '') : (e.data.rythme ?? 'Sur inscription')}{e.data.heure ? ` · ${e.data.heure}` : ''}</div>
               <div class="ecard__title">{e.data.titre}</div>
-              <div class="ecard__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
+              {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
+              {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
+              <div class="ecard__foot">
+                {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
+                {e.data.earlybird && <span class="ecard__early">Early bird · {e.data.earlybird}</span>}
+              </div>
+              {e.data.lien && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
             </div>
           </a>
         ))}
@@ -175,7 +181,7 @@ const partenaires = [
     <img src="/img/hero.jpg" alt="" />
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
       Un premier pas ?
-      <a class="btn" href="mailto:contact@anys.me" style="font-style:normal;">Écrire à Anys</a>
+      <a class="btn" href="/contact" style="font-style:normal;">Écrire à Anys</a>
     </div>
   </section>
 </Base>

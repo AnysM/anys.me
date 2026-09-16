@@ -33,11 +33,11 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
       <div class="photo-slot">Photo à venir</div>
       {d.reservable !== false && (
         <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
-          <a class="btn btn--solid" href={`mailto:contact@anys.me?subject=${encodeURIComponent(d.titre)}`}>Écrire</a>
-          <a class="btn" href="#appel">Prendre rendez-vous</a>
+          <a class="btn btn--solid" href="/contact">Écrire</a>
+          <a class="btn" href="/contact#appel">Prendre un appel</a>
         </div>
       )}
-      {d.reservable !== false && <div id="appel" class="placeholder" style="margin-top:1.4rem;">Formulaire court et prise de rendez-vous à brancher ici.</div>}
+      
       <p style="margin-top:2.4rem;"><a class="cta" href={d.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></p>
     </div>
   </section>

@@ -3,6 +3,8 @@ titre: "Dans le Triangle"
 categorie: voyage-sonore
 date: 2026-10-26
 lieu: "Blast Art, Lyon"
+heure: "20h"
+cta: "Réserver"
 prix: "15€"
 image: "/img/art-4.jpg"
 resume: "Une expérience sonore et corporelle immersive, un soir de pleine lune. Une traversée que l'on vit ensemble, à la première personne."
