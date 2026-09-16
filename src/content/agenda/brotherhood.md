@@ -1,11 +1,14 @@
 ---
 titre: "Brotherhood Circle"
 categorie: retraite
-date: 2026-11-15
 lieu: "Maroc"
-image: "/img/hero.jpg"
-resume: "Retraite d'hommes."
+rythme: "Printemps 2027, dates à annoncer"
+image: "/img/hero-accompagnement.jpg"
+resume: "Retraite d'hommes, au Maroc. Dates à annoncer."
 reservable: false
-ordre: 3
+ordre: 4
 publie: true
 ---
+Une retraite d'hommes, au Maroc.
+
+Les dates du printemps 2027 seront annoncées prochainement.

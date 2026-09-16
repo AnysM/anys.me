@@ -17,11 +17,12 @@ const { Content } = await render(o);
       {o.data.prix && <p class="lead">{o.data.prix}</p>}
       <div style="margin-top:1.4rem; color:#B9BCCB; font-size:1.05rem; line-height:1.9;"><Content /></div>
       {o.data.reservable !== false && (
-        <>
-          <div style="margin-top:2rem;"><a class="btn btn--solid" href="#reserver">Réserver</a></div>
-          <div id="reserver" class="placeholder" style="margin-top:1.4rem;">Emplacement de la prise de rendez-vous et du paiement.</div>
-        </>
+        <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+          <a class="btn btn--solid" href="mailto:contact@anys.me?subject=Réservation%20{o.data.titre}">Écrire</a>
+          <a class="btn" href="#appel">Prendre rendez-vous</a>
+        </div>
       )}
+      {o.data.reservable !== false && <div id="appel" class="placeholder" style="margin-top:1.4rem;">Formulaire court et prise de rendez-vous à brancher ici.</div>}
       <p style="margin-top:2.4rem;"><a class="cta" href={o.data.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></p>
     </div>
   </section>

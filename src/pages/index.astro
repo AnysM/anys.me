@@ -2,26 +2,33 @@
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const dates = (await getCollection('agenda'))
-  .filter((e) => e.data.publie && e.data.date)
-  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
-  .slice(0, 3);
+const events = (await getCollection('agenda')).filter((e) => e.data.publie);
+const dated = events.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const recurring = events.filter((e) => !e.data.date).sort((a, b) => a.data.ordre - b.data.ordre);
+const homeEvents = [...dated, ...recurring].slice(0, 4);
 const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(d).replace('.', ''), yr: d.getFullYear() });
 
 const univers = [
-  { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: false,
-    d: "Massage à l'huile et soin énergétique. Un temps pour le corps, où le toucher redonne de l'espace et de la présence." },
-  { t: 'Accompagnement', img: '/img/u-accompagnement.jpg', href: '/accompagnement', rev: true,
-    d: "Un chemin en individuel, ou un cheminement à plusieurs. Traverser un passage et retrouver sa direction, à son rythme." },
-  { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: false,
-    d: "Des expériences longues, en présence, du désert marocain aux retraites d'hommes. Se déposer loin du quotidien." },
-  { t: 'Ateliers & voyages sonores', img: '/img/u-atelier.jpg', href: '/agenda', rev: true,
-    d: "Infloressence à Chanka Studio, méditation, Butoh et son. Et les voyages sonores immersifs, dont Le Triangle." },
+  { t: 'La présence', p: 'Méditation' },
+  { t: 'La connaissance de soi', p: 'Archétypes · Human Design · Tzolk\u2019in · BaZi' },
+  { t: 'Le mouvement', p: 'Danse Butoh · Kung-fu · mouvement naturel' },
+  { t: 'Le lien au vivant', p: 'Chamanisme · peuples indigènes · sagesses ancestrales' },
+  { t: 'L\u2019art et l\u2019expression créative', p: 'Danse · musique · peinture' },
+];
+const propositions = [
+  { t: 'Ateliers & voyages sonores', img: '/img/u-atelier.jpg', href: '/agenda', rev: false,
+    d: "Infloressence à Chanka Studio, méditation, Butoh et son, tous les dimanches à 19h. Et les voyages sonores immersifs, dont « Dans le Triangle » à l'expo Pirates de Blast, à la pleine lune du 26 octobre." },
+  { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: true,
+    d: "Massage à l'huile et soin énergétique. Un temps pour remettre du mouvement, harmoniser, dynamiser et soutenir les passages à vide, les transformations, les périodes de changement. À Chanka, Meïsō ou à l'Île Barbe." },
+  { t: 'Accompagnement', img: '/img/portrait.jpg', href: '/accompagnement', rev: false,
+    d: "Un accompagnement individuel pour les transitions de vie et la réalisation de projet. Prisme Origine : lecture Human Design, Tzolk'in, BaZi." },
+  { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: true,
+    d: "Des expériences immersives pensées comme de vraies initiations, pour revenir à l'essentiel, soutenir un passage de vie, retrouver force et alignement. Retraites d'hommes avec Brotherhood Circle, Desert Mirage Journey dans le désert, et Quintessence en France." },
 ];
 const temoins = [
+  { t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.", n: 'Sonia', c: 'Ateliers Infloressence' },
   { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
   { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
-  { t: "Un voyage où le temps s'arrête et le corps se libère. Des pratiques devenues des outils du quotidien.", n: 'Sonia', c: 'Ateliers Infloressence' },
 ];
 const partenaires = [
   { n: 'Meïsō', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon.', lien: 'https://meiso.fr/flottaison-lyon' },
@@ -37,26 +44,41 @@ const partenaires = [
     <div class="hero-bg"><img src="/img/univers-art.jpg" alt="Œuvre d'Indigo Enoqii" /></div>
     <span class="dot" style="width:7px;height:7px;background:var(--coral);top:26%;right:8%"></span>
     <span class="dot" style="width:6px;height:6px;background:var(--blue);top:40%;right:16%;opacity:.9"></span>
-    <span class="dot" style="width:4px;height:4px;background:var(--cream);top:52%;right:5%;opacity:.7"></span>
     <span class="dot" style="width:5px;height:5px;background:var(--gold);top:70%;right:24%;opacity:.6"></span>
     <div class="hero-left">
-      <p class="eyebrow">Guide · Créateur · Initiateur</p>
-      <div class="hero-name" style="margin-top:22px;"><span class="top">Révéler ta</span><span class="serif-i">couleur unique.</span></div>
-      <p class="lead" style="margin-top:26px;">J'accompagne celles et ceux qui traversent un passage, par le corps, le mouvement et la création, depuis un espace de non-effort.</p>
-      <a class="cta" href="/agenda" style="margin-top:36px;">Voir l'agenda <span class="line"></span></a>
+      <p class="eyebrow">Présence · Mouvement · Créativité</p>
+      <div class="hero-name" style="margin-top:22px;"><span class="top">Marcher un chemin qui</span><span class="serif-i">te ressemble.</span></div>
+      <p class="lead" style="margin-top:26px;">C'est un vrai défi d'avoir une vie qui nous ressemble vraiment. J'accompagne ces transitions, avec des outils ancrés dans la connaissance de soi, le retour à la présence, le mouvement et la créativité, pour faire de la crise une opportunité d'alignement et d'évolution.</p>
+      <a class="cta" href="/agenda" style="margin-top:36px;">Voir les prochains événements <span class="line"></span></a>
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
 
-  <!-- PARCOURS -->
+  <!-- MON PARCOURS (teaser) -->
   <section>
     <div class="wrap split">
       <div class="photo"><img src="/img/portrait.jpg" alt="Anys Mechkar" /></div>
       <div>
         <div class="num">01</div>
-        <h2>Mon parcours</h2>
-        <p class="muted">J'ai passé des années à construire. Puis quelque chose s'est mis à tirer de l'intérieur. La réponse est venue par le corps : le Butoh, les arts internes, la méditation, la peinture. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
-        <a class="cta" href="/accompagnement" style="margin-top:22px;">En savoir plus <span class="line"></span></a>
+        <h2>Qui je suis</h2>
+        <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
+        <a class="cta" href="/a-propos" style="margin-top:22px;">Mon histoire <span class="line"></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LES UNIVERS (piliers) -->
+  <section style="background:var(--surface);">
+    <div class="wrap">
+      <p class="eyebrow">Les univers</p>
+      <h2 style="margin-top:0.8rem;">Cinq dimensions d'un même chemin</h2>
+      <div class="parts" style="margin-top:2.4rem;">
+        {univers.map((u) => (
+          <div class="part">
+            <div class="part__name">{u.t}</div>
+            <div class="part__desc">{u.p}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -66,11 +88,11 @@ const partenaires = [
   <!-- RESPIRATION -->
   <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Là où le paysage devient intérieur.</div></section>
 
-  <!-- LES UNIVERS -->
+  <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
-    <div class="wrap"><p class="eyebrow">Les univers</p><h2 style="margin-top:0.8rem;">Ce que je propose</h2></div>
+    <div class="wrap"><p class="eyebrow">Les propositions</p><h2 style="margin-top:0.8rem;">Ce que je propose</h2></div>
   </section>
-  {univers.map((u) => (
+  {propositions.map((u) => (
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><img src={u.img} alt={u.t} /></div>
       <div class="univers__body">
@@ -82,6 +104,31 @@ const partenaires = [
     </section>
   ))}
 
+  <!-- AGENDA -->
+  <section>
+    <div class="wrap">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+        <p class="eyebrow">Prochaines dates</p>
+        <a class="cta" href="/agenda">Tout l'agenda <span class="line"></span></a>
+      </div>
+      <div style="margin-top:1.8rem;">
+        {homeEvents.map((e) => (
+          <a class="evt" href={`/agenda/${e.id}`}>
+            <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
+            <div class="evt__body">
+              {e.data.date
+                ? <div class="evt__date"><span class="d">{dparts(e.data.date).day}</span><span class="m">{dparts(e.data.date).mon}</span><span class="y">{dparts(e.data.date).yr}</span></div>
+                : <div class="evt__date"><span class="soon">{e.data.rythme ?? 'Sur inscription'}</span></div>}
+              <div class="evt__title">{e.data.titre}</div>
+              <div class="evt__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
+              <span class="cta" style="margin-top:0.3rem;">Découvrir <span class="line"></span></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- RESPIRATION vers l'art -->
   <section class="breath"><img src="/img/breath-art.jpg" alt="" /><div class="phrase">La couleur est un langage. La mienne parle en indigo.</div></section>
 
@@ -92,37 +139,9 @@ const partenaires = [
         <div><p class="eyebrow">Indigo Enoqii</p><h2 style="margin-top:0.8rem;">Mon univers artistique</h2></div>
         <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">La boutique <span class="line"></span></a>
       </div>
-      <div class="gallery">
+      <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
+      <div class="gallery" style="margin-top:2rem;">
         <img src="/img/art-1.jpg" alt="Œuvre" /><img src="/img/art-2.jpg" alt="Œuvre" /><img src="/img/art-3.jpg" alt="Œuvre" /><img src="/img/art-4.jpg" alt="Œuvre" />
-      </div>
-    </div>
-  </section>
-
-  <div class="star-div"><span></span><img src="/img/logo.png" alt="" /><span></span></div>
-
-  <!-- AGENDA -->
-  <section style="padding-top:0;">
-    <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <p class="eyebrow">Prochaines dates</p>
-        <a class="cta" href="/agenda">Tout l'agenda <span class="line"></span></a>
-      </div>
-      <div style="margin-top:1.8rem;">
-        {dates.length === 0 ? (<p class="muted">Les prochaines dates seront publiées ici.</p>)
-        : dates.map((e) => {
-          const p = dparts(e.data.date);
-          return (
-          <a class="evt" href={`/agenda/${e.id}`}>
-            <div class="evt__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /></div>
-            <div class="evt__body">
-              <div class="evt__date"><span class="d">{p.day}</span><span class="m">{p.mon}</span><span class="y">{p.yr}</span></div>
-              <div class="evt__title">{e.data.titre}</div>
-              <div class="evt__meta">{e.data.lieu}{e.data.prix ? ` · ${e.data.prix}` : ''}</div>
-              <span class="cta" style="margin-top:0.3rem;">Découvrir <span class="line"></span></span>
-            </div>
-          </a>
-          );
-        })}
       </div>
     </div>
   </section>
@@ -159,7 +178,7 @@ const partenaires = [
     <img src="/img/hero.jpg" alt="" />
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
       Un premier pas ?
-      <a class="btn" href="mailto:contact@anysmechkar.com" style="font-style:normal;">Écrire à Anys</a>
+      <a class="btn" href="mailto:contact@anys.me" style="font-style:normal;">Écrire à Anys</a>
     </div>
   </section>
 </Base>

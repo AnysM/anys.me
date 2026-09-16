@@ -9,6 +9,7 @@ const agenda = defineCollection({
     date: z.coerce.date().optional(),
     lieu: z.string().optional(),
     prix: z.string().optional(),
+    rythme: z.string().optional(),
     resume: z.string().optional(),
     image: z.string().optional(),
     lien: z.string().optional(),

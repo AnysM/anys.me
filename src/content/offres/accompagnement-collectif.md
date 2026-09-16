@@ -8,4 +8,4 @@ resume: "Un cheminement à plusieurs."
 reservable: false
 ordre: 3
 ---
-Un cheminement à plusieurs, pour celles et ceux qui avancent mieux en groupe. Cette proposition prendra la suite d'IN CARNE et de La Tribu Morpho. Les contours seront précisés bientôt.
+Un cheminement à plusieurs. Cette proposition est en construction.

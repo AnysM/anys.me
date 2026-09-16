@@ -9,7 +9,10 @@ const items = (await getCollection('offres')).filter((o) => o.data.publie && o.d
   </section>
   <section>
     <div class="narrow">
-      <p class="lead">Un chemin en individuel, une lecture de ton système, ou un cheminement à plusieurs.</p>
+      <p class="lead">Je t'accompagne à traverser une crise existentielle, achever une transition de vie ou aboutir un projet de cœur.</p>
+      <p style="margin-top:1.4rem; color:#B9BCCB; line-height:1.9;">Je t'aide dans la compréhension profonde de qui tu es, pour retrouver alignement, souveraineté et pouvoir créateur. Il y a deux profils, en général. Ceux qui passent leur temps à vouloir guérir, à tout comprendre, et ceux qui pensent y arriver tout seuls. Les premiers ont oublié de vivre, bloqués à regarder leur problème sans pouvoir le traverser. Les seconds foncent sans jamais s'arrêter, jusqu'à ce que les crises les arrêtent. Burnout, licenciement, rupture, maladie.</p>
+      <p style="margin-top:0.9rem; color:#B9BCCB; line-height:1.9;">Toutes ces crises sont des opportunités de réajuster. Douloureuses, mais si on regarde depuis le bon endroit, elles nous offrent l'occasion de nous arrêter et de nous poser les vraies questions. Quand est-ce que je me suis trahi ? Quand est-ce que je me suis oublié ? Ai-je vraiment choisi ma vie en conscience ? Mon parcours m'a permis de traverser tout ça, et chacune de ces crises a été une initiation pour me rapprocher de qui je suis vraiment.</p>
+      <p style="margin-top:0.9rem; color:#B9BCCB; line-height:1.9;">Les outils : méditation de pleine conscience, pratiques de mouvement et de respiration (danse Butô), écoute active et mentorat non directif, jeu des 7 interlocuteurs et archétypes, et la connaissance de soi avec Prisme Origine (Human Design, Tzolk'in, BaZi). Un accompagnement avec moi, c'est avant tout un espace qui favorise le déploiement. Je ne tire pas sur la fleur pour la faire pousser : je suis comme un jardinier qui offre les conditions optimales. Le reste t'appartient.</p>
       <div style="margin-top:2.4rem;">
         {items.map((o) => (
           <a class="evt" href={`/offre/${o.id}`}>

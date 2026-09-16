@@ -8,6 +8,7 @@ const soins = offres.filter((o) => o.data.categorie === 'soin');
 const accs = offres.filter((o) => o.data.categorie === 'accompagnement');
 const links = [
   { href: '/agenda', label: 'Agenda' },
+  { href: '/a-propos', label: 'À propos' },
   { href: '/soins', label: 'Soins' },
   { href: '/accompagnement', label: 'Accompagnement' },
   { href: '/partenaires', label: 'Partenaires' },
@@ -30,6 +31,7 @@ const links = [
     <a class="site-nav__logo" href="/"><img src="/img/logo.png" alt="Anys Mechkar" /><span>Anys Mechkar</span></a>
     <div class="site-nav__links">
       <a href="/agenda">Agenda</a>
+      <a href="/a-propos">À propos</a>
       <div class="has-sub">
         <a href="/soins">Soins</a>
         <div class="subnav">{soins.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
@@ -54,7 +56,7 @@ const links = [
         <div class="site-nav__sep"></div>
         <div class="site-nav__sub">
           <a class="site-nav__sub-link" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
-          <a class="site-nav__sub-link" href="mailto:contact@anysmechkar.com">Contact</a>
+          <a class="site-nav__sub-link" href="mailto:contact@anys.me">Contact</a>
         </div>
       </div>
     </div>
@@ -68,9 +70,9 @@ const links = [
     <div class="wrap foot__row">
       <span>© {new Date().getFullYear()} Anys Mechkar</span>
       <span>
-        <a href="/agenda">Agenda</a> · <a href="/soins">Soins</a> · <a href="/accompagnement">Accompagnement</a> · <a href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+        <a href="https://www.instagram.com/anys.mechkar/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@anys.mechkar" target="_blank" rel="noopener">YouTube</a> · <a href="https://www.facebook.com/anys.mechkar/" target="_blank" rel="noopener">Facebook</a> · <a href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
       </span>
-      <a href="mailto:contact@anysmechkar.com">contact@anysmechkar.com</a>
+      <a href="mailto:contact@anys.me">contact@anys.me</a>
     </div>
   </footer>
 
