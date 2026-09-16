@@ -56,3 +56,16 @@
 
 @media (max-width: 860px) { .site-nav__links { display: none; } .site-nav__burger { display: flex; } }
 @media (min-width: 861px) { .site-nav__overlay { display: none; } }
+
+/* Sous-menus déroulants (desktop) */
+.site-nav__links .has-sub { position: relative; display: flex; align-items: center; }
+.site-nav__links .has-sub::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 16px; }
+.subnav {
+  position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%) translateY(6px);
+  background: rgba(10,15,32,0.97); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--faint); border-radius: 6px; padding: 8px 0; min-width: 210px;
+  opacity: 0; visibility: hidden; transition: opacity 0.25s, transform 0.25s; z-index: 210;
+}
+.has-sub:hover .subnav { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.subnav a { display: block; padding: 9px 18px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream); opacity: 0.78; white-space: nowrap; text-shadow: none; }
+.subnav a:hover { color: var(--gold); opacity: 1; }

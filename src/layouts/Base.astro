@@ -1,7 +1,11 @@
 ---
 import '../styles/global.css';
 import '../styles/nav.css';
+import { getCollection } from 'astro:content';
 const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur." } = Astro.props;
+const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
+const soins = offres.filter((o) => o.data.categorie === 'soin');
+const accs = offres.filter((o) => o.data.categorie === 'accompagnement');
 const links = [
   { href: '/agenda', label: 'Agenda' },
   { href: '/soins', label: 'Soins' },
@@ -25,7 +29,16 @@ const links = [
   <nav class="site-nav">
     <a class="site-nav__logo" href="/"><img src="/img/logo.png" alt="Anys Mechkar" /><span>Anys Mechkar</span></a>
     <div class="site-nav__links">
-      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a href="/agenda">Agenda</a>
+      <div class="has-sub">
+        <a href="/soins">Soins</a>
+        <div class="subnav">{soins.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
+      </div>
+      <div class="has-sub">
+        <a href="/accompagnement">Accompagnement</a>
+        <div class="subnav">{accs.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
+      </div>
+      <a href="/partenaires">Partenaires</a>
       <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
