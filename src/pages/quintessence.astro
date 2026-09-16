@@ -1,15 +1,80 @@
 ---
 import Base from '../layouts/Base.astro';
+const pratiques = ['Cercle de chant', 'Méditation', 'Mouvement conscient', 'Roue des 7 directions indigènes', 'Danse Butoh', 'Cercles de parole', 'Cérémonies & rituels psychomagiques'];
 ---
 <Base title="Quintessence — Anys Mechkar">
-  <section class="page-hero"><img src="/img/hero-quintessence.jpg" alt="" />
-    <div class="narrow"><p class="eyebrow">Ma retraite</p><h1>Quintessence</h1></div>
+  <!-- HERO -->
+  <section class="page-hero" style="min-height:64vh;"><img src="/img/hero-quintessence.jpg" alt="" />
+    <div class="wrap"><p class="eyebrow">Retraite · France</p><h1 style="font-size:clamp(2.4rem,6vw,4rem);">Quintessence</h1><p class="lead" style="margin-top:1rem;">3 jours de silence, 2 jours de créativité.</p></div>
   </section>
+
+  <!-- PASSAGE -->
+  <section class="passage">
+    <div class="narrow">
+      <p>Une plongée profonde en soi, pour se redécouvrir, se reconnecter à son essence, et faire renaître son univers intérieur.</p>
+    </div>
+  </section>
+
+  <!-- RESPIRATION -->
+  <section class="breath" style="min-height:52vh;"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Faire le silence, pour entendre ce qui parle en dessous.</div></section>
+
+  <!-- LE VOYAGE (image + texte) -->
+  <section style="padding:0;">
+    <div class="univers">
+      <div class="univers__img"><img src="/img/u-immersion.jpg" alt="" /></div>
+      <div class="univers__body">
+        <div class="num">01</div>
+        <h2>Le silence</h2>
+        <p>Trois jours pour se déposer loin du quotidien, dans le silence, le corps et la nature. Un temps pour laisser retomber le bruit, et retrouver son fil intérieur.</p>
+      </div>
+    </div>
+    <div class="univers rev">
+      <div class="univers__img"><img src="/img/breath-art.jpg" alt="" /></div>
+      <div class="univers__body">
+        <div class="num">02</div>
+        <h2>La créativité</h2>
+        <p>Deux jours d'exploration autour du mouvement, du chant, de la musique, de la peinture et de toute forme de créativité. Laisser l'univers intérieur reprendre forme et s'exprimer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRATIQUES (bloc de couleur) -->
+  <section class="bloc-or">
+    <div class="wrap">
+      <p class="eyebrow">Au programme</p>
+      <h2 style="margin-top:0.8rem;">Les pratiques</h2>
+      <div class="pratiques">{pratiques.map((p) => <span>{p}</span>)}</div>
+    </div>
+  </section>
+
+  <!-- GALERIE (emplacements photo dédiés) -->
+  <section class="striptease">
+    <div class="photo-slot">Photo à venir</div>
+    <div class="photo-slot">Photo à venir</div>
+    <div class="photo-slot">Photo à venir</div>
+  </section>
+
+  <!-- INFOS -->
   <section>
     <div class="narrow">
-      <p class="lead">Un temps long, en présence, pour revenir à l'essentiel.</p>
-      <p style="margin-top:1.6rem; color:#B9BCCB;">Quintessence est ma retraite. Un espace pour se déposer loin du quotidien, dans le silence, le corps et la nature, et retrouver son fil intérieur. Une traversée pensée comme un retour à ce qui compte vraiment, au plus près de soi.</p>
-      <p class="muted" style="margin-top:1.2rem;">Dates, lieu et modalités à préciser.</p>
+      <div class="encart">
+        <div class="encart__title">Infos pratiques</div>
+        <div class="infos">
+          <div><div class="k">Format</div><div class="v">5 jours</div></div>
+          <div><div class="k">Lieu</div><div class="v">France</div></div>
+          <div><div class="k">Dates</div><div class="v">À venir</div></div>
+          <div><div class="k">Tarif</div><div class="v">À venir</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="breath" style="min-height:40vh;">
+    <img src="/img/hero-quintessence.jpg" alt="" />
+    <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
+      Être tenu au courant de la prochaine édition ?
+      <a class="btn" href="mailto:contact@anys.me?subject=Quintessence" style="font-style:normal;">Écrire à Anys</a>
     </div>
   </section>
 </Base>
