@@ -6,6 +6,7 @@ const events = (await getCollection('agenda')).filter((e) => e.data.publie);
 const dated = events.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 const recurring = events.filter((e) => !e.data.date).sort((a, b) => a.data.ordre - b.data.ordre);
 const homeEvents = [...dated, ...recurring].slice(0, 4);
+const catLabels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(d).replace('.', ''), yr: d.getFullYear() });
 
 const univers = [
@@ -114,7 +115,7 @@ const partenaires = [
       <div class="egrid">
         {homeEvents.map((e) => (
           <a class="ecard" href={`/agenda/${e.id}`}>
-            <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{e.data.categorie === 'voyage-sonore' ? 'Voyage sonore' : e.data.categorie}</span></div>
+            <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
             <div class="ecard__body">
               <div class="ecard__when">{e.data.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(e.data.date).replace('.', '') : (e.data.rythme ?? 'Sur inscription')}{e.data.heure ? ` · ${e.data.heure}` : ''}</div>
               <div class="ecard__title">{e.data.titre}</div>

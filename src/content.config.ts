@@ -5,7 +5,7 @@ const agenda = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/agenda' }),
   schema: z.object({
     titre: z.string(),
-    categorie: z.enum(['soin', 'atelier', 'retraite', 'immersion', 'voyage-sonore', 'accompagnement', 'residence']),
+    categorie: z.enum(['soin', 'atelier', 'retraite', 'immersion', 'voyage-sonore', 'accompagnement', 'cercle', 'residence']),
     date: z.coerce.date().optional(),
     lieu: z.string().optional(),
     prix: z.string().optional(),

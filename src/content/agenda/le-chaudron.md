@@ -1,6 +1,6 @@
 ---
 titre: "Le Chaudron"
-categorie: accompagnement
+categorie: cercle
 lieu: "En ligne"
 prix: "Gratuit"
 rythme: "Le dernier dimanche du mois, 20h"
