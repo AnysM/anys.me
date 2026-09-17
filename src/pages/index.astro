@@ -7,6 +7,12 @@ const dated = events.filter((e) => e.data.date).sort((a, b) => a.data.date.getTi
 const recurring = events.filter((e) => !e.data.date).sort((a, b) => a.data.ordre - b.data.ordre);
 const homeEvents = [...dated, ...recurring].slice(0, 4);
 const catLabels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
+const accentDernier = (t) => {
+  const w = t.trim().split(/\s+/);
+  if (w.length < 2) return t.replace(/&/g, '&amp;');
+  const last = w.pop();
+  return w.join(' ').replace(/&/g, '&amp;') + ' <span class="script">' + last.replace(/&/g, '&amp;') + '</span>';
+};
 const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(d).replace('.', ''), yr: d.getFullYear() });
 function ligneDate(d) {
   if (!d.date) return (d.rythme ?? 'Sur inscription');
@@ -85,7 +91,7 @@ const partenaires = [
   <section style="background:var(--surface);">
     <div class="wrap">
       <p class="eyebrow">Les univers</p>
-      <h2 style="margin-top:0.8rem;">Ce qui nourrit le chemin</h2>
+      <h2 style="margin-top:0.8rem;">Ce qui nourrit le <span class="script">chemin</span></h2>
       <div class="piliers">
         {univers.map((u) => (
           <div class="pilier">
@@ -99,17 +105,17 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Je reprends ma place de cellule dans le grand organisme vivant.</div></section>
+  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Je reprends ma place de <span class="script">cellule</span> dans le grand organisme <span class="script">vivant</span>.</div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
-    <div class="wrap"><p class="eyebrow">Les propositions</p><h2 style="margin-top:0.8rem;">Ce que je propose</h2></div>
+    <div class="wrap"><p class="eyebrow">Les propositions</p><h2 style="margin-top:0.8rem;">Ce que je <span class="script">propose</span></h2></div>
   </section>
   {propositions.map((u) => (
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><img src={u.img} alt={u.t} /></div>
       <div class="univers__body">
-        <h2>{u.t}</h2>
+        <h2 set:html={accentDernier(u.t)}></h2>
         <p>{u.d}</p>
         <a class="cta" href={u.href}>{u.cta} <span class="line"></span></a>
       </div>
@@ -145,7 +151,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION vers l'art -->
-  <section class="breath"><img src="/img/breath-art.jpg" alt="" /><div class="phrase">Un langage magique, indéchiffrable par la raison.</div></section>
+  <section class="breath"><img src="/img/breath-art.jpg" alt="" /><div class="phrase">Un langage <span class="script">magique</span>, indéchiffrable par la raison.</div></section>
 
   <!-- INDIGO ENOQII -->
   <section>

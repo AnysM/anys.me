@@ -23,6 +23,12 @@ const aVenir = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime
 const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
+const accentDernier = (s) => {
+  const w = s.trim().split(/\s+/);
+  if (w.length < 2) return s.replace(/&/g, '&amp;');
+  const last = w.pop();
+  return w.join(' ').replace(/&/g, '&amp;') + ' <span class="script">' + last.replace(/&/g, '&amp;') + '</span>';
+};
 const groupes = [
   { titre: 'À venir', items: aVenir },
   { titre: 'Rendez-vous réguliers', items: reguliers },
@@ -38,7 +44,7 @@ const groupes = [
     <div class="wrap">
       {groupes.map((g) => (
         <div class="group">
-          <h2 class="group__title">{g.titre}</h2>
+          <h2 class="group__title" set:html={accentDernier(g.titre)}></h2>
           <div class="egrid">
             {g.items.map((e) => (
               <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
