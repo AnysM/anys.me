@@ -4,7 +4,7 @@ const partenaires = [
   { n: 'Meïsō', handle: 'PART-MEISO', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon. Un espace de lâcher-prise dans une eau dense en sels.', lien: 'https://meiso.fr/flottaison-lyon' },
   { n: 'Chanka Studio', handle: 'PART-CHANKA', img: '/img/u-atelier.jpg', logo: '/img/logo-chanka.svg', d: "Studio d'arts et de pratiques à Lyon, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
   { n: 'Blast', handle: 'PART-BLAST', logo: '/img/logo-blast.png', d: 'Collectif artistique.' },
-  { n: 'Koom', handle: 'PART-KOOM', logo: '/img/logo-koom.webp', logoBg: true, d: 'Centre de retraite.', lien: 'https://koomretreatcenter.com' },
+  { n: 'Koom', handle: 'PART-KOOM', logo: '/img/logo-koom.webp', logoWhite: true, d: 'Centre de retraite.', lien: 'https://koomretreatcenter.com' },
   { n: 'TAMAKEAPA', handle: 'PART-TAMAKEAPA', img: '/img/breath-desert.jpg', logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
   { n: 'Espriterre', handle: 'PART-ESPRITERRE', img: '/img/u-soin.jpg', d: "Le travail d'Alex, en nature.", lien: 'https://espriterre.com' },
 ];
@@ -19,7 +19,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media"><div class="imgph"><span>{p.handle}</span></div>{p.logo && <img class={`part__logo${p.logoBg ? ' part__logo--chip' : ''}`} src={p.logo} alt={p.n} />}</div>
+            <div class="part__media"><div class="imgph"><span>{p.handle}</span></div>{p.logo && <img class={`part__logo${p.logoWhite ? ' part__logo--white' : ''}`} src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>
