@@ -2,36 +2,49 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
-  const evs = (await getCollection('agenda')).filter((e) => e.data.publie);
+  const evs = (await getCollection('agenda')).filter((e) => e.data.publie && !e.data.site);
   return evs.map((e) => ({ params: { id: e.id }, props: { e } }));
 }
 const { e } = Astro.props;
 const { Content } = await render(e);
 const d = e.data;
 const quand = d.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(d.date) : (d.rythme ?? 'Sur inscription');
-const infos = [{ k: 'Quand', v: quand }];
+const infos = [{ k: 'Quand', v: quand + (d.heure ? ` · ${d.heure}` : '') }];
 if (d.lieu) infos.push({ k: 'Lieu', v: d.lieu });
 if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
+if (d.earlybird) infos.push({ k: 'Early bird', v: d.earlybird });
 ---
 <Base title={`${d.titre} — Anys Mechkar`}>
   <section class="page-hero"><img src={d.image ?? '/img/u-immersion.jpg'} alt="" />
     <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1></div>
   </section>
+
   <section>
+    <div class="narrow"><div class="prose"><Content /></div></div>
+  </section>
+
+  {d.resume && (
+    <section class="breath" style="min-height:44vh;"><img src={d.image ?? '/img/breath-desert.jpg'} alt="" /><div class="phrase">{d.resume}</div></section>
+  )}
+
+  <section class="bloc-or">
     <div class="narrow">
-      <div class="encart">
-        <div class="encart__title">Infos pratiques</div>
-        <div class="infos">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
+      <p class="eyebrow">Infos pratiques</p>
+      <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
+      <div style="margin-top:1.8rem; display:flex; gap:1rem; flex-wrap:wrap;">
+        {d.reservable && d.lien && <a class="btn btn--solid" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{d.cta ?? 'Réserver'}</a>}
+        <a class="btn" href="/contact">Écrire</a>
       </div>
-      <div class="prose"><Content /></div>
-      <div class="photo-slot">Photo à venir</div>
-      {d.lien && (
-        <div style="margin-top:2rem;">
-          <a class="btn btn--solid" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{d.reservable ? 'Réserver' : 'En savoir plus'}</a>
-        </div>
-      )}
-      <div style="margin-top:1.2rem;"><a class="cta" href="/contact">Une question ? Écris-moi <span class="line"></span></a></div>
-      <p style="margin-top:2.4rem;"><a class="cta" href="/agenda">← Tout l'agenda</a></p>
     </div>
+  </section>
+
+  <section class="striptease">
+    <div class="photo-slot">Photo à venir</div>
+    <div class="photo-slot">Photo à venir</div>
+    <div class="photo-slot">Photo à venir</div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="narrow"><a class="cta" href="/agenda">← Tout l'agenda</a></div>
   </section>
 </Base>

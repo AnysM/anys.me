@@ -28,7 +28,7 @@ const groupes = [
           <h2 class="group__title">{g.titre}</h2>
           <div class="egrid">
             {g.items.map((e) => (
-              <a class="ecard" href={e.data.lien && e.data.lien.startsWith('/') ? e.data.lien : `/agenda/${e.id}`}>
+              <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
                 <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{labels[e.data.categorie] ?? e.data.categorie}</span></div>
                 <div class="ecard__body">
                   <div class="ecard__when">{e.data.date ? fmtCourt(e.data.date) : (e.data.rythme ?? 'Sur inscription')}{e.data.heure ? ` · ${e.data.heure}` : ''}</div>

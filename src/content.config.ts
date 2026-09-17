@@ -13,6 +13,7 @@ const agenda = defineCollection({
     heure: z.string().optional(),
     earlybird: z.string().optional(),
     cta: z.string().optional(),
+    site: z.string().optional(),
     resume: z.string().optional(),
     image: z.string().optional(),
     lien: z.string().optional(),

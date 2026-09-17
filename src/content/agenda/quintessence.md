@@ -6,6 +6,7 @@ rythme: "À venir"
 image: "/img/hero-quintessence.jpg"
 resume: "3 jours de silence, 2 jours de créativité. Une plongée profonde en soi pour se reconnecter à son essence."
 lien: "/quintessence"
+site: "/quintessence"
 reservable: false
 ordre: 6
 publie: true
