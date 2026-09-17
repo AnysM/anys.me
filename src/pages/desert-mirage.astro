@@ -1,16 +1,63 @@
 ---
 import Base from '../layouts/Base.astro';
+const infos = [
+  { k: 'Where', v: "Moroccan Sahara, near M'Hamid el Ghizlane" },
+  { k: 'When', v: '10 – 21 December 2026' },
+  { k: 'Format', v: '12 days, cross-disciplinary, in English' },
+  { k: 'Group', v: 'Up to 14 participants' },
+  { k: 'Early bird', v: 'Until 10 October' },
+  { k: 'Scholarships', v: 'Available on request' },
+];
 ---
 <Base title="Desert Mirage Journey — Anys Mechkar">
-  <section class="page-hero"><img src="/img/hero-desert-mirage.jpg" alt="" />
-    <div class="narrow"><p class="eyebrow">Résidence · Sahara</p><h1>Desert Mirage Journey</h1></div>
+  <section class="page-hero" style="min-height:64vh;"><img src="/img/hero-desert-mirage.jpg" alt="" />
+    <div class="wrap"><p class="eyebrow">Résidence artistique · Sahara</p><h1 style="font-size:clamp(2.2rem,5.5vw,3.6rem);">Desert Mirage Journey</h1><p class="lead" style="margin-top:1rem;">An international cross-disciplinary artist residency in the Moroccan Sahara.</p></div>
   </section>
-  <section>
-    <div class="narrow">
-      <p class="lead">Une résidence artistique dans le désert marocain, autour du thème 間 Ma. Co-portée avec Yi Chen.</p>
-      <div style="margin-top: 1.8rem;">
-        <a class="btn" href="https://desert-mirage-journey.netlify.app" target="_blank" rel="noopener">Le site de la résidence</a>
+
+  <section class="passage">
+    <div class="narrow"><p>間 Ma, the space in between. The interval where something can breathe and take form.</p></div>
+  </section>
+
+  <section class="breath" style="min-height:52vh;"><img src="/img/u-immersion.jpg" alt="" /><div class="phrase">Something rare happens when you let the desert meet you.</div></section>
+
+  <section style="padding:0;">
+    <div class="univers">
+      <div class="univers__img"><img src="/img/breath-desert.jpg" alt="" /></div>
+      <div class="univers__body">
+        <p class="eyebrow" style="margin-bottom:0.6rem;">The journey</p>
+        <h2>Twelve days in the desert</h2>
+        <p>Over twelve days we live nomadically in the desert, meeting its immensity and our own, immersed in a nomadic culture that carries ancestral wisdom. The residency is led by Yi Chen and Anys, who have guided initiatic desert journeys over several years, now opened to cross-disciplinary co-creation.</p>
       </div>
+    </div>
+    <div class="univers rev">
+      <div class="univers__img"><img src="/img/hero-quintessence.jpg" alt="" /></div>
+      <div class="univers__body">
+        <p class="eyebrow" style="margin-bottom:0.6rem;">Who it's for</p>
+        <h2>Every medium welcome</h2>
+        <p>Whether you arrive with a project, a question, or simply a creative impulse, you are welcome. Dancers, performers, musicians, visual artists, writers and seekers have all found their place here.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc-or">
+    <div class="wrap">
+      <p class="eyebrow">Good to know</p>
+      <h2 style="margin-top:0.8rem;">The essentials</h2>
+      <div class="infos" style="margin-top:1.8rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
+    </div>
+  </section>
+
+  <section class="striptease">
+    <div class="photo-slot">Photo à venir</div>
+    <div class="photo-slot">Photo à venir</div>
+    <div class="photo-slot">Photo à venir</div>
+  </section>
+
+  <section class="breath" style="min-height:40vh;">
+    <img src="/img/hero-desert-mirage.jpg" alt="" />
+    <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
+      Ready to apply ?
+      <a class="btn" href="https://desertmiragejourney.com" target="_blank" rel="noopener" style="font-style:normal;">desertmiragejourney.com</a>
     </div>
   </section>
 </Base>

@@ -7,7 +7,7 @@ earlybird: "10 octobre"
 cta: "Candidater"
 image: "/img/u-immersion.jpg"
 resume: "Une résidence artistique internationale et pluridisciplinaire dans le Sahara marocain, autour du thème 間 Ma. Du 10 au 21 décembre 2026."
-lien: "https://desertmiragejourney.com"
+lien: "/desert-mirage"
 reservable: true
 ordre: 5
 publie: true
