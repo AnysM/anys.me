@@ -75,4 +75,4 @@ export default defineConfig({
   },
 });
 
-// redeploy 2026-09-17 18:13 — build admin Tina avec TINA_TOKEN
+// redeploy 18:59 — schema register (branche par defaut = tina)
