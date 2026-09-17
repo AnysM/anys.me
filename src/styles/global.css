@@ -177,10 +177,27 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 @media (max-width: 760px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
 
 /* Footer */
-.foot { border-top: 1px solid var(--faint); padding: 3rem 0; color: var(--muted); font-size: 0.8rem; font-family: 'Jost', sans-serif; letter-spacing: 0.06em; }
-.foot a { color: var(--muted); }
+.foot { border-top: 1px solid var(--faint); padding: 3.5rem 0 2rem; color: var(--muted); font-family: 'Jost', sans-serif; }
+.foot a { color: var(--muted); transition: color 0.2s; }
 .foot a:hover { color: var(--cream); }
-.foot__row { display: flex; flex-wrap: wrap; gap: 1.4rem; justify-content: space-between; align-items: baseline; }
+.foot__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; }
+.foot__logo { width: 30px; height: auto; margin-bottom: 0.9rem; opacity: 0.9; }
+.foot__name { font-family: 'EB Garamond', serif; font-size: 1.3rem; color: var(--cream); }
+.foot__tag { font-size: 0.85rem; margin-top: 0.5rem; max-width: 32ch; line-height: 1.6; }
+.foot__h { text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.62rem; color: var(--gold); margin-bottom: 0.9rem; }
+.foot__col a, .foot__col span { display: block; font-size: 0.9rem; padding: 0.28rem 0; }
+.foot__bottom { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 2.8rem; padding-top: 1.6rem; border-top: 1px solid var(--faint); font-size: 0.8rem; letter-spacing: 0.04em; }
+.foot__bottom a { color: var(--gold); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.7rem; }
+
+/* Nav bas de page détail (retour + suivant) */
+.detail-nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.cta--r { color: var(--gold); }
+
+/* Invitation à contacter (CTA en évidence) */
+.invite { background: var(--surface); text-align: center; }
+.invite h2 { margin-top: 0.6rem; }
+.invite .eyebrow { justify-content: center; }
+.invite__btns { margin-top: 1.9rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
 /* ── UNIVERS alternés (image / texte) ── */
 .univers { display: grid; grid-template-columns: 1fr 1fr; min-height: 58vh; }
@@ -335,6 +352,9 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
    OPTIMISATION MOBILE
    ════════════════════════════════ */
 @media (max-width: 760px) {
+  .foot__grid { grid-template-columns: 1fr 1fr; gap: 1.8rem; }
+  .foot__brand { grid-column: 1 / -1; }
+  .foot__bottom { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
   section { padding: clamp(2.6rem, 9vw, 4rem) 0; }
 
   /* Bloc cœur à cœur : passe en une colonne (photo au-dessus) */

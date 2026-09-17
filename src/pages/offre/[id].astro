@@ -3,11 +3,18 @@ import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie);
-  return offres.map((o) => ({ params: { id: o.id }, props: { o } }));
+  return offres.map((o) => {
+    const sameCat = offres.filter((x) => x.data.categorie === o.data.categorie).sort((a, b) => a.data.ordre - b.data.ordre);
+    const idx = sameCat.findIndex((x) => x.id === o.id);
+    const n = sameCat.length > 1 ? sameCat[(idx + 1) % sameCat.length] : null;
+    const next = n ? { id: n.id, titre: n.data.titre } : null;
+    return { params: { id: o.id }, props: { o, next } };
+  });
 }
-const { o } = Astro.props;
+const { o, next } = Astro.props;
 const { Content } = await render(o);
 const d = o.data;
+const soin = d.categorie === 'soin';
 const infos = [];
 if (d.duree) infos.push({ k: 'Durée', v: d.duree });
 if (d.prix && !d.tarifs) infos.push({ k: 'Tarif', v: d.prix });
@@ -16,7 +23,7 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
 ---
 <Base title={`${d.titre} — Anys Mechkar`}>
   <section class="page-hero"><img src={d.image ?? '/img/hero-soins.jpg'} alt="" />
-    <div class="narrow"><p class="eyebrow">{d.tag ?? (d.categorie === 'soin' ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
+    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
   </section>
 
   <section>
@@ -33,12 +40,6 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
         <p class="eyebrow">Infos & tarifs</p>
         {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
         {d.tarifs && <div class="tarifs" style="margin-top:1.2rem;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
-        {d.reservable !== false && (
-          <div style="margin-top:1.8rem; display:flex; gap:1rem; flex-wrap:wrap;">
-            <a class="btn btn--solid" href="/contact">Écrire</a>
-            <a class="btn" href="/contact#appel">Prendre un appel</a>
-          </div>
-        )}
       </div>
     </section>
   )}
@@ -49,7 +50,22 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
     <div class="photo-slot">Photo à venir</div>
   </section>
 
+  <section class="invite">
+    <div class="narrow">
+      <p class="eyebrow">Un premier pas</p>
+      <h2>{soin ? 'Envie de prendre soin de toi ?' : "Envie d'en parler ?"}</h2>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi un mot, ou réservons un temps d'échange. Je réponds à chaque message.</p>
+      <div class="invite__btns">
+        <a class="btn btn--solid" href="/contact">Écrire à Anys</a>
+        <a class="btn" href="/contact#appel">Prendre un appel</a>
+      </div>
+    </div>
+  </section>
+
   <section style="padding-top:0;">
-    <div class="narrow"><a class="cta" href={d.categorie === 'soin' ? '/soins' : '/accompagnement'}>← Retour</a></div>
+    <div class="narrow detail-nav">
+      <a class="cta" href={soin ? '/soins' : '/accompagnement'}>← Retour</a>
+      {next && <a class="cta cta--r" href={`/offre/${next.id}`}>{soin ? 'Prochain soin' : 'Prochain accompagnement'} <span class="line"></span></a>}
+    </div>
   </section>
 </Base>
