@@ -1,5 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+const accentDernier = (s) => {
+  const w = s.trim().split(/\s+/);
+  if (w.length < 2) return s.replace(/&/g, '&amp;');
+  const last = w.pop();
+  return w.join(' ').replace(/&/g, '&amp;') + ' <span class="script">' + last.replace(/&/g, '&amp;') + '</span>';
+};
 const chapitres = [
   { t: "L'ingénieur qui avait tout", img: "/img/portrait-2.jpg", texte: [
     "Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie, et que je ne me connaissais pas vraiment. Je vivais une vie en apparence réussie. Bon poste, bon salaire, responsabilités, des amis, un bel appart, des voyages, de la fête.",
