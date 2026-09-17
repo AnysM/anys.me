@@ -1,7 +1,7 @@
 ---
 hero_eyebrow: Partenaires
 hero_titre: Partenaires
-hero_image: /img/tex-cosmic.jpg
+hero_image: /img/hero-desert-mirage.jpg
 partenaires:
   - 'n': Meïsō
     d: 'Centre de flottaison et de bien-être, à Lyon.'
