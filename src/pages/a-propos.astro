@@ -53,7 +53,7 @@ const chapitres = [
       {chapitres.map((c, i) => (
         <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`}>
           <span class="tl-dot"></span>
-          <div class="tl-text"><h2 set:html={accentDernier(c.t)}></h2>{c.texte.map((par) => <p>{par}</p>)}</div>
+          <div class="tl-text"><h2>{c.t}</h2>{c.texte.map((par) => <p>{par}</p>)}</div>
           <div class="tl-media tl-ph"><span>Photo à venir</span></div>
         </div>
       ))}

@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const ordered = [...dated, ...recur];
   return ordered.map((e, i) => {
     const n = ordered.length > 1 ? ordered[(i + 1) % ordered.length] : null;
-    const next = n ? { id: n.id, titre: n.data.titre } : null;
+    const next = n ? { id: n.id, titre: n.data.titre, image: n.data.image ?? '/img/u-immersion.jpg' } : null;
     return { params: { id: e.id }, props: { e, next } };
   });
 }
@@ -56,18 +56,23 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
     <div class="narrow">
       <p class="eyebrow">Une question</p>
       <h2>Envie d'en savoir plus ?</h2>
-      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement, ou réservons un temps d'échange.</p>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement, ou réservons un temps ensemble.</p>
       <div class="invite__btns">
-        <a class="btn btn--solid" href="/contact">Écrire à Anys</a>
+        <a class="btn btn--solid" href="/contact">Écris-moi</a>
         <a class="btn" href="/contact#appel">Prendre un appel</a>
       </div>
     </div>
   </section>
 
-  <section style="padding-top:0;">
-    <div class="narrow detail-nav">
+  <section class="detail-foot">
+    <div class="wrap detail-nav">
       <a class="cta" href="/agenda">← Tout l'agenda</a>
-      {next && <a class="cta cta--r" href={`/agenda/${next.id}`}>Prochain événement <span class="line"></span></a>}
+      {next && (
+        <a class="next-card" href={`/agenda/${next.id}`}>
+          <span class="next-card__txt"><span class="next-card__label">Prochain événement</span><span class="next-card__title">{next.titre}</span></span>
+          <span class="next-card__img"><img src={next.image} alt={next.titre} /></span>
+        </a>
+      )}
     </div>
   </section>
 </Base>

@@ -91,7 +91,7 @@ const partenaires = [
   <section style="background:var(--surface);">
     <div class="wrap">
       <p class="eyebrow">Les univers</p>
-      <h2 style="margin-top:0.8rem;">Ce qui nourrit le <span class="script">chemin</span></h2>
+      <h2 style="margin-top:0.8rem;">Ce qui nourrit <span class="script">le chemin</span></h2>
       <div class="piliers">
         {univers.map((u) => (
           <div class="pilier">
@@ -115,7 +115,7 @@ const partenaires = [
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><img src={u.img} alt={u.t} /></div>
       <div class="univers__body">
-        <h2 set:html={accentDernier(u.t)}></h2>
+        <h2>{u.t}</h2>
         <p>{u.d}</p>
         <a class="cta" href={u.href}>{u.cta} <span class="line"></span></a>
       </div>
@@ -199,7 +199,7 @@ const partenaires = [
     <img src="/img/hero.jpg" alt="" />
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
       Un premier pas ?
-      <a class="btn" href="/contact" style="font-style:normal;">Écrire à Anys</a>
+      <a class="btn" href="/contact" style="font-style:normal;">Écris-moi</a>
     </div>
   </section>
 </Base>

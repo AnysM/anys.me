@@ -44,7 +44,7 @@ const groupes = [
     <div class="wrap">
       {groupes.map((g) => (
         <div class="group">
-          <h2 class="group__title" set:html={accentDernier(g.titre)}></h2>
+          <h2 class="group__title">{g.titre}</h2>
           <div class="egrid">
             {g.items.map((e) => (
               <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
