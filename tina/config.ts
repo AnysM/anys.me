@@ -118,6 +118,22 @@ export default defineConfig({
             ] },
         ],
       },
+      {
+        name: "page_soins",
+        label: "Page Soins",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "soins" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "string", name: "coeur", label: "Texte d'intro (coeur a coeur)", description: "**mot** = dore, *mot* = manuscrite. Paragraphes separes par une ligne vide.", ui: { component: "textarea" } },
+          { type: "string", name: "soins_eyebrow", label: "Section soins — sur-titre" },
+          { type: "string", name: "soins_titre", label: "Section soins — titre" },
+          { type: "string", name: "soins_intro", label: "Section soins — intro", ui: { component: "textarea" } },
+        ],
+      },
     ],
   },
 });

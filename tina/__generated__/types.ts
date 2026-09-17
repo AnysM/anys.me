@@ -92,6 +92,8 @@ export type Query = {
   pagesConnection: PagesConnection;
   page_apropos: Page_Apropos;
   page_aproposConnection: Page_AproposConnection;
+  page_soins: Page_Soins;
+  page_soinsConnection: Page_SoinsConnection;
 };
 
 
@@ -175,11 +177,27 @@ export type QueryPage_AproposConnectionArgs = {
   filter?: InputMaybe<Page_AproposFilter>;
 };
 
+
+export type QueryPage_SoinsArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPage_SoinsConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Page_SoinsFilter>;
+};
+
 export type DocumentFilter = {
   agenda?: InputMaybe<AgendaFilter>;
   offres?: InputMaybe<OffresFilter>;
   pages?: InputMaybe<PagesFilter>;
   page_apropos?: InputMaybe<Page_AproposFilter>;
+  page_soins?: InputMaybe<Page_SoinsFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -219,7 +237,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Folder;
+export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Page_Soins | Folder;
 
 export type Agenda = Node & Document & {
   __typename?: 'Agenda';
@@ -489,6 +507,41 @@ export type Page_AproposConnection = Connection & {
   edges?: Maybe<Array<Maybe<Page_AproposConnectionEdges>>>;
 };
 
+export type Page_Soins = Node & Document & {
+  __typename?: 'Page_soins';
+  hero_eyebrow?: Maybe<Scalars['String']['output']>;
+  hero_titre?: Maybe<Scalars['String']['output']>;
+  coeur?: Maybe<Scalars['String']['output']>;
+  soins_eyebrow?: Maybe<Scalars['String']['output']>;
+  soins_titre?: Maybe<Scalars['String']['output']>;
+  soins_intro?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type Page_SoinsFilter = {
+  hero_eyebrow?: InputMaybe<StringFilter>;
+  hero_titre?: InputMaybe<StringFilter>;
+  coeur?: InputMaybe<StringFilter>;
+  soins_eyebrow?: InputMaybe<StringFilter>;
+  soins_titre?: InputMaybe<StringFilter>;
+  soins_intro?: InputMaybe<StringFilter>;
+};
+
+export type Page_SoinsConnectionEdges = {
+  __typename?: 'Page_soinsConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Page_Soins>;
+};
+
+export type Page_SoinsConnection = Connection & {
+  __typename?: 'Page_soinsConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<Page_SoinsConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -504,6 +557,8 @@ export type Mutation = {
   createPages: Pages;
   updatePage_apropos: Page_Apropos;
   createPage_apropos: Page_Apropos;
+  updatePage_soins: Page_Soins;
+  createPage_soins: Page_Soins;
 };
 
 
@@ -587,11 +642,24 @@ export type MutationCreatePage_AproposArgs = {
   params: Page_AproposMutation;
 };
 
+
+export type MutationUpdatePage_SoinsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_SoinsMutation;
+};
+
+
+export type MutationCreatePage_SoinsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_SoinsMutation;
+};
+
 export type DocumentUpdateMutation = {
   agenda?: InputMaybe<AgendaMutation>;
   offres?: InputMaybe<OffresMutation>;
   pages?: InputMaybe<PagesMutation>;
   page_apropos?: InputMaybe<Page_AproposMutation>;
+  page_soins?: InputMaybe<Page_SoinsMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -600,6 +668,7 @@ export type DocumentMutation = {
   offres?: InputMaybe<OffresMutation>;
   pages?: InputMaybe<PagesMutation>;
   page_apropos?: InputMaybe<Page_AproposMutation>;
+  page_soins?: InputMaybe<Page_SoinsMutation>;
 };
 
 export type AgendaMutation = {
@@ -677,6 +746,15 @@ export type Page_AproposMutation = {
   hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
   hero_titre?: InputMaybe<Scalars['String']['input']>;
   chapitres?: InputMaybe<Array<InputMaybe<Page_AproposChapitresMutation>>>;
+};
+
+export type Page_SoinsMutation = {
+  hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  hero_titre?: InputMaybe<Scalars['String']['input']>;
+  coeur?: InputMaybe<Scalars['String']['input']>;
+  soins_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  soins_titre?: InputMaybe<Scalars['String']['input']>;
+  soins_intro?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StringFilter = {
@@ -799,6 +877,15 @@ export type Page_AproposFilter = {
   chapitres?: Page_AproposChapitresFilter | null | undefined;
 };
 
+export type Page_SoinsFilter = {
+  hero_eyebrow?: StringFilter | null | undefined;
+  hero_titre?: StringFilter | null | undefined;
+  coeur?: StringFilter | null | undefined;
+  soins_eyebrow?: StringFilter | null | undefined;
+  soins_titre?: StringFilter | null | undefined;
+  soins_intro?: StringFilter | null | undefined;
+};
+
 export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null };
 
 export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null };
@@ -806,6 +893,8 @@ export type OffresPartsFragment = { __typename: 'Offres', titre: string, categor
 export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null } | null> | null };
 
 export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null };
+
+export type Page_SoinsPartsFragment = { __typename: 'Page_soins', hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null };
 
 export type AgendaQueryVariables = Exact<{
   relativePath: string;
@@ -882,6 +971,25 @@ export type Page_AproposConnectionQueryVariables = Exact<{
 
 
 export type Page_AproposConnectionQuery = { page_aproposConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null } | null } | null> | null } };
+
+export type Page_SoinsQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type Page_SoinsQuery = { page_soins: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type Page_SoinsConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: Page_SoinsFilter | null | undefined;
+}>;
+
+
+export type Page_SoinsConnectionQuery = { page_soinsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const AgendaPartsFragmentDoc = gql`
     fragment AgendaParts on Agenda {
@@ -963,6 +1071,17 @@ export const Page_AproposPartsFragmentDoc = gql`
     titre
     texte
   }
+}
+    `;
+export const Page_SoinsPartsFragmentDoc = gql`
+    fragment Page_soinsParts on Page_soins {
+  __typename
+  hero_eyebrow
+  hero_titre
+  coeur
+  soins_eyebrow
+  soins_titre
+  soins_intro
 }
     `;
 export const AgendaDocument = gql`
@@ -1193,6 +1312,63 @@ export const Page_AproposConnectionDocument = gql`
   }
 }
     ${Page_AproposPartsFragmentDoc}`;
+export const Page_SoinsDocument = gql`
+    query page_soins($relativePath: String!) {
+  page_soins(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_soinsParts
+  }
+}
+    ${Page_SoinsPartsFragmentDoc}`;
+export const Page_SoinsConnectionDocument = gql`
+    query page_soinsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_soinsFilter) {
+  page_soinsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_soinsParts
+      }
+    }
+  }
+}
+    ${Page_SoinsPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -1219,6 +1395,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     page_aproposConnection(variables?: Page_AproposConnectionQueryVariables, options?: C): Promise<{data: Page_AproposConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AproposConnectionQueryVariables, query: string}> {
         return requester<{data: Page_AproposConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AproposConnectionQueryVariables, query: string}, Page_AproposConnectionQueryVariables>(Page_AproposConnectionDocument, variables, options);
+      },
+    page_soins(variables: Page_SoinsQueryVariables, options?: C): Promise<{data: Page_SoinsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_SoinsQueryVariables, query: string}> {
+        return requester<{data: Page_SoinsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_SoinsQueryVariables, query: string}, Page_SoinsQueryVariables>(Page_SoinsDocument, variables, options);
+      },
+    page_soinsConnection(variables?: Page_SoinsConnectionQueryVariables, options?: C): Promise<{data: Page_SoinsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_SoinsConnectionQueryVariables, query: string}> {
+        return requester<{data: Page_SoinsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_SoinsConnectionQueryVariables, query: string}, Page_SoinsConnectionQueryVariables>(Page_SoinsConnectionDocument, variables, options);
       }
     };
   }

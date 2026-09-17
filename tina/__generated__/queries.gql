@@ -217,3 +217,58 @@ query page_aproposConnection($before: String, $after: String, $first: Float, $la
     }
   }
 }
+
+query page_soins($relativePath: String!) {
+  page_soins(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_soinsParts
+  }
+}
+
+query page_soinsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_soinsFilter) {
+  page_soinsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_soinsParts
+      }
+    }
+  }
+}

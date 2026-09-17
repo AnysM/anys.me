@@ -1,30 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
+const sc = (await getEntry('pages', 'soins')).data;
+const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Soins — Anys Mechkar">
   <section class="page-hero"><div class="ph-band" data-h="HERO-SOINS"></div>
-    <div class="narrow"><p class="eyebrow">Le corps</p><h1>Soins</h1></div>
+    <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>
 
   <!-- CŒUR À CŒUR -->
   <section class="coeur">
     <div class="wrap split">
       <div class="photo"><div class="imgph"><span>SOINS-PORTRAIT</span></div></div>
-      <div class="coeur__text">
-        <p>Pendant longtemps, j'ai refusé de faire des soins de manière professionnelle, malgré des prédispositions évidentes, parce que je ne voulais pas devenir une béquille pour les autres. Je me suis tourné vers l'accompagnement, pour favoriser l'autonomie et activer les <strong>capacités d'auto-guérison</strong>.</p>
-        <p>Si aujourd'hui je donne des soins, c'est que je sais discerner et accompagner celles et ceux qui seraient tentés de s'en remettre à l'extérieur pour leur propre évolution. Et surtout, parce que je sais à quel point on a parfois besoin de se déposer, qu'on nous enveloppe de douceur et de bienveillance, dans ce monde parfois si violent. J'aime plus que tout créer cet espace de présence et d'essentiel, <strong>ce cocon dont on a tous besoin</strong>. Bienvenue à toi.</p>
-      </div>
+      <div class="coeur__text">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>
   </section>
 
   <!-- LES SOINS -->
   <section>
     <div class="wrap">
-      <p class="eyebrow">Les soins</p>
-      <h2 style="margin-top:0.8rem;">Deux chemins pour le corps</h2>
-      <p class="muted" style="margin-top:0.8rem;">Les soins se donnent à Chanka, Meïsō ou à l'Île Barbe. Réservation par le formulaire de contact.</p>
+      <p class="eyebrow">{sc.soins_eyebrow}</p>
+      <h2 style="margin-top:0.8rem;" set:html={fmt(sc.soins_titre)}></h2>
+      <p class="muted" style="margin-top:0.8rem;">{sc.soins_intro}</p>
       <div style="margin-top:2.4rem;">
         {soins.map((o) => (
           <a class="evt" href={`/offre/${o.id}`}>

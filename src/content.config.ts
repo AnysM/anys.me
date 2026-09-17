@@ -62,6 +62,10 @@ const pages = defineCollection({
     form_titre: z.string().optional(),
     form_intro: z.string().optional(),
     chapitres: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
+    coeur: z.string().optional(),
+    soins_eyebrow: z.string().optional(),
+    soins_titre: z.string().optional(),
+    soins_intro: z.string().optional(),
   }),
 });
 

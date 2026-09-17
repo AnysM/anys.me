@@ -87,6 +87,17 @@ export const Page_AproposPartsFragmentDoc = gql`
   }
 }
     `;
+export const Page_SoinsPartsFragmentDoc = gql`
+    fragment Page_soinsParts on Page_soins {
+  __typename
+  hero_eyebrow
+  hero_titre
+  coeur
+  soins_eyebrow
+  soins_titre
+  soins_intro
+}
+    `;
 export const AgendaDocument = gql`
     query agenda($relativePath: String!) {
   agenda(relativePath: $relativePath) {
@@ -315,6 +326,63 @@ export const Page_AproposConnectionDocument = gql`
   }
 }
     ${Page_AproposPartsFragmentDoc}`;
+export const Page_SoinsDocument = gql`
+    query page_soins($relativePath: String!) {
+  page_soins(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_soinsParts
+  }
+}
+    ${Page_SoinsPartsFragmentDoc}`;
+export const Page_SoinsConnectionDocument = gql`
+    query page_soinsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_soinsFilter) {
+  page_soinsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_soinsParts
+      }
+    }
+  }
+}
+    ${Page_SoinsPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     agenda(variables, options) {
@@ -340,6 +408,12 @@ export function getSdk(requester) {
     },
     page_aproposConnection(variables, options) {
       return requester(Page_AproposConnectionDocument, variables, options);
+    },
+    page_soins(variables, options) {
+      return requester(Page_SoinsDocument, variables, options);
+    },
+    page_soinsConnection(variables, options) {
+      return requester(Page_SoinsConnectionDocument, variables, options);
     }
   };
 }

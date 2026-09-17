@@ -75,3 +75,13 @@ fragment Page_aproposParts on Page_apropos {
     texte
   }
 }
+
+fragment Page_soinsParts on Page_soins {
+  __typename
+  hero_eyebrow
+  hero_titre
+  coeur
+  soins_eyebrow
+  soins_titre
+  soins_intro
+}
