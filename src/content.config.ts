@@ -1,13 +1,15 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+const videVersUndefined = (v: unknown) => (v === '' || v === null ? undefined : v);
+
 const agenda = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/agenda' }),
   schema: z.object({
     titre: z.string(),
     categorie: z.enum(['soin', 'atelier', 'retraite', 'immersion', 'voyage-sonore', 'accompagnement', 'cercle', 'residence']),
-    date: z.coerce.date().optional(),
-    date_fin: z.coerce.date().optional(),
+    date: z.preprocess(videVersUndefined, z.coerce.date().optional()),
+    date_fin: z.preprocess(videVersUndefined, z.coerce.date().optional()),
     lieu: z.string().optional(),
     prix: z.string().optional(),
     rythme: z.string().optional(),
