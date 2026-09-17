@@ -90,6 +90,8 @@ export type Query = {
   offresConnection: OffresConnection;
   pages: Pages;
   pagesConnection: PagesConnection;
+  page_apropos: Page_Apropos;
+  page_aproposConnection: Page_AproposConnection;
 };
 
 
@@ -158,10 +160,26 @@ export type QueryPagesConnectionArgs = {
   filter?: InputMaybe<PagesFilter>;
 };
 
+
+export type QueryPage_AproposArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPage_AproposConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Page_AproposFilter>;
+};
+
 export type DocumentFilter = {
   agenda?: InputMaybe<AgendaFilter>;
   offres?: InputMaybe<OffresFilter>;
   pages?: InputMaybe<PagesFilter>;
+  page_apropos?: InputMaybe<Page_AproposFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -201,7 +219,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Agenda | Offres | Pages | Folder;
+export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Folder;
 
 export type Agenda = Node & Document & {
   __typename?: 'Agenda';
@@ -431,6 +449,46 @@ export type PagesConnection = Connection & {
   edges?: Maybe<Array<Maybe<PagesConnectionEdges>>>;
 };
 
+export type Page_AproposChapitres = {
+  __typename?: 'Page_aproposChapitres';
+  titre?: Maybe<Scalars['String']['output']>;
+  texte?: Maybe<Scalars['String']['output']>;
+};
+
+export type Page_Apropos = Node & Document & {
+  __typename?: 'Page_apropos';
+  hero_eyebrow?: Maybe<Scalars['String']['output']>;
+  hero_titre?: Maybe<Scalars['String']['output']>;
+  chapitres?: Maybe<Array<Maybe<Page_AproposChapitres>>>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type Page_AproposChapitresFilter = {
+  titre?: InputMaybe<StringFilter>;
+  texte?: InputMaybe<StringFilter>;
+};
+
+export type Page_AproposFilter = {
+  hero_eyebrow?: InputMaybe<StringFilter>;
+  hero_titre?: InputMaybe<StringFilter>;
+  chapitres?: InputMaybe<Page_AproposChapitresFilter>;
+};
+
+export type Page_AproposConnectionEdges = {
+  __typename?: 'Page_aproposConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Page_Apropos>;
+};
+
+export type Page_AproposConnection = Connection & {
+  __typename?: 'Page_aproposConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<Page_AproposConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -444,6 +502,8 @@ export type Mutation = {
   createOffres: Offres;
   updatePages: Pages;
   createPages: Pages;
+  updatePage_apropos: Page_Apropos;
+  createPage_apropos: Page_Apropos;
 };
 
 
@@ -515,10 +575,23 @@ export type MutationCreatePagesArgs = {
   params: PagesMutation;
 };
 
+
+export type MutationUpdatePage_AproposArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_AproposMutation;
+};
+
+
+export type MutationCreatePage_AproposArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_AproposMutation;
+};
+
 export type DocumentUpdateMutation = {
   agenda?: InputMaybe<AgendaMutation>;
   offres?: InputMaybe<OffresMutation>;
   pages?: InputMaybe<PagesMutation>;
+  page_apropos?: InputMaybe<Page_AproposMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -526,6 +599,7 @@ export type DocumentMutation = {
   agenda?: InputMaybe<AgendaMutation>;
   offres?: InputMaybe<OffresMutation>;
   pages?: InputMaybe<PagesMutation>;
+  page_apropos?: InputMaybe<Page_AproposMutation>;
 };
 
 export type AgendaMutation = {
@@ -592,6 +666,17 @@ export type PagesMutation = {
   citation_contact?: InputMaybe<Scalars['String']['input']>;
   form_titre?: InputMaybe<Scalars['String']['input']>;
   form_intro?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Page_AproposChapitresMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  texte?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Page_AproposMutation = {
+  hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  hero_titre?: InputMaybe<Scalars['String']['input']>;
+  chapitres?: InputMaybe<Array<InputMaybe<Page_AproposChapitresMutation>>>;
 };
 
 export type StringFilter = {
@@ -703,11 +788,24 @@ export type PagesFilter = {
   form_intro?: StringFilter | null | undefined;
 };
 
+export type Page_AproposChapitresFilter = {
+  titre?: StringFilter | null | undefined;
+  texte?: StringFilter | null | undefined;
+};
+
+export type Page_AproposFilter = {
+  hero_eyebrow?: StringFilter | null | undefined;
+  hero_titre?: StringFilter | null | undefined;
+  chapitres?: Page_AproposChapitresFilter | null | undefined;
+};
+
 export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null };
 
 export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null };
 
 export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null } | null> | null };
+
+export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null };
 
 export type AgendaQueryVariables = Exact<{
   relativePath: string;
@@ -765,6 +863,25 @@ export type PagesConnectionQueryVariables = Exact<{
 
 
 export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null } | null> | null } | null } | null> | null } };
+
+export type Page_AproposQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type Page_AproposQuery = { page_apropos: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null } };
+
+export type Page_AproposConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: Page_AproposFilter | null | undefined;
+}>;
+
+
+export type Page_AproposConnectionQuery = { page_aproposConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null } | null } | null> | null } };
 
 export const AgendaPartsFragmentDoc = gql`
     fragment AgendaParts on Agenda {
@@ -834,6 +951,18 @@ export const PagesPartsFragmentDoc = gql`
   citation_contact
   form_titre
   form_intro
+}
+    `;
+export const Page_AproposPartsFragmentDoc = gql`
+    fragment Page_aproposParts on Page_apropos {
+  __typename
+  hero_eyebrow
+  hero_titre
+  chapitres {
+    __typename
+    titre
+    texte
+  }
 }
     `;
 export const AgendaDocument = gql`
@@ -1007,6 +1136,63 @@ export const PagesConnectionDocument = gql`
   }
 }
     ${PagesPartsFragmentDoc}`;
+export const Page_AproposDocument = gql`
+    query page_apropos($relativePath: String!) {
+  page_apropos(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_aproposParts
+  }
+}
+    ${Page_AproposPartsFragmentDoc}`;
+export const Page_AproposConnectionDocument = gql`
+    query page_aproposConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_aproposFilter) {
+  page_aproposConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_aproposParts
+      }
+    }
+  }
+}
+    ${Page_AproposPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -1027,6 +1213,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     pagesConnection(variables?: PagesConnectionQueryVariables, options?: C): Promise<{data: PagesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PagesConnectionQueryVariables, query: string}> {
         return requester<{data: PagesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PagesConnectionQueryVariables, query: string}, PagesConnectionQueryVariables>(PagesConnectionDocument, variables, options);
+      },
+    page_apropos(variables: Page_AproposQueryVariables, options?: C): Promise<{data: Page_AproposQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AproposQueryVariables, query: string}> {
+        return requester<{data: Page_AproposQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AproposQueryVariables, query: string}, Page_AproposQueryVariables>(Page_AproposDocument, variables, options);
+      },
+    page_aproposConnection(variables?: Page_AproposConnectionQueryVariables, options?: C): Promise<{data: Page_AproposConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AproposConnectionQueryVariables, query: string}> {
+        return requester<{data: Page_AproposConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AproposConnectionQueryVariables, query: string}, Page_AproposConnectionQueryVariables>(Page_AproposConnectionDocument, variables, options);
       }
     };
   }

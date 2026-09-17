@@ -75,6 +75,18 @@ export const PagesPartsFragmentDoc = gql`
   form_intro
 }
     `;
+export const Page_AproposPartsFragmentDoc = gql`
+    fragment Page_aproposParts on Page_apropos {
+  __typename
+  hero_eyebrow
+  hero_titre
+  chapitres {
+    __typename
+    titre
+    texte
+  }
+}
+    `;
 export const AgendaDocument = gql`
     query agenda($relativePath: String!) {
   agenda(relativePath: $relativePath) {
@@ -246,6 +258,63 @@ export const PagesConnectionDocument = gql`
   }
 }
     ${PagesPartsFragmentDoc}`;
+export const Page_AproposDocument = gql`
+    query page_apropos($relativePath: String!) {
+  page_apropos(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_aproposParts
+  }
+}
+    ${Page_AproposPartsFragmentDoc}`;
+export const Page_AproposConnectionDocument = gql`
+    query page_aproposConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_aproposFilter) {
+  page_aproposConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_aproposParts
+      }
+    }
+  }
+}
+    ${Page_AproposPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     agenda(variables, options) {
@@ -265,6 +334,12 @@ export function getSdk(requester) {
     },
     pagesConnection(variables, options) {
       return requester(PagesConnectionDocument, variables, options);
+    },
+    page_apropos(variables, options) {
+      return requester(Page_AproposDocument, variables, options);
+    },
+    page_aproposConnection(variables, options) {
+      return requester(Page_AproposConnectionDocument, variables, options);
     }
   };
 }

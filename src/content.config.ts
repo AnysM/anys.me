@@ -61,6 +61,7 @@ const pages = defineCollection({
     citation_contact: z.string().optional(),
     form_titre: z.string().optional(),
     form_intro: z.string().optional(),
+    chapitres: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
   }),
 });
 

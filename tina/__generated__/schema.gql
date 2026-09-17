@@ -63,12 +63,15 @@ type Query {
   offresConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: OffresFilter): OffresConnection!
   pages(relativePath: String): Pages!
   pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
+  page_apropos(relativePath: String): Page_apropos!
+  page_aproposConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_aproposFilter): Page_aproposConnection!
 }
 
 input DocumentFilter {
   agenda: AgendaFilter
   offres: OffresFilter
   pages: PagesFilter
+  page_apropos: Page_aproposFilter
 }
 
 type DocumentConnectionEdges {
@@ -94,7 +97,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Agenda | Offres | Pages | Folder
+union DocumentNode = Agenda | Offres | Pages | Page_apropos | Folder
 
 type Agenda implements Node & Document {
   titre: String!
@@ -313,6 +316,42 @@ type PagesConnection implements Connection {
   edges: [PagesConnectionEdges]
 }
 
+type Page_aproposChapitres {
+  titre: String
+  texte: String
+}
+
+type Page_apropos implements Node & Document {
+  hero_eyebrow: String
+  hero_titre: String
+  chapitres: [Page_aproposChapitres]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input Page_aproposChapitresFilter {
+  titre: StringFilter
+  texte: StringFilter
+}
+
+input Page_aproposFilter {
+  hero_eyebrow: StringFilter
+  hero_titre: StringFilter
+  chapitres: Page_aproposChapitresFilter
+}
+
+type Page_aproposConnectionEdges {
+  cursor: String!
+  node: Page_apropos
+}
+
+type Page_aproposConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [Page_aproposConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -325,12 +364,15 @@ type Mutation {
   createOffres(relativePath: String!, params: OffresMutation!): Offres!
   updatePages(relativePath: String!, params: PagesMutation!): Pages!
   createPages(relativePath: String!, params: PagesMutation!): Pages!
+  updatePage_apropos(relativePath: String!, params: Page_aproposMutation!): Page_apropos!
+  createPage_apropos(relativePath: String!, params: Page_aproposMutation!): Page_apropos!
 }
 
 input DocumentUpdateMutation {
   agenda: AgendaMutation
   offres: OffresMutation
   pages: PagesMutation
+  page_apropos: Page_aproposMutation
   relativePath: String
 }
 
@@ -338,6 +380,7 @@ input DocumentMutation {
   agenda: AgendaMutation
   offres: OffresMutation
   pages: PagesMutation
+  page_apropos: Page_aproposMutation
 }
 
 input AgendaMutation {
@@ -404,6 +447,17 @@ input PagesMutation {
   citation_contact: String
   form_titre: String
   form_intro: String
+}
+
+input Page_aproposChapitresMutation {
+  titre: String
+  texte: String
+}
+
+input Page_aproposMutation {
+  hero_eyebrow: String
+  hero_titre: String
+  chapitres: [Page_aproposChapitresMutation]
 }
 
 schema {

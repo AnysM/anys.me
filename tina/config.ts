@@ -73,9 +73,10 @@ export default defineConfig({
       },
       {
         name: "pages",
-        label: "Pages du site",
+        label: "Accueil",
         path: "src/content/pages",
         format: "md",
+        match: { include: "accueil" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
           { type: "string", name: "hero_eyebrow", label: "Hero — sur-titre" },
@@ -97,6 +98,24 @@ export default defineConfig({
           { type: "string", name: "citation_contact", label: "Contact — phrase" },
           { type: "string", name: "form_titre", label: "Formulaire — titre", description: "*mot* = manuscrite" },
           { type: "string", name: "form_intro", label: "Formulaire — intro", ui: { component: "textarea" } },
+        ],
+      },
+      {
+        name: "page_apropos",
+        label: "À propos",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "a-propos" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "object", name: "chapitres", label: "Chapitres", list: true,
+            ui: { itemProps: (i) => ({ label: i && i.titre ? i.titre : "Chapitre" }) },
+            fields: [
+              { type: "string", name: "titre", label: "Titre du chapitre" },
+              { type: "string", name: "texte", label: "Texte (paragraphes separes par une ligne vide)", ui: { component: "textarea" } },
+            ] },
         ],
       },
     ],

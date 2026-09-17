@@ -64,3 +64,14 @@ fragment PagesParts on Pages {
   form_titre
   form_intro
 }
+
+fragment Page_aproposParts on Page_apropos {
+  __typename
+  hero_eyebrow
+  hero_titre
+  chapitres {
+    __typename
+    titre
+    texte
+  }
+}
