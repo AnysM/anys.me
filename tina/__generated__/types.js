@@ -52,6 +52,29 @@ export const OffresPartsFragmentDoc = gql`
   body
 }
     `;
+export const PagesPartsFragmentDoc = gql`
+    fragment PagesParts on Pages {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_accent
+  hero_paragraphe
+  hero_cta
+  piliers_titre
+  citation1
+  propositions_titre
+  propositions {
+    __typename
+    titre
+    texte
+    cta
+  }
+  citation2
+  citation_contact
+  form_titre
+  form_intro
+}
+    `;
 export const AgendaDocument = gql`
     query agenda($relativePath: String!) {
   agenda(relativePath: $relativePath) {
@@ -166,6 +189,63 @@ export const OffresConnectionDocument = gql`
   }
 }
     ${OffresPartsFragmentDoc}`;
+export const PagesDocument = gql`
+    query pages($relativePath: String!) {
+  pages(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...PagesParts
+  }
+}
+    ${PagesPartsFragmentDoc}`;
+export const PagesConnectionDocument = gql`
+    query pagesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PagesFilter) {
+  pagesConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...PagesParts
+      }
+    }
+  }
+}
+    ${PagesPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     agenda(variables, options) {
@@ -179,6 +259,12 @@ export function getSdk(requester) {
     },
     offresConnection(variables, options) {
       return requester(OffresConnectionDocument, variables, options);
+    },
+    pages(variables, options) {
+      return requester(PagesDocument, variables, options);
+    },
+    pagesConnection(variables, options) {
+      return requester(PagesConnectionDocument, variables, options);
     }
   };
 }

@@ -45,4 +45,23 @@ const offres = defineCollection({
   }),
 });
 
-export const collections = { agenda, offres };
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
+  schema: z.object({
+    hero_eyebrow: z.string().optional(),
+    hero_titre: z.string().optional(),
+    hero_accent: z.string().optional(),
+    hero_paragraphe: z.string().optional(),
+    hero_cta: z.string().optional(),
+    piliers_titre: z.string().optional(),
+    citation1: z.string().optional(),
+    propositions_titre: z.string().optional(),
+    propositions: z.array(z.object({ titre: z.string(), texte: z.string(), cta: z.string().optional() })).optional(),
+    citation2: z.string().optional(),
+    citation_contact: z.string().optional(),
+    form_titre: z.string().optional(),
+    form_intro: z.string().optional(),
+  }),
+});
+
+export const collections = { agenda, offres, pages };

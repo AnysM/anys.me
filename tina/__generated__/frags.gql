@@ -42,3 +42,25 @@ fragment OffresParts on Offres {
   publie
   body
 }
+
+fragment PagesParts on Pages {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_accent
+  hero_paragraphe
+  hero_cta
+  piliers_titre
+  citation1
+  propositions_titre
+  propositions {
+    __typename
+    titre
+    texte
+    cta
+  }
+  citation2
+  citation_contact
+  form_titre
+  form_intro
+}

@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 
+const acc = (await getEntry('pages', 'accueil')).data;
+const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const events = (await getCollection('agenda')).filter((e) => e.data.publie);
 const dated = events.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 const recurring = events.filter((e) => !e.data.date).sort((a, b) => a.data.ordre - b.data.ordre);
@@ -46,6 +48,7 @@ const propositions = [
   { t: 'Immersions & retraites', handle: 'ACCUEIL-IMMERSIONS', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
     d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
+const props = propositions.map((p, i) => ({ ...p, t: acc.propositions?.[i]?.titre ?? p.t, d: acc.propositions?.[i]?.texte ?? p.d, cta: acc.propositions?.[i]?.cta ?? p.cta }));
 const temoins = [
   { t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.", n: 'Sonia', c: 'Ateliers Infloressence' },
   { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
@@ -67,9 +70,9 @@ const partenaires = [
     <span class="dot" style="width:6px;height:6px;background:var(--blue);top:40%;right:16%;opacity:.9"></span>
     <span class="dot" style="width:5px;height:5px;background:var(--gold);top:70%;right:24%;opacity:.6"></span>
     <div class="hero-left">
-      <p class="eyebrow">Présence · Mouvement · Créativité</p>
-      <div class="hero-name" style="margin-top:14px;"><span class="top">Marcher un chemin qui</span><span class="serif-i script">te ressemble vraiment.</span></div>
-      <p class="lead" style="margin-top:18px;">J'accompagne les transitions de vie, avec des outils ancrés dans la connaissance de soi, le retour à la présence, le mouvement et la créativité, pour <strong>faire de la crise une opportunité d'alignement</strong> et d'évolution.</p>
+      <p class="eyebrow">{acc.hero_eyebrow}</p>
+      <div class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></div>
+      <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
       <a class="cta" href="/agenda" style="margin-top:24px;">Voir les prochains événements <span class="line"></span></a>
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
@@ -91,7 +94,7 @@ const partenaires = [
   <section style="background:var(--surface);">
     <div class="wrap">
       <p class="eyebrow">Les univers</p>
-      <h2 style="margin-top:0.8rem;">Ce qui nourrit <span class="script">le chemin</span></h2>
+      <h2 style="margin-top:0.8rem;" set:html={fmt(acc.piliers_titre)}></h2>
       <div class="piliers">
         {univers.map((u) => (
           <div class="pilier">
@@ -105,13 +108,13 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath"><div class="ph-band" data-h="RESP-01"></div><div class="phrase">Je reprends ma place de <span class="script">cellule</span> dans le grand organisme <span class="script">vivant</span>.</div></section>
+  <section class="breath"><div class="ph-band" data-h="RESP-01"></div><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
-    <div class="wrap"><p class="eyebrow">Les propositions</p><h2 style="margin-top:0.8rem;">Ce que je <span class="script">propose</span></h2></div>
+    <div class="wrap"><p class="eyebrow">Les propositions</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.propositions_titre)}></h2></div>
   </section>
-  {propositions.map((u) => (
+  {props.map((u) => (
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><div class="imgph"><span>{u.handle}</span></div></div>
       <div class="univers__body">
@@ -151,7 +154,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION vers l'art -->
-  <section class="breath"><div class="ph-band" data-h="RESP-02"></div><div class="phrase">Un langage <span class="script">magique</span>, indéchiffrable par la raison.</div></section>
+  <section class="breath"><div class="ph-band" data-h="RESP-02"></div><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- INDIGO ENOQII -->
   <section>
@@ -197,15 +200,15 @@ const partenaires = [
   <!-- CONTACT -->
   <section class="breath" style="min-height:38vh;">
     <div class="ph-band" data-h="RESP-03"></div>
-    <div class="phrase">Un premier pas ?</div>
+    <div class="phrase">{acc.citation_contact}</div>
   </section>
 
   <!-- FORMULAIRE DE CONTACT -->
   <section id="contact">
     <div class="narrow">
       <p class="eyebrow">Contact</p>
-      <h2>Écris-<span class="script">moi</span></h2>
-      <p class="lead" style="margin-top:0.8rem;">Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.</p>
+      <h2 set:html={fmt(acc.form_titre)}></h2>
+      <p class="lead" style="margin-top:0.8rem;">{acc.form_intro}</p>
       <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci" style="margin-top:1.8rem;">
         <input type="hidden" name="form-name" value="contact" />
         <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>

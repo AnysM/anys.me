@@ -61,11 +61,14 @@ type Query {
   agendaConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: AgendaFilter): AgendaConnection!
   offres(relativePath: String): Offres!
   offresConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: OffresFilter): OffresConnection!
+  pages(relativePath: String): Pages!
+  pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
 }
 
 input DocumentFilter {
   agenda: AgendaFilter
   offres: OffresFilter
+  pages: PagesFilter
 }
 
 type DocumentConnectionEdges {
@@ -91,7 +94,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Agenda | Offres | Folder
+union DocumentNode = Agenda | Offres | Pages | Folder
 
 type Agenda implements Node & Document {
   titre: String!
@@ -252,6 +255,64 @@ type OffresConnection implements Connection {
   edges: [OffresConnectionEdges]
 }
 
+type PagesPropositions {
+  titre: String
+  texte: String
+  cta: String
+}
+
+type Pages implements Node & Document {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_accent: String
+  hero_paragraphe: String
+  hero_cta: String
+  piliers_titre: String
+  citation1: String
+  propositions_titre: String
+  propositions: [PagesPropositions]
+  citation2: String
+  citation_contact: String
+  form_titre: String
+  form_intro: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input PagesPropositionsFilter {
+  titre: StringFilter
+  texte: StringFilter
+  cta: StringFilter
+}
+
+input PagesFilter {
+  hero_eyebrow: StringFilter
+  hero_titre: StringFilter
+  hero_accent: StringFilter
+  hero_paragraphe: StringFilter
+  hero_cta: StringFilter
+  piliers_titre: StringFilter
+  citation1: StringFilter
+  propositions_titre: StringFilter
+  propositions: PagesPropositionsFilter
+  citation2: StringFilter
+  citation_contact: StringFilter
+  form_titre: StringFilter
+  form_intro: StringFilter
+}
+
+type PagesConnectionEdges {
+  cursor: String!
+  node: Pages
+}
+
+type PagesConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PagesConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -262,17 +323,21 @@ type Mutation {
   createAgenda(relativePath: String!, params: AgendaMutation!): Agenda!
   updateOffres(relativePath: String!, params: OffresMutation!): Offres!
   createOffres(relativePath: String!, params: OffresMutation!): Offres!
+  updatePages(relativePath: String!, params: PagesMutation!): Pages!
+  createPages(relativePath: String!, params: PagesMutation!): Pages!
 }
 
 input DocumentUpdateMutation {
   agenda: AgendaMutation
   offres: OffresMutation
+  pages: PagesMutation
   relativePath: String
 }
 
 input DocumentMutation {
   agenda: AgendaMutation
   offres: OffresMutation
+  pages: PagesMutation
 }
 
 input AgendaMutation {
@@ -317,6 +382,28 @@ input OffresMutation {
   ordre: Float
   publie: Boolean
   body: RichText
+}
+
+input PagesPropositionsMutation {
+  titre: String
+  texte: String
+  cta: String
+}
+
+input PagesMutation {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_accent: String
+  hero_paragraphe: String
+  hero_cta: String
+  piliers_titre: String
+  citation1: String
+  propositions_titre: String
+  propositions: [PagesPropositionsMutation]
+  citation2: String
+  citation_contact: String
+  form_titre: String
+  form_intro: String
 }
 
 schema {

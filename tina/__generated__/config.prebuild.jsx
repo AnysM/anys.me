@@ -73,6 +73,39 @@ var config_default = defineConfig({
           { type: "boolean", name: "publie", label: "Publi\xE9" },
           { type: "rich-text", name: "body", label: "Contenu de la page", isBody: true }
         ]
+      },
+      {
+        name: "pages",
+        label: "Pages du site",
+        path: "src/content/pages",
+        format: "md",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Hero \u2014 sur-titre" },
+          { type: "string", name: "hero_titre", label: "Hero \u2014 titre (sans-serif)" },
+          { type: "string", name: "hero_accent", label: "Hero \u2014 accent manuscrit" },
+          { type: "string", name: "hero_paragraphe", label: "Hero \u2014 paragraphe", description: "Entoure un mot de *etoiles* pour la manuscrite, de **deux** pour le dore.", ui: { component: "textarea" } },
+          { type: "string", name: "hero_cta", label: "Hero \u2014 bouton" },
+          { type: "string", name: "piliers_titre", label: "Piliers \u2014 titre", description: "*mot* = manuscrite" },
+          { type: "string", name: "citation1", label: "Citation 1", description: "*mot* = manuscrite" },
+          { type: "string", name: "propositions_titre", label: "Propositions \u2014 titre", description: "*mot* = manuscrite" },
+          {
+            type: "object",
+            name: "propositions",
+            label: "Propositions",
+            list: true,
+            ui: { itemProps: (i) => ({ label: i && i.titre ? i.titre : "Proposition" }) },
+            fields: [
+              { type: "string", name: "titre", label: "Titre" },
+              { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } },
+              { type: "string", name: "cta", label: "Bouton" }
+            ]
+          },
+          { type: "string", name: "citation2", label: "Citation 2", description: "*mot* = manuscrite" },
+          { type: "string", name: "citation_contact", label: "Contact \u2014 phrase" },
+          { type: "string", name: "form_titre", label: "Formulaire \u2014 titre", description: "*mot* = manuscrite" },
+          { type: "string", name: "form_intro", label: "Formulaire \u2014 intro", ui: { component: "textarea" } }
+        ]
       }
     ]
   }
