@@ -98,6 +98,52 @@ export const Page_SoinsPartsFragmentDoc = gql`
   soins_intro
 }
     `;
+export const Page_AccompagnementPartsFragmentDoc = gql`
+    fragment Page_accompagnementParts on Page_accompagnement {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  coeur
+  pourqui_eyebrow
+  pourqui_titre
+  pourqui_texte
+  outils_eyebrow
+  outils_titre
+  outils
+  passage
+  formules_eyebrow
+  formules_titre
+}
+    `;
+export const Page_QuintessencePartsFragmentDoc = gql`
+    fragment Page_quintessenceParts on Page_quintessence {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_lead
+  hero_image
+  passage
+  citation
+  silence_titre
+  silence_texte
+  crea_titre
+  crea_texte
+  pratiques_eyebrow
+  pratiques_titre
+  pratiques
+  cta_texte
+}
+    `;
+export const Page_ContactPartsFragmentDoc = gql`
+    fragment Page_contactParts on Page_contact {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  intro
+}
+    `;
 export const AgendaDocument = gql`
     query agenda($relativePath: String!) {
   agenda(relativePath: $relativePath) {
@@ -383,6 +429,177 @@ export const Page_SoinsConnectionDocument = gql`
   }
 }
     ${Page_SoinsPartsFragmentDoc}`;
+export const Page_AccompagnementDocument = gql`
+    query page_accompagnement($relativePath: String!) {
+  page_accompagnement(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_accompagnementParts
+  }
+}
+    ${Page_AccompagnementPartsFragmentDoc}`;
+export const Page_AccompagnementConnectionDocument = gql`
+    query page_accompagnementConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_accompagnementFilter) {
+  page_accompagnementConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_accompagnementParts
+      }
+    }
+  }
+}
+    ${Page_AccompagnementPartsFragmentDoc}`;
+export const Page_QuintessenceDocument = gql`
+    query page_quintessence($relativePath: String!) {
+  page_quintessence(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_quintessenceParts
+  }
+}
+    ${Page_QuintessencePartsFragmentDoc}`;
+export const Page_QuintessenceConnectionDocument = gql`
+    query page_quintessenceConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_quintessenceFilter) {
+  page_quintessenceConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_quintessenceParts
+      }
+    }
+  }
+}
+    ${Page_QuintessencePartsFragmentDoc}`;
+export const Page_ContactDocument = gql`
+    query page_contact($relativePath: String!) {
+  page_contact(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_contactParts
+  }
+}
+    ${Page_ContactPartsFragmentDoc}`;
+export const Page_ContactConnectionDocument = gql`
+    query page_contactConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_contactFilter) {
+  page_contactConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_contactParts
+      }
+    }
+  }
+}
+    ${Page_ContactPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     agenda(variables, options) {
@@ -414,6 +631,24 @@ export function getSdk(requester) {
     },
     page_soinsConnection(variables, options) {
       return requester(Page_SoinsConnectionDocument, variables, options);
+    },
+    page_accompagnement(variables, options) {
+      return requester(Page_AccompagnementDocument, variables, options);
+    },
+    page_accompagnementConnection(variables, options) {
+      return requester(Page_AccompagnementConnectionDocument, variables, options);
+    },
+    page_quintessence(variables, options) {
+      return requester(Page_QuintessenceDocument, variables, options);
+    },
+    page_quintessenceConnection(variables, options) {
+      return requester(Page_QuintessenceConnectionDocument, variables, options);
+    },
+    page_contact(variables, options) {
+      return requester(Page_ContactDocument, variables, options);
+    },
+    page_contactConnection(variables, options) {
+      return requester(Page_ContactConnectionDocument, variables, options);
     }
   };
 }

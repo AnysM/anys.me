@@ -1,13 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+const cc = (await getEntry('pages', 'contact')).data;
 ---
 <Base title="Contact — Anys Mechkar">
-  <section class="page-hero" style="min-height:34vh;"><div class="ph-band" data-h="HERO-CONTACT"></div>
-    <div class="narrow"><p class="eyebrow">Prendre contact</p><h1>Écris-moi</h1></div>
+  <section class="page-hero" style="min-height:34vh;">{cc.hero_image ? <img src={cc.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-CONTACT"></div>}
+    <div class="narrow"><p class="eyebrow">{cc.hero_eyebrow}</p><h1>{cc.hero_titre}</h1></div>
   </section>
   <section>
     <div class="narrow">
-      <p class="lead">Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds.</p>
+      <p class="lead">{cc.intro}</p>
       <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci">
         <input type="hidden" name="form-name" value="contact" />
         <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>

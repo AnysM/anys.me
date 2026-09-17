@@ -1,38 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
-const outils = [
-  'Méditation de pleine conscience',
-  'Pratiques de mouvement et de respiration, danse Butoh',
-  'Écoute active, coaching non directif et mentorat',
-  'Jeu des 7 interlocuteurs et archétypes, psychologie jungienne',
-  'Connaissance de soi avec Prisme Origine, Human Design, Tzolk\u2019in, BaZi',
-];
+const ac = (await getEntry('pages', 'accompagnement')).data;
+const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+const outils = ac.outils;
 ---
 <Base title="Accompagnement — Anys Mechkar">
-  <section class="page-hero"><div class="ph-band" data-h="HERO-ACCOMP"></div>
-    <div class="narrow"><p class="eyebrow">Cheminer</p><h1>Accompagnement</h1></div>
+  <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-ACCOMP"></div>}
+    <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>
 
   <!-- CŒUR À CŒUR -->
   <section class="coeur">
     <div class="wrap split">
       <div class="photo"><div class="imgph"><span>ACCOMP-PORTRAIT</span></div></div>
-      <div class="coeur__text">
-        <p>Je t'accompagne à traverser une crise existentielle, achever une transition de vie ou aboutir un projet de cœur.</p>
-        <p>Je t'aide dans la compréhension profonde de qui tu es, pour retrouver <strong>alignement, souveraineté et pouvoir créateur</strong>. Mon parcours m'a permis de traverser tout ça, et chacune de ces crises a été <strong>une initiation</strong> pour me rapprocher de qui je suis vraiment.</p>
-      </div>
+      <div class="coeur__text">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>
   </section>
 
   <!-- POUR QUI -->
   <section>
     <div class="narrow">
-      <p class="eyebrow">Pour qui</p>
-      <h2 style="margin-top:0.8rem;">Deux façons de se perdre</h2>
-      <p style="margin-top:1.2rem; color:#C2C5D2; line-height:1.9;">Il y a deux profils, en général. Ceux qui passent leur temps à vouloir guérir, à tout comprendre, et ceux qui pensent y arriver tout seuls. Les premiers ont oublié de vivre, bloqués à regarder leur problème sans pouvoir le traverser. Les seconds foncent sans jamais s'arrêter, jusqu'à ce que les crises les arrêtent. Burnout, licenciement, rupture, maladie.</p>
-      <p style="margin-top:0.9rem; color:#C2C5D2; line-height:1.9;">Toutes ces crises sont des opportunités de réajuster. Douloureuses, mais si on regarde depuis le bon endroit, elles nous offrent l'occasion de nous arrêter et de nous poser les vraies questions. Quand est-ce que je me suis trahi ? Quand est-ce que je me suis oublié ? Ai-je vraiment choisi ma vie en conscience ?</p>
+      <p class="eyebrow">{ac.pourqui_eyebrow}</p>
+      <h2 style="margin-top:0.8rem;" set:html={fmt(ac.pourqui_titre)}></h2>
+      {ac.pourqui_texte.split(/\n\n+/).map((par, i) => <p style={`margin-top:${i===0?"1.2rem":"0.9rem"}; color:#C2C5D2; line-height:1.9;`}>{par}</p>)}
     </div>
   </section>
 
@@ -41,8 +33,8 @@ const outils = [
     <div class="univers rev">
       <div class="univers__img"><div class="imgph"><span>ACCOMP-UNIVERS</span></div></div>
       <div class="univers__body">
-        <p class="eyebrow" style="margin-bottom:0.6rem;">Les outils</p>
-        <h2>De la vision au prochain pas</h2>
+        <p class="eyebrow" style="margin-bottom:0.6rem;">{ac.outils_eyebrow}</p>
+        <h2 set:html={fmt(ac.outils_titre)}></h2>
         <div class="pratiques" style="margin-top:1.4rem;">{outils.map((o) => <span>{o}</span>)}</div>
       </div>
     </div>
@@ -51,19 +43,19 @@ const outils = [
   <!-- MA POSTURE (bloc de couleur) -->
   <section class="bloc-or passage">
     <div class="narrow">
-      <p>Je ne tire pas sur la fleur pour la faire pousser. Je suis comme un jardinier qui offre les conditions optimales. Le reste t'appartient.</p>
+      <p>{ac.passage}</p>
     </div>
   </section>
 
   <!-- LES FORMULES -->
   <section>
     <div class="wrap">
-      <p class="eyebrow">Les formules</p>
-      <h2 style="margin-top:0.8rem;">Trouver le bon cadre</h2>
+      <p class="eyebrow">{ac.formules_eyebrow}</p>
+      <h2 style="margin-top:0.8rem;" set:html={fmt(ac.formules_titre)}></h2>
       <div style="margin-top:2.4rem;">
         {items.map((o) => (
           <a class="evt" href={`/offre/${o.id}`}>
-            <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
+            <div class="evt__img">{o.data.image ? <img src={o.data.image} alt={o.data.titre} /> : <div class="imgph"><span>Photo</span></div>}</div>
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
               <div class="evt__title">{o.data.titre}</div>

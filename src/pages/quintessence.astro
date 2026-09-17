@@ -1,39 +1,40 @@
 ---
 import Base from '../layouts/Base.astro';
-const pratiques = ['Cercle de chant', 'Méditation', 'Mouvement conscient', 'Roue des 7 directions indigènes', 'Danse Butoh', 'Cercles de parole', 'Cérémonies & rituels psychomagiques'];
+import { getEntry } from 'astro:content';
+const qc = (await getEntry('pages', 'quintessence')).data;
+const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+const pratiques = qc.pratiques;
 ---
 <Base title="Quintessence — Anys Mechkar">
   <!-- HERO -->
-  <section class="page-hero" style="min-height:64vh;"><div class="ph-band" data-h="HERO-QUINTESSENCE"></div>
-    <div class="wrap"><p class="eyebrow">Retraite · France</p><h1 style="font-size:clamp(2.4rem,6vw,4rem);">Quintessence</h1><p class="lead" style="margin-top:1rem;">3 jours de silence, 2 jours de créativité.</p></div>
+  <section class="page-hero" style="min-height:64vh;">{qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-QUINTESSENCE"></div>}
+    <div class="wrap"><p class="eyebrow">{qc.hero_eyebrow}</p><h1 style="font-size:clamp(2.4rem,6vw,4rem);">{qc.hero_titre}</h1><p class="lead" style="margin-top:1rem;">{qc.hero_lead}</p></div>
   </section>
 
   <!-- PASSAGE -->
   <section class="passage">
     <div class="narrow">
-      <p>Une plongée profonde en soi, pour se redécouvrir, se reconnecter à son essence, et faire renaître son univers intérieur.</p>
+      <p>{qc.passage}</p>
     </div>
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath" style="min-height:52vh;"><div class="ph-band" data-h="QUINT-RESP"></div><div class="phrase">Faire le silence, pour entendre ce qui parle en dessous.</div></section>
+  <section class="breath" style="min-height:52vh;"><div class="ph-band" data-h="QUINT-RESP"></div><div class="phrase" set:html={fmt(qc.citation)}></div></section>
 
   <!-- LE VOYAGE (image + texte) -->
   <section style="padding:0;">
     <div class="univers">
       <div class="univers__img"><div class="imgph"><span>QUINT-SILENCE</span></div></div>
       <div class="univers__body">
-        <div class="num">01</div>
-        <h2>Le silence</h2>
-        <p>Trois jours pour se déposer loin du quotidien, dans le silence, le corps et la nature. Un temps pour laisser retomber le bruit, et retrouver son fil intérieur.</p>
+        <h2>{qc.silence_titre}</h2>
+        <p>{qc.silence_texte}</p>
       </div>
     </div>
     <div class="univers rev">
       <div class="univers__img"><div class="imgph"><span>QUINT-CREA</span></div></div>
       <div class="univers__body">
-        <div class="num">02</div>
-        <h2>La créativité</h2>
-        <p>Deux jours d'exploration autour du mouvement, du chant, de la musique, de la peinture et de toute forme de créativité. Laisser l'univers intérieur reprendre forme et s'exprimer.</p>
+        <h2>{qc.crea_titre}</h2>
+        <p>{qc.crea_texte}</p>
       </div>
     </div>
   </section>
@@ -41,8 +42,8 @@ const pratiques = ['Cercle de chant', 'Méditation', 'Mouvement conscient', 'Rou
   <!-- PRATIQUES (bloc de couleur) -->
   <section class="bloc-or">
     <div class="wrap">
-      <p class="eyebrow">Au programme</p>
-      <h2 style="margin-top:0.8rem;">Les pratiques</h2>
+      <p class="eyebrow">{qc.pratiques_eyebrow}</p>
+      <h2 style="margin-top:0.8rem;" set:html={fmt(qc.pratiques_titre)}></h2>
       <div class="pratiques">{pratiques.map((p) => <span>{p}</span>)}</div>
     </div>
   </section>
@@ -71,9 +72,9 @@ const pratiques = ['Cercle de chant', 'Méditation', 'Mouvement conscient', 'Rou
 
   <!-- CTA -->
   <section class="breath" style="min-height:40vh;">
-    <div class="ph-band" data-h="QUINT-END"></div>
+    {qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band" data-h="QUINT-END"></div>}
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
-      Être tenu au courant de la prochaine édition ?
+      {qc.cta_texte}
       <a class="btn" href="mailto:contact@anys.me?subject=Quintessence" style="font-style:normal;">Écrire à Anys</a>
     </div>
   </section>

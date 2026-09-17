@@ -272,3 +272,168 @@ query page_soinsConnection($before: String, $after: String, $first: Float, $last
     }
   }
 }
+
+query page_accompagnement($relativePath: String!) {
+  page_accompagnement(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_accompagnementParts
+  }
+}
+
+query page_accompagnementConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_accompagnementFilter) {
+  page_accompagnementConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_accompagnementParts
+      }
+    }
+  }
+}
+
+query page_quintessence($relativePath: String!) {
+  page_quintessence(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_quintessenceParts
+  }
+}
+
+query page_quintessenceConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_quintessenceFilter) {
+  page_quintessenceConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_quintessenceParts
+      }
+    }
+  }
+}
+
+query page_contact($relativePath: String!) {
+  page_contact(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_contactParts
+  }
+}
+
+query page_contactConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_contactFilter) {
+  page_contactConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_contactParts
+      }
+    }
+  }
+}

@@ -146,6 +146,67 @@ var config_default = defineConfig({
           { type: "string", name: "soins_titre", label: "Section soins \u2014 titre" },
           { type: "string", name: "soins_intro", label: "Section soins \u2014 intro", ui: { component: "textarea" } }
         ]
+      },
+      {
+        name: "page_accompagnement",
+        label: "Page Accompagnement",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "accompagnement" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Photo de fond (hero)" },
+          { type: "string", name: "coeur", label: "Texte coeur a coeur", description: "**dore**, *manuscrite*, paragraphes = ligne vide", ui: { component: "textarea" } },
+          { type: "string", name: "pourqui_eyebrow", label: "Pour qui \u2014 sur-titre" },
+          { type: "string", name: "pourqui_titre", label: "Pour qui \u2014 titre" },
+          { type: "string", name: "pourqui_texte", label: "Pour qui \u2014 texte", ui: { component: "textarea" } },
+          { type: "string", name: "outils_eyebrow", label: "Outils \u2014 sur-titre" },
+          { type: "string", name: "outils_titre", label: "Outils \u2014 titre" },
+          { type: "string", name: "outils", label: "Outils (liste)", list: true },
+          { type: "string", name: "passage", label: "Phrase mise en avant", ui: { component: "textarea" } },
+          { type: "string", name: "formules_eyebrow", label: "Formules \u2014 sur-titre" },
+          { type: "string", name: "formules_titre", label: "Formules \u2014 titre" }
+        ]
+      },
+      {
+        name: "page_quintessence",
+        label: "Page Quintessence",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "quintessence" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "string", name: "hero_lead", label: "Accroche" },
+          { type: "image", name: "hero_image", label: "Photo de fond (hero)" },
+          { type: "string", name: "passage", label: "Passage", ui: { component: "textarea" } },
+          { type: "string", name: "citation", label: "Citation", description: "*mot* = manuscrite" },
+          { type: "string", name: "silence_titre", label: "Silence \u2014 titre" },
+          { type: "string", name: "silence_texte", label: "Silence \u2014 texte", ui: { component: "textarea" } },
+          { type: "string", name: "crea_titre", label: "Creativite \u2014 titre" },
+          { type: "string", name: "crea_texte", label: "Creativite \u2014 texte", ui: { component: "textarea" } },
+          { type: "string", name: "pratiques_eyebrow", label: "Pratiques \u2014 sur-titre" },
+          { type: "string", name: "pratiques_titre", label: "Pratiques \u2014 titre" },
+          { type: "string", name: "pratiques", label: "Pratiques (liste)", list: true },
+          { type: "string", name: "cta_texte", label: "Phrase de fin" }
+        ]
+      },
+      {
+        name: "page_contact",
+        label: "Page Contact",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "contact" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Photo de fond (hero)" },
+          { type: "string", name: "intro", label: "Introduction", ui: { component: "textarea" } }
+        ]
       }
     ]
   }

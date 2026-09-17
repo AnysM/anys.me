@@ -67,6 +67,12 @@ type Query {
   page_aproposConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_aproposFilter): Page_aproposConnection!
   page_soins(relativePath: String): Page_soins!
   page_soinsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_soinsFilter): Page_soinsConnection!
+  page_accompagnement(relativePath: String): Page_accompagnement!
+  page_accompagnementConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_accompagnementFilter): Page_accompagnementConnection!
+  page_quintessence(relativePath: String): Page_quintessence!
+  page_quintessenceConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_quintessenceFilter): Page_quintessenceConnection!
+  page_contact(relativePath: String): Page_contact!
+  page_contactConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_contactFilter): Page_contactConnection!
 }
 
 input DocumentFilter {
@@ -75,6 +81,9 @@ input DocumentFilter {
   pages: PagesFilter
   page_apropos: Page_aproposFilter
   page_soins: Page_soinsFilter
+  page_accompagnement: Page_accompagnementFilter
+  page_quintessence: Page_quintessenceFilter
+  page_contact: Page_contactFilter
 }
 
 type DocumentConnectionEdges {
@@ -100,7 +109,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Agenda | Offres | Pages | Page_apropos | Page_soins | Folder
+union DocumentNode = Agenda | Offres | Pages | Page_apropos | Page_soins | Page_accompagnement | Page_quintessence | Page_contact | Folder
 
 type Agenda implements Node & Document {
   titre: String!
@@ -387,6 +396,128 @@ type Page_soinsConnection implements Connection {
   edges: [Page_soinsConnectionEdges]
 }
 
+type Page_accompagnement implements Node & Document {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_image: String
+  coeur: String
+  pourqui_eyebrow: String
+  pourqui_titre: String
+  pourqui_texte: String
+  outils_eyebrow: String
+  outils_titre: String
+  outils: [String]
+  passage: String
+  formules_eyebrow: String
+  formules_titre: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input Page_accompagnementFilter {
+  hero_eyebrow: StringFilter
+  hero_titre: StringFilter
+  hero_image: ImageFilter
+  coeur: StringFilter
+  pourqui_eyebrow: StringFilter
+  pourqui_titre: StringFilter
+  pourqui_texte: StringFilter
+  outils_eyebrow: StringFilter
+  outils_titre: StringFilter
+  outils: StringFilter
+  passage: StringFilter
+  formules_eyebrow: StringFilter
+  formules_titre: StringFilter
+}
+
+type Page_accompagnementConnectionEdges {
+  cursor: String!
+  node: Page_accompagnement
+}
+
+type Page_accompagnementConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [Page_accompagnementConnectionEdges]
+}
+
+type Page_quintessence implements Node & Document {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_lead: String
+  hero_image: String
+  passage: String
+  citation: String
+  silence_titre: String
+  silence_texte: String
+  crea_titre: String
+  crea_texte: String
+  pratiques_eyebrow: String
+  pratiques_titre: String
+  pratiques: [String]
+  cta_texte: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input Page_quintessenceFilter {
+  hero_eyebrow: StringFilter
+  hero_titre: StringFilter
+  hero_lead: StringFilter
+  hero_image: ImageFilter
+  passage: StringFilter
+  citation: StringFilter
+  silence_titre: StringFilter
+  silence_texte: StringFilter
+  crea_titre: StringFilter
+  crea_texte: StringFilter
+  pratiques_eyebrow: StringFilter
+  pratiques_titre: StringFilter
+  pratiques: StringFilter
+  cta_texte: StringFilter
+}
+
+type Page_quintessenceConnectionEdges {
+  cursor: String!
+  node: Page_quintessence
+}
+
+type Page_quintessenceConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [Page_quintessenceConnectionEdges]
+}
+
+type Page_contact implements Node & Document {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_image: String
+  intro: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input Page_contactFilter {
+  hero_eyebrow: StringFilter
+  hero_titre: StringFilter
+  hero_image: ImageFilter
+  intro: StringFilter
+}
+
+type Page_contactConnectionEdges {
+  cursor: String!
+  node: Page_contact
+}
+
+type Page_contactConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [Page_contactConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -403,6 +534,12 @@ type Mutation {
   createPage_apropos(relativePath: String!, params: Page_aproposMutation!): Page_apropos!
   updatePage_soins(relativePath: String!, params: Page_soinsMutation!): Page_soins!
   createPage_soins(relativePath: String!, params: Page_soinsMutation!): Page_soins!
+  updatePage_accompagnement(relativePath: String!, params: Page_accompagnementMutation!): Page_accompagnement!
+  createPage_accompagnement(relativePath: String!, params: Page_accompagnementMutation!): Page_accompagnement!
+  updatePage_quintessence(relativePath: String!, params: Page_quintessenceMutation!): Page_quintessence!
+  createPage_quintessence(relativePath: String!, params: Page_quintessenceMutation!): Page_quintessence!
+  updatePage_contact(relativePath: String!, params: Page_contactMutation!): Page_contact!
+  createPage_contact(relativePath: String!, params: Page_contactMutation!): Page_contact!
 }
 
 input DocumentUpdateMutation {
@@ -411,6 +548,9 @@ input DocumentUpdateMutation {
   pages: PagesMutation
   page_apropos: Page_aproposMutation
   page_soins: Page_soinsMutation
+  page_accompagnement: Page_accompagnementMutation
+  page_quintessence: Page_quintessenceMutation
+  page_contact: Page_contactMutation
   relativePath: String
 }
 
@@ -420,6 +560,9 @@ input DocumentMutation {
   pages: PagesMutation
   page_apropos: Page_aproposMutation
   page_soins: Page_soinsMutation
+  page_accompagnement: Page_accompagnementMutation
+  page_quintessence: Page_quintessenceMutation
+  page_contact: Page_contactMutation
 }
 
 input AgendaMutation {
@@ -506,6 +649,46 @@ input Page_soinsMutation {
   soins_eyebrow: String
   soins_titre: String
   soins_intro: String
+}
+
+input Page_accompagnementMutation {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_image: String
+  coeur: String
+  pourqui_eyebrow: String
+  pourqui_titre: String
+  pourqui_texte: String
+  outils_eyebrow: String
+  outils_titre: String
+  outils: [String]
+  passage: String
+  formules_eyebrow: String
+  formules_titre: String
+}
+
+input Page_quintessenceMutation {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_lead: String
+  hero_image: String
+  passage: String
+  citation: String
+  silence_titre: String
+  silence_texte: String
+  crea_titre: String
+  crea_texte: String
+  pratiques_eyebrow: String
+  pratiques_titre: String
+  pratiques: [String]
+  cta_texte: String
+}
+
+input Page_contactMutation {
+  hero_eyebrow: String
+  hero_titre: String
+  hero_image: String
+  intro: String
 }
 
 schema {

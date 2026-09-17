@@ -94,6 +94,12 @@ export type Query = {
   page_aproposConnection: Page_AproposConnection;
   page_soins: Page_Soins;
   page_soinsConnection: Page_SoinsConnection;
+  page_accompagnement: Page_Accompagnement;
+  page_accompagnementConnection: Page_AccompagnementConnection;
+  page_quintessence: Page_Quintessence;
+  page_quintessenceConnection: Page_QuintessenceConnection;
+  page_contact: Page_Contact;
+  page_contactConnection: Page_ContactConnection;
 };
 
 
@@ -192,12 +198,60 @@ export type QueryPage_SoinsConnectionArgs = {
   filter?: InputMaybe<Page_SoinsFilter>;
 };
 
+
+export type QueryPage_AccompagnementArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPage_AccompagnementConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Page_AccompagnementFilter>;
+};
+
+
+export type QueryPage_QuintessenceArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPage_QuintessenceConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Page_QuintessenceFilter>;
+};
+
+
+export type QueryPage_ContactArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryPage_ContactConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<Page_ContactFilter>;
+};
+
 export type DocumentFilter = {
   agenda?: InputMaybe<AgendaFilter>;
   offres?: InputMaybe<OffresFilter>;
   pages?: InputMaybe<PagesFilter>;
   page_apropos?: InputMaybe<Page_AproposFilter>;
   page_soins?: InputMaybe<Page_SoinsFilter>;
+  page_accompagnement?: InputMaybe<Page_AccompagnementFilter>;
+  page_quintessence?: InputMaybe<Page_QuintessenceFilter>;
+  page_contact?: InputMaybe<Page_ContactFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -237,7 +291,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Page_Soins | Folder;
+export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Page_Soins | Page_Accompagnement | Page_Quintessence | Page_Contact | Folder;
 
 export type Agenda = Node & Document & {
   __typename?: 'Agenda';
@@ -542,6 +596,137 @@ export type Page_SoinsConnection = Connection & {
   edges?: Maybe<Array<Maybe<Page_SoinsConnectionEdges>>>;
 };
 
+export type Page_Accompagnement = Node & Document & {
+  __typename?: 'Page_accompagnement';
+  hero_eyebrow?: Maybe<Scalars['String']['output']>;
+  hero_titre?: Maybe<Scalars['String']['output']>;
+  hero_image?: Maybe<Scalars['String']['output']>;
+  coeur?: Maybe<Scalars['String']['output']>;
+  pourqui_eyebrow?: Maybe<Scalars['String']['output']>;
+  pourqui_titre?: Maybe<Scalars['String']['output']>;
+  pourqui_texte?: Maybe<Scalars['String']['output']>;
+  outils_eyebrow?: Maybe<Scalars['String']['output']>;
+  outils_titre?: Maybe<Scalars['String']['output']>;
+  outils?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  passage?: Maybe<Scalars['String']['output']>;
+  formules_eyebrow?: Maybe<Scalars['String']['output']>;
+  formules_titre?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type Page_AccompagnementFilter = {
+  hero_eyebrow?: InputMaybe<StringFilter>;
+  hero_titre?: InputMaybe<StringFilter>;
+  hero_image?: InputMaybe<ImageFilter>;
+  coeur?: InputMaybe<StringFilter>;
+  pourqui_eyebrow?: InputMaybe<StringFilter>;
+  pourqui_titre?: InputMaybe<StringFilter>;
+  pourqui_texte?: InputMaybe<StringFilter>;
+  outils_eyebrow?: InputMaybe<StringFilter>;
+  outils_titre?: InputMaybe<StringFilter>;
+  outils?: InputMaybe<StringFilter>;
+  passage?: InputMaybe<StringFilter>;
+  formules_eyebrow?: InputMaybe<StringFilter>;
+  formules_titre?: InputMaybe<StringFilter>;
+};
+
+export type Page_AccompagnementConnectionEdges = {
+  __typename?: 'Page_accompagnementConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Page_Accompagnement>;
+};
+
+export type Page_AccompagnementConnection = Connection & {
+  __typename?: 'Page_accompagnementConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<Page_AccompagnementConnectionEdges>>>;
+};
+
+export type Page_Quintessence = Node & Document & {
+  __typename?: 'Page_quintessence';
+  hero_eyebrow?: Maybe<Scalars['String']['output']>;
+  hero_titre?: Maybe<Scalars['String']['output']>;
+  hero_lead?: Maybe<Scalars['String']['output']>;
+  hero_image?: Maybe<Scalars['String']['output']>;
+  passage?: Maybe<Scalars['String']['output']>;
+  citation?: Maybe<Scalars['String']['output']>;
+  silence_titre?: Maybe<Scalars['String']['output']>;
+  silence_texte?: Maybe<Scalars['String']['output']>;
+  crea_titre?: Maybe<Scalars['String']['output']>;
+  crea_texte?: Maybe<Scalars['String']['output']>;
+  pratiques_eyebrow?: Maybe<Scalars['String']['output']>;
+  pratiques_titre?: Maybe<Scalars['String']['output']>;
+  pratiques?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  cta_texte?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type Page_QuintessenceFilter = {
+  hero_eyebrow?: InputMaybe<StringFilter>;
+  hero_titre?: InputMaybe<StringFilter>;
+  hero_lead?: InputMaybe<StringFilter>;
+  hero_image?: InputMaybe<ImageFilter>;
+  passage?: InputMaybe<StringFilter>;
+  citation?: InputMaybe<StringFilter>;
+  silence_titre?: InputMaybe<StringFilter>;
+  silence_texte?: InputMaybe<StringFilter>;
+  crea_titre?: InputMaybe<StringFilter>;
+  crea_texte?: InputMaybe<StringFilter>;
+  pratiques_eyebrow?: InputMaybe<StringFilter>;
+  pratiques_titre?: InputMaybe<StringFilter>;
+  pratiques?: InputMaybe<StringFilter>;
+  cta_texte?: InputMaybe<StringFilter>;
+};
+
+export type Page_QuintessenceConnectionEdges = {
+  __typename?: 'Page_quintessenceConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Page_Quintessence>;
+};
+
+export type Page_QuintessenceConnection = Connection & {
+  __typename?: 'Page_quintessenceConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<Page_QuintessenceConnectionEdges>>>;
+};
+
+export type Page_Contact = Node & Document & {
+  __typename?: 'Page_contact';
+  hero_eyebrow?: Maybe<Scalars['String']['output']>;
+  hero_titre?: Maybe<Scalars['String']['output']>;
+  hero_image?: Maybe<Scalars['String']['output']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type Page_ContactFilter = {
+  hero_eyebrow?: InputMaybe<StringFilter>;
+  hero_titre?: InputMaybe<StringFilter>;
+  hero_image?: InputMaybe<ImageFilter>;
+  intro?: InputMaybe<StringFilter>;
+};
+
+export type Page_ContactConnectionEdges = {
+  __typename?: 'Page_contactConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Page_Contact>;
+};
+
+export type Page_ContactConnection = Connection & {
+  __typename?: 'Page_contactConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<Page_ContactConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -559,6 +744,12 @@ export type Mutation = {
   createPage_apropos: Page_Apropos;
   updatePage_soins: Page_Soins;
   createPage_soins: Page_Soins;
+  updatePage_accompagnement: Page_Accompagnement;
+  createPage_accompagnement: Page_Accompagnement;
+  updatePage_quintessence: Page_Quintessence;
+  createPage_quintessence: Page_Quintessence;
+  updatePage_contact: Page_Contact;
+  createPage_contact: Page_Contact;
 };
 
 
@@ -654,12 +845,51 @@ export type MutationCreatePage_SoinsArgs = {
   params: Page_SoinsMutation;
 };
 
+
+export type MutationUpdatePage_AccompagnementArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_AccompagnementMutation;
+};
+
+
+export type MutationCreatePage_AccompagnementArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_AccompagnementMutation;
+};
+
+
+export type MutationUpdatePage_QuintessenceArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_QuintessenceMutation;
+};
+
+
+export type MutationCreatePage_QuintessenceArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_QuintessenceMutation;
+};
+
+
+export type MutationUpdatePage_ContactArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_ContactMutation;
+};
+
+
+export type MutationCreatePage_ContactArgs = {
+  relativePath: Scalars['String']['input'];
+  params: Page_ContactMutation;
+};
+
 export type DocumentUpdateMutation = {
   agenda?: InputMaybe<AgendaMutation>;
   offres?: InputMaybe<OffresMutation>;
   pages?: InputMaybe<PagesMutation>;
   page_apropos?: InputMaybe<Page_AproposMutation>;
   page_soins?: InputMaybe<Page_SoinsMutation>;
+  page_accompagnement?: InputMaybe<Page_AccompagnementMutation>;
+  page_quintessence?: InputMaybe<Page_QuintessenceMutation>;
+  page_contact?: InputMaybe<Page_ContactMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -669,6 +899,9 @@ export type DocumentMutation = {
   pages?: InputMaybe<PagesMutation>;
   page_apropos?: InputMaybe<Page_AproposMutation>;
   page_soins?: InputMaybe<Page_SoinsMutation>;
+  page_accompagnement?: InputMaybe<Page_AccompagnementMutation>;
+  page_quintessence?: InputMaybe<Page_QuintessenceMutation>;
+  page_contact?: InputMaybe<Page_ContactMutation>;
 };
 
 export type AgendaMutation = {
@@ -755,6 +988,46 @@ export type Page_SoinsMutation = {
   soins_eyebrow?: InputMaybe<Scalars['String']['input']>;
   soins_titre?: InputMaybe<Scalars['String']['input']>;
   soins_intro?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Page_AccompagnementMutation = {
+  hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  hero_titre?: InputMaybe<Scalars['String']['input']>;
+  hero_image?: InputMaybe<Scalars['String']['input']>;
+  coeur?: InputMaybe<Scalars['String']['input']>;
+  pourqui_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  pourqui_titre?: InputMaybe<Scalars['String']['input']>;
+  pourqui_texte?: InputMaybe<Scalars['String']['input']>;
+  outils_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  outils_titre?: InputMaybe<Scalars['String']['input']>;
+  outils?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  passage?: InputMaybe<Scalars['String']['input']>;
+  formules_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  formules_titre?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Page_QuintessenceMutation = {
+  hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  hero_titre?: InputMaybe<Scalars['String']['input']>;
+  hero_lead?: InputMaybe<Scalars['String']['input']>;
+  hero_image?: InputMaybe<Scalars['String']['input']>;
+  passage?: InputMaybe<Scalars['String']['input']>;
+  citation?: InputMaybe<Scalars['String']['input']>;
+  silence_titre?: InputMaybe<Scalars['String']['input']>;
+  silence_texte?: InputMaybe<Scalars['String']['input']>;
+  crea_titre?: InputMaybe<Scalars['String']['input']>;
+  crea_texte?: InputMaybe<Scalars['String']['input']>;
+  pratiques_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  pratiques_titre?: InputMaybe<Scalars['String']['input']>;
+  pratiques?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  cta_texte?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Page_ContactMutation = {
+  hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  hero_titre?: InputMaybe<Scalars['String']['input']>;
+  hero_image?: InputMaybe<Scalars['String']['input']>;
+  intro?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StringFilter = {
@@ -886,6 +1159,46 @@ export type Page_SoinsFilter = {
   soins_intro?: StringFilter | null | undefined;
 };
 
+export type Page_AccompagnementFilter = {
+  hero_eyebrow?: StringFilter | null | undefined;
+  hero_titre?: StringFilter | null | undefined;
+  hero_image?: ImageFilter | null | undefined;
+  coeur?: StringFilter | null | undefined;
+  pourqui_eyebrow?: StringFilter | null | undefined;
+  pourqui_titre?: StringFilter | null | undefined;
+  pourqui_texte?: StringFilter | null | undefined;
+  outils_eyebrow?: StringFilter | null | undefined;
+  outils_titre?: StringFilter | null | undefined;
+  outils?: StringFilter | null | undefined;
+  passage?: StringFilter | null | undefined;
+  formules_eyebrow?: StringFilter | null | undefined;
+  formules_titre?: StringFilter | null | undefined;
+};
+
+export type Page_QuintessenceFilter = {
+  hero_eyebrow?: StringFilter | null | undefined;
+  hero_titre?: StringFilter | null | undefined;
+  hero_lead?: StringFilter | null | undefined;
+  hero_image?: ImageFilter | null | undefined;
+  passage?: StringFilter | null | undefined;
+  citation?: StringFilter | null | undefined;
+  silence_titre?: StringFilter | null | undefined;
+  silence_texte?: StringFilter | null | undefined;
+  crea_titre?: StringFilter | null | undefined;
+  crea_texte?: StringFilter | null | undefined;
+  pratiques_eyebrow?: StringFilter | null | undefined;
+  pratiques_titre?: StringFilter | null | undefined;
+  pratiques?: StringFilter | null | undefined;
+  cta_texte?: StringFilter | null | undefined;
+};
+
+export type Page_ContactFilter = {
+  hero_eyebrow?: StringFilter | null | undefined;
+  hero_titre?: StringFilter | null | undefined;
+  hero_image?: ImageFilter | null | undefined;
+  intro?: StringFilter | null | undefined;
+};
+
 export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null };
 
 export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null };
@@ -895,6 +1208,12 @@ export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | n
 export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null };
 
 export type Page_SoinsPartsFragment = { __typename: 'Page_soins', hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null };
+
+export type Page_AccompagnementPartsFragment = { __typename: 'Page_accompagnement', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, coeur: string | null, pourqui_eyebrow: string | null, pourqui_titre: string | null, pourqui_texte: string | null, outils_eyebrow: string | null, outils_titre: string | null, outils: Array<string | null> | null, passage: string | null, formules_eyebrow: string | null, formules_titre: string | null };
+
+export type Page_QuintessencePartsFragment = { __typename: 'Page_quintessence', hero_eyebrow: string | null, hero_titre: string | null, hero_lead: string | null, hero_image: string | null, passage: string | null, citation: string | null, silence_titre: string | null, silence_texte: string | null, crea_titre: string | null, crea_texte: string | null, pratiques_eyebrow: string | null, pratiques_titre: string | null, pratiques: Array<string | null> | null, cta_texte: string | null };
+
+export type Page_ContactPartsFragment = { __typename: 'Page_contact', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null };
 
 export type AgendaQueryVariables = Exact<{
   relativePath: string;
@@ -991,6 +1310,63 @@ export type Page_SoinsConnectionQueryVariables = Exact<{
 
 export type Page_SoinsConnectionQuery = { page_soinsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
+export type Page_AccompagnementQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type Page_AccompagnementQuery = { page_accompagnement: { __typename: 'Page_accompagnement', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, coeur: string | null, pourqui_eyebrow: string | null, pourqui_titre: string | null, pourqui_texte: string | null, outils_eyebrow: string | null, outils_titre: string | null, outils: Array<string | null> | null, passage: string | null, formules_eyebrow: string | null, formules_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type Page_AccompagnementConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: Page_AccompagnementFilter | null | undefined;
+}>;
+
+
+export type Page_AccompagnementConnectionQuery = { page_accompagnementConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_accompagnement', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, coeur: string | null, pourqui_eyebrow: string | null, pourqui_titre: string | null, pourqui_texte: string | null, outils_eyebrow: string | null, outils_titre: string | null, outils: Array<string | null> | null, passage: string | null, formules_eyebrow: string | null, formules_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type Page_QuintessenceQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type Page_QuintessenceQuery = { page_quintessence: { __typename: 'Page_quintessence', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_lead: string | null, hero_image: string | null, passage: string | null, citation: string | null, silence_titre: string | null, silence_texte: string | null, crea_titre: string | null, crea_texte: string | null, pratiques_eyebrow: string | null, pratiques_titre: string | null, pratiques: Array<string | null> | null, cta_texte: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type Page_QuintessenceConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: Page_QuintessenceFilter | null | undefined;
+}>;
+
+
+export type Page_QuintessenceConnectionQuery = { page_quintessenceConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_quintessence', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_lead: string | null, hero_image: string | null, passage: string | null, citation: string | null, silence_titre: string | null, silence_texte: string | null, crea_titre: string | null, crea_texte: string | null, pratiques_eyebrow: string | null, pratiques_titre: string | null, pratiques: Array<string | null> | null, cta_texte: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type Page_ContactQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type Page_ContactQuery = { page_contact: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type Page_ContactConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: Page_ContactFilter | null | undefined;
+}>;
+
+
+export type Page_ContactConnectionQuery = { page_contactConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
 export const AgendaPartsFragmentDoc = gql`
     fragment AgendaParts on Agenda {
   __typename
@@ -1082,6 +1458,52 @@ export const Page_SoinsPartsFragmentDoc = gql`
   soins_eyebrow
   soins_titre
   soins_intro
+}
+    `;
+export const Page_AccompagnementPartsFragmentDoc = gql`
+    fragment Page_accompagnementParts on Page_accompagnement {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  coeur
+  pourqui_eyebrow
+  pourqui_titre
+  pourqui_texte
+  outils_eyebrow
+  outils_titre
+  outils
+  passage
+  formules_eyebrow
+  formules_titre
+}
+    `;
+export const Page_QuintessencePartsFragmentDoc = gql`
+    fragment Page_quintessenceParts on Page_quintessence {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_lead
+  hero_image
+  passage
+  citation
+  silence_titre
+  silence_texte
+  crea_titre
+  crea_texte
+  pratiques_eyebrow
+  pratiques_titre
+  pratiques
+  cta_texte
+}
+    `;
+export const Page_ContactPartsFragmentDoc = gql`
+    fragment Page_contactParts on Page_contact {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  intro
 }
     `;
 export const AgendaDocument = gql`
@@ -1369,6 +1791,177 @@ export const Page_SoinsConnectionDocument = gql`
   }
 }
     ${Page_SoinsPartsFragmentDoc}`;
+export const Page_AccompagnementDocument = gql`
+    query page_accompagnement($relativePath: String!) {
+  page_accompagnement(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_accompagnementParts
+  }
+}
+    ${Page_AccompagnementPartsFragmentDoc}`;
+export const Page_AccompagnementConnectionDocument = gql`
+    query page_accompagnementConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_accompagnementFilter) {
+  page_accompagnementConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_accompagnementParts
+      }
+    }
+  }
+}
+    ${Page_AccompagnementPartsFragmentDoc}`;
+export const Page_QuintessenceDocument = gql`
+    query page_quintessence($relativePath: String!) {
+  page_quintessence(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_quintessenceParts
+  }
+}
+    ${Page_QuintessencePartsFragmentDoc}`;
+export const Page_QuintessenceConnectionDocument = gql`
+    query page_quintessenceConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_quintessenceFilter) {
+  page_quintessenceConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_quintessenceParts
+      }
+    }
+  }
+}
+    ${Page_QuintessencePartsFragmentDoc}`;
+export const Page_ContactDocument = gql`
+    query page_contact($relativePath: String!) {
+  page_contact(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_contactParts
+  }
+}
+    ${Page_ContactPartsFragmentDoc}`;
+export const Page_ContactConnectionDocument = gql`
+    query page_contactConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_contactFilter) {
+  page_contactConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_contactParts
+      }
+    }
+  }
+}
+    ${Page_ContactPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -1401,6 +1994,24 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     page_soinsConnection(variables?: Page_SoinsConnectionQueryVariables, options?: C): Promise<{data: Page_SoinsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_SoinsConnectionQueryVariables, query: string}> {
         return requester<{data: Page_SoinsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_SoinsConnectionQueryVariables, query: string}, Page_SoinsConnectionQueryVariables>(Page_SoinsConnectionDocument, variables, options);
+      },
+    page_accompagnement(variables: Page_AccompagnementQueryVariables, options?: C): Promise<{data: Page_AccompagnementQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AccompagnementQueryVariables, query: string}> {
+        return requester<{data: Page_AccompagnementQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AccompagnementQueryVariables, query: string}, Page_AccompagnementQueryVariables>(Page_AccompagnementDocument, variables, options);
+      },
+    page_accompagnementConnection(variables?: Page_AccompagnementConnectionQueryVariables, options?: C): Promise<{data: Page_AccompagnementConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AccompagnementConnectionQueryVariables, query: string}> {
+        return requester<{data: Page_AccompagnementConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AccompagnementConnectionQueryVariables, query: string}, Page_AccompagnementConnectionQueryVariables>(Page_AccompagnementConnectionDocument, variables, options);
+      },
+    page_quintessence(variables: Page_QuintessenceQueryVariables, options?: C): Promise<{data: Page_QuintessenceQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_QuintessenceQueryVariables, query: string}> {
+        return requester<{data: Page_QuintessenceQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_QuintessenceQueryVariables, query: string}, Page_QuintessenceQueryVariables>(Page_QuintessenceDocument, variables, options);
+      },
+    page_quintessenceConnection(variables?: Page_QuintessenceConnectionQueryVariables, options?: C): Promise<{data: Page_QuintessenceConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_QuintessenceConnectionQueryVariables, query: string}> {
+        return requester<{data: Page_QuintessenceConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_QuintessenceConnectionQueryVariables, query: string}, Page_QuintessenceConnectionQueryVariables>(Page_QuintessenceConnectionDocument, variables, options);
+      },
+    page_contact(variables: Page_ContactQueryVariables, options?: C): Promise<{data: Page_ContactQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_ContactQueryVariables, query: string}> {
+        return requester<{data: Page_ContactQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_ContactQueryVariables, query: string}, Page_ContactQueryVariables>(Page_ContactDocument, variables, options);
+      },
+    page_contactConnection(variables?: Page_ContactConnectionQueryVariables, options?: C): Promise<{data: Page_ContactConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_ContactConnectionQueryVariables, query: string}> {
+        return requester<{data: Page_ContactConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_ContactConnectionQueryVariables, query: string}, Page_ContactConnectionQueryVariables>(Page_ContactConnectionDocument, variables, options);
       }
     };
   }

@@ -85,3 +85,46 @@ fragment Page_soinsParts on Page_soins {
   soins_titre
   soins_intro
 }
+
+fragment Page_accompagnementParts on Page_accompagnement {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  coeur
+  pourqui_eyebrow
+  pourqui_titre
+  pourqui_texte
+  outils_eyebrow
+  outils_titre
+  outils
+  passage
+  formules_eyebrow
+  formules_titre
+}
+
+fragment Page_quintessenceParts on Page_quintessence {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_lead
+  hero_image
+  passage
+  citation
+  silence_titre
+  silence_texte
+  crea_titre
+  crea_texte
+  pratiques_eyebrow
+  pratiques_titre
+  pratiques
+  cta_texte
+}
+
+fragment Page_contactParts on Page_contact {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  intro
+}
