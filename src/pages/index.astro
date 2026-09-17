@@ -32,13 +32,13 @@ const univers = [
 ];
 const propositions = [
   { t: 'Ateliers', img: '/img/u-atelier.jpg', href: '/agenda', rev: false, cta: 'Voir les ateliers',
-    d: "Ce qui transforme, c'est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. Autant de portes pour revenir au corps et s'y ancrer dans la durée." },
+    d: "Ce qui transforme, c'est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. On y dépose le mental, on revient au corps, on se relie. Petit à petit, ces pratiques deviennent un appui, un refuge, un endroit où l'on se retrouve." },
   { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: true, cta: 'Découvrir les soins',
-    d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Pour traverser une fatigue, un passage, une transformation, en étant accompagné dans le corps." },
+    d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Le toucher redonne de l'espace, la présence fait le reste. Pour traverser une fatigue, un passage, une transformation, en étant simplement accompagné dans le corps, sans rien avoir à faire." },
   { t: 'Accompagnement', img: '/img/portrait.jpg', href: '/accompagnement', rev: false, cta: 'Découvrir l\u2019accompagnement',
-    d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. Avec, si tu le souhaites, la lecture de ton dessin originel." },
+    d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. On avance à ton rythme, au plus près de ce qui se joue vraiment. Avec, si tu le souhaites, la lecture de ton dessin originel, pour éclairer ta nature profonde et ta direction." },
   { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
-    d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
+    d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Loin des repères habituels, quelque chose se dénoue et se réaligne. Retraites d'hommes, désert marocain, cercles au cœur du vivant : des espaces pensés comme des passages." },
 ];
 const temoins = [
   { t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.", n: 'Sonia', c: 'Ateliers Infloressence' },
@@ -99,7 +99,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Rien à devenir. Juste à revenir.</div></section>
+  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Je reprends ma place de cellule dans le grand organisme vivant.</div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
@@ -109,7 +109,7 @@ const partenaires = [
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><img src={u.img} alt={u.t} /></div>
       <div class="univers__body">
-        <h2>{u.t}</h2>
+        <h2 class="script">{u.t}</h2>
         <p>{u.d}</p>
         <a class="cta" href={u.href}>{u.cta} <span class="line"></span></a>
       </div>
@@ -145,7 +145,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION vers l'art -->
-  <section class="breath"><img src="/img/breath-art.jpg" alt="" /><div class="phrase">La couleur est un langage. La mienne parle en indigo.</div></section>
+  <section class="breath"><img src="/img/breath-art.jpg" alt="" /><div class="phrase">Un langage magique, indéchiffrable par la raison.</div></section>
 
   <!-- INDIGO ENOQII -->
   <section>
