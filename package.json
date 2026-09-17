@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
-    "build": "tinacms build || echo \"Tina non configure, admin ignore, on construit le site\"; astro build",
+    "build": "tinacms build && astro build",
     "preview": "astro preview"
   },
   "dependencies": {
