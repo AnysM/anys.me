@@ -73,3 +73,5 @@ export default defineConfig({
     ],
   },
 });
+
+// redeploy 2026-09-17 18:13 — build admin Tina avec TINA_TOKEN
