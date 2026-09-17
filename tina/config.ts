@@ -8,7 +8,7 @@ const branch =
 
 export default defineConfig({
   branch,
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "ae2b91fd-6332-4b65-98f1-ca0a428d27e3",
   token: process.env.TINA_TOKEN || "",
   build: { outputFolder: "admin", publicFolder: "public" },
   media: { tina: { mediaRoot: "img", publicFolder: "public" } },
