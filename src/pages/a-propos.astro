@@ -44,7 +44,7 @@ const chapitres = [
 ];
 ---
 <Base title="À propos — Anys Mechkar">
-  <section class="page-hero" style="min-height:52vh;"><div class="ph-band"></div>
+  <section class="page-hero" style="min-height:52vh;"><div class="ph-band" data-h="HERO-APROPOS"></div>
     <div class="narrow"><p class="eyebrow">Mon histoire</p><h1>À propos</h1></div>
   </section>
 
@@ -54,7 +54,7 @@ const chapitres = [
         <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`}>
           <span class="tl-dot"></span>
           <div class="tl-text"><h2>{c.t}</h2>{c.texte.map((par) => <p>{par}</p>)}</div>
-          <div class="tl-media tl-ph"><span>Photo à venir</span></div>
+          <div class="tl-media tl-ph"><span>{'APROPOS-' + String(i + 1).padStart(2, '0')}</span></div>
         </div>
       ))}
     </div>

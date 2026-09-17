@@ -37,13 +37,13 @@ const univers = [
   { t: 'L\u2019art et l\u2019expression créative', p: 'Danse · musique · peinture', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l5 5-9 9H6v-5z"/><path d="M12 7l5 5"/></svg>' },
 ];
 const propositions = [
-  { t: 'Ateliers', img: '/img/u-atelier.jpg', href: '/agenda', rev: false, cta: 'Voir les ateliers',
+  { t: 'Ateliers', handle: 'ACCUEIL-ATELIERS', img: '/img/u-atelier.jpg', href: '/agenda', rev: false, cta: 'Voir les ateliers',
     d: "Ce qui transforme, c'est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. Autant de portes pour revenir au corps et s'y ancrer dans la durée." },
-  { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: true, cta: 'Découvrir les soins',
+  { t: 'Soins', handle: 'ACCUEIL-SOINS', img: '/img/u-soin.jpg', href: '/soins', rev: true, cta: 'Découvrir les soins',
     d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Pour traverser une fatigue, un passage, une transformation, en étant accompagné dans le corps." },
-  { t: 'Accompagnement', img: '/img/portrait.jpg', href: '/accompagnement', rev: false, cta: 'Découvrir l\u2019accompagnement',
+  { t: 'Accompagnement', handle: 'ACCUEIL-ACCOMP', img: '/img/portrait.jpg', href: '/accompagnement', rev: false, cta: 'Découvrir l\u2019accompagnement',
     d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. Avec, si tu le souhaites, la lecture de ton dessin originel." },
-  { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
+  { t: 'Immersions & retraites', handle: 'ACCUEIL-IMMERSIONS', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
     d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
 const temoins = [
@@ -52,11 +52,11 @@ const temoins = [
   { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
 ];
 const partenaires = [
-  { n: 'Meïsō', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon.', lien: 'https://meiso.fr/flottaison-lyon' },
-  { n: 'Chanka Studio', img: '/img/u-atelier.jpg', logo: '/img/logo-chanka.svg', d: "Studio d'arts et de pratiques, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
-  { n: 'Blast', img: '/img/blast.jpg', d: 'Collectif artistique.' },
-  { n: 'TAMAKEAPA', img: null, logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
-  { n: 'Espriterre', img: null, d: "Le travail d'Alex, en nature.", lien: 'https://espriterre.com' },
+  { n: 'Meïsō', handle: 'PART-MEISO', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon.', lien: 'https://meiso.fr/flottaison-lyon' },
+  { n: 'Chanka Studio', handle: 'PART-CHANKA', img: '/img/u-atelier.jpg', logo: '/img/logo-chanka.svg', d: "Studio d'arts et de pratiques, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
+  { n: 'Blast', handle: 'PART-BLAST', img: '/img/blast.jpg', d: 'Collectif artistique.' },
+  { n: 'TAMAKEAPA', handle: 'PART-TAMAKEAPA', img: null, logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
+  { n: 'Espriterre', handle: 'PART-ESPRITERRE', img: null, d: "Le travail d'Alex, en nature.", lien: 'https://espriterre.com' },
 ];
 ---
 <Base title="Anys Mechkar">
@@ -78,7 +78,7 @@ const partenaires = [
   <!-- MON PARCOURS (teaser) -->
   <section>
     <div class="wrap split">
-      <div class="photo"><div class="imgph"><span>Photo à venir</span></div></div>
+      <div class="photo"><div class="imgph"><span>ACCUEIL-PORTRAIT</span></div></div>
       <div>
         <h2>Qui je <span class="script">suis</span></h2>
         <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
@@ -105,7 +105,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath"><div class="ph-band"></div><div class="phrase">Je reprends ma place de <span class="script">cellule</span> dans le grand organisme <span class="script">vivant</span>.</div></section>
+  <section class="breath"><div class="ph-band" data-h="RESP-01"></div><div class="phrase">Je reprends ma place de <span class="script">cellule</span> dans le grand organisme <span class="script">vivant</span>.</div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
@@ -113,7 +113,7 @@ const partenaires = [
   </section>
   {propositions.map((u) => (
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
-      <div class="univers__img"><div class="imgph"><span>Photo à venir</span></div></div>
+      <div class="univers__img"><div class="imgph"><span>{u.handle}</span></div></div>
       <div class="univers__body">
         <h2>{u.t}</h2>
         <p>{u.d}</p>
@@ -132,7 +132,7 @@ const partenaires = [
       <div class="egrid">
         {homeEvents.map((e) => (
           <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
-            <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>Photo à venir</span></div>}<span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
+            <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>{e.id}</span></div>}<span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
             <div class="ecard__body">
               <div class="ecard__when">{ligneDate(e.data)}</div>
               <div class="ecard__title">{e.data.titre}</div>
@@ -151,7 +151,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION vers l'art -->
-  <section class="breath"><div class="ph-band"></div><div class="phrase">Un langage <span class="script">magique</span>, indéchiffrable par la raison.</div></section>
+  <section class="breath"><div class="ph-band" data-h="RESP-02"></div><div class="phrase">Un langage <span class="script">magique</span>, indéchiffrable par la raison.</div></section>
 
   <!-- INDIGO ENOQII -->
   <section>
@@ -162,7 +162,7 @@ const partenaires = [
       </div>
       <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
       <div class="gallery" style="margin-top:2rem;">
-        <div class="imgph"><span>Œuvre à venir</span></div><div class="imgph"><span>Œuvre à venir</span></div><div class="imgph"><span>Œuvre à venir</span></div><div class="imgph"><span>Œuvre à venir</span></div>
+        <div class="imgph"><span>ART-01</span></div><div class="imgph"><span>ART-02</span></div><div class="imgph"><span>ART-03</span></div><div class="imgph"><span>ART-04</span></div>
       </div>
     </div>
   </section>
@@ -185,7 +185,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media"><div class="imgph"><span>Photo à venir</span></div>{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
+            <div class="part__media"><div class="imgph"><span>{p.handle}</span></div>{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>
@@ -196,7 +196,7 @@ const partenaires = [
 
   <!-- CONTACT -->
   <section class="breath" style="min-height:38vh;">
-    <div class="ph-band"></div>
+    <div class="ph-band" data-h="RESP-03"></div>
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
       Un premier pas ?
       <a class="btn" href="/contact" style="font-style:normal;">Écris-moi</a>

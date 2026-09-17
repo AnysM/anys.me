@@ -23,7 +23,7 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
 const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
 ---
 <Base title={`${d.titre} — Anys Mechkar`}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
   </section>
 
@@ -32,7 +32,7 @@ const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase">{d.resume}</div></section>
+    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}<div class="phrase">{d.resume}</div></section>
   )}
 
   {(infos.length > 0 || d.tarifs) && (

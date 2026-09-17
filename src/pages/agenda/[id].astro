@@ -22,7 +22,7 @@ if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
 if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
 ---
 <Base title={`${d.titre} — Anys Mechkar`}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}
     <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1></div>
   </section>
 
@@ -31,7 +31,7 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase">{d.resume}</div></section>
+    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}<div class="phrase">{d.resume}</div></section>
   )}
 
   <section class="bloc-or">

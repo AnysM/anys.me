@@ -36,7 +36,7 @@ const groupes = [
 ].filter((g) => g.items.length > 0);
 ---
 <Base title="Agenda — Anys Mechkar">
-  <section class="page-hero"><div class="ph-band"></div>
+  <section class="page-hero"><div class="ph-band" data-h="HERO-AGENDA"></div>
     <div class="wrap"><p class="eyebrow">Ce qui arrive</p><h1>Agenda</h1></div>
   </section>
 
@@ -48,7 +48,7 @@ const groupes = [
           <div class="egrid">
             {g.items.map((e) => (
               <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
-                <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>Photo à venir</span></div>}<span class="ecard__tag">{labels[e.data.categorie] ?? e.data.categorie}</span></div>
+                <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>{e.id}</span></div>}<span class="ecard__tag">{labels[e.data.categorie] ?? e.data.categorie}</span></div>
                 <div class="ecard__body">
                   <div class="ecard__when">{ligneDate(e.data)}</div>
                   <div class="ecard__title">{e.data.titre}</div>
