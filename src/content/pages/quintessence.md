@@ -20,4 +20,8 @@ pratiques:
 - Cercles de parole
 - Cérémonies & rituels psychomagiques
 cta_texte: Être tenu au courant de la prochaine édition ?
+silence_image: ''
+crea_image: ''
+resp_image: ''
+fin_image: ''
 ---

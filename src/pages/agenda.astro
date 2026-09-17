@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import { photo } from '../lib/photo';
+import { getEntry } from 'astro:content';
+const ag = (await getEntry('pages', 'agenda')).data;
 import { getCollection } from 'astro:content';
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
@@ -37,7 +38,7 @@ const groupes = [
 ].filter((g) => g.items.length > 0);
 ---
 <Base title="Agenda — Anys Mechkar">
-  <section class="page-hero">{photo('HERO-AGENDA') ? <img src={photo('HERO-AGENDA')} alt="" /> : <div class="ph-band" data-h="HERO-AGENDA"></div>}
+  <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-AGENDA"></div>}
     <div class="wrap"><p class="eyebrow">Ce qui arrive</p><h1>Agenda</h1></div>
   </section>
 

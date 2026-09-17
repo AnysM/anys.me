@@ -23,4 +23,6 @@ outils:
 passage: Je ne tire pas sur la fleur pour la faire pousser. Je suis comme un jardinier qui offre les conditions optimales. Le reste t'appartient.
 formules_eyebrow: Les formules
 formules_titre: Trouver le bon cadre
+portrait_image: ''
+outils_image: ''
 ---

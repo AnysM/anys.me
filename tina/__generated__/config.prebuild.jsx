@@ -158,6 +158,9 @@ var config_default = defineConfig({
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
           { type: "string", name: "coeur", label: "Texte coeur a coeur", description: "**dore**, *manuscrite*, paragraphes = ligne vide", ui: { component: "textarea" } },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
+          { type: "image", name: "portrait_image", label: "Portrait" },
+          { type: "image", name: "outils_image", label: "Image des outils" },
           { type: "string", name: "pourqui_eyebrow", label: "Pour qui \u2014 sur-titre" },
           { type: "string", name: "pourqui_titre", label: "Pour qui \u2014 titre" },
           { type: "string", name: "pourqui_texte", label: "Pour qui \u2014 texte", ui: { component: "textarea" } },
@@ -180,6 +183,11 @@ var config_default = defineConfig({
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
           { type: "string", name: "hero_lead", label: "Accroche" },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
+          { type: "image", name: "silence_image", label: "Photo \u2014 Le silence" },
+          { type: "image", name: "crea_image", label: "Photo \u2014 La creativite" },
+          { type: "image", name: "resp_image", label: "Respiration (fond)" },
+          { type: "image", name: "fin_image", label: "Fond de fin" },
           { type: "string", name: "passage", label: "Passage", ui: { component: "textarea" } },
           { type: "string", name: "citation", label: "Citation", description: "*mot* = manuscrite" },
           { type: "string", name: "silence_titre", label: "Silence \u2014 titre" },
@@ -202,6 +210,7 @@ var config_default = defineConfig({
         fields: [
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
           { type: "string", name: "intro", label: "Introduction", ui: { component: "textarea" } }
         ]
       },
@@ -255,6 +264,47 @@ var config_default = defineConfig({
           { type: "image", name: "part_tamakeapa", label: "Partenaire \u2014 TAMAKEAPA" },
           { type: "image", name: "part_espriterre", label: "Partenaire \u2014 Espriterre" },
           { type: "image", name: "part_koom", label: "Partenaire \u2014 Koom" }
+        ]
+      },
+      {
+        name: "page_agenda",
+        label: "Page Agenda",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "agenda" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Fond du hero" }
+        ]
+      },
+      {
+        name: "page_partenaires",
+        label: "Page Partenaires",
+        path: "src/content/pages",
+        format: "md",
+        match: { include: "partenaires" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
+          { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
+          {
+            type: "object",
+            name: "partenaires",
+            label: "Partenaires",
+            list: true,
+            ui: { itemProps: (i) => ({ label: i && i.n ? i.n : "Partenaire" }) },
+            fields: [
+              { type: "string", name: "n", label: "Nom" },
+              { type: "string", name: "d", label: "Description" },
+              { type: "string", name: "lien", label: "Lien" },
+              { type: "image", name: "logo", label: "Logo" },
+              { type: "boolean", name: "logoWhite", label: "Logo a mettre en blanc" },
+              { type: "image", name: "image", label: "Photo (fond de carte)" }
+            ]
+          }
         ]
       }
     ]

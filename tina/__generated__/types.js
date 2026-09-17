@@ -104,6 +104,9 @@ export const Page_AccompagnementPartsFragmentDoc = gql`
   hero_eyebrow
   hero_titre
   coeur
+  hero_image
+  portrait_image
+  outils_image
   pourqui_eyebrow
   pourqui_titre
   pourqui_texte
@@ -121,6 +124,11 @@ export const Page_QuintessencePartsFragmentDoc = gql`
   hero_eyebrow
   hero_titre
   hero_lead
+  hero_image
+  silence_image
+  crea_image
+  resp_image
+  fin_image
   passage
   citation
   silence_titre
@@ -138,6 +146,7 @@ export const Page_ContactPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
   intro
 }
     `;
@@ -186,6 +195,31 @@ export const ImagesPartsFragmentDoc = gql`
   part_tamakeapa
   part_espriterre
   part_koom
+}
+    `;
+export const Page_AgendaPartsFragmentDoc = gql`
+    fragment Page_agendaParts on Page_agenda {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+}
+    `;
+export const Page_PartenairesPartsFragmentDoc = gql`
+    fragment Page_partenairesParts on Page_partenaires {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  partenaires {
+    __typename
+    n
+    d
+    lien
+    logo
+    logoWhite
+    image
+  }
 }
     `;
 export const AgendaDocument = gql`
@@ -701,6 +735,120 @@ export const ImagesConnectionDocument = gql`
   }
 }
     ${ImagesPartsFragmentDoc}`;
+export const Page_AgendaDocument = gql`
+    query page_agenda($relativePath: String!) {
+  page_agenda(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_agendaParts
+  }
+}
+    ${Page_AgendaPartsFragmentDoc}`;
+export const Page_AgendaConnectionDocument = gql`
+    query page_agendaConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_agendaFilter) {
+  page_agendaConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_agendaParts
+      }
+    }
+  }
+}
+    ${Page_AgendaPartsFragmentDoc}`;
+export const Page_PartenairesDocument = gql`
+    query page_partenaires($relativePath: String!) {
+  page_partenaires(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_partenairesParts
+  }
+}
+    ${Page_PartenairesPartsFragmentDoc}`;
+export const Page_PartenairesConnectionDocument = gql`
+    query page_partenairesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_partenairesFilter) {
+  page_partenairesConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_partenairesParts
+      }
+    }
+  }
+}
+    ${Page_PartenairesPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     agenda(variables, options) {
@@ -756,6 +904,18 @@ export function getSdk(requester) {
     },
     imagesConnection(variables, options) {
       return requester(ImagesConnectionDocument, variables, options);
+    },
+    page_agenda(variables, options) {
+      return requester(Page_AgendaDocument, variables, options);
+    },
+    page_agendaConnection(variables, options) {
+      return requester(Page_AgendaConnectionDocument, variables, options);
+    },
+    page_partenaires(variables, options) {
+      return requester(Page_PartenairesDocument, variables, options);
+    },
+    page_partenairesConnection(variables, options) {
+      return requester(Page_PartenairesConnectionDocument, variables, options);
     }
   };
 }

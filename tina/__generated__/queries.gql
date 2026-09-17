@@ -492,3 +492,113 @@ query imagesConnection($before: String, $after: String, $first: Float, $last: Fl
     }
   }
 }
+
+query page_agenda($relativePath: String!) {
+  page_agenda(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_agendaParts
+  }
+}
+
+query page_agendaConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_agendaFilter) {
+  page_agendaConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_agendaParts
+      }
+    }
+  }
+}
+
+query page_partenaires($relativePath: String!) {
+  page_partenaires(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...Page_partenairesParts
+  }
+}
+
+query page_partenairesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_partenairesFilter) {
+  page_partenairesConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...Page_partenairesParts
+      }
+    }
+  }
+}

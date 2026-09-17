@@ -91,6 +91,9 @@ fragment Page_accompagnementParts on Page_accompagnement {
   hero_eyebrow
   hero_titre
   coeur
+  hero_image
+  portrait_image
+  outils_image
   pourqui_eyebrow
   pourqui_titre
   pourqui_texte
@@ -107,6 +110,11 @@ fragment Page_quintessenceParts on Page_quintessence {
   hero_eyebrow
   hero_titre
   hero_lead
+  hero_image
+  silence_image
+  crea_image
+  resp_image
+  fin_image
   passage
   citation
   silence_titre
@@ -123,6 +131,7 @@ fragment Page_contactParts on Page_contact {
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
   intro
 }
 
@@ -170,4 +179,27 @@ fragment ImagesParts on Images {
   part_tamakeapa
   part_espriterre
   part_koom
+}
+
+fragment Page_agendaParts on Page_agenda {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+}
+
+fragment Page_partenairesParts on Page_partenaires {
+  __typename
+  hero_eyebrow
+  hero_titre
+  hero_image
+  partenaires {
+    __typename
+    n
+    d
+    lien
+    logo
+    logoWhite
+    image
+  }
 }

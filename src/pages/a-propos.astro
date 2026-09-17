@@ -1,12 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { photo } from '../lib/photo';
 import { getEntry } from 'astro:content';
 const ap = (await getEntry('pages', 'a-propos')).data;
 const chapitres = ap.chapitres;
 ---
 <Base title="À propos — Anys Mechkar">
-  <section class="page-hero" style="min-height:52vh;">{photo('HERO-APROPOS') ? <img src={photo('HERO-APROPOS')} alt="" /> : <div class="ph-band" data-h="HERO-APROPOS"></div>}
+  <section class="page-hero" style="min-height:52vh;">{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-APROPOS"></div>}
     <div class="narrow"><p class="eyebrow">{ap.hero_eyebrow}</p><h1>{ap.hero_titre}</h1></div>
   </section>
 
@@ -16,7 +15,7 @@ const chapitres = ap.chapitres;
         <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`}>
           <span class="tl-dot"></span>
           <div class="tl-text"><h2>{c.titre}</h2>{c.texte.split(/\n\n+/).map((par) => <p>{par}</p>)}</div>
-          <div class="tl-media">{photo('APROPOS-' + String(i + 1).padStart(2, '0')) ? <img class="slot-img" src={photo('APROPOS-' + String(i + 1).padStart(2, '0'))} alt={c.titre} /> : <div class="tl-ph"><span>{'APROPOS-' + String(i + 1).padStart(2, '0')}</span></div>}</div>
+          <div class="tl-media">{c.image ? <img class="slot-img" src={c.image} alt={c.titre} /> : <div class="tl-ph"><span>{'APROPOS-' + String(i + 1).padStart(2, '0')}</span></div>}</div>
         </div>
       ))}
     </div>

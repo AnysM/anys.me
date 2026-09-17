@@ -1,17 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { photo } from '../lib/photo';
-const partenaires = [
-  { n: 'Meïsō', handle: 'PART-MEISO', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon. Un espace de lâcher-prise dans une eau dense en sels.', lien: 'https://meiso.fr/flottaison-lyon' },
-  { n: 'Chanka Studio', handle: 'PART-CHANKA', img: '/img/u-atelier.jpg', logo: '/img/logo-chanka.svg', d: "Studio d'arts et de pratiques à Lyon, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
-  { n: 'Blast', handle: 'PART-BLAST', logo: '/img/logo-blast.png', d: 'Collectif artistique.' },
-  { n: 'Koom', handle: 'PART-KOOM', logo: '/img/logo-koom.webp', logoWhite: true, d: 'Centre de retraite.', lien: 'https://koomretreatcenter.com' },
-  { n: 'TAMAKEAPA', handle: 'PART-TAMAKEAPA', img: '/img/breath-desert.jpg', logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
-  { n: 'Espriterre', handle: 'PART-ESPRITERRE', img: '/img/u-soin.jpg', d: "Le travail d'Alex, en nature.", lien: 'https://espriterre.com' },
-];
+import { getEntry } from 'astro:content';
+const pt = (await getEntry('pages', 'partenaires')).data;
+const partenaires = pt.partenaires;
 ---
 <Base title="Partenaires — Anys Mechkar">
-  <section class="page-hero">{photo('HERO-PARTENAIRES') ? <img src={photo('HERO-PARTENAIRES')} alt="" /> : <div class="ph-band" data-h="HERO-PARTENAIRES"></div>}
+  <section class="page-hero">{pt.hero_image ? <img src={pt.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-PARTENAIRES"></div>}
     <div class="wrap"><p class="eyebrow">Compagnons de route</p><h1>Partenaires</h1></div>
   </section>
   <section>
@@ -20,7 +14,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media">{photo(p.handle) ? <img class="slot-img" src={photo(p.handle)} alt={p.n} /> : <div class="imgph"><span>{p.handle}</span></div>}{p.logo && <img class={`part__logo${p.logoWhite ? ' part__logo--white' : ''}`} src={p.logo} alt={p.n} />}</div>
+            <div class="part__media">{p.image ? <img class="slot-img" src={p.image} alt={p.n} /> : <div class="imgph"><span>{p.handle}</span></div>}{p.logo && <img class={`part__logo${p.logoWhite ? ' part__logo--white' : ''}`} src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>

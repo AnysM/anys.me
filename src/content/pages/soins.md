@@ -8,4 +8,6 @@ coeur: 'Pendant longtemps, j''ai refusé de faire des soins de manière professi
 soins_eyebrow: Les soins
 soins_titre: Deux chemins pour le corps
 soins_intro: Les soins se donnent à Chanka, Meïsō ou à l'Île Barbe. Réservation par le formulaire de contact.
+hero_image: ''
+portrait_image: ''
 ---
