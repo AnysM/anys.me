@@ -8,23 +8,37 @@ const recurring = events.filter((e) => !e.data.date).sort((a, b) => a.data.ordre
 const homeEvents = [...dated, ...recurring].slice(0, 4);
 const catLabels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(d).replace('.', ''), yr: d.getFullYear() });
+function ligneDate(d) {
+  if (!d.date) return (d.rythme ?? 'Sur inscription');
+  const fmt = (x) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(x).replace('.', '');
+  if (d.date_fin) {
+    const j = Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1;
+    const same = d.date.getMonth() === d.date_fin.getMonth() && d.date.getFullYear() === d.date_fin.getFullYear();
+    const dd = (x) => x.getDate();
+    const mo = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '');
+    const moy = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(x).replace('.', '');
+    const r = same ? `Du ${dd(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}` : `Du ${dd(d.date)} ${mo(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}`;
+    return `${r} · ${j} jours`;
+  }
+  return fmt(d.date) + (d.heure ? ` · ${d.heure}` : '');
+}
 
 const univers = [
-  { t: 'La présence', p: 'Méditation' },
-  { t: 'La connaissance de soi', p: 'Archétypes · Human Design · Tzolk\u2019in · BaZi' },
-  { t: 'Le mouvement', p: 'Danse Butoh · Kung-fu · mouvement naturel' },
-  { t: 'Le lien au vivant', p: 'Chamanisme · peuples indigènes · sagesses ancestrales' },
-  { t: 'L\u2019art et l\u2019expression créative', p: 'Danse · musique · peinture' },
+  { t: 'La présence', p: 'Méditation, souffle, immobilité', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" opacity="0.4"/></svg>' },
+  { t: 'La connaissance de soi', p: 'Archétypes · Human Design · Tzolk\u2019in · BaZi', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M12 3l2.1 6.1L20 11l-5.9 1.9L12 19l-2.1-6.1L4 11l5.9-1.9z"/></svg>' },
+  { t: 'Le mouvement', p: 'Danse Butoh · Kung-fu · mouvement naturel', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 15c3 0 3-6 6-6s3 6 6 6 3-6 6-6"/></svg>' },
+  { t: 'Le lien au vivant', p: 'Chamanisme · peuples indigènes · sagesses ancestrales', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8"/><path d="M12 13c0-3.5 2.3-5.5 6.5-5.5C18.5 12 16 14 12 13z"/><path d="M12 16c0-2.5-2.1-4.5-5.5-4.5C6.5 15.5 8.6 17 12 16z"/></svg>' },
+  { t: 'L\u2019art et l\u2019expression créative', p: 'Danse · musique · peinture', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l5 5-9 9H6v-5z"/><path d="M12 7l5 5"/></svg>' },
 ];
 const propositions = [
-  { t: 'Ateliers & voyages sonores', img: '/img/u-atelier.jpg', href: '/agenda', rev: false,
-    d: "Infloressence à Chanka Studio, méditation, Butoh et son, tous les dimanches à 19h. Et les voyages sonores immersifs, dont « Dans le Triangle » à l'expo Pirates de Blast, à la pleine lune du 26 octobre." },
-  { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: true,
-    d: "Massage à l'huile et soin énergétique. Un temps pour remettre du mouvement, harmoniser, dynamiser et soutenir les passages à vide, les transformations, les périodes de changement. À Chanka, Meïsō ou à l'Île Barbe." },
-  { t: 'Accompagnement', img: '/img/portrait.jpg', href: '/accompagnement', rev: false,
-    d: "Un accompagnement individuel pour les transitions de vie et la réalisation de projet. Prisme Origine : lecture Human Design, Tzolk'in, BaZi." },
-  { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: true,
-    d: "Des expériences immersives pensées comme de vraies initiations, pour revenir à l'essentiel, soutenir un passage de vie, retrouver force et alignement. Retraites d'hommes avec Brotherhood Circle, Desert Mirage Journey dans le désert, et Quintessence en France." },
+  { t: 'Ateliers', img: '/img/u-atelier.jpg', href: '/agenda', rev: false, cta: 'Voir les ateliers',
+    d: "Chaque semaine, un espace pour revenir au corps et à la présence, par la méditation, le mouvement et le son. On y dépose le mental, on se relie, on repart plus vivant." },
+  { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: true, cta: 'Découvrir les soins',
+    d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Pour traverser une fatigue, un passage, une transformation, en étant accompagné dans le corps." },
+  { t: 'Accompagnement', img: '/img/portrait.jpg', href: '/accompagnement', rev: false, cta: 'Découvrir l\u2019accompagnement',
+    d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. Avec, si tu le souhaites, la lecture de ton dessin originel." },
+  { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
+    d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
 const temoins = [
   { t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.", n: 'Sonia', c: 'Ateliers Infloressence' },
@@ -60,10 +74,9 @@ const partenaires = [
     <div class="wrap split">
       <div class="photo"><img src="/img/portrait.jpg" alt="Anys Mechkar" /></div>
       <div>
-        <div class="num">01</div>
         <h2>Qui je suis</h2>
         <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
-        <a class="cta" href="/a-propos" style="margin-top:22px;">Mon histoire <span class="line"></span></a>
+        <a class="cta" href="/a-propos" style="margin-top:22px;">Lire mon histoire <span class="line"></span></a>
       </div>
     </div>
   </section>
@@ -72,22 +85,21 @@ const partenaires = [
   <section style="background:var(--surface);">
     <div class="wrap">
       <p class="eyebrow">Les univers</p>
-      <h2 style="margin-top:0.8rem;">Cinq dimensions d'un même chemin</h2>
-      <div class="parts" style="margin-top:2.4rem;">
+      <h2 style="margin-top:0.8rem;">Cinq portes, un même chemin</h2>
+      <div class="piliers">
         {univers.map((u) => (
-          <div class="part">
-            <div class="part__name">{u.t}</div>
-            <div class="part__desc">{u.p}</div>
+          <div class="pilier">
+            <div class="pilier__icon"><Fragment set:html={u.icon} /></div>
+            <div class="pilier__name">{u.t}</div>
+            <div class="pilier__desc">{u.p}</div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <div class="star-div"><span></span><img src="/img/logo.png" alt="" /><span></span></div>
-
   <!-- RESPIRATION -->
-  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Là où le paysage devient intérieur.</div></section>
+  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Le chemin ne mène nulle part : il ramène à soi.</div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
@@ -97,10 +109,9 @@ const partenaires = [
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><img src={u.img} alt={u.t} /></div>
       <div class="univers__body">
-        <div class="num">→</div>
         <h2>{u.t}</h2>
         <p>{u.d}</p>
-        <a class="cta" href={u.href}>Découvrir <span class="line"></span></a>
+        <a class="cta" href={u.href}>{u.cta} <span class="line"></span></a>
       </div>
     </section>
   ))}
@@ -110,20 +121,20 @@ const partenaires = [
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
         <p class="eyebrow">Prochaines dates</p>
-        <a class="cta" href="/agenda">Tout l'agenda <span class="line"></span></a>
+        <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
       </div>
       <div class="egrid">
         {homeEvents.map((e) => (
           <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
             <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
             <div class="ecard__body">
-              <div class="ecard__when">{e.data.date ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(e.data.date).replace('.', '') : (e.data.rythme ?? 'Sur inscription')}{e.data.heure ? ` · ${e.data.heure}` : ''}</div>
+              <div class="ecard__when">{ligneDate(e.data)}</div>
               <div class="ecard__title">{e.data.titre}</div>
               {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
               {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
               <div class="ecard__foot">
                 {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
-                {e.data.earlybird && <span class="ecard__early">Early bird · {e.data.earlybird}</span>}
+                {e.data.earlybird && <span class="ecard__early">Early bird jusqu\u2019au {e.data.earlybird}</span>}
               </div>
               {e.data.reservable && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
             </div>
@@ -141,7 +152,7 @@ const partenaires = [
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
         <div><p class="eyebrow">Indigo Enoqii</p><h2 style="margin-top:0.8rem;">Mon univers artistique</h2></div>
-        <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">La boutique <span class="line"></span></a>
+        <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir la boutique <span class="line"></span></a>
       </div>
       <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
       <div class="gallery" style="margin-top:2rem;">

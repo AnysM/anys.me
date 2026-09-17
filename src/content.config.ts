@@ -7,6 +7,7 @@ const agenda = defineCollection({
     titre: z.string(),
     categorie: z.enum(['soin', 'atelier', 'retraite', 'immersion', 'voyage-sonore', 'accompagnement', 'cercle', 'residence']),
     date: z.coerce.date().optional(),
+    date_fin: z.coerce.date().optional(),
     lieu: z.string().optional(),
     prix: z.string().optional(),
     rythme: z.string().optional(),

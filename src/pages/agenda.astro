@@ -5,6 +5,19 @@ import { getCollection } from 'astro:content';
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
 const labels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', accompagnement: 'Accompagnement', cercle: 'Cercle', soin: 'Soin' };
 const fmtCourt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d).replace('.', '');
+function ligneDate(d) {
+  if (!d.date) return (d.rythme ?? 'Sur inscription');
+  if (d.date_fin) {
+    const j = Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1;
+    const same = d.date.getMonth() === d.date_fin.getMonth() && d.date.getFullYear() === d.date_fin.getFullYear();
+    const dd = (x) => x.getDate();
+    const mo = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '');
+    const moy = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(x).replace('.', '');
+    const r = same ? `Du ${dd(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}` : `Du ${dd(d.date)} ${mo(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}`;
+    return `${r} · ${j} jours`;
+  }
+  return fmtCourt(d.date) + (d.heure ? ` · ${d.heure}` : '');
+}
 
 const aVenir = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
@@ -31,13 +44,13 @@ const groupes = [
               <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
                 <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{labels[e.data.categorie] ?? e.data.categorie}</span></div>
                 <div class="ecard__body">
-                  <div class="ecard__when">{e.data.date ? fmtCourt(e.data.date) : (e.data.rythme ?? 'Sur inscription')}{e.data.heure ? ` · ${e.data.heure}` : ''}</div>
+                  <div class="ecard__when">{ligneDate(e.data)}</div>
                   <div class="ecard__title">{e.data.titre}</div>
                   {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
                   {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
                   <div class="ecard__foot">
                     {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
-                    {e.data.earlybird && <span class="ecard__early">Early bird · {e.data.earlybird}</span>}
+                    {e.data.earlybird && <span class="ecard__early">Early bird jusqu\u2019au {e.data.earlybird}</span>}
                   </div>
                   {e.data.reservable && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
                 </div>
