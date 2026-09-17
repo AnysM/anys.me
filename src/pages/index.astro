@@ -197,9 +197,24 @@ const partenaires = [
   <!-- CONTACT -->
   <section class="breath" style="min-height:38vh;">
     <div class="ph-band" data-h="RESP-03"></div>
-    <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
-      Un premier pas ?
-      <a class="btn" href="/contact" style="font-style:normal;">Écris-moi</a>
+    <div class="phrase">Un premier pas ?</div>
+  </section>
+
+  <!-- FORMULAIRE DE CONTACT -->
+  <section id="contact">
+    <div class="narrow">
+      <p class="eyebrow">Contact</p>
+      <h2>Écris-<span class="script">moi</span></h2>
+      <p class="lead" style="margin-top:0.8rem;">Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.</p>
+      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci" style="margin-top:1.8rem;">
+        <input type="hidden" name="form-name" value="contact" />
+        <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
+        <div><label>Ton nom</label><input type="text" name="nom" required /></div>
+        <div><label>Ton email</label><input type="email" name="email" required /></div>
+        <div><label>Ce qui t'intéresse</label><select name="interet"><option>Un soin</option><option>Un accompagnement</option><option>Un atelier ou un événement</option><option>Autre chose</option></select></div>
+        <div><label>Ton message</label><textarea name="message"></textarea></div>
+        <button class="btn btn--solid" type="submit" style="justify-self:start;">Envoyer</button>
+      </form>
     </div>
   </section>
 </Base>
