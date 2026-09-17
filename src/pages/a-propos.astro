@@ -36,24 +36,39 @@ const chapitres = [
     "Un mois de pratiques intensives m'a permis de redéfinir complètement mon rapport au corps, au mouvement et à l'autre. Petit à petit, je reprends ma place de cellule dans le grand organisme vivant.",
   ]},
 ];
+const segments = [];
+let cur = { nodes: [] };
+let idx = 0;
+for (const c of chapitres) {
+  cur.nodes.push({ t: c.t, texte: c.texte, side: idx % 2 === 0 ? 'left' : 'right' });
+  idx++;
+  if (c.img) { cur.pause = c.img; segments.push(cur); cur = { nodes: [] }; }
+}
+if (cur.nodes.length) segments.push(cur);
 ---
 <Base title="À propos — Anys Mechkar">
   <section class="page-hero" style="min-height:52vh;"><img src="/img/portrait.jpg" alt="" />
     <div class="narrow"><p class="eyebrow">Mon histoire</p><h1>À propos</h1></div>
   </section>
-  <section>
-    <div class="narrow">
-      <div class="timeline">
-        {chapitres.map((c, i) => (
-          <div class="tl-item">
-            <div class="tl-num">{String(i + 1).padStart(2, '0')}</div>
-            <h2>{c.t}</h2>
-            {c.texte.map((par) => <p>{par}</p>)}
-            {c.img && <div class="tl-photo" style="margin-top:1.6rem;"><img src={c.img} alt="" /></div>}
-          </div>
-        ))}
-      </div>
-      <p class="muted" style="margin-top:1rem; font-style:italic; padding-left:2.6rem;">La suite s'écrit encore.</p>
-    </div>
+
+  {segments.map((seg, si) => (
+    <Fragment>
+      <section style={si === 0 ? '' : 'padding-top:0;'}>
+        <div class="tl">
+          {seg.nodes.map((n) => (
+            <div class={`tl-node ${n.side}`}>
+              <span class="tl-dot"></span>
+              <h2>{n.t}</h2>
+              {n.texte.map((par) => <p>{par}</p>)}
+            </div>
+          ))}
+        </div>
+      </section>
+      {seg.pause && <div class="tl-pause" style={`background-image:url('${seg.pause}')`}></div>}
+    </Fragment>
+  ))}
+
+  <section style="padding-top:0;">
+    <p class="tl-end script">La suite s'écrit encore.</p>
   </section>
 </Base>

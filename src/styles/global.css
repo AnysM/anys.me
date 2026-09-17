@@ -316,15 +316,22 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .evt__desc { color: #C2C5D2; font-size: 0.98rem; line-height: 1.6; }
 
 /* ── Timeline (À propos) ── */
-.timeline { position: relative; margin-top: 2.5rem; }
-.tl-item { position: relative; padding-left: 2.6rem; padding-bottom: 2.8rem; border-left: 1px solid var(--faint); margin-left: 0.9rem; }
-.tl-item:last-of-type { border-left-color: transparent; padding-bottom: 0; }
-.tl-num { position: absolute; left: 0; top: 0; transform: translateX(-50%); width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--navy); border: 1px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Jost', sans-serif; font-size: 0.75rem; }
-.tl-item h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 0.9rem; }
-.tl-item p { color: #C2C5D2; line-height: 1.9; }
-.tl-item p + p { margin-top: 0.9rem; }
-.tl-photo { margin: 0.4rem 0 2.8rem -0.6rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--faint); }
-.tl-photo img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+/* Timeline centrée en zigzag */
+.tl { position: relative; max-width: 900px; margin: 0 auto; }
+.tl::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--faint); transform: translateX(-50%); }
+.tl-node { position: relative; width: 50%; padding: 0 2.8rem 3rem; box-sizing: border-box; }
+.tl-node.left { text-align: right; }
+.tl-node.right { margin-left: 50%; text-align: left; }
+.tl-dot { position: absolute; top: 0.55rem; width: 0.85rem; height: 0.85rem; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px var(--navy); z-index: 1; }
+.tl-node.left .tl-dot { right: -0.42rem; }
+.tl-node.right .tl-dot { left: -0.42rem; }
+.tl-node h2 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); margin-bottom: 0.7rem; }
+.tl-node p { color: #C2C5D2; line-height: 1.85; }
+.tl-node p + p { margin-top: 0.8rem; }
+.tl-end { text-align: center; color: var(--muted); font-size: clamp(1.5rem, 3vw, 2.1rem); }
+/* Respiration photo en parallaxe entre les chapitres */
+.tl-pause { position: relative; height: 54vh; background-size: cover; background-position: center; background-attachment: fixed; }
+.tl-pause::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(10,15,32,0.45), rgba(10,15,32,0.7)); }
 
 /* ════════════════════════════════
    OPTIMISATION MOBILE
@@ -360,9 +367,11 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   .univers__img { min-height: 42vh; }
 
   /* Timeline : recaler les photos */
-  .tl-item { padding-left: 2.2rem; }
-  .tl-photo { margin-left: -0.4rem; }
-  .tl-photo img { aspect-ratio: 4/3; }
+  .tl::before { left: 0.7rem; }
+  .tl-node, .tl-node.left, .tl-node.right { width: 100%; margin-left: 0; text-align: left; padding: 0 0 2.4rem 2.2rem; }
+  .tl-node.left .tl-dot, .tl-node.right .tl-dot { left: 0.28rem; right: auto; }
+  .tl-pause { background-attachment: scroll; height: 40vh; }
+  .tl-end { text-align: left; padding-left: 2.2rem; }
 
   /* Sections numérotées d'accueil */
   .cols { gap: 2.2rem; }
@@ -386,8 +395,8 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 
 /* ── Mise en valeur dans les textes ── */
 .prose > p:first-child { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.12rem, 2vw, 1.32rem); line-height: 1.55; color: var(--cream); }
-.prose strong, .coeur__text strong, .passage strong, .lead strong, .tl-item strong, .univers__body strong { color: var(--gold); font-weight: 500; }
-.prose em, .coeur__text em, .tl-item em { color: var(--cream); font-style: italic; }
+.prose strong, .coeur__text strong, .passage strong, .lead strong, .tl-node strong, .univers__body strong { color: var(--gold); font-weight: 500; }
+.prose em, .coeur__text em, .tl-node em { color: var(--cream); font-style: italic; }
 
 
 /* ── Piliers (univers) : icône + nom + note ── */
