@@ -18,7 +18,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media"><img src={p.img} alt={p.n} />{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
+            <div class="part__media"><div class="imgph"><span>Photo à venir</span></div>{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>
