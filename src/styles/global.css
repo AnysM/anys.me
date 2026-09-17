@@ -324,3 +324,58 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .tl-item p + p { margin-top: 0.9rem; }
 .tl-photo { margin: 0.4rem 0 2.8rem -0.6rem; border-radius: 12px; overflow: hidden; border: 1px solid var(--faint); }
 .tl-photo img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+
+/* ════════════════════════════════
+   OPTIMISATION MOBILE
+   ════════════════════════════════ */
+@media (max-width: 760px) {
+  section { padding: clamp(2.6rem, 9vw, 4rem) 0; }
+
+  /* Bloc cœur à cœur : passe en une colonne (photo au-dessus) */
+  .coeur .split { grid-template-columns: 1fr; gap: 1.6rem; }
+  .coeur__text { border-left: none; padding-left: 0; }
+  .coeur .photo { aspect-ratio: 4/5; max-height: 62vh; }
+
+  /* Splits génériques : photo au-dessus, pas trop haute */
+  .split { grid-template-columns: 1fr; gap: 1.6rem; }
+  .split .photo { aspect-ratio: 4/5; max-height: 62vh; }
+
+  /* Hero de page : moins d'espace en haut */
+  .page-hero { padding-top: 92px; min-height: 30vh; }
+  .page-hero h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+
+  /* Hero d'accueil */
+  #hero { min-height: 82vh; }
+  .hero-left { padding: 96px 22px 70px; }
+
+  /* Passages centrés et respirations : tailles adaptées */
+  .passage p { font-size: clamp(1.25rem, 6vw, 1.7rem); max-width: 26ch; }
+  .breath .phrase { font-size: clamp(1.3rem, 6.5vw, 1.9rem); }
+
+  /* Univers alternés : corps plus compact */
+  .univers__body { padding: 2.2rem 1.4rem; }
+  .univers__img { min-height: 42vh; }
+
+  /* Timeline : recaler les photos */
+  .tl-item { padding-left: 2.2rem; }
+  .tl-photo { margin-left: -0.4rem; }
+  .tl-photo img { aspect-ratio: 4/3; }
+
+  /* Sections numérotées d'accueil */
+  .cols { gap: 2.2rem; }
+
+  /* Encart infos : deux colonnes max */
+  .infos { grid-template-columns: 1fr 1fr; }
+
+  /* Séparateur étoile plus compact */
+  .star-div { padding: 2.2rem 0; }
+  .star-div span { width: 40px; }
+}
+
+@media (max-width: 440px) {
+  .tiles { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+  .striptease { grid-template-columns: 1fr; }
+  .infos { grid-template-columns: 1fr; }
+  .hero-name { font-size: clamp(2rem, 9vw, 3rem); }
+}
