@@ -462,3 +462,7 @@ html.js main > section.is-in { opacity: 1; transform: none; }
 /* Placeholder image neutre */
 .imgph { width: 100%; height: 100%; min-height: 150px; display: grid; place-items: center; background: var(--surface); }
 .imgph span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.64rem; color: var(--muted); }
+
+/* Placeholder plein cadre (hero/respiration) avec libellé discret */
+.ph-band { position: absolute; inset: 0; background: var(--surface); z-index: 0; }
+.ph-band::after { content: 'Photo à venir'; position: absolute; top: 14px; left: 16px; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.62rem; color: var(--muted); z-index: 1; }

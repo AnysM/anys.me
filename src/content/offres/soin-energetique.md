@@ -1,7 +1,6 @@
 ---
 titre: "Soin énergétique"
 categorie: soin
-image: "/img/meiso-photo.jpg"
 duree: "1h30"
 prix: "80€"
 format: "Sur rendez-vous"

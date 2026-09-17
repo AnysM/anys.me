@@ -1,7 +1,6 @@
 ---
 titre: "Accompagnement collectif"
 categorie: accompagnement
-image: "/img/u-accompagnement.jpg"
 tag: "Collectif"
 prix: "En préparation"
 resume: "Un cheminement à plusieurs."

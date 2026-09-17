@@ -1,7 +1,6 @@
 ---
 titre: "Massage à l'huile"
 categorie: soin
-image: "/img/u-soin.jpg"
 duree: "1h - 1h30"
 prix: "60€ - 90€"
 format: "Sur rendez-vous"

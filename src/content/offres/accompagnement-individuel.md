@@ -1,7 +1,6 @@
 ---
 titre: "Accompagnement individuel"
 categorie: accompagnement
-image: "/img/portrait.jpg"
 tag: "1:1"
 format: "En ligne ou immersion"
 resume: "Un accompagnement pour venir travailler en profondeur et sur la durée."

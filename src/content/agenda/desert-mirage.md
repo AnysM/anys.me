@@ -7,7 +7,6 @@ lieu: "Sahara marocain, départ de Marrakech"
 earlybird: "10 octobre"
 cta: "Candidater"
 site: "https://desertmiragejourney.com"
-image: "/img/u-immersion.jpg"
 resume: "Une résidence artistique internationale et pluridisciplinaire dans le Sahara marocain, autour du thème 間 Ma."
 reservable: true
 ordre: 5

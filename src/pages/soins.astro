@@ -4,14 +4,14 @@ import { getCollection } from 'astro:content';
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Soins — Anys Mechkar">
-  <section class="page-hero"><img src="/img/hero-soins.jpg" alt="" />
+  <section class="page-hero"><div class="ph-band"></div>
     <div class="narrow"><p class="eyebrow">Le corps</p><h1>Soins</h1></div>
   </section>
 
   <!-- CŒUR À CŒUR -->
   <section class="coeur">
     <div class="wrap split">
-      <div class="photo"><img src="/img/portrait.jpg" alt="Anys Mechkar" /></div>
+      <div class="photo"><div class="imgph"><span>Photo à venir</span></div></div>
       <div class="coeur__text">
         <p>Pendant longtemps, j'ai refusé de faire des soins de manière professionnelle, malgré des prédispositions évidentes, parce que je ne voulais pas devenir une béquille pour les autres. Je me suis tourné vers l'accompagnement, pour favoriser l'autonomie et activer les <strong>capacités d'auto-guérison</strong>.</p>
         <p>Si aujourd'hui je donne des soins, c'est que je sais discerner et accompagner celles et ceux qui seraient tentés de s'en remettre à l'extérieur pour leur propre évolution. Et surtout, parce que je sais à quel point on a parfois besoin de se déposer, qu'on nous enveloppe de douceur et de bienveillance, dans ce monde parfois si violent. J'aime plus que tout créer cet espace de présence et d'essentiel, <strong>ce cocon dont on a tous besoin</strong>. Bienvenue à toi.</p>

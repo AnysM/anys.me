@@ -78,7 +78,7 @@ const partenaires = [
   <!-- MON PARCOURS (teaser) -->
   <section>
     <div class="wrap split">
-      <div class="photo"><img src="/img/portrait.jpg" alt="Anys Mechkar" /></div>
+      <div class="photo"><div class="imgph"><span>Photo à venir</span></div></div>
       <div>
         <h2>Qui je <span class="script">suis</span></h2>
         <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
@@ -105,7 +105,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath"><img src="/img/breath-desert.jpg" alt="" /><div class="phrase">Je reprends ma place de <span class="script">cellule</span> dans le grand organisme <span class="script">vivant</span>.</div></section>
+  <section class="breath"><div class="ph-band"></div><div class="phrase">Je reprends ma place de <span class="script">cellule</span> dans le grand organisme <span class="script">vivant</span>.</div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
@@ -113,7 +113,7 @@ const partenaires = [
   </section>
   {propositions.map((u) => (
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
-      <div class="univers__img"><img src={u.img} alt={u.t} /></div>
+      <div class="univers__img"><div class="imgph"><span>Photo à venir</span></div></div>
       <div class="univers__body">
         <h2>{u.t}</h2>
         <p>{u.d}</p>
@@ -151,7 +151,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION vers l'art -->
-  <section class="breath"><img src="/img/breath-art.jpg" alt="" /><div class="phrase">Un langage <span class="script">magique</span>, indéchiffrable par la raison.</div></section>
+  <section class="breath"><div class="ph-band"></div><div class="phrase">Un langage <span class="script">magique</span>, indéchiffrable par la raison.</div></section>
 
   <!-- INDIGO ENOQII -->
   <section>
@@ -162,7 +162,7 @@ const partenaires = [
       </div>
       <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
       <div class="gallery" style="margin-top:2rem;">
-        <img src="/img/art-1.jpg" alt="Œuvre" /><img src="/img/art-2.jpg" alt="Œuvre" /><img src="/img/art-3.jpg" alt="Œuvre" /><img src="/img/art-4.jpg" alt="Œuvre" />
+        <div class="imgph"><span>Œuvre à venir</span></div><div class="imgph"><span>Œuvre à venir</span></div><div class="imgph"><span>Œuvre à venir</span></div><div class="imgph"><span>Œuvre à venir</span></div>
       </div>
     </div>
   </section>
@@ -185,7 +185,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media">{p.img ? <img src={p.img} alt={p.n} /> : <div class="imgph"><span>Photo à venir</span></div>}{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
+            <div class="part__media"><div class="imgph"><span>Photo à venir</span></div>{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>
@@ -196,7 +196,7 @@ const partenaires = [
 
   <!-- CONTACT -->
   <section class="breath" style="min-height:38vh;">
-    <img src="/img/hero.jpg" alt="" />
+    <div class="ph-band"></div>
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
       Un premier pas ?
       <a class="btn" href="/contact" style="font-style:normal;">Écris-moi</a>
