@@ -1,0 +1,44 @@
+fragment AgendaParts on Agenda {
+  __typename
+  titre
+  categorie
+  date
+  date_fin
+  rythme
+  heure
+  lieu
+  prix
+  earlybird
+  cta
+  site
+  lien
+  resume
+  image
+  reservable
+  ordre
+  publie
+  body
+}
+
+fragment OffresParts on Offres {
+  __typename
+  titre
+  categorie
+  tag
+  resume
+  prix
+  duree
+  format
+  tarifs {
+    __typename
+    label
+    prix
+    detail
+  }
+  image
+  lien
+  reservable
+  ordre
+  publie
+  body
+}
