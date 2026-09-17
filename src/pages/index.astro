@@ -32,13 +32,13 @@ const univers = [
 ];
 const propositions = [
   { t: 'Ateliers', img: '/img/u-atelier.jpg', href: '/agenda', rev: false, cta: 'Voir les ateliers',
-    d: "Ce qui transforme, c'est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. On y dépose le mental, on revient au corps, on se relie. Petit à petit, ces pratiques deviennent un appui, un refuge, un endroit où l'on se retrouve." },
+    d: "Ce qui transforme, c'est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. Autant de portes pour revenir au corps et s'y ancrer dans la durée." },
   { t: 'Soins', img: '/img/u-soin.jpg', href: '/soins', rev: true, cta: 'Découvrir les soins',
-    d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Le toucher redonne de l'espace, la présence fait le reste. Pour traverser une fatigue, un passage, une transformation, en étant simplement accompagné dans le corps, sans rien avoir à faire." },
+    d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Pour traverser une fatigue, un passage, une transformation, en étant accompagné dans le corps." },
   { t: 'Accompagnement', img: '/img/portrait.jpg', href: '/accompagnement', rev: false, cta: 'Découvrir l\u2019accompagnement',
-    d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. On avance à ton rythme, au plus près de ce qui se joue vraiment. Avec, si tu le souhaites, la lecture de ton dessin originel, pour éclairer ta nature profonde et ta direction." },
+    d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. Avec, si tu le souhaites, la lecture de ton dessin originel." },
   { t: 'Immersions & retraites', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
-    d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Loin des repères habituels, quelque chose se dénoue et se réaligne. Retraites d'hommes, désert marocain, cercles au cœur du vivant : des espaces pensés comme des passages." },
+    d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
 const temoins = [
   { t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.", n: 'Sonia', c: 'Ateliers Infloressence' },
@@ -62,7 +62,7 @@ const partenaires = [
     <span class="dot" style="width:5px;height:5px;background:var(--gold);top:70%;right:24%;opacity:.6"></span>
     <div class="hero-left">
       <p class="eyebrow">Présence · Mouvement · Créativité</p>
-      <div class="hero-name" style="margin-top:14px;"><span class="top">Marcher un chemin qui</span><span class="serif-i">te ressemble.</span></div>
+      <div class="hero-name" style="margin-top:14px;"><span class="top">Marcher un chemin qui</span><span class="serif-i script">te ressemble vraiment.</span></div>
       <p class="lead" style="margin-top:18px;">J'accompagne les transitions de vie, avec des outils ancrés dans la connaissance de soi, le retour à la présence, le mouvement et la créativité, pour <strong>faire de la crise une opportunité d'alignement</strong> et d'évolution.</p>
       <a class="cta" href="/agenda" style="margin-top:24px;">Voir les prochains événements <span class="line"></span></a>
     </div>
@@ -74,7 +74,7 @@ const partenaires = [
     <div class="wrap split">
       <div class="photo"><img src="/img/portrait.jpg" alt="Anys Mechkar" /></div>
       <div>
-        <h2>Qui je suis</h2>
+        <h2>Qui je <span class="script">suis</span></h2>
         <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
         <a class="cta" href="/a-propos" style="margin-top:22px;">Lire mon histoire <span class="line"></span></a>
       </div>
@@ -109,7 +109,7 @@ const partenaires = [
     <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
       <div class="univers__img"><img src={u.img} alt={u.t} /></div>
       <div class="univers__body">
-        <h2 class="script">{u.t}</h2>
+        <h2>{u.t}</h2>
         <p>{u.d}</p>
         <a class="cta" href={u.href}>{u.cta} <span class="line"></span></a>
       </div>
@@ -151,7 +151,7 @@ const partenaires = [
   <section>
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <div><p class="eyebrow">Indigo Enoqii</p><h2 class="script" style="margin-top:0.8rem;">Mon univers artistique</h2></div>
+        <div><p class="eyebrow">Indigo Enoqii</p><h2 style="margin-top:0.8rem;">Mon univers <span class="script">artistique</span></h2></div>
         <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir la boutique <span class="line"></span></a>
       </div>
       <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
