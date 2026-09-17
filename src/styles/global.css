@@ -453,3 +453,12 @@ h1 .script, h2 .script { font-size: 2em; line-height: 0.9; }
   .detail-nav { flex-direction: column; align-items: flex-start; gap: 1.6rem; }
   .next-card { text-align: left; flex-direction: row-reverse; }
 }
+
+/* Apparition douce au scroll (n'affiche qu'une fois les polices prêtes) */
+html.js main > section { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+html.js main > section.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.js main > section { opacity: 1; transform: none; transition: none; } }
+
+/* Placeholder image neutre */
+.imgph { width: 100%; height: 100%; min-height: 150px; display: grid; place-items: center; background: var(--surface); }
+.imgph span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.64rem; color: var(--muted); }

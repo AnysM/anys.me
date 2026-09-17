@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const ordered = [...dated, ...recur];
   return ordered.map((e, i) => {
     const n = ordered.length > 1 ? ordered[(i + 1) % ordered.length] : null;
-    const next = n ? { id: n.id, titre: n.data.titre, image: n.data.image ?? '/img/u-immersion.jpg' } : null;
+    const next = n ? { id: n.id, titre: n.data.titre, image: n.data.image ?? null } : null;
     return { params: { id: e.id }, props: { e, next } };
   });
 }
@@ -22,7 +22,7 @@ if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
 if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
 ---
 <Base title={`${d.titre} — Anys Mechkar`}>
-  <section class="page-hero"><img src={d.image ?? '/img/u-immersion.jpg'} alt="" />
+  <section class="page-hero">{d.image && <img src={d.image} alt="" />}
     <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1></div>
   </section>
 
@@ -31,7 +31,7 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:44vh;"><img src={d.image ?? '/img/breath-desert.jpg'} alt="" /><div class="phrase">{d.resume}</div></section>
+    <section class="breath" style="min-height:44vh;">{d.image && <img src={d.image} alt="" />}<div class="phrase">{d.resume}</div></section>
   )}
 
   <section class="bloc-or">
@@ -70,7 +70,7 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
       {next && (
         <a class="next-card" href={`/agenda/${next.id}`}>
           <span class="next-card__txt"><span class="next-card__label">Prochain événement</span><span class="next-card__title">{next.titre}</span></span>
-          <span class="next-card__img"><img src={next.image} alt={next.titre} /></span>
+          <span class="next-card__img">{next.image ? <img src={next.image} alt={next.titre} /> : <div class="imgph"><span></span></div>}</span>
         </a>
       )}
     </div>

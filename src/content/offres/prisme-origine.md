@@ -1,7 +1,6 @@
 ---
 titre: "Prisme Origine"
 categorie: accompagnement
-image: "/img/art-1.jpg"
 tag: "Lecture"
 resume: "Une lecture de ton système."
 tarifs:

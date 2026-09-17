@@ -55,8 +55,8 @@ const partenaires = [
   { n: 'Meïsō', img: '/img/meiso-photo.jpg', logo: '/img/logo-meiso.png', d: 'Centre de flottaison et de bien-être, à Lyon.', lien: 'https://meiso.fr/flottaison-lyon' },
   { n: 'Chanka Studio', img: '/img/u-atelier.jpg', logo: '/img/logo-chanka.svg', d: "Studio d'arts et de pratiques, où se tiennent les ateliers Infloressence.", lien: 'https://chanka-studio-lyon.fr' },
   { n: 'Blast', img: '/img/blast.jpg', d: 'Collectif artistique.' },
-  { n: 'TAMAKEAPA', img: '/img/breath-desert.jpg', logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
-  { n: 'Espriterre', img: '/img/u-soin.jpg', d: "Le travail d'Alex, en nature.", lien: 'https://espriterre.com' },
+  { n: 'TAMAKEAPA', img: null, logo: '/img/logo-partner-white.png', d: 'Partenaire.' },
+  { n: 'Espriterre', img: null, d: "Le travail d'Alex, en nature.", lien: 'https://espriterre.com' },
 ];
 ---
 <Base title="Anys Mechkar">
@@ -132,7 +132,7 @@ const partenaires = [
       <div class="egrid">
         {homeEvents.map((e) => (
           <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
-            <div class="ecard__img"><img src={e.data.image ?? '/img/u-immersion.jpg'} alt={e.data.titre} /><span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
+            <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>Photo à venir</span></div>}<span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
             <div class="ecard__body">
               <div class="ecard__when">{ligneDate(e.data)}</div>
               <div class="ecard__title">{e.data.titre}</div>
@@ -185,7 +185,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media"><img src={p.img} alt={p.n} />{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
+            <div class="part__media">{p.img ? <img src={p.img} alt={p.n} /> : <div class="imgph"><span>Photo à venir</span></div>}{p.logo && <img class="part__logo" src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>

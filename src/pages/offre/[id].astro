@@ -7,7 +7,7 @@ export async function getStaticPaths() {
     const sameCat = offres.filter((x) => x.data.categorie === o.data.categorie).sort((a, b) => a.data.ordre - b.data.ordre);
     const idx = sameCat.findIndex((x) => x.id === o.id);
     const n = sameCat.length > 1 ? sameCat[(idx + 1) % sameCat.length] : null;
-    const next = n ? { id: n.id, titre: n.data.titre, image: n.data.image ?? '/img/hero-soins.jpg' } : null;
+    const next = n ? { id: n.id, titre: n.data.titre, image: n.data.image ?? null } : null;
     return { params: { id: o.id }, props: { o, next } };
   });
 }
@@ -23,7 +23,7 @@ if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
 const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
 ---
 <Base title={`${d.titre} — Anys Mechkar`}>
-  <section class="page-hero"><img src={d.image ?? '/img/hero-soins.jpg'} alt="" />
+  <section class="page-hero">{d.image && <img src={d.image} alt="" />}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
   </section>
 
@@ -32,7 +32,7 @@ const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:42vh;"><img src={d.image ?? '/img/breath-art.jpg'} alt="" /><div class="phrase">{d.resume}</div></section>
+    <section class="breath" style="min-height:42vh;">{d.image && <img src={d.image} alt="" />}<div class="phrase">{d.resume}</div></section>
   )}
 
   {(infos.length > 0 || d.tarifs) && (
@@ -78,7 +78,7 @@ const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
       {next && (
         <a class="next-card" href={`/offre/${next.id}`}>
           <span class="next-card__txt"><span class="next-card__label">{labelNext}</span><span class="next-card__title">{next.titre}</span></span>
-          <span class="next-card__img"><img src={next.image} alt={next.titre} /></span>
+          <span class="next-card__img">{next.image ? <img src={next.image} alt={next.titre} /> : <div class="imgph"><span></span></div>}</span>
         </a>
       )}
     </div>
