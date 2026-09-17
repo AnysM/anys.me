@@ -6,7 +6,7 @@ duree: "1h30"
 prix: "80€"
 format: "Sur rendez-vous"
 tag: "Soin subtil"
-resume: "Un soin profond de purification et de réharmonisation de la sphère énergétique."
+resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
 ordre: 2
 ---
 Un soin profond de purification et de réharmonisation de la sphère énergétique.
@@ -20,4 +20,4 @@ Notre dimension énergétique relie notre être spirituel, ce qui a trait à l'e
 Formé au Reiki et au magnétisme, j'ai développé mon propre protocole, inspiré de mes initiations avec des guérisseurs indigènes d'Amazonie brésilienne. Mes soins portent à la fois la profondeur orientale, la structure et l'ancrage occidentaux, et la puissance de la forêt amazonienne. S'ajoutent à cet héritage mes racines marocaines, où l'on trouve des lignées de guérisseurs, notamment dans la confrérie soufie des Issawa.
 
 ## Le déroulé
-Les soins énergétiques se font majoritairement sans contact. Il peut y avoir des contacts ponctuels, avec la tête et les pieds, et d'autres zones du corps au cas par cas. Selon le besoin, le soin peut être accompagné de chants ou d'un instant musical pour soutenir le processus.
+Les soins énergétiques se font majoritairement **sans contact**. Il peut y avoir des contacts ponctuels, avec la tête et les pieds, et d'autres zones du corps au cas par cas. Selon le besoin, le soin peut être accompagné de chants ou d'un instant musical pour soutenir le processus.

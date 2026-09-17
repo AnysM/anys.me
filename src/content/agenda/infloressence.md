@@ -11,13 +11,13 @@ reservable: false
 ordre: 1
 publie: true
 ---
-Un espace pour revenir au corps et à la présence.
+Un espace pour **revenir au corps et à la présence**.
 
 Ce qui demande à circuler en nous reste souvent bloqué par le mental, les injonctions, les conditionnements du quotidien. Cet atelier ouvre un passage.
 
 La méditation de pleine conscience installe la présence. La danse Butoh libère le mouvement authentique et l'imaginaire. Le voyage sonore délie les tensions, laisse la place aux émotions et rouvre l'accès à sa créativité.
 
-Ce que ça apporte : des degrés de liberté dans le corps, et par là, des degrés de liberté dans la vie. Dans ce qu'on se croit capable d'être, d'oser, d'exprimer.
+Ce que ça apporte : des degrés de liberté dans le corps, et par là, **des degrés de liberté dans la vie**. Dans ce qu'on se croit capable d'être, d'oser, d'exprimer.
 
 Ce n'est pas une expérience ponctuelle, c'est une pratique. Un parcours sur l'année, qui ancre de nouveaux chemins dans le corps et dans l'esprit. En fin de parcours, des espaces de performance seront proposés à celles et ceux qui s'y sentiront prêts : danser dehors, dans la nature ou dans la ville, pour partager le cheminement.
 
