@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { photo } from '../lib/photo';
 import { getCollection, getEntry } from 'astro:content';
 
 const acc = (await getEntry('pages', 'accueil')).data;
@@ -66,7 +67,7 @@ const partenaires = [
 <Base title="Anys Mechkar">
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-bg"><img src="/img/univers-art.jpg" alt="Œuvre d'Indigo Enoqii" /></div>
+    <div class="hero-bg"><img src={photo('HERO-ACCUEIL') ?? "/img/univers-art.jpg"} alt="Œuvre d'Indigo Enoqii" /></div>
     <span class="dot" style="width:7px;height:7px;background:var(--coral);top:26%;right:8%"></span>
     <span class="dot" style="width:6px;height:6px;background:var(--blue);top:40%;right:16%;opacity:.9"></span>
     <span class="dot" style="width:5px;height:5px;background:var(--gold);top:70%;right:24%;opacity:.6"></span>
@@ -82,7 +83,7 @@ const partenaires = [
   <!-- MON PARCOURS (teaser) -->
   <section>
     <div class="wrap split">
-      <div class="photo"><div class="imgph"><span>ACCUEIL-PORTRAIT</span></div></div>
+      <div class="photo">{photo('ACCUEIL-PORTRAIT') ? <img class="slot-img" src={photo('ACCUEIL-PORTRAIT')} alt="" /> : <div class="imgph"><span>ACCUEIL-PORTRAIT</span></div>}</div>
       <div>
         <h2>Qui je <span class="script">suis</span></h2>
         <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
@@ -109,7 +110,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath"><div class="ph-band" data-h="RESP-01"></div><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+  <section class="breath">{photo('RESP-01') ? <img src={photo('RESP-01')} alt="" /> : <div class="ph-band" data-h="RESP-01"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
   <!-- LES PROPOSITIONS -->
   <section style="padding-bottom:0;">
@@ -155,7 +156,7 @@ const partenaires = [
   </section>
 
   <!-- RESPIRATION vers l'art -->
-  <section class="breath"><div class="ph-band" data-h="RESP-02"></div><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+  <section class="breath">{photo('RESP-02') ? <img src={photo('RESP-02')} alt="" /> : <div class="ph-band" data-h="RESP-02"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- INDIGO ENOQII -->
   <section>
@@ -166,7 +167,7 @@ const partenaires = [
       </div>
       <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
       <div class="gallery" style="margin-top:2rem;">
-        <div class="imgph"><span>ART-01</span></div><div class="imgph"><span>ART-02</span></div><div class="imgph"><span>ART-03</span></div><div class="imgph"><span>ART-04</span></div>
+        {photo('ART-01') ? <img class="slot-img" src={photo('ART-01')} alt="" /> : <div class="imgph"><span>ART-01</span></div>}{photo('ART-02') ? <img class="slot-img" src={photo('ART-02')} alt="" /> : <div class="imgph"><span>ART-02</span></div>}{photo('ART-03') ? <img class="slot-img" src={photo('ART-03')} alt="" /> : <div class="imgph"><span>ART-03</span></div>}{photo('ART-04') ? <img class="slot-img" src={photo('ART-04')} alt="" /> : <div class="imgph"><span>ART-04</span></div>}
       </div>
     </div>
   </section>
@@ -189,7 +190,7 @@ const partenaires = [
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
-            <div class="part__media"><div class="imgph"><span>{p.handle}</span></div>{p.logo && <img class={`part__logo${p.logoWhite ? ' part__logo--white' : ''}`} src={p.logo} alt={p.n} />}</div>
+            <div class="part__media">{photo(p.handle) ? <img class="slot-img" src={photo(p.handle)} alt={p.n} /> : <div class="imgph"><span>{p.handle}</span></div>}{p.logo && <img class={`part__logo${p.logoWhite ? ' part__logo--white' : ''}`} src={p.logo} alt={p.n} />}</div>
             <div class="part__name">{p.n}</div>
             <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
           </div>
@@ -200,7 +201,7 @@ const partenaires = [
 
   <!-- CONTACT -->
   <section class="breath" style="min-height:38vh;">
-    <div class="ph-band" data-h="RESP-03"></div>
+    {photo('RESP-03') ? <img src={photo('RESP-03')} alt="" /> : <div class="ph-band" data-h="RESP-03"></div>}
     <div class="phrase">{acc.citation_contact}</div>
   </section>
 

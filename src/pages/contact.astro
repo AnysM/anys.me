@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import { photo } from '../lib/photo';
 import { getEntry } from 'astro:content';
 const cc = (await getEntry('pages', 'contact')).data;
 ---
 <Base title="Contact — Anys Mechkar">
-  <section class="page-hero" style="min-height:34vh;">{cc.hero_image ? <img src={cc.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-CONTACT"></div>}
+  <section class="page-hero" style="min-height:34vh;">{photo('HERO-CONTACT') ? <img src={photo('HERO-CONTACT')} alt="" /> : <div class="ph-band" data-h="HERO-CONTACT"></div>}
     <div class="narrow"><p class="eyebrow">{cc.hero_eyebrow}</p><h1>{cc.hero_titre}</h1></div>
   </section>
   <section>

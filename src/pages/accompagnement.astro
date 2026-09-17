@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { photo } from '../lib/photo';
 import { getCollection, getEntry } from 'astro:content';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
 const ac = (await getEntry('pages', 'accompagnement')).data;
@@ -7,14 +8,14 @@ const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').re
 const outils = ac.outils;
 ---
 <Base title="Accompagnement — Anys Mechkar">
-  <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-ACCOMP"></div>}
+  <section class="page-hero">{photo('HERO-ACCOMP') ? <img src={photo('HERO-ACCOMP')} alt="" /> : <div class="ph-band" data-h="HERO-ACCOMP"></div>}
     <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>
 
   <!-- CŒUR À CŒUR -->
   <section class="coeur">
     <div class="wrap split">
-      <div class="photo"><div class="imgph"><span>ACCOMP-PORTRAIT</span></div></div>
+      <div class="photo">{photo('ACCOMP-PORTRAIT') ? <img class="slot-img" src={photo('ACCOMP-PORTRAIT')} alt="" /> : <div class="imgph"><span>ACCOMP-PORTRAIT</span></div>}</div>
       <div class="coeur__text">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>
   </section>
@@ -31,7 +32,7 @@ const outils = ac.outils;
   <!-- LES OUTILS -->
   <section style="padding:0;">
     <div class="univers rev">
-      <div class="univers__img"><div class="imgph"><span>ACCOMP-UNIVERS</span></div></div>
+      <div class="univers__img">{photo('ACCOMP-UNIVERS') ? <img class="slot-img" src={photo('ACCOMP-UNIVERS')} alt="" /> : <div class="imgph"><span>ACCOMP-UNIVERS</span></div>}</div>
       <div class="univers__body">
         <p class="eyebrow" style="margin-bottom:0.6rem;">{ac.outils_eyebrow}</p>
         <h2 set:html={fmt(ac.outils_titre)}></h2>

@@ -90,7 +90,6 @@ fragment Page_accompagnementParts on Page_accompagnement {
   __typename
   hero_eyebrow
   hero_titre
-  hero_image
   coeur
   pourqui_eyebrow
   pourqui_titre
@@ -108,7 +107,6 @@ fragment Page_quintessenceParts on Page_quintessence {
   hero_eyebrow
   hero_titre
   hero_lead
-  hero_image
   passage
   citation
   silence_titre
@@ -125,6 +123,51 @@ fragment Page_contactParts on Page_contact {
   __typename
   hero_eyebrow
   hero_titre
-  hero_image
   intro
+}
+
+fragment ImagesParts on Images {
+  __typename
+  hero_accueil
+  hero_soins
+  hero_accomp
+  hero_agenda
+  hero_apropos
+  hero_quintessence
+  hero_partenaires
+  hero_contact
+  accueil_portrait
+  accueil_ateliers
+  accueil_soins
+  accueil_accomp
+  accueil_immersions
+  resp_01
+  resp_02
+  resp_03
+  art_01
+  art_02
+  art_03
+  art_04
+  apropos_01
+  apropos_02
+  apropos_03
+  apropos_04
+  apropos_05
+  apropos_06
+  apropos_07
+  apropos_08
+  apropos_09
+  soins_portrait
+  accomp_portrait
+  accomp_univers
+  quint_silence
+  quint_crea
+  quint_resp
+  quint_end
+  part_meiso
+  part_chanka
+  part_blast
+  part_tamakeapa
+  part_espriterre
+  part_koom
 }

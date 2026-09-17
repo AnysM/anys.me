@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { photo } from '../lib/photo';
 import { getEntry } from 'astro:content';
 const qc = (await getEntry('pages', 'quintessence')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
@@ -7,7 +8,7 @@ const pratiques = qc.pratiques;
 ---
 <Base title="Quintessence — Anys Mechkar">
   <!-- HERO -->
-  <section class="page-hero" style="min-height:64vh;">{qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-QUINTESSENCE"></div>}
+  <section class="page-hero" style="min-height:64vh;">{photo('HERO-QUINTESSENCE') ? <img src={photo('HERO-QUINTESSENCE')} alt="" /> : <div class="ph-band" data-h="HERO-QUINTESSENCE"></div>}
     <div class="wrap"><p class="eyebrow">{qc.hero_eyebrow}</p><h1 style="font-size:clamp(2.4rem,6vw,4rem);">{qc.hero_titre}</h1><p class="lead" style="margin-top:1rem;">{qc.hero_lead}</p></div>
   </section>
 
@@ -19,19 +20,19 @@ const pratiques = qc.pratiques;
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath" style="min-height:52vh;"><div class="ph-band" data-h="QUINT-RESP"></div><div class="phrase" set:html={fmt(qc.citation)}></div></section>
+  <section class="breath" style="min-height:52vh;">{photo('QUINT-RESP') ? <img src={photo('QUINT-RESP')} alt="" /> : <div class="ph-band" data-h="QUINT-RESP"></div>}<div class="phrase" set:html={fmt(qc.citation)}></div></section>
 
   <!-- LE VOYAGE (image + texte) -->
   <section style="padding:0;">
     <div class="univers">
-      <div class="univers__img"><div class="imgph"><span>QUINT-SILENCE</span></div></div>
+      <div class="univers__img">{photo('QUINT-SILENCE') ? <img class="slot-img" src={photo('QUINT-SILENCE')} alt="" /> : <div class="imgph"><span>QUINT-SILENCE</span></div>}</div>
       <div class="univers__body">
         <h2>{qc.silence_titre}</h2>
         <p>{qc.silence_texte}</p>
       </div>
     </div>
     <div class="univers rev">
-      <div class="univers__img"><div class="imgph"><span>QUINT-CREA</span></div></div>
+      <div class="univers__img">{photo('QUINT-CREA') ? <img class="slot-img" src={photo('QUINT-CREA')} alt="" /> : <div class="imgph"><span>QUINT-CREA</span></div>}</div>
       <div class="univers__body">
         <h2>{qc.crea_titre}</h2>
         <p>{qc.crea_texte}</p>
@@ -72,7 +73,7 @@ const pratiques = qc.pratiques;
 
   <!-- CTA -->
   <section class="breath" style="min-height:40vh;">
-    {qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band" data-h="QUINT-END"></div>}
+    {photo('QUINT-END') ? <img src={photo('QUINT-END')} alt="" /> : <div class="ph-band" data-h="QUINT-END"></div>}
     <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
       {qc.cta_texte}
       <a class="btn" href="mailto:contact@anys.me?subject=Quintessence" style="font-style:normal;">Écrire à Anys</a>

@@ -73,6 +73,8 @@ type Query {
   page_quintessenceConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_quintessenceFilter): Page_quintessenceConnection!
   page_contact(relativePath: String): Page_contact!
   page_contactConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_contactFilter): Page_contactConnection!
+  images(relativePath: String): Images!
+  imagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ImagesFilter): ImagesConnection!
 }
 
 input DocumentFilter {
@@ -84,6 +86,7 @@ input DocumentFilter {
   page_accompagnement: Page_accompagnementFilter
   page_quintessence: Page_quintessenceFilter
   page_contact: Page_contactFilter
+  images: ImagesFilter
 }
 
 type DocumentConnectionEdges {
@@ -109,7 +112,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Agenda | Offres | Pages | Page_apropos | Page_soins | Page_accompagnement | Page_quintessence | Page_contact | Folder
+union DocumentNode = Agenda | Offres | Pages | Page_apropos | Page_soins | Page_accompagnement | Page_quintessence | Page_contact | Images | Folder
 
 type Agenda implements Node & Document {
   titre: String!
@@ -399,7 +402,6 @@ type Page_soinsConnection implements Connection {
 type Page_accompagnement implements Node & Document {
   hero_eyebrow: String
   hero_titre: String
-  hero_image: String
   coeur: String
   pourqui_eyebrow: String
   pourqui_titre: String
@@ -418,7 +420,6 @@ type Page_accompagnement implements Node & Document {
 input Page_accompagnementFilter {
   hero_eyebrow: StringFilter
   hero_titre: StringFilter
-  hero_image: ImageFilter
   coeur: StringFilter
   pourqui_eyebrow: StringFilter
   pourqui_titre: StringFilter
@@ -446,7 +447,6 @@ type Page_quintessence implements Node & Document {
   hero_eyebrow: String
   hero_titre: String
   hero_lead: String
-  hero_image: String
   passage: String
   citation: String
   silence_titre: String
@@ -466,7 +466,6 @@ input Page_quintessenceFilter {
   hero_eyebrow: StringFilter
   hero_titre: StringFilter
   hero_lead: StringFilter
-  hero_image: ImageFilter
   passage: StringFilter
   citation: StringFilter
   silence_titre: StringFilter
@@ -493,7 +492,6 @@ type Page_quintessenceConnection implements Connection {
 type Page_contact implements Node & Document {
   hero_eyebrow: String
   hero_titre: String
-  hero_image: String
   intro: String
   id: ID!
   _sys: SystemInfo!
@@ -503,7 +501,6 @@ type Page_contact implements Node & Document {
 input Page_contactFilter {
   hero_eyebrow: StringFilter
   hero_titre: StringFilter
-  hero_image: ImageFilter
   intro: StringFilter
 }
 
@@ -516,6 +513,110 @@ type Page_contactConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
   edges: [Page_contactConnectionEdges]
+}
+
+type Images implements Node & Document {
+  hero_accueil: String
+  hero_soins: String
+  hero_accomp: String
+  hero_agenda: String
+  hero_apropos: String
+  hero_quintessence: String
+  hero_partenaires: String
+  hero_contact: String
+  accueil_portrait: String
+  accueil_ateliers: String
+  accueil_soins: String
+  accueil_accomp: String
+  accueil_immersions: String
+  resp_01: String
+  resp_02: String
+  resp_03: String
+  art_01: String
+  art_02: String
+  art_03: String
+  art_04: String
+  apropos_01: String
+  apropos_02: String
+  apropos_03: String
+  apropos_04: String
+  apropos_05: String
+  apropos_06: String
+  apropos_07: String
+  apropos_08: String
+  apropos_09: String
+  soins_portrait: String
+  accomp_portrait: String
+  accomp_univers: String
+  quint_silence: String
+  quint_crea: String
+  quint_resp: String
+  quint_end: String
+  part_meiso: String
+  part_chanka: String
+  part_blast: String
+  part_tamakeapa: String
+  part_espriterre: String
+  part_koom: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input ImagesFilter {
+  hero_accueil: ImageFilter
+  hero_soins: ImageFilter
+  hero_accomp: ImageFilter
+  hero_agenda: ImageFilter
+  hero_apropos: ImageFilter
+  hero_quintessence: ImageFilter
+  hero_partenaires: ImageFilter
+  hero_contact: ImageFilter
+  accueil_portrait: ImageFilter
+  accueil_ateliers: ImageFilter
+  accueil_soins: ImageFilter
+  accueil_accomp: ImageFilter
+  accueil_immersions: ImageFilter
+  resp_01: ImageFilter
+  resp_02: ImageFilter
+  resp_03: ImageFilter
+  art_01: ImageFilter
+  art_02: ImageFilter
+  art_03: ImageFilter
+  art_04: ImageFilter
+  apropos_01: ImageFilter
+  apropos_02: ImageFilter
+  apropos_03: ImageFilter
+  apropos_04: ImageFilter
+  apropos_05: ImageFilter
+  apropos_06: ImageFilter
+  apropos_07: ImageFilter
+  apropos_08: ImageFilter
+  apropos_09: ImageFilter
+  soins_portrait: ImageFilter
+  accomp_portrait: ImageFilter
+  accomp_univers: ImageFilter
+  quint_silence: ImageFilter
+  quint_crea: ImageFilter
+  quint_resp: ImageFilter
+  quint_end: ImageFilter
+  part_meiso: ImageFilter
+  part_chanka: ImageFilter
+  part_blast: ImageFilter
+  part_tamakeapa: ImageFilter
+  part_espriterre: ImageFilter
+  part_koom: ImageFilter
+}
+
+type ImagesConnectionEdges {
+  cursor: String!
+  node: Images
+}
+
+type ImagesConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [ImagesConnectionEdges]
 }
 
 type Mutation {
@@ -540,6 +641,8 @@ type Mutation {
   createPage_quintessence(relativePath: String!, params: Page_quintessenceMutation!): Page_quintessence!
   updatePage_contact(relativePath: String!, params: Page_contactMutation!): Page_contact!
   createPage_contact(relativePath: String!, params: Page_contactMutation!): Page_contact!
+  updateImages(relativePath: String!, params: ImagesMutation!): Images!
+  createImages(relativePath: String!, params: ImagesMutation!): Images!
 }
 
 input DocumentUpdateMutation {
@@ -551,6 +654,7 @@ input DocumentUpdateMutation {
   page_accompagnement: Page_accompagnementMutation
   page_quintessence: Page_quintessenceMutation
   page_contact: Page_contactMutation
+  images: ImagesMutation
   relativePath: String
 }
 
@@ -563,6 +667,7 @@ input DocumentMutation {
   page_accompagnement: Page_accompagnementMutation
   page_quintessence: Page_quintessenceMutation
   page_contact: Page_contactMutation
+  images: ImagesMutation
 }
 
 input AgendaMutation {
@@ -654,7 +759,6 @@ input Page_soinsMutation {
 input Page_accompagnementMutation {
   hero_eyebrow: String
   hero_titre: String
-  hero_image: String
   coeur: String
   pourqui_eyebrow: String
   pourqui_titre: String
@@ -671,7 +775,6 @@ input Page_quintessenceMutation {
   hero_eyebrow: String
   hero_titre: String
   hero_lead: String
-  hero_image: String
   passage: String
   citation: String
   silence_titre: String
@@ -687,8 +790,52 @@ input Page_quintessenceMutation {
 input Page_contactMutation {
   hero_eyebrow: String
   hero_titre: String
-  hero_image: String
   intro: String
+}
+
+input ImagesMutation {
+  hero_accueil: String
+  hero_soins: String
+  hero_accomp: String
+  hero_agenda: String
+  hero_apropos: String
+  hero_quintessence: String
+  hero_partenaires: String
+  hero_contact: String
+  accueil_portrait: String
+  accueil_ateliers: String
+  accueil_soins: String
+  accueil_accomp: String
+  accueil_immersions: String
+  resp_01: String
+  resp_02: String
+  resp_03: String
+  art_01: String
+  art_02: String
+  art_03: String
+  art_04: String
+  apropos_01: String
+  apropos_02: String
+  apropos_03: String
+  apropos_04: String
+  apropos_05: String
+  apropos_06: String
+  apropos_07: String
+  apropos_08: String
+  apropos_09: String
+  soins_portrait: String
+  accomp_portrait: String
+  accomp_univers: String
+  quint_silence: String
+  quint_crea: String
+  quint_resp: String
+  quint_end: String
+  part_meiso: String
+  part_chanka: String
+  part_blast: String
+  part_tamakeapa: String
+  part_espriterre: String
+  part_koom: String
 }
 
 schema {

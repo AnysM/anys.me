@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { photo } from '../lib/photo';
 import { getCollection } from 'astro:content';
 import { getEntry } from 'astro:content';
 const sc = (await getEntry('pages', 'soins')).data;
@@ -7,14 +8,14 @@ const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').re
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Soins — Anys Mechkar">
-  <section class="page-hero"><div class="ph-band" data-h="HERO-SOINS"></div>
+  <section class="page-hero">{photo('HERO-SOINS') ? <img src={photo('HERO-SOINS')} alt="" /> : <div class="ph-band" data-h="HERO-SOINS"></div>}
     <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>
 
   <!-- CŒUR À CŒUR -->
   <section class="coeur">
     <div class="wrap split">
-      <div class="photo"><div class="imgph"><span>SOINS-PORTRAIT</span></div></div>
+      <div class="photo">{photo('SOINS-PORTRAIT') ? <img class="slot-img" src={photo('SOINS-PORTRAIT')} alt="" /> : <div class="imgph"><span>SOINS-PORTRAIT</span></div>}</div>
       <div class="coeur__text">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>
   </section>
