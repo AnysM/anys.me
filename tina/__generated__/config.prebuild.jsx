@@ -84,6 +84,15 @@ var config_default = defineConfig({
         fields: [
           { type: "string", name: "hero_eyebrow", label: "Hero \u2014 sur-titre" },
           { type: "string", name: "hero_titre", label: "Hero \u2014 titre (sans-serif)" },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
+          { type: "image", name: "portrait_image", label: "Photo \u2014 Qui je suis" },
+          { type: "image", name: "resp1_image", label: "Respiration 1 (fond)" },
+          { type: "image", name: "resp2_image", label: "Respiration 2 (fond)" },
+          { type: "image", name: "resp3_image", label: "Respiration bas (fond)" },
+          { type: "image", name: "art1_image", label: "Oeuvre 1" },
+          { type: "image", name: "art2_image", label: "Oeuvre 2" },
+          { type: "image", name: "art3_image", label: "Oeuvre 3" },
+          { type: "image", name: "art4_image", label: "Oeuvre 4" },
           { type: "string", name: "hero_accent", label: "Hero \u2014 accent manuscrit" },
           { type: "string", name: "hero_paragraphe", label: "Hero \u2014 paragraphe", description: "Entoure un mot de *etoiles* pour la manuscrite, de **deux** pour le dore.", ui: { component: "textarea" } },
           { type: "string", name: "hero_cta", label: "Hero \u2014 bouton" },
@@ -99,7 +108,8 @@ var config_default = defineConfig({
             fields: [
               { type: "string", name: "titre", label: "Titre" },
               { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } },
-              { type: "string", name: "cta", label: "Bouton" }
+              { type: "string", name: "cta", label: "Bouton" },
+              { type: "image", name: "image", label: "Photo" }
             ]
           },
           { type: "string", name: "citation2", label: "Citation 2", description: "*mot* = manuscrite" },
@@ -118,6 +128,7 @@ var config_default = defineConfig({
         fields: [
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
           {
             type: "object",
             name: "chapitres",
@@ -126,7 +137,8 @@ var config_default = defineConfig({
             ui: { itemProps: (i) => ({ label: i && i.titre ? i.titre : "Chapitre" }) },
             fields: [
               { type: "string", name: "titre", label: "Titre du chapitre" },
-              { type: "string", name: "texte", label: "Texte (paragraphes separes par une ligne vide)", ui: { component: "textarea" } }
+              { type: "string", name: "texte", label: "Texte (paragraphes separes par une ligne vide)", ui: { component: "textarea" } },
+              { type: "image", name: "image", label: "Photo du chapitre" }
             ]
           }
         ]
@@ -141,6 +153,8 @@ var config_default = defineConfig({
         fields: [
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
+          { type: "image", name: "hero_image", label: "Fond du hero" },
+          { type: "image", name: "portrait_image", label: "Portrait" },
           { type: "string", name: "coeur", label: "Texte d'intro (coeur a coeur)", description: "**mot** = dore, *mot* = manuscrite. Paragraphes separes par une ligne vide.", ui: { component: "textarea" } },
           { type: "string", name: "soins_eyebrow", label: "Section soins \u2014 sur-titre" },
           { type: "string", name: "soins_titre", label: "Section soins \u2014 titre" },
@@ -212,58 +226,6 @@ var config_default = defineConfig({
           { type: "string", name: "hero_titre", label: "Titre" },
           { type: "image", name: "hero_image", label: "Fond du hero" },
           { type: "string", name: "intro", label: "Introduction", ui: { component: "textarea" } }
-        ]
-      },
-      {
-        name: "images",
-        label: "Photos du site",
-        path: "src/data",
-        format: "json",
-        match: { include: "images" },
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          { type: "image", name: "hero_accueil", label: "Fond \u2014 Accueil" },
-          { type: "image", name: "hero_soins", label: "Fond \u2014 Soins" },
-          { type: "image", name: "hero_accomp", label: "Fond \u2014 Accompagnement" },
-          { type: "image", name: "hero_agenda", label: "Fond \u2014 Agenda" },
-          { type: "image", name: "hero_apropos", label: "Fond \u2014 A propos" },
-          { type: "image", name: "hero_quintessence", label: "Fond \u2014 Quintessence" },
-          { type: "image", name: "hero_partenaires", label: "Fond \u2014 Partenaires" },
-          { type: "image", name: "hero_contact", label: "Fond \u2014 Contact" },
-          { type: "image", name: "accueil_portrait", label: "Accueil \u2014 portrait (Qui je suis)" },
-          { type: "image", name: "accueil_ateliers", label: "Accueil \u2014 bloc Ateliers" },
-          { type: "image", name: "accueil_soins", label: "Accueil \u2014 bloc Soins" },
-          { type: "image", name: "accueil_accomp", label: "Accueil \u2014 bloc Accompagnement" },
-          { type: "image", name: "accueil_immersions", label: "Accueil \u2014 bloc Immersions" },
-          { type: "image", name: "resp_01", label: "Accueil \u2014 respiration 1" },
-          { type: "image", name: "resp_02", label: "Accueil \u2014 respiration 2 (art)" },
-          { type: "image", name: "resp_03", label: "Accueil \u2014 respiration bas de page" },
-          { type: "image", name: "art_01", label: "Accueil \u2014 oeuvre 1" },
-          { type: "image", name: "art_02", label: "Accueil \u2014 oeuvre 2" },
-          { type: "image", name: "art_03", label: "Accueil \u2014 oeuvre 3" },
-          { type: "image", name: "art_04", label: "Accueil \u2014 oeuvre 4" },
-          { type: "image", name: "apropos_01", label: "A propos \u2014 chapitre 1" },
-          { type: "image", name: "apropos_02", label: "A propos \u2014 chapitre 2" },
-          { type: "image", name: "apropos_03", label: "A propos \u2014 chapitre 3" },
-          { type: "image", name: "apropos_04", label: "A propos \u2014 chapitre 4" },
-          { type: "image", name: "apropos_05", label: "A propos \u2014 chapitre 5" },
-          { type: "image", name: "apropos_06", label: "A propos \u2014 chapitre 6" },
-          { type: "image", name: "apropos_07", label: "A propos \u2014 chapitre 7" },
-          { type: "image", name: "apropos_08", label: "A propos \u2014 chapitre 8" },
-          { type: "image", name: "apropos_09", label: "A propos \u2014 chapitre 9" },
-          { type: "image", name: "soins_portrait", label: "Soins \u2014 portrait" },
-          { type: "image", name: "accomp_portrait", label: "Accompagnement \u2014 portrait" },
-          { type: "image", name: "accomp_univers", label: "Accompagnement \u2014 image outils" },
-          { type: "image", name: "quint_silence", label: "Quintessence \u2014 le silence" },
-          { type: "image", name: "quint_crea", label: "Quintessence \u2014 la creativite" },
-          { type: "image", name: "quint_resp", label: "Quintessence \u2014 respiration" },
-          { type: "image", name: "quint_end", label: "Quintessence \u2014 fond de fin" },
-          { type: "image", name: "part_meiso", label: "Partenaire \u2014 Meiso" },
-          { type: "image", name: "part_chanka", label: "Partenaire \u2014 Chanka" },
-          { type: "image", name: "part_blast", label: "Partenaire \u2014 Blast" },
-          { type: "image", name: "part_tamakeapa", label: "Partenaire \u2014 TAMAKEAPA" },
-          { type: "image", name: "part_espriterre", label: "Partenaire \u2014 Espriterre" },
-          { type: "image", name: "part_koom", label: "Partenaire \u2014 Koom" }
         ]
       },
       {

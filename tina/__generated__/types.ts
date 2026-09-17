@@ -100,8 +100,6 @@ export type Query = {
   page_quintessenceConnection: Page_QuintessenceConnection;
   page_contact: Page_Contact;
   page_contactConnection: Page_ContactConnection;
-  images: Images;
-  imagesConnection: ImagesConnection;
   page_agenda: Page_Agenda;
   page_agendaConnection: Page_AgendaConnection;
   page_partenaires: Page_Partenaires;
@@ -250,21 +248,6 @@ export type QueryPage_ContactConnectionArgs = {
 };
 
 
-export type QueryImagesArgs = {
-  relativePath?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryImagesConnectionArgs = {
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<ImagesFilter>;
-};
-
-
 export type QueryPage_AgendaArgs = {
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
@@ -303,7 +286,6 @@ export type DocumentFilter = {
   page_accompagnement?: InputMaybe<Page_AccompagnementFilter>;
   page_quintessence?: InputMaybe<Page_QuintessenceFilter>;
   page_contact?: InputMaybe<Page_ContactFilter>;
-  images?: InputMaybe<ImagesFilter>;
   page_agenda?: InputMaybe<Page_AgendaFilter>;
   page_partenaires?: InputMaybe<Page_PartenairesFilter>;
 };
@@ -345,7 +327,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Page_Soins | Page_Accompagnement | Page_Quintessence | Page_Contact | Images | Page_Agenda | Page_Partenaires | Folder;
+export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Page_Soins | Page_Accompagnement | Page_Quintessence | Page_Contact | Page_Agenda | Page_Partenaires | Folder;
 
 export type Agenda = Node & Document & {
   __typename?: 'Agenda';
@@ -518,12 +500,22 @@ export type PagesPropositions = {
   titre?: Maybe<Scalars['String']['output']>;
   texte?: Maybe<Scalars['String']['output']>;
   cta?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
 };
 
 export type Pages = Node & Document & {
   __typename?: 'Pages';
   hero_eyebrow?: Maybe<Scalars['String']['output']>;
   hero_titre?: Maybe<Scalars['String']['output']>;
+  hero_image?: Maybe<Scalars['String']['output']>;
+  portrait_image?: Maybe<Scalars['String']['output']>;
+  resp1_image?: Maybe<Scalars['String']['output']>;
+  resp2_image?: Maybe<Scalars['String']['output']>;
+  resp3_image?: Maybe<Scalars['String']['output']>;
+  art1_image?: Maybe<Scalars['String']['output']>;
+  art2_image?: Maybe<Scalars['String']['output']>;
+  art3_image?: Maybe<Scalars['String']['output']>;
+  art4_image?: Maybe<Scalars['String']['output']>;
   hero_accent?: Maybe<Scalars['String']['output']>;
   hero_paragraphe?: Maybe<Scalars['String']['output']>;
   hero_cta?: Maybe<Scalars['String']['output']>;
@@ -544,11 +536,21 @@ export type PagesPropositionsFilter = {
   titre?: InputMaybe<StringFilter>;
   texte?: InputMaybe<StringFilter>;
   cta?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
 };
 
 export type PagesFilter = {
   hero_eyebrow?: InputMaybe<StringFilter>;
   hero_titre?: InputMaybe<StringFilter>;
+  hero_image?: InputMaybe<ImageFilter>;
+  portrait_image?: InputMaybe<ImageFilter>;
+  resp1_image?: InputMaybe<ImageFilter>;
+  resp2_image?: InputMaybe<ImageFilter>;
+  resp3_image?: InputMaybe<ImageFilter>;
+  art1_image?: InputMaybe<ImageFilter>;
+  art2_image?: InputMaybe<ImageFilter>;
+  art3_image?: InputMaybe<ImageFilter>;
+  art4_image?: InputMaybe<ImageFilter>;
   hero_accent?: InputMaybe<StringFilter>;
   hero_paragraphe?: InputMaybe<StringFilter>;
   hero_cta?: InputMaybe<StringFilter>;
@@ -579,12 +581,14 @@ export type Page_AproposChapitres = {
   __typename?: 'Page_aproposChapitres';
   titre?: Maybe<Scalars['String']['output']>;
   texte?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
 };
 
 export type Page_Apropos = Node & Document & {
   __typename?: 'Page_apropos';
   hero_eyebrow?: Maybe<Scalars['String']['output']>;
   hero_titre?: Maybe<Scalars['String']['output']>;
+  hero_image?: Maybe<Scalars['String']['output']>;
   chapitres?: Maybe<Array<Maybe<Page_AproposChapitres>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -594,11 +598,13 @@ export type Page_Apropos = Node & Document & {
 export type Page_AproposChapitresFilter = {
   titre?: InputMaybe<StringFilter>;
   texte?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
 };
 
 export type Page_AproposFilter = {
   hero_eyebrow?: InputMaybe<StringFilter>;
   hero_titre?: InputMaybe<StringFilter>;
+  hero_image?: InputMaybe<ImageFilter>;
   chapitres?: InputMaybe<Page_AproposChapitresFilter>;
 };
 
@@ -619,6 +625,8 @@ export type Page_Soins = Node & Document & {
   __typename?: 'Page_soins';
   hero_eyebrow?: Maybe<Scalars['String']['output']>;
   hero_titre?: Maybe<Scalars['String']['output']>;
+  hero_image?: Maybe<Scalars['String']['output']>;
+  portrait_image?: Maybe<Scalars['String']['output']>;
   coeur?: Maybe<Scalars['String']['output']>;
   soins_eyebrow?: Maybe<Scalars['String']['output']>;
   soins_titre?: Maybe<Scalars['String']['output']>;
@@ -631,6 +639,8 @@ export type Page_Soins = Node & Document & {
 export type Page_SoinsFilter = {
   hero_eyebrow?: InputMaybe<StringFilter>;
   hero_titre?: InputMaybe<StringFilter>;
+  hero_image?: InputMaybe<ImageFilter>;
+  portrait_image?: InputMaybe<ImageFilter>;
   coeur?: InputMaybe<StringFilter>;
   soins_eyebrow?: InputMaybe<StringFilter>;
   soins_titre?: InputMaybe<StringFilter>;
@@ -793,113 +803,6 @@ export type Page_ContactConnection = Connection & {
   edges?: Maybe<Array<Maybe<Page_ContactConnectionEdges>>>;
 };
 
-export type Images = Node & Document & {
-  __typename?: 'Images';
-  hero_accueil?: Maybe<Scalars['String']['output']>;
-  hero_soins?: Maybe<Scalars['String']['output']>;
-  hero_accomp?: Maybe<Scalars['String']['output']>;
-  hero_agenda?: Maybe<Scalars['String']['output']>;
-  hero_apropos?: Maybe<Scalars['String']['output']>;
-  hero_quintessence?: Maybe<Scalars['String']['output']>;
-  hero_partenaires?: Maybe<Scalars['String']['output']>;
-  hero_contact?: Maybe<Scalars['String']['output']>;
-  accueil_portrait?: Maybe<Scalars['String']['output']>;
-  accueil_ateliers?: Maybe<Scalars['String']['output']>;
-  accueil_soins?: Maybe<Scalars['String']['output']>;
-  accueil_accomp?: Maybe<Scalars['String']['output']>;
-  accueil_immersions?: Maybe<Scalars['String']['output']>;
-  resp_01?: Maybe<Scalars['String']['output']>;
-  resp_02?: Maybe<Scalars['String']['output']>;
-  resp_03?: Maybe<Scalars['String']['output']>;
-  art_01?: Maybe<Scalars['String']['output']>;
-  art_02?: Maybe<Scalars['String']['output']>;
-  art_03?: Maybe<Scalars['String']['output']>;
-  art_04?: Maybe<Scalars['String']['output']>;
-  apropos_01?: Maybe<Scalars['String']['output']>;
-  apropos_02?: Maybe<Scalars['String']['output']>;
-  apropos_03?: Maybe<Scalars['String']['output']>;
-  apropos_04?: Maybe<Scalars['String']['output']>;
-  apropos_05?: Maybe<Scalars['String']['output']>;
-  apropos_06?: Maybe<Scalars['String']['output']>;
-  apropos_07?: Maybe<Scalars['String']['output']>;
-  apropos_08?: Maybe<Scalars['String']['output']>;
-  apropos_09?: Maybe<Scalars['String']['output']>;
-  soins_portrait?: Maybe<Scalars['String']['output']>;
-  accomp_portrait?: Maybe<Scalars['String']['output']>;
-  accomp_univers?: Maybe<Scalars['String']['output']>;
-  quint_silence?: Maybe<Scalars['String']['output']>;
-  quint_crea?: Maybe<Scalars['String']['output']>;
-  quint_resp?: Maybe<Scalars['String']['output']>;
-  quint_end?: Maybe<Scalars['String']['output']>;
-  part_meiso?: Maybe<Scalars['String']['output']>;
-  part_chanka?: Maybe<Scalars['String']['output']>;
-  part_blast?: Maybe<Scalars['String']['output']>;
-  part_tamakeapa?: Maybe<Scalars['String']['output']>;
-  part_espriterre?: Maybe<Scalars['String']['output']>;
-  part_koom?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  _sys: SystemInfo;
-  _values: Scalars['JSON']['output'];
-};
-
-export type ImagesFilter = {
-  hero_accueil?: InputMaybe<ImageFilter>;
-  hero_soins?: InputMaybe<ImageFilter>;
-  hero_accomp?: InputMaybe<ImageFilter>;
-  hero_agenda?: InputMaybe<ImageFilter>;
-  hero_apropos?: InputMaybe<ImageFilter>;
-  hero_quintessence?: InputMaybe<ImageFilter>;
-  hero_partenaires?: InputMaybe<ImageFilter>;
-  hero_contact?: InputMaybe<ImageFilter>;
-  accueil_portrait?: InputMaybe<ImageFilter>;
-  accueil_ateliers?: InputMaybe<ImageFilter>;
-  accueil_soins?: InputMaybe<ImageFilter>;
-  accueil_accomp?: InputMaybe<ImageFilter>;
-  accueil_immersions?: InputMaybe<ImageFilter>;
-  resp_01?: InputMaybe<ImageFilter>;
-  resp_02?: InputMaybe<ImageFilter>;
-  resp_03?: InputMaybe<ImageFilter>;
-  art_01?: InputMaybe<ImageFilter>;
-  art_02?: InputMaybe<ImageFilter>;
-  art_03?: InputMaybe<ImageFilter>;
-  art_04?: InputMaybe<ImageFilter>;
-  apropos_01?: InputMaybe<ImageFilter>;
-  apropos_02?: InputMaybe<ImageFilter>;
-  apropos_03?: InputMaybe<ImageFilter>;
-  apropos_04?: InputMaybe<ImageFilter>;
-  apropos_05?: InputMaybe<ImageFilter>;
-  apropos_06?: InputMaybe<ImageFilter>;
-  apropos_07?: InputMaybe<ImageFilter>;
-  apropos_08?: InputMaybe<ImageFilter>;
-  apropos_09?: InputMaybe<ImageFilter>;
-  soins_portrait?: InputMaybe<ImageFilter>;
-  accomp_portrait?: InputMaybe<ImageFilter>;
-  accomp_univers?: InputMaybe<ImageFilter>;
-  quint_silence?: InputMaybe<ImageFilter>;
-  quint_crea?: InputMaybe<ImageFilter>;
-  quint_resp?: InputMaybe<ImageFilter>;
-  quint_end?: InputMaybe<ImageFilter>;
-  part_meiso?: InputMaybe<ImageFilter>;
-  part_chanka?: InputMaybe<ImageFilter>;
-  part_blast?: InputMaybe<ImageFilter>;
-  part_tamakeapa?: InputMaybe<ImageFilter>;
-  part_espriterre?: InputMaybe<ImageFilter>;
-  part_koom?: InputMaybe<ImageFilter>;
-};
-
-export type ImagesConnectionEdges = {
-  __typename?: 'ImagesConnectionEdges';
-  cursor: Scalars['String']['output'];
-  node?: Maybe<Images>;
-};
-
-export type ImagesConnection = Connection & {
-  __typename?: 'ImagesConnection';
-  pageInfo: PageInfo;
-  totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<ImagesConnectionEdges>>>;
-};
-
 export type Page_Agenda = Node & Document & {
   __typename?: 'Page_agenda';
   hero_eyebrow?: Maybe<Scalars['String']['output']>;
@@ -1002,8 +905,6 @@ export type Mutation = {
   createPage_quintessence: Page_Quintessence;
   updatePage_contact: Page_Contact;
   createPage_contact: Page_Contact;
-  updateImages: Images;
-  createImages: Images;
   updatePage_agenda: Page_Agenda;
   createPage_agenda: Page_Agenda;
   updatePage_partenaires: Page_Partenaires;
@@ -1140,18 +1041,6 @@ export type MutationCreatePage_ContactArgs = {
 };
 
 
-export type MutationUpdateImagesArgs = {
-  relativePath: Scalars['String']['input'];
-  params: ImagesMutation;
-};
-
-
-export type MutationCreateImagesArgs = {
-  relativePath: Scalars['String']['input'];
-  params: ImagesMutation;
-};
-
-
 export type MutationUpdatePage_AgendaArgs = {
   relativePath: Scalars['String']['input'];
   params: Page_AgendaMutation;
@@ -1184,7 +1073,6 @@ export type DocumentUpdateMutation = {
   page_accompagnement?: InputMaybe<Page_AccompagnementMutation>;
   page_quintessence?: InputMaybe<Page_QuintessenceMutation>;
   page_contact?: InputMaybe<Page_ContactMutation>;
-  images?: InputMaybe<ImagesMutation>;
   page_agenda?: InputMaybe<Page_AgendaMutation>;
   page_partenaires?: InputMaybe<Page_PartenairesMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
@@ -1199,7 +1087,6 @@ export type DocumentMutation = {
   page_accompagnement?: InputMaybe<Page_AccompagnementMutation>;
   page_quintessence?: InputMaybe<Page_QuintessenceMutation>;
   page_contact?: InputMaybe<Page_ContactMutation>;
-  images?: InputMaybe<ImagesMutation>;
   page_agenda?: InputMaybe<Page_AgendaMutation>;
   page_partenaires?: InputMaybe<Page_PartenairesMutation>;
 };
@@ -1252,11 +1139,21 @@ export type PagesPropositionsMutation = {
   titre?: InputMaybe<Scalars['String']['input']>;
   texte?: InputMaybe<Scalars['String']['input']>;
   cta?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PagesMutation = {
   hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
   hero_titre?: InputMaybe<Scalars['String']['input']>;
+  hero_image?: InputMaybe<Scalars['String']['input']>;
+  portrait_image?: InputMaybe<Scalars['String']['input']>;
+  resp1_image?: InputMaybe<Scalars['String']['input']>;
+  resp2_image?: InputMaybe<Scalars['String']['input']>;
+  resp3_image?: InputMaybe<Scalars['String']['input']>;
+  art1_image?: InputMaybe<Scalars['String']['input']>;
+  art2_image?: InputMaybe<Scalars['String']['input']>;
+  art3_image?: InputMaybe<Scalars['String']['input']>;
+  art4_image?: InputMaybe<Scalars['String']['input']>;
   hero_accent?: InputMaybe<Scalars['String']['input']>;
   hero_paragraphe?: InputMaybe<Scalars['String']['input']>;
   hero_cta?: InputMaybe<Scalars['String']['input']>;
@@ -1273,17 +1170,21 @@ export type PagesMutation = {
 export type Page_AproposChapitresMutation = {
   titre?: InputMaybe<Scalars['String']['input']>;
   texte?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Page_AproposMutation = {
   hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
   hero_titre?: InputMaybe<Scalars['String']['input']>;
+  hero_image?: InputMaybe<Scalars['String']['input']>;
   chapitres?: InputMaybe<Array<InputMaybe<Page_AproposChapitresMutation>>>;
 };
 
 export type Page_SoinsMutation = {
   hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
   hero_titre?: InputMaybe<Scalars['String']['input']>;
+  hero_image?: InputMaybe<Scalars['String']['input']>;
+  portrait_image?: InputMaybe<Scalars['String']['input']>;
   coeur?: InputMaybe<Scalars['String']['input']>;
   soins_eyebrow?: InputMaybe<Scalars['String']['input']>;
   soins_titre?: InputMaybe<Scalars['String']['input']>;
@@ -1334,51 +1235,6 @@ export type Page_ContactMutation = {
   hero_titre?: InputMaybe<Scalars['String']['input']>;
   hero_image?: InputMaybe<Scalars['String']['input']>;
   intro?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ImagesMutation = {
-  hero_accueil?: InputMaybe<Scalars['String']['input']>;
-  hero_soins?: InputMaybe<Scalars['String']['input']>;
-  hero_accomp?: InputMaybe<Scalars['String']['input']>;
-  hero_agenda?: InputMaybe<Scalars['String']['input']>;
-  hero_apropos?: InputMaybe<Scalars['String']['input']>;
-  hero_quintessence?: InputMaybe<Scalars['String']['input']>;
-  hero_partenaires?: InputMaybe<Scalars['String']['input']>;
-  hero_contact?: InputMaybe<Scalars['String']['input']>;
-  accueil_portrait?: InputMaybe<Scalars['String']['input']>;
-  accueil_ateliers?: InputMaybe<Scalars['String']['input']>;
-  accueil_soins?: InputMaybe<Scalars['String']['input']>;
-  accueil_accomp?: InputMaybe<Scalars['String']['input']>;
-  accueil_immersions?: InputMaybe<Scalars['String']['input']>;
-  resp_01?: InputMaybe<Scalars['String']['input']>;
-  resp_02?: InputMaybe<Scalars['String']['input']>;
-  resp_03?: InputMaybe<Scalars['String']['input']>;
-  art_01?: InputMaybe<Scalars['String']['input']>;
-  art_02?: InputMaybe<Scalars['String']['input']>;
-  art_03?: InputMaybe<Scalars['String']['input']>;
-  art_04?: InputMaybe<Scalars['String']['input']>;
-  apropos_01?: InputMaybe<Scalars['String']['input']>;
-  apropos_02?: InputMaybe<Scalars['String']['input']>;
-  apropos_03?: InputMaybe<Scalars['String']['input']>;
-  apropos_04?: InputMaybe<Scalars['String']['input']>;
-  apropos_05?: InputMaybe<Scalars['String']['input']>;
-  apropos_06?: InputMaybe<Scalars['String']['input']>;
-  apropos_07?: InputMaybe<Scalars['String']['input']>;
-  apropos_08?: InputMaybe<Scalars['String']['input']>;
-  apropos_09?: InputMaybe<Scalars['String']['input']>;
-  soins_portrait?: InputMaybe<Scalars['String']['input']>;
-  accomp_portrait?: InputMaybe<Scalars['String']['input']>;
-  accomp_univers?: InputMaybe<Scalars['String']['input']>;
-  quint_silence?: InputMaybe<Scalars['String']['input']>;
-  quint_crea?: InputMaybe<Scalars['String']['input']>;
-  quint_resp?: InputMaybe<Scalars['String']['input']>;
-  quint_end?: InputMaybe<Scalars['String']['input']>;
-  part_meiso?: InputMaybe<Scalars['String']['input']>;
-  part_chanka?: InputMaybe<Scalars['String']['input']>;
-  part_blast?: InputMaybe<Scalars['String']['input']>;
-  part_tamakeapa?: InputMaybe<Scalars['String']['input']>;
-  part_espriterre?: InputMaybe<Scalars['String']['input']>;
-  part_koom?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Page_AgendaMutation = {
@@ -1494,11 +1350,21 @@ export type PagesPropositionsFilter = {
   titre?: StringFilter | null | undefined;
   texte?: StringFilter | null | undefined;
   cta?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
 };
 
 export type PagesFilter = {
   hero_eyebrow?: StringFilter | null | undefined;
   hero_titre?: StringFilter | null | undefined;
+  hero_image?: ImageFilter | null | undefined;
+  portrait_image?: ImageFilter | null | undefined;
+  resp1_image?: ImageFilter | null | undefined;
+  resp2_image?: ImageFilter | null | undefined;
+  resp3_image?: ImageFilter | null | undefined;
+  art1_image?: ImageFilter | null | undefined;
+  art2_image?: ImageFilter | null | undefined;
+  art3_image?: ImageFilter | null | undefined;
+  art4_image?: ImageFilter | null | undefined;
   hero_accent?: StringFilter | null | undefined;
   hero_paragraphe?: StringFilter | null | undefined;
   hero_cta?: StringFilter | null | undefined;
@@ -1515,17 +1381,21 @@ export type PagesFilter = {
 export type Page_AproposChapitresFilter = {
   titre?: StringFilter | null | undefined;
   texte?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
 };
 
 export type Page_AproposFilter = {
   hero_eyebrow?: StringFilter | null | undefined;
   hero_titre?: StringFilter | null | undefined;
+  hero_image?: ImageFilter | null | undefined;
   chapitres?: Page_AproposChapitresFilter | null | undefined;
 };
 
 export type Page_SoinsFilter = {
   hero_eyebrow?: StringFilter | null | undefined;
   hero_titre?: StringFilter | null | undefined;
+  hero_image?: ImageFilter | null | undefined;
+  portrait_image?: ImageFilter | null | undefined;
   coeur?: StringFilter | null | undefined;
   soins_eyebrow?: StringFilter | null | undefined;
   soins_titre?: StringFilter | null | undefined;
@@ -1578,51 +1448,6 @@ export type Page_ContactFilter = {
   intro?: StringFilter | null | undefined;
 };
 
-export type ImagesFilter = {
-  hero_accueil?: ImageFilter | null | undefined;
-  hero_soins?: ImageFilter | null | undefined;
-  hero_accomp?: ImageFilter | null | undefined;
-  hero_agenda?: ImageFilter | null | undefined;
-  hero_apropos?: ImageFilter | null | undefined;
-  hero_quintessence?: ImageFilter | null | undefined;
-  hero_partenaires?: ImageFilter | null | undefined;
-  hero_contact?: ImageFilter | null | undefined;
-  accueil_portrait?: ImageFilter | null | undefined;
-  accueil_ateliers?: ImageFilter | null | undefined;
-  accueil_soins?: ImageFilter | null | undefined;
-  accueil_accomp?: ImageFilter | null | undefined;
-  accueil_immersions?: ImageFilter | null | undefined;
-  resp_01?: ImageFilter | null | undefined;
-  resp_02?: ImageFilter | null | undefined;
-  resp_03?: ImageFilter | null | undefined;
-  art_01?: ImageFilter | null | undefined;
-  art_02?: ImageFilter | null | undefined;
-  art_03?: ImageFilter | null | undefined;
-  art_04?: ImageFilter | null | undefined;
-  apropos_01?: ImageFilter | null | undefined;
-  apropos_02?: ImageFilter | null | undefined;
-  apropos_03?: ImageFilter | null | undefined;
-  apropos_04?: ImageFilter | null | undefined;
-  apropos_05?: ImageFilter | null | undefined;
-  apropos_06?: ImageFilter | null | undefined;
-  apropos_07?: ImageFilter | null | undefined;
-  apropos_08?: ImageFilter | null | undefined;
-  apropos_09?: ImageFilter | null | undefined;
-  soins_portrait?: ImageFilter | null | undefined;
-  accomp_portrait?: ImageFilter | null | undefined;
-  accomp_univers?: ImageFilter | null | undefined;
-  quint_silence?: ImageFilter | null | undefined;
-  quint_crea?: ImageFilter | null | undefined;
-  quint_resp?: ImageFilter | null | undefined;
-  quint_end?: ImageFilter | null | undefined;
-  part_meiso?: ImageFilter | null | undefined;
-  part_chanka?: ImageFilter | null | undefined;
-  part_blast?: ImageFilter | null | undefined;
-  part_tamakeapa?: ImageFilter | null | undefined;
-  part_espriterre?: ImageFilter | null | undefined;
-  part_koom?: ImageFilter | null | undefined;
-};
-
 export type Page_AgendaFilter = {
   hero_eyebrow?: StringFilter | null | undefined;
   hero_titre?: StringFilter | null | undefined;
@@ -1649,19 +1474,17 @@ export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categor
 
 export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null };
 
-export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null } | null> | null };
+export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null };
 
-export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null };
+export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null };
 
-export type Page_SoinsPartsFragment = { __typename: 'Page_soins', hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null };
+export type Page_SoinsPartsFragment = { __typename: 'Page_soins', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null };
 
 export type Page_AccompagnementPartsFragment = { __typename: 'Page_accompagnement', hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, hero_image: string | null, portrait_image: string | null, outils_image: string | null, pourqui_eyebrow: string | null, pourqui_titre: string | null, pourqui_texte: string | null, outils_eyebrow: string | null, outils_titre: string | null, outils: Array<string | null> | null, passage: string | null, formules_eyebrow: string | null, formules_titre: string | null };
 
 export type Page_QuintessencePartsFragment = { __typename: 'Page_quintessence', hero_eyebrow: string | null, hero_titre: string | null, hero_lead: string | null, hero_image: string | null, silence_image: string | null, crea_image: string | null, resp_image: string | null, fin_image: string | null, passage: string | null, citation: string | null, silence_titre: string | null, silence_texte: string | null, crea_titre: string | null, crea_texte: string | null, pratiques_eyebrow: string | null, pratiques_titre: string | null, pratiques: Array<string | null> | null, cta_texte: string | null };
 
 export type Page_ContactPartsFragment = { __typename: 'Page_contact', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null };
-
-export type ImagesPartsFragment = { __typename: 'Images', hero_accueil: string | null, hero_soins: string | null, hero_accomp: string | null, hero_agenda: string | null, hero_apropos: string | null, hero_quintessence: string | null, hero_partenaires: string | null, hero_contact: string | null, accueil_portrait: string | null, accueil_ateliers: string | null, accueil_soins: string | null, accueil_accomp: string | null, accueil_immersions: string | null, resp_01: string | null, resp_02: string | null, resp_03: string | null, art_01: string | null, art_02: string | null, art_03: string | null, art_04: string | null, apropos_01: string | null, apropos_02: string | null, apropos_03: string | null, apropos_04: string | null, apropos_05: string | null, apropos_06: string | null, apropos_07: string | null, apropos_08: string | null, apropos_09: string | null, soins_portrait: string | null, accomp_portrait: string | null, accomp_univers: string | null, quint_silence: string | null, quint_crea: string | null, quint_resp: string | null, quint_end: string | null, part_meiso: string | null, part_chanka: string | null, part_blast: string | null, part_tamakeapa: string | null, part_espriterre: string | null, part_koom: string | null };
 
 export type Page_AgendaPartsFragment = { __typename: 'Page_agenda', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null };
 
@@ -1710,7 +1533,7 @@ export type PagesQueryVariables = Exact<{
 }>;
 
 
-export type PagesQuery = { pages: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null } | null> | null } };
+export type PagesQuery = { pages: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1722,14 +1545,14 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null } | null> | null } | null } | null> | null } };
+export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } | null } | null> | null } };
 
 export type Page_AproposQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type Page_AproposQuery = { page_apropos: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null } };
+export type Page_AproposQuery = { page_apropos: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null } };
 
 export type Page_AproposConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1741,14 +1564,14 @@ export type Page_AproposConnectionQueryVariables = Exact<{
 }>;
 
 
-export type Page_AproposConnectionQuery = { page_aproposConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null } | null> | null } | null } | null> | null } };
+export type Page_AproposConnectionQuery = { page_aproposConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null } | null } | null> | null } };
 
 export type Page_SoinsQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type Page_SoinsQuery = { page_soins: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type Page_SoinsQuery = { page_soins: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type Page_SoinsConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1760,7 +1583,7 @@ export type Page_SoinsConnectionQueryVariables = Exact<{
 }>;
 
 
-export type Page_SoinsConnectionQuery = { page_soinsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type Page_SoinsConnectionQuery = { page_soinsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_soins', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type Page_AccompagnementQueryVariables = Exact<{
   relativePath: string;
@@ -1818,25 +1641,6 @@ export type Page_ContactConnectionQueryVariables = Exact<{
 
 
 export type Page_ContactConnectionQuery = { page_contactConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
-
-export type ImagesQueryVariables = Exact<{
-  relativePath: string;
-}>;
-
-
-export type ImagesQuery = { images: { __typename: 'Images', id: string, hero_accueil: string | null, hero_soins: string | null, hero_accomp: string | null, hero_agenda: string | null, hero_apropos: string | null, hero_quintessence: string | null, hero_partenaires: string | null, hero_contact: string | null, accueil_portrait: string | null, accueil_ateliers: string | null, accueil_soins: string | null, accueil_accomp: string | null, accueil_immersions: string | null, resp_01: string | null, resp_02: string | null, resp_03: string | null, art_01: string | null, art_02: string | null, art_03: string | null, art_04: string | null, apropos_01: string | null, apropos_02: string | null, apropos_03: string | null, apropos_04: string | null, apropos_05: string | null, apropos_06: string | null, apropos_07: string | null, apropos_08: string | null, apropos_09: string | null, soins_portrait: string | null, accomp_portrait: string | null, accomp_univers: string | null, quint_silence: string | null, quint_crea: string | null, quint_resp: string | null, quint_end: string | null, part_meiso: string | null, part_chanka: string | null, part_blast: string | null, part_tamakeapa: string | null, part_espriterre: string | null, part_koom: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
-
-export type ImagesConnectionQueryVariables = Exact<{
-  before?: string | null | undefined;
-  after?: string | null | undefined;
-  first?: number | null | undefined;
-  last?: number | null | undefined;
-  sort?: string | null | undefined;
-  filter?: ImagesFilter | null | undefined;
-}>;
-
-
-export type ImagesConnectionQuery = { imagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Images', id: string, hero_accueil: string | null, hero_soins: string | null, hero_accomp: string | null, hero_agenda: string | null, hero_apropos: string | null, hero_quintessence: string | null, hero_partenaires: string | null, hero_contact: string | null, accueil_portrait: string | null, accueil_ateliers: string | null, accueil_soins: string | null, accueil_accomp: string | null, accueil_immersions: string | null, resp_01: string | null, resp_02: string | null, resp_03: string | null, art_01: string | null, art_02: string | null, art_03: string | null, art_04: string | null, apropos_01: string | null, apropos_02: string | null, apropos_03: string | null, apropos_04: string | null, apropos_05: string | null, apropos_06: string | null, apropos_07: string | null, apropos_08: string | null, apropos_09: string | null, soins_portrait: string | null, accomp_portrait: string | null, accomp_univers: string | null, quint_silence: string | null, quint_crea: string | null, quint_resp: string | null, quint_end: string | null, part_meiso: string | null, part_chanka: string | null, part_blast: string | null, part_tamakeapa: string | null, part_espriterre: string | null, part_koom: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type Page_AgendaQueryVariables = Exact<{
   relativePath: string;
@@ -1928,6 +1732,15 @@ export const PagesPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
+  portrait_image
+  resp1_image
+  resp2_image
+  resp3_image
+  art1_image
+  art2_image
+  art3_image
+  art4_image
   hero_accent
   hero_paragraphe
   hero_cta
@@ -1939,6 +1752,7 @@ export const PagesPartsFragmentDoc = gql`
     titre
     texte
     cta
+    image
   }
   citation2
   citation_contact
@@ -1951,10 +1765,12 @@ export const Page_AproposPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
   chapitres {
     __typename
     titre
     texte
+    image
   }
 }
     `;
@@ -1963,6 +1779,8 @@ export const Page_SoinsPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
+  portrait_image
   coeur
   soins_eyebrow
   soins_titre
@@ -2019,53 +1837,6 @@ export const Page_ContactPartsFragmentDoc = gql`
   hero_titre
   hero_image
   intro
-}
-    `;
-export const ImagesPartsFragmentDoc = gql`
-    fragment ImagesParts on Images {
-  __typename
-  hero_accueil
-  hero_soins
-  hero_accomp
-  hero_agenda
-  hero_apropos
-  hero_quintessence
-  hero_partenaires
-  hero_contact
-  accueil_portrait
-  accueil_ateliers
-  accueil_soins
-  accueil_accomp
-  accueil_immersions
-  resp_01
-  resp_02
-  resp_03
-  art_01
-  art_02
-  art_03
-  art_04
-  apropos_01
-  apropos_02
-  apropos_03
-  apropos_04
-  apropos_05
-  apropos_06
-  apropos_07
-  apropos_08
-  apropos_09
-  soins_portrait
-  accomp_portrait
-  accomp_univers
-  quint_silence
-  quint_crea
-  quint_resp
-  quint_end
-  part_meiso
-  part_chanka
-  part_blast
-  part_tamakeapa
-  part_espriterre
-  part_koom
 }
     `;
 export const Page_AgendaPartsFragmentDoc = gql`
@@ -2549,63 +2320,6 @@ export const Page_ContactConnectionDocument = gql`
   }
 }
     ${Page_ContactPartsFragmentDoc}`;
-export const ImagesDocument = gql`
-    query images($relativePath: String!) {
-  images(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...ImagesParts
-  }
-}
-    ${ImagesPartsFragmentDoc}`;
-export const ImagesConnectionDocument = gql`
-    query imagesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ImagesFilter) {
-  imagesConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...ImagesParts
-      }
-    }
-  }
-}
-    ${ImagesPartsFragmentDoc}`;
 export const Page_AgendaDocument = gql`
     query page_agenda($relativePath: String!) {
   page_agenda(relativePath: $relativePath) {
@@ -2770,12 +2484,6 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     page_contactConnection(variables?: Page_ContactConnectionQueryVariables, options?: C): Promise<{data: Page_ContactConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_ContactConnectionQueryVariables, query: string}> {
         return requester<{data: Page_ContactConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_ContactConnectionQueryVariables, query: string}, Page_ContactConnectionQueryVariables>(Page_ContactConnectionDocument, variables, options);
-      },
-    images(variables: ImagesQueryVariables, options?: C): Promise<{data: ImagesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ImagesQueryVariables, query: string}> {
-        return requester<{data: ImagesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ImagesQueryVariables, query: string}, ImagesQueryVariables>(ImagesDocument, variables, options);
-      },
-    imagesConnection(variables?: ImagesConnectionQueryVariables, options?: C): Promise<{data: ImagesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ImagesConnectionQueryVariables, query: string}> {
-        return requester<{data: ImagesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ImagesConnectionQueryVariables, query: string}, ImagesConnectionQueryVariables>(ImagesConnectionDocument, variables, options);
       },
     page_agenda(variables: Page_AgendaQueryVariables, options?: C): Promise<{data: Page_AgendaQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AgendaQueryVariables, query: string}> {
         return requester<{data: Page_AgendaQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AgendaQueryVariables, query: string}, Page_AgendaQueryVariables>(Page_AgendaDocument, variables, options);

@@ -57,6 +57,15 @@ export const PagesPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
+  portrait_image
+  resp1_image
+  resp2_image
+  resp3_image
+  art1_image
+  art2_image
+  art3_image
+  art4_image
   hero_accent
   hero_paragraphe
   hero_cta
@@ -68,6 +77,7 @@ export const PagesPartsFragmentDoc = gql`
     titre
     texte
     cta
+    image
   }
   citation2
   citation_contact
@@ -80,10 +90,12 @@ export const Page_AproposPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
   chapitres {
     __typename
     titre
     texte
+    image
   }
 }
     `;
@@ -92,6 +104,8 @@ export const Page_SoinsPartsFragmentDoc = gql`
   __typename
   hero_eyebrow
   hero_titre
+  hero_image
+  portrait_image
   coeur
   soins_eyebrow
   soins_titre
@@ -148,53 +162,6 @@ export const Page_ContactPartsFragmentDoc = gql`
   hero_titre
   hero_image
   intro
-}
-    `;
-export const ImagesPartsFragmentDoc = gql`
-    fragment ImagesParts on Images {
-  __typename
-  hero_accueil
-  hero_soins
-  hero_accomp
-  hero_agenda
-  hero_apropos
-  hero_quintessence
-  hero_partenaires
-  hero_contact
-  accueil_portrait
-  accueil_ateliers
-  accueil_soins
-  accueil_accomp
-  accueil_immersions
-  resp_01
-  resp_02
-  resp_03
-  art_01
-  art_02
-  art_03
-  art_04
-  apropos_01
-  apropos_02
-  apropos_03
-  apropos_04
-  apropos_05
-  apropos_06
-  apropos_07
-  apropos_08
-  apropos_09
-  soins_portrait
-  accomp_portrait
-  accomp_univers
-  quint_silence
-  quint_crea
-  quint_resp
-  quint_end
-  part_meiso
-  part_chanka
-  part_blast
-  part_tamakeapa
-  part_espriterre
-  part_koom
 }
     `;
 export const Page_AgendaPartsFragmentDoc = gql`
@@ -678,63 +645,6 @@ export const Page_ContactConnectionDocument = gql`
   }
 }
     ${Page_ContactPartsFragmentDoc}`;
-export const ImagesDocument = gql`
-    query images($relativePath: String!) {
-  images(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...ImagesParts
-  }
-}
-    ${ImagesPartsFragmentDoc}`;
-export const ImagesConnectionDocument = gql`
-    query imagesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ImagesFilter) {
-  imagesConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...ImagesParts
-      }
-    }
-  }
-}
-    ${ImagesPartsFragmentDoc}`;
 export const Page_AgendaDocument = gql`
     query page_agenda($relativePath: String!) {
   page_agenda(relativePath: $relativePath) {
@@ -898,12 +808,6 @@ export function getSdk(requester) {
     },
     page_contactConnection(variables, options) {
       return requester(Page_ContactConnectionDocument, variables, options);
-    },
-    images(variables, options) {
-      return requester(ImagesDocument, variables, options);
-    },
-    imagesConnection(variables, options) {
-      return requester(ImagesConnectionDocument, variables, options);
     },
     page_agenda(variables, options) {
       return requester(Page_AgendaDocument, variables, options);
