@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
+import Etapes from '../../components/Etapes.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
@@ -74,6 +75,8 @@ const jsonld = [
       )}
     </div>
   </section>
+
+  <Etapes etapes={d.etapes} />
 
   {d.resume && (
     <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>

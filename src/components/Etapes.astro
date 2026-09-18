@@ -1,0 +1,25 @@
+---
+// « Comment ça se passe » : les étapes d'un soin ou d'un accompagnement, illustrées.
+import Icone from './Icone.astro';
+const { etapes = [], titre = 'Comment ça se passe' } = Astro.props;
+---
+{etapes.length > 0 && (
+  <section class="etapes-bloc">
+    <div class="wrap">
+      <div class="tete">
+        <p class="eyebrow">Le déroulé</p>
+        <h2>{titre}</h2>
+      </div>
+      <ol class="etapes" style={`--n:${etapes.length}`}>
+        {etapes.map((e, i) => (
+          <li class="etape">
+            <span class="etape__picto"><Icone nom={e.picto ?? 'etoile'} taille={22} /></span>
+            <span class="etape__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="etape__titre">{e.titre}</h3>
+            {e.texte && <p class="etape__texte">{e.texte}</p>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+)}

@@ -149,3 +149,57 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .apercu-lore p { font-size: 0.88rem; line-height: 1.55; color: #C2C5D2; margin-top: 0.45rem; }
 .apercu-lore a { display: inline-block; margin-top: 0.7rem; font-family: 'Jost', sans-serif; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--indigo-soft); }
 .apercu-lore a:hover { color: var(--cream); }
+
+/* ── Comment ça se passe : étapes illustrées ── */
+.etapes { list-style: none; position: relative; display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: clamp(1.4rem, 3vw, 2.4rem); }
+.etapes::before { content: ''; position: absolute; top: 1.75rem; left: 1.75rem; right: 1.75rem; height: 1px; background: linear-gradient(to right, rgba(216,162,76,0.5), rgba(163,168,255,0.45)); }
+.etape { position: relative; }
+.etape__picto { position: relative; display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--navy); border: 1px solid rgba(216,162,76,0.55); color: var(--gold); box-shadow: 0 0 0 6px var(--navy); }
+.etape__num { display: block; margin-top: 1.3rem; font-family: 'EB Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.95rem; }
+.etape__titre { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.95rem; color: var(--cream); margin-top: 0.3rem; }
+.etape__texte { color: #C2C5D2; font-size: 0.95rem; line-height: 1.7; margin-top: 0.7rem; }
+@media (max-width: 860px) {
+  .etapes { grid-template-columns: 1fr; gap: 2rem; }
+  .etapes::before { top: 1.75rem; bottom: 1.75rem; left: 1.75rem; right: auto; width: 1px; height: auto; background: linear-gradient(to bottom, rgba(216,162,76,0.5), rgba(163,168,255,0.45)); }
+  .etape { padding-left: 5rem; }
+  .etape__picto { position: absolute; left: 0; top: 0; }
+  .etape__num { margin-top: 0.2rem; }
+}
+
+/* ── Rosace : l'essence au centre, les cinq univers autour ── */
+.rosace { position: relative; width: min(100%, 980px); margin: 0 auto; aspect-ratio: 1000 / 760; }
+.rosace__traits { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rosace__coeur { fill: var(--surface); stroke: rgba(216,162,76,0.3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rosace__orbite { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rosace__pentagone { fill: none; stroke: rgba(216,162,76,0.22); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rosace__etoile { fill: none; stroke: rgba(163,168,255,0.14); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rosace__rayon { stroke: rgba(216,162,76,0.45); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 1.6s var(--ease, ease), stroke 0.3s, opacity 0.3s; }
+.rosace.vu .rosace__rayon { stroke-dashoffset: 0; }
+.rosace__rayon.on { stroke: var(--coral); }
+.rosace[data-actif] .rosace__rayon:not(.on) { opacity: 0.25; }
+.rosace[data-actif] .rosace__noeud:not(:hover) { opacity: 0.45; }
+
+.rosace__centre { position: absolute; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
+.rosace__mot { display: block; font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1; color: var(--cream); white-space: nowrap; }
+.rosace__note { display: block; margin-top: 0.6rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.62rem; color: var(--gold); }
+
+.rosace__noeud { position: absolute; width: 210px; transform: translate(-50%, -26px); display: flex; flex-direction: column; align-items: center; text-align: center; transition: opacity 0.3s; }
+.rosace__noeud--haut { flex-direction: column-reverse; transform: translate(-50%, calc(-100% + 26px)); }
+.rosace__icone { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--navy); border: 1px solid rgba(163,168,255,0.4); color: var(--indigo-soft); box-shadow: 0 0 0 7px var(--surface); transition: border-color 0.3s, color 0.3s, box-shadow 0.3s; }
+.rosace__icone svg { width: 22px; height: 22px; }
+.rosace__texte { display: block; margin-top: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 10px; background: rgba(17,26,56,0.88); }
+.rosace__noeud--haut .rosace__texte { margin: 0 0 0.7rem; }
+.rosace__nom { display: block; font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.2rem; color: var(--cream); line-height: 1.2; }
+.rosace__desc { display: block; margin-top: 0.35rem; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
+.rosace__noeud:hover .rosace__icone { border-color: var(--coral); color: var(--cream); box-shadow: 0 0 0 7px var(--surface), 0 0 26px rgba(240,122,95,0.35); }
+@media (prefers-reduced-motion: reduce) { .rosace__rayon { transition: none; stroke-dashoffset: 0; } }
+
+@media (max-width: 760px) {
+  .rosace__noeud { width: 118px; transform: translate(-50%, -20px); }
+  .rosace__noeud--haut { transform: translate(-50%, calc(-100% + 20px)); }
+  .rosace__icone { width: 40px; height: 40px; }
+  .rosace__icone svg { width: 18px; height: 18px; }
+  .rosace__nom { font-size: 0.95rem; }
+  .rosace__desc { display: none; }
+  .rosace__mot { font-size: 1.9rem; }
+}

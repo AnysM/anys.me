@@ -18,6 +18,19 @@ tarifs:
     prix: "600€"
     detail: "3 jours en individuel, hors logement et repas"
 ordre: 1
+etapes:
+  - titre: "Un premier échange"
+    picto: parole
+    texte: "On se parle de ce que tu traverses, pour sentir si c'est juste de cheminer ensemble."
+  - titre: "Le cadre"
+    picto: chemin
+    texte: "En ligne sur 1, 3 ou 6 mois, ou en immersion individuelle de 3 jours, selon ton besoin."
+  - titre: "Les séances"
+    picto: souffle
+    texte: "1h à 1h30, avec les outils qui te servent : présence, mouvement, archétypes, connaissance de soi."
+  - titre: "L'incarnation"
+    picto: graine
+    texte: "Entre les séances, tu expérimentes. Petit à petit, la vision devient ton prochain pas."
 ---
 Un accompagnement pour venir travailler en profondeur et sur la durée. Sur mesure, en fonction du besoin : soit un accompagnement en ligne, soit une immersion de 3 jours en individuel.
 

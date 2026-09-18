@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import Sigils from '../components/Sigils.astro';
 import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
+import Rosace from '../components/Rosace.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { codex, propositions } from '../lib/monde';
@@ -71,16 +72,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
-      <div class="piliers">
-        {piliers.map((u) => (
-          <a class="pilier" href={`/codex#${u.id}`}>
-            <div class="pilier__icon"><Fragment set:html={u.icon} /></div>
-            <div class="pilier__name">{u.nom}</div>
-            <div class="pilier__desc">{u.note}</div>
-            <span class="pilier__more">Explorer →</span>
-          </a>
-        ))}
-      </div>
+      <Rosace univers={piliers} centre={acc.piliers_centre ?? 'L’essence'} centreNote={acc.piliers_centre_note ?? 'ce qui relie tout'} />
     </div>
   </section>
 

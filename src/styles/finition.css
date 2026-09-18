@@ -86,3 +86,8 @@ section { padding: var(--section) 0; }
   .pilier__desc { font-size: 0.84rem; }
   .pilier__more { display: none; }
 }
+
+/* La manuscrite reste pour les titres et les grandes phrases ;
+   dans un paragraphe, *mot* devient un italique Garamond lisible */
+p .script { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1em; letter-spacing: 0; color: var(--cream); }
+p a.lore .script, p .script a.lore { color: var(--indigo-soft); }

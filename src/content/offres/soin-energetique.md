@@ -7,6 +7,19 @@ format: "Sur rendez-vous"
 tag: "Soin subtil"
 resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
 ordre: 2
+etapes:
+  - titre: "L'accueil"
+    picto: accueil
+    texte: "On prend le temps d'échanger sur ce que tu traverses et sur ce qui t'amène."
+  - titre: "Le soin"
+    picto: mains
+    texte: "Majoritairement sans contact, parfois un contact ponctuel à la tête ou aux pieds, pour purifier et réharmoniser ta sphère énergétique."
+  - titre: "Le chant"
+    picto: son
+    texte: "Selon le besoin, des chants ou un instant musical viennent soutenir le processus."
+  - titre: "L'intégration"
+    picto: graine
+    texte: "Un temps pour revenir doucement et laisser le soin continuer d'agir."
 ---
 Un soin profond de purification et de réharmonisation de la sphère énergétique.
 
