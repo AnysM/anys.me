@@ -3,13 +3,13 @@ hero_eyebrow: Présence · Mouvement · Créativité
 hero_titre: Marcher un chemin qui
 hero_image: /img/univers-art.jpg
 portrait_image: /img/portrait.jpg
-resp1_image: /img/IMG_20221201_132141-EDIT.jpg
-resp2_image: /img/IMG_20230205_110739.jpg
-resp3_image: /img/IMG_20230103_182213.jpg
-art1_image: ''
-art2_image: ''
-art3_image: ''
-art4_image: ''
+resp1_image: /img/michael-c-Ofb4nzmv7uM-unsplash.jpg
+resp2_image: /img/harshitha-b-j-XDMfaQ47Uow-unsplash.jpg
+resp3_image: /img/mathew-schwartz-ZLec57sOjlg-unsplash.jpg
+art1_image: /img/IMG_5904.PNG
+art2_image: /img/IMG_5911.PNG
+art3_image: /img/IMG_5916.PNG
+art4_image: /img/IMG_5908.PNG
 hero_accent: te ressemble vraiment.
 hero_paragraphe: 'J''accompagne les transitions de vie, avec des outils ancrés dans la connaissance de soi, le retour à la présence, le mouvement et la créativité, pour **faire de la crise une opportunité d''alignement** et d''évolution.'
 hero_cta: Voir les prochains événements
