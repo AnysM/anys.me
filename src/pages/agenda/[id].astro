@@ -4,6 +4,9 @@ import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
 import { codexDe } from '../../lib/monde';
+import Temoignages from '../../components/Temoignages.astro';
+import Faq from '../../components/Faq.astro';
+import Lettre from '../../components/Lettre.astro';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 const ICONES = { 'Quand': 'date', 'Lieu': 'lieu', 'Tarif': 'prix', 'Early bird': 'duree' };
@@ -101,11 +104,15 @@ const jsonld = [
   </section>
 
 
+  <Temoignages temoignages={d.temoignages} />
+  <Faq faq={d.faq} titre="Avant de venir" />
+  {!d.date && !d.reservable && <Lettre eyebrow="Prochaine édition" titre="Être *prévenu*" texte={`Les dates de ${d.titre} ne sont pas encore annoncées. Laisse ton email : tu seras informé avant l'ouverture publique.`} bouton="Préviens-moi" source={`attente-${e.id}`} />}
+
   <section class="invite">
     <div class="narrow">
       <p class="eyebrow">Une question</p>
       <h2>Envie d'en savoir plus ?</h2>
-      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement, ou réservons un temps ensemble.</p>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement. Je te réponds sous 48 h.</p>
       <div class="invite__btns">
         <a class="btn btn--solid" href={contact}>Écris-moi</a>
         {appel && <a class="btn" href={appel} target="_blank" rel="noopener">Prendre un appel</a>}

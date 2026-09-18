@@ -13,6 +13,7 @@
 }
 
 section { padding: var(--section) 0; }
+[hidden] { display: none !important; }
 ::selection { background: rgba(107,107,255,0.35); color: var(--cream); }
 :focus-visible { outline: 1px solid var(--indigo-soft); outline-offset: 4px; }
 .ico { display: inline-block; flex-shrink: 0; vertical-align: -0.12em; }

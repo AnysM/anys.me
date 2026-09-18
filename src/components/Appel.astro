@@ -1,0 +1,19 @@
+---
+// L'action principale vers un accompagnement : réserver un appel découverte si le lien existe
+// (Tina › Contact › lien de réservation), sinon écrire. « pour » préremplit le message.
+import { getEntry } from 'astro:content';
+const { pour = '', secondaire = true, centre = false } = Astro.props;
+const cc = (await getEntry('pages', 'contact'))!.data;
+const lien = cc.appel_lien;
+const contact = pour ? `/contact?pour=${encodeURIComponent(pour)}` : '/contact';
+---
+<div class="appel" style={centre ? 'justify-content:center;' : undefined}>
+  {lien ? (
+    <Fragment>
+      <a class="btn btn--solid" href={lien} target="_blank" rel="noopener" data-evt="Appel">{cc.appel_cta ?? 'Réserver un appel découverte'}</a>
+      {secondaire && <a class="btn" href={contact}>Écris-moi</a>}
+    </Fragment>
+  ) : (
+    <a class="btn btn--solid" href={contact} data-evt="Contact">Écris-moi</a>
+  )}
+</div>

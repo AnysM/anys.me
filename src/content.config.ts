@@ -31,6 +31,8 @@ const agenda = defineCollection({
     ordre: z.number().default(0),
     publie: z.boolean().default(true),
     seuil,
+    temoignages: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
+    faq: z.array(z.object({ q: z.string(), r: z.string() })).optional(),
   }),
 });
 
@@ -52,6 +54,9 @@ const offres = defineCollection({
     ordre: z.number().default(0),
     publie: z.boolean().default(true),
     seuil,
+    temoignages: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
+    faq: z.array(z.object({ q: z.string(), r: z.string() })).optional(),
+    benefices: z.array(z.string()).optional(),
   }),
 });
 

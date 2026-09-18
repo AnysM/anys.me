@@ -22,6 +22,8 @@ const ogImage = new URL(image, Astro.site);
 const lexique = JSON.stringify(Object.fromEntries(
   (await getCollection('codex')).filter((c) => c.data.publie).map((c) => [c.id, { t: c.data.titre, y: typeLabel(c.data.type), r: c.data.resume ?? '' }]),
 )).replace(/</g, '\\u003c');
+// Statistiques sans cookies : actives seulement si PUBLIC_PLAUSIBLE_DOMAIN est défini (Netlify › variables)
+const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
@@ -56,6 +58,8 @@ const links = [
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <script type="application/ld+json" set:html={graphe} />
+  {plausible && <script defer data-domain={plausible} src="https://plausible.io/js/script.outbound-links.js"></script>}
+  {plausible && <script is:inline>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };</script>}
   <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -189,6 +193,32 @@ const links = [
         requestAnimationFrame(loop);
       }
       requestAnimationFrame(loop);
+    })();
+  </script>
+  <script is:inline>
+    (function () {
+      // Conversions : clics sur les actions et envois de formulaires marqués data-evt
+      function envoyer(nom, props) { if (window.plausible) window.plausible(nom, { props: props }); }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[data-evt]');
+        if (a) envoyer(a.dataset.evt, { page: location.pathname });
+      });
+      document.addEventListener('submit', function (e) {
+        var f = e.target;
+        if (f.matches('form[name="contact"]')) envoyer('Formulaire contact', { interet: (f.interet && f.interet.value) || '' });
+        if (f.matches('form[name="lettre"]')) envoyer('Inscription lettre', { source: (f.source && f.source.value) || '' });
+      });
+      // Barre d'action mobile : apparaît après le haut de page, s'efface près de l'invitation finale
+      var barre = document.querySelector('.barre-action');
+      if (barre) {
+        var fin = document.querySelector('.invite, .detail-foot');
+        var maj = function () {
+          var passe = window.scrollY > window.innerHeight * 0.6;
+          var proche = fin && fin.getBoundingClientRect().top < window.innerHeight;
+          barre.classList.toggle('visible', passe && !proche);
+        };
+        window.addEventListener('scroll', maj, { passive: true }); maj();
+      }
     })();
   </script>
   <script type="application/json" id="lexique" set:html={lexique} />

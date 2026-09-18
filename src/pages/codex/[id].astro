@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Sigils from '../../components/Sigils.astro';
 import Quete from '../../components/Quete.astro';
 import Icone from '../../components/Icone.astro';
+import Lettre from '../../components/Lettre.astro';
 import { render } from 'astro:content';
 import { MINIMUM_SEO } from '../../lib/lore.mjs';
 import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
@@ -108,6 +109,8 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
   )}
 
   </article>
+
+  <Lettre eyebrow="La lettre" titre="Continuer *l'exploration*" texte="Une fois par mois : un texte du Codex, une pratique, les prochaines dates." source={`codex-${f.id}`} />
 
   <section class="detail-foot">
     <div class="wrap detail-nav">

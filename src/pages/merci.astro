@@ -1,13 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
 ---
 <Base title="Merci — Anys Mechkar" noindex>
-  <section style="min-height:70vh; display:flex; align-items:center;">
+  <section style="min-height:72vh; display:flex; align-items:center;">
     <div class="narrow" style="text-align:center;">
-      <p class="eyebrow" style="justify-content:center;">Message envoyé</p>
+      <p class="eyebrow" style="justify-content:center;" data-msg="contact">Message envoyé</p>
+      <p class="eyebrow" style="justify-content:center;" data-msg="lettre" hidden>Inscription confirmée</p>
       <h1 style="margin-top:1rem;">Merci</h1>
-      <p class="lead" style="margin:1.4rem auto 0;">J'ai bien reçu ton message, je te réponds vite.</p>
-      <p style="margin-top:2rem;"><a class="cta" href="/">← Retour à l'accueil</a></p>
+      <p class="lead" style="margin:1.4rem auto 0;" data-msg="contact">J'ai bien reçu ton message. Je te réponds sous 48 h, souvent avant.</p>
+      <p class="lead" style="margin:1.4rem auto 0;" data-msg="lettre" hidden>Tu fais maintenant partie de la lettre. Tu recevras les prochaines dates et les ouvertures en premier.</p>
+
+      <p class="rune" style="margin-top:3.2rem;">En attendant</p>
+      <div class="suite">
+        <a href="/agenda"><Icone nom="date" taille={20} /><b>Les prochaines dates</b><span>Ateliers, voyages sonores, cercles, retraites</span></a>
+        <a href="/codex"><Icone nom="carte" taille={20} /><b>Explorer le Codex</b><span>Les pratiques et notions qui nourrissent le chemin</span></a>
+        <a href="https://www.instagram.com/anys.mechkar/" target="_blank" rel="noopener"><Icone nom="etoile" taille={20} /><b>Instagram</b><span>Le quotidien, les créations, les annonces</span></a>
+      </div>
+      <p style="margin-top:2.4rem;"><a class="cta" href="/">← Retour à l'accueil</a></p>
     </div>
   </section>
+  <script is:inline>
+    (function () {
+      if (new URLSearchParams(location.search).get('pour') !== 'lettre') return;
+      document.querySelectorAll('[data-msg="contact"]').forEach(function (e) { e.hidden = true; });
+      document.querySelectorAll('[data-msg="lettre"]').forEach(function (e) { e.hidden = false; });
+    })();
+  </script>
 </Base>

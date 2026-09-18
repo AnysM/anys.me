@@ -4,6 +4,10 @@ import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
 import Etapes from '../../components/Etapes.astro';
+import Appel from '../../components/Appel.astro';
+import Temoignages from '../../components/Temoignages.astro';
+import Faq from '../../components/Faq.astro';
+import Lettre from '../../components/Lettre.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
@@ -34,8 +38,9 @@ const avec = lies.filter((f) => f.data.type === 'allie');
 const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
-const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
+const prixDepart = d.prix && /\d/.test(d.prix) ? d.prix : d.tarifs?.length ? `dès ${[...d.tarifs].sort((a, b) => parseInt(a.prix) - parseInt(b.prix))[0].prix}` : null;
 const desc = description(d.resume, o.body);
 const montant = (t?: string) => (t && /\d/.test(t) ? t.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : null);
 const offres = (d.tarifs ?? [{ label: d.titre, prix: d.prix ?? '' }])
@@ -59,7 +64,14 @@ const jsonld = [
 <Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
   <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
-      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
+      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
+      {!enPreparation && (
+        <div class="offre-action">
+          {prixDepart && <span class="offre-action__prix">{prixDepart}{d.duree && <small> · {d.duree}</small>}</span>}
+          {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} secondaire={false} />}
+        </div>
+      )}
+    </div>
   </section>
 
   <section>
@@ -76,42 +88,52 @@ const jsonld = [
     </div>
   </section>
 
-  <Etapes etapes={d.etapes} />
-
-  {d.resume && (
-    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
-  )}
-
-  {(infos.length > 0 || d.tarifs) && (
-    <section class="bloc-or">
+  {d.benefices?.length > 0 && (
+    <section class="bloc benefices">
       <div class="narrow">
-        <p class="eyebrow">Infos & tarifs</p>
-        {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
-        {d.tarifs && <div class="tarifs" style="margin-top:1.2rem;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
+        <div class="tete"><p class="eyebrow">Ce que tu repars avec</p><h2>Ce que ça peut <span class="script">ouvrir</span></h2></div>
+        <ul class="benefices__liste">{d.benefices.map((b) => <li><Icone nom="etoile" taille={16} /><span>{b}</span></li>)}</ul>
       </div>
     </section>
   )}
 
+  <Etapes etapes={d.etapes} />
 
-  <section class="invite">
-    <div class="narrow">
-      <p class="eyebrow">Un premier pas</p>
-      <h2>{soin ? 'Envie de prendre soin de toi ?' : "Envie d'en parler ?"}</h2>
-      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi un mot, ou réservons un temps ensemble. Je réponds à chaque message.</p>
-      <div class="invite__btns">
-        {soin ? (
-          <Fragment>
-            <a class="btn btn--solid" href={contact}>Prendre rendez-vous</a>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <a class="btn btn--solid" href={contact}>Écris-moi</a>
-            {appel && <a class="btn" href={appel} target="_blank" rel="noopener">Prendre un appel</a>}
-          </Fragment>
-        )}
+  <Temoignages temoignages={d.temoignages} />
+
+  {enPreparation ? (
+    <Lettre eyebrow="En préparation" titre="Être *prévenu*" texte={`${d.titre} se prépare. Laisse ton email : tu seras parmi les premiers informés, avant l'annonce publique.`} bouton="Préviens-moi" source={`attente-${o.id}`} />
+  ) : (
+    <Fragment>
+      {(infos.length > 0 || d.tarifs) && (
+        <section class="bloc-or" id="tarifs">
+          <div class="narrow">
+            <p class="eyebrow">Infos & tarifs</p>
+            {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
+            {d.tarifs && <div class="tarifs" style="margin-top:1.2rem;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
+          </div>
+        </section>
+      )}
+
+      <Faq faq={d.faq} />
+
+      <section class="invite">
+        <div class="narrow">
+          <p class="eyebrow">Un premier pas</p>
+          <h2>{soin ? 'Envie de prendre soin de toi ?' : "Envie d'en parler ?"}</h2>
+          <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">{soin ? 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.' : 'Un premier échange pour sentir si c’est juste de cheminer ensemble. Je te réponds sous 48 h.'}</p>
+          <div class="invite__btns">
+            {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}
+          </div>
+        </div>
+      </section>
+
+      <div class="barre-action">
+        <span class="barre-action__titre">{d.titre}{prixDepart && <small>{prixDepart}</small>}</span>
+        {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Réserver</a> : <Appel pour={d.titre} secondaire={false} />}
       </div>
-    </div>
-  </section>
+    </Fragment>
+  )}
 
   <section class="detail-foot">
     <div class="wrap detail-nav">

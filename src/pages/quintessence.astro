@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getEntry } from 'astro:content';
+import Lettre from '../components/Lettre.astro';
 const qc = (await getEntry('pages', 'quintessence')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const pratiques = qc.pratiques ?? [];
 ---
-<Base title="Quintessence — Anys Mechkar">
+<Base title="Quintessence — retraite de silence et de créativité | Anys Mechkar" description="Quintessence : 3 jours de silence, 2 jours de créativité. Méditation, danse Butô, chant, cercles de parole et rituels, en France. Inscris-toi pour la prochaine édition.">
   <!-- HERO -->
   <section class="page-hero" style="min-height:64vh;">{qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="wrap"><p class="eyebrow">{qc.hero_eyebrow}</p><h1 style="font-size:clamp(2.4rem,6vw,4rem);">{qc.hero_titre}</h1><p class="lead" style="margin-top:1rem;">{qc.hero_lead}</p></div>
@@ -24,14 +25,14 @@ const pratiques = qc.pratiques ?? [];
   <!-- LE VOYAGE (image + texte) -->
   <section style="padding:0;">
     <div class="univers">
-      <div class="univers__img">{qc.silence_image ? <img class="slot-img" src={qc.silence_image} alt="" /> : <div class="imgph"><span>QUINT-SILENCE</span></div>}</div>
+      <div class="univers__img">{qc.silence_image ? <img class="slot-img" src={qc.silence_image} alt="" /> : <div class="imgph"></div>}</div>
       <div class="univers__body">
         <h2>{qc.silence_titre}</h2>
         <p>{qc.silence_texte}</p>
       </div>
     </div>
     <div class="univers rev">
-      <div class="univers__img">{qc.crea_image ? <img class="slot-img" src={qc.crea_image} alt="" /> : <div class="imgph"><span>QUINT-CREA</span></div>}</div>
+      <div class="univers__img">{qc.crea_image ? <img class="slot-img" src={qc.crea_image} alt="" /> : <div class="imgph"></div>}</div>
       <div class="univers__body">
         <h2>{qc.crea_titre}</h2>
         <p>{qc.crea_texte}</p>
@@ -48,12 +49,6 @@ const pratiques = qc.pratiques ?? [];
     </div>
   </section>
 
-  <!-- GALERIE (emplacements photo dédiés) -->
-  <section class="striptease">
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-  </section>
 
   <!-- INFOS -->
   <section>
@@ -70,12 +65,6 @@ const pratiques = qc.pratiques ?? [];
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="breath" style="min-height:40vh;">
-    {qc.fin_image ? <img src={qc.fin_image} alt="" /> : <div class="ph-band"></div>}
-    <div class="phrase" style="display:flex;flex-direction:column;align-items:center;gap:1.6rem;">
-      {qc.cta_texte}
-      <a class="btn" href="mailto:contact@anys.me?subject=Quintessence" style="font-style:normal;">Écrire à Anys</a>
-    </div>
-  </section>
+  <!-- LISTE D'ATTENTE -->
+  <Lettre eyebrow="Prochaine édition" titre="Être *prévenu*" texte={qc.cta_texte ? `${qc.cta_texte} Laisse ton email : tu seras informé des dates avant l'ouverture publique.` : "Laisse ton email : tu seras informé des dates avant l'ouverture publique."} bouton="Préviens-moi" source="attente-quintessence" />
 </Base>

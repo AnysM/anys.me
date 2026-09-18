@@ -20,6 +20,16 @@ etapes:
   - titre: "L'intégration"
     picto: graine
     texte: "Un temps de repos pour laisser le soin s'ancrer en profondeur avant de repartir."
+benefices:
+  - "De l'ancrage et de la sécurité"
+  - "De la détente, profonde"
+  - "De la clarté et du dynamisme"
+  - "De la confiance, dans ton corps"
+faq:
+  - q: "Où ont lieu les soins ?"
+    r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
+  - q: "Comment réserver ?"
+    r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble. Je te réponds sous 48 h."
 ---
 Un massage sur mesure et intuitif, qui vient délier en profondeur les tensions et faire circuler l'énergie stagnante. Un toucher profond, doux et subtil. Un massage qui purifie, délie, harmonise et dynamise.
 

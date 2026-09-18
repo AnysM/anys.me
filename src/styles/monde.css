@@ -238,3 +238,66 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
   .rosace__legende { position: static; transform: none; width: auto; margin-top: 0.8rem; }
 }
 .rosace__legende .rosace__nom { background: var(--surface); padding: 0.15rem 0.5rem; }
+
+/* ════════════════════════════════
+   CONVERSION — appel, lettre, preuves, questions
+   ════════════════════════════════ */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.appel { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+
+/* Action visible dès le haut d'une offre */
+.offre-action { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin-top: 1.8rem; }
+.offre-action__prix { font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--cream); }
+.offre-action__prix small { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); }
+
+/* Ce que tu repars avec */
+.benefices__liste { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.1rem 2rem; }
+.benefices__liste li { display: flex; gap: 0.8rem; align-items: baseline; color: #D5D6E0; font-size: 1.02rem; line-height: 1.6; }
+.benefices__liste .ico { color: var(--gold); transform: translateY(2px); }
+
+/* Témoignages sur les offres */
+.temoins-offre__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.6rem; }
+.temoins-offre blockquote p { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.28rem; line-height: 1.55; color: var(--cream); max-width: none; }
+.temoins-offre figcaption { margin-top: 1rem; }
+
+/* Questions fréquentes */
+.faq__item { border-bottom: 1px solid var(--faint); }
+.faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; font-family: 'EB Garamond', serif; font-size: 1.22rem; color: var(--cream); }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after { content: '+'; font-family: 'Jost', sans-serif; font-weight: 300; font-size: 1.4rem; color: var(--gold); line-height: 1; transition: transform 0.3s; }
+.faq__item[open] summary::after { transform: rotate(45deg); }
+.faq__item p { color: #C2C5D2; line-height: 1.8; padding: 0 0 1.4rem; max-width: 60ch; }
+
+/* La lettre */
+.lettre__form { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
+.lettre__form input { flex: 1 1 200px; max-width: 260px; background: rgba(255,255,255,0.03); border: 1px solid var(--faint); border-radius: 14px; padding: 1em 1.15em; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.98rem; }
+.lettre__form input:focus { outline: none; border-color: var(--gold); }
+.lettre__note { text-align: center; margin: 1rem auto 0; font-size: 0.8rem; color: var(--muted); }
+@media (max-width: 640px) { .lettre__form input { max-width: none; } .lettre__form .btn { width: 100%; justify-content: space-between; } }
+
+/* Barre d'action fixe sur mobile (offres) */
+.barre-action { display: none; }
+@media (max-width: 760px) {
+  .barre-action { position: fixed; left: 0; right: 0; bottom: 0; z-index: 150; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.7rem 0.8rem 0.7rem 1.1rem; padding-bottom: calc(0.7rem + env(safe-area-inset-bottom)); background: rgba(10,15,32,0.94); border-top: 1px solid var(--faint); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transform: translateY(110%); transition: transform 0.4s var(--ease, ease); }
+  .barre-action.visible { transform: none; }
+  .barre-action__titre { font-family: 'EB Garamond', serif; font-size: 1.02rem; color: var(--cream); line-height: 1.2; display: flex; flex-direction: column; }
+  .barre-action__titre small { font-family: 'Jost', sans-serif; font-size: 0.72rem; color: var(--gold); letter-spacing: 0.06em; }
+  .barre-action .btn { font-size: 0.68rem; letter-spacing: 0.14em; }
+  .barre-action .appel { flex-wrap: nowrap; }
+}
+
+/* Merci : les prochaines étapes */
+.suite { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.2rem; text-align: left; }
+.suite a { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.3rem 1.3rem 1.4rem; border: 1px solid var(--faint); border-radius: 20px; background: var(--surface); transition: border-color 0.3s; }
+.suite a:hover { border-color: rgba(216,162,76,0.5); }
+.suite .ico { color: var(--gold); margin-bottom: 0.4rem; }
+.suite b { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.2rem; color: var(--cream); }
+.suite span { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 2rem; margin-top: 26px; }
+.temoin--court { margin-top: 2.4rem; padding-top: 1.6rem; border-top: 1px solid var(--faint); }
+.temoin--court blockquote p { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; line-height: 1.55; color: var(--cream); }
+.temoin--court figcaption { margin-top: 0.7rem; }
+.temoin--court cite { font-style: normal; font-family: 'Jost', sans-serif; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.temoin--court cite b { color: var(--gold); font-weight: 500; }
+.temoins-offre cite { font-style: normal; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.temoins-offre cite b { color: var(--gold); font-weight: 500; }

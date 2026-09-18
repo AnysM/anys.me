@@ -6,6 +6,8 @@ import Sigils from '../components/Sigils.astro';
 import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
 import Rosace from '../components/Rosace.astro';
+import Appel from '../components/Appel.astro';
+import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { codex, propositions } from '../lib/monde';
@@ -35,6 +37,8 @@ const dates = (await getCollection('agenda'))
   .slice(0, 3);
 
 const temoins = acc.temoins ?? [];
+const temoinAccomp = temoins.find((x) => /accompagnement/i.test(x.c ?? '')) ?? temoins[0];
+const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
 const fiches = await codex();
 const apercu = ['pratique', 'notion', 'rencontre', 'realisation'].flatMap((t) => fiches.filter((f) => f.data.type === t).slice(0, 2));
@@ -48,7 +52,11 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
       <p class="eyebrow">{acc.hero_eyebrow}</p>
       <h1 class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></h1>
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
-      <a class="cta" href="#seuils" style="margin-top:24px;">{acc.hero_cta} <span class="line"></span></a>
+      {appelLien ? (
+        <div class="hero-actions"><Appel secondaire={false} /><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
+      ) : (
+        <a class="cta" href="#seuils" style="margin-top:24px;">{acc.hero_cta} <span class="line"></span></a>
+      )}
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
@@ -61,6 +69,12 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
         <h2 set:html={fmt(acc.parcours_titre)}></h2>
         <p class="muted" set:html={tisser(acc.parcours_texte, ctx)}></p>
         <a class="cta" href="/a-propos" style="margin-top:22px;">{acc.parcours_cta} <span class="line"></span></a>
+        {temoinAccomp && (
+          <figure class="temoin temoin--court">
+            <blockquote><p>« {temoinAccomp.t} »</p></blockquote>
+            <figcaption><cite><b>{temoinAccomp.n}</b>{temoinAccomp.c && ` — ${temoinAccomp.c}`}</cite></figcaption>
+          </figure>
+        )}
       </div>
     </div>
   </section>
@@ -175,6 +189,9 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
       )}
     </div>
   </section>
+
+  <!-- LA LETTRE -->
+  <Lettre source="accueil" />
 
   <!-- L'INVITATION -->
   <section class="breath" style="min-height:38vh;">

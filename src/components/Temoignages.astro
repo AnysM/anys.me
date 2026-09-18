@@ -1,0 +1,19 @@
+---
+// Témoignages au plus près de la décision (pages d'offre et d'événement).
+const { temoignages = [], titre = 'Ils et elles l’ont traversé' } = Astro.props;
+---
+{temoignages.length > 0 && (
+  <section class="temoins-offre">
+    <div class="wrap">
+      <div class="tete"><p class="eyebrow">Traversées</p><h2>{titre}</h2></div>
+      <div class="temoins-offre__grille">
+        {temoignages.map((x) => (
+          <figure class="temoin">
+            <blockquote><p>« {x.t} »</p></blockquote>
+            <figcaption><cite><b>{x.n}</b>{x.c && ` — ${x.c}`}</cite></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

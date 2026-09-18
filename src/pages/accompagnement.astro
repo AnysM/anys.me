@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection, getEntry } from 'astro:content';
+import Appel from '../components/Appel.astro';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
 const ac = (await getEntry('pages', 'accompagnement')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
@@ -66,6 +67,14 @@ const outils = ac.outils ?? [];
           </a>
         ))}
       </div>
+    </div>
+  </section>
+  <section class="invite">
+    <div class="narrow">
+      <p class="eyebrow">Un premier pas</p>
+      <h2>Et si on en parlait ?</h2>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Un premier échange pour sentir ce que tu traverses et le cadre juste pour toi. Je te réponds sous 48 h.</p>
+      <div class="invite__btns"><Appel pour="Accompagnement" centre /></div>
     </div>
   </section>
 </Base>

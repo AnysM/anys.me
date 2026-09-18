@@ -31,6 +31,25 @@ etapes:
   - titre: "L'incarnation"
     picto: graine
     texte: "Entre les séances, tu expérimentes. Petit à petit, la vision devient ton prochain pas."
+benefices:
+  - "Voir clair dans la transition que tu traverses"
+  - "Retrouver ton axe, et la confiance qui va avec"
+  - "Alignement, souveraineté et pouvoir créateur"
+  - "Des pratiques de présence et de mouvement pour ton quotidien"
+  - "Un projet de cœur qui prend forme, pas à pas"
+temoignages:
+  - t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie."
+    'n': "Polette"
+    c: "Accompagnement individuel"
+faq:
+  - q: "Comment savoir si c'est juste pour moi ?"
+    r: "C'est le rôle du premier échange : tu me racontes ce que tu traverses, et on sent ensemble si c'est juste de cheminer ensemble, et dans quel cadre."
+  - q: "En ligne, est-ce que ça marche vraiment ?"
+    r: "Oui. Les séances durent 1h à 1h30 et passent par l'écoute, la présence et des pratiques que tu peux vivre chez toi. Si tu as besoin d'une plongée plus intense, l'immersion « Nouveau souffle » se vit sur 3 jours en individuel."
+  - q: "Quelle formule choisir ?"
+    r: "Un mois, avec une séance par semaine, pour débloquer une situation précise. Trois ou six mois, avec un rythme plus espacé, pour traverser une transition en profondeur et laisser le temps d'intégrer. On le décide ensemble lors du premier échange."
+  - q: "Je n'ai jamais fait de démarche de ce genre, c'est grave ?"
+    r: "Pas du tout. Que tu aies déjà beaucoup exploré ou que ce soit ta première fois, on part de là où tu en es."
 ---
 Un accompagnement pour venir travailler en profondeur et sur la durée. Sur mesure, en fonction du besoin : soit un accompagnement en ligne, soit une immersion de 3 jours en individuel.
 
