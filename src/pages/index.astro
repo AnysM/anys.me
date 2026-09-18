@@ -48,6 +48,7 @@ const propositions = [
   { t: 'Immersions & retraites', handle: 'ACCUEIL-IMMERSIONS', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
     d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
+const piliers = univers.map((u, i) => ({ ...u, t: acc.piliers?.[i]?.nom ?? u.t, p: acc.piliers?.[i]?.note ?? u.p }));
 const props = propositions.map((p, i) => ({ ...p, t: acc.propositions?.[i]?.titre ?? p.t, d: acc.propositions?.[i]?.texte ?? p.d, cta: acc.propositions?.[i]?.cta ?? p.cta, image: acc.propositions?.[i]?.image ?? null }));
 const temoins = acc.temoins ?? [];
 const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ?? [];
@@ -60,7 +61,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ??
       <p class="eyebrow">{acc.hero_eyebrow}</p>
       <div class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></div>
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
-      <a class="cta" href="/agenda" style="margin-top:24px;">Voir les prochains événements <span class="line"></span></a>
+      <a class="cta" href="/agenda" style="margin-top:24px;">{acc.hero_cta} <span class="line"></span></a>
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
@@ -83,7 +84,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ??
       <p class="eyebrow">{acc.piliers_eyebrow}</p>
       <h2 style="margin-top:0.8rem;" set:html={fmt(acc.piliers_titre)}></h2>
       <div class="piliers">
-        {univers.map((u) => (
+        {piliers.map((u) => (
           <div class="pilier">
             <div class="pilier__icon"><Fragment set:html={u.icon} /></div>
             <div class="pilier__name">{u.t}</div>

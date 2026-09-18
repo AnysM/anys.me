@@ -502,6 +502,12 @@ export type PagesTemoins = {
   c?: Maybe<Scalars['String']['output']>;
 };
 
+export type PagesPiliers = {
+  __typename?: 'PagesPiliers';
+  nom?: Maybe<Scalars['String']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+};
+
 export type PagesPropositions = {
   __typename?: 'PagesPropositions';
   titre?: Maybe<Scalars['String']['output']>;
@@ -538,6 +544,7 @@ export type Pages = Node & Document & {
   partenaires_eyebrow?: Maybe<Scalars['String']['output']>;
   form_eyebrow?: Maybe<Scalars['String']['output']>;
   piliers_titre?: Maybe<Scalars['String']['output']>;
+  piliers?: Maybe<Array<Maybe<PagesPiliers>>>;
   citation1?: Maybe<Scalars['String']['output']>;
   propositions_titre?: Maybe<Scalars['String']['output']>;
   propositions?: Maybe<Array<Maybe<PagesPropositions>>>;
@@ -554,6 +561,11 @@ export type PagesTemoinsFilter = {
   t?: InputMaybe<StringFilter>;
   n?: InputMaybe<StringFilter>;
   c?: InputMaybe<StringFilter>;
+};
+
+export type PagesPiliersFilter = {
+  nom?: InputMaybe<StringFilter>;
+  note?: InputMaybe<StringFilter>;
 };
 
 export type PagesPropositionsFilter = {
@@ -590,6 +602,7 @@ export type PagesFilter = {
   partenaires_eyebrow?: InputMaybe<StringFilter>;
   form_eyebrow?: InputMaybe<StringFilter>;
   piliers_titre?: InputMaybe<StringFilter>;
+  piliers?: InputMaybe<PagesPiliersFilter>;
   citation1?: InputMaybe<StringFilter>;
   propositions_titre?: InputMaybe<StringFilter>;
   propositions?: InputMaybe<PagesPropositionsFilter>;
@@ -1182,6 +1195,11 @@ export type PagesTemoinsMutation = {
   c?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type PagesPiliersMutation = {
+  nom?: InputMaybe<Scalars['String']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type PagesPropositionsMutation = {
   titre?: InputMaybe<Scalars['String']['input']>;
   texte?: InputMaybe<Scalars['String']['input']>;
@@ -1216,6 +1234,7 @@ export type PagesMutation = {
   partenaires_eyebrow?: InputMaybe<Scalars['String']['input']>;
   form_eyebrow?: InputMaybe<Scalars['String']['input']>;
   piliers_titre?: InputMaybe<Scalars['String']['input']>;
+  piliers?: InputMaybe<Array<InputMaybe<PagesPiliersMutation>>>;
   citation1?: InputMaybe<Scalars['String']['input']>;
   propositions_titre?: InputMaybe<Scalars['String']['input']>;
   propositions?: InputMaybe<Array<InputMaybe<PagesPropositionsMutation>>>;
@@ -1413,6 +1432,11 @@ export type PagesTemoinsFilter = {
   c?: StringFilter | null | undefined;
 };
 
+export type PagesPiliersFilter = {
+  nom?: StringFilter | null | undefined;
+  note?: StringFilter | null | undefined;
+};
+
 export type PagesPropositionsFilter = {
   titre?: StringFilter | null | undefined;
   texte?: StringFilter | null | undefined;
@@ -1447,6 +1471,7 @@ export type PagesFilter = {
   partenaires_eyebrow?: StringFilter | null | undefined;
   form_eyebrow?: StringFilter | null | undefined;
   piliers_titre?: StringFilter | null | undefined;
+  piliers?: PagesPiliersFilter | null | undefined;
   citation1?: StringFilter | null | undefined;
   propositions_titre?: StringFilter | null | undefined;
   propositions?: PagesPropositionsFilter | null | undefined;
@@ -1555,7 +1580,7 @@ export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categor
 
 export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null };
 
-export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null };
+export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null };
 
 export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null };
 
@@ -1614,7 +1639,7 @@ export type PagesQueryVariables = Exact<{
 }>;
 
 
-export type PagesQuery = { pages: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } };
+export type PagesQuery = { pages: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1626,7 +1651,7 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } | null } | null> | null } };
+export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } | null } | null> | null } };
 
 export type Page_AproposQueryVariables = Exact<{
   relativePath: string;
@@ -1842,6 +1867,11 @@ export const PagesPartsFragmentDoc = gql`
   partenaires_eyebrow
   form_eyebrow
   piliers_titre
+  piliers {
+    __typename
+    nom
+    note
+  }
   citation1
   propositions_titre
   propositions {

@@ -282,6 +282,11 @@ type PagesTemoins {
   c: String
 }
 
+type PagesPiliers {
+  nom: String
+  note: String
+}
+
 type PagesPropositions {
   titre: String
   texte: String
@@ -316,6 +321,7 @@ type Pages implements Node & Document {
   partenaires_eyebrow: String
   form_eyebrow: String
   piliers_titre: String
+  piliers: [PagesPiliers]
   citation1: String
   propositions_titre: String
   propositions: [PagesPropositions]
@@ -332,6 +338,11 @@ input PagesTemoinsFilter {
   t: StringFilter
   n: StringFilter
   c: StringFilter
+}
+
+input PagesPiliersFilter {
+  nom: StringFilter
+  note: StringFilter
 }
 
 input PagesPropositionsFilter {
@@ -368,6 +379,7 @@ input PagesFilter {
   partenaires_eyebrow: StringFilter
   form_eyebrow: StringFilter
   piliers_titre: StringFilter
+  piliers: PagesPiliersFilter
   citation1: StringFilter
   propositions_titre: StringFilter
   propositions: PagesPropositionsFilter
@@ -781,6 +793,11 @@ input PagesTemoinsMutation {
   c: String
 }
 
+input PagesPiliersMutation {
+  nom: String
+  note: String
+}
+
 input PagesPropositionsMutation {
   titre: String
   texte: String
@@ -815,6 +832,7 @@ input PagesMutation {
   partenaires_eyebrow: String
   form_eyebrow: String
   piliers_titre: String
+  piliers: [PagesPiliersMutation]
   citation1: String
   propositions_titre: String
   propositions: [PagesPropositionsMutation]

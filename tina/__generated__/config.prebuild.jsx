@@ -119,6 +119,17 @@ var config_default = defineConfig({
           { type: "string", name: "partenaires_eyebrow", label: "Partenaires \u2014 sur-titre" },
           { type: "string", name: "form_eyebrow", label: "Formulaire \u2014 sur-titre" },
           { type: "string", name: "piliers_titre", label: "Piliers \u2014 titre", description: "*mot* = manuscrite" },
+          {
+            type: "object",
+            name: "piliers",
+            label: "Piliers (les 5 univers)",
+            list: true,
+            ui: { itemProps: (i) => ({ label: i && i.nom ? i.nom : "Pilier" }) },
+            fields: [
+              { type: "string", name: "nom", label: "Nom" },
+              { type: "string", name: "note", label: "Note (sous le nom)" }
+            ]
+          },
           { type: "string", name: "citation1", label: "Citation 1", description: "*mot* = manuscrite" },
           { type: "string", name: "propositions_titre", label: "Propositions \u2014 titre", description: "*mot* = manuscrite" },
           {

@@ -86,6 +86,11 @@ export const PagesPartsFragmentDoc = gql`
   partenaires_eyebrow
   form_eyebrow
   piliers_titre
+  piliers {
+    __typename
+    nom
+    note
+  }
   citation1
   propositions_titre
   propositions {

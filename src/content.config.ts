@@ -56,6 +56,7 @@ const pages = defineCollection({
     piliers_titre: z.string().optional(),
     citation1: z.string().optional(),
     propositions_titre: z.string().optional(),
+    piliers: z.array(z.object({ nom: z.string(), note: z.string().optional() })).optional(),
     propositions: z.array(z.object({ titre: z.string(), texte: z.string(), cta: z.string().optional(), image: z.string().optional() })).optional(),
     citation2: z.string().optional(),
     citation_contact: z.string().optional(),
