@@ -65,7 +65,6 @@ const pages = defineCollection({
     hero_cta: z.string().optional(),
     piliers_titre: z.string().optional(),
     piliers_centre: z.string().optional(),
-    piliers_centre_note: z.string().optional(),
     citation1: z.string().optional(),
     propositions_titre: z.string().optional(),
     piliers: z.array(z.object({ nom: z.string(), note: z.string().optional(), picto: z.string().optional() })).optional(),

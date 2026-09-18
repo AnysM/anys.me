@@ -1,14 +1,17 @@
 ---
-// « Ce qui nourrit le chemin » : un cercle au centre, cinq tuiles autour,
-// reliées par de simples pointillés. Chaque tuile ouvre le Codex filtré sur son univers.
-// Code couleur : bleu = présence et connaissance de soi, rouge = mouvement,
-// jaune = art et créativité, bleu + jaune = le vivant ; au centre, la lumière blanche.
-// Si un picto dessiné est fourni dans Tina (image), il remplace l'icône au trait.
-const { univers = [], centre = 'L’essence', centreNote = 'ce qui relie tout', anneau = 'Présence · Mouvement · Créativité' } = Astro.props;
+// « Ce qui nourrit le chemin » : L'Essence au centre, cinq cercles autour.
+// Lecture verticale et symétrique : en bas le rouge (le corps, la terre),
+// au milieu le bleu (l'intérieur), au sommet le jaune (la création).
+// Si un picto dessiné est fourni dans Tina (image), il remplace le symbole.
+const { univers = [], centre = 'L’Essence' } = Astro.props;
 
-// Repère 100 × 88 : centre du cercle, rayon de l'anneau, distance des tuiles
+// Ordre dans le sens des aiguilles d'une montre, en partant du sommet
+const ORDRE = ['art', 'connaissance', 'mouvement', 'vivant', 'presence'];
+const ranges = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean);
+
+// Repère 100 × 88 : centre du cercle, rayon de l'anneau, distance des cercles
 const CX = 50, CY = 45, ANNEAU = 21, TUILES = 36;
-const tuiles = univers.map((u, i) => {
+const tuiles = ranges.map((u, i) => {
   const a = (-90 + i * 72) * (Math.PI / 180);
   const c = Math.cos(a), s = Math.sin(a);
   return { ...u, x: CX + TUILES * c, y: CY + TUILES * s * 1.12, x1: CX + ANNEAU * c, y1: CY + ANNEAU * s * 1.12 };
@@ -18,25 +21,25 @@ const tuiles = univers.map((u, i) => {
   <svg class="rosace__fils" viewBox="0 0 100 88" preserveAspectRatio="none" aria-hidden="true">
     {tuiles.map((t) => <line x1={t.x1} y1={t.y1} x2={t.x} y2={t.y} />)}
   </svg>
+  <!-- Filtre « encre » : le trait tremble et s'épaissit légèrement, comme au pinceau -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="encre" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="7" result="grain" />
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="bouge" />
+      <feMorphology in="bouge" operator="dilate" radius="0.15" />
+    </filter>
+  </svg>
 
-  <div class="rosace__anneau" aria-hidden="true">
-    <svg viewBox="0 0 200 200">
-      <defs><path id="rosace-arc-haut" d="M 28 100 A 72 72 0 0 1 172 100" /><path id="rosace-arc-bas" d="M 22 100 A 78 78 0 0 0 178 100" /></defs>
-      <text><textPath href="#rosace-arc-haut" startOffset="50%" text-anchor="middle">{anneau}</textPath></text>
-      <text><textPath href="#rosace-arc-bas" startOffset="50%" text-anchor="middle">{anneau}</textPath></text>
-    </svg>
-  </div>
-
-  <div class="rosace__centre">
-    <span class="rosace__mot script">{centre}</span>
-    {centreNote && <span class="rosace__note">{centreNote}</span>}
-  </div>
+  <div class="rosace__anneau" aria-hidden="true"></div>
+  <div class="rosace__centre"><span class="rosace__mot script">{centre}</span></div>
 
   {tuiles.map((t) => (
     <a class={`rosace__tuile u-${t.id}`} href={`/codex#${t.id}`} style={`left:${t.x}%; top:${(t.y / 88) * 100}%`}>
       <span class="rosace__picto">{t.image ? <img src={t.image} alt="" /> : <Fragment set:html={t.icon} />}</span>
-      <span class="rosace__nom">{t.nom}</span>
-      {t.note && <span class="rosace__desc">{t.note}</span>}
+      <span class="rosace__legende">
+        <span class="rosace__nom">{t.nom}</span>
+        {t.note && <span class="rosace__desc">{t.note}</span>}
+      </span>
     </a>
   ))}
 </div>

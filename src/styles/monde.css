@@ -213,8 +213,13 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
   .rosace__centre { position: relative; left: auto; top: auto; transform: none; grid-column: 1 / -1; width: 58%; margin: 0 auto 0.6rem; }
   .rosace__tuile { position: relative; left: auto !important; top: auto !important; transform: none; width: auto; }
   .rosace__picto { width: 62%; }
-  .rosace__tuile:last-child { grid-column: 1 / -1; }
-  .rosace__tuile:last-child .rosace__picto { width: 31%; }
+  .rosace__centre { order: 0; }
+  .rosace__tuile.u-art { order: 1; grid-column: 1 / -1; }
+  .rosace__tuile.u-art .rosace__picto { width: 31%; }
+  .rosace__tuile.u-presence { order: 2; }
+  .rosace__tuile.u-connaissance { order: 3; }
+  .rosace__tuile.u-vivant { order: 4; }
+  .rosace__tuile.u-mouvement { order: 5; }
   .rosace__mot { font-size: 2rem; }
   .rosace__note { font-size: 0.58rem; }
 }
@@ -222,3 +227,14 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 /* Symboles des univers aux couleurs du code (partout sur le site) */
 .sigils span[class^="u-"], .filtre span[class^="u-"] { color: var(--u-trait); }
 .filtre[aria-pressed="true"] { border-color: rgba(236,231,222,0.35); background: rgba(236,231,222,0.06); }
+.rosace__picto svg { filter: url(#encre); }
+.rosace__mot { font-size: clamp(2rem, 4.2vw, 3.2rem); }
+/* Chaque cercle est centré sur son point ; le libellé pend en dessous sans le décaler */
+.rosace__tuile { display: block; }
+.rosace__legende { position: absolute; top: calc(100% + 0.9rem); left: 50%; transform: translateX(-50%); width: 190px; display: flex; flex-direction: column; align-items: center; }
+.rosace__legende .rosace__nom { margin-top: 0; }
+@media (max-width: 640px) {
+  .rosace__tuile { display: flex; }
+  .rosace__legende { position: static; transform: none; width: auto; margin-top: 0.8rem; }
+}
+.rosace__legende .rosace__nom { background: var(--surface); padding: 0.15rem 0.5rem; }

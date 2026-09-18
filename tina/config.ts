@@ -163,8 +163,7 @@ export default defineConfig({
             ] },
           { type: "string", name: "form_eyebrow", label: "Formulaire — sur-titre" },
           { type: "string", name: "piliers_titre", label: "Piliers — titre", description: "*mot* = manuscrite" },
-          { type: "string", name: "piliers_centre", label: "Schéma des univers — mot au centre", description: "Par défaut : L'essence" },
-          { type: "string", name: "piliers_centre_note", label: "Schéma des univers — petite ligne sous le centre", description: "Par défaut : ce qui relie tout" },
+          { type: "string", name: "piliers_centre", label: "Schéma des univers — mot au centre", description: "Par défaut : L'Essence" },
           { type: "object", name: "piliers", label: "Piliers (les 5 univers)", list: true,
             ui: { itemProps: (i) => ({ label: i && i.nom ? i.nom : "Pilier" }) },
             fields: [
