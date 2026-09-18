@@ -131,5 +131,29 @@ const links = [
       setTimeout(go, 1000);
     })();
   </script>
+  <script is:inline>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // parallax-vivant
+      var items = Array.prototype.slice.call(document.querySelectorAll('.hero-bg img, .breath img'));
+      if (!items.length) return;
+      items.forEach(function (el, i) { el.style.willChange = 'transform'; el.dataset.ph = (i * 1.7).toFixed(2); });
+      function loop(t) {
+        var H = window.innerHeight;
+        for (var k = 0; k < items.length; k++) {
+          var el = items[k], r = el.getBoundingClientRect();
+          if (r.bottom < -80 || r.top > H + 80) continue;
+          var prog = (r.top + r.height / 2 - H / 2) / H;
+          prog = Math.max(-1, Math.min(1, prog));
+          var py = prog * -32;
+          var ph = parseFloat(el.dataset.ph) || 0;
+          var dx = Math.sin(t / 3400 + ph) * 12;
+          var dy = Math.cos(t / 4200 + ph) * 8;
+          el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + (py + dy).toFixed(1) + 'px,0) scale(1.18)';
+        }
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    })();
+  </script>
 </body>
 </html>
