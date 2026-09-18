@@ -109,3 +109,9 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 .split { gap: clamp(2.5rem, 8vw, 6.5rem); }
 .tl-row { margin-bottom: clamp(4rem, 9vw, 7rem); }
 @media (max-width: 640px) { .rosace { margin-top: 2rem; } }
+
+/* Voile du hero : dense sous le texte à gauche, léger à droite pour laisser respirer l'œuvre */
+#hero::before { background: linear-gradient(90deg, rgba(10,18,58,0.94) 0%, rgba(10,18,58,0.86) 32%, rgba(12,24,72,0.45) 62%, rgba(12,24,72,0.12) 100%); }
+@media (max-width: 760px) {
+  #hero::before { background: linear-gradient(180deg, rgba(10,18,58,0.55) 0%, rgba(10,18,58,0.82) 40%, rgba(10,18,58,0.9) 100%); }
+}
