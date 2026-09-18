@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Sigils from '../../components/Sigils.astro';
+import Constellation from '../../components/Constellation.astro';
 import { codex } from '../../lib/monde';
 import { UNIVERS, TYPES } from '../../lib/univers.mjs';
 import { fil, SITE, PERSONNE_ID, abs } from '../../lib/seo';
@@ -44,6 +45,8 @@ const jsonld = [
         ))}
       </div>
 
+      <Constellation fiches={fiches.filter((f) => f.data.type !== 'allie')} />
+
       {groupes.map((g) => (
         <div class="cgroupe" data-groupe>
           <h2 class="cgroupe__titre">{g.pluriel} <small>{g.fiches.length}</small></h2>
@@ -83,6 +86,7 @@ const jsonld = [
     (function () {
       var boutons = Array.prototype.slice.call(document.querySelectorAll('.filtre'));
       function filtrer(u) {
+        document.dispatchEvent(new CustomEvent('codex:univers', { detail: u }));
         boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.u === u)); });
         document.querySelectorAll('[data-groupe]').forEach(function (g) {
           var visibles = 0;

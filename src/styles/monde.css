@@ -203,3 +203,38 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
   .rosace__desc { display: none; }
   .rosace__mot { font-size: 1.9rem; }
 }
+
+/* ── Constellation du Codex ── */
+.constellation { margin: 2.6rem 0 0; }
+.constellation__cadre { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--faint); border-bottom: 1px solid var(--faint); background: radial-gradient(60% 70% at 50% 50%, rgba(107,107,255,0.07), transparent 70%); }
+.constellation svg { display: block; width: 100%; min-width: 620px; height: auto; font-family: 'EB Garamond', serif; }
+.c-ancre__halo { fill: rgba(163,168,255,0.035); stroke: rgba(163,168,255,0.08); stroke-dasharray: 2 6; }
+.c-ancre__icone { color: rgba(163,168,255,0.5); }
+.c-ancre__nom { fill: rgba(163,168,255,0.5); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; text-anchor: middle; }
+.c-lien { stroke: rgba(216,162,76,0.2); stroke-width: 1; transition: stroke 0.3s, opacity 0.3s; }
+.c-etoile { cursor: pointer; transition: opacity 0.3s; outline: none; }
+.c-etoile__halo { fill: currentColor; opacity: 0.08; transition: opacity 0.3s; }
+.c-etoile__coeur { fill: currentColor; filter: drop-shadow(0 0 4px currentColor); }
+.c-etoile__nom { fill: #C9CBD8; font-size: 15px; transition: fill 0.3s; paint-order: stroke; stroke: var(--navy); stroke-width: 4px; stroke-linejoin: round; }
+.c-etoile--pratique { color: var(--gold); }
+.c-etoile--notion { color: var(--indigo-soft); }
+.c-etoile--rencontre { color: var(--cream); }
+.c-etoile--realisation { color: var(--coral); }
+.c-etoile:hover .c-etoile__nom, .c-etoile:focus .c-etoile__nom { fill: var(--cream); }
+.c-etoile:hover .c-etoile__halo, .c-etoile.on .c-etoile__halo { opacity: 0.22; }
+svg.focus .c-etoile:not(.on) { opacity: 0.22; }
+svg.focus .c-lien { opacity: 0.15; }
+svg.focus .c-lien.on { opacity: 1; stroke: var(--coral); stroke-width: 1.4; }
+svg.filtre:not(.focus) .c-etoile:not(.dans) { opacity: 0.18; }
+svg.filtre:not(.focus) .c-lien { opacity: 0.25; }
+.c-ancre.dans .c-ancre__halo { fill: rgba(107,107,255,0.1); stroke: rgba(163,168,255,0.35); }
+.c-ancre.dans .c-ancre__nom, .c-ancre.dans .c-ancre__icone { fill: var(--indigo-soft); color: var(--indigo-soft); }
+.constellation__legende { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; align-items: center; margin-top: 1rem; font-family: 'Jost', sans-serif; font-size: 0.78rem; color: var(--muted); }
+.constellation__legende span { display: inline-flex; align-items: center; gap: 8px; }
+.c-pastille { width: 8px; height: 8px; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px currentColor; background: currentColor; }
+.c-pastille--pratique { color: var(--gold); }
+.c-pastille--notion { color: var(--indigo-soft); }
+.c-pastille--rencontre { color: var(--cream); }
+.c-pastille--realisation { color: var(--coral); }
+.constellation__aide { margin-left: auto; font-style: italic; font-family: 'EB Garamond', serif; font-size: 0.95rem; }
+@media (max-width: 760px) { .constellation__aide { margin-left: 0; } }
