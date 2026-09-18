@@ -5,6 +5,6 @@ const liste = ids.map(univers).filter(Boolean);
 ---
 {liste.length > 0 && (
   <span class={`sigils${lg ? ' sigils--lg' : ''}`}>
-    {liste.map((u) => <span title={u.nom} aria-label={u.nom} role="img"><Fragment set:html={u.icon} /></span>)}
+    {liste.map((u) => <span class={`u-${u.id}`} title={u.nom} aria-label={u.nom} role="img"><Fragment set:html={u.icon} /></span>)}
   </span>
 )}

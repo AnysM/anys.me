@@ -170,6 +170,7 @@ export default defineConfig({
             fields: [
               { type: "string", name: "nom", label: "Nom" },
               { type: "string", name: "note", label: "Note (sous le nom)" },
+              { type: "image", name: "picto", label: "Picto dessiné (facultatif)", description: "PNG ou SVG blanc sur fond transparent. Remplace l'icône au trait dans le schéma." },
             ] },
           { type: "string", name: "citation1", label: "Citation 1", description: "*mot* = manuscrite" },
           { type: "string", name: "seuils_eyebrow", label: "Seuils — sur-titre" },

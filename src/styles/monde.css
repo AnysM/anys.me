@@ -1,4 +1,19 @@
 /* ════════════════════════════════
+   CODE COULEUR DES UNIVERS — les trois primaires
+   Bleu : présence et connaissance de soi · Rouge : mouvement, corps, incarnation
+   Jaune : art et créativité · Bleu + jaune : le lien au vivant · Centre : la lumière
+   ════════════════════════════════ */
+:root {
+  --bleu: #8E96FF;  --bleu-fond: #232A64;
+  --rouge: #F07A5F; --rouge-fond: #45211C;
+  --jaune: #E0B25A; --jaune-fond: #3E3116;
+}
+.u-presence, .u-connaissance { --u-trait: var(--bleu); --u-fond: var(--bleu-fond); }
+.u-mouvement { --u-trait: var(--rouge); --u-fond: var(--rouge-fond); }
+.u-art { --u-trait: var(--jaune); --u-fond: var(--jaune-fond); }
+.u-vivant { --u-trait: #9FD3A6; --u-fond: linear-gradient(135deg, var(--bleu-fond), var(--jaune-fond)); }
+
+/* ════════════════════════════════
    LE MONDE — Codex, seuils, échos
    Indigo = ce qu'on explore. Corail = ce qui engage.
    ════════════════════════════════ */
@@ -166,75 +181,43 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
   .etape__num { margin-top: 0.2rem; }
 }
 
-/* ── Rosace : l'essence au centre, les cinq univers autour ── */
-.rosace { position: relative; width: min(100%, 980px); margin: 0 auto; aspect-ratio: 1000 / 760; }
-.rosace__traits { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.rosace__coeur { fill: var(--surface); stroke: rgba(216,162,76,0.3); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.rosace__orbite { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.rosace__pentagone { fill: none; stroke: rgba(216,162,76,0.22); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.rosace__etoile { fill: none; stroke: rgba(163,168,255,0.14); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.rosace__rayon { stroke: rgba(216,162,76,0.45); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 1.6s var(--ease, ease), stroke 0.3s, opacity 0.3s; }
-.rosace.vu .rosace__rayon { stroke-dashoffset: 0; }
-.rosace__rayon.on { stroke: var(--coral); }
-.rosace[data-actif] .rosace__rayon:not(.on) { opacity: 0.25; }
-.rosace[data-actif] .rosace__noeud:not(:hover) { opacity: 0.45; }
 
-.rosace__centre { position: absolute; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
-.rosace__mot { display: block; font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1; color: var(--cream); white-space: nowrap; }
-.rosace__note { display: block; margin-top: 0.6rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.62rem; color: var(--gold); }
 
-.rosace__noeud { position: absolute; width: 210px; transform: translate(-50%, -26px); display: flex; flex-direction: column; align-items: center; text-align: center; transition: opacity 0.3s; }
-.rosace__noeud--haut { flex-direction: column-reverse; transform: translate(-50%, calc(-100% + 26px)); }
-.rosace__icone { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--navy); border: 1px solid rgba(163,168,255,0.4); color: var(--indigo-soft); box-shadow: 0 0 0 7px var(--surface); transition: border-color 0.3s, color 0.3s, box-shadow 0.3s; }
-.rosace__icone svg { width: 22px; height: 22px; }
-.rosace__texte { display: block; margin-top: 0.7rem; padding: 0.25rem 0.6rem; border-radius: 10px; background: rgba(17,26,56,0.88); }
-.rosace__noeud--haut .rosace__texte { margin: 0 0 0.7rem; }
-.rosace__nom { display: block; font-family: 'EB Garamond', serif; font-weight: 500; font-size: 1.2rem; color: var(--cream); line-height: 1.2; }
-.rosace__desc { display: block; margin-top: 0.35rem; font-size: 0.85rem; line-height: 1.5; color: var(--muted); }
-.rosace__noeud:hover .rosace__icone { border-color: var(--coral); color: var(--cream); box-shadow: 0 0 0 7px var(--surface), 0 0 26px rgba(240,122,95,0.35); }
-@media (prefers-reduced-motion: reduce) { .rosace__rayon { transition: none; stroke-dashoffset: 0; } }
+/* ── Rosace : un cercle au centre, cinq tuiles autour ── */
+.rosace { position: relative; width: min(100%, 900px); margin: 0 auto; aspect-ratio: 100 / 88; }
+.rosace__fils { position: absolute; inset: 0; width: 100%; height: 100%; }
+.rosace__fils line { stroke: rgba(236,231,222,0.28); stroke-width: 1.4; stroke-dasharray: 0.1 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.rosace__anneau { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 44%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(255,255,255,0.035); }
+.rosace__anneau svg { width: 100%; height: 100%; display: block; }
+.rosace__anneau text { fill: rgba(236,231,222,0.4); font-family: 'Jost', sans-serif; font-size: 7.2px; letter-spacing: 0.2em; text-transform: uppercase; }
+.rosace__centre { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 29%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 35%, #2A3170, #1A2250 70%); box-shadow: 0 0 0 10px var(--surface), 0 0 60px rgba(107,107,255,0.18); }
+.rosace__mot { font-size: clamp(1.7rem, 3.4vw, 2.7rem); line-height: 1; color: var(--cream); }
+.rosace__note { margin-top: 0.7rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(0.5rem, 0.9vw, 0.64rem); color: var(--gold); }
 
-@media (max-width: 760px) {
-  .rosace__noeud { width: 118px; transform: translate(-50%, -20px); }
-  .rosace__noeud--haut { transform: translate(-50%, calc(-100% + 20px)); }
-  .rosace__icone { width: 40px; height: 40px; }
-  .rosace__icone svg { width: 18px; height: 18px; }
-  .rosace__nom { font-size: 0.95rem; }
-  .rosace__desc { display: none; }
-  .rosace__mot { font-size: 1.9rem; }
+.rosace__tuile { position: absolute; width: 17%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.rosace__picto { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: 26%; color: var(--cream); transition: transform 0.4s var(--ease, ease), box-shadow 0.4s; }
+.rosace__picto svg { width: 34%; height: 34%; stroke-width: 1.2; }
+.rosace__picto img { width: 52%; height: 52%; object-fit: contain; }
+.rosace__picto { background: var(--u-fond); color: var(--u-trait); }
+.rosace__centre { background: radial-gradient(circle at 50% 38%, rgba(236,231,222,0.2), rgba(236,231,222,0.04) 55%, transparent 72%), radial-gradient(circle at 50% 50%, #1E2656, #151C44); box-shadow: 0 0 0 10px var(--surface), 0 0 70px rgba(236,231,222,0.12); }
+.rosace__nom { margin-top: 0.8rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: clamp(0.62rem, 1vw, 0.78rem); color: var(--cream); line-height: 1.35; }
+.rosace__desc { margin-top: 0.3rem; font-size: 0.8rem; line-height: 1.45; color: var(--muted); max-width: 18ch; }
+.rosace__tuile:hover .rosace__picto { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.35); }
+/* Libellés sous les tuiles du bas et sur les côtés : on les garde courts */
+@media (max-width: 1000px) { .rosace__desc { display: none; } }
+
+@media (max-width: 640px) {
+  .rosace { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 1rem; }
+  .rosace__fils, .rosace__anneau { display: none; }
+  .rosace__centre { position: relative; left: auto; top: auto; transform: none; grid-column: 1 / -1; width: 58%; margin: 0 auto 0.6rem; }
+  .rosace__tuile { position: relative; left: auto !important; top: auto !important; transform: none; width: auto; }
+  .rosace__picto { width: 62%; }
+  .rosace__tuile:last-child { grid-column: 1 / -1; }
+  .rosace__tuile:last-child .rosace__picto { width: 31%; }
+  .rosace__mot { font-size: 2rem; }
+  .rosace__note { font-size: 0.58rem; }
 }
 
-/* ── Constellation du Codex ── */
-.constellation { margin: 2.6rem 0 0; }
-.constellation__cadre { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--faint); border-bottom: 1px solid var(--faint); background: radial-gradient(60% 70% at 50% 50%, rgba(107,107,255,0.07), transparent 70%); }
-.constellation svg { display: block; width: 100%; min-width: 620px; height: auto; font-family: 'EB Garamond', serif; }
-.c-ancre__halo { fill: rgba(163,168,255,0.035); stroke: rgba(163,168,255,0.08); stroke-dasharray: 2 6; }
-.c-ancre__icone { color: rgba(163,168,255,0.5); }
-.c-ancre__nom { fill: rgba(163,168,255,0.5); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; text-anchor: middle; }
-.c-lien { stroke: rgba(216,162,76,0.2); stroke-width: 1; transition: stroke 0.3s, opacity 0.3s; }
-.c-etoile { cursor: pointer; transition: opacity 0.3s; outline: none; }
-.c-etoile__halo { fill: currentColor; opacity: 0.08; transition: opacity 0.3s; }
-.c-etoile__coeur { fill: currentColor; filter: drop-shadow(0 0 4px currentColor); }
-.c-etoile__nom { fill: #C9CBD8; font-size: 15px; transition: fill 0.3s; paint-order: stroke; stroke: var(--navy); stroke-width: 4px; stroke-linejoin: round; }
-.c-etoile--pratique { color: var(--gold); }
-.c-etoile--notion { color: var(--indigo-soft); }
-.c-etoile--rencontre { color: var(--cream); }
-.c-etoile--realisation { color: var(--coral); }
-.c-etoile:hover .c-etoile__nom, .c-etoile:focus .c-etoile__nom { fill: var(--cream); }
-.c-etoile:hover .c-etoile__halo, .c-etoile.on .c-etoile__halo { opacity: 0.22; }
-svg.focus .c-etoile:not(.on) { opacity: 0.22; }
-svg.focus .c-lien { opacity: 0.15; }
-svg.focus .c-lien.on { opacity: 1; stroke: var(--coral); stroke-width: 1.4; }
-svg.filtre:not(.focus) .c-etoile:not(.dans) { opacity: 0.18; }
-svg.filtre:not(.focus) .c-lien { opacity: 0.25; }
-.c-ancre.dans .c-ancre__halo { fill: rgba(107,107,255,0.1); stroke: rgba(163,168,255,0.35); }
-.c-ancre.dans .c-ancre__nom, .c-ancre.dans .c-ancre__icone { fill: var(--indigo-soft); color: var(--indigo-soft); }
-.constellation__legende { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; align-items: center; margin-top: 1rem; font-family: 'Jost', sans-serif; font-size: 0.78rem; color: var(--muted); }
-.constellation__legende span { display: inline-flex; align-items: center; gap: 8px; }
-.c-pastille { width: 8px; height: 8px; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px currentColor; background: currentColor; }
-.c-pastille--pratique { color: var(--gold); }
-.c-pastille--notion { color: var(--indigo-soft); }
-.c-pastille--rencontre { color: var(--cream); }
-.c-pastille--realisation { color: var(--coral); }
-.constellation__aide { margin-left: auto; font-style: italic; font-family: 'EB Garamond', serif; font-size: 0.95rem; }
-@media (max-width: 760px) { .constellation__aide { margin-left: 0; } }
+/* Symboles des univers aux couleurs du code (partout sur le site) */
+.sigils span[class^="u-"], .filtre span[class^="u-"] { color: var(--u-trait); }
+.filtre[aria-pressed="true"] { border-color: rgba(236,231,222,0.35); background: rgba(236,231,222,0.06); }

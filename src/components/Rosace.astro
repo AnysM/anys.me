@@ -1,54 +1,42 @@
 ---
-// « Ce qui nourrit le chemin » : l'essence au centre, les cinq univers autour,
-// reliés au centre et entre eux (pentagone + étoile). Chaque univers ouvre le Codex filtré.
-const { univers = [], centre = 'L’essence', centreNote = 'ce qui relie tout' } = Astro.props;
-const W = 1000, H = 760, cx = 500, cy = 400, R = 285;
-const points = univers.map((u, i) => {
+// « Ce qui nourrit le chemin » : un cercle au centre, cinq tuiles autour,
+// reliées par de simples pointillés. Chaque tuile ouvre le Codex filtré sur son univers.
+// Code couleur : bleu = présence et connaissance de soi, rouge = mouvement,
+// jaune = art et créativité, bleu + jaune = le vivant ; au centre, la lumière blanche.
+// Si un picto dessiné est fourni dans Tina (image), il remplace l'icône au trait.
+const { univers = [], centre = 'L’essence', centreNote = 'ce qui relie tout', anneau = 'Présence · Mouvement · Créativité' } = Astro.props;
+
+// Repère 100 × 88 : centre du cercle, rayon de l'anneau, distance des tuiles
+const CX = 50, CY = 45, ANNEAU = 21, TUILES = 36;
+const tuiles = univers.map((u, i) => {
   const a = (-90 + i * 72) * (Math.PI / 180);
-  return { ...u, x: cx + R * Math.cos(a), y: cy + R * Math.sin(a), haut: i === 0 };
+  const c = Math.cos(a), s = Math.sin(a);
+  return { ...u, x: CX + TUILES * c, y: CY + TUILES * s * 1.12, x1: CX + ANNEAU * c, y1: CY + ANNEAU * s * 1.12 };
 });
-const pct = (v, total) => `${((v / total) * 100).toFixed(2)}%`;
-const pentagone = points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
-const etoile = [0, 2, 4, 1, 3].map((i) => points[i]).filter(Boolean).map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
 ---
 <div class="rosace">
-  <svg class="rosace__traits" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
-    <defs>
-      <radialGradient id="rosace-halo"><stop offset="0" stop-color="#D8A24C" stop-opacity="0.35" /><stop offset="1" stop-color="#D8A24C" stop-opacity="0" /></radialGradient>
-    </defs>
-    <circle cx={cx} cy={cy} r={R} class="rosace__orbite" />
-    <polygon points={etoile} class="rosace__etoile" />
-    <polygon points={pentagone} class="rosace__pentagone" />
-    {points.map((p) => <line x1={cx} y1={cy} x2={p.x.toFixed(1)} y2={p.y.toFixed(1)} class="rosace__rayon" data-u={p.id} />)}
-    <circle cx={cx} cy={cy} r="112" class="rosace__coeur" />
-    <circle cx={cx} cy={cy} r="165" fill="url(#rosace-halo)" />
+  <svg class="rosace__fils" viewBox="0 0 100 88" preserveAspectRatio="none" aria-hidden="true">
+    {tuiles.map((t) => <line x1={t.x1} y1={t.y1} x2={t.x} y2={t.y} />)}
   </svg>
 
-  <div class="rosace__centre" style={`left:${pct(cx, W)}; top:${pct(cy, H)}`}>
+  <div class="rosace__anneau" aria-hidden="true">
+    <svg viewBox="0 0 200 200">
+      <defs><path id="rosace-arc-haut" d="M 28 100 A 72 72 0 0 1 172 100" /><path id="rosace-arc-bas" d="M 22 100 A 78 78 0 0 0 178 100" /></defs>
+      <text><textPath href="#rosace-arc-haut" startOffset="50%" text-anchor="middle">{anneau}</textPath></text>
+      <text><textPath href="#rosace-arc-bas" startOffset="50%" text-anchor="middle">{anneau}</textPath></text>
+    </svg>
+  </div>
+
+  <div class="rosace__centre">
     <span class="rosace__mot script">{centre}</span>
     {centreNote && <span class="rosace__note">{centreNote}</span>}
   </div>
 
-  {points.map((p) => (
-    <a class={`rosace__noeud${p.haut ? ' rosace__noeud--haut' : ''}`} href={`/codex#${p.id}`} data-u={p.id} style={`left:${pct(p.x, W)}; top:${pct(p.y, H)}`}>
-      <span class="rosace__icone"><Fragment set:html={p.icon} /></span>
-      <span class="rosace__texte">
-        <span class="rosace__nom">{p.nom}</span>
-        {p.note && <span class="rosace__desc">{p.note}</span>}
-      </span>
+  {tuiles.map((t) => (
+    <a class={`rosace__tuile u-${t.id}`} href={`/codex#${t.id}`} style={`left:${t.x}%; top:${(t.y / 88) * 100}%`}>
+      <span class="rosace__picto">{t.image ? <img src={t.image} alt="" /> : <Fragment set:html={t.icon} />}</span>
+      <span class="rosace__nom">{t.nom}</span>
+      {t.note && <span class="rosace__desc">{t.note}</span>}
     </a>
   ))}
 </div>
-
-<script is:inline>
-  (function () {
-    var r = document.currentScript.previousElementSibling;
-    r.querySelectorAll('.rosace__noeud').forEach(function (n) {
-      n.addEventListener('mouseenter', function () { r.dataset.actif = n.dataset.u; r.querySelector('.rosace__rayon[data-u="' + n.dataset.u + '"]').classList.add('on'); });
-      n.addEventListener('mouseleave', function () { delete r.dataset.actif; r.querySelectorAll('.rosace__rayon.on').forEach(function (l) { l.classList.remove('on'); }); });
-    });
-    if (!('IntersectionObserver' in window)) { r.classList.add('vu'); return; }
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { r.classList.add('vu'); io.disconnect(); } }); }, { threshold: 0.3 });
-    io.observe(r);
-  })();
-</script>

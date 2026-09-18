@@ -16,7 +16,7 @@ const acc = (await getEntry('pages', 'accueil'))!.data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const ctx = contexte();
 
-const piliers = UNIVERS.map((u, i) => ({ ...u, nom: acc.piliers?.[i]?.nom ?? u.nom, note: acc.piliers?.[i]?.note ?? '' }));
+const piliers = UNIVERS.map((u, i) => ({ ...u, nom: acc.piliers?.[i]?.nom ?? u.nom, note: acc.piliers?.[i]?.note ?? '', image: acc.piliers?.[i]?.picto || null }));
 
 const toutes = await propositions();
 const seuils = SEUILS.map((s, i) => ({
@@ -72,7 +72,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
-      <Rosace univers={piliers} centre={acc.piliers_centre ?? 'L’essence'} centreNote={acc.piliers_centre_note ?? 'ce qui relie tout'} />
+      <Rosace univers={piliers} centre={acc.piliers_centre ?? 'L’essence'} centreNote={acc.piliers_centre_note ?? 'ce qui relie tout'} anneau={acc.hero_eyebrow} />
     </div>
   </section>
 

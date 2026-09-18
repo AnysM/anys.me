@@ -1,7 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Sigils from '../../components/Sigils.astro';
-import Constellation from '../../components/Constellation.astro';
 import { codex } from '../../lib/monde';
 import { UNIVERS, TYPES } from '../../lib/univers.mjs';
 import { fil, SITE, PERSONNE_ID, abs } from '../../lib/seo';
@@ -41,11 +40,9 @@ const jsonld = [
       <div class="filtres" role="group" aria-label="Filtrer par univers">
         <button class="filtre" type="button" data-u="" aria-pressed="true">Tout <small>{fiches.filter((f) => f.data.type !== 'allie').length}</small></button>
         {UNIVERS.map((u) => (
-          <button class="filtre" type="button" data-u={u.id} aria-pressed="false" id={u.id}><span><Fragment set:html={u.icon} /></span>{u.nom} <small>{fiches.filter((f) => f.data.type !== 'allie' && f.data.univers.includes(u.id)).length}</small></button>
+          <button class="filtre" type="button" data-u={u.id} aria-pressed="false" id={u.id}><span class={`u-${u.id}`}><Fragment set:html={u.icon} /></span>{u.nom} <small>{fiches.filter((f) => f.data.type !== 'allie' && f.data.univers.includes(u.id)).length}</small></button>
         ))}
       </div>
-
-      <Constellation fiches={fiches.filter((f) => f.data.type !== 'allie')} />
 
       {groupes.map((g) => (
         <div class="cgroupe" data-groupe>
@@ -86,7 +83,6 @@ const jsonld = [
     (function () {
       var boutons = Array.prototype.slice.call(document.querySelectorAll('.filtre'));
       function filtrer(u) {
-        document.dispatchEvent(new CustomEvent('codex:univers', { detail: u }));
         boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.u === u)); });
         document.querySelectorAll('[data-groupe]').forEach(function (g) {
           var visibles = 0;
