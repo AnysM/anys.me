@@ -96,6 +96,28 @@ var config_default = defineConfig({
           { type: "string", name: "hero_accent", label: "Hero \u2014 accent manuscrit" },
           { type: "string", name: "hero_paragraphe", label: "Hero \u2014 paragraphe", description: "Entoure un mot de *etoiles* pour la manuscrite, de **deux** pour le dore.", ui: { component: "textarea" } },
           { type: "string", name: "hero_cta", label: "Hero \u2014 bouton" },
+          { type: "string", name: "parcours_titre", label: "Qui je suis \u2014 titre", description: "*mot* = manuscrite" },
+          { type: "string", name: "parcours_texte", label: "Qui je suis \u2014 texte", ui: { component: "textarea" } },
+          { type: "string", name: "parcours_cta", label: "Qui je suis \u2014 bouton" },
+          { type: "string", name: "piliers_eyebrow", label: "Piliers \u2014 sur-titre" },
+          { type: "string", name: "agenda_eyebrow", label: "Agenda \u2014 sur-titre" },
+          { type: "string", name: "art_eyebrow", label: "Art \u2014 sur-titre" },
+          { type: "string", name: "art_titre", label: "Art \u2014 titre", description: "*mot* = manuscrite" },
+          { type: "string", name: "temoins_eyebrow", label: "Temoignages \u2014 sur-titre" },
+          {
+            type: "object",
+            name: "temoins",
+            label: "Temoignages",
+            list: true,
+            ui: { itemProps: (i) => ({ label: i && i.n ? i.n : "Temoignage" }) },
+            fields: [
+              { type: "string", name: "t", label: "Texte", ui: { component: "textarea" } },
+              { type: "string", name: "n", label: "Nom" },
+              { type: "string", name: "c", label: "Contexte" }
+            ]
+          },
+          { type: "string", name: "partenaires_eyebrow", label: "Partenaires \u2014 sur-titre" },
+          { type: "string", name: "form_eyebrow", label: "Formulaire \u2014 sur-titre" },
           { type: "string", name: "piliers_titre", label: "Piliers \u2014 titre", description: "*mot* = manuscrite" },
           { type: "string", name: "citation1", label: "Citation 1", description: "*mot* = manuscrite" },
           { type: "string", name: "propositions_titre", label: "Propositions \u2014 titre", description: "*mot* = manuscrite" },
@@ -225,7 +247,10 @@ var config_default = defineConfig({
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
           { type: "image", name: "hero_image", label: "Fond du hero" },
-          { type: "string", name: "intro", label: "Introduction", ui: { component: "textarea" } }
+          { type: "string", name: "intro", label: "Introduction", ui: { component: "textarea" } },
+          { type: "string", name: "appel_eyebrow", label: "Appel \u2014 sur-titre" },
+          { type: "string", name: "appel_texte", label: "Appel \u2014 texte", ui: { component: "textarea" } },
+          { type: "string", name: "appel_cta", label: "Appel \u2014 bouton" }
         ]
       },
       {

@@ -276,6 +276,12 @@ type OffresConnection implements Connection {
   edges: [OffresConnectionEdges]
 }
 
+type PagesTemoins {
+  t: String
+  n: String
+  c: String
+}
+
 type PagesPropositions {
   titre: String
   texte: String
@@ -298,6 +304,17 @@ type Pages implements Node & Document {
   hero_accent: String
   hero_paragraphe: String
   hero_cta: String
+  parcours_titre: String
+  parcours_texte: String
+  parcours_cta: String
+  piliers_eyebrow: String
+  agenda_eyebrow: String
+  art_eyebrow: String
+  art_titre: String
+  temoins_eyebrow: String
+  temoins: [PagesTemoins]
+  partenaires_eyebrow: String
+  form_eyebrow: String
   piliers_titre: String
   citation1: String
   propositions_titre: String
@@ -309,6 +326,12 @@ type Pages implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input PagesTemoinsFilter {
+  t: StringFilter
+  n: StringFilter
+  c: StringFilter
 }
 
 input PagesPropositionsFilter {
@@ -333,6 +356,17 @@ input PagesFilter {
   hero_accent: StringFilter
   hero_paragraphe: StringFilter
   hero_cta: StringFilter
+  parcours_titre: StringFilter
+  parcours_texte: StringFilter
+  parcours_cta: StringFilter
+  piliers_eyebrow: StringFilter
+  agenda_eyebrow: StringFilter
+  art_eyebrow: StringFilter
+  art_titre: StringFilter
+  temoins_eyebrow: StringFilter
+  temoins: PagesTemoinsFilter
+  partenaires_eyebrow: StringFilter
+  form_eyebrow: StringFilter
   piliers_titre: StringFilter
   citation1: StringFilter
   propositions_titre: StringFilter
@@ -541,6 +575,9 @@ type Page_contact implements Node & Document {
   hero_titre: String
   hero_image: String
   intro: String
+  appel_eyebrow: String
+  appel_texte: String
+  appel_cta: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -551,6 +588,9 @@ input Page_contactFilter {
   hero_titre: StringFilter
   hero_image: ImageFilter
   intro: StringFilter
+  appel_eyebrow: StringFilter
+  appel_texte: StringFilter
+  appel_cta: StringFilter
 }
 
 type Page_contactConnectionEdges {
@@ -735,6 +775,12 @@ input OffresMutation {
   body: RichText
 }
 
+input PagesTemoinsMutation {
+  t: String
+  n: String
+  c: String
+}
+
 input PagesPropositionsMutation {
   titre: String
   texte: String
@@ -757,6 +803,17 @@ input PagesMutation {
   hero_accent: String
   hero_paragraphe: String
   hero_cta: String
+  parcours_titre: String
+  parcours_texte: String
+  parcours_cta: String
+  piliers_eyebrow: String
+  agenda_eyebrow: String
+  art_eyebrow: String
+  art_titre: String
+  temoins_eyebrow: String
+  temoins: [PagesTemoinsMutation]
+  partenaires_eyebrow: String
+  form_eyebrow: String
   piliers_titre: String
   citation1: String
   propositions_titre: String
@@ -835,6 +892,9 @@ input Page_contactMutation {
   hero_titre: String
   hero_image: String
   intro: String
+  appel_eyebrow: String
+  appel_texte: String
+  appel_cta: String
 }
 
 input Page_agendaMutation {

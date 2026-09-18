@@ -49,11 +49,7 @@ const propositions = [
     d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
 const props = propositions.map((p, i) => ({ ...p, t: acc.propositions?.[i]?.titre ?? p.t, d: acc.propositions?.[i]?.texte ?? p.d, cta: acc.propositions?.[i]?.cta ?? p.cta, image: acc.propositions?.[i]?.image ?? null }));
-const temoins = [
-  { t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.", n: 'Sonia', c: 'Ateliers Infloressence' },
-  { t: "Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.", n: 'Sandrine', c: 'Retraite au désert marocain' },
-  { t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.", n: 'Polette', c: 'Accompagnement individuel' },
-];
+const temoins = acc.temoins;
 const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
 ---
 <Base title="Anys Mechkar">
@@ -77,9 +73,9 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
     <div class="wrap split">
       <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="" /> : <div class="imgph"><span>ACCUEIL-PORTRAIT</span></div>}</div>
       <div>
-        <h2>Qui je <span class="script">suis</span></h2>
-        <p class="muted">Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.</p>
-        <a class="cta" href="/a-propos" style="margin-top:22px;">Lire mon histoire <span class="line"></span></a>
+        <h2 set:html={fmt(acc.parcours_titre)}></h2>
+        <p class="muted">{acc.parcours_texte}</p>
+        <a class="cta" href="/a-propos" style="margin-top:22px;">{acc.parcours_cta} <span class="line"></span></a>
       </div>
     </div>
   </section>
@@ -87,7 +83,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
   <!-- LES UNIVERS (piliers) -->
   <section style="background:var(--surface);">
     <div class="wrap">
-      <p class="eyebrow">Les univers</p>
+      <p class="eyebrow">{acc.piliers_eyebrow}</p>
       <h2 style="margin-top:0.8rem;" set:html={fmt(acc.piliers_titre)}></h2>
       <div class="piliers">
         {univers.map((u) => (
@@ -123,7 +119,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
   <section style="background:var(--surface);">
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <p class="eyebrow">Prochaines dates</p>
+        <p class="eyebrow">{acc.agenda_eyebrow}</p>
         <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
       </div>
       <div class="egrid">
@@ -154,7 +150,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
   <section>
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <div><p class="eyebrow">Indigo Enoqii</p><h2 style="margin-top:0.8rem;">Mon univers <span class="script">artistique</span></h2></div>
+        <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
         <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir la boutique <span class="line"></span></a>
       </div>
       <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
@@ -168,7 +164,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
   <section class="temoins veil">
     <div class="veil-bg" style="background-image:url('/img/tex-cosmic.jpg')"></div>
     <div class="wrap">
-      <p class="eyebrow">Traversées</p>
+      <p class="eyebrow">{acc.temoins_eyebrow}</p>
       <div class="grid">
         {temoins.map((x) => (<div class="temoin"><p>« {x.t} »</p><cite><b>{x.n}</b> — {x.c}</cite></div>))}
       </div>
@@ -178,7 +174,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
   <!-- PARTENAIRES -->
   <section style="background:var(--surface);">
     <div class="wrap">
-      <p class="eyebrow">Partenaires</p>
+      <p class="eyebrow">{acc.partenaires_eyebrow}</p>
       <div class="parts">
         {partenaires.map((p) => (
           <div class="part">
@@ -200,7 +196,7 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
   <!-- FORMULAIRE DE CONTACT -->
   <section id="contact">
     <div class="narrow">
-      <p class="eyebrow">Contact</p>
+      <p class="eyebrow">{acc.form_eyebrow}</p>
       <h2 set:html={fmt(acc.form_titre)}></h2>
       <p class="lead" style="margin-top:0.8rem;">{acc.form_intro}</p>
       <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci" style="margin-top:1.8rem;">

@@ -22,9 +22,9 @@ const cc = (await getEntry('pages', 'contact')).data;
         <button class="btn btn--solid" type="submit" style="justify-self:start;">Envoyer</button>
       </form>
       <div id="appel" style="margin-top:3.2rem;">
-        <p class="eyebrow">Ou prendre un appel</p>
-        <p class="muted" style="margin-top:0.9rem;">Tu préfères qu'on se parle ? Réserve un créneau d'échange.</p>
-        <a class="btn" href="#" style="margin-top:1.1rem;">Réserver un appel</a>
+        <p class="eyebrow">{cc.appel_eyebrow}</p>
+        <p class="muted" style="margin-top:0.9rem;">{cc.appel_texte}</p>
+        <a class="btn" href="#" style="margin-top:1.1rem;">{cc.appel_cta}</a>
       </div>
     </div>
   </section>

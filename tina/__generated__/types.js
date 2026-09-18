@@ -69,6 +69,22 @@ export const PagesPartsFragmentDoc = gql`
   hero_accent
   hero_paragraphe
   hero_cta
+  parcours_titre
+  parcours_texte
+  parcours_cta
+  piliers_eyebrow
+  agenda_eyebrow
+  art_eyebrow
+  art_titre
+  temoins_eyebrow
+  temoins {
+    __typename
+    t
+    n
+    c
+  }
+  partenaires_eyebrow
+  form_eyebrow
   piliers_titre
   citation1
   propositions_titre
@@ -162,6 +178,9 @@ export const Page_ContactPartsFragmentDoc = gql`
   hero_titre
   hero_image
   intro
+  appel_eyebrow
+  appel_texte
+  appel_cta
 }
     `;
 export const Page_AgendaPartsFragmentDoc = gql`

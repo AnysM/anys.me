@@ -37,5 +37,25 @@ art1_image: ''
 art2_image: ''
 art3_image: ''
 art4_image: ''
+parcours_titre: Qui je *suis*
+parcours_texte: Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que je n'avais jamais vraiment choisi ma vie. Ça a été le début d'une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd'hui, j'accompagne celles et ceux qui sentent le même appel.
+parcours_cta: Lire mon histoire
+piliers_eyebrow: Les univers
+agenda_eyebrow: Prochaines dates
+art_eyebrow: Indigo Enoqii
+art_titre: Mon univers *artistique*
+temoins_eyebrow: Traversées
+temoins:
+- t: Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée.
+  n: Sonia
+  c: Ateliers Infloressence
+- t: Anys a su parfaitement m'accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.
+  n: Sandrine
+  c: Retraite au désert marocain
+- t: Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.
+  n: Polette
+  c: Accompagnement individuel
+partenaires_eyebrow: Partenaires
+form_eyebrow: Contact
 ---
 
