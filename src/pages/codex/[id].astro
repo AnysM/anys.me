@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sigils from '../../components/Sigils.astro';
+import Quete from '../../components/Quete.astro';
+import { render } from 'astro:content';
+import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
+import { typeLabel, SEUIL_IDS } from '../../lib/univers.mjs';
+
+export async function getStaticPaths() {
+  const fiches = await codex();
+  return fiches.map((f) => {
+    // Liens dans les deux sens : ceux que la fiche cite, et les fiches qui la citent.
+    const lies = new Set([...f.data.liens, ...fiches.filter((x) => x.data.liens.includes(f.id)).map((x) => x.id)]);
+    lies.delete(f.id);
+    return { params: { id: f.id }, props: { f, lies: fiches.filter((x) => lies.has(x.id)) } };
+  });
+}
+
+const { f, lies } = Astro.props;
+const d = f.data;
+const { Content } = await render(f);
+const aGouter = (await propositionsDe(f)).sort((a, b) => SEUIL_IDS.indexOf(a.seuil) - SEUIL_IDS.indexOf(b.seuil) || a.ordre - b.ordre);
+const chapitres = await chapitresDe(f.id);
+const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length > 170 ? p.slice(0, p.lastIndexOf(' ', 170)) + '…' : p; };
+---
+<Base title={`${d.titre} — Le Codex`} description={d.resume}>
+  <section class="page-hero fiche-hero">
+    <img src={d.image ?? '/img/tex-cosmic.jpg'} alt="" />
+    <div class="narrow">
+      <p class="eyebrow"><a href="/codex">Codex</a>&nbsp;· {typeLabel(d.type)}</p>
+      <h1>{d.titre}</h1>
+      {d.resume && <p class="fiche-resume">{d.resume}</p>}
+      <Sigils ids={d.univers} lg />
+    </div>
+  </section>
+
+  <section class="fiche-corps">
+    <div class="narrow">
+      <div class="prose"><Content /></div>
+      {d.lien_externe && <p style="margin-top:1.8rem;"><a class="cta" href={d.lien_externe} target="_blank" rel="noopener">Visiter le site <span class="line"></span></a></p>}
+
+      {chapitres.length > 0 && (
+        <div style="margin-top:3rem;">
+          <p class="rune">Dans le récit</p>
+          <div class="dans-recit">
+            {chapitres.map((c) => <a href={`/a-propos#${c.ancre}`}><b>{c.titre}</b><span>{extrait(c.texte)}</span></a>)}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {aGouter.length > 0 && (
+    <section class="gouter">
+      <div class="narrow">
+        <p class="eyebrow">Pour y goûter</p>
+        <h2 style="margin-top:0.8rem; font-size:clamp(1.2rem,2.2vw,1.6rem);">Là où tu peux le <span class="script">vivre</span></h2>
+        <div class="gouter__liste">{aGouter.map((p) => <Quete p={p} avecSeuil />)}</div>
+      </div>
+    </section>
+  )}
+
+  {lies.length > 0 && (
+    <section>
+      <div class="narrow">
+        <p class="rune">Relié à</p>
+        <div class="echos">{lies.map((x) => <a class="echo" href={`/codex/${x.id}`}>{x.data.titre}<small>{typeLabel(x.data.type)}</small></a>)}</div>
+      </div>
+    </section>
+  )}
+
+  <section class="detail-foot">
+    <div class="wrap detail-nav">
+      <a class="cta" href="/codex">← Tout le Codex</a>
+      <a class="cta" href="/contact">Une question ? Écris-moi <span class="line"></span></a>
+    </div>
+  </section>
+</Base>

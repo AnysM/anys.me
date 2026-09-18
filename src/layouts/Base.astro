@@ -1,8 +1,11 @@
 ---
 import '../styles/global.css';
 import '../styles/nav.css';
+import '../styles/monde.css';
 import { getCollection } from 'astro:content';
-const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur." } = Astro.props;
+const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur.", image = '/img/univers-art.jpg' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
 const accs = offres.filter((o) => o.data.categorie === 'accompagnement');
@@ -11,7 +14,7 @@ const links = [
   { href: '/a-propos', label: 'À propos' },
   { href: '/soins', label: 'Soins' },
   { href: '/accompagnement', label: 'Accompagnement' },
-  { href: '/partenaires', label: 'Partenaires' },
+  { href: '/codex', label: 'Codex' },
 ];
 ---
 <!DOCTYPE html>
@@ -21,6 +24,16 @@ const links = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Anys Mechkar" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,7 +55,7 @@ const links = [
         <a href="/accompagnement">Accompagnement</a>
         <div class="subnav">{accs.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
-      <a href="/partenaires">Partenaires</a>
+      <a href="/codex">Codex</a>
       <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">

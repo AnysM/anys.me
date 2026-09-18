@@ -1,0 +1,12 @@
+---
+// Une proposition (soin, accompagnement, atelier, retraite) présentée comme une quête à prendre.
+import { seuil } from '../lib/univers.mjs';
+const { p, avecSeuil = false } = Astro.props;
+const s = seuil(p.seuil);
+---
+<a class="quete" href={p.href} target={p.externe ? '_blank' : undefined} rel={p.externe ? 'noopener' : undefined}>
+  {avecSeuil && <span class="quete__seuil" title={s?.nom}>{s?.num}</span>}
+  <span class="quete__titre">{p.titre}</span>
+  <span class="quete__prix">{p.prix ?? ''}{avecSeuil && <span class="quete__fleche"> →</span>}</span>
+  {p.quand && <span class="quete__quand">{p.quand}</span>}
+</a>

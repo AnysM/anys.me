@@ -1,148 +1,154 @@
 ---
+// L'accueil se lit comme un chemin : l'appel → le guide → le monde → les seuils
+// → les prochaines dates → les traversées → l'art → le Codex → l'invitation.
 import Base from '../layouts/Base.astro';
+import Sigils from '../components/Sigils.astro';
+import Quete from '../components/Quete.astro';
+import Contact from '../components/Contact.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { codex, propositions, hrefAgenda, estExterne, ligneDate } from '../lib/monde';
+import { UNIVERS, SEUILS, typeLabel } from '../lib/univers.mjs';
+import { tisser, contexte } from '../lib/lore.mjs';
 
-const acc = (await getEntry('pages', 'accueil')).data;
+const acc = (await getEntry('pages', 'accueil'))!.data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
-const events = (await getCollection('agenda')).filter((e) => e.data.publie);
-const dated = events.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
-const recurring = events.filter((e) => !e.data.date).sort((a, b) => a.data.ordre - b.data.ordre);
-const homeEvents = [...dated, ...recurring].slice(0, 4);
-const catLabels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
-const accentDernier = (t) => {
-  const w = t.trim().split(/\s+/);
-  if (w.length < 2) return t.replace(/&/g, '&amp;');
-  const last = w.pop();
-  return w.join(' ').replace(/&/g, '&amp;') + ' <span class="script">' + last.replace(/&/g, '&amp;') + '</span>';
-};
-const dparts = (d) => ({ day: d.getDate(), mon: new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(d).replace('.', ''), yr: d.getFullYear() });
-function ligneDate(d) {
-  if (!d.date) return (d.rythme ?? 'Sur inscription');
-  const fmt = (x) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(x).replace('.', '');
-  if (d.date_fin) {
-    const j = Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1;
-    const same = d.date.getMonth() === d.date_fin.getMonth() && d.date.getFullYear() === d.date_fin.getFullYear();
-    const dd = (x) => x.getDate();
-    const mo = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '');
-    const moy = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(x).replace('.', '');
-    const r = same ? `Du ${dd(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}` : `Du ${dd(d.date)} ${mo(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}`;
-    return `${r} · ${j} jours`;
-  }
-  return fmt(d.date) + (d.heure ? ` · ${d.heure}` : '');
-}
+const ctx = contexte();
 
-const univers = [
-  { t: 'La présence', p: 'Méditation, souffle, immobilité', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" opacity="0.4"/></svg>' },
-  { t: 'La connaissance de soi', p: 'Archétypes · Human Design · Tzolk\u2019in · BaZi', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M12 3l2.1 6.1L20 11l-5.9 1.9L12 19l-2.1-6.1L4 11l5.9-1.9z"/></svg>' },
-  { t: 'Le mouvement', p: 'Danse Butoh · Kung-fu · mouvement naturel', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M3 15c3 0 3-6 6-6s3 6 6 6 3-6 6-6"/></svg>' },
-  { t: 'Le lien au vivant', p: 'Chamanisme · peuples indigènes · sagesses ancestrales', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8"/><path d="M12 13c0-3.5 2.3-5.5 6.5-5.5C18.5 12 16 14 12 13z"/><path d="M12 16c0-2.5-2.1-4.5-5.5-4.5C6.5 15.5 8.6 17 12 16z"/></svg>' },
-  { t: 'L\u2019art et l\u2019expression créative', p: 'Danse · musique · peinture', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l5 5-9 9H6v-5z"/><path d="M12 7l5 5"/></svg>' },
-];
-const propositions = [
-  { t: 'Ateliers', handle: 'ACCUEIL-ATELIERS', img: '/img/u-atelier.jpg', href: '/agenda', rev: false, cta: 'Voir les ateliers',
-    d: "Ce qui transforme, c'est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. Autant de portes pour revenir au corps et s'y ancrer dans la durée." },
-  { t: 'Soins', handle: 'ACCUEIL-SOINS', img: '/img/u-soin.jpg', href: '/soins', rev: true, cta: 'Découvrir les soins',
-    d: "Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s'est figée. Pour traverser une fatigue, un passage, une transformation, en étant accompagné dans le corps." },
-  { t: 'Accompagnement', handle: 'ACCUEIL-ACCOMP', img: '/img/portrait.jpg', href: '/accompagnement', rev: false, cta: 'Découvrir l\u2019accompagnement',
-    d: "Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. Avec, si tu le souhaites, la lecture de ton dessin originel." },
-  { t: 'Immersions & retraites', handle: 'ACCUEIL-IMMERSIONS', img: '/img/u-immersion.jpg', href: '/agenda', rev: true, cta: 'Voir les immersions',
-    d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
-];
-const piliers = univers.map((u, i) => ({ ...u, t: acc.piliers?.[i]?.nom ?? u.t, p: acc.piliers?.[i]?.note ?? u.p }));
-const props = propositions.map((p, i) => ({ ...p, t: acc.propositions?.[i]?.titre ?? p.t, d: acc.propositions?.[i]?.texte ?? p.d, cta: acc.propositions?.[i]?.cta ?? p.cta, image: acc.propositions?.[i]?.image ?? null }));
+const piliers = UNIVERS.map((u, i) => ({ ...u, nom: acc.piliers?.[i]?.nom ?? u.nom, note: acc.piliers?.[i]?.note ?? '' }));
+
+const toutes = await propositions();
+const seuils = SEUILS.map((s, i) => ({
+  ...s,
+  nom: acc.seuils?.[i]?.titre ?? s.nom,
+  texte: acc.seuils?.[i]?.texte ?? '',
+  items: toutes
+    .filter((p) => p.seuil === s.id)
+    .sort((a, b) => (a.date ? 0 : 1) - (b.date ? 0 : 1) || (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0) || a.ordre - b.ordre),
+}));
+
+const aujourdhui = new Date(new Date().toDateString());
+const dates = (await getCollection('agenda'))
+  .filter((e) => e.data.publie && e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
+  .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
+  .slice(0, 3);
+const catLabels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
+
 const temoins = acc.temoins ?? [];
-const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ?? [];
+
+const fiches = await codex();
+const apercu = ['pratique', 'notion', 'rencontre', 'realisation'].flatMap((t) => fiches.filter((f) => f.data.type === t).slice(0, 2));
+const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
 ---
-<Base title="Anys Mechkar">
-  <!-- HERO -->
+<Base title="Anys Mechkar — Présence, mouvement, créativité">
+  <!-- L'APPEL -->
   <section id="hero">
-    <div class="hero-bg"><img src={acc.hero_image ?? "/img/univers-art.jpg"} alt="Œuvre d'Indigo Enoqii" /></div>
+    <div class="hero-bg"><img src={acc.hero_image ?? '/img/univers-art.jpg'} alt="Œuvre d'Indigo Enoqii" /></div>
     <div class="hero-left">
       <p class="eyebrow">{acc.hero_eyebrow}</p>
-      <div class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></div>
+      <h1 class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></h1>
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
-      <a class="cta" href="/agenda" style="margin-top:24px;">{acc.hero_cta} <span class="line"></span></a>
+      <a class="cta" href="#seuils" style="margin-top:24px;">{acc.hero_cta} <span class="line"></span></a>
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
 
-  <!-- MON PARCOURS (teaser) -->
+  <!-- LE GUIDE -->
   <section>
     <div class="wrap split">
-      <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="" /> : <div class="imgph"><span>ACCUEIL-PORTRAIT</span></div>}</div>
+      <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
       <div>
         <h2 set:html={fmt(acc.parcours_titre)}></h2>
-        <p class="muted">{acc.parcours_texte}</p>
+        <p class="muted" set:html={tisser(acc.parcours_texte, ctx)}></p>
         <a class="cta" href="/a-propos" style="margin-top:22px;">{acc.parcours_cta} <span class="line"></span></a>
       </div>
     </div>
   </section>
 
-  <!-- LES UNIVERS (piliers) -->
+  <!-- LE MONDE : les cinq univers -->
   <section style="background:var(--surface);">
     <div class="wrap">
       <p class="eyebrow">{acc.piliers_eyebrow}</p>
       <h2 style="margin-top:0.8rem;" set:html={fmt(acc.piliers_titre)}></h2>
       <div class="piliers">
         {piliers.map((u) => (
-          <div class="pilier">
+          <a class="pilier" href={`/codex#${u.id}`}>
             <div class="pilier__icon"><Fragment set:html={u.icon} /></div>
-            <div class="pilier__name">{u.t}</div>
-            <div class="pilier__desc">{u.p}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- RESPIRATION -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band" data-h="RESP-01"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
-
-  <!-- LES PROPOSITIONS -->
-  <section style="padding-bottom:0;">
-    <div class="wrap"><p class="eyebrow">Les propositions</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.propositions_titre)}></h2></div>
-  </section>
-  {props.map((u) => (
-    <section class={`univers${u.rev ? ' rev' : ''}`} style="padding:0;">
-      <div class="univers__img"><div class="imgph"><span>{u.handle}</span></div></div>
-      <div class="univers__body">
-        <h2>{u.t}</h2>
-        <p>{u.d}</p>
-        <a class="cta" href={u.href}>{u.cta} <span class="line"></span></a>
-      </div>
-    </section>
-  ))}
-
-  <!-- AGENDA -->
-  <section style="background:var(--surface);">
-    <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <p class="eyebrow">{acc.agenda_eyebrow}</p>
-        <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
-      </div>
-      <div class="egrid">
-        {homeEvents.map((e) => (
-          <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
-            <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>{e.id}</span></div>}<span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
-            <div class="ecard__body">
-              <div class="ecard__when">{ligneDate(e.data)}</div>
-              <div class="ecard__title">{e.data.titre}</div>
-              {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
-              {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
-              <div class="ecard__foot">
-                {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
-                {e.data.earlybird && <span class="ecard__early">Early bird jusqu’au {e.data.earlybird}</span>}
-              </div>
-              {e.data.reservable && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
-            </div>
+            <div class="pilier__name">{u.nom}</div>
+            <div class="pilier__desc">{u.note}</div>
+            <span class="pilier__more">Explorer →</span>
           </a>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- RESPIRATION -->
+  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+
+  <!-- LES SEUILS -->
+  <section id="seuils">
+    <div class="wrap">
+      <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
+      <h2 style="margin-top:0.8rem;" set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
+      <div class="seuils">
+        {seuils.map((s) => (
+          <div class="seuil">
+            <span class="seuil__num">{s.num}</span>
+            <h3 class="seuil__nom">{s.nom}</h3>
+            <p class="seuil__format">{s.format}</p>
+            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
+            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCHAINES DATES -->
+  {dates.length > 0 && (
+    <section style="background:var(--surface);">
+      <div class="wrap">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+          <p class="eyebrow">{acc.agenda_eyebrow}</p>
+          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
+        </div>
+        <div class="egrid">
+          {dates.map((e) => (
+            <a class="ecard" href={hrefAgenda(e)} target={estExterne(hrefAgenda(e)) ? '_blank' : undefined} rel="noopener">
+              <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt="" /> : <div class="imgph"></div>}<span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
+              <div class="ecard__body">
+                <div class="ecard__when">{ligneDate(e.data)}</div>
+                <div class="ecard__title">{e.data.titre}</div>
+                {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
+                {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
+                <div class="ecard__foot">
+                  {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
+                  {e.data.earlybird && <span class="ecard__early">Early bird jusqu’au {e.data.earlybird}</span>}
+                </div>
+                {e.data.reservable && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- TRAVERSÉES -->
+  {temoins.length > 0 && (
+    <section class="temoins veil">
+      <div class="veil-bg" style="background-image:url('/img/tex-cosmic.jpg')"></div>
+      <div class="wrap">
+        <p class="eyebrow">{acc.temoins_eyebrow}</p>
+        <div class="grid">
+          {temoins.map((x) => (<div class="temoin"><p>« {x.t} »</p><cite><b>{x.n}</b>{x.c && ` — ${x.c}`}</cite></div>))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- RESPIRATION vers l'art -->
-  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band" data-h="RESP-02"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- INDIGO ENOQII -->
   <section>
@@ -151,61 +157,57 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ??
         <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
         <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir la boutique <span class="line"></span></a>
       </div>
-      <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;">Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
+      <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;" set:html={tisser("Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.", ctx)}></p>
       <div class="gallery" style="margin-top:2rem;">
-        {acc.art1_image ? <img class="slot-img" src={acc.art1_image} alt="" /> : <div class="imgph"><span>ART-01</span></div>}{acc.art2_image ? <img class="slot-img" src={acc.art2_image} alt="" /> : <div class="imgph"><span>ART-02</span></div>}{acc.art3_image ? <img class="slot-img" src={acc.art3_image} alt="" /> : <div class="imgph"><span>ART-03</span></div>}{acc.art4_image ? <img class="slot-img" src={acc.art4_image} alt="" /> : <div class="imgph"><span>ART-04</span></div>}
+        {[acc.art1_image, acc.art2_image, acc.art3_image, acc.art4_image].filter(Boolean).map((src) => <img class="slot-img" src={src} alt="Œuvre d'Indigo Enoqii" loading="lazy" />)}
       </div>
     </div>
   </section>
 
-  <!-- TEMOIGNAGES -->
-  <section class="temoins veil">
-    <div class="veil-bg" style="background-image:url('/img/tex-cosmic.jpg')"></div>
-    <div class="wrap">
-      <p class="eyebrow">{acc.temoins_eyebrow}</p>
-      <div class="grid">
-        {temoins.map((x) => (<div class="temoin"><p>« {x.t} »</p><cite><b>{x.n}</b> — {x.c}</cite></div>))}
-      </div>
-    </div>
-  </section>
-
-  <!-- PARTENAIRES -->
+  <!-- LE CODEX -->
   <section style="background:var(--surface);">
     <div class="wrap">
-      <p class="eyebrow">{acc.partenaires_eyebrow}</p>
-      <div class="parts">
-        {partenaires.map((p) => (
-          <div class="part">
-            <div class="part__media">{p.image ? <img class="slot-img" src={p.image} alt={p.n} /> : <div class="imgph"><span>{p.handle}</span></div>}{p.logo && <img class={`part__logo${p.logoWhite ? ' part__logo--white' : ''}`} src={p.logo} alt={p.n} />}</div>
-            <div class="part__name">{p.n}</div>
-            <div class="part__desc">{p.lien ? <a href={p.lien} target="_blank" rel="noopener">{p.d}</a> : p.d}</div>
-          </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+        <div><p class="eyebrow">{acc.codex_eyebrow ?? 'Le Codex'}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.codex_titre ?? 'Le paysage *intérieur*')}></h2></div>
+        <a class="cta" href="/codex">Ouvrir le Codex <span class="line"></span></a>
+      </div>
+      {acc.codex_texte && <p class="muted" style="margin-top:1rem;">{acc.codex_texte}</p>}
+      <div class="apercu">
+        {apercu.map((f) => (
+          <a class="fiche-row" href={`/codex/${f.id}`}>
+            <span><span class="rune" style="display:block; margin-bottom:0.3rem;">{typeLabel(f.data.type)}</span><span class="fiche-row__titre">{f.data.titre}</span></span>
+            <Sigils ids={f.data.univers} />
+          </a>
         ))}
       </div>
+      {allies.length > 0 && (
+        <div style="margin-top:3rem;">
+          <p class="rune">Les alliés</p>
+          <div class="allies">
+            {allies.map((a) => (
+              <a class="allie" href={`/codex/${a.id}`}>
+                <span class={`allie__logo${a.data.logo_blanc ? ' allie__logo--blanc' : ''}`}><img src={a.data.logo} alt="" loading="lazy" /></span>
+                <span class="allie__nom">{a.data.titre}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- L'INVITATION -->
   <section class="breath" style="min-height:38vh;">
-    {acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band" data-h="RESP-03"></div>}
+    {acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}
     <div class="phrase">{acc.citation_contact}</div>
   </section>
 
-  <!-- FORMULAIRE DE CONTACT -->
   <section id="contact">
     <div class="narrow">
       <p class="eyebrow">{acc.form_eyebrow}</p>
       <h2 set:html={fmt(acc.form_titre)}></h2>
       <p class="lead" style="margin-top:0.8rem;">{acc.form_intro}</p>
-      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci" style="margin-top:1.8rem;">
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
-        <div><label>Ton nom</label><input type="text" name="nom" required /></div>
-        <div><label>Ton email</label><input type="email" name="email" required /></div>
-        <div><label>Ce qui t'intéresse</label><select name="interet"><option>Un soin</option><option>Un accompagnement</option><option>Un atelier ou un événement</option><option>Autre chose</option></select></div>
-        <div><label>Ton message</label><textarea name="message"></textarea></div>
-        <button class="btn btn--solid" type="submit" style="justify-self:start;">Envoyer</button>
-      </form>
+      <Contact />
     </div>
   </section>
 </Base>

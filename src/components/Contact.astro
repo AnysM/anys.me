@@ -1,0 +1,49 @@
+---
+// Formulaire de contact (Netlify Forms), précédé d'un "Par où commencer ?" qui oriente selon le seuil.
+import { SEUILS } from '../lib/univers.mjs';
+const questions = {
+  decouvrir: 'Faire un premier pas',
+  approfondir: 'Prendre soin de moi',
+  transformer: 'Traverser une transition',
+};
+---
+<div class="contact-bloc">
+  <p class="rune" style="margin-top:1.8rem;">Par où commencer ?</p>
+  <div class="orient" role="group" aria-label="Par où commencer">
+    {SEUILS.map((s) => (
+      <button type="button" data-seuil={s.id} aria-pressed="false"><b>{s.num} · {s.nom}</b><span>{questions[s.id]}</span></button>
+    ))}
+  </div>
+  <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci">
+    <input type="hidden" name="form-name" value="contact" />
+    <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
+    <div><label for="c-nom">Ton nom</label><input id="c-nom" type="text" name="nom" autocomplete="name" required /></div>
+    <div><label for="c-email">Ton email</label><input id="c-email" type="email" name="email" autocomplete="email" required /></div>
+    <div><label for="c-interet">Ce qui t'appelle</label><select id="c-interet" name="interet">
+      <option value="decouvrir">Un premier pas : atelier, voyage sonore, cercle</option>
+      <option value="approfondir">Un soin ou une lecture Prisme Origine</option>
+      <option value="transformer">Un accompagnement, une retraite, une immersion</option>
+      <option value="autre">Autre chose</option>
+    </select></div>
+    <div><label for="c-message">Ton message</label><textarea id="c-message" name="message"></textarea></div>
+    <button class="btn btn--solid" type="submit" style="justify-self:start;">Envoyer</button>
+  </form>
+</div>
+<script is:inline>
+  (function () {
+    var bloc = document.currentScript.previousElementSibling;
+    var select = bloc.querySelector('select[name="interet"]');
+    var boutons = Array.prototype.slice.call(bloc.querySelectorAll('.orient button'));
+    function choisir(id) {
+      boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.seuil === id)); });
+      select.value = id;
+    }
+    boutons.forEach(function (b) { b.addEventListener('click', function () { choisir(b.dataset.seuil); bloc.querySelector('input[name="nom"]').focus(); }); });
+    select.addEventListener('change', function () { choisir(select.value); });
+    var pour = new URLSearchParams(location.search).get('pour');
+    if (pour) {
+      var msg = bloc.querySelector('textarea');
+      if (!msg.value) msg.value = 'Au sujet de : ' + pour + '\n\n';
+    }
+  })();
+</script>

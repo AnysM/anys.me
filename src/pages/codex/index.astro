@@ -1,0 +1,92 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sigils from '../../components/Sigils.astro';
+import { codex } from '../../lib/monde';
+import { UNIVERS, TYPES } from '../../lib/univers.mjs';
+
+const fiches = await codex();
+const groupes = TYPES.filter((t) => t.id !== 'allie')
+  .map((t) => ({ ...t, fiches: fiches.filter((f) => f.data.type === t.id) }))
+  .filter((g) => g.fiches.length);
+const allies = fiches.filter((f) => f.data.type === 'allie');
+---
+<Base title="Le Codex — Anys Mechkar" description="Le paysage intérieur d'Anys Mechkar : les notions, pratiques, rencontres et réalisations qui nourrissent le chemin, et les alliés avec qui il se crée.">
+  <section class="page-hero fiche-hero">
+    <img src="/img/tex-cosmic.jpg" alt="" />
+    <div class="wrap">
+      <p class="eyebrow">Le paysage intérieur</p>
+      <h1>Le Codex</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="codex-intro">Tout ce que j'ai traversé, rencontré, pratiqué et compris. Chaque fiche relie mon récit à ce que tu peux venir vivre.</p>
+
+      <div class="filtres" role="group" aria-label="Filtrer par univers">
+        <button class="filtre" type="button" data-u="" aria-pressed="true">Tout</button>
+        {UNIVERS.map((u) => (
+          <button class="filtre" type="button" data-u={u.id} aria-pressed="false" id={u.id}><span><Fragment set:html={u.icon} /></span>{u.nom}</button>
+        ))}
+      </div>
+
+      {groupes.map((g) => (
+        <div class="cgroupe" data-groupe>
+          <h2 class="cgroupe__titre">{g.pluriel} <small>{g.fiches.length}</small></h2>
+          <div class="fiches">
+            {g.fiches.map((f) => (
+              <a class="fiche-row" href={`/codex/${f.id}`} data-univers={f.data.univers.join(' ')}>
+                <span class="fiche-row__titre">{f.data.titre}</span>
+                <span class="fiche-row__resume">{f.data.resume}</span>
+                <Sigils ids={f.data.univers} />
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {allies.length > 0 && (
+    <section id="allies" style="background:var(--surface);">
+      <div class="wrap">
+        <p class="eyebrow">Les alliés</p>
+        <h2 style="margin-top:0.8rem;">Ceux avec qui je <span class="script">crée</span></h2>
+        <div class="allies">
+          {allies.map((a) => (
+            <a class="allie" href={`/codex/${a.id}`}>
+              <span class={`allie__logo${a.data.logo_blanc ? ' allie__logo--blanc' : ''}`}>{a.data.logo && <img src={a.data.logo} alt="" />}</span>
+              <span class="allie__nom">{a.data.titre}</span>
+              <span class="allie__desc">{a.data.resume}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <script is:inline>
+    (function () {
+      var boutons = Array.prototype.slice.call(document.querySelectorAll('.filtre'));
+      function filtrer(u) {
+        boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.u === u)); });
+        document.querySelectorAll('[data-groupe]').forEach(function (g) {
+          var visibles = 0;
+          g.querySelectorAll('.fiche-row').forEach(function (r) {
+            var ok = !u || r.dataset.univers.split(' ').indexOf(u) !== -1;
+            r.hidden = !ok; if (ok) visibles++;
+          });
+          g.hidden = visibles === 0;
+        });
+      }
+      boutons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          filtrer(b.dataset.u);
+          history.replaceState(null, '', b.dataset.u ? '#' + b.dataset.u : location.pathname);
+        });
+      });
+      var h = location.hash.slice(1);
+      if (h && boutons.some(function (b) { return b.dataset.u === h; })) filtrer(h);
+    })();
+  </script>
+</Base>

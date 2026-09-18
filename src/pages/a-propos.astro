@@ -1,50 +1,53 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getEntry } from 'astro:content';
-const ap = (await getEntry('pages', 'a-propos')).data;
-const chapitres = ap.chapitres ?? [];
+import { recit, codex, propositionsDe } from '../lib/monde';
+import { tisser, contexte } from '../lib/lore.mjs';
+import { typeLabel } from '../lib/univers.mjs';
+
+const ap = (await getEntry('pages', 'a-propos'))!.data;
+const fiches = await codex();
+const ctx = contexte();
+const chapitres = await Promise.all((await recit()).map(async (c) => {
+  const echos = c.echos.map((id) => fiches.find((f) => f.id === id)).filter(Boolean);
+  const nes = new Map();
+  for (const f of echos) for (const p of await propositionsDe(f)) if (!p.externe) nes.set(p.cle, p);
+  return { ...c, echosFiches: echos, nes: [...nes.values()].slice(0, 3), html: c.texte.split(/\n\n+/).map((par) => tisser(par, ctx)) };
+}));
 ---
-<Base title="À propos — Anys Mechkar">
-  <section class="page-hero" style="min-height:52vh;">{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-APROPOS"></div>}
+<Base title="À propos — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
+  <section class="page-hero" style="min-height:52vh;">{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{ap.hero_eyebrow}</p><h1>{ap.hero_titre}</h1></div>
   </section>
 
   <section>
     <div class="tl">
       {chapitres.map((c, i) => (
-        <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`}>
+        <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`} id={c.ancre}>
           <span class="tl-dot"></span>
-          <div class="tl-text"><h2>{c.titre}</h2>{c.texte.split(/\n\n+/).map((par) => <p>{par}</p>)}</div>
-          <div class="tl-media">{c.image ? <img class="slot-img" src={c.image} alt={c.titre} /> : <div class="tl-ph"><span>{'APROPOS-' + String(i + 1).padStart(2, '0')}</span></div>}</div>
+          <div class="tl-text"><h2>{c.titre}</h2>{c.html.map((par) => <p set:html={par}></p>)}</div>
+          <div>
+            {c.image && <div class="tl-media" style="margin-bottom:1.2rem;"><img class="slot-img" src={c.image} alt={c.titre} /></div>}
+            {(c.echosFiches.length > 0 || c.nes.length > 0) && (
+              <aside class="tl-echos">
+                {c.echosFiches.length > 0 && <p class="rune">Échos dans le Codex</p>}
+                {c.echosFiches.length > 0 && <div class="echos">{c.echosFiches.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>}
+                {c.nes.length > 0 && (
+                  <div class="tl-echos__ne">
+                    <p class="rune">Ce qui en est né</p>
+                    {c.nes.map((p) => <a href={p.href}>{p.titre}</a>)}
+                  </div>
+                )}
+              </aside>
+            )}
+          </div>
         </div>
       ))}
     </div>
     <p class="tl-end script">La suite s'écrit encore.</p>
+    <div class="wrap" style="text-align:center; margin-top:2.4rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a class="btn" href="/codex">Explorer le Codex</a>
+      <a class="btn btn--solid" href="/contact">Écris-moi</a>
+    </div>
   </section>
-
-  <script is:inline>
-    (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      if (window.matchMedia('(max-width: 760px)').matches) return;
-      var imgs = Array.prototype.slice.call(document.querySelectorAll('.tl-media img'));
-      if (!imgs.length) return;
-      imgs.forEach(function (im) { im.style.willChange = 'transform'; });
-      var ticking = false;
-      function update() {
-        var vh = window.innerHeight;
-        imgs.forEach(function (im) {
-          var r = im.parentElement.getBoundingClientRect();
-          if (r.bottom < -100 || r.top > vh + 100) return;
-          var progress = (r.top + r.height / 2 - vh / 2) / vh;
-          progress = Math.max(-1, Math.min(1, progress));
-          im.style.transform = 'translateY(' + (progress * -22).toFixed(1) + 'px) scale(1.12)';
-        });
-        ticking = false;
-      }
-      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      update();
-    })();
-  </script>
 </Base>

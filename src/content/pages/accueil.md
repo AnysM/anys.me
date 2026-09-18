@@ -31,7 +31,6 @@ temoins:
   - t: 'Son regard et son écoute m''ont reconnectée à la confiance en moi et en l''autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.'
     'n': Polette
     c: Accompagnement individuel
-partenaires_eyebrow: Partenaires
 form_eyebrow: Contact
 piliers_titre: Ce qui nourrit *le chemin*
 piliers:
@@ -46,24 +45,18 @@ piliers:
   - nom: L’art et l’expression créative
     note: Danse · musique · peinture
 citation1: Je reprends ma place de cellule <br>*dans le grand organisme vivant*.
-propositions_titre: Ce que *je propose*
-propositions:
-  - titre: Ateliers
-    texte: 'Ce qui transforme, c''est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. Autant de portes pour revenir au corps et s''y ancrer dans la durée.'
-    cta: Voir les ateliers
-    image: ''
-  - titre: Soins
-    texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Pour traverser une fatigue, un passage, une transformation, en étant accompagné dans le corps.'
-    cta: Découvrir les soins
-    image: ''
-  - titre: Accompagnement
-    texte: 'Un cheminement individuel pour clarifier une transition, retrouver son axe et incarner un projet qui te ressemble. Avec, si tu le souhaites, la lecture de ton dessin originel.'
-    cta: Découvrir l'accompagnement
-    image: ''
-  - titre: Immersions & retraites
-    texte: 'De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l''essentiel. Retraites d''hommes, désert marocain, cercles au cœur du vivant.'
-    cta: Voir les immersions
-    image: ''
+seuils_eyebrow: Les seuils
+seuils_titre: Par où *entrer*
+seuils:
+  - titre: Découvrir
+    texte: 'Ce qui transforme, c''est la régularité. Un atelier, un voyage sonore, un cercle : des portes simples pour revenir au corps et goûter à la présence, sans rien savoir à l''avance.'
+  - titre: Approfondir
+    texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Ou une lecture de ton dessin originel, pour éclairer ta nature profonde.'
+  - titre: Se transformer
+    texte: 'Un cheminement sur la durée pour traverser une transition et incarner un projet qui te ressemble. Ou une immersion hors du quotidien, pour se déposer en profondeur.'
+codex_eyebrow: Le Codex
+codex_titre: 'Le paysage *intérieur*'
+codex_texte: 'Les notions, les pratiques, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre.'
 citation2: '*Un langage magique,*<br> indéchiffrable par la raison.'
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'

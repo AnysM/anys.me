@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import Sigils from '../../components/Sigils.astro';
+import { codexDe } from '../../lib/monde';
+import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 export async function getStaticPaths() {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie);
   return offres.map((o) => {
@@ -21,18 +24,37 @@ if (d.prix && !d.tarifs) infos.push({ k: 'Tarif', v: d.prix });
 if (d.format) infos.push({ k: 'Format', v: d.format });
 if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
 const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
+const lies = await codexDe(`offres/${o.id}`);
+const touche = lies.filter((f) => f.data.type !== 'allie');
+const avec = lies.filter((f) => f.data.type === 'allie');
+const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
+const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const s = seuil(seuilDe(d));
+const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
+const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
 ---
-<Base title={`${d.titre} — Anys Mechkar`}>
+<Base title={`${d.titre} — Anys Mechkar`} description={d.resume?.replace(/\*/g, '')}>
   <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}
-    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
+    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
+      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
   </section>
 
   <section>
-    <div class="narrow"><div class="prose"><Content /></div></div>
+    <div class="narrow"><div class="prose"><Content /></div>
+      {touche.length > 0 && (
+        <div class="touche">
+          <p class="rune">Ce que ça touche</p>
+          <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+        </div>
+      )}
+      {avec.length > 0 && (
+        <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
+      )}
+    </div>
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}<div class="phrase">{d.resume}</div></section>
+    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
   )}
 
   {(infos.length > 0 || d.tarifs) && (
@@ -45,11 +67,6 @@ const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
     </section>
   )}
 
-  <section class="striptease">
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-  </section>
 
   <section class="invite">
     <div class="narrow">
@@ -59,13 +76,12 @@ const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
       <div class="invite__btns">
         {soin ? (
           <Fragment>
-            <a class="btn btn--solid" href="/contact#rdv">Prendre RDV</a>
-            <a class="btn" href="/contact">Écris-moi</a>
+            <a class="btn btn--solid" href={contact}>Prendre rendez-vous</a>
           </Fragment>
         ) : (
           <Fragment>
-            <a class="btn btn--solid" href="/contact">Écris-moi</a>
-            <a class="btn" href="/contact#appel">Prendre un appel</a>
+            <a class="btn btn--solid" href={contact}>Écris-moi</a>
+            {appel && <a class="btn" href={appel} target="_blank" rel="noopener">Prendre un appel</a>}
           </Fragment>
         )}
       </div>

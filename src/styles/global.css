@@ -11,8 +11,11 @@
   --faint:   rgba(255,255,255,0.09);
   --gold:    #D8A24C;
   --ochre:   #D8A24C;
-  --coral:   #C4472F;
-  --blue:    #2E6BF0;
+  /* Or : le chemin (repères, navigation). Indigo : le savoir, le Codex. Corail : le feu, l'engagement. */
+  --indigo:      #6B6BFF;
+  --indigo-soft: #A3A8FF;
+  --coral:       #F07A5F;
+  --blue:        var(--indigo);
   --measure: 64ch;
 }
 
@@ -68,7 +71,7 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
   transition: background 0.3s, color 0.3s;
 }
 .btn:hover { background: var(--gold); color: var(--navy); }
-.btn--solid { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+.btn--solid { background: var(--coral); color: var(--navy); border-color: var(--coral); }
 .btn--solid:hover { background: transparent; color: var(--cream); }
 
 .cta { display: inline-flex; align-items: center; gap: 16px; font-family: 'Jost', sans-serif; letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.78rem; color: var(--cream); }
@@ -314,7 +317,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .ecard__foot { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: auto; padding-top: 0.7rem; }
 .ecard__price { font-family: 'EB Garamond', serif; font-size: 1.4rem; color: var(--cream); }
 .ecard__early { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--coral); border: 1px solid var(--coral); border-radius: 100px; padding: 3px 10px; }
-.ecard__btn { margin-top: 0.9rem; align-self: flex-start; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--navy); background: var(--gold); padding: 0.85em 1.6em; border-radius: 100px; transition: background 0.3s; }
+.ecard__btn { margin-top: 0.9rem; align-self: flex-start; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--navy); background: var(--coral); padding: 0.85em 1.6em; border-radius: 100px; transition: background 0.3s; }
 .ecard:hover .ecard__btn { background: var(--cream); }
 .ecard__meta { font-size: 0.9rem; }
 
@@ -322,7 +325,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .form { display: grid; gap: 1.1rem; max-width: 540px; margin-top: 2rem; }
 .form label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.66rem; color: var(--muted); display: block; margin-bottom: 0.45rem; }
 .form input, .form select, .form textarea { width: 100%; background: var(--surface); border: 1px solid var(--faint); border-radius: 6px; padding: 0.85em 1em; color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.98rem; }
-.form input:focus, .form select:focus, .form textarea:focus { outline: none; border-color: var(--gold); }
+.form input:focus, .form select:focus, .form textarea:focus { outline: none; border-color: var(--coral); }
 .form textarea { min-height: 130px; resize: vertical; }
 
 /* ── Bloc « cœur à cœur » (passages personnels) ── */
@@ -470,3 +473,8 @@ html.js main > section.is-in { opacity: 1; transform: none; }
 .ph-band::after { content: attr(data-h); position: absolute; top: 14px; left: 16px; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.62rem; color: var(--muted); z-index: 1; }
 
 .slot-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Tant qu'une photo manque : la texture cosmique, jamais un cadre vide étiqueté */
+.ph-band, .imgph { background: url('/img/tex-cosmic.jpg') center / cover no-repeat, var(--surface); }
+.imgph { filter: saturate(0.8) brightness(0.7); }
+.ph-band::after, .imgph span { display: none; }

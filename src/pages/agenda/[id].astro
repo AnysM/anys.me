@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import Sigils from '../../components/Sigils.astro';
+import { codexDe } from '../../lib/monde';
+import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 export async function getStaticPaths() {
   const all = (await getCollection('agenda')).filter((e) => e.data.publie && !e.data.site);
   const dated = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
@@ -20,18 +23,37 @@ const infos = [{ k: 'Quand', v: quand + (d.heure ? ` · ${d.heure}` : '') }];
 if (d.lieu) infos.push({ k: 'Lieu', v: d.lieu });
 if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
 if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
+const lies = await codexDe(`agenda/${e.id}`);
+const touche = lies.filter((f) => f.data.type !== 'allie');
+const avec = lies.filter((f) => f.data.type === 'allie');
+const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
+const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const s = seuil(seuilDe(d));
+const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
+const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
 ---
-<Base title={`${d.titre} — Anys Mechkar`}>
+<Base title={`${d.titre} — Anys Mechkar`} description={d.resume}>
   <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}
-    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1></div>
+    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1>
+      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
   </section>
 
   <section>
-    <div class="narrow"><div class="prose"><Content /></div></div>
+    <div class="narrow"><div class="prose"><Content /></div>
+      {touche.length > 0 && (
+        <div class="touche">
+          <p class="rune">Ce que ça touche</p>
+          <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+        </div>
+      )}
+      {avec.length > 0 && (
+        <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
+      )}
+    </div>
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}<div class="phrase">{d.resume}</div></section>
+    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
   )}
 
   <section class="bloc-or">
@@ -46,11 +68,6 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
     </div>
   </section>
 
-  <section class="striptease">
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-  </section>
 
   <section class="invite">
     <div class="narrow">
@@ -58,8 +75,8 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
       <h2>Envie d'en savoir plus ?</h2>
       <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement, ou réservons un temps ensemble.</p>
       <div class="invite__btns">
-        <a class="btn btn--solid" href="/contact">Écris-moi</a>
-        <a class="btn" href="/contact#appel">Prendre un appel</a>
+        <a class="btn btn--solid" href={contact}>Écris-moi</a>
+        {appel && <a class="btn" href={appel} target="_blank" rel="noopener">Prendre un appel</a>}
       </div>
     </div>
   </section>

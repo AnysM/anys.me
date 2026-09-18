@@ -1,7 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { UNIVERS_IDS, TYPE_IDS, SEUIL_IDS, refId } from './lib/univers.mjs';
 
 const videVersUndefined = (v: unknown) => (v === '' || v === null ? undefined : v);
+// Listes de références Tina : [{ offre: "src/content/offres/x.md" }] ou ["x"] → ["x"]
+const refs = z.preprocess(
+  (v) => (Array.isArray(v) ? v.map((x) => (x && typeof x === 'object' ? Object.values(x)[0] : x)).filter(Boolean).map((x) => refId(String(x))) : []),
+  z.array(z.string()),
+);
+const seuil = z.preprocess(videVersUndefined, z.enum(SEUIL_IDS as [string, ...string[]]).optional());
 
 const agenda = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/agenda' }),
@@ -23,6 +30,7 @@ const agenda = defineCollection({
     reservable: z.boolean().default(false),
     ordre: z.number().default(0),
     publie: z.boolean().default(true),
+    seuil,
   }),
 });
 
@@ -42,6 +50,7 @@ const offres = defineCollection({
     reservable: z.boolean().default(true),
     ordre: z.number().default(0),
     publie: z.boolean().default(true),
+    seuil,
   }),
 });
 
@@ -76,7 +85,14 @@ const pages = defineCollection({
     appel_texte: z.string().optional(),
     appel_cta: z.string().optional(),
     temoins: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
-    chapitres: z.array(z.object({ titre: z.string(), texte: z.string(), image: z.string().optional() })).optional(),
+    chapitres: z.array(z.object({ titre: z.string(), texte: z.string(), image: z.string().optional(), echos: refs.optional() })).optional(),
+    seuils: z.array(z.object({ titre: z.string().optional(), texte: z.string() })).optional(),
+    seuils_eyebrow: z.string().optional(),
+    seuils_titre: z.string().optional(),
+    codex_eyebrow: z.string().optional(),
+    codex_titre: z.string().optional(),
+    codex_texte: z.string().optional(),
+    appel_lien: z.string().optional(),
     coeur: z.string().optional(),
     soins_eyebrow: z.string().optional(),
     soins_titre: z.string().optional(),
@@ -119,4 +135,24 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { agenda, offres, pages };
+const codex = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/codex' }),
+  schema: z.object({
+    titre: z.string(),
+    type: z.enum(TYPE_IDS as [string, ...string[]]),
+    univers: z.array(z.enum(UNIVERS_IDS as [string, ...string[]])).default([]),
+    alias: z.array(z.string()).default([]),
+    resume: z.string().optional(),
+    image: z.preprocess(videVersUndefined, z.string().optional()),
+    lien_externe: z.preprocess(videVersUndefined, z.string().optional()),
+    logo: z.preprocess(videVersUndefined, z.string().optional()),
+    logo_blanc: z.boolean().default(false),
+    offres: refs.default([]),
+    agenda: refs.default([]),
+    liens: refs.default([]),
+    ordre: z.number().default(0),
+    publie: z.boolean().default(true),
+  }),
+});
+
+export const collections = { agenda, offres, pages, codex };

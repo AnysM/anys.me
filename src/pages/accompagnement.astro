@@ -59,7 +59,7 @@ const outils = ac.outils ?? [];
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
               <div class="evt__title">{o.data.titre}</div>
-              <div class="evt__desc">{o.data.resume}</div>
+              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
               {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
               <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
             </div>
