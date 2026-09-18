@@ -6,7 +6,7 @@
    ════════════════════════════════ */
 :root {
   --bleu: #5C7CFF;
-  --rouge: #FF5A43;
+  --rouge: var(--coral);
   --jaune: #FFC53D;
   --fond-symbole: #0C1128;
 }
