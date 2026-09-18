@@ -8,7 +8,7 @@
   --r-lg: 20px;   /* cartes */
   --r-md: 14px;   /* champs, encarts */
   --pill: 999px;
-  --section: clamp(4.5rem, 10vw, 8.5rem);      /* respiration verticale entre sections */
+  --section: clamp(6rem, 13vw, 11rem);         /* respiration verticale entre sections */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -41,7 +41,7 @@ section { padding: var(--section) 0; }
 .ecard__btn .ico { width: 26px; height: 26px; padding: 6px; border-radius: 50%; background: var(--navy); color: var(--coral); }
 
 /* ── En-têtes de section centrés : sur-titre encadré de deux traits ── */
-.tete { text-align: center; margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+.tete { text-align: center; margin-bottom: clamp(3.5rem, 8vw, 6rem); }
 .tete .eyebrow { justify-content: center; }
 .tete .eyebrow::before { content: ''; width: 42px; height: 1px; background: var(--gold); opacity: 0.55; }
 .tete h2 { margin: 1rem auto 0; }
@@ -91,3 +91,14 @@ section { padding: var(--section) 0; }
    dans un paragraphe, *mot* devient un italique Garamond lisible */
 p .script { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1em; letter-spacing: 0; color: var(--cream); }
 p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
+
+/* Respiration : titres, blocs et schémas prennent de l'air */
+.rosace { margin-top: clamp(7rem, 15vw, 11rem); margin-bottom: clamp(2rem, 5vw, 4rem); }
+.group + .group { margin-top: clamp(4rem, 9vw, 7rem); }
+.group__title { margin-bottom: clamp(1.2rem, 3vw, 2rem); }
+.cgroupe { margin-top: clamp(3.5rem, 8vw, 6rem); }
+.seuils { margin-top: clamp(3rem, 7vw, 5rem); }
+h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
+.split { gap: clamp(2.5rem, 8vw, 6.5rem); }
+.tl-row { margin-bottom: clamp(4rem, 9vw, 7rem); }
+@media (max-width: 640px) { .rosace { margin-top: 2rem; } }
