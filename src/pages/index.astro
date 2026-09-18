@@ -56,9 +56,6 @@ const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ??
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"><img src={acc.hero_image ?? "/img/univers-art.jpg"} alt="Œuvre d'Indigo Enoqii" /></div>
-    <span class="dot" style="width:7px;height:7px;background:var(--coral);top:26%;right:8%"></span>
-    <span class="dot" style="width:6px;height:6px;background:var(--blue);top:40%;right:16%;opacity:.9"></span>
-    <span class="dot" style="width:5px;height:5px;background:var(--gold);top:70%;right:24%;opacity:.6"></span>
     <div class="hero-left">
       <p class="eyebrow">{acc.hero_eyebrow}</p>
       <div class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></div>
