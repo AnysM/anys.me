@@ -46,7 +46,7 @@ piliers:
   - nom: L’art et l’expression créative
     note: Danse · musique · peinture
 citation1: Je reprends ma place de cellule <br>*dans le grand organisme vivant*.
-propositions_titre: '*Ce que* je propose'
+propositions_titre: Ce que *je propose*
 propositions:
   - titre: Ateliers
     texte: 'Ce qui transforme, c''est la régularité. Des ateliers de présence, de mouvement, de méditation, de connaissance de soi et de créativité, et des voyages sonores. Autant de portes pour revenir au corps et s''y ancrer dans la durée.'
@@ -64,7 +64,7 @@ propositions:
     texte: 'De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l''essentiel. Retraites d''hommes, désert marocain, cercles au cœur du vivant.'
     cta: Voir les immersions
     image: ''
-citation2: '*Un langage magique*, indéchiffrable par la raison.'
+citation2: '*Un langage magique,*<br> indéchiffrable par la raison.'
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
