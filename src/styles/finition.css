@@ -1,0 +1,147 @@
+/* ════════════════════════════════
+   FINITION — rythme, arrondis, pictos, détails
+   Chargée en dernier : affine sans changer la DA (couleurs, fonds, polices).
+   ════════════════════════════════ */
+:root {
+  --r-xl: 28px;   /* grands blocs image (hero, respirations) */
+  --r-lg: 20px;   /* cartes */
+  --r-md: 14px;   /* champs, encarts */
+  --pill: 999px;
+  --inset: clamp(8px, 1.2vw, 14px);            /* marge des blocs image décollés du bord */
+  --section: clamp(4.5rem, 10vw, 8.5rem);      /* respiration verticale entre sections */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+section { padding: var(--section) 0; }
+::selection { background: rgba(107,107,255,0.35); color: var(--cream); }
+:focus-visible { outline: 1px solid var(--indigo-soft); outline-offset: 4px; border-radius: 4px; }
+.ico { display: inline-block; flex-shrink: 0; vertical-align: -0.12em; }
+
+/* ── Menu : capsule flottante ── */
+.site-nav {
+  top: 12px; left: 50%; right: auto; transform: translateX(-50%);
+  width: min(calc(100% - 2 * var(--inset)), 1240px);
+  padding: 8px 8px 8px 18px; border-radius: var(--pill);
+  background: rgba(10,15,32,0.38); border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  transition: background 0.4s, border-color 0.4s;
+}
+.site-nav.scrolled { background: rgba(10,15,32,0.82); border-color: rgba(255,255,255,0.1); }
+.site-nav__logo img { width: 36px; }
+.site-nav__logo span { font-size: 12.5px; text-shadow: none; }
+.site-nav__links { align-items: center; gap: 26px; }
+.site-nav__links a { font-size: 11.5px; text-shadow: none; }
+.site-nav__cta { display: inline-flex; align-items: center; gap: 10px; margin-left: 6px; padding: 0.72em 0.8em 0.72em 1.35em; border-radius: var(--pill); background: var(--coral); color: var(--navy) !important; opacity: 1 !important; font-weight: 400; letter-spacing: 0.16em !important; transition: background 0.3s; }
+.site-nav__cta .ico { width: 22px; height: 22px; padding: 5px; border-radius: 50%; background: var(--navy); color: var(--coral); }
+.site-nav__cta:hover { background: var(--cream); }
+.site-nav__burger { margin-right: 10px; }
+.subnav { border-radius: var(--r-md); top: calc(100% + 18px); padding: 8px; }
+.subnav a { border-radius: 10px; }
+.subnav a:hover { background: rgba(255,255,255,0.04); }
+@media (max-width: 860px) { .site-nav { padding: 8px 8px 8px 14px; } .site-nav__logo img { width: 32px; } }
+
+/* ── Blocs image décollés du bord, coins arrondis ── */
+#hero, .page-hero, .breath {
+  margin: var(--inset) var(--inset) 0; border-radius: var(--r-xl); overflow: hidden; isolation: isolate;
+}
+#hero { min-height: calc(100svh - 2 * var(--inset)); }
+.breath { min-height: 72vh; }
+.page-hero { padding-top: 140px; }
+@media (max-width: 760px) { #hero, .page-hero, .breath { border-radius: 22px; } .page-hero { padding-top: 112px; } }
+
+/* Étoiles discrètes sur les grands visuels */
+.etoiles { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.7;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 27% 62%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 41% 28%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 55% 74%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 68% 14%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 79% 46%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 82%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 93% 22%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 6% 88%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 90%, #fff 50%, transparent 51%);
+  animation: scintille 7s ease-in-out infinite alternate; }
+.etoiles + .etoiles { opacity: 0.45; transform: translate(3%, 6%) scale(1.1); animation-duration: 11s; animation-delay: -4s; }
+@keyframes scintille { from { opacity: 0.25; } to { opacity: 0.8; } }
+@media (prefers-reduced-motion: reduce) { .etoiles { animation: none; } }
+
+/* ── Boutons : pilules, flèche dans un cercle ── */
+.btn { border-radius: var(--pill); padding: 0.95em 1.9em; letter-spacing: 0.18em; font-size: 0.76rem; border-color: rgba(216,162,76,0.7); transition: background 0.35s var(--ease), color 0.35s, border-color 0.35s; }
+.btn--solid { gap: 14px; padding: 0.55em 0.55em 0.55em 1.8em; border: 0; }
+.btn--solid::after { content: ''; width: 34px; height: 34px; border-radius: 50%; background: var(--navy) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F07A5F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 15px no-repeat; transition: transform 0.35s var(--ease); }
+.btn--solid:hover { background: var(--cream); color: var(--navy); }
+.btn--solid:hover::after { transform: translateX(3px); }
+.cta .line { transition: width 0.4s var(--ease); }
+
+/* ── En-têtes de section centrés : sur-titre encadré de deux traits ── */
+.tete { text-align: center; margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+.tete .eyebrow { justify-content: center; }
+.tete .eyebrow::before { content: ''; width: 42px; height: 1px; background: var(--gold); opacity: 0.55; }
+.tete h2 { margin: 1rem auto 0; }
+.tete p.muted, .tete .tete__texte { margin: 1.1rem auto 0; max-width: 52ch; }
+.tete__lien { margin: 1.6rem auto 0; }
+
+/* ── Étiquettes (pilules) ── */
+.ecard__tag { background: rgba(107,107,255,0.22); border: 1px solid rgba(163,168,255,0.28); color: var(--cream); letter-spacing: 0.16em; padding: 6px 12px; }
+.pastille { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--pill); padding: 0.4em 0.95em; background: rgba(107,107,255,0.16); border: 1px solid rgba(163,168,255,0.22); font-family: 'Jost', sans-serif; font-size: 0.64rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); }
+.filtre small { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+.filtre[aria-pressed="true"] small { color: var(--indigo-soft); }
+.seuil-tag { border: 1px solid rgba(216,162,76,0.35); border-radius: var(--pill); padding: 0.45em 0.6em 0.45em 1em; gap: 12px; }
+.seuil-tag .sigils { margin-left: 0.2rem; padding-left: 0.8rem; border-left: 1px solid var(--faint); }
+
+/* ── Cartes ── */
+.ecard, .evt, .allie, .tarif, .tl-echos, .tl-media, .orient button { border-radius: var(--r-lg); }
+.ecard { background: linear-gradient(180deg, rgba(255,255,255,0.025), transparent 40%), var(--surface); transition: border-color 0.4s, transform 0.5s var(--ease); }
+.ecard:hover { transform: translateY(-4px); border-color: rgba(163,168,255,0.35); }
+.ecard__body { padding: 1.5rem 1.6rem 1.7rem; }
+.ecard__title::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); opacity: 0.6; margin-top: 0.9rem; }
+.ecard__when, .ecard__meta { display: flex; align-items: center; gap: 8px; }
+.ecard__when .ico { color: var(--gold); }
+.ecard__meta .ico { color: var(--muted); }
+.ecard__btn { display: inline-flex; align-items: center; gap: 10px; padding: 0.5em 0.5em 0.5em 1.4em; }
+.ecard__btn .ico { width: 26px; height: 26px; padding: 6px; border-radius: 50%; background: var(--navy); color: var(--coral); }
+.evt { border-color: rgba(255,255,255,0.07); }
+.evt:hover { border-color: rgba(163,168,255,0.35); }
+.gallery img { border-radius: var(--r-md); }
+.photo, .split .photo { border-radius: var(--r-lg); border: 0; }
+.part__media { border-radius: var(--r-md); }
+
+/* Infos pratiques : picto + libellé */
+.infos .k { display: flex; align-items: center; gap: 7px; }
+.infos .k .ico { color: var(--gold); }
+.infos > div { padding: 1rem 1.1rem; border-radius: var(--r-md); background: rgba(255,255,255,0.03); border: 1px solid var(--faint); }
+
+/* Quêtes (listes de propositions) */
+.quete__quand { display: flex; align-items: center; gap: 7px; }
+.quete__prix { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Seuils : pastilles numérotées plus présentes */
+.seuil__num { width: 3rem; height: 3rem; box-shadow: 0 0 0 6px var(--navy); }
+.seuil:last-child .seuil__num { box-shadow: 0 0 0 6px var(--navy), 0 0 24px rgba(240,122,95,0.25); }
+
+/* ── Formulaire ── */
+.form input, .form select, .form textarea { border-radius: var(--r-md); padding: 1em 1.15em; background: rgba(255,255,255,0.03); transition: border-color 0.3s, background 0.3s; }
+.form input:focus, .form select:focus, .form textarea:focus { background: rgba(255,255,255,0.05); }
+.form select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D8A24C' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 16px; padding-right: 2.8rem; }
+.form button[type="submit"] { margin-top: 0.4rem; }
+
+/* ── Phrases qui s'allument mot à mot ── */
+.phrase .mot { opacity: 0.18; transition: opacity 0.5s ease; }
+.phrase .mot.on { opacity: 1; }
+
+/* ── Fil d'Ariane / signature ── */
+.signature { display: inline-flex; align-items: center; gap: 8px; margin-top: 1.1rem; font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+
+/* ── Pied de page ── */
+.foot { margin: 0 var(--inset) var(--inset); border: 1px solid var(--faint); border-radius: var(--r-xl); padding: clamp(2.6rem, 5vw, 4rem) 0 1.6rem; background: radial-gradient(700px 300px at 85% 0%, rgba(107,107,255,0.08), transparent 70%), var(--navy2); }
+.foot__h { display: flex; align-items: center; gap: 10px; }
+
+/* ── Sections à fond : panneaux décollés, comme les visuels ── */
+.bloc { background: var(--surface); }
+.bloc, .coeur, .invite, .bloc-or, .gouter, .temoins.veil {
+  margin: var(--inset) var(--inset) 0; border-radius: var(--r-xl); overflow: hidden; isolation: isolate;
+}
+@media (max-width: 760px) { .bloc, .coeur, .invite, .bloc-or, .gouter, .temoins.veil { border-radius: 22px; } }
+@media (max-width: 600px) {
+  .piliers { grid-template-columns: 1fr 1fr; gap: 2.2rem 1.2rem; margin-top: 0; }
+  .pilier__name { font-size: 1.08rem; }
+  .pilier__desc { font-size: 0.84rem; }
+  .pilier__more { display: none; }
+}

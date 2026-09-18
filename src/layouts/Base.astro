@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import '../styles/nav.css';
 import '../styles/monde.css';
+import '../styles/finition.css';
+import Icone from '../components/Icone.astro';
 import { getCollection } from 'astro:content';
 import { personne, siteWeb } from '../lib/seo';
 const {
@@ -74,6 +76,7 @@ const links = [
       </div>
       <a href="/codex">Codex</a>
       <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+      <a class="site-nav__cta" href="/contact">Écris-moi <Icone nom="fleche" /></a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
       <span class="site-nav__burger-line"></span>
@@ -183,6 +186,42 @@ const links = [
         requestAnimationFrame(loop);
       }
       requestAnimationFrame(loop);
+    })();
+  </script>
+  <script is:inline>
+    (function () {
+      // Étoiles discrètes sur les grands visuels
+      document.querySelectorAll('#hero, .page-hero').forEach(function (el) {
+        for (var i = 0; i < 2; i++) { var d = document.createElement('div'); d.className = 'etoiles'; d.setAttribute('aria-hidden', 'true'); el.appendChild(d); }
+      });
+      // Phrases des respirations : les mots s'allument au fil du défilement
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var phrases = Array.prototype.slice.call(document.querySelectorAll('.breath .phrase'));
+      phrases.forEach(function (ph) {
+        var walker = document.createTreeWalker(ph, NodeFilter.SHOW_TEXT), noeuds = [];
+        while (walker.nextNode()) noeuds.push(walker.currentNode);
+        noeuds.forEach(function (n) {
+          var frag = document.createDocumentFragment();
+          n.nodeValue.split(/(\s+)/).forEach(function (m) {
+            if (!m) return;
+            if (/^\s+$/.test(m)) { frag.appendChild(document.createTextNode(m)); return; }
+            var s = document.createElement('span'); s.className = 'mot'; s.textContent = m; frag.appendChild(s);
+          });
+          n.parentNode.replaceChild(frag, n);
+        });
+        ph._mots = ph.querySelectorAll('.mot');
+      });
+      function maj() {
+        var H = window.innerHeight;
+        phrases.forEach(function (ph) {
+          var r = ph.getBoundingClientRect();
+          var p = Math.max(0, Math.min(1, (H * 0.85 - r.top) / (H * 0.45)));
+          var n = Math.round(p * ph._mots.length);
+          for (var i = 0; i < ph._mots.length; i++) ph._mots[i].classList.toggle('on', i < n);
+        });
+      }
+      window.addEventListener('scroll', function () { requestAnimationFrame(maj); }, { passive: true });
+      maj();
     })();
   </script>
 </body>

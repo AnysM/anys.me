@@ -38,9 +38,9 @@ const jsonld = [
       <p class="codex-intro">Tout ce que j'ai traversé, rencontré, pratiqué et compris. Chaque fiche relie mon récit à ce que tu peux venir vivre.</p>
 
       <div class="filtres" role="group" aria-label="Filtrer par univers">
-        <button class="filtre" type="button" data-u="" aria-pressed="true">Tout</button>
+        <button class="filtre" type="button" data-u="" aria-pressed="true">Tout <small>{fiches.filter((f) => f.data.type !== 'allie').length}</small></button>
         {UNIVERS.map((u) => (
-          <button class="filtre" type="button" data-u={u.id} aria-pressed="false" id={u.id}><span><Fragment set:html={u.icon} /></span>{u.nom}</button>
+          <button class="filtre" type="button" data-u={u.id} aria-pressed="false" id={u.id}><span><Fragment set:html={u.icon} /></span>{u.nom} <small>{fiches.filter((f) => f.data.type !== 'allie' && f.data.univers.includes(u.id)).length}</small></button>
         ))}
       </div>
 
@@ -62,7 +62,7 @@ const jsonld = [
   </section>
 
   {allies.length > 0 && (
-    <section id="allies" style="background:var(--surface);">
+    <section id="allies" class="bloc">
       <div class="wrap">
         <p class="eyebrow">Les alliés</p>
         <h2 style="margin-top:0.8rem;">Ceux avec qui je <span class="script">crée</span></h2>

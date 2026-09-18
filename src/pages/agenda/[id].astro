@@ -2,9 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
+import Icone from '../../components/Icone.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
+const ICONES = { 'Quand': 'date', 'Lieu': 'lieu', 'Tarif': 'prix', 'Early bird': 'duree' };
 export async function getStaticPaths() {
   const all = (await getCollection('agenda')).filter((e) => e.data.publie && !e.data.site);
   const dated = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
@@ -63,7 +65,7 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}
+  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
   </section>
@@ -83,13 +85,13 @@ const jsonld = [
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
+    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
   )}
 
   <section class="bloc-or">
     <div class="narrow">
       <p class="eyebrow">Infos pratiques</p>
-      <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
+      <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>
       {d.reservable && d.lien && (
         <div style="margin-top:1.8rem;">
           <a class="btn btn--solid" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{d.cta ?? 'Réserver'}</a>

@@ -2,9 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
+import Icone from '../../components/Icone.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
+const ICONES = { 'Durée': 'duree', 'Tarif': 'prix', 'Format': 'format', 'Modalité': 'format' };
 export async function getStaticPaths() {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie);
   return offres.map((o) => {
@@ -54,7 +56,7 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}
+  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
   </section>
@@ -74,14 +76,14 @@ const jsonld = [
   </section>
 
   {d.resume && (
-    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
+    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
   )}
 
   {(infos.length > 0 || d.tarifs) && (
     <section class="bloc-or">
       <div class="narrow">
         <p class="eyebrow">Infos & tarifs</p>
-        {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
+        {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
         {d.tarifs && <div class="tarifs" style="margin-top:1.2rem;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
       </div>
     </section>

@@ -1,44 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getEntry } from 'astro:content';
-const ag = (await getEntry('pages', 'agenda')).data;
-import { getCollection } from 'astro:content';
+import CarteEvenement from '../components/CarteEvenement.astro';
+import { getCollection, getEntry } from 'astro:content';
+const ag = (await getEntry('pages', 'agenda'))!.data;
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
-const labels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', accompagnement: 'Accompagnement', cercle: 'Cercle', soin: 'Soin' };
-const fmtCourt = (d) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d).replace('.', '');
-function ligneDate(d) {
-  if (!d.date) return (d.rythme ?? 'Sur inscription');
-  if (d.date_fin) {
-    const j = Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1;
-    const same = d.date.getMonth() === d.date_fin.getMonth() && d.date.getFullYear() === d.date_fin.getFullYear();
-    const dd = (x) => x.getDate();
-    const mo = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '');
-    const moy = (x) => new Intl.DateTimeFormat('fr-FR', { month: 'short', year: 'numeric' }).format(x).replace('.', '');
-    const r = same ? `Du ${dd(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}` : `Du ${dd(d.date)} ${mo(d.date)} au ${dd(d.date_fin)} ${moy(d.date_fin)}`;
-    return `${r} · ${j} jours`;
-  }
-  return fmtCourt(d.date) + (d.heure ? ` · ${d.heure}` : '');
-}
-
-const aVenir = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const aujourdhui = new Date(new Date().toDateString());
+const aVenir = all.filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
-const accentDernier = (s) => {
-  const w = s.trim().split(/\s+/);
-  if (w.length < 2) return s.replace(/&/g, '&amp;');
-  const last = w.pop();
-  return w.join(' ').replace(/&/g, '&amp;') + ' <span class="script">' + last.replace(/&/g, '&amp;') + '</span>';
-};
 const groupes = [
   { titre: 'À venir', items: aVenir },
   { titre: 'Rendez-vous réguliers', items: reguliers },
   { titre: 'Retraites & immersions', items: retraites },
 ].filter((g) => g.items.length > 0);
 ---
-<Base title="Agenda — Anys Mechkar">
-  <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-AGENDA"></div>}
+<Base title="Agenda — ateliers, voyages sonores, retraites à Lyon | Anys Mechkar" description="Les prochaines dates d'Anys Mechkar : ateliers de méditation et de danse Butô, voyages sonores, cercles de parole et retraites, à Lyon et ailleurs.">
+  <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="wrap"><p class="eyebrow">{ag.hero_eyebrow}</p><h1>{ag.hero_titre}</h1></div>
   </section>
 
@@ -47,24 +26,7 @@ const groupes = [
       {groupes.map((g) => (
         <div class="group">
           <h2 class="group__title">{g.titre}</h2>
-          <div class="egrid">
-            {g.items.map((e) => (
-              <a class="ecard" href={e.data.site ?? `/agenda/${e.id}`} target={e.data.site && e.data.site.startsWith('http') ? '_blank' : undefined} rel="noopener">
-                <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt={e.data.titre} /> : <div class="imgph"><span>{e.id}</span></div>}<span class="ecard__tag">{labels[e.data.categorie] ?? e.data.categorie}</span></div>
-                <div class="ecard__body">
-                  <div class="ecard__when">{ligneDate(e.data)}</div>
-                  <div class="ecard__title">{e.data.titre}</div>
-                  {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
-                  {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
-                  <div class="ecard__foot">
-                    {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
-                    {e.data.earlybird && <span class="ecard__early">Early bird jusqu’au {e.data.earlybird}</span>}
-                  </div>
-                  {e.data.reservable && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
-                </div>
-              </a>
-            ))}
-          </div>
+          <div class="egrid">{g.items.map((e) => <CarteEvenement e={e} />)}</div>
         </div>
       ))}
     </div>

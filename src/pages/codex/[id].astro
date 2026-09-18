@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Sigils from '../../components/Sigils.astro';
 import Quete from '../../components/Quete.astro';
+import Icone from '../../components/Icone.astro';
 import { render } from 'astro:content';
 import { MINIMUM_SEO } from '../../lib/lore.mjs';
 import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
@@ -67,7 +68,7 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
       <h1>{d.titre}</h1>
       {d.resume && <p class="fiche-resume">{d.resume}</p>}
       <Sigils ids={d.univers} lg />
-      {publie && <p class="rune" style="margin-top:1rem; color:var(--muted);">Par Anys Mechkar · <time datetime={publie.toISOString().slice(0, 10)}>{new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(publie)}</time></p>}
+      {publie && <p class="signature"><Icone nom="plume" />Par Anys Mechkar · <time datetime={publie.toISOString().slice(0, 10)}>{new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(publie)}</time></p>}
     </div>
   </section>
 

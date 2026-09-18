@@ -5,8 +5,9 @@ import Base from '../layouts/Base.astro';
 import Sigils from '../components/Sigils.astro';
 import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
+import CarteEvenement from '../components/CarteEvenement.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { codex, propositions, hrefAgenda, estExterne, ligneDate } from '../lib/monde';
+import { codex, propositions } from '../lib/monde';
 import { UNIVERS, SEUILS, typeLabel } from '../lib/univers.mjs';
 import { tisser, contexte } from '../lib/lore.mjs';
 
@@ -31,7 +32,6 @@ const dates = (await getCollection('agenda'))
   .filter((e) => e.data.publie && e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
   .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
   .slice(0, 3);
-const catLabels = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 
 const temoins = acc.temoins ?? [];
 
@@ -65,10 +65,12 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
   </section>
 
   <!-- LE MONDE : les cinq univers -->
-  <section style="background:var(--surface);">
+  <section class="bloc">
     <div class="wrap">
-      <p class="eyebrow">{acc.piliers_eyebrow}</p>
-      <h2 style="margin-top:0.8rem;" set:html={fmt(acc.piliers_titre)}></h2>
+      <div class="tete">
+        <p class="eyebrow">{acc.piliers_eyebrow}</p>
+        <h2 set:html={fmt(acc.piliers_titre)}></h2>
+      </div>
       <div class="piliers">
         {piliers.map((u) => (
           <a class="pilier" href={`/codex#${u.id}`}>
@@ -88,8 +90,10 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
   <!-- LES SEUILS -->
   <section id="seuils">
     <div class="wrap">
-      <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
-      <h2 style="margin-top:0.8rem;" set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
+      <div class="tete">
+        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
+        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
+      </div>
       <div class="seuils">
         {seuils.map((s) => (
           <div class="seuil">
@@ -106,30 +110,13 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
 
   <!-- PROCHAINES DATES -->
   {dates.length > 0 && (
-    <section style="background:var(--surface);">
+    <section class="bloc">
       <div class="wrap">
         <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
           <p class="eyebrow">{acc.agenda_eyebrow}</p>
           <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
         </div>
-        <div class="egrid">
-          {dates.map((e) => (
-            <a class="ecard" href={hrefAgenda(e)} target={estExterne(hrefAgenda(e)) ? '_blank' : undefined} rel="noopener">
-              <div class="ecard__img">{e.data.image ? <img src={e.data.image} alt="" /> : <div class="imgph"></div>}<span class="ecard__tag">{catLabels[e.data.categorie] ?? e.data.categorie}</span></div>
-              <div class="ecard__body">
-                <div class="ecard__when">{ligneDate(e.data)}</div>
-                <div class="ecard__title">{e.data.titre}</div>
-                {e.data.resume && <div class="ecard__desc">{e.data.resume}</div>}
-                {e.data.lieu && <div class="ecard__meta">{e.data.lieu}</div>}
-                <div class="ecard__foot">
-                  {e.data.prix && <span class="ecard__price">{e.data.prix}</span>}
-                  {e.data.earlybird && <span class="ecard__early">Early bird jusqu’au {e.data.earlybird}</span>}
-                </div>
-                {e.data.reservable && <span class="ecard__btn">{e.data.cta ?? 'Réserver'}</span>}
-              </div>
-            </a>
-          ))}
-        </div>
+        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
       </div>
     </section>
   )}
@@ -139,7 +126,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
     <section class="temoins veil">
       <div class="veil-bg" style="background-image:url('/img/tex-cosmic.jpg')"></div>
       <div class="wrap">
-        <p class="eyebrow">{acc.temoins_eyebrow}</p>
+        <div class="tete" style="margin-bottom:0;"><p class="eyebrow">{acc.temoins_eyebrow}</p></div>
         <div class="grid">
           {temoins.map((x) => (<div class="temoin"><p>« {x.t} »</p><cite><b>{x.n}</b>{x.c && ` — ${x.c}`}</cite></div>))}
         </div>
@@ -165,13 +152,14 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
   </section>
 
   <!-- LE CODEX -->
-  <section style="background:var(--surface);">
+  <section class="bloc">
     <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <div><p class="eyebrow">{acc.codex_eyebrow ?? 'Le Codex'}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.codex_titre ?? 'Le paysage *intérieur*')}></h2></div>
-        <a class="cta" href="/codex">Ouvrir le Codex <span class="line"></span></a>
+      <div class="tete">
+        <p class="eyebrow">{acc.codex_eyebrow ?? 'Le Codex'}</p>
+        <h2 set:html={fmt(acc.codex_titre ?? 'Le paysage *intérieur*')}></h2>
+        {acc.codex_texte && <p class="muted">{acc.codex_texte}</p>}
+        <p class="tete__lien"><a class="btn" href="/codex">Ouvrir le Codex</a></p>
       </div>
-      {acc.codex_texte && <p class="muted" style="margin-top:1rem;">{acc.codex_texte}</p>}
       <div class="apercu">
         {apercu.map((f) => (
           <a class="fiche-row" href={`/codex/${f.id}`}>
@@ -182,7 +170,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
       </div>
       {allies.length > 0 && (
         <div style="margin-top:3rem;">
-          <p class="rune">Les alliés</p>
+          <p class="rune" style="text-align:center;">Les alliés</p>
           <div class="allies">
             {allies.map((a) => (
               <a class="allie" href={`/codex/${a.id}`}>
