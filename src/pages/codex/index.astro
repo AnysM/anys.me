@@ -3,14 +3,28 @@ import Base from '../../layouts/Base.astro';
 import Sigils from '../../components/Sigils.astro';
 import { codex } from '../../lib/monde';
 import { UNIVERS, TYPES } from '../../lib/univers.mjs';
+import { fil, SITE, PERSONNE_ID, abs } from '../../lib/seo';
 
 const fiches = await codex();
 const groupes = TYPES.filter((t) => t.id !== 'allie')
   .map((t) => ({ ...t, fiches: fiches.filter((f) => f.data.type === t.id) }))
   .filter((g) => g.fiches.length);
 const allies = fiches.filter((f) => f.data.type === 'allie');
+const jsonld = [
+  {
+    '@type': 'CollectionPage',
+    '@id': abs(`/codex`),
+    url: abs(`/codex`),
+    name: "Le Codex d'Anys Mechkar",
+    description: "Notions, pratiques, rencontres et réalisations intérieures : méditation, danse Butô, chamanisme, soin énergétique, Human Design…",
+    author: { '@id': PERSONNE_ID },
+    inLanguage: 'fr-FR',
+    mainEntity: { '@type': 'ItemList', itemListElement: fiches.filter((f) => f.data.type !== 'allie').map((f, i) => ({ '@type': 'ListItem', position: i + 1, url: abs(`/codex/${f.id}`), name: f.data.titre })) },
+  },
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Le Codex', url: '/codex' }]),
+];
 ---
-<Base title="Le Codex — Anys Mechkar" description="Le paysage intérieur d'Anys Mechkar : les notions, pratiques, rencontres et réalisations qui nourrissent le chemin, et les alliés avec qui il se crée.">
+<Base title="Le Codex — méditation, Butô, chamanisme, soin énergétique | Anys Mechkar" description="Le paysage intérieur d'Anys Mechkar : méditation, danse Butô, chamanisme, soin énergétique, Human Design… Des fiches pour comprendre, et où les vivre à Lyon." jsonld={jsonld}>
   <section class="page-hero fiche-hero">
     <img src="/img/tex-cosmic.jpg" alt="" />
     <div class="wrap">

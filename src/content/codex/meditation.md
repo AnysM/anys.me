@@ -13,6 +13,7 @@ liens:
   - fiche: src/content/codex/la-peur.md
   - fiche: src/content/codex/dharamsala.md
 ordre: 1
+date: 2026-09-18
 ---
 C'est par elle que tout a commencé. En m'asseyant chaque jour pour observer, j'ai vu à quel point mon énergie était concentrée dans l'activité mentale, et surtout à quel point elle était gaspillée.
 

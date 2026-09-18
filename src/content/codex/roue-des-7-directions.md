@@ -10,6 +10,7 @@ liens:
   - fiche: src/content/codex/chamanisme.md
   - fiche: src/content/codex/cercle-de-parole.md
 ordre: 17
+date: 2026-09-18
 ---
 Beaucoup de traditions indigènes s'orientent avec une roue : les quatre directions, auxquelles s'ajoutent le ciel, la terre et le centre, soit soi-même.
 

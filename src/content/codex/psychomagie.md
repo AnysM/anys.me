@@ -10,6 +10,7 @@ liens:
   - fiche: src/content/codex/buto.md
   - fiche: src/content/codex/archetypes.md
 ordre: 11
+date: 2026-09-18
 ---
 L'inconscient ne comprend pas les raisonnements : il comprend les symboles, les images, les actes. La psychomagie consiste à poser un acte symbolique, en conscience, pour dénouer ce que la parole seule ne dénoue pas.
 

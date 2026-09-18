@@ -11,6 +11,7 @@ liens:
   - fiche: src/content/codex/tzolkin.md
   - fiche: src/content/codex/bazi.md
 ordre: 16
+date: 2026-09-18
 ---
 Les Gene Keys proposent une lecture contemplative de soi : chaque clé décrit une ombre, un don, et une expression plus haute.
 

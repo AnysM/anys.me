@@ -13,6 +13,7 @@ liens:
   - fiche: src/content/codex/roue-des-7-directions.md
   - fiche: src/content/codex/cellule-du-vivant.md
 ordre: 4
+date: 2026-09-18
 ---
 Le chamanisme est entré dans ma vie par une rencontre : celle d'un peuple indigène d'Amazonie et de son chef politique et spirituel.
 

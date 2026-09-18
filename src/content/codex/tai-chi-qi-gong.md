@@ -9,6 +9,7 @@ liens:
   - fiche: src/content/codex/reiki-magnetisme.md
   - fiche: src/content/codex/corps-esprit.md
 ordre: 6
+date: 2026-09-18
 ---
 Le tai-chi et le qi gong sont des arts énergétiques chinois : des mouvements lents, précis, qui accordent le souffle, l'attention et la circulation de l'énergie.
 

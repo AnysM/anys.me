@@ -10,6 +10,7 @@ liens:
   - fiche: src/content/codex/sahara.md
   - fiche: src/content/codex/buto.md
 ordre: 18
+date: 2026-09-18
 ---
 Dans la culture japonaise, *Ma* désigne l'intervalle : le silence entre deux notes, l'espace entre deux gestes, le vide qui donne leur forme aux choses.
 

@@ -10,6 +10,7 @@ liens:
   - fiche: src/content/codex/sahara.md
   - fiche: src/content/codex/chamanisme.md
 ordre: 22
+date: 2026-09-18
 ---
 Mes racines sont marocaines. Là-bas vivent des lignées de guérisseurs, notamment dans la confrérie soufie des Issawa, où le chant, le rythme et la transe sont des voies de soin.
 

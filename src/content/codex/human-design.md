@@ -11,6 +11,7 @@ liens:
   - fiche: src/content/codex/bazi.md
   - fiche: src/content/codex/gene-keys.md
 ordre: 13
+date: 2026-09-18
 ---
 Le Human Design est un système de connaissance de soi qui combine plusieurs traditions. À partir de la date, de l'heure et du lieu de naissance, il dessine une carte : ta façon de prendre des décisions, d'utiliser ton énergie, d'entrer en relation.
 

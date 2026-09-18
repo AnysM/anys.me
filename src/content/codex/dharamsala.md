@@ -8,6 +8,7 @@ liens:
   - fiche: src/content/codex/meditation.md
   - fiche: src/content/codex/buto.md
 ordre: 21
+date: 2026-09-18
 ---
 J'ai passé deux mois à Dharamsala, la ville du Dalaï-Lama, avec des moines bouddhistes tibétains.
 

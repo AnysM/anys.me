@@ -9,6 +9,7 @@ offres:
 liens:
   - fiche: src/content/codex/chamanisme.md
 ordre: 20
+date: 2026-09-18
 ---
 J'ai eu l'immense chance de rencontrer un peuple indigène d'Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
 

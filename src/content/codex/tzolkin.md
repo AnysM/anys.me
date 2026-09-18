@@ -11,6 +11,7 @@ liens:
   - fiche: src/content/codex/bazi.md
   - fiche: src/content/codex/gene-keys.md
 ordre: 14
+date: 2026-09-18
 ---
 Le Tzolk'in est le calendrier sacré des Mayas : un cycle de 260 jours, où chaque jour porte une énergie propre.
 

@@ -4,6 +4,7 @@ import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
+import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 export async function getStaticPaths() {
   const all = (await getCollection('agenda')).filter((e) => e.data.publie && !e.data.site);
   const dated = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
@@ -31,8 +32,37 @@ const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').repla
 const s = seuil(seuilDe(d));
 const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+const desc = description(d.resume, e.body);
+const enLigne = /en ligne/i.test(d.lieu ?? '');
+// "20h" ou "19h30" → 2026-10-26T20:00:00+01:00 (heure de Paris, été comme hiver)
+function debut(date: Date, heure?: string) {
+  const jour = date.toISOString().slice(0, 10);
+  const m = heure?.match(/^(\d{1,2})h(\d{2})?/);
+  if (!m) return jour;
+  const decalage = new Intl.DateTimeFormat('en', { timeZone: 'Europe/Paris', timeZoneName: 'longOffset' }).formatToParts(date).find((p) => p.type === 'timeZoneName')!.value.replace('GMT', '') || '+00:00';
+  return `${jour}T${m[1].padStart(2, '0')}:${m[2] ?? '00'}:00${decalage}`;
+}
+const prix = d.prix && /\d/.test(d.prix) ? d.prix.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : d.prix && /gratuit/i.test(d.prix) ? '0' : null;
+const jsonld = [
+  ...(d.date ? [{
+    '@type': 'Event',
+    name: d.titre,
+    description: desc,
+    startDate: debut(d.date, d.heure),
+    ...(d.date_fin && { endDate: d.date_fin.toISOString().slice(0, 10) }),
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: enLigne ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode',
+    location: enLigne ? { '@type': 'VirtualLocation', url: abs(`/agenda/${e.id}`) } : { '@type': 'Place', name: d.lieu ?? 'Lyon', address: d.lieu ?? 'Lyon, France' },
+    ...(d.image && { image: new URL(d.image, SITE).href }),
+    organizer: { '@id': PERSONNE_ID },
+    performer: { '@id': PERSONNE_ID },
+    ...(prix !== null && { offers: { '@type': 'Offer', price: prix, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: d.lien ?? abs(`/agenda/${e.id}`) } }),
+    inLanguage: 'fr-FR',
+  }] : []),
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Agenda', url: '/agenda' }, { nom: d.titre, url: `/agenda/${e.id}` }]),
+];
 ---
-<Base title={`${d.titre} — Anys Mechkar`} description={d.resume}>
+<Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
   <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}
     <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>

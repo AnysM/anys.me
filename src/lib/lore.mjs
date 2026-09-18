@@ -15,6 +15,14 @@ export function lireCodex() {
     .filter((e) => e.data.publie !== false);
 }
 
+/** Fiches trop courtes pour être proposées aux moteurs de recherche (contenu « mince »). */
+export const MINIMUM_SEO = 200;
+export function fichesMinces() {
+  let files = [];
+  try { files = readdirSync(DIR).filter((f) => f.endsWith('.md')); } catch { return []; }
+  return files.filter((f) => matter(readFileSync(join(DIR, f), 'utf8')).content.trim().length < MINIMUM_SEO).map((f) => f.replace(/\.md$/, ''));
+}
+
 const echap = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 function construire() {

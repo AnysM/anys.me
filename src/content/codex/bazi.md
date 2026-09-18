@@ -11,6 +11,7 @@ liens:
   - fiche: src/content/codex/tzolkin.md
   - fiche: src/content/codex/gene-keys.md
 ordre: 15
+date: 2026-09-18
 ---
 Le BaZi, ou « quatre piliers de la destinée », vient de la tradition chinoise. Il lit l'année, le mois, le jour et l'heure de naissance à travers les cinq éléments.
 

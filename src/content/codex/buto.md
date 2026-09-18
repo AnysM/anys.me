@@ -12,6 +12,7 @@ liens:
   - fiche: src/content/codex/psychomagie.md
   - fiche: src/content/codex/dharamsala.md
 ordre: 2
+date: 2026-09-18
 ---
 Le Butô est né au Japon. C'est une danse qui accueille **l'inesthétique** pour récupérer toutes les parts de soi, parfois laissées à l'abandon par jugement : le bizarre, le sombre, l'inexpliqué, l'inconnu.
 

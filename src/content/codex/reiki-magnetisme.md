@@ -11,6 +11,7 @@ liens:
   - fiche: src/content/codex/tai-chi-qi-gong.md
   - fiche: src/content/codex/chamanisme.md
 ordre: 5
+date: 2026-09-18
 ---
 En méditant, ma sensibilité aux sensations du corps et aux ressentis énergétiques s'est affinée. Ça m'a donné envie de découvrir les arts énergétiques, à commencer par le magnétisme et le Reiki.
 

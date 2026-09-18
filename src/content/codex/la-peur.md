@@ -9,6 +9,7 @@ offres:
 liens:
   - fiche: src/content/codex/meditation.md
 ordre: 30
+date: 2026-09-18
 ---
 En observant mon paysage intérieur, j'ai vu que toutes ces préoccupations, ces questions qui revenaient sans cesse, avaient **la même source : la peur**.
 

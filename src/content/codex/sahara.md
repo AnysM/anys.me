@@ -10,6 +10,7 @@ liens:
   - fiche: src/content/codex/ma.md
   - fiche: src/content/codex/issawa.md
 ordre: 23
+date: 2026-09-18
 ---
 Le désert dépouille. Il ne reste que le ciel, le sable, le souffle et ce que l'on porte.
 

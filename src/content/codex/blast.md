@@ -8,5 +8,6 @@ logo: /img/logo-blast.png
 agenda:
   - evenement: src/content/agenda/voyage-sonore.md
 ordre: 42
+date: 2026-09-18
 ---
 Un collectif artistique lyonnais, qui accueille le voyage sonore « Dans le Triangle ».

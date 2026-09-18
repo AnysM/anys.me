@@ -12,5 +12,6 @@ offres:
   - offre: src/content/offres/soin-energetique.md
   - offre: src/content/offres/massage-a-l-huile.md
 ordre: 40
+date: 2026-09-18
 ---
 Un studio d'arts et de pratiques, sur les quais de Saône à Lyon. C'est là que se tiennent chaque dimanche les ateliers Infloressence, et que je donne une partie des soins.

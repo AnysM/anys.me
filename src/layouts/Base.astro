@@ -3,9 +3,20 @@ import '../styles/global.css';
 import '../styles/nav.css';
 import '../styles/monde.css';
 import { getCollection } from 'astro:content';
-const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur.", image = '/img/univers-art.jpg' } = Astro.props;
+import { personne, siteWeb } from '../lib/seo';
+const {
+  title = 'Anys Mechkar',
+  description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur.",
+  image = '/img/univers-art.jpg',
+  type = 'website',
+  publie,
+  modifie,
+  jsonld = [],
+  noindex = false,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
 const accs = offres.filter((o) => o.data.categorie === 'accompagnement');
@@ -25,14 +36,20 @@ const links = [
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  <meta property="og:type" content="website" />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:type" content={type} />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="Anys Mechkar" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
+  {type === 'article' && publie && <meta property="article:published_time" content={publie.toISOString()} />}
+  {type === 'article' && modifie && <meta property="article:modified_time" content={modifie.toISOString()} />}
+  {type === 'article' && <meta property="article:author" content="https://anys.me/a-propos" />}
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <script type="application/ld+json" set:html={graphe} />
   <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -132,7 +149,7 @@ const links = [
   <script is:inline>
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var secs = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+      var secs = Array.prototype.slice.call(document.querySelectorAll('main > section, main > article > section'));
       if (!secs.length) return;
       if (reduce) { secs.forEach(function (x) { x.classList.add('is-in'); }); return; }
       var io = new IntersectionObserver(function (entries) {

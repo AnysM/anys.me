@@ -10,6 +10,7 @@ agenda:
 liens:
   - fiche: src/content/codex/meditation.md
 ordre: 3
+date: 2026-09-18
 ---
 Allongé, les yeux fermés, on se laisse traverser. Les vibrations délient les tensions, laissent la place aux émotions et rouvrent l'accès à sa créativité.
 

@@ -102,9 +102,12 @@ export default defineConfig({
           { type: "string", name: "lien_externe", label: "Lien externe (site d'un allié, d'une personne)" },
           { type: "image", name: "logo", label: "Logo (alliés)" },
           { type: "boolean", name: "logo_blanc", label: "Logo à passer en blanc" },
+          { type: "datetime", name: "date", label: "Date de publication", ui: { dateFormat: "YYYY-MM-DD" } },
+          { type: "string", name: "seo_titre", label: "Référencement — titre Google (facultatif)", description: "Par défaut : le titre de la fiche. Idéalement 50 à 60 caractères, avec les mots que les gens chercheraient." },
+          { type: "string", name: "seo_description", label: "Référencement — description Google (facultatif)", description: "Par défaut : le résumé, complété par le début du texte. Idéalement 140 à 160 caractères.", ui: { component: "textarea" } },
           { type: "number", name: "ordre", label: "Ordre d'affichage" },
           { type: "boolean", name: "publie", label: "Publié" },
-          { type: "rich-text", name: "body", label: "Texte de la fiche", isBody: true },
+          { type: "rich-text", name: "body", label: "Texte de la fiche", isBody: true, description: "Écris-la comme un article : plusieurs paragraphes, avec des intertitres si besoin. Sous 200 caractères, la fiche reste visible sur le site mais n’est pas proposée à Google." },
         ],
       },
       {

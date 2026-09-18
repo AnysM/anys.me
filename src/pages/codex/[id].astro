@@ -3,8 +3,10 @@ import Base from '../../layouts/Base.astro';
 import Sigils from '../../components/Sigils.astro';
 import Quete from '../../components/Quete.astro';
 import { render } from 'astro:content';
+import { MINIMUM_SEO } from '../../lib/lore.mjs';
 import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
-import { typeLabel, SEUIL_IDS } from '../../lib/univers.mjs';
+import { typeLabel, SEUIL_IDS, univers } from '../../lib/univers.mjs';
+import { description, modifieLe, fil, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const fiches = await codex();
@@ -21,16 +23,51 @@ const d = f.data;
 const { Content } = await render(f);
 const aGouter = (await propositionsDe(f)).sort((a, b) => SEUIL_IDS.indexOf(a.seuil) - SEUIL_IDS.indexOf(b.seuil) || a.ordre - b.ordre);
 const chapitres = await chapitresDe(f.id);
+const url = abs(`/codex/${f.id}`);
+const titreSeo = d.seo_titre ?? `${d.titre} · Codex d'Anys Mechkar`;
+const mince = (f.body ?? '').trim().length < MINIMUM_SEO; // trop court pour Google : on attend qu'elle s'étoffe
+const ouVivre = aGouter.filter((p) => !p.externe || p.cle.startsWith('agenda')).slice(0, 2).map((p) => p.titre);
+const desc = d.seo_description ?? description(
+  d.resume,
+  ouVivre.length ? `À vivre avec Anys Mechkar : ${ouVivre.join(', ')}.` : `${typeLabel(d.type)} du Codex d'Anys Mechkar.`,
+);
+const image = d.image ?? '/img/tex-cosmic.jpg';
+const publie = d.date;
+const modifie = modifieLe(`src/content/codex/${f.id}.md`, publie);
+const motsCles = [...new Set([d.titre, ...d.alias, ...d.univers.map((u) => univers(u)?.nom)].filter(Boolean))];
+const jsonld = [
+  {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: d.titre,
+    description: desc,
+    image: new URL(image, SITE).href,
+    author: { '@id': PERSONNE_ID },
+    publisher: { '@id': PERSONNE_ID },
+    ...(publie && { datePublished: publie.toISOString() }),
+    ...(modifie && { dateModified: modifie.toISOString() }),
+    mainEntityOfPage: url,
+    inLanguage: 'fr-FR',
+    articleSection: typeLabel(d.type),
+    keywords: motsCles.join(', '),
+    isPartOf: { '@type': 'CollectionPage', '@id': abs(`/codex`), name: 'Le Codex' },
+    ...(['notion', 'pratique'].includes(d.type) && { about: { '@type': 'DefinedTerm', name: d.titre, description: d.resume } }),
+    ...(aGouter.length && { mentions: aGouter.map((p) => ({ '@type': p.cle.startsWith('agenda') ? 'Event' : 'Service', name: p.titre, url: abs(p.href) })) }),
+  },
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Le Codex', url: '/codex' }, { nom: d.titre, url: `/codex/${f.id}` }]),
+];
 const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length > 170 ? p.slice(0, p.lastIndexOf(' ', 170)) + '…' : p; };
 ---
-<Base title={`${d.titre} — Le Codex`} description={d.resume}>
+<Base title={titreSeo} description={desc} image={image} type="article" publie={publie} modifie={modifie} jsonld={jsonld} noindex={mince}>
+  <article>
   <section class="page-hero fiche-hero">
     <img src={d.image ?? '/img/tex-cosmic.jpg'} alt="" />
     <div class="narrow">
-      <p class="eyebrow"><a href="/codex">Codex</a>&nbsp;· {typeLabel(d.type)}</p>
+      <nav aria-label="Fil d'Ariane"><p class="eyebrow"><a href="/codex">Codex</a>&nbsp;· {typeLabel(d.type)}</p></nav>
       <h1>{d.titre}</h1>
       {d.resume && <p class="fiche-resume">{d.resume}</p>}
       <Sigils ids={d.univers} lg />
+      {publie && <p class="rune" style="margin-top:1rem; color:var(--muted);">Par Anys Mechkar · <time datetime={publie.toISOString().slice(0, 10)}>{new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(publie)}</time></p>}
     </div>
   </section>
 
@@ -41,7 +78,7 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
 
       {chapitres.length > 0 && (
         <div style="margin-top:3rem;">
-          <p class="rune">Dans le récit</p>
+          <h2 class="rune">Dans le récit</h2>
           <div class="dans-recit">
             {chapitres.map((c) => <a href={`/a-propos#${c.ancre}`}><b>{c.titre}</b><span>{extrait(c.texte)}</span></a>)}
           </div>
@@ -63,11 +100,13 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
   {lies.length > 0 && (
     <section>
       <div class="narrow">
-        <p class="rune">Relié à</p>
+        <h2 class="rune">Relié à</h2>
         <div class="echos">{lies.map((x) => <a class="echo" href={`/codex/${x.id}`}>{x.data.titre}<small>{typeLabel(x.data.type)}</small></a>)}</div>
       </div>
     </section>
   )}
+
+  </article>
 
   <section class="detail-foot">
     <div class="wrap detail-nav">

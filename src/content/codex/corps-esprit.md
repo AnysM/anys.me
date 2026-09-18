@@ -12,6 +12,7 @@ liens:
   - fiche: src/content/codex/corps-energetique.md
   - fiche: src/content/codex/tai-chi-qi-gong.md
 ordre: 31
+date: 2026-09-18
 ---
 Mes méditations me montraient toutes les tensions, les peurs, les croyances que j'avais laissées constituer ma structure.
 

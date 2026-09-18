@@ -4,6 +4,7 @@ import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
+import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 export async function getStaticPaths() {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie);
   return offres.map((o) => {
@@ -32,8 +33,27 @@ const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').repla
 const s = seuil(seuilDe(d));
 const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+const desc = description(d.resume, o.body);
+const montant = (t?: string) => (t && /\d/.test(t) ? t.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : null);
+const offres = (d.tarifs ?? [{ label: d.titre, prix: d.prix ?? '' }])
+  .map((t) => ({ nom: t.label, prix: montant(t.prix) }))
+  .filter((t) => t.prix);
+const jsonld = [
+  {
+    '@type': 'Service',
+    name: d.titre,
+    description: desc,
+    serviceType: soin ? 'Soin' : 'Accompagnement',
+    provider: { '@id': PERSONNE_ID },
+    areaServed: d.format && /ligne/i.test(d.format) ? ['Lyon', 'En ligne'] : 'Lyon',
+    url: abs(`/offre/${o.id}`),
+    ...(d.image && { image: new URL(d.image, SITE).href }),
+    ...(offres.length && { offers: offres.map((t) => ({ '@type': 'Offer', name: t.nom, price: t.prix, priceCurrency: 'EUR' })) }),
+  },
+  fil([{ nom: 'Accueil', url: '/' }, { nom: soin ? 'Soins' : 'Accompagnement', url: soin ? '/soins' : '/accompagnement' }, { nom: d.titre, url: `/offre/${o.id}` }]),
+];
 ---
-<Base title={`${d.titre} — Anys Mechkar`} description={d.resume?.replace(/\*/g, '')}>
+<Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
   <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>

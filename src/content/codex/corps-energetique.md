@@ -12,6 +12,7 @@ liens:
   - fiche: src/content/codex/tai-chi-qi-gong.md
   - fiche: src/content/codex/corps-esprit.md
 ordre: 10
+date: 2026-09-18
 ---
 Notre dimension énergétique relie notre être spirituel, ce qui a trait à l'esprit et au non-manifesté, et notre aspect physique. Toutes les grandes traditions en parlent, et beaucoup, comme les traditions védique et chinoise, l'ont étudiée en détail.
 

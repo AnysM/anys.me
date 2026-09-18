@@ -10,6 +10,7 @@ offres:
 liens:
   - fiche: src/content/codex/la-peur.md
 ordre: 33
+date: 2026-09-18
 ---
 À 28 ans, je me suis réveillé en prenant conscience que je n'avais jamais vraiment choisi ma vie, et que je ne me connaissais pas vraiment.
 

@@ -11,6 +11,7 @@ agenda:
 liens:
   - fiche: src/content/codex/cellule-du-vivant.md
 ordre: 7
+date: 2026-09-18
 ---
 Un cercle, c'est une forme ancienne : chacun parle à son tour, les autres écoutent, sans conseil ni jugement.
 
