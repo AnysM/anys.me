@@ -3,9 +3,9 @@ import '../styles/global.css';
 import '../styles/nav.css';
 import '../styles/monde.css';
 import '../styles/finition.css';
-import Icone from '../components/Icone.astro';
 import { getCollection } from 'astro:content';
 import { personne, siteWeb } from '../lib/seo';
+import { typeLabel } from '../lib/univers.mjs';
 const {
   title = 'Anys Mechkar',
   description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur.",
@@ -18,6 +18,10 @@ const {
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
+// Lexique du Codex pour l'aperçu au survol des mots tissés dans les textes
+const lexique = JSON.stringify(Object.fromEntries(
+  (await getCollection('codex')).filter((c) => c.data.publie).map((c) => [c.id, { t: c.data.titre, y: typeLabel(c.data.type), r: c.data.resume ?? '' }]),
+)).replace(/</g, '\\u003c');
 const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
@@ -76,7 +80,6 @@ const links = [
       </div>
       <a href="/codex">Codex</a>
       <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
-      <a class="site-nav__cta" href="/contact">Écris-moi <Icone nom="fleche" /></a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
       <span class="site-nav__burger-line"></span>
@@ -186,6 +189,42 @@ const links = [
         requestAnimationFrame(loop);
       }
       requestAnimationFrame(loop);
+    })();
+  </script>
+  <script type="application/json" id="lexique" set:html={lexique} />
+  <div class="apercu-lore" role="tooltip" hidden></div>
+  <script is:inline>
+    (function () {
+      // Aperçu d'une fiche du Codex au survol d'un mot tissé (souris uniquement)
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      var data = {}; try { data = JSON.parse(document.getElementById('lexique').textContent); } catch (e) { return; }
+      var carte = document.querySelector('.apercu-lore'), minuteur;
+      function montrer(a) {
+        var id = a.getAttribute('href').split('/').pop(), f = data[id];
+        if (!f) return;
+        clearTimeout(minuteur);
+        carte.innerHTML = '';
+        var y = document.createElement('span'); y.className = 'rune'; y.textContent = f.y;
+        var t = document.createElement('b'); t.textContent = f.t;
+        var r = document.createElement('p'); r.textContent = f.r;
+        var l = document.createElement('a'); l.href = a.getAttribute('href'); l.textContent = 'Lire la fiche →';
+        carte.append(y, t, r, l);
+        carte.hidden = false;
+        var b = a.getBoundingClientRect(), w = carte.offsetWidth;
+        var x = Math.min(Math.max(12, b.left + b.width / 2 - w / 2), window.innerWidth - w - 12);
+        var haut = b.top > carte.offsetHeight + 24;
+        carte.style.left = x + 'px';
+        carte.style.top = (haut ? b.top + window.scrollY - carte.offsetHeight - 12 : b.bottom + window.scrollY + 12) + 'px';
+        carte.classList.add('on');
+      }
+      function cacher() { minuteur = setTimeout(function () { carte.classList.remove('on'); carte.hidden = true; }, 180); }
+      document.addEventListener('mouseover', function (e) {
+        var a = e.target.closest && e.target.closest('a.lore');
+        if (a) montrer(a); else if (e.target.closest && e.target.closest('.apercu-lore')) clearTimeout(minuteur);
+      });
+      document.addEventListener('mouseout', function (e) {
+        if (e.target.closest && (e.target.closest('a.lore') || e.target.closest('.apercu-lore'))) cacher();
+      });
     })();
   </script>
   <script is:inline>
