@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { getEntry } from 'astro:content';
 const qc = (await getEntry('pages', 'quintessence')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
-const pratiques = qc.pratiques;
+const pratiques = qc.pratiques ?? [];
 ---
 <Base title="Quintessence — Anys Mechkar">
   <!-- HERO -->

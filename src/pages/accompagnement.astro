@@ -4,7 +4,7 @@ import { getCollection, getEntry } from 'astro:content';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
 const ac = (await getEntry('pages', 'accompagnement')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
-const outils = ac.outils;
+const outils = ac.outils ?? [];
 ---
 <Base title="Accompagnement — Anys Mechkar">
   <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-ACCOMP"></div>}

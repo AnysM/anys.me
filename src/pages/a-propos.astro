@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { getEntry } from 'astro:content';
 const ap = (await getEntry('pages', 'a-propos')).data;
-const chapitres = ap.chapitres;
+const chapitres = ap.chapitres ?? [];
 ---
 <Base title="À propos — Anys Mechkar">
   <section class="page-hero" style="min-height:52vh;">{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-APROPOS"></div>}

@@ -49,8 +49,8 @@ const propositions = [
     d: "De vraies initiations, hors du quotidien, pour se déposer en profondeur et revenir à l'essentiel. Retraites d'hommes, désert marocain, cercles au cœur du vivant." },
 ];
 const props = propositions.map((p, i) => ({ ...p, t: acc.propositions?.[i]?.titre ?? p.t, d: acc.propositions?.[i]?.texte ?? p.d, cta: acc.propositions?.[i]?.cta ?? p.cta, image: acc.propositions?.[i]?.image ?? null }));
-const temoins = acc.temoins;
-const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires;
+const temoins = acc.temoins ?? [];
+const partenaires = (await getEntry('pages', 'partenaires')).data.partenaires ?? [];
 ---
 <Base title="Anys Mechkar">
   <!-- HERO -->
