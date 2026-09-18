@@ -150,7 +150,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
         <p class="eyebrow">{acc.codex_eyebrow ?? 'Le Codex'}</p>
         <h2 set:html={fmt(acc.codex_titre ?? 'Le paysage *intérieur*')}></h2>
         {acc.codex_texte && <p class="muted">{acc.codex_texte}</p>}
-        <p class="tete__lien"><a class="btn" href="/codex">Ouvrir le Codex</a></p>
+        <p class="tete__lien"><a class="btn btn--bleu" href="/codex">Ouvrir le Codex</a></p>
       </div>
       <div class="apercu">
         {apercu.map((f) => (
