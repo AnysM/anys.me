@@ -79,6 +79,7 @@ export default defineConfig({
               { type: "string", name: "prix", label: "Prix" },
               { type: "string", name: "detail", label: "Détail" },
               { type: "string", name: "groupe", label: "Groupe (ex. : En ligne, Immersion)", description: "Les formules d'un même groupe s'affichent ensemble." },
+              { type: "boolean", name: "avant", label: "Mettre en avant (« Recommandé »)", description: "Sinon, dans un groupe de 3 formules, celle du milieu est mise en avant." },
             ],
           },
           { type: "object", name: "etapes", label: "Comment ça se passe (étapes)", list: true,
@@ -201,7 +202,7 @@ export default defineConfig({
             ] },
           { type: "string", name: "form_eyebrow", label: "Formulaire — sur-titre" },
           { type: "string", name: "piliers_titre", label: "Piliers — titre", description: "*mot* = manuscrite" },
-          { type: "string", name: "piliers_centre", label: "Schéma des univers — mot au centre", description: "Par défaut : L'Essence" },
+          { type: "string", name: "piliers_centre", label: "Schéma des univers — mot au centre", description: "Par défaut : Quintessence" },
           { type: "object", name: "piliers", label: "Piliers (les 5 univers)", list: true,
             ui: { itemProps: (i) => ({ label: i && i.nom ? i.nom : "Pilier" }) },
             fields: [

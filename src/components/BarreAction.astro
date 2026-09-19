@@ -1,0 +1,9 @@
+---
+// Barre d'action fixe en bas d'écran (mobile) : un titre, une ligne, une action.
+// Apparaît après le haut de page, s'efface près de l'invitation finale (script dans Base).
+const { titre, sous = '' } = Astro.props;
+---
+<div class="barre-action">
+  <span class="barre-action__titre">{titre}{sous && <small>{sous}</small>}</span>
+  <slot />
+</div>

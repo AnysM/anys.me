@@ -7,6 +7,7 @@ import { codexDe } from '../../lib/monde';
 import Temoignages from '../../components/Temoignages.astro';
 import Faq from '../../components/Faq.astro';
 import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 const ICONES = { 'Quand': 'date', 'Lieu': 'lieu', 'Tarif': 'prix', 'Early bird': 'duree' };
@@ -163,4 +164,9 @@ const jsonld = [
       )}
     </div>
   </section>
+  <BarreAction titre={d.titre} sous={[billet ? `${billet.jour} ${billet.mois}` : d.rythme, d.prix].filter(Boolean).join(' · ')}>
+    {lienAction
+      ? <a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a>
+      : <a class="btn btn--solid" href={contact} data-evt="Contact">{d.date || d.reservable ? 'Écris-moi' : 'Me prévenir'}</a>}
+  </BarreAction>
 </Base>

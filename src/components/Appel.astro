@@ -1,19 +1,17 @@
 ---
-// L'action principale vers un accompagnement : réserver un appel découverte si le lien existe
-// (Tina › Contact › lien de réservation), sinon écrire. « pour » préremplit le message.
+// L'action principale vers un accompagnement : l'appel découverte.
+// Avec un lien de réservation (Tina › Contact), on réserve directement ;
+// sans lien, on arrive sur le formulaire avec la demande d'appel préremplie.
+// « Écris-moi » reste en second, pour qui préfère écrire.
 import { getEntry } from 'astro:content';
-const { pour = '', secondaire = true, centre = false } = Astro.props;
+const { pour = '', secondaire = true, centre = false, court = false } = Astro.props;
 const cc = (await getEntry('pages', 'contact'))!.data;
 const lien = cc.appel_lien;
-const contact = pour ? `/contact?pour=${encodeURIComponent(pour)}` : '/contact';
+const ecrire = pour ? `/contact?pour=${encodeURIComponent(pour)}` : '/contact';
+const demande = `/contact?pour=${encodeURIComponent(`Appel découverte${pour ? ` — ${pour}` : ''}`)}&interet=transformer`;
+const libelle = court ? 'Appel découverte' : (cc.appel_cta && cc.appel_cta !== 'Réserver un appel' ? cc.appel_cta : 'Réserver un appel découverte');
 ---
 <div class="appel" style={centre ? 'justify-content:center;' : undefined}>
-  {lien ? (
-    <Fragment>
-      <a class="btn btn--solid" href={lien} target="_blank" rel="noopener" data-evt="Appel">{cc.appel_cta ?? 'Réserver un appel découverte'}</a>
-      {secondaire && <a class="btn" href={contact}>Écris-moi</a>}
-    </Fragment>
-  ) : (
-    <a class="btn btn--solid" href={contact} data-evt="Contact">Écris-moi</a>
-  )}
+  <a class="btn btn--solid" href={lien ?? demande} target={lien ? '_blank' : undefined} rel={lien ? 'noopener' : undefined} data-evt="Appel">{libelle}</a>
+  {secondaire && <a class="cta appel__ecrire" href={ecrire} data-evt="Contact">Ou m'écrire <span class="line"></span></a>}
 </div>

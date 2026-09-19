@@ -8,6 +8,7 @@ import Appel from '../../components/Appel.astro';
 import Temoignages from '../../components/Temoignages.astro';
 import Faq from '../../components/Faq.astro';
 import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
@@ -70,7 +71,7 @@ const jsonld = [
       {!enPreparation && (
         <div class="offre-action">
           {prixDepart && <span class="offre-action__prix">{prixDepart}{d.duree && <small> · {d.duree}</small>}</span>}
-          {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} secondaire={false} />}
+          {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} />}
         </div>
       )}
     </div>
@@ -115,14 +116,18 @@ const jsonld = [
             {groupes.map(([nom, formules]) => (
               <div class="formules">
                 {nom && <h3 class="formules__titre">{nom}</h3>}
-                <div class="formules__grille">
-                  {formules.map((t) => (
-                    <div class="formule">
+                <div class={`formules__grille formules__grille--${formules.length}`}>
+                  {formules.map((t, i) => {
+                    const enAvant = formules.some((x) => x.avant) ? t.avant : formules.length === 3 && i === 1;
+                    return (
+                    <div class={`formule${enAvant ? ' formule--avant' : ''}`}>
+                      {enAvant && <span class="formule__badge">Recommandé</span>}
                       <span class="formule__duree">{t.label}</span>
                       <span class="formule__prix">{t.prix}</span>
                       {t.detail && <span class="formule__detail">{t.detail}</span>}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
@@ -135,18 +140,17 @@ const jsonld = [
       <section class="invite">
         <div class="narrow">
           <p class="eyebrow">Un premier pas</p>
-          <h2>{soin ? 'Envie de prendre soin de toi ?' : "Envie d'en parler ?"}</h2>
-          <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">{soin ? 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.' : 'Un premier échange pour sentir si c’est juste de cheminer ensemble. Je te réponds sous 48 h.'}</p>
+          <h2>{soin ? 'Envie de prendre soin de toi ?' : 'Commençons par un appel'}</h2>
+          <p class="muted" style="margin:0.9rem auto 0; max-width:50ch;">{soin ? 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.' : 'Un appel découverte pour faire le point sur ta situation, sentir si ce chemin est fait pour toi, et voir quel accompagnement serait le plus adapté.'}</p>
           <div class="invite__btns">
             {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}
           </div>
         </div>
       </section>
 
-      <div class="barre-action">
-        <span class="barre-action__titre">{d.titre}{prixDepart && <small>{prixDepart}</small>}</span>
-        {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Réserver</a> : <Appel pour={d.titre} secondaire={false} />}
-      </div>
+      <BarreAction titre={d.titre} sous={prixDepart ?? ''}>
+        {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Réserver</a> : <Appel pour={d.titre} secondaire={false} court />}
+      </BarreAction>
     </Fragment>
   )}
 

@@ -40,7 +40,10 @@ const questions = {
     }
     boutons.forEach(function (b) { b.addEventListener('click', function () { choisir(b.dataset.seuil); bloc.querySelector('input[name="nom"]').focus(); }); });
     select.addEventListener('change', function () { choisir(select.value); });
-    var pour = new URLSearchParams(location.search).get('pour');
+    var params = new URLSearchParams(location.search);
+    var interet = params.get('interet');
+    if (interet && select.querySelector('option[value="' + interet + '"]')) choisir(interet);
+    var pour = params.get('pour');
     if (pour) {
       var msg = bloc.querySelector('textarea');
       if (!msg.value) msg.value = 'Au sujet de : ' + pour + '\n\n';

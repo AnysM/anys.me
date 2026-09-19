@@ -3,7 +3,7 @@
 // Lecture verticale et symétrique : en bas le rouge (le corps, la terre),
 // au milieu le bleu (l'intérieur), au sommet le jaune (la création).
 // Si un picto dessiné est fourni dans Tina (image), il remplace le symbole.
-const { univers = [], centre = 'L’Essence' } = Astro.props;
+const { univers = [], centre = 'Quintessence' } = Astro.props;
 
 // Ordre dans le sens des aiguilles d'une montre, en partant du sommet
 const ORDRE = ['art', 'connaissance', 'mouvement', 'vivant', 'presence'];
@@ -31,7 +31,7 @@ const tuiles = ranges.map((u, i) => {
   </svg>
 
   <div class="rosace__anneau" aria-hidden="true"></div>
-  <div class="rosace__centre"><span class="rosace__mot script">{centre}</span></div>
+  <div class="rosace__centre"><span class="rosace__mot">{centre}</span></div>
 
   {tuiles.map((t) => (
     <a class={`rosace__tuile u-${t.id}`} href={`/codex#${t.id}`} style={`left:${t.x}%; top:${(t.y / 88) * 100}%`}>

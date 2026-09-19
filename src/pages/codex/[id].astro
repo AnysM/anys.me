@@ -4,6 +4,7 @@ import Sigils from '../../components/Sigils.astro';
 import Quete from '../../components/Quete.astro';
 import Icone from '../../components/Icone.astro';
 import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
 import { render } from 'astro:content';
 import { MINIMUM_SEO } from '../../lib/lore.mjs';
 import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
@@ -118,4 +119,9 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
       <a class="cta" href="/contact">Une question ? Écris-moi <span class="line"></span></a>
     </div>
   </section>
+  {aGouter.length > 0 && (
+    <BarreAction titre="Pour y goûter" sous={aGouter[0].titre}>
+      <a class="btn btn--solid" href={aGouter[0].href} target={aGouter[0].externe ? '_blank' : undefined} rel={aGouter[0].externe ? 'noopener' : undefined} data-evt="Codex vers proposition">Découvrir</a>
+    </BarreAction>
+  )}
 </Base>

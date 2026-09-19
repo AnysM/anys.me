@@ -54,11 +54,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
       <p class="eyebrow">{acc.hero_eyebrow}</p>
       <h1 class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></h1>
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
-      {appelLien ? (
-        <div class="hero-actions"><Appel secondaire={false} /><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
-      ) : (
-        <a class="cta" href="#seuils" style="margin-top:24px;">{acc.hero_cta} <span class="line"></span></a>
-      )}
+      <div class="hero-actions"><Appel secondaire={false} /><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
@@ -122,8 +118,12 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
-      <Rosace univers={piliers} centre={acc.piliers_centre ?? 'L’Essence'} />
-      <p class="tete__lien" style="text-align:center;"><a class="btn btn--bleu" href="/codex">Explorer le Codex</a></p>
+      <Rosace univers={piliers} centre={acc.piliers_centre ?? 'Quintessence'} />
+      <div class="codex-invite">
+        <p class="rune">Le Codex</p>
+        <p class="codex-invite__texte">{acc.codex_texte ?? "Les pratiques, les notions, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre."}</p>
+        <a class="btn btn--bleu" href="/codex">Explorer le Codex</a>
+      </div>
     </div>
   </section>
 
