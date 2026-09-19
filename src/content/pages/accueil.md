@@ -91,13 +91,15 @@ avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
 difference_eyebrow: Ce qui change tout
-difference_titre: "Pas seulement *comprendre*"
+difference_titre: "Pas une méthode, *un passage*"
 difference:
-  - titre: "Par le corps"
-    texte: "Là où l'on reste souvent dans la tête, on redescend dans le corps : souffle, mouvement, soin. C'est là que ça se dénoue."
-  - titre: "Depuis ta nature"
-    texte: "Aucun schéma plaqué. On part de ton design unique, ta spécificité, ton essence, pour trouver ta façon juste d'avancer."
-  - titre: "Jusqu'à l'incarnation"
-    texte: "Comprendre ne suffit pas. On ancre dans la matière ce qui naît : un choix, un projet, une création, une vie qui te ressemble."
+  - titre: "La rigueur et le mystère"
+    texte: "Ingénieur de formation, initié en Amazonie. Un regard précis et structurant, et l'ouverture de celui qui a traversé l'invisible."
+  - titre: "Tout ce qui est toi"
+    texte: "Avec la danse Butô, on accueille aussi le sombre, le bizarre, l'inconnu. Les parts qu'on a laissées de côté sont souvent celles qui manquent."
+  - titre: "Ta carte, pas la mienne"
+    texte: "Human Design, Tzolk'in, BaZi : je lis ton dessin originel, et l'accompagnement épouse ta nature au lieu de t'imposer un modèle."
+  - titre: "Des initiations, pas des séances"
+    texte: "Le désert, les cercles, les rituels : on vit des passages, on ne se contente pas d'en parler. C'est là que le changement s'ancre."
 ---
 
