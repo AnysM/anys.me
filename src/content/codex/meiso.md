@@ -11,5 +11,6 @@ offres:
   - offre: src/content/offres/massage-a-l-huile.md
 ordre: 41
 date: 2026-09-18
+image: /img/meiso-salle.jpg
 ---
 Un centre de flottaison et de bien-être à Lyon, où je donne des soins.

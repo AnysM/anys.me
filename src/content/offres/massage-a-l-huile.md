@@ -30,6 +30,7 @@ faq:
     r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
     r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble. Je te réponds sous 48 h."
+image: /img/soin-massage.jpg
 ---
 Un massage sur mesure et intuitif, qui vient délier en profondeur les tensions et faire circuler l'énergie stagnante. Un toucher profond, doux et subtil. Un massage qui purifie, délie, harmonise et dynamise.
 

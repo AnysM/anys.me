@@ -61,6 +61,7 @@ temoignages:
   - t: "Anys m'a accompagné six mois, au moment où je démarrais un projet avec une reconversion. Il m'a permis de ne pas me sentir seul, de trouver en moi les ressources dont j'avais besoin. Mon projet a pu prendre forme."
     'n': "S. K."
     c: "Accompagnement de 6 mois, reconversion"
+image: /img/accompagnement-echange.jpg
 ---
 Un accompagnement pour venir travailler en profondeur et sur la durée. Sur mesure, en fonction du besoin : soit un accompagnement en ligne, soit une immersion de 3 jours en individuel.
 
