@@ -70,8 +70,7 @@ const jsonld = [
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
       {!enPreparation && (
         <div class="offre-action">
-          {prixDepart && <span class="offre-action__prix">{prixDepart}{d.duree && <small> · {d.duree}</small>}</span>}
-          {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} />}
+          {soin ? <a class="cta" href={contact} data-evt="Contact">Prendre rendez-vous <span class="line"></span></a> : <Appel pour={d.titre} discret />}
         </div>
       )}
     </div>
@@ -88,6 +87,7 @@ const jsonld = [
       {avec.length > 0 && (
         <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
       )}
+      {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}</div>}
     </div>
   </section>
 
@@ -96,6 +96,7 @@ const jsonld = [
       <div class="narrow">
         <div class="tete"><p class="eyebrow">Ce que tu y trouves</p><h2>Ce que ça peut <span class="script">ouvrir</span></h2></div>
         <ul class="benefices__liste">{d.benefices.map((b) => <li><Icone nom="etoile" taille={16} /><span>{b}</span></li>)}</ul>
+        {!enPreparation && <div class="offre-relance">{soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}</div>}
       </div>
     </section>
   )}

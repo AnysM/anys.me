@@ -227,6 +227,7 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 /* Action visible dès le haut d'une offre */
 .offre-action { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin-top: 1.8rem; }
+.offre-relance { display: flex; justify-content: center; margin-top: clamp(2.8rem, 6vw, 4rem); }
 .offre-action__prix { font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--cream); }
 .offre-action__prix small { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); }
 
