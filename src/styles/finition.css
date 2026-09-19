@@ -115,3 +115,6 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 @media (max-width: 760px) {
   #hero::before { background: linear-gradient(180deg, rgba(10,18,58,0.55) 0%, rgba(10,18,58,0.82) 40%, rgba(10,18,58,0.9) 100%); }
 }
+
+/* Texte des boutons plus lisible */
+.btn, .ecard__btn, .cta, .site-nav__links a { font-weight: 400; }
