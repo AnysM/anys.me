@@ -34,7 +34,7 @@ chapitres:
   - fiche: src/content/codex/tzolkin.md
   - fiche: src/content/codex/gene-keys.md
 - titre: Le chamanisme
-  texte: 'C''est alors que le chamanisme est entré dans ma vie. J''ai eu l''immense chance de rencontrer un peuple indigène d''Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
+  texte: 'C''est alors que le chamanisme est entré dans ma vie. J''ai eu l''immense chance de rencontrer, ici en Europe, un peuple indigène d''Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
 
 
     C''est dans ces initiations que j''ai retrouvé la connexion à cette force invisible qui donne forme à notre réalité. J''ai pu sentir, avec la plus profonde des joies mêlée à la plus profonde des tristesses, la mémoire de l''univers. Me rappeler pourquoi je suis là, et me reconnecter à une foi inaltérable en la vie. Un tournant majeur.'

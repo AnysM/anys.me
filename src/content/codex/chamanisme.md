@@ -15,7 +15,7 @@ liens:
 ordre: 4
 date: 2026-09-18
 ---
-Le chamanisme est entré dans ma vie par une rencontre : celle d'un peuple indigène d'Amazonie et de son chef politique et spirituel.
+Le chamanisme est entré dans ma vie par une rencontre : celle d'un peuple indigène d'Amazonie, rencontré ici en Europe, et de son chef politique et spirituel.
 
 Dans ces initiations, j'ai retrouvé la connexion à cette force invisible qui donne forme à notre réalité. J'ai senti, avec la plus profonde des joies mêlée à la plus profonde des tristesses, **la mémoire de l'univers**. Un tournant majeur.
 

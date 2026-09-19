@@ -11,6 +11,8 @@ liens:
 ordre: 20
 date: 2026-09-18
 ---
-J'ai eu l'immense chance de rencontrer un peuple indigène d'Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
+J'ai eu l'immense chance de rencontrer, ici en Europe, un peuple indigène d'Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
 
 C'est dans ces initiations que j'ai retrouvé la connexion au vivant, et une foi inaltérable en la vie. La puissance de la forêt amazonienne est aujourd'hui l'une des sources de mes soins.
+
+Je ne suis encore jamais allé en Amazonie physiquement. C'est l'un de mes prochains voyages. Et pourtant, d'une certaine manière, j'y suis déjà relié : j'y suis déjà allé.
