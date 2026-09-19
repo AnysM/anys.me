@@ -4,8 +4,8 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 
 ## 1. Avant la mise en ligne (important)
 
-- [ ] **Lien de prise de rendez-vous** pour l'appel découverte (Calendly, Cal.com…) → Tina › Contact › « lien de réservation ».
-- [ ] **L'appel découverte** : durée ? gratuit ? (pour l'écrire sur le bouton : « Appel découverte offert, 20 min »).
+- [x] **Lien de prise de rendez-vous** : Calendly, appel découverte de 45 min (branché le 19/09).
+- [ ] **L'appel découverte** (45 min) : gratuit ? Si oui, on l'écrit sur le bouton : « Appel découverte offert ».
 - [ ] **« Je te réponds sous 48 h »** : tenable ? (écrit sur les offres, le formulaire et la page Merci).
 - [ ] **Mentions légales** (obligatoires) : nom ou raison sociale, statut, SIRET, adresse, hébergeur (Netlify), contact.
 - [ ] **Politique de confidentialité** (obligatoire avec des formulaires) : quelles données, pourquoi, combien de temps, qui y a accès.
@@ -43,7 +43,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 - [ ] **Infloressence** : lien de réservation direct (aujourd'hui, le lien mène à l'accueil de Chanka Studio). Faut-il réserver ?
 - [ ] Infloressence, « Avant de venir » : tenue, arriver à l'avance, matériel ?
 - [ ] **Quintessence** : lieu, dates, tarif de la prochaine édition.
-- [ ] **Brotherhood Circle** : dates, tarif, lieu.
+- [ ] **Brotherhood Circle** (Portugal, printemps 2027) : dates exactes, tarif, lieu précis.
 - [ ] **Desert Mirage Journey** : prix normal (pour montrer l'avantage de l'early bird).
 - [ ] **Le Chaudron** : le lien WhatsApp est-il fait pour être public ?
 
