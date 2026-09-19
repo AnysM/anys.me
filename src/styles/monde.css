@@ -197,7 +197,7 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 .rosace__tuile { position: absolute; width: 15%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; }
 .rosace__picto { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: 50%; color: var(--cream); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
-.rosace__picto svg { width: 54%; height: 54%; }
+.rosace__picto svg { width: 44%; height: 44%; }
 .rosace__picto img { width: 52%; height: 52%; object-fit: contain; }
 .rosace__picto { background: var(--fond-symbole); color: var(--u-trait); border: 1px solid rgba(236,231,222,0.14); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
 .rosace__centre { background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.25); box-shadow: 0 0 0 10px var(--surface); }
