@@ -319,3 +319,32 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 /* ── Noms des partenaires / alliés en sans serif, plus lisibles ── */
 .allie__nom, .part__name { font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1rem; letter-spacing: 0.04em; }
+
+/* ── Billet d'événement : la date d'abord, le reste en second plan ── */
+.billet { display: grid; grid-template-columns: minmax(220px, 0.8fr) 1.2fr; margin-top: 1.8rem; border: 1px solid var(--faint); border-radius: 20px; overflow: hidden; background: rgba(10,15,32,0.35); }
+.billet__quand { display: flex; flex-direction: column; justify-content: center; padding: clamp(1.8rem, 4vw, 2.8rem); border-right: 1px dashed rgba(236,231,222,0.18); }
+.billet__jour { font-family: 'EB Garamond', serif; font-size: clamp(4rem, 9vw, 6rem); line-height: 0.9; color: var(--cream); }
+.billet__fin { font-size: 0.55em; color: var(--muted); margin-left: 0.15em; }
+.billet__mois { margin-top: 0.6rem; font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; color: var(--coral); }
+.billet__detail { margin-top: 0.5rem; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; color: #C9CBD8; text-transform: capitalize; }
+.billet__rythme { font-family: 'EB Garamond', serif; font-size: clamp(1.7rem, 3.2vw, 2.3rem); line-height: 1.15; color: var(--cream); }
+.billet__reste { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1.1rem; padding: clamp(1.8rem, 4vw, 2.8rem); }
+.billet__lieu { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.98rem; }
+.billet__lieu .ico { color: var(--gold); }
+.billet__achat { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; }
+.billet__prix { font-family: 'EB Garamond', serif; font-size: clamp(2rem, 4vw, 2.6rem); line-height: 1; color: var(--gold); }
+@media (max-width: 700px) {
+  .billet { grid-template-columns: 1fr; }
+  .billet__quand { border-right: 0; border-bottom: 1px dashed rgba(236,231,222,0.18); }
+}
+
+/* ── Formules et tarifs : groupe → durée → prix → détail ── */
+.formules { margin-top: clamp(2rem, 5vw, 3rem); }
+.formules__titre { display: flex; align-items: center; gap: 16px; font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.9rem; color: var(--cream); margin-bottom: 1.2rem; }
+.formules__titre::after { content: ''; flex: 1; height: 1px; background: var(--faint); }
+.formules__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.formule { display: flex; flex-direction: column; gap: 0.35rem; padding: 1.6rem 1.5rem; border: 1px solid var(--faint); border-radius: 20px; background: rgba(10,15,32,0.35); }
+.formule__duree { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--muted); }
+.formule__prix { font-family: 'EB Garamond', serif; font-size: clamp(2.2rem, 4vw, 2.8rem); line-height: 1.05; color: var(--gold); }
+.formule__detail { margin-top: 0.3rem; font-size: 0.92rem; line-height: 1.55; color: #C2C5D2; }
+.seuil__tout { margin-top: 1.4rem; font-size: 0.7rem; }

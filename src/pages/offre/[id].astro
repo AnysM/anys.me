@@ -40,6 +40,8 @@ const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').repla
 const s = seuil(seuilDe(d));
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
+// Formules regroupées (ex. : En ligne / Immersion) pour une lecture hiérarchisée
+const groupes = Object.entries((d.tarifs ?? []).reduce((acc, t) => { (acc[t.groupe ?? ''] ??= []).push(t); return acc; }, {} as Record<string, NonNullable<typeof d.tarifs>>));
 const prixDepart = d.prix && /\d/.test(d.prix) ? d.prix : d.tarifs?.length ? `dès ${[...d.tarifs].sort((a, b) => parseInt(a.prix) - parseInt(b.prix))[0].prix}` : null;
 const desc = description(d.resume, o.body);
 const montant = (t?: string) => (t && /\d/.test(t) ? t.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : null);
@@ -107,10 +109,23 @@ const jsonld = [
     <Fragment>
       {(infos.length > 0 || d.tarifs) && (
         <section class="bloc-or" id="tarifs">
-          <div class="narrow">
+          <div class="wrap" style="max-width:1000px;">
             <p class="eyebrow">Infos & tarifs</p>
             {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
-            {d.tarifs && <div class="tarifs" style="margin-top:1.2rem;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
+            {groupes.map(([nom, formules]) => (
+              <div class="formules">
+                {nom && <h3 class="formules__titre">{nom}</h3>}
+                <div class="formules__grille">
+                  {formules.map((t) => (
+                    <div class="formule">
+                      <span class="formule__duree">{t.label}</span>
+                      <span class="formule__prix">{t.prix}</span>
+                      {t.detail && <span class="formule__detail">{t.detail}</span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       )}

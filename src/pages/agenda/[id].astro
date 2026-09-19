@@ -29,6 +29,19 @@ const infos = [{ k: 'Quand', v: quand + (d.heure ? ` · ${d.heure}` : '') }];
 if (d.lieu) infos.push({ k: 'Lieu', v: d.lieu });
 if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
 if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
+// Billet : la date en grand, le reste en second plan
+const f = (o: Intl.DateTimeFormatOptions, x: Date) => new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC', ...o }).format(x).replace('.', '');
+const billet = d.date
+  ? {
+      jour: f({ day: 'numeric' }, d.date),
+      mois: d.date_fin && f({ month: 'short' }, d.date) !== f({ month: 'short' }, d.date_fin) ? `${f({ month: 'short' }, d.date)} – ${f({ month: 'short', year: 'numeric' }, d.date_fin)}` : f({ month: 'long', year: 'numeric' }, d.date),
+      fin: d.date_fin ? f({ day: 'numeric' }, d.date_fin) : null,
+      detail: d.date_fin
+        ? `${Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1} jours`
+        : [f({ weekday: 'long' }, d.date), d.heure].filter(Boolean).join(' · '),
+    }
+  : null;
+const lienAction = d.lien && d.reservable ? d.lien : null;
 const lies = await codexDe(`agenda/${e.id}`);
 const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
@@ -92,14 +105,33 @@ const jsonld = [
   )}
 
   <section class="bloc-or">
-    <div class="narrow">
+    <div class="wrap">
       <p class="eyebrow">Infos pratiques</p>
-      <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>
-      {d.reservable && d.lien && (
-        <div style="margin-top:1.8rem;">
-          <a class="btn btn--solid" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{d.cta ?? 'Réserver'}</a>
+      <div class="billet">
+        <div class="billet__quand">
+          {billet ? (
+            <Fragment>
+              <span class="billet__jour">{billet.jour}{billet.fin && <span class="billet__fin">–{billet.fin}</span>}</span>
+              <span class="billet__mois">{billet.mois}</span>
+              <span class="billet__detail">{billet.detail}</span>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <span class="billet__rythme">{d.rythme ?? 'Sur inscription'}</span>
+              {d.heure && <span class="billet__detail">{d.heure}</span>}
+            </Fragment>
+          )}
         </div>
-      )}
+        <div class="billet__reste">
+          {d.lieu && <p class="billet__lieu"><Icone nom="lieu" taille={16} />{d.lieu}</p>}
+          <div class="billet__achat">
+            {d.prix && <span class="billet__prix">{d.prix}</span>}
+            {d.earlybird && <span class="ecard__early">Early bird jusqu’au {d.earlybird}</span>}
+          </div>
+          {lienAction && <a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a>}
+          {!lienAction && d.lien && <a class="cta" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">Plus d'infos <span class="line"></span></a>}
+        </div>
+      </div>
     </div>
   </section>
 

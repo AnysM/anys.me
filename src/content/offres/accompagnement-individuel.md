@@ -7,16 +7,21 @@ resume: "Un accompagnement pour venir travailler en profondeur et sur la durée.
 tarifs:
   - label: "1 mois"
     prix: "800€"
-    detail: "En ligne, une séance par semaine"
+    detail: "Une séance par semaine"
+    groupe: "En ligne"
   - label: "3 mois"
     prix: "1200€"
-    detail: "En ligne, toutes les deux semaines"
+    detail: "Une séance toutes les deux semaines"
+    groupe: "En ligne"
   - label: "6 mois"
     prix: "1500€"
-    detail: "En ligne, toutes les trois semaines"
-  - label: "Immersion « Nouveau souffle »"
+    detail: "Une séance toutes les trois semaines"
+    groupe: "En ligne"
+  - label: "3 jours"
     prix: "600€"
-    detail: "3 jours en individuel, hors logement et repas"
+    detail: "En individuel, 5 h par jour. Hors logement et repas."
+    groupe: "Immersion « Nouveau souffle »"
+accueil: true
 ordre: 1
 etapes:
   - titre: "Un premier échange"

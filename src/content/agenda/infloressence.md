@@ -7,6 +7,7 @@ rythme: "Tous les dimanches, 19h - 20h30"
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
 lien: "https://chanka-studio-lyon.fr"
 reservable: false
+accueil: true
 ordre: 1
 publie: true
 temoignages:

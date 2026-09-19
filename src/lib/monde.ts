@@ -17,6 +17,7 @@ export type Proposition = {
   image?: string;
   ordre: number;
   date?: Date;
+  accueil: boolean;
 };
 
 const fmtCourt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d).replace('.', '');
@@ -48,13 +49,13 @@ export async function propositions(): Promise<Proposition[]> {
     ...offres.map((o) => ({
       cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: `/offre/${o.id}`, externe: false,
       seuil: seuilDe(o.data), categorie: o.data.categorie, resume: o.data.resume, image: o.data.image, ordre: o.data.ordre,
-      prix: o.data.prix ?? (o.data.tarifs?.length ? `dès ${o.data.tarifs.map((t) => t.prix).sort((a, b) => parseInt(a) - parseInt(b))[0]}` : undefined),
+      accueil: o.data.accueil, prix: o.data.prix ?? (o.data.tarifs?.length ? `dès ${o.data.tarifs.map((t) => t.prix).sort((a, b) => parseInt(a) - parseInt(b))[0]}` : undefined),
       quand: o.data.duree ?? o.data.format,
     })),
     ...agenda.map((e) => ({
       cle: `agenda/${e.id}`, id: e.id, titre: e.data.titre, href: hrefAgenda(e), externe: estExterne(hrefAgenda(e)),
       seuil: seuilDe(e.data), categorie: e.data.categorie, resume: e.data.resume, image: e.data.image, ordre: e.data.ordre,
-      prix: e.data.prix, quand: ligneDate(e.data), date: e.data.date,
+      prix: e.data.prix, quand: ligneDate(e.data), date: e.data.date, accueil: e.data.accueil,
     })),
   ];
 }

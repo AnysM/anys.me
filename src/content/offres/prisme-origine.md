@@ -10,6 +10,7 @@ tarifs:
   - label: "Complète"
     prix: "350€"
     detail: "2h, avec portrait écrit et œuvre originale"
+accueil: true
 ordre: 2
 seuil: approfondir
 etapes:

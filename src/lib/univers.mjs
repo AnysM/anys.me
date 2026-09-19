@@ -16,6 +16,7 @@ export const TYPES = [
   { id: 'notion', label: 'Notion', pluriel: 'Notions' },
   { id: 'rencontre', label: 'Rencontre', pluriel: 'Rencontres' },
   { id: 'realisation', label: 'Réalisation', pluriel: 'Réalisations intérieures' },
+  { id: 'magique', label: 'Rencontre magique', pluriel: 'Rencontres magiques' },
   { id: 'allie', label: 'Allié', pluriel: 'Alliés' },
 ];
 export const TYPE_IDS = TYPES.map((t) => t.id);

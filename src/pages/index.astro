@@ -26,9 +26,13 @@ const seuils = SEUILS.map((s, i) => ({
   ...s,
   nom: acc.seuils?.[i]?.titre ?? s.nom,
   texte: acc.seuils?.[i]?.texte ?? '',
+  // L'accueil ne montre que les propositions « à la une » (2 max par seuil) ; le reste vit dans l'agenda et les pages dédiées
+  total: toutes.filter((p) => p.seuil === s.id).length,
   items: toutes
-    .filter((p) => p.seuil === s.id)
-    .sort((a, b) => (a.date ? 0 : 1) - (b.date ? 0 : 1) || (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0) || a.ordre - b.ordre),
+    .filter((p) => p.seuil === s.id && p.accueil)
+    .sort((a, b) => (a.date ? 0 : 1) - (b.date ? 0 : 1) || (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0) || a.ordre - b.ordre)
+    .slice(0, 2),
+  tout: { decouvrir: { href: '/agenda', label: 'Tout l’agenda' }, approfondir: { href: '/soins', label: 'Tous les soins' }, transformer: { href: '/accompagnement', label: 'Accompagnements et immersions' } }[s.id],
 }));
 
 const aujourdhui = new Date(new Date().toDateString());
@@ -141,6 +145,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
             <p class="seuil__format">{s.format}</p>
             {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
             <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
+            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
           </div>
         ))}
       </div>

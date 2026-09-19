@@ -6,6 +6,7 @@ prix: "80€"
 format: "Sur rendez-vous"
 tag: "Soin subtil"
 resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
+accueil: true
 ordre: 2
 etapes:
   - titre: "L'accueil"
