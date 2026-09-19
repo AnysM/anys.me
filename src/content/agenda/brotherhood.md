@@ -11,7 +11,7 @@ earlybird: ''
 cta: ''
 site: ''
 lien: ''
-resume: Retraite d'hommes, au Maroc. Dates à annoncer.
+resume: Retraite d'hommes au Portugal, au printemps 2027. Dates à annoncer.
 image: ''
 reservable: false
 ordre: 4

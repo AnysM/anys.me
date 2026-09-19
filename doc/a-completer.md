@@ -15,7 +15,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 
 ## 2. Incohérences à trancher
 
-- [ ] **Brotherhood Circle** : le lieu dit « Portugal », le résumé dit « au Maroc ».
+- [x] **Brotherhood Circle** : Portugal, printemps 2027 (corrigé le 19/09).
 - [ ] **Accompagnement collectif** : on le garde en liste d'attente, ou on le retire ?
 - [ ] **Soins** : lieux exacts, « Chanka, Meïsō ou l'Île Barbe » ? L'Île Barbe mérite-t-elle une fiche « Allié » ?
 
