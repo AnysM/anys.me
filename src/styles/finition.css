@@ -125,3 +125,8 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 /* Le trait des liens s'étire au survol sans changer la mise en page (plus de décalage) */
 .cta .line { width: 44px; transform-origin: left center; transition: transform 0.4s var(--ease); }
 .cta:hover .line { width: 44px; transform: scaleX(1.5); }
+
+/* Signature discrète du site, dans la barre du bas */
+.foot__signature { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.02em; }
+.foot__signature a { color: #C9CBD8; text-transform: none; letter-spacing: 0.02em; font-size: 0.78rem; border-bottom: 1px solid rgba(236,231,222,0.25); }
+.foot__signature a:hover { color: var(--cream); border-color: var(--gold); }
