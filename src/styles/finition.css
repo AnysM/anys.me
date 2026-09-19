@@ -118,3 +118,4 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 
 /* Texte des boutons plus lisible */
 .btn, .ecard__btn, .cta, .site-nav__links a { font-weight: 400; }
+.btn, .ecard__btn { font-weight: 500; }
