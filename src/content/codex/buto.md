@@ -3,6 +3,7 @@ titre: La danse Butô
 type: pratique
 univers: [mouvement, art]
 alias: [danse Butô, danse Butoh, Butô, Butoh]
+question: "Qu'est-ce que la danse Butô ?"
 resume: "Une danse japonaise qui accueille l'inesthétique pour récupérer toutes les parts de soi."
 agenda:
   - evenement: src/content/agenda/infloressence.md

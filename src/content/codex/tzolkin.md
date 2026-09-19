@@ -3,6 +3,7 @@ titre: Le Tzolk’in
 type: notion
 univers: [connaissance, vivant]
 alias: [Tzolk’in, Tzolk'in, Tzolkin]
+question: "Qu'est-ce que le Tzolk'in, le calendrier maya ?"
 resume: "Le calendrier sacré maya de 260 jours, et la signature du jour de ta naissance."
 offres:
   - offre: src/content/offres/prisme-origine.md

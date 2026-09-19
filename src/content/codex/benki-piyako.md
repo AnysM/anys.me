@@ -3,6 +3,7 @@ titre: Benki Piyako Ashaninka
 type: rencontre
 univers: [vivant]
 alias: [Benki Piyako Ashaninka, Benki]
+question: "Qui est Benki Piyako Ashaninka ?"
 resume: "Chef politique et spirituel d'un peuple indigène d'Amazonie. Un tournant majeur."
 offres:
   - offre: src/content/offres/soin-energetique.md

@@ -3,6 +3,7 @@ titre: Nogomos
 type: magique
 univers: [presence, art]
 alias: [Nogomos, œuf primordial]
+question: "Qu'est-ce que Nogomos, l'œuf primordial ?"
 resume: "L'œuf primordial : là d'où tout vient et où tout retourne."
 liens:
   - fiche: src/content/codex/ma.md

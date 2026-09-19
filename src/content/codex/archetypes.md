@@ -3,6 +3,7 @@ titre: Les archétypes
 type: notion
 univers: [connaissance]
 alias: [psychologie jungienne, archétypes]
+question: "Que sont les archétypes, selon Jung ?"
 resume: "Les grandes figures intérieures qui nous habitent, et qu'on peut apprendre à reconnaître."
 offres:
   - offre: src/content/offres/accompagnement-individuel.md

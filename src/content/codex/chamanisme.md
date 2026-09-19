@@ -3,6 +3,7 @@ titre: Le chamanisme
 type: pratique
 univers: [vivant]
 alias: [chamanisme]
+question: "Qu'est-ce que le chamanisme ?"
 resume: "La connexion retrouvée à la force invisible qui donne forme à notre réalité."
 offres:
   - offre: src/content/offres/soin-energetique.md

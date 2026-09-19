@@ -3,6 +3,7 @@ titre: Les Issawa
 type: rencontre
 univers: [vivant, art]
 alias: [Issawa, racines marocaines]
+question: "Qui sont les Issawa ?"
 resume: "Mes racines marocaines, et les lignées de guérisseurs de la confrérie soufie."
 offres:
   - offre: src/content/offres/soin-energetique.md

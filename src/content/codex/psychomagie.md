@@ -3,6 +3,7 @@ titre: La psychomagie
 type: notion
 univers: [art, connaissance]
 alias: [rituels psychomagiques, psychomagiques, psychomagique, psychomagie]
+question: "Qu'est-ce que la psychomagie ?"
 resume: "Un acte symbolique, posé en conscience, pour parler à l'inconscient dans sa langue."
 agenda:
   - evenement: src/content/agenda/quintessence.md

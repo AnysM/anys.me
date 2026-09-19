@@ -27,7 +27,11 @@ const { Content } = await render(f);
 const aGouter = (await propositionsDe(f)).sort((a, b) => SEUIL_IDS.indexOf(a.seuil) - SEUIL_IDS.indexOf(b.seuil) || a.ordre - b.ordre);
 const chapitres = await chapitresDe(f.id);
 const url = abs(`/codex/${f.id}`);
-const titreSeo = d.seo_titre ?? `${d.titre} · Codex d'Anys Mechkar`;
+const titreSeo = d.seo_titre ?? (d.question ? `${d.question} · ${d.question.length > 44 ? 'Anys Mechkar' : 'Codex d’Anys Mechkar'}` : `${d.titre} · Codex d'Anys Mechkar`);
+// « Où vivre la danse Butô ? » : la partie pratique formulée comme une recherche
+const nomCourant = d.titre.charAt(0).toLowerCase() + d.titre.slice(1);
+const questionOu = ['pratique', 'notion', 'realisation'].includes(d.type) ? `Où vivre ${nomCourant} ?` : 'Où prolonger cette rencontre ?';
+const premierParagraphe = (f.body ?? '').split(/\n\s*\n/).map((x) => x.replace(/[*_#>`]/g, '').trim()).find(Boolean) ?? '';
 const mince = (f.body ?? '').trim().length < MINIMUM_SEO; // trop court pour Google : on attend qu'elle s'étoffe
 const ouVivre = aGouter.filter((p) => !p.externe || p.cle.startsWith('agenda')).slice(0, 2).map((p) => p.titre);
 const desc = d.seo_description ?? description(
@@ -58,6 +62,13 @@ const jsonld = [
     ...(aGouter.length && { mentions: aGouter.map((p) => ({ '@type': p.cle.startsWith('agenda') ? 'Event' : 'Service', name: p.titre, url: abs(p.href) })) }),
   },
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Le Codex', url: '/codex' }, { nom: d.titre, url: `/codex/${f.id}` }]),
+  ...(d.question && premierParagraphe ? [{
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: d.question, acceptedAnswer: { '@type': 'Answer', text: premierParagraphe } },
+      ...(aGouter.length ? [{ '@type': 'Question', name: questionOu, acceptedAnswer: { '@type': 'Answer', text: `Avec Anys Mechkar : ${aGouter.map((p) => p.titre + (p.quand ? ` (${p.quand})` : '')).join(', ')}.` } }] : []),
+    ],
+  }] : []),
 ];
 const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length > 170 ? p.slice(0, p.lastIndexOf(' ', 170)) + '…' : p; };
 ---
@@ -76,6 +87,7 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
 
   <section class="fiche-corps">
     <div class="narrow">
+      {d.question && <h2 class="fiche-question">{d.question}</h2>}
       <div class="prose"><Content /></div>
       {d.lien_externe && <p style="margin-top:1.8rem;"><a class="cta" href={d.lien_externe} target="_blank" rel="noopener">Visiter le site <span class="line"></span></a></p>}
 
@@ -94,7 +106,7 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
     <section class="gouter">
       <div class="narrow">
         <p class="eyebrow">Pour y goûter</p>
-        <h2 style="margin-top:0.8rem; font-size:clamp(1.2rem,2.2vw,1.6rem);">Là où tu peux le <span class="script">vivre</span></h2>
+        <h2 style="margin-top:0.8rem; font-size:clamp(1.2rem,2.2vw,1.6rem);">{questionOu}</h2>
         <div class="gouter__liste">{aGouter.map((p) => <Quete p={p} avecSeuil />)}</div>
       </div>
     </section>

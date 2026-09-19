@@ -3,6 +3,7 @@ titre: Dharamsala
 type: rencontre
 univers: [presence]
 alias: [Dharamsala]
+question: "Que m'a appris Dharamsala, la ville du Dalaï-Lama ?"
 resume: "Deux mois auprès de moines bouddhistes tibétains, dans la ville du Dalaï-Lama."
 liens:
   - fiche: src/content/codex/meditation.md

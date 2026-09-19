@@ -3,6 +3,7 @@ titre: Les Gene Keys
 type: notion
 univers: [connaissance]
 alias: [Gene Keys]
+question: "Que sont les Gene Keys ?"
 resume: "Un chemin contemplatif, de l'ombre au don, jusqu'à la plus haute expression de soi."
 offres:
   - offre: src/content/offres/prisme-origine.md

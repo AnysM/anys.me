@@ -131,6 +131,7 @@ export default defineConfig({
           { type: "string", name: "type", label: "Type", required: true,
             options: [{ value: "notion", label: "Notion" }, { value: "pratique", label: "Pratique" }, { value: "rencontre", label: "Rencontre (personne, lieu, peuple)" }, { value: "realisation", label: "Réalisation intérieure" }, { value: "magique", label: "Rencontre magique (esprit, archétype, animal, déité)" }, { value: "allie", label: "Allié (partenaire)" }] },
           { type: "string", name: "univers", label: "Univers", list: true, options: UNIV },
+          { type: "string", name: "question", label: "La question à laquelle répond la fiche", description: "Pour Google : formule-la comme on la taperait (ex. : Qu'est-ce que la danse Butô ?). Elle devient le titre dans Google et le premier intertitre." },
           { type: "string", name: "resume", label: "Résumé (une phrase)", ui: { component: "textarea" } },
           { type: "string", name: "alias", label: "Mots qui mènent ici", list: true,
             description: "Quand un de ces mots apparaît dans le récit ou une page, il devient un lien vers cette fiche. Du plus précis au plus court (ex. : danse Butô, Butô)." },

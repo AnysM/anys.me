@@ -3,6 +3,7 @@ titre: Choisir sa vie
 type: realisation
 univers: [connaissance]
 alias: [choisi ma vie, choisir sa vie, crise existentielle]
+question: "Comment choisir vraiment sa vie ?"
 resume: "Une vie réussie en apparence n'est pas forcément une vie choisie."
 offres:
   - offre: src/content/offres/accompagnement-individuel.md

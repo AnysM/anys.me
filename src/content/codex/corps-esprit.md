@@ -3,6 +3,7 @@ titre: Le corps et l'esprit ne font qu'un
 type: realisation
 univers: [mouvement, presence]
 alias: [lien entre corps et esprit]
+question: "Comment le corps et l'esprit sont-ils liés ?"
 resume: "Changer de posture, de corps, simplement en laissant l'énergie circuler."
 offres:
   - offre: src/content/offres/massage-a-l-huile.md

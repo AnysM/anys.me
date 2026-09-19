@@ -3,6 +3,7 @@ titre: Une cellule du grand organisme vivant
 type: realisation
 univers: [vivant, mouvement]
 alias: [grand organisme vivant]
+question: "Que veut dire reprendre sa place dans le vivant ?"
 resume: "Reprendre sa place, ni au-dessus ni à côté du vivant, mais dedans."
 agenda:
   - evenement: src/content/agenda/le-chaudron.md

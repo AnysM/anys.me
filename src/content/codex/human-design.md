@@ -3,6 +3,7 @@ titre: Le Human Design
 type: notion
 univers: [connaissance]
 alias: [Human Design]
+question: "Qu'est-ce que le Human Design ?"
 resume: "Une carte de ta mécanique énergétique, calculée à partir de ta naissance."
 offres:
   - offre: src/content/offres/prisme-origine.md

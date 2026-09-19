@@ -3,6 +3,7 @@ titre: Tai-chi & qi gong
 type: pratique
 univers: [mouvement, presence]
 alias: [tai-chi, qi gong, arts énergétiques chinois]
+question: "Qu'est-ce que le tai-chi et le qi gong ?"
 resume: "Les arts énergétiques chinois : faire circuler l'énergie par le mouvement lent."
 liens:
   - fiche: src/content/codex/corps-energetique.md

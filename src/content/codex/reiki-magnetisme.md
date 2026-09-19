@@ -3,6 +3,7 @@ titre: Reiki & magnétisme
 type: pratique
 univers: [vivant, presence]
 alias: [Reiki, magnétisme]
+question: "Qu'est-ce que le Reiki et le magnétisme ?"
 resume: "Les premières portes vers les arts énergétiques et le soin subtil."
 offres:
   - offre: src/content/offres/soin-energetique.md

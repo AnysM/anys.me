@@ -3,6 +3,7 @@ titre: Le BaZi
 type: notion
 univers: [connaissance]
 alias: [BaZi]
+question: "Qu'est-ce que le BaZi ?"
 resume: "Les quatre piliers de la destinée, dans la tradition chinoise des cinq éléments."
 offres:
   - offre: src/content/offres/prisme-origine.md

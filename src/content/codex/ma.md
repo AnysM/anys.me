@@ -3,6 +3,7 @@ titre: 間 Ma
 type: notion
 univers: [presence, art]
 alias: [間 Ma, 間]
+question: "Que signifie Ma (間) au Japon ?"
 resume: "L'intervalle, l'espace entre les choses, qui leur donne leur sens."
 agenda:
   - evenement: src/content/agenda/desert-mirage.md

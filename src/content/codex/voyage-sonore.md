@@ -3,6 +3,7 @@ titre: Le voyage sonore
 type: pratique
 univers: [art, presence]
 alias: [voyages sonores, voyage sonore]
+question: "Qu'est-ce qu'un voyage sonore ?"
 resume: "Laisser le son délier les tensions, ouvrir la place aux émotions et à la créativité."
 agenda:
   - evenement: src/content/agenda/voyage-sonore.md

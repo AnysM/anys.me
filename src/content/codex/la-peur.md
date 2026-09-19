@@ -3,6 +3,7 @@ titre: La peur, source commune
 type: realisation
 univers: [presence, connaissance]
 alias: []
+question: "Pourquoi la peur est-elle à la source de nos tourments ?"
 resume: "Toutes mes préoccupations avaient la même racine. Et le remède était d'apprendre à m'aimer."
 offres:
   - offre: src/content/offres/accompagnement-individuel.md

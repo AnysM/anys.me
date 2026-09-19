@@ -3,6 +3,7 @@ titre: Le corps énergétique
 type: notion
 univers: [vivant, presence]
 alias: [sphère énergétique, corps énergétique, dimension énergétique]
+question: "Qu'est-ce que le corps énergétique ?"
 resume: "Ce qui relie l'esprit et le corps physique, et porte nos émotions."
 offres:
   - offre: src/content/offres/soin-energetique.md

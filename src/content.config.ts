@@ -166,6 +166,7 @@ const codex = defineCollection({
     type: z.enum(TYPE_IDS as [string, ...string[]]),
     univers: z.array(z.enum(UNIVERS_IDS as [string, ...string[]])).default([]),
     alias: z.array(z.string()).default([]),
+    question: z.preprocess(videVersUndefined, z.string().optional()),
     resume: z.string().optional(),
     image: z.preprocess(videVersUndefined, z.string().optional()),
     lien_externe: z.preprocess(videVersUndefined, z.string().optional()),

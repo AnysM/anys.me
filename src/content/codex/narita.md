@@ -3,6 +3,7 @@ titre: Narita
 type: magique
 univers: [mouvement]
 alias: [Narita]
+question: "Qui est Narita ?"
 resume: "L'identité bestiale et primaire : l'énergie masculine sombre."
 liens:
   - fiche: src/content/codex/indigo-enoqii.md

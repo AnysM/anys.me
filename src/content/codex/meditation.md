@@ -3,6 +3,7 @@ titre: La méditation de pleine conscience
 type: pratique
 univers: [presence]
 alias: [méditation de pleine conscience, pleine conscience, méditation, méditations]
+question: "Qu'est-ce que la méditation de pleine conscience ?"
 resume: "Ma première révélation : voir où va mon énergie, et apprendre à revenir."
 offres:
   - offre: src/content/offres/accompagnement-individuel.md
