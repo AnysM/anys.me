@@ -42,10 +42,6 @@ benefices:
   - "Alignement, souveraineté et pouvoir créateur"
   - "Des pratiques de présence et de mouvement pour ton quotidien"
   - "Un projet de cœur qui prend forme, pas à pas"
-temoignages:
-  - t: "Son regard et son écoute m'ont reconnectée à la confiance en moi et en l'autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie."
-    'n': "Polette"
-    c: "Accompagnement individuel"
 faq:
   - q: "Comment savoir si c'est juste pour moi ?"
     r: "C'est le rôle du premier échange : tu me racontes ce que tu traverses, et on sent ensemble si c'est juste de cheminer ensemble, et dans quel cadre."
@@ -55,6 +51,16 @@ faq:
     r: "Un mois, avec une séance par semaine, pour débloquer une situation précise. Trois ou six mois, avec un rythme plus espacé, pour traverser une transition en profondeur et laisser le temps d'intégrer. On le décide ensemble lors du premier échange."
   - q: "Je n'ai jamais fait de démarche de ce genre, c'est grave ?"
     r: "Pas du tout. Que tu aies déjà beaucoup exploré ou que ce soit ta première fois, on part de là où tu en es."
+temoignages:
+  - t: "Ayant moi-même parcouru un long chemin de conscience et exerçant dans l'accompagnement, je suis particulièrement exigeante. Anys réunit une grande rigueur, une réflexion fine, un remarquable discernement, et une présence profondément humaine. Il sait créer un espace à la fois contenant et structurant."
+    'n': "Stéphanie M."
+    c: "Accompagnement, depuis plusieurs années"
+  - t: "Ces rencontres successives ont jalonné des moments cruciaux de ma vie et facilité des choix capitaux, pas aisés à prendre. Anys a su m'accompagner sans complaisance. Son regard, son écoute m'ont connectée à la foi, à la confiance en moi et en l'autre."
+    'n': "Polette C."
+    c: "Accompagnement individuel"
+  - t: "Anys m'a accompagné six mois, au moment où je démarrais un projet avec une reconversion. Il m'a permis de ne pas me sentir seul, de trouver en moi les ressources dont j'avais besoin. Mon projet a pu prendre forme."
+    'n': "S. K."
+    c: "Accompagnement de 6 mois, reconversion"
 ---
 Un accompagnement pour venir travailler en profondeur et sur la durée. Sur mesure, en fonction du besoin : soit un accompagnement en ligne, soit une immersion de 3 jours en individuel.
 

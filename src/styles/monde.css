@@ -207,22 +207,6 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 /* Libellés sous les tuiles du bas et sur les côtés : on les garde courts */
 @media (max-width: 1000px) { .rosace__desc { display: none; } }
 
-@media (max-width: 640px) {
-  .rosace { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 1rem; }
-  .rosace__fils, .rosace__anneau { display: none; }
-  .rosace__centre { position: relative; left: auto; top: auto; transform: none; grid-column: 1 / -1; width: 58%; margin: 0 auto 0.6rem; }
-  .rosace__tuile { position: relative; left: auto !important; top: auto !important; transform: none; width: auto; }
-  .rosace__picto { width: 62%; }
-  .rosace__centre { order: 0; }
-  .rosace__tuile.u-art { order: 1; grid-column: 1 / -1; }
-  .rosace__tuile.u-art .rosace__picto { width: 31%; }
-  .rosace__tuile.u-presence { order: 2; }
-  .rosace__tuile.u-connaissance { order: 3; }
-  .rosace__tuile.u-vivant { order: 4; }
-  .rosace__tuile.u-mouvement { order: 5; }
-  .rosace__mot { font-size: 2rem; }
-  .rosace__note { font-size: 0.58rem; }
-}
 
 /* Symboles des univers aux couleurs du code (partout sur le site) */
 .sigils span[class^="u-"], .filtre span[class^="u-"] { color: var(--u-trait); }
@@ -233,10 +217,6 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .rosace__tuile { display: block; }
 .rosace__legende { position: absolute; top: calc(100% + 0.9rem); left: 50%; transform: translateX(-50%); width: 190px; display: flex; flex-direction: column; align-items: center; }
 .rosace__legende .rosace__nom { margin-top: 0; }
-@media (max-width: 640px) {
-  .rosace__tuile { display: flex; }
-  .rosace__legende { position: static; transform: none; width: auto; margin-top: 0.8rem; }
-}
 .rosace__legende .rosace__nom { background: var(--surface); padding: 0.15rem 0.5rem; }
 
 /* ════════════════════════════════
@@ -352,7 +332,6 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 /* Centre du schéma en sans serif, lisible ; libellés des univers plus grands */
 .rosace__mot { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.22em; font-size: clamp(0.85rem, 1.6vw, 1.15rem); color: var(--cream); padding-left: 0.22em; }
 .rosace__nom { font-size: clamp(0.78rem, 1.15vw, 0.92rem); letter-spacing: 0.08em; }
-@media (max-width: 640px) { .rosace__mot { font-size: 1rem; } .rosace__nom { font-size: 0.8rem; } }
 
 /* Invitation au Codex sous le schéma : on explique avant de proposer */
 .codex-invite { max-width: 46ch; margin: clamp(4rem, 9vw, 6.5rem) auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
@@ -371,3 +350,42 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .appel { gap: 1rem 1.8rem; }
 .appel__ecrire { font-size: 0.72rem; }
 .invite .appel { justify-content: center; }
+
+/* ── Témoignages en cartes lisibles ── */
+.temoins-offre__grille { display: block; columns: 3 300px; column-gap: 1.4rem; }
+.temoin-carte { break-inside: avoid; margin: 0 0 1.4rem; padding: 1.8rem 1.7rem 1.6rem; border: 1px solid var(--faint); border-radius: 20px; background: var(--surface); }
+.temoin-carte__guillemet { display: block; font-family: 'EB Garamond', serif; font-size: 3.4rem; line-height: 0.6; color: var(--gold); height: 1.4rem; }
+.temoin-carte blockquote p { font-family: 'EB Garamond', serif; font-style: normal; font-size: 1.15rem; line-height: 1.6; color: #E4E1DA; max-width: none; }
+.temoin-carte figcaption { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--faint); display: flex; flex-direction: column; gap: 0.2rem; }
+.temoin-carte figcaption b { font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.95rem; color: var(--cream); }
+.temoin-carte figcaption span { font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.bloc .temoin-carte { background: var(--navy2); }
+.avis-google { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: 1.2rem; font-family: 'Jost', sans-serif; font-size: 0.9rem; color: #C9CBD8; }
+.avis-google__etoiles { color: var(--gold); letter-spacing: 0.12em; }
+.avis-google b { color: var(--cream); font-weight: 500; }
+.avis-google:hover { color: var(--cream); }
+
+/* Posture, dans « Qui suis-je ? » */
+.posture { margin-top: 1.6rem; padding-left: 1.3rem; border-left: 2px solid var(--gold); font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.18rem; line-height: 1.55; color: var(--cream); }
+/* Pourquoi on vient me voir : liste courte, sur deux colonnes */
+.venir__liste { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem 3rem; max-width: 880px; margin: 0 auto; }
+.venir__liste li { font-family: 'EB Garamond', serif; font-size: 1.28rem; line-height: 1.45; color: var(--cream); }
+@media (max-width: 700px) { .venir__liste { grid-template-columns: 1fr; } }
+.reconnaitre__liste li { font-size: 1.28rem; }
+
+/* Schéma sur petit écran : toujours en cercle, simplement resserré */
+@media (max-width: 640px) {
+  .rosace { aspect-ratio: 100 / 100; }
+  .rosace__tuile { width: 19%; }
+  .rosace__legende { width: 30vw; top: calc(100% + 0.5rem); }
+  .rosace__legende .rosace__nom { font-size: 0.68rem; letter-spacing: 0.04em; padding: 0.1rem 0.3rem; }
+  .rosace__desc { display: none; }
+  .rosace__mot { font-size: 0.6rem; letter-spacing: 0.1em; padding-left: 0.1em; }
+  .rosace__centre { width: 30%; }
+}
+
+/* Info-bulle au survol d'un univers */
+.rosace__bulle { position: absolute; bottom: calc(100% + 0.8rem); left: 50%; transform: translate(-50%, 6px); white-space: nowrap; padding: 0.5em 0.9em; border-radius: 10px; background: var(--cream); color: var(--navy); font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; z-index: 5; }
+.rosace__bulle::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--cream); }
+.rosace__tuile:hover .rosace__bulle, .rosace__tuile:focus-visible .rosace__bulle { opacity: 1; transform: translate(-50%, 0); }
+@media (hover: none) { .rosace__bulle { display: none; } }

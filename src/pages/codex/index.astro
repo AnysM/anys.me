@@ -91,6 +91,8 @@ const jsonld = [
             r.hidden = !ok; if (ok) visibles++;
           });
           g.hidden = visibles === 0;
+          var compteur = g.querySelector('.cgroupe__titre small');
+          if (compteur) compteur.textContent = visibles;
         });
       }
       boutons.forEach(function (b) {

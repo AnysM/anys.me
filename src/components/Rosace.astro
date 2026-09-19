@@ -35,6 +35,7 @@ const tuiles = ranges.map((u, i) => {
 
   {tuiles.map((t) => (
     <a class={`rosace__tuile u-${t.id}`} href={`/codex#${t.id}`} style={`left:${t.x}%; top:${(t.y / 88) * 100}%`}>
+      <span class="rosace__bulle">Découvrir dans le Codex →</span>
       <span class="rosace__picto">{t.image ? <img src={t.image} alt="" /> : <Fragment set:html={t.icon} />}</span>
       <span class="rosace__legende">
         <span class="rosace__nom">{t.nom}</span>

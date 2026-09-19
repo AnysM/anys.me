@@ -1,16 +1,26 @@
 ---
-// Témoignages au plus près de la décision (pages d'offre et d'événement).
-const { temoignages = [], titre = 'Ils et elles l’ont traversé' } = Astro.props;
+// Témoignages en cartes lisibles, avec la note Google quand elle est connue.
+const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false } = Astro.props;
 ---
 {temoignages.length > 0 && (
-  <section class="temoins-offre">
+  <section class={`temoins-offre${fond ? ' bloc' : ''}`}>
     <div class="wrap">
-      <div class="tete"><p class="eyebrow">Traversées</p><h2>{titre}</h2></div>
+      <div class="tete">
+        <p class="eyebrow">{eyebrow}</p>
+        {titre && <h2>{titre}</h2>}
+        {note && (
+          <a class="avis-google" href={lien} target="_blank" rel="noopener">
+            <span class="avis-google__etoiles" aria-hidden="true">★★★★★</span>
+            <span><b>{note}</b> sur Google{nombre && ` · ${nombre} avis`}</span>
+          </a>
+        )}
+      </div>
       <div class="temoins-offre__grille">
         {temoignages.map((x) => (
-          <figure class="temoin">
-            <blockquote><p>« {x.t} »</p></blockquote>
-            <figcaption><cite><b>{x.n}</b>{x.c && ` — ${x.c}`}</cite></figcaption>
+          <figure class="temoin-carte">
+            <span class="temoin-carte__guillemet" aria-hidden="true">“</span>
+            <blockquote><p>{x.t}</p></blockquote>
+            <figcaption><b>{x.n}</b>{x.c && <span>{x.c}</span>}</figcaption>
           </figure>
         ))}
       </div>

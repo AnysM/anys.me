@@ -22,15 +22,24 @@ art_eyebrow: Indigo Enoqii
 art_titre: '*Mon univers* artistique'
 temoins_eyebrow: Traversées
 temoins:
-  - t: 'Un voyage à la fois sonore et poétique, là où le temps s''arrête, le corps se libère et l''esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J''en ressors à chaque fois légère, ancrée et ressourcée.'
-    'n': Sonia
-    c: Ateliers Infloressence
-  - t: 'Anys a su parfaitement m''accompagner dans la traversée du désert intérieur. Le cœur, la présence, la douceur, le non-jugement.'
-    'n': Sandrine
-    c: Retraite au désert marocain
-  - t: 'Son regard et son écoute m''ont reconnectée à la confiance en moi et en l''autre. Depuis 4 ans, nos rencontres jalonnent les moments cruciaux de ma vie.'
-    'n': Polette
-    c: Accompagnement individuel
+  - t: "Ayant moi-même parcouru un long chemin de conscience et exerçant dans l'accompagnement, je suis particulièrement exigeante. Anys réunit une grande rigueur, une réflexion fine, un remarquable discernement, et une présence profondément humaine. Il sait créer un espace à la fois contenant et structurant."
+    'n': "Stéphanie M."
+    c: "Accompagnement, depuis plusieurs années"
+  - t: "Moi qui avais très peur de voyager, j'ai senti un filet de sécurité suffisant pour oser. Anis a su m'accompagner dans la traversée du « désert intérieur », tout en gardant mon autonomie : le cœur, la présence, la douceur, le non-jugement."
+    'n': "Sandrine B."
+    c: "Voyage initiatique, désert marocain"
+  - t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à la fois légère, ancrée et ressourcée."
+    'n': "Sonia D."
+    c: "Ateliers Infloressence"
+  - t: "Anys m'a accompagné six mois, au moment où je démarrais un projet avec une reconversion. Il m'a permis de ne pas me sentir seul, de trouver en moi les ressources dont j'avais besoin. Mon projet a pu prendre forme."
+    'n': "S. K."
+    c: "Accompagnement de 6 mois, reconversion"
+  - t: "Nous étions sept, et Anys a su prendre le temps avec chacun : le temps de prendre soin, d'écouter, de nous laisser la liberté d'être, de rire, de pleurer, de silence. Entre douceur et profondeur, tout y est."
+    'n': "Joséphina B."
+    c: "5 jours dans le désert marocain"
+  - t: "Anys m'a accompagnée pour une lecture de mon Human Design, avec beaucoup de présence, de douceur et de clarté. Je recommande fortement de partager un moment d'ouverture à soi avec lui."
+    'n': "Camille"
+    c: "Lecture Human Design"
 form_eyebrow: Contact
 piliers_titre: Ce qui nourrit *le chemin*
 piliers:
@@ -64,18 +73,21 @@ form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te 
 reconnaitre_eyebrow: Ce qui revient souvent
 reconnaitre_titre: "Choisir son chemin, *vraiment*"
 reconnaitre_items:
-  - "Savoir que ce n'est pas aligné, et ne pas savoir par où commencer."
-  - "Percevoir ses limitations, sans savoir comment les dépasser."
-  - "Avoir fait la thérapie, le travail de guérison… et voir que la vie ne change pas."
-  - "Continuer d'avancer avec la tête et la volonté, quand ce qui manque, c'est la sécurité et la confiance pour se laisser porter."
-reconnaitre_passage: "Répondre aux conditionnements et avancer avec le seul mental, ça ne marche pas. Il faut redescendre dans le corps, laisser parler le cœur, et avoir le courage d'ancrer dans la matière ce qui naît depuis la présence."
+  - "Sentir que ce n'est pas aligné, sans savoir par où commencer."
+  - "Voir ses limites, sans savoir comment les dépasser."
+  - "Avoir tout travaillé, et voir que la vie ne change pas."
+  - "Tout porter par la tête, quand il faudrait se laisser porter."
+reconnaitre_passage: "Le mental seul ne suffit pas. Il faut redescendre dans le corps, écouter le cœur, et oser incarner ce qui naît."
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
-  - "Laisser mourir des habitudes, des projets, des relations qui ne sont plus alignés avec qui tu es vraiment."
-  - "Structurer, révéler, faire naître ce qui est trop à l'étroit à l'intérieur et qui demande à naître."
-  - "Être entendu et compris, sans qu'on calque sur toi un schéma tout fait."
-  - "Repartir de qui tu es : ta spécificité, ton essence, ton design unique, pour naviguer ta vie avec fluidité."
-posture: "Ni un maître, ni un éveillé. Un homme qui a trouvé son chemin, et qui a besoin de partager et d'inspirer d'autres à trouver le leur. Ce que j'offre, c'est la foi que j'ai en la vie et en toi, une résilience travaillée encore et encore, et l'honnêteté de savoir exactement où j'en suis."
+  - "Laisser mourir ce qui n'est plus aligné."
+  - "Faire naître ce qui est à l'étroit en toi."
+  - "Être entendu, sans schéma plaqué sur toi."
+  - "Repartir de ton essence, pour avancer avec fluidité."
+posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
+avis_note: "4,9"
+avis_nombre: 10
+avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
 ---
 

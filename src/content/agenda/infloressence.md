@@ -10,15 +10,15 @@ reservable: false
 accueil: true
 ordre: 1
 publie: true
-temoignages:
-  - t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien et qui me permettent de me reconnecter avec moi-même. J'en ressors à chaque fois légère, ancrée et ressourcée."
-    'n': "Sonia"
-    c: "Ateliers Infloressence"
 faq:
   - q: "Faut-il de l'expérience ?"
     r: "Aucune expérience requise. L'atelier est pensé pour que chacun puisse entrer, à son rythme."
   - q: "Où et quand ?"
     r: "Tous les dimanches, de 19h à 20h30, à Chanka Studio, 51 quai Saint-Vincent, Lyon."
+temoignages:
+  - t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à la fois légère, ancrée et ressourcée."
+    'n': "Sonia D."
+    c: "Ateliers Infloressence"
 ---
 Un espace pour **revenir au corps et à la présence**.
 

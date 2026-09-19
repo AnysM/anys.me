@@ -114,7 +114,7 @@ export default defineConfig({
               { type: "string", name: "q", label: "Question" },
               { type: "string", name: "r", label: "Réponse", ui: { component: "textarea" } },
             ] },
-          { type: "string", name: "benefices", label: "Ce que tu repars avec (liste)", list: true },
+          { type: "string", name: "benefices", label: "Ce que tu y trouves (liste)", list: true },
           { type: "boolean", name: "accueil", label: "À la une sur l'accueil", description: "Coche 1 ou 2 propositions par seuil au maximum : l'accueil doit rester simple. Tout reste visible dans l'agenda et les pages dédiées." },
           { type: "string", name: "seuil", label: "Seuil", description: "Laisser vide pour le choix automatique selon la catégorie.", options: [{ value: "decouvrir", label: "I · Découvrir" }, { value: "approfondir", label: "II · Approfondir" }, { value: "transformer", label: "III · Se transformer" }] },
           { type: "rich-text", name: "body", label: "Contenu de la page", isBody: true },
@@ -193,6 +193,9 @@ export default defineConfig({
           { type: "string", name: "art_eyebrow", label: "Art — sur-titre" },
           { type: "string", name: "art_titre", label: "Art — titre", description: "*mot* = manuscrite" },
           { type: "string", name: "temoins_eyebrow", label: "Temoignages — sur-titre" },
+          { type: "string", name: "avis_note", label: "Avis Google — note (ex. : 4,9)" },
+          { type: "number", name: "avis_nombre", label: "Avis Google — nombre d'avis" },
+          { type: "string", name: "avis_lien", label: "Avis Google — lien vers la fiche" },
           { type: "object", name: "temoins", label: "Temoignages", list: true,
             ui: { itemProps: (i) => ({ label: i && i.n ? i.n : "Temoignage" }) },
             fields: [
