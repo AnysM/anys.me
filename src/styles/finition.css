@@ -61,7 +61,6 @@ section { padding: var(--section) 0; }
 .ecard { background: linear-gradient(180deg, rgba(255,255,255,0.025), transparent 40%), var(--surface); transition: border-color 0.4s, transform 0.5s var(--ease); }
 .ecard:hover { transform: translateY(-4px); border-color: rgba(163,168,255,0.35); }
 .ecard__body { padding: 1.5rem 1.6rem 1.7rem; }
-.ecard__title::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); opacity: 0.6; margin-top: 0.9rem; }
 .evt:hover { border-color: rgba(163,168,255,0.35); }
 .form input, .form select, .form textarea { border-radius: var(--r-md); padding: 1em 1.15em; background: rgba(255,255,255,0.03); transition: border-color 0.3s, background 0.3s; }
 .form input:focus, .form select:focus, .form textarea:focus { background: rgba(255,255,255,0.05); }

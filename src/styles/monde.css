@@ -488,3 +488,6 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .temoin-carte blockquote p { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 1.02rem; line-height: 1.75; color: #E4E1DA; }
 .temoin-carte figcaption b { font-family: 'EB Garamond', serif; font-style: italic; font-weight: 400; font-size: 1.25rem; color: var(--cream); }
 .difference__liste { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 1180px; }
+/* Événement : titre, puis date juste dessous, puis le trait doré */
+.ecard__when { position: relative; margin-top: 0.1rem; padding-bottom: 0.9rem; }
+.ecard__when::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 1px; background: var(--gold); opacity: 0.6; }

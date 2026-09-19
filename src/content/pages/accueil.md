@@ -91,10 +91,10 @@ avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
 difference_eyebrow: Ce qui change tout
-difference_titre: "Pas une méthode, *un passage*"
+difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
   - titre: "La rigueur et le mystère"
-    texte: "Ingénieur de formation, initié en Amazonie. Un regard précis et structurant, et l'ouverture de celui qui a traversé l'invisible."
+    texte: "Ingénieur de formation, initié auprès des Ashaninka, de moines bouddhistes tibétains, des nomades du désert, en Vipassana. Un regard précis et structurant, et l'ouverture de celui qui a traversé l'invisible."
   - titre: "Tout ce qui est toi"
     texte: "Avec la danse Butô, on accueille aussi le sombre, le bizarre, l'inconnu. Les parts qu'on a laissées de côté sont souvent celles qui manquent."
   - titre: "Ta carte, pas la mienne"
