@@ -117,6 +117,27 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
+  <!-- 4 bis. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  {acc.difference?.length > 0 && (
+    <section class="difference">
+      <div class="wrap">
+        <div class="tete">
+          <p class="eyebrow">{acc.difference_eyebrow}</p>
+          <h2 set:html={fmt(acc.difference_titre)}></h2>
+        </div>
+        <ol class="difference__liste">
+          {acc.difference.map((x, i) => (
+            <li>
+              <span class="difference__num">{['I', 'II', 'III', 'IV'][i]}</span>
+              <h3>{x.titre}</h3>
+              <p set:html={tisser(x.texte, ctx)}></p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
   <!-- RESPIRATION -->
   <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 

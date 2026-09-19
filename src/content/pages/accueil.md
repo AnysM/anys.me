@@ -90,5 +90,14 @@ temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
+difference_eyebrow: Ce qui change tout
+difference_titre: "Pas seulement *comprendre*"
+difference:
+  - titre: "Par le corps"
+    texte: "Là où l'on reste souvent dans la tête, on redescend dans le corps : souffle, mouvement, soin. C'est là que ça se dénoue."
+  - titre: "Depuis ta nature"
+    texte: "Aucun schéma plaqué. On part de ton design unique, ta spécificité, ton essence, pour trouver ta façon juste d'avancer."
+  - titre: "Jusqu'à l'incarnation"
+    texte: "Comprendre ne suffit pas. On ancre dans la matière ce qui naît : un choix, un projet, une création, une vie qui te ressemble."
 ---
 
