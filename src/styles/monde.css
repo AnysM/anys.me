@@ -217,8 +217,10 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
    ════════════════════════════════ */
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .appel { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
-.appel__principal { display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-.appel__offert { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); }
+/* La mention se pose sous le bouton sans le déplacer : le bouton reste aligné avec le reste de la rangée. */
+.appel__principal { position: relative; display: inline-flex; }
+.appel__offert { position: absolute; top: 100%; left: 0; right: 0; margin-top: 0.55rem; text-align: center; white-space: nowrap; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); pointer-events: none; }
+.appel:has(.appel__offert) { margin-bottom: 1.4rem; }
 
 /* Action visible dès le haut d'une offre */
 .offre-action { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin-top: 1.8rem; }
