@@ -1,17 +1,18 @@
 ---
-// L'accueil se lit comme un chemin : l'appel → le guide → le monde → les seuils
-// → les prochaines dates → les traversées → l'art → le Codex → l'invitation.
+// L'accueil suit les questions d'un visiteur : l'appel → mon chemin (on s'y reconnaît)
+// → ce qui revient souvent → pourquoi on vient me voir → l'approche (les univers)
+// → les seuils (les offres en découlent) → les dates → les traversées → l'invitation.
 import Base from '../layouts/Base.astro';
-import Sigils from '../components/Sigils.astro';
 import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
 import Rosace from '../components/Rosace.astro';
 import Appel from '../components/Appel.astro';
 import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
+import Icone from '../components/Icone.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { codex, propositions } from '../lib/monde';
-import { UNIVERS, SEUILS, typeLabel } from '../lib/univers.mjs';
+import { propositions } from '../lib/monde';
+import { UNIVERS, SEUILS } from '../lib/univers.mjs';
 import { tisser, contexte } from '../lib/lore.mjs';
 
 const acc = (await getEntry('pages', 'accueil'))!.data;
@@ -40,9 +41,6 @@ const temoins = acc.temoins ?? [];
 const temoinAccomp = temoins.find((x) => /accompagnement/i.test(x.c ?? '')) ?? temoins[0];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
-const fiches = await codex();
-const apercu = ['pratique', 'notion', 'rencontre', 'realisation'].flatMap((t) => fiches.filter((f) => f.data.type === t).slice(0, 2));
-const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
 ---
 <Base title="Anys Mechkar — Présence, mouvement, créativité">
   <!-- L'APPEL -->
@@ -61,7 +59,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
 
-  <!-- LE GUIDE -->
+  <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
   <section>
     <div class="wrap split">
       <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
@@ -69,17 +67,51 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
         <h2 set:html={fmt(acc.parcours_titre)}></h2>
         <p class="muted" set:html={tisser(acc.parcours_texte, ctx)}></p>
         <a class="cta" href="/a-propos" style="margin-top:22px;">{acc.parcours_cta} <span class="line"></span></a>
-        {temoinAccomp && (
-          <figure class="temoin temoin--court">
-            <blockquote><p>« {temoinAccomp.t} »</p></blockquote>
-            <figcaption><cite><b>{temoinAccomp.n}</b>{temoinAccomp.c && ` — ${temoinAccomp.c}`}</cite></figcaption>
-          </figure>
-        )}
       </div>
     </div>
   </section>
 
-  <!-- LE MONDE : les cinq univers -->
+  <!-- 2. CE QUI REVIENT SOUVENT : ce que beaucoup traversent -->
+  {acc.reconnaitre_items?.length > 0 && (
+    <section class="bloc reconnaitre">
+      <div class="wrap">
+        <div class="tete">
+          <p class="eyebrow">{acc.reconnaitre_eyebrow}</p>
+          <h2 set:html={fmt(acc.reconnaitre_titre)}></h2>
+        </div>
+        <ul class="reconnaitre__liste">
+          {acc.reconnaitre_items.map((x) => <li set:html={tisser(x, ctx)}></li>)}
+        </ul>
+        {acc.reconnaitre_passage && <p class="reconnaitre__passage" set:html={tisser(acc.reconnaitre_passage, ctx)}></p>}
+      </div>
+    </section>
+  )}
+
+  <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher, ma posture -->
+  {acc.venir_items?.length > 0 && (
+    <section class="venir">
+      <div class="wrap">
+        <div class="tete">
+          <p class="eyebrow">{acc.venir_eyebrow}</p>
+          <h2 set:html={fmt(acc.venir_titre)}></h2>
+        </div>
+        <div class="venir__grille">
+          <ul class="venir__liste">{acc.venir_items.map((x) => <li><Icone nom="etoile" taille={16} /><span set:html={tisser(x, ctx)}></span></li>)}</ul>
+          <div class="venir__posture">
+            {acc.posture && <p class="venir__citation">{acc.posture}</p>}
+            {temoinAccomp && (
+              <figure class="temoin temoin--court">
+                <blockquote><p>« {temoinAccomp.t} »</p></blockquote>
+                <figcaption><cite><b>{temoinAccomp.n}</b>{temoinAccomp.c && ` — ${temoinAccomp.c}`}</cite></figcaption>
+              </figure>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 4. L'APPROCHE : ce qui nourrit le chemin (les offres en découlent) -->
   <section class="bloc">
     <div class="wrap">
       <div class="tete">
@@ -87,13 +119,14 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
       <Rosace univers={piliers} centre={acc.piliers_centre ?? 'L’Essence'} />
+      <p class="tete__lien" style="text-align:center;"><a class="btn btn--bleu" href="/codex">Explorer le Codex</a></p>
     </div>
   </section>
 
   <!-- RESPIRATION -->
   <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
-  <!-- LES SEUILS -->
+  <!-- 5. LES SEUILS : les propositions, en conséquence -->
   <section id="seuils">
     <div class="wrap">
       <div class="tete">
@@ -114,7 +147,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
     </div>
   </section>
 
-  <!-- PROCHAINES DATES -->
+  <!-- 6. PROCHAINES DATES -->
   {dates.length > 0 && (
     <section class="bloc">
       <div class="wrap">
@@ -127,7 +160,7 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
     </section>
   )}
 
-  <!-- TRAVERSÉES -->
+  <!-- 7. TRAVERSÉES -->
   {temoins.length > 0 && (
     <section class="temoins veil">
       <div class="veil-bg" style="background-image:url('/img/tex-cosmic.jpg')"></div>
@@ -140,66 +173,32 @@ const allies = fiches.filter((f) => f.data.type === 'allie' && f.data.logo);
     </section>
   )}
 
-  <!-- RESPIRATION vers l'art -->
-  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+  <!-- 8. L'INVITATION : un premier pas -->
+  <section id="contact">
+    <div class="narrow">
+      <div class="tete">
+        <p class="eyebrow">{acc.form_eyebrow}</p>
+        <h2 set:html={fmt(acc.form_titre)}></h2>
+        <p class="muted">{acc.form_intro}</p>
+      </div>
+      {appelLien && <div style="display:flex; justify-content:center; margin-bottom:2.4rem;"><Appel secondaire={false} /></div>}
+      <Contact />
+    </div>
+  </section>
 
-  <!-- INDIGO ENOQII -->
-  <section>
+  <!-- Pas encore prêt : la lettre -->
+  <Lettre source="accueil" eyebrow="Pas encore prêt ?" />
+
+  <!-- 9. INDIGO ENOQII : l'art, en signature (deviendra les Artefacts) -->
+  <section class="art-signature">
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
         <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
-        <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir la boutique <span class="line"></span></a>
+        <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir les œuvres <span class="line"></span></a>
       </div>
-      <p style="margin-top:1.4rem; color:#B9BCCB; max-width:60ch; line-height:1.9;" set:html={tisser("Je crée des œuvres vibratoires, alchimiques, pleines de vie. Nomade, amoureux du grand mystère, nourri d'innombrables explorations, mes œuvres encapsulent la quintessence de mes expériences initiatiques. Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations. Chaque performance est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.", ctx)}></p>
       <div class="gallery" style="margin-top:2rem;">
         {[acc.art1_image, acc.art2_image, acc.art3_image, acc.art4_image].filter(Boolean).map((src) => <img class="slot-img" src={src} alt="Œuvre d'Indigo Enoqii" loading="lazy" />)}
       </div>
-    </div>
-  </section>
-
-  <!-- LE CODEX -->
-  <section class="bloc">
-    <div class="wrap">
-      <div class="tete">
-        <p class="eyebrow">{acc.codex_eyebrow ?? 'Le Codex'}</p>
-        <h2 set:html={fmt(acc.codex_titre ?? 'Le paysage *intérieur*')}></h2>
-        {acc.codex_texte && <p class="muted">{acc.codex_texte}</p>}
-        <p class="tete__lien"><a class="btn btn--bleu" href="/codex">Ouvrir le Codex</a></p>
-      </div>
-      <div class="apercu">
-        {apercu.map((f) => (
-          <a class="fiche-row" href={`/codex/${f.id}`}>
-            <span><span class="rune" style="display:block; margin-bottom:0.3rem;">{typeLabel(f.data.type)}</span><span class="fiche-row__titre">{f.data.titre}</span></span>
-            <Sigils ids={f.data.univers} />
-          </a>
-        ))}
-      </div>
-      {allies.length > 0 && (
-        <div style="margin-top:3rem;">
-          <p class="rune" style="text-align:center;">Les alliés</p>
-          <div class="allies">
-            {allies.map((a) => (
-              <a class="allie" href={`/codex/${a.id}`}>
-                <span class={`allie__logo${a.data.logo_blanc ? ' allie__logo--blanc' : ''}`}><img src={a.data.logo} alt="" loading="lazy" /></span>
-                <span class="allie__nom">{a.data.titre}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <!-- LA LETTRE -->
-  <Lettre source="accueil" />
-
-
-  <section id="contact">
-    <div class="narrow">
-      <p class="eyebrow">{acc.form_eyebrow}</p>
-      <h2 set:html={fmt(acc.form_titre)}></h2>
-      <p class="lead" style="margin-top:0.8rem;">{acc.form_intro}</p>
-      <Contact />
     </div>
   </section>
 </Base>

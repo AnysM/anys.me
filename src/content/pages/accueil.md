@@ -12,7 +12,7 @@ art3_image: /img/IMG_5916.PNG
 art4_image: /img/IMG_5908.PNG
 hero_accent: te ressemble vraiment.
 hero_paragraphe: 'J''accompagne les transitions de vie, avec des outils ancrés dans la connaissance de soi, le retour à la présence, le mouvement et la créativité, pour **faire de la crise une opportunité d''alignement** et d''évolution.'
-hero_cta: Voir les prochains événements
+hero_cta: Par où commencer ?
 parcours_titre: '*Qui* suis-je ?'
 parcours_texte: 'Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que *je n''avais jamais vraiment choisi ma vie*. Ça a été le début d''une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd''hui, j''accompagne celles et ceux qui sentent le même appel.'
 parcours_cta: Lire mon histoire
@@ -61,5 +61,21 @@ citation2: '*Un langage magique,*<br> indéchiffrable par la raison.'
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
+reconnaitre_eyebrow: Ce qui revient souvent
+reconnaitre_titre: "Choisir son chemin, *vraiment*"
+reconnaitre_items:
+  - "Savoir que ce n'est pas aligné, et ne pas savoir par où commencer."
+  - "Percevoir ses limitations, sans savoir comment les dépasser."
+  - "Avoir fait la thérapie, le travail de guérison… et voir que la vie ne change pas."
+  - "Continuer d'avancer avec la tête et la volonté, quand ce qui manque, c'est la sécurité et la confiance pour se laisser porter."
+reconnaitre_passage: "Répondre aux conditionnements et avancer avec le seul mental, ça ne marche pas. Il faut redescendre dans le corps, laisser parler le cœur, et avoir le courage d'ancrer dans la matière ce qui naît depuis la présence."
+venir_eyebrow: Pourquoi on vient me voir
+venir_titre: "Oser un nouveau *chemin*"
+venir_items:
+  - "Laisser mourir des habitudes, des projets, des relations qui ne sont plus alignés avec qui tu es vraiment."
+  - "Structurer, révéler, faire naître ce qui est trop à l'étroit à l'intérieur et qui demande à naître."
+  - "Être entendu et compris, sans qu'on calque sur toi un schéma tout fait."
+  - "Repartir de qui tu es : ta spécificité, ton essence, ton design unique, pour naviguer ta vie avec fluidité."
+posture: "Ni un maître, ni un éveillé. Un homme qui a trouvé son chemin, et qui a besoin de partager et d'inspirer d'autres à trouver le leur. Ce que j'offre, c'est la foi que j'ai en la vie et en toi, une résilience travaillée encore et encore, et l'honnêteté de savoir exactement où j'en suis."
 ---
 
