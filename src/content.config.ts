@@ -117,6 +117,7 @@ const pages = defineCollection({
     codex_titre: z.string().optional(),
     codex_texte: z.string().optional(),
     appel_lien: z.string().optional(),
+    appel_mention: z.string().optional(),
     coeur: z.string().optional(),
     soins_eyebrow: z.string().optional(),
     soins_titre: z.string().optional(),

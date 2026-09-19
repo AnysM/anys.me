@@ -1,26 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getEntry } from 'astro:content';
-import { recit, codex, propositionsDe } from '../lib/monde';
+import { recit } from '../lib/monde';
 import { tisser, contexte } from '../lib/lore.mjs';
-import { typeLabel } from '../lib/univers.mjs';
 
 const ap = (await getEntry('pages', 'a-propos'))!.data;
-const fiches = await codex();
 const ctx = contexte();
-// Un seul élément en regard de chaque chapitre, pour rester digeste :
-// une photo ou une fiche du Codex, en alternance autant que possible.
-let precedent = 'codex';
-const chapitres = await Promise.all((await recit()).map(async (c) => {
-  const fiche = c.echos.map((id) => fiches.find((f) => f.id === id)).find(Boolean);
-  const offre = fiche ? (await propositionsDe(fiche)).find((p) => !p.externe) : undefined;
-  return { ...c, fiche, offre, html: c.texte.split(/\n\n+/).map((par) => tisser(par, ctx)) };
-}));
-for (const c of chapitres) {
-  const voulu = precedent === 'photo' ? 'codex' : 'photo';
-  c.cote = (voulu === 'photo' ? (c.image ? 'photo' : c.fiche && 'codex') : (c.fiche ? 'codex' : c.image && 'photo')) || null;
-  if (c.cote) precedent = c.cote;
-}
+// Le texte relie déjà au Codex (mots liés) : à côté, seulement la photo du chapitre.
+const chapitres = (await recit()).map((c) => ({ ...c, html: c.texte.split(/\n\n+/).map((par) => tisser(par, ctx)) }));
 ---
 <Base title="À propos — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
   <section class="page-hero" style="min-height:52vh;">{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
@@ -33,18 +20,7 @@ for (const c of chapitres) {
         <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`} id={c.ancre}>
           <span class="tl-dot"></span>
           <div class="tl-text"><h2>{c.titre}</h2>{c.html.map((par) => <p set:html={par}></p>)}</div>
-          <div>
-            {c.cote === 'photo' && <div class="tl-media"><img class="slot-img" src={c.image} alt={c.titre} loading="lazy" /></div>}
-            {c.cote === 'codex' && (
-              <aside class="tl-fiche">
-                <p class="rune">Dans le Codex · {typeLabel(c.fiche.data.type)}</p>
-                <a class="tl-fiche__titre" href={`/codex/${c.fiche.id}`}>{c.fiche.data.titre}</a>
-                {c.fiche.data.resume && <p class="tl-fiche__resume">{c.fiche.data.resume}</p>}
-                <a class="cta" href={`/codex/${c.fiche.id}`}>Lire la fiche <span class="line"></span></a>
-                {c.offre && <p class="tl-fiche__ne">Ce qui en est né : <a href={c.offre.href}>{c.offre.titre}</a></p>}
-              </aside>
-            )}
-          </div>
+          <div>{c.image && <div class="tl-media"><img class="slot-img" src={c.image} alt={c.titre} loading="lazy" /></div>}</div>
         </div>
       ))}
     </div>

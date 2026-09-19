@@ -386,6 +386,7 @@ export default defineConfig({
           { type: "string", name: "appel_texte", label: "Appel — texte", ui: { component: "textarea" } },
           { type: "string", name: "appel_cta", label: "Appel — bouton" },
           { type: "string", name: "appel_lien", label: "Appel — lien de réservation (Calendly, etc.)", description: "Tant que ce champ est vide, le bloc « appel » est masqué." },
+          { type: "string", name: "appel_mention", label: "Appel — mention sous le bouton", description: "Ex. « 30 min · offert ». Vide : pas de mention." },
         ],
       },
       {

@@ -12,6 +12,11 @@ const demande = `/contact?pour=${encodeURIComponent(`Appel découverte${pour ? `
 const libelle = court ? 'Appel découverte' : (cc.appel_cta && cc.appel_cta !== 'Réserver un appel' ? cc.appel_cta : 'Réserver un appel découverte');
 ---
 <div class="appel" style={centre ? 'justify-content:center;' : undefined}>
-  <a class="btn btn--solid" href={lien ?? demande} target={lien ? '_blank' : undefined} rel={lien ? 'noopener' : undefined} data-evt="Appel">{libelle}</a>
+  {court
+    ? <a class="btn btn--solid" href={lien ?? demande} target={lien ? '_blank' : undefined} rel={lien ? 'noopener' : undefined} data-evt="Appel">{libelle}</a>
+    : <span class="appel__principal">
+        <a class="btn btn--solid" href={lien ?? demande} target={lien ? '_blank' : undefined} rel={lien ? 'noopener' : undefined} data-evt="Appel">{libelle}</a>
+        {cc.appel_mention && <span class="appel__offert">{cc.appel_mention}</span>}
+      </span>}
   {secondaire && <a class="cta appel__ecrire" href={ecrire} data-evt="Contact">Ou m'écrire <span class="line"></span></a>}
 </div>

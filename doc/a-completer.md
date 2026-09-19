@@ -5,7 +5,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 ## 1. Avant la mise en ligne (important)
 
 - [x] **Lien de prise de rendez-vous** : Calendly, appel découverte de 30 min (branché le 19/09).
-- [ ] **L'appel découverte** (30 min) : gratuit ? Si oui, on l'écrit sur le bouton : « Appel découverte offert ».
+- [x] **L'appel découverte** : 30 min, offert (mention sous les boutons).
 - [ ] **« Je te réponds sous 48 h »** : tenable ? (écrit sur les offres, le formulaire et la page Merci).
 - [ ] **Mentions légales** (obligatoires) : nom ou raison sociale, statut, SIRET, adresse, hébergeur (Netlify), contact.
 - [ ] **Politique de confidentialité** (obligatoire avec des formulaires) : quelles données, pourquoi, combien de temps, qui y a accès.
