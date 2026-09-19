@@ -193,6 +193,7 @@ export default defineConfig({
           { type: "string", name: "art_eyebrow", label: "Art — sur-titre" },
           { type: "string", name: "art_titre", label: "Art — titre", description: "*mot* = manuscrite" },
           { type: "string", name: "temoins_eyebrow", label: "Temoignages — sur-titre" },
+          { type: "image", name: "temoins_image", label: "Témoignages — photo de fond" },
           { type: "string", name: "avis_note", label: "Avis Google — note (ex. : 4,9)" },
           { type: "number", name: "avis_nombre", label: "Avis Google — nombre d'avis" },
           { type: "string", name: "avis_lien", label: "Avis Google — lien vers la fiche" },

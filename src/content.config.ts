@@ -106,6 +106,7 @@ const pages = defineCollection({
     venir_items: z.array(z.string()).optional(),
     posture: z.string().optional(),
     avis_note: z.string().optional(),
+    temoins_image: z.string().optional(),
     avis_nombre: z.number().optional(),
     avis_lien: z.string().optional(),
     seuils_titre: z.string().optional(),

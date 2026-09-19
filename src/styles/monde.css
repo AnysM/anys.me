@@ -418,3 +418,17 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
   .ecard__body { padding: 1.4rem 1.4rem 1.6rem; }
 }
 .temoins-offre__grille { columns: auto; }
+
+/* ── Témoignages sur photo : cartes en verre dépoli ── */
+.temoins-offre--photo { position: relative; overflow: hidden; isolation: isolate; }
+.temoins-offre__fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.temoins-offre--photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10,15,32,0.82), rgba(10,18,58,0.62) 45%, rgba(10,15,32,0.85)); }
+.temoins-offre--photo .temoin-carte { background: rgba(14,21,48,0.5); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(16px) saturate(1.1); -webkit-backdrop-filter: blur(16px) saturate(1.1); }
+.temoins-offre--photo .temoin-carte figcaption { border-top-color: rgba(255,255,255,0.14); }
+
+/* Navigation du carrousel : flèches et puces, centrées sous les cartes */
+.carrousel__nav { display: flex !important; justify-content: center; align-items: center; gap: 1.4rem; margin: 1.8rem 0 0; }
+.carrousel__puces { display: flex; gap: 0.55rem; }
+.carrousel__puce { width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 0; background: rgba(236,231,222,0.3); cursor: pointer; transition: background 0.3s, width 0.3s; }
+.carrousel__puce[aria-current="true"] { width: 26px; border-radius: 999px; background: var(--gold); }
+.carrousel__btn { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(10,15,32,0.35); }

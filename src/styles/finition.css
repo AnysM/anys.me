@@ -122,3 +122,7 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 
 /* Le nom dans le pied de page reprend la typographie du menu */
 .foot__name { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.3em; font-size: 14px; color: var(--cream); }
+
+/* Le trait des liens s'étire au survol sans changer la mise en page (plus de décalage) */
+.cta .line { width: 44px; transform-origin: left center; transition: transform 0.4s var(--ease); }
+.cta:hover .line { width: 44px; transform: scaleX(1.5); }

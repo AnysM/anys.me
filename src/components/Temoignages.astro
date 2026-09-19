@@ -1,10 +1,11 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false } = Astro.props;
+const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
 const carrousel = temoignages.length > 3;
 ---
 {temoignages.length > 0 && (
-  <section class={`temoins-offre${fond ? ' bloc' : ''}`}>
+  <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
+    {image && <img class="temoins-offre__fond" src={image} alt="" loading="lazy" />}
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{eyebrow}</p>
@@ -17,12 +18,6 @@ const carrousel = temoignages.length > 3;
         )}
       </div>
       <div class={carrousel ? 'carrousel' : 'temoins-offre__grille'} data-carrousel={carrousel ? '' : undefined}>
-        {carrousel && (
-          <div class="carrousel__nav">
-            <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Témoignage précédent">←</button>
-            <button type="button" class="carrousel__btn" data-sens="1" aria-label="Témoignage suivant">→</button>
-          </div>
-        )}
         <div class={carrousel ? 'carrousel__piste' : 'temoins-offre__cartes'}>
         {temoignages.map((x) => (
           <figure class="temoin-carte">
@@ -32,6 +27,15 @@ const carrousel = temoignages.length > 3;
           </figure>
         ))}
         </div>
+        {carrousel && (
+          <div class="carrousel__nav">
+            <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Témoignage précédent">←</button>
+            <div class="carrousel__puces" role="tablist" aria-label="Témoignages">
+              {temoignages.map((x, i) => <button type="button" class="carrousel__puce" data-i={i} aria-label={`Témoignage ${i + 1} sur ${temoignages.length}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
+            </div>
+            <button type="button" class="carrousel__btn" data-sens="1" aria-label="Témoignage suivant">→</button>
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -39,17 +43,27 @@ const carrousel = temoignages.length > 3;
 
 <script is:inline>
   (function () {
-    // Carrousel sans bibliothèque : défilement natif avec aimantation, flèches pour les souris
+    // Carrousel sans bibliothèque : défilement natif aimanté, flèches et puces sous les cartes
     document.querySelectorAll('[data-carrousel]').forEach(function (c) {
       if (c.dataset.pret) return; c.dataset.pret = '1';
       var piste = c.querySelector('.carrousel__piste');
-      c.querySelectorAll('.carrousel__btn').forEach(function (b) {
-        b.addEventListener('click', function () {
-          var carte = piste.querySelector('.temoin-carte');
-          var pas = carte ? carte.getBoundingClientRect().width + 22 : piste.clientWidth * 0.8;
-          piste.scrollBy({ left: pas * Number(b.dataset.sens), behavior: 'smooth' });
-        });
-      });
+      var cartes = Array.prototype.slice.call(piste.querySelectorAll('.temoin-carte'));
+      var puces = Array.prototype.slice.call(c.querySelectorAll('.carrousel__puce'));
+      function aller(i) {
+        i = Math.max(0, Math.min(cartes.length - 1, i));
+        piste.scrollTo({ left: cartes[i].offsetLeft - piste.offsetLeft, behavior: 'smooth' });
+      }
+      function actuel() {
+        var x = piste.scrollLeft, meilleur = 0;
+        cartes.forEach(function (k, i) { if (Math.abs(k.offsetLeft - piste.offsetLeft - x) < Math.abs(cartes[meilleur].offsetLeft - piste.offsetLeft - x)) meilleur = i; });
+        // En bout de piste, la dernière carte est la courante
+        if (x + piste.clientWidth >= piste.scrollWidth - 4) meilleur = cartes.length - 1;
+        return meilleur;
+      }
+      function maj() { var i = actuel(); puces.forEach(function (p, j) { if (j === i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current'); }); }
+      c.querySelectorAll('.carrousel__btn').forEach(function (b) { b.addEventListener('click', function () { aller(actuel() + Number(b.dataset.sens)); }); });
+      puces.forEach(function (p) { p.addEventListener('click', function () { aller(Number(p.dataset.i)); }); });
+      piste.addEventListener('scroll', function () { requestAnimationFrame(maj); }, { passive: true });
     });
   })();
 </script>
