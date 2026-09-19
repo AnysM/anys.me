@@ -133,6 +133,13 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .tl-echos__ne a:hover { color: var(--coral); }
 .tl-echos__ne .rune { color: var(--coral); }
 .tl-row { scroll-margin-top: 110px; }
+.tl-fiche { border-left: 1px solid rgba(107,107,255,0.45); padding: 0.4rem 0 0.4rem 1.6rem; max-width: 30rem; }
+.tl-fiche .rune { color: var(--indigo-soft); }
+.tl-fiche__titre { display: block; margin-top: 0.7rem; font-family: 'EB Garamond', serif; font-size: 1.7rem; line-height: 1.15; color: var(--cream); transition: color 0.25s; }
+.tl-fiche__titre:hover { color: var(--indigo-soft); }
+.tl-fiche__resume { margin: 0.7rem 0 1.1rem; color: var(--muted); font-family: 'EB Garamond', serif; font-size: 1.1rem; line-height: 1.45; }
+.tl-fiche__ne { margin-top: 1.2rem; font-size: 0.9rem; color: var(--muted); }
+.tl-fiche__ne a { color: var(--coral); }
 
 /* Encart "fiche de quête" sur une proposition */
 .touche { margin-top: 2.4rem; padding-top: 1.6rem; border-top: 1px solid var(--faint); }

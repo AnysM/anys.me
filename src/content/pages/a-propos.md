@@ -13,7 +13,7 @@ chapitres:
 
 
     Deux ans plus tard, je quittais mon job, mon appart et la France pour partir voyager. Je suis devenu nomade pendant près de cinq ans, à explorer le monde de la spiritualité, des philosophies orientales et des traditions indigènes ancestrales.'
-  image: ''
+  image: /img/breath-desert.jpg
   echos:
   - fiche: src/content/codex/choisir-sa-vie.md
   - fiche: src/content/codex/chamanisme.md
@@ -28,7 +28,7 @@ chapitres:
 
 
     Cette exploration des limites m''a amené vers le paranormal, la physique quantique, le pouvoir de l''esprit et de la conscience. J''étais persuadé que ce vide que je cherchais à combler dans la débauche était un vide existentiel auquel je trouverais bientôt des réponses.'
-  image: ''
+  image: /img/IMG_20230103_182213.jpg
   echos:
   - fiche: src/content/codex/human-design.md
   - fiche: src/content/codex/tzolkin.md
@@ -44,7 +44,7 @@ chapitres:
 
 
     Une véritable révélation sur le lien entre corps et esprit. J''ai pu modifier ma posture, mon corps, simplement en méditant et en laissant l''énergie circuler là où elle doit aller.'
-  image: ''
+  image: /img/portrait.jpg
 - titre: Les arts énergétiques
   texte: Ces nouvelles compréhensions ont amené une sensibilité accrue aux sensations du corps et aux ressentis énergétiques. Ça m'a donné envie de découvrir les arts énergétiques, à travers le magnétisme, le Reiki, et les arts énergétiques chinois, le tai-chi et le qi gong.
   image: ''
