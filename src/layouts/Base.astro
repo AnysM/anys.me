@@ -293,5 +293,34 @@ const links = [
       maj();
     })();
   </script>
+  <script is:inline>
+    // Calendly en pop-in : les liens calendly.com s'ouvrent par-dessus la page.
+    // Le widget n'est chargé qu'au premier clic ; s'il ne charge pas, le lien s'ouvre normalement dans un nouvel onglet.
+    (function () {
+      var charge = null;
+      function charger() {
+        if (charge) return charge;
+        charge = new Promise(function (ok, ko) {
+          var css = document.createElement('link');
+          css.rel = 'stylesheet'; css.href = 'https://assets.calendly.com/assets/external/widget.css';
+          document.head.appendChild(css);
+          var js = document.createElement('script');
+          js.src = 'https://assets.calendly.com/assets/external/widget.js'; js.async = true;
+          js.onload = function () { window.Calendly ? ok() : ko(); }; js.onerror = ko;
+          document.head.appendChild(js);
+          setTimeout(ko, 6000);
+        });
+        return charge;
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href*="calendly.com/"]');
+        if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        var url = a.href + (a.href.indexOf('?') < 0 ? '?' : '&') + 'hide_gdpr_banner=1&background_color=0e1530&text_color=ece7de&primary_color=d8a24c';
+        charger().then(function () { window.Calendly.initPopupWidget({ url: url }); })
+          .catch(function () { window.open(a.href, '_blank', 'noopener'); });
+      });
+    })();
+  </script>
 </body>
 </html>
