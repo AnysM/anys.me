@@ -1,4 +1,3 @@
-@font-face { font-family: 'Adelina Camarie'; src: url('/fonts/Adelina_Camarie.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Biloxi Script'; src: url('/fonts/Biloxi_Script.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,8 +11,11 @@
   --faint:   rgba(255,255,255,0.09);
   --gold:    #D8A24C;
   --ochre:   #D8A24C;
-  --coral:   #C4472F;
-  --blue:    #2E6BF0;
+  /* Or : le chemin (repères, navigation). Indigo : le savoir, le Codex. Corail : le feu, l'engagement. */
+  --indigo:      #6B6BFF;
+  --indigo-soft: #A3A8FF;
+  --coral:       #F07A5F;
+  --blue:        var(--indigo);
   --measure: 64ch;
 }
 
@@ -458,9 +460,9 @@ h1 .script, h2 .script { font-size: 2em; line-height: 0.9; }
 }
 
 /* Apparition douce au scroll (n'affiche qu'une fois les polices prêtes) */
-html.js main > section { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
-html.js main > section.is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { html.js main > section { opacity: 1; transform: none; transition: none; } }
+html.js main > section, html.js main > article > section { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+html.js main > section.is-in, html.js main > article > section.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { html.js main > section, html.js main > article > section { opacity: 1; transform: none; transition: none; } }
 
 /* Placeholder image neutre */
 .imgph { width: 100%; height: 100%; min-height: 150px; display: grid; place-items: center; background: var(--surface); }
@@ -471,3 +473,8 @@ html.js main > section.is-in { opacity: 1; transform: none; }
 .ph-band::after { content: attr(data-h); position: absolute; top: 14px; left: 16px; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.62rem; color: var(--muted); z-index: 1; }
 
 .slot-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Tant qu'une photo manque : la texture cosmique, jamais un cadre vide étiqueté */
+.ph-band, .imgph { background: url('/img/tex-cosmic.jpg') center / cover no-repeat, var(--surface); }
+.imgph { filter: saturate(0.8) brightness(0.7); }
+.ph-band::after, .imgph span { display: none; }

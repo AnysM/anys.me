@@ -1,0 +1,69 @@
+---
+// Témoignages en cartes lisibles, avec la note Google quand elle est connue.
+const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const carrousel = temoignages.length > 3;
+---
+{temoignages.length > 0 && (
+  <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
+    {image && <img class="temoins-offre__fond" src={image} alt="" loading="lazy" />}
+    <div class="wrap">
+      <div class="tete">
+        <p class="eyebrow">{eyebrow}</p>
+        {titre && <h2>{titre}</h2>}
+        {note && (
+          <a class="avis-google" href={lien} target="_blank" rel="noopener">
+            <span class="avis-google__etoiles" aria-hidden="true">★★★★★</span>
+            <span><b>{note}</b> sur Google{nombre && ` · ${nombre} avis`}</span>
+          </a>
+        )}
+      </div>
+      <div class={carrousel ? 'carrousel' : 'temoins-offre__grille'} data-carrousel={carrousel ? '' : undefined}>
+        <div class={carrousel ? 'carrousel__piste' : 'temoins-offre__cartes'}>
+        {temoignages.map((x) => (
+          <figure class="temoin-carte">
+            <span class="temoin-carte__guillemet" aria-hidden="true">“</span>
+            <blockquote><p>{x.t}</p></blockquote>
+            <figcaption><b>{x.n}</b>{x.c && <span>{x.c}</span>}</figcaption>
+          </figure>
+        ))}
+        </div>
+        {carrousel && (
+          <div class="carrousel__nav">
+            <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Témoignage précédent"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <div class="carrousel__puces" role="tablist" aria-label="Témoignages">
+              {temoignages.map((x, i) => <button type="button" class="carrousel__puce" data-i={i} aria-label={`Témoignage ${i + 1} sur ${temoignages.length}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
+            </div>
+            <button type="button" class="carrousel__btn" data-sens="1" aria-label="Témoignage suivant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+)}
+
+<script is:inline>
+  (function () {
+    // Carrousel sans bibliothèque : défilement natif aimanté, flèches et puces sous les cartes
+    document.querySelectorAll('[data-carrousel]').forEach(function (c) {
+      if (c.dataset.pret) return; c.dataset.pret = '1';
+      var piste = c.querySelector('.carrousel__piste');
+      var cartes = Array.prototype.slice.call(piste.querySelectorAll('.temoin-carte'));
+      var puces = Array.prototype.slice.call(c.querySelectorAll('.carrousel__puce'));
+      function aller(i) {
+        i = Math.max(0, Math.min(cartes.length - 1, i));
+        piste.scrollTo({ left: cartes[i].offsetLeft - piste.offsetLeft, behavior: 'smooth' });
+      }
+      function actuel() {
+        var x = piste.scrollLeft, meilleur = 0;
+        cartes.forEach(function (k, i) { if (Math.abs(k.offsetLeft - piste.offsetLeft - x) < Math.abs(cartes[meilleur].offsetLeft - piste.offsetLeft - x)) meilleur = i; });
+        // En bout de piste, la dernière carte est la courante
+        if (x + piste.clientWidth >= piste.scrollWidth - 4) meilleur = cartes.length - 1;
+        return meilleur;
+      }
+      function maj() { var i = actuel(); puces.forEach(function (p, j) { if (j === i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current'); }); }
+      c.querySelectorAll('.carrousel__btn').forEach(function (b) { b.addEventListener('click', function () { aller(actuel() + Number(b.dataset.sens)); }); });
+      puces.forEach(function (p) { p.addEventListener('click', function () { aller(Number(p.dataset.i)); }); });
+      piste.addEventListener('scroll', function () { requestAnimationFrame(maj); }, { passive: true });
+    });
+  })();
+</script>

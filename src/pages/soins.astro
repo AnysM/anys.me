@@ -7,7 +7,7 @@ const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').re
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Soins — Anys Mechkar">
-  <section class="page-hero">{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-SOINS"></div>}
+  <section class="page-hero">{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>
 
@@ -32,7 +32,7 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
               <div class="evt__title">{o.data.titre}</div>
-              <div class="evt__desc">{o.data.resume}</div>
+              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
               <div class="evt__meta">{o.data.duree}{o.data.prix ? ` · ${o.data.prix}` : ''}</div>
               <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
             </div>

@@ -1,6 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import Sigils from '../../components/Sigils.astro';
+import Icone from '../../components/Icone.astro';
+import Etapes from '../../components/Etapes.astro';
+import Appel from '../../components/Appel.astro';
+import Temoignages from '../../components/Temoignages.astro';
+import Faq from '../../components/Faq.astro';
+import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
+import { codexDe } from '../../lib/monde';
+import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
+import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
+const ICONES = { 'Durée': 'duree', 'Tarif': 'prix', 'Format': 'format', 'Modalité': 'format' };
 export async function getStaticPaths() {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie);
   return offres.map((o) => {
@@ -21,56 +33,126 @@ if (d.prix && !d.tarifs) infos.push({ k: 'Tarif', v: d.prix });
 if (d.format) infos.push({ k: 'Format', v: d.format });
 if (d.tag && !d.format) infos.push({ k: 'Modalité', v: d.tag });
 const labelNext = soin ? 'Prochain soin' : 'Prochain accompagnement';
+const lies = await codexDe(`offres/${o.id}`);
+const touche = lies.filter((f) => f.data.type !== 'allie');
+const avec = lies.filter((f) => f.data.type === 'allie');
+const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
+const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const s = seuil(seuilDe(d));
+const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
+// Formules regroupées (ex. : En ligne / Immersion) pour une lecture hiérarchisée
+const groupes = Object.entries((d.tarifs ?? []).reduce((acc, t) => { (acc[t.groupe ?? ''] ??= []).push(t); return acc; }, {} as Record<string, NonNullable<typeof d.tarifs>>));
+const prixDepart = d.prix && /\d/.test(d.prix) ? d.prix : d.tarifs?.length ? `dès ${[...d.tarifs].sort((a, b) => parseInt(a.prix) - parseInt(b.prix))[0].prix}` : null;
+const desc = description(d.resume, o.body);
+const montant = (t?: string) => (t && /\d/.test(t) ? t.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : null);
+const offres = (d.tarifs ?? [{ label: d.titre, prix: d.prix ?? '' }])
+  .map((t) => ({ nom: t.label, prix: montant(t.prix) }))
+  .filter((t) => t.prix);
+const jsonld = [
+  {
+    '@type': 'Service',
+    name: d.titre,
+    description: desc,
+    serviceType: soin ? 'Soin' : 'Accompagnement',
+    provider: { '@id': PERSONNE_ID },
+    areaServed: d.format && /ligne/i.test(d.format) ? ['Lyon', 'En ligne'] : 'Lyon',
+    url: abs(`/offre/${o.id}`),
+    ...(d.image && { image: new URL(d.image, SITE).href }),
+    ...(offres.length && { offers: offres.map((t) => ({ '@type': 'Offer', name: t.nom, price: t.prix, priceCurrency: 'EUR' })) }),
+  },
+  fil([{ nom: 'Accueil', url: '/' }, { nom: soin ? 'Soins' : 'Accompagnement', url: soin ? '/soins' : '/accompagnement' }, { nom: d.titre, url: `/offre/${o.id}` }]),
+];
 ---
-<Base title={`${d.titre} — Anys Mechkar`}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}
-    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1></div>
+<Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
+  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
+      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
+      {!enPreparation && (
+        <div class="offre-action">
+          {prixDepart && <span class="offre-action__prix">{prixDepart}{d.duree && <small> · {d.duree}</small>}</span>}
+          {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} />}
+        </div>
+      )}
+    </div>
   </section>
 
   <section>
-    <div class="narrow"><div class="prose"><Content /></div></div>
+    <div class="narrow"><div class="prose"><Content /></div>
+      {touche.length > 0 && (
+        <div class="touche">
+          <p class="rune">Ce que ça touche</p>
+          <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+        </div>
+      )}
+      {avec.length > 0 && (
+        <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
+      )}
+    </div>
   </section>
 
-  {d.resume && (
-    <section class="breath" style="min-height:42vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={o.id}></div>}<div class="phrase">{d.resume}</div></section>
-  )}
-
-  {(infos.length > 0 || d.tarifs) && (
-    <section class="bloc-or">
+  {d.benefices?.length > 0 && (
+    <section class="bloc benefices">
       <div class="narrow">
-        <p class="eyebrow">Infos & tarifs</p>
-        {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
-        {d.tarifs && <div class="tarifs" style="margin-top:1.2rem;">{d.tarifs.map((t) => <div class="tarif"><div class="label">{t.label}</div><div class="prix">{t.prix}</div>{t.detail && <div class="detail">{t.detail}</div>}</div>)}</div>}
+        <div class="tete"><p class="eyebrow">Ce que tu y trouves</p><h2>Ce que ça peut <span class="script">ouvrir</span></h2></div>
+        <ul class="benefices__liste">{d.benefices.map((b) => <li><Icone nom="etoile" taille={16} /><span>{b}</span></li>)}</ul>
       </div>
     </section>
   )}
 
-  <section class="striptease">
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-  </section>
+  <Etapes etapes={d.etapes} />
 
-  <section class="invite">
-    <div class="narrow">
-      <p class="eyebrow">Un premier pas</p>
-      <h2>{soin ? 'Envie de prendre soin de toi ?' : "Envie d'en parler ?"}</h2>
-      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi un mot, ou réservons un temps ensemble. Je réponds à chaque message.</p>
-      <div class="invite__btns">
-        {soin ? (
-          <Fragment>
-            <a class="btn btn--solid" href="/contact#rdv">Prendre RDV</a>
-            <a class="btn" href="/contact">Écris-moi</a>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <a class="btn btn--solid" href="/contact">Écris-moi</a>
-            <a class="btn" href="/contact#appel">Prendre un appel</a>
-          </Fragment>
-        )}
-      </div>
-    </div>
-  </section>
+  <Temoignages temoignages={d.temoignages} />
+
+  {enPreparation ? (
+    <Lettre eyebrow="En préparation" titre="Être *prévenu*" texte={`${d.titre} se prépare. Laisse ton email : tu seras parmi les premiers informés, avant l'annonce publique.`} bouton="Préviens-moi" source={`attente-${o.id}`} />
+  ) : (
+    <Fragment>
+      {(infos.length > 0 || d.tarifs) && (
+        <section class="bloc-or" id="tarifs">
+          <div class="wrap" style="max-width:1000px;">
+            <p class="eyebrow">Infos & tarifs</p>
+            {infos.length > 0 && <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k"><Icone nom={ICONES[it.k] ?? 'etoile'} />{it.k}</div><div class="v">{it.v}</div></div>)}</div>}
+            {groupes.map(([nom, formules]) => (
+              <div class="formules">
+                {nom && <h3 class="formules__titre">{nom}</h3>}
+                <div class={`formules__grille formules__grille--${formules.length}`}>
+                  {formules.map((t, i) => {
+                    const enAvant = formules.some((x) => x.avant) ? t.avant : formules.length === 3 && i === 1;
+                    return (
+                    <div class={`formule${enAvant ? ' formule--avant' : ''}`}>
+                      {enAvant && <span class="formule__badge">Recommandé</span>}
+                      <span class="formule__duree">{t.label}</span>
+                      <span class="formule__prix">{t.prix}</span>
+                      {t.detail && <span class="formule__detail">{t.detail}</span>}
+                    </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <Faq faq={d.faq} />
+
+      <section class="invite">
+        <div class="narrow">
+          <p class="eyebrow">Un premier pas</p>
+          <h2>{soin ? 'Envie de prendre soin de toi ?' : 'Commençons par un appel'}</h2>
+          <p class="muted" style="margin:0.9rem auto 0; max-width:50ch;">{soin ? 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.' : 'Un appel découverte pour faire le point sur ta situation, sentir si ce chemin est fait pour toi, et voir quel accompagnement serait le plus adapté.'}</p>
+          <div class="invite__btns">
+            {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}
+          </div>
+        </div>
+      </section>
+
+      <BarreAction titre={d.titre} sous={prixDepart ?? ''}>
+        {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Réserver</a> : <Appel pour={d.titre} secondaire={false} court />}
+      </BarreAction>
+    </Fragment>
+  )}
 
   <section class="detail-foot">
     <div class="wrap detail-nav">

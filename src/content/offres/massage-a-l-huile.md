@@ -7,6 +7,30 @@ format: "Sur rendez-vous"
 tag: "Soin du corps"
 resume: "Massage sur mesure et intuitif, qui délie en profondeur les tensions et fait circuler l'énergie stagnante."
 ordre: 1
+etapes:
+  - titre: "L'accueil"
+    picto: accueil
+    texte: "Un temps d'échange pour poser le cadre et entendre ce dont ton corps a besoin aujourd'hui."
+  - titre: "Le souffle"
+    picto: souffle
+    texte: "Quelques respirations pour quitter la tête et entrer dans la présence."
+  - titre: "Le massage"
+    picto: mains
+    texte: "Sans protocole : le toucher suit ce qui demande à être délié. L'huile est choisie pour l'énergie qu'elle apporte."
+  - titre: "L'intégration"
+    picto: graine
+    texte: "Un temps de repos pour laisser le soin s'ancrer en profondeur avant de repartir."
+benefices:
+  - "De l'ancrage et de la sécurité"
+  - "De la détente, profonde"
+  - "De la clarté et du dynamisme"
+  - "De la confiance, dans ton corps"
+faq:
+  - q: "Où ont lieu les soins ?"
+    r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
+  - q: "Comment réserver ?"
+    r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble. Je te réponds sous 48 h."
+image: /img/soin-massage.jpg
 ---
 Un massage sur mesure et intuitif, qui vient délier en profondeur les tensions et faire circuler l'énergie stagnante. Un toucher profond, doux et subtil. Un massage qui purifie, délie, harmonise et dynamise.
 

@@ -1,13 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection, getEntry } from 'astro:content';
+import Appel from '../components/Appel.astro';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
 const ac = (await getEntry('pages', 'accompagnement')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const outils = ac.outils ?? [];
 ---
 <Base title="Accompagnement — Anys Mechkar">
-  <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-ACCOMP"></div>}
+  <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>
 
@@ -59,13 +60,21 @@ const outils = ac.outils ?? [];
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
               <div class="evt__title">{o.data.titre}</div>
-              <div class="evt__desc">{o.data.resume}</div>
+              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
               {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
               <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
             </div>
           </a>
         ))}
       </div>
+    </div>
+  </section>
+  <section class="invite">
+    <div class="narrow">
+      <p class="eyebrow">Un premier pas</p>
+      <h2>Et si on en parlait ?</h2>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Un premier échange pour sentir ce que tu traverses et le cadre juste pour toi. Je te réponds sous 48 h.</p>
+      <div class="invite__btns"><Appel pour="Accompagnement" centre /></div>
     </div>
   </section>
 </Base>

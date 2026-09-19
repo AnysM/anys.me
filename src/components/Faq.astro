@@ -1,0 +1,19 @@
+---
+// Questions fréquentes : répondre aux hésitations avant qu'elles bloquent.
+const { faq = [], titre = 'Tes questions' } = Astro.props;
+const jsonld = faq.length ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.r } })) }).replace(/</g, '\\u003c') : '';
+---
+{faq.length > 0 && (
+  <section class="faq">
+    <div class="narrow">
+      <div class="tete"><p class="eyebrow">Questions</p><h2>{titre}</h2></div>
+      {faq.map((x) => (
+        <details class="faq__item">
+          <summary>{x.q}</summary>
+          <p>{x.r}</p>
+        </details>
+      ))}
+    </div>
+    <script type="application/ld+json" set:html={jsonld} />
+  </section>
+)}

@@ -7,8 +7,18 @@ rythme: "Tous les dimanches, 19h - 20h30"
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
 lien: "https://chanka-studio-lyon.fr"
 reservable: false
+accueil: true
 ordre: 1
 publie: true
+faq:
+  - q: "Faut-il de l'expérience ?"
+    r: "Aucune expérience requise. L'atelier est pensé pour que chacun puisse entrer, à son rythme."
+  - q: "Où et quand ?"
+    r: "Tous les dimanches, de 19h à 20h30, à Chanka Studio, 51 quai Saint-Vincent, Lyon."
+temoignages:
+  - t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à la fois légère, ancrée et ressourcée."
+    'n': "Sonia D."
+    c: "Ateliers Infloressence"
 ---
 Un espace pour **revenir au corps et à la présence**.
 

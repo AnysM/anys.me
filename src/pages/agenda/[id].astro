@@ -1,6 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
+import Sigils from '../../components/Sigils.astro';
+import Icone from '../../components/Icone.astro';
+import { codexDe } from '../../lib/monde';
+import Temoignages from '../../components/Temoignages.astro';
+import Faq from '../../components/Faq.astro';
+import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
+import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
+import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
+const ICONES = { 'Quand': 'date', 'Lieu': 'lieu', 'Tarif': 'prix', 'Early bird': 'duree' };
 export async function getStaticPaths() {
   const all = (await getCollection('agenda')).filter((e) => e.data.publie && !e.data.site);
   const dated = all.filter((e) => e.data.date).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
@@ -20,46 +30,125 @@ const infos = [{ k: 'Quand', v: quand + (d.heure ? ` · ${d.heure}` : '') }];
 if (d.lieu) infos.push({ k: 'Lieu', v: d.lieu });
 if (d.prix) infos.push({ k: 'Tarif', v: d.prix });
 if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
+// Billet : la date en grand, le reste en second plan
+const f = (o: Intl.DateTimeFormatOptions, x: Date) => new Intl.DateTimeFormat('fr-FR', { timeZone: 'UTC', ...o }).format(x).replace('.', '');
+const billet = d.date
+  ? {
+      jour: f({ day: 'numeric' }, d.date),
+      mois: d.date_fin && f({ month: 'short' }, d.date) !== f({ month: 'short' }, d.date_fin) ? `${f({ month: 'short' }, d.date)} – ${f({ month: 'short', year: 'numeric' }, d.date_fin)}` : f({ month: 'long', year: 'numeric' }, d.date),
+      fin: d.date_fin ? f({ day: 'numeric' }, d.date_fin) : null,
+      detail: d.date_fin
+        ? `${Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1} jours`
+        : [f({ weekday: 'long' }, d.date), d.heure].filter(Boolean).join(' · '),
+    }
+  : null;
+const lienAction = d.lien && d.reservable ? d.lien : null;
+const lies = await codexDe(`agenda/${e.id}`);
+const touche = lies.filter((f) => f.data.type !== 'allie');
+const avec = lies.filter((f) => f.data.type === 'allie');
+const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
+const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const s = seuil(seuilDe(d));
+const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
+const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+const desc = description(d.resume, e.body);
+const enLigne = /en ligne/i.test(d.lieu ?? '');
+// "20h" ou "19h30" → 2026-10-26T20:00:00+01:00 (heure de Paris, été comme hiver)
+function debut(date: Date, heure?: string) {
+  const jour = date.toISOString().slice(0, 10);
+  const m = heure?.match(/^(\d{1,2})h(\d{2})?/);
+  if (!m) return jour;
+  const decalage = new Intl.DateTimeFormat('en', { timeZone: 'Europe/Paris', timeZoneName: 'longOffset' }).formatToParts(date).find((p) => p.type === 'timeZoneName')!.value.replace('GMT', '') || '+00:00';
+  return `${jour}T${m[1].padStart(2, '0')}:${m[2] ?? '00'}:00${decalage}`;
+}
+const prix = d.prix && /\d/.test(d.prix) ? d.prix.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : d.prix && /gratuit/i.test(d.prix) ? '0' : null;
+const jsonld = [
+  ...(d.date ? [{
+    '@type': 'Event',
+    name: d.titre,
+    description: desc,
+    startDate: debut(d.date, d.heure),
+    ...(d.date_fin && { endDate: d.date_fin.toISOString().slice(0, 10) }),
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: enLigne ? 'https://schema.org/OnlineEventAttendanceMode' : 'https://schema.org/OfflineEventAttendanceMode',
+    location: enLigne ? { '@type': 'VirtualLocation', url: abs(`/agenda/${e.id}`) } : { '@type': 'Place', name: d.lieu ?? 'Lyon', address: d.lieu ?? 'Lyon, France' },
+    ...(d.image && { image: new URL(d.image, SITE).href }),
+    organizer: { '@id': PERSONNE_ID },
+    performer: { '@id': PERSONNE_ID },
+    ...(prix !== null && { offers: { '@type': 'Offer', price: prix, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: d.lien ?? abs(`/agenda/${e.id}`) } }),
+    inLanguage: 'fr-FR',
+  }] : []),
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Agenda', url: '/agenda' }, { nom: d.titre, url: `/agenda/${e.id}` }]),
+];
 ---
-<Base title={`${d.titre} — Anys Mechkar`}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}
-    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1></div>
+<Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
+  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1>
+      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
   </section>
 
   <section>
-    <div class="narrow"><div class="prose"><Content /></div></div>
-  </section>
-
-  {d.resume && (
-    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band" data-h={e.id}></div>}<div class="phrase">{d.resume}</div></section>
-  )}
-
-  <section class="bloc-or">
-    <div class="narrow">
-      <p class="eyebrow">Infos pratiques</p>
-      <div class="infos" style="margin-top:1.4rem;">{infos.map((it) => <div><div class="k">{it.k}</div><div class="v">{it.v}</div></div>)}</div>
-      {d.reservable && d.lien && (
-        <div style="margin-top:1.8rem;">
-          <a class="btn btn--solid" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">{d.cta ?? 'Réserver'}</a>
+    <div class="narrow"><div class="prose"><Content /></div>
+      {touche.length > 0 && (
+        <div class="touche">
+          <p class="rune">Ce que ça touche</p>
+          <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
         </div>
+      )}
+      {avec.length > 0 && (
+        <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
       )}
     </div>
   </section>
 
-  <section class="striptease">
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
-    <div class="photo-slot">Photo à venir</div>
+  {d.resume && (
+    <section class="breath" style="min-height:44vh;">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(d.resume)}></div></section>
+  )}
+
+  <section class="bloc-or">
+    <div class="wrap">
+      <p class="eyebrow">Infos pratiques</p>
+      <div class="billet">
+        <div class="billet__quand">
+          {billet ? (
+            <Fragment>
+              <span class="billet__jour">{billet.jour}{billet.fin && <span class="billet__fin">–{billet.fin}</span>}</span>
+              <span class="billet__mois">{billet.mois}</span>
+              <span class="billet__detail">{billet.detail}</span>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <span class="billet__rythme">{d.rythme ?? 'Sur inscription'}</span>
+              {d.heure && <span class="billet__detail">{d.heure}</span>}
+            </Fragment>
+          )}
+        </div>
+        <div class="billet__reste">
+          {d.lieu && <p class="billet__lieu"><Icone nom="lieu" taille={16} />{d.lieu}</p>}
+          <div class="billet__achat">
+            {d.prix && <span class="billet__prix">{d.prix}</span>}
+            {d.earlybird && <span class="ecard__early">Early bird jusqu’au {d.earlybird}</span>}
+          </div>
+          {lienAction && <a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a>}
+          {!lienAction && d.lien && <a class="cta" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">Plus d'infos <span class="line"></span></a>}
+        </div>
+      </div>
+    </div>
   </section>
+
+
+  <Temoignages temoignages={d.temoignages} />
+  <Faq faq={d.faq} titre="Avant de venir" />
+  {!d.date && !d.reservable && <Lettre eyebrow="Prochaine édition" titre="Être *prévenu*" texte={`Les dates de ${d.titre} ne sont pas encore annoncées. Laisse ton email : tu seras informé avant l'ouverture publique.`} bouton="Préviens-moi" source={`attente-${e.id}`} />}
 
   <section class="invite">
     <div class="narrow">
       <p class="eyebrow">Une question</p>
       <h2>Envie d'en savoir plus ?</h2>
-      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement, ou réservons un temps ensemble.</p>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Écris-moi pour toute question sur cet événement. Je te réponds sous 48 h.</p>
       <div class="invite__btns">
-        <a class="btn btn--solid" href="/contact">Écris-moi</a>
-        <a class="btn" href="/contact#appel">Prendre un appel</a>
+        <a class="btn btn--solid" href={contact}>Écris-moi</a>
+        {appel && <a class="btn" href={appel} target="_blank" rel="noopener">Prendre un appel</a>}
       </div>
     </div>
   </section>
@@ -75,4 +164,9 @@ if (d.earlybird) infos.push({ k: 'Early bird', v: `jusqu'au ${d.earlybird}` });
       )}
     </div>
   </section>
+  <BarreAction titre={d.titre} sous={[billet ? `${billet.jour} ${billet.mois}` : d.rythme, d.prix].filter(Boolean).join(' · ')}>
+    {lienAction
+      ? <a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a>
+      : <a class="btn btn--solid" href={contact} data-evt="Contact">{d.date || d.reservable ? 'Écris-moi' : 'Me prévenir'}</a>}
+  </BarreAction>
 </Base>

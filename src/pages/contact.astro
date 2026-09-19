@@ -1,31 +1,24 @@
 ---
 import Base from '../layouts/Base.astro';
+import Contact from '../components/Contact.astro';
 import { getEntry } from 'astro:content';
-const cc = (await getEntry('pages', 'contact')).data;
+const cc = (await getEntry('pages', 'contact'))!.data;
 ---
-<Base title="Contact — Anys Mechkar">
-  <section class="page-hero" style="min-height:34vh;">{cc.hero_image ? <img src={cc.hero_image} alt="" /> : <div class="ph-band" data-h="HERO-CONTACT"></div>}
+<Base title="Contact — Anys Mechkar" description="Écris-moi : une question, une envie, un premier pas.">
+  <section class="page-hero" style="min-height:34vh;">{cc.hero_image ? <img src={cc.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{cc.hero_eyebrow}</p><h1>{cc.hero_titre}</h1></div>
   </section>
   <section>
     <div class="narrow">
       <p class="lead">{cc.intro}</p>
-      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci">
-        <input type="hidden" name="form-name" value="contact" />
-        <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
-        <div><label>Ton nom</label><input type="text" name="nom" required /></div>
-        <div><label>Ton email</label><input type="email" name="email" required /></div>
-        <div><label>Ce qui t'intéresse</label><select name="interet">
-          <option>Un soin</option><option>Un accompagnement</option><option>Un atelier ou voyage sonore</option><option>Une retraite ou immersion</option><option>Autre</option>
-        </select></div>
-        <div><label>Ton message</label><textarea name="message"></textarea></div>
-        <button class="btn btn--solid" type="submit" style="justify-self:start;">Envoyer</button>
-      </form>
-      <div id="appel" style="margin-top:3.2rem;">
-        <p class="eyebrow">{cc.appel_eyebrow}</p>
-        <p class="muted" style="margin-top:0.9rem;">{cc.appel_texte}</p>
-        <a class="btn" href="#" style="margin-top:1.1rem;">{cc.appel_cta}</a>
-      </div>
+      <Contact />
+      {cc.appel_lien && (
+        <div id="appel" style="margin-top:3.2rem;">
+          <p class="eyebrow">{cc.appel_eyebrow}</p>
+          <p class="muted" style="margin-top:0.9rem;">{cc.appel_texte}</p>
+          <a class="btn" href={cc.appel_lien} target="_blank" rel="noopener" style="margin-top:1.1rem;">{cc.appel_cta}</a>
+        </div>
+      )}
     </div>
   </section>
 </Base>

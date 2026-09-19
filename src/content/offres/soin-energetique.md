@@ -6,7 +6,29 @@ prix: "80€"
 format: "Sur rendez-vous"
 tag: "Soin subtil"
 resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
+accueil: true
 ordre: 2
+etapes:
+  - titre: "L'accueil"
+    picto: accueil
+    texte: "On prend le temps d'échanger sur ce que tu traverses et sur ce qui t'amène."
+  - titre: "Le soin"
+    picto: mains
+    texte: "Majoritairement sans contact, parfois un contact ponctuel à la tête ou aux pieds, pour purifier et réharmoniser ta sphère énergétique."
+  - titre: "Le chant"
+    picto: son
+    texte: "Selon le besoin, des chants ou un instant musical viennent soutenir le processus."
+  - titre: "L'intégration"
+    picto: graine
+    texte: "Un temps pour revenir doucement et laisser le soin continuer d'agir."
+faq:
+  - q: "Y a-t-il du contact ?"
+    r: "Le soin se fait majoritairement sans contact. Il peut y avoir des contacts ponctuels, à la tête et aux pieds, et ailleurs au cas par cas."
+  - q: "Où ont lieu les soins ?"
+    r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
+  - q: "Comment réserver ?"
+    r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble. Je te réponds sous 48 h."
+image: /img/soin-energetique.jpg
 ---
 Un soin profond de purification et de réharmonisation de la sphère énergétique.
 

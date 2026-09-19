@@ -1,0 +1,157 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sigils from '../../components/Sigils.astro';
+import Quete from '../../components/Quete.astro';
+import Icone from '../../components/Icone.astro';
+import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
+import { render, getCollection } from 'astro:content';
+import { MINIMUM_SEO } from '../../lib/lore.mjs';
+import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
+import { typeLabel, SEUIL_IDS, univers } from '../../lib/univers.mjs';
+import { description, modifieLe, fil, PERSONNE_ID, SITE, abs } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const fiches = await codex();
+  return fiches.map((f) => {
+    // Liens dans les deux sens : ceux que la fiche cite, et les fiches qui la citent.
+    const lies = new Set([...f.data.liens, ...fiches.filter((x) => x.data.liens.includes(f.id)).map((x) => x.id)]);
+    lies.delete(f.id);
+    return { params: { id: f.id }, props: { f, lies: fiches.filter((x) => lies.has(x.id)) } };
+  });
+}
+
+const { f, lies } = Astro.props;
+const d = f.data;
+const { Content } = await render(f);
+const aGouter = (await propositionsDe(f)).sort((a, b) => SEUIL_IDS.indexOf(a.seuil) - SEUIL_IDS.indexOf(b.seuil) || a.ordre - b.ordre);
+const chapitres = await chapitresDe(f.id);
+// Les artefacts (œuvres) nés de ce chemin
+const artefacts = (await getCollection('artefacts')).filter((x) => x.data.publie && x.data.codex.includes(f.id));
+const url = abs(`/codex/${f.id}`);
+const titreSeo = d.seo_titre ?? (d.question ? `${d.question} · ${d.question.length > 44 ? 'Anys Mechkar' : 'Codex d’Anys Mechkar'}` : `${d.titre} · Codex d'Anys Mechkar`);
+// « Où vivre la danse Butô ? » : la partie pratique formulée comme une recherche
+const nomCourant = d.titre.charAt(0).toLowerCase() + d.titre.slice(1);
+const questionOu = ['pratique', 'notion', 'realisation'].includes(d.type) ? `Où vivre ${nomCourant} ?` : 'Où prolonger cette rencontre ?';
+const premierParagraphe = (f.body ?? '').split(/\n\s*\n/).map((x) => x.replace(/[*_#>`]/g, '').trim()).find(Boolean) ?? '';
+const mince = (f.body ?? '').trim().length < MINIMUM_SEO; // trop court pour Google : on attend qu'elle s'étoffe
+const ouVivre = aGouter.filter((p) => !p.externe || p.cle.startsWith('agenda')).slice(0, 2).map((p) => p.titre);
+const desc = d.seo_description ?? description(
+  d.resume,
+  ouVivre.length ? `À vivre avec Anys Mechkar : ${ouVivre.join(', ')}.` : `${typeLabel(d.type)} du Codex d'Anys Mechkar.`,
+);
+const image = d.image ?? '/img/tex-cosmic.jpg';
+const publie = d.date;
+const modifie = modifieLe(`src/content/codex/${f.id}.md`, publie);
+const motsCles = [...new Set([d.titre, ...d.alias, ...d.univers.map((u) => univers(u)?.nom)].filter(Boolean))];
+const jsonld = [
+  {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: d.titre,
+    description: desc,
+    image: new URL(image, SITE).href,
+    author: { '@id': PERSONNE_ID },
+    publisher: { '@id': PERSONNE_ID },
+    ...(publie && { datePublished: publie.toISOString() }),
+    ...(modifie && { dateModified: modifie.toISOString() }),
+    mainEntityOfPage: url,
+    inLanguage: 'fr-FR',
+    articleSection: typeLabel(d.type),
+    keywords: motsCles.join(', '),
+    isPartOf: { '@type': 'CollectionPage', '@id': abs(`/codex`), name: 'Le Codex' },
+    ...(['notion', 'pratique'].includes(d.type) && { about: { '@type': 'DefinedTerm', name: d.titre, description: d.resume } }),
+    ...(aGouter.length && { mentions: aGouter.map((p) => ({ '@type': p.cle.startsWith('agenda') ? 'Event' : 'Service', name: p.titre, url: abs(p.href) })) }),
+  },
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Le Codex', url: '/codex' }, { nom: d.titre, url: `/codex/${f.id}` }]),
+  ...(d.question && premierParagraphe ? [{
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: d.question, acceptedAnswer: { '@type': 'Answer', text: premierParagraphe } },
+      ...(aGouter.length ? [{ '@type': 'Question', name: questionOu, acceptedAnswer: { '@type': 'Answer', text: `Avec Anys Mechkar : ${aGouter.map((p) => p.titre + (p.quand ? ` (${p.quand})` : '')).join(', ')}.` } }] : []),
+    ],
+  }] : []),
+];
+const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length > 170 ? p.slice(0, p.lastIndexOf(' ', 170)) + '…' : p; };
+---
+<Base title={titreSeo} description={desc} image={image} type="article" publie={publie} modifie={modifie} jsonld={jsonld} noindex={mince}>
+  <article>
+  <section class="page-hero fiche-hero">
+    <img src={d.image ?? '/img/tex-cosmic.jpg'} alt="" />
+    <div class="narrow">
+      <nav aria-label="Fil d'Ariane"><p class="eyebrow"><a href="/codex">Codex</a>&nbsp;· {typeLabel(d.type)}</p></nav>
+      <h1>{d.titre}</h1>
+      {d.resume && <p class="fiche-resume">{d.resume}</p>}
+      <Sigils ids={d.univers} lg />
+      {publie && <p class="signature"><Icone nom="plume" />Par Anys Mechkar · <time datetime={publie.toISOString().slice(0, 10)}>{new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(publie)}</time></p>}
+    </div>
+  </section>
+
+  <section class="fiche-corps">
+    <div class="narrow">
+      {d.question && <h2 class="fiche-question">{d.question}</h2>}
+      <div class="prose"><Content /></div>
+      {d.lien_externe && <p style="margin-top:1.8rem;"><a class="cta" href={d.lien_externe} target="_blank" rel="noopener">Visiter le site <span class="line"></span></a></p>}
+
+      {chapitres.length > 0 && (
+        <div style="margin-top:3rem;">
+          <h2 class="rune">Dans le récit</h2>
+          <div class="dans-recit">
+            {chapitres.map((c) => <a href={`/a-propos#${c.ancre}`}><b>{c.titre}</b><span>{extrait(c.texte)}</span></a>)}
+          </div>
+        </div>
+      )}
+      {artefacts.map((x) => (
+        <a class="fiche-artefact" href={`/artefacts/${x.id}`}>
+          {x.data.images[0] && <img src={x.data.images[0]} alt={x.data.titre} loading="lazy" />}
+          <span>
+            <span class="rune">L'artefact né de ce chemin</span>
+            <b>{x.data.titre}</b>
+            {x.data.sous_titre && <span class="fiche-artefact__sous">{x.data.sous_titre}</span>}
+            <span class="cta">Voir l'œuvre <span class="line"></span></span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {aGouter.length > 0 && (
+    <section class="gouter">
+      <div class="narrow">
+        <p class="eyebrow">Pour y goûter</p>
+        <h2 style="margin-top:0.8rem; font-size:clamp(1.2rem,2.2vw,1.6rem);">{questionOu}</h2>
+        <div class="gouter__liste">{aGouter.map((p) => <Quete p={p} avecSeuil />)}</div>
+      </div>
+    </section>
+  )}
+
+  {lies.length > 0 && (
+    <section>
+      <div class="narrow">
+        <h2 class="rune">Relié à</h2>
+        <div class="echos">{lies.map((x) => <a class="echo" href={`/codex/${x.id}`}>{x.data.titre}<small>{typeLabel(x.data.type)}</small></a>)}</div>
+      </div>
+    </section>
+  )}
+
+  </article>
+
+  <Lettre eyebrow="La lettre" titre="Continuer *l'exploration*" texte="Une fois par mois : un texte du Codex, une pratique, les prochaines dates." source={`codex-${f.id}`} />
+
+  <section class="detail-foot">
+    <div class="wrap detail-nav">
+      <a class="cta" href="/codex">← Tout le Codex</a>
+      <a class="cta" href="/contact">Une question ? Écris-moi <span class="line"></span></a>
+    </div>
+  </section>
+  {aGouter.length === 0 && artefacts.length > 0 && (
+    <BarreAction titre="L'artefact né de ce chemin" sous={artefacts[0].data.titre}>
+      <a class="btn btn--solid" href={`/artefacts/${artefacts[0].id}`} data-evt="Codex vers artefact">Voir l'œuvre</a>
+    </BarreAction>
+  )}
+  {aGouter.length > 0 && (
+    <BarreAction titre="Pour y goûter" sous={aGouter[0].titre}>
+      <a class="btn btn--solid" href={aGouter[0].href} target={aGouter[0].externe ? '_blank' : undefined} rel={aGouter[0].externe ? 'noopener' : undefined} data-evt="Codex vers proposition">Découvrir</a>
+    </BarreAction>
+  )}
+</Base>

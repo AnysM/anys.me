@@ -1,0 +1,132 @@
+---
+import Base from '../../layouts/Base.astro';
+import Lettre from '../../components/Lettre.astro';
+import BarreAction from '../../components/BarreAction.astro';
+import { getCollection, render } from 'astro:content';
+import { codex } from '../../lib/monde';
+import { typeLabel } from '../../lib/univers.mjs';
+import { abs, fil, PERSONNE_ID } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie);
+  return artefacts.map((a) => ({ params: { id: a.id }, props: { a } }));
+}
+const { a } = Astro.props;
+const d = a.data;
+const { Content } = await render(a);
+const fiches = (await codex()).filter((f) => d.codex.includes(f.id));
+const specs = [['Année', d.annee], ['Technique', d.technique], ['Dimensions', d.dimensions]].filter(([, v]) => v);
+const acquerir = `/contact?pour=${encodeURIComponent(`Artefact « ${d.titre} »`)}`;
+const jsonld = [
+  {
+    '@type': 'VisualArtwork',
+    name: d.titre,
+    description: d.sous_titre,
+    image: d.images.map((i) => abs(i)),
+    creator: { '@id': PERSONNE_ID },
+    ...(d.annee && { dateCreated: d.annee }),
+    ...(d.technique && { artMedium: d.technique }),
+    url: abs(`/artefacts/${a.id}`),
+  },
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Artefacts', url: '/artefacts' }, { nom: d.titre, url: `/artefacts/${a.id}` }]),
+];
+---
+<Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre née de : ${d.naissance ?? 'un passage'}.`.trim()} image={d.images[0]} jsonld={jsonld}>
+  <section class="artefact">
+    <div class="wrap artefact__entete">
+      <p class="eyebrow"><a href="/artefacts">Artefact</a></p>
+      <h1>{d.titre}</h1>
+      {d.sous_titre && <p class="fiche-resume">{d.sous_titre}</p>}
+    </div>
+  </section>
+
+  <!-- Grand écran : l'œuvre à gauche, les infos à droite ; sinon, empilés -->
+  <div class="artefact__corps">
+  <!-- Le mur de galerie : l'œuvre au centre -->
+  <section class="galerie-mur">
+    <div class="galerie-mur__cadre"><img id="artefact-image" src={d.images[0]} alt={d.titre} /></div>
+    {d.images.length > 1 && (
+      <div class="artefact__vignettes">
+        {d.images.map((src, i) => <button type="button" class="artefact__vignette" data-src={src} aria-label={`Voir la photo ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}><img src={src} alt="" loading="lazy" /></button>)}
+      </div>
+    )}
+  </section>
+
+  <section class="artefact-details">
+    <div class="wrap">
+      <div class="artefact__infos artefact__infos--large">
+        {specs.length > 0 && <dl class="artefact__specs" style="margin-top:0;">{specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+
+        <div class="artefact__statuts">
+          <div class="artefact__statut">
+            <span class="rune">L'original</span>
+            {d.original === 'disponible'
+              ? <p><b>{d.original_prix ?? 'Disponible'}</b></p>
+              : <p>{d.original === 'acquis' ? 'Il a trouvé sa maison.' : 'Il reste auprès de moi pour l’instant.'}</p>}
+          </div>
+          <div class="artefact__statut">
+            <span class="rune">Les reproductions</span>
+            {d.tirages_statut === 'disponible' && d.tirages?.length
+              ? <ul class="artefact__tirages">{d.tirages.map((t) => <li><span>{t.format}{t.detail && <small>{t.detail}</small>}</span><b>{t.prix}</b></li>)}</ul>
+              : <p>{d.tirages_statut === 'bientot' ? 'En préparation : des tirages d’art signés, en édition limitée.' : 'Pas de reproduction prévue.'}</p>}
+          </div>
+        </div>
+
+        <div class="artefact__action">
+          {d.lien_boutique ? (
+            <a class="btn btn--solid" href={d.lien_boutique} target="_blank" rel="noopener" data-evt="Artefact boutique">Acquérir sur enoqii.art</a>
+          ) : (
+            <Fragment>
+              {d.original === 'disponible' && <a class="btn btn--solid" href={acquerir} data-evt="Artefact acquérir">Acquérir l'original</a>}
+              {d.tirages_statut === 'disponible' && <a class="btn btn--solid" href={`${acquerir}%20—%20reproduction`} data-evt="Artefact reproduction">Commander une reproduction</a>}
+              {d.tirages_statut === 'bientot' && <a class="btn btn--solid" href="#prevenir" data-evt="Artefact liste">Être prévenu de la sortie</a>}
+            </Fragment>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <section class="artefact-recit">
+    <div class="narrow">
+      <p class="eyebrow">Le récit</p>
+      <div class="prose" style="margin-top:1.4rem;"><Content /></div>
+      {fiches.length > 0 && (
+        <div class="touche">
+          <p class="rune">Dans le Codex</p>
+          <div class="echos">{fiches.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {d.tirages_statut === 'bientot' && !d.lien_boutique && (
+    <div id="prevenir"><Lettre eyebrow="Reproductions" titre="Être *prévenu*" texte={`Les tirages de « ${d.titre} » arrivent bientôt. Laisse ton email : tu seras prévenu en premier.`} bouton="Préviens-moi" source={`artefact-${a.id}`} /></div>
+  )}
+
+  <section class="detail-foot">
+    <div class="wrap detail-nav">
+      <a class="cta" href="/artefacts">← Tous les artefacts</a>
+    </div>
+  </section>
+
+  <BarreAction titre={d.titre} sous={d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'disponible' ? (d.original_prix ?? 'Original disponible') : ''}>
+    {d.lien_boutique ? <a class="btn btn--solid" href={d.lien_boutique} target="_blank" rel="noopener">Acquérir</a> : d.tirages_statut === 'bientot' ? <a class="btn btn--solid" href="#prevenir">Me prévenir</a> : <a class="btn btn--solid" href={acquerir}>Acquérir</a>}
+  </BarreAction>
+
+  <script is:inline>
+    (function () {
+      var principale = document.getElementById('artefact-image');
+      document.querySelectorAll('.artefact__vignette').forEach(function (b) {
+        b.addEventListener('click', function () {
+          principale.src = b.querySelector('img').src;
+          // L'œuvre seule (1re image) : posée sur le mur avec son ombre ; les autres : en immersif, pleine largeur
+          document.querySelector('.galerie-mur').classList.toggle('plein', b !== document.querySelector('.artefact__vignette'));
+          document.querySelectorAll('.artefact__vignette').forEach(function (x) { x.removeAttribute('aria-current'); });
+          b.setAttribute('aria-current', 'true');
+        });
+      });
+    })();
+  </script>
+</Base>

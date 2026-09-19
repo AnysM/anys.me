@@ -1,8 +1,30 @@
 ---
 import '../styles/global.css';
 import '../styles/nav.css';
+import '../styles/monde.css';
+import '../styles/finition.css';
 import { getCollection } from 'astro:content';
-const { title = 'Anys Mechkar', description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur." } = Astro.props;
+import { personne, siteWeb } from '../lib/seo';
+import { typeLabel } from '../lib/univers.mjs';
+const {
+  title = 'Anys Mechkar',
+  description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur.",
+  image = '/img/univers-art.jpg',
+  type = 'website',
+  publie,
+  modifie,
+  jsonld = [],
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+// Lexique du Codex pour l'aperçu au survol des mots tissés dans les textes
+const lexique = JSON.stringify(Object.fromEntries(
+  (await getCollection('codex')).filter((c) => c.data.publie).map((c) => [c.id, { t: c.data.titre, y: typeLabel(c.data.type), r: c.data.resume ?? '' }]),
+)).replace(/</g, '\\u003c');
+// Statistiques sans cookies : actives seulement si PUBLIC_PLAUSIBLE_DOMAIN est défini (Netlify › variables)
+const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
 const accs = offres.filter((o) => o.data.categorie === 'accompagnement');
@@ -11,7 +33,7 @@ const links = [
   { href: '/a-propos', label: 'À propos' },
   { href: '/soins', label: 'Soins' },
   { href: '/accompagnement', label: 'Accompagnement' },
-  { href: '/partenaires', label: 'Partenaires' },
+  { href: '/codex', label: 'Codex' },
 ];
 ---
 <!DOCTYPE html>
@@ -21,6 +43,24 @@ const links = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:type" content={type} />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Anys Mechkar" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  {type === 'article' && publie && <meta property="article:published_time" content={publie.toISOString()} />}
+  {type === 'article' && modifie && <meta property="article:modified_time" content={modifie.toISOString()} />}
+  {type === 'article' && <meta property="article:author" content="https://anys.me/a-propos" />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <script type="application/ld+json" set:html={graphe} />
+  {plausible && <script defer data-domain={plausible} src="https://plausible.io/js/script.outbound-links.js"></script>}
+  {plausible && <script is:inline>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };</script>}
+  <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,8 +82,8 @@ const links = [
         <a href="/accompagnement">Accompagnement</a>
         <div class="subnav">{accs.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
-      <a href="/partenaires">Partenaires</a>
-      <a class="ext" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+      <a href="/codex">Codex</a>
+      <a class="ext" href="/artefacts">Artefacts</a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
       <span class="site-nav__burger-line"></span>
@@ -59,7 +99,7 @@ const links = [
       ))}
       <div class="site-nav__sep"></div>
       <div class="site-nav__sub">
-        <a class="site-nav__sub-link" href="https://enoqii.art" target="_blank" rel="noopener">Art</a>
+        <a class="site-nav__sub-link" href="/artefacts">Artefacts</a>
         <a class="site-nav__sub-link" href="mailto:contact@anys.me">Contact</a>
       </div>
     </div>
@@ -96,7 +136,7 @@ const links = [
     </div>
     <div class="wrap foot__bottom">
       <span>© {new Date().getFullYear()} Anys Mechkar</span>
-      <a href="/contact">Écris-moi</a>
+      <span class="foot__signature">Site réalisé avec <span class="foot__coeur" aria-label="amour">♥</span> par moi-même · <a href={`/contact?pour=${encodeURIComponent('Création de site')}&interet=autre`} data-evt="Création de site">Un projet de site ? Parlons-en</a></span>
     </div>
   </footer>
 
@@ -119,7 +159,7 @@ const links = [
   <script is:inline>
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var secs = Array.prototype.slice.call(document.querySelectorAll('main > section'));
+      var secs = Array.prototype.slice.call(document.querySelectorAll('main > section, main > article > section'));
       if (!secs.length) return;
       if (reduce) { secs.forEach(function (x) { x.classList.add('is-in'); }); return; }
       var io = new IntersectionObserver(function (entries) {
@@ -153,6 +193,133 @@ const links = [
         requestAnimationFrame(loop);
       }
       requestAnimationFrame(loop);
+    })();
+  </script>
+  <script is:inline>
+    (function () {
+      // Conversions : clics sur les actions et envois de formulaires marqués data-evt
+      function envoyer(nom, props) { if (window.plausible) window.plausible(nom, { props: props }); }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[data-evt]');
+        if (a) envoyer(a.dataset.evt, { page: location.pathname });
+      });
+      document.addEventListener('submit', function (e) {
+        var f = e.target;
+        if (f.matches('form[name="contact"]')) envoyer('Formulaire contact', { interet: (f.interet && f.interet.value) || '' });
+        if (f.matches('form[name="lettre"]')) envoyer('Inscription lettre', { source: (f.source && f.source.value) || '' });
+      });
+      // Barre d'action mobile : apparaît après le haut de page, s'efface près de l'invitation finale
+      var barre = document.querySelector('.barre-action');
+      if (barre) {
+        var fin = document.querySelector('.invite, .detail-foot');
+        var maj = function () {
+          var passe = window.scrollY > window.innerHeight * 0.6;
+          var proche = fin && fin.getBoundingClientRect().top < window.innerHeight;
+          barre.classList.toggle('visible', passe && !proche);
+        };
+        window.addEventListener('scroll', maj, { passive: true }); maj();
+      }
+    })();
+  </script>
+  <script type="application/json" id="lexique" set:html={lexique} />
+  <div class="apercu-lore" role="tooltip" hidden></div>
+  <script is:inline>
+    (function () {
+      // Aperçu d'une fiche du Codex au survol d'un mot tissé (souris uniquement)
+      if (!window.matchMedia('(hover: hover)').matches) return;
+      var data = {}; try { data = JSON.parse(document.getElementById('lexique').textContent); } catch (e) { return; }
+      var carte = document.querySelector('.apercu-lore'), minuteur;
+      function montrer(a) {
+        var id = a.getAttribute('href').split('/').pop(), f = data[id];
+        if (!f) return;
+        clearTimeout(minuteur);
+        carte.innerHTML = '';
+        var y = document.createElement('span'); y.className = 'rune'; y.textContent = f.y;
+        var t = document.createElement('b'); t.textContent = f.t;
+        var r = document.createElement('p'); r.textContent = f.r;
+        var l = document.createElement('a'); l.href = a.getAttribute('href'); l.textContent = 'Lire la fiche →';
+        carte.append(y, t, r, l);
+        carte.hidden = false;
+        var b = a.getBoundingClientRect(), w = carte.offsetWidth;
+        var x = Math.min(Math.max(12, b.left + b.width / 2 - w / 2), window.innerWidth - w - 12);
+        var haut = b.top > carte.offsetHeight + 24;
+        carte.style.left = x + 'px';
+        carte.style.top = (haut ? b.top + window.scrollY - carte.offsetHeight - 12 : b.bottom + window.scrollY + 12) + 'px';
+        carte.classList.add('on');
+      }
+      function cacher() { minuteur = setTimeout(function () { carte.classList.remove('on'); carte.hidden = true; }, 180); }
+      document.addEventListener('mouseover', function (e) {
+        var a = e.target.closest && e.target.closest('a.lore');
+        if (a) montrer(a); else if (e.target.closest && e.target.closest('.apercu-lore')) clearTimeout(minuteur);
+      });
+      document.addEventListener('mouseout', function (e) {
+        if (e.target.closest && (e.target.closest('a.lore') || e.target.closest('.apercu-lore'))) cacher();
+      });
+    })();
+  </script>
+  <script is:inline>
+    (function () {
+      // Étoiles discrètes sur les grands visuels
+      document.querySelectorAll('#hero, .page-hero').forEach(function (el) {
+        for (var i = 0; i < 2; i++) { var d = document.createElement('div'); d.className = 'etoiles'; d.setAttribute('aria-hidden', 'true'); el.appendChild(d); }
+      });
+      // Phrases des respirations : les mots s'allument au fil du défilement
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var phrases = Array.prototype.slice.call(document.querySelectorAll('.breath .phrase'));
+      phrases.forEach(function (ph) {
+        var walker = document.createTreeWalker(ph, NodeFilter.SHOW_TEXT), noeuds = [];
+        while (walker.nextNode()) noeuds.push(walker.currentNode);
+        noeuds.forEach(function (n) {
+          var frag = document.createDocumentFragment();
+          n.nodeValue.split(/(\s+)/).forEach(function (m) {
+            if (!m) return;
+            if (/^\s+$/.test(m)) { frag.appendChild(document.createTextNode(m)); return; }
+            var s = document.createElement('span'); s.className = 'mot'; s.textContent = m; frag.appendChild(s);
+          });
+          n.parentNode.replaceChild(frag, n);
+        });
+        ph._mots = ph.querySelectorAll('.mot');
+      });
+      function maj() {
+        var H = window.innerHeight;
+        phrases.forEach(function (ph) {
+          var r = ph.getBoundingClientRect();
+          var p = Math.max(0, Math.min(1, (H * 0.85 - r.top) / (H * 0.45)));
+          var n = Math.round(p * ph._mots.length);
+          for (var i = 0; i < ph._mots.length; i++) ph._mots[i].classList.toggle('on', i < n);
+        });
+      }
+      window.addEventListener('scroll', function () { requestAnimationFrame(maj); }, { passive: true });
+      maj();
+    })();
+  </script>
+  <script is:inline>
+    // Calendly en pop-in : les liens calendly.com s'ouvrent par-dessus la page.
+    // Le widget n'est chargé qu'au premier clic ; s'il ne charge pas, le lien s'ouvre normalement dans un nouvel onglet.
+    (function () {
+      var charge = null;
+      function charger() {
+        if (charge) return charge;
+        charge = new Promise(function (ok, ko) {
+          var css = document.createElement('link');
+          css.rel = 'stylesheet'; css.href = 'https://assets.calendly.com/assets/external/widget.css';
+          document.head.appendChild(css);
+          var js = document.createElement('script');
+          js.src = 'https://assets.calendly.com/assets/external/widget.js'; js.async = true;
+          js.onload = function () { window.Calendly ? ok() : ko(); }; js.onerror = ko;
+          document.head.appendChild(js);
+          setTimeout(ko, 6000);
+        });
+        return charge;
+      }
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href*="calendly.com/"]');
+        if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        var url = a.href + (a.href.indexOf('?') < 0 ? '?' : '&') + 'hide_gdpr_banner=1&background_color=eef0f8&text_color=0a0f20&primary_color=6b6bff';
+        charger().then(function () { window.Calendly.initPopupWidget({ url: url }); })
+          .catch(function () { window.open(a.href, '_blank', 'noopener'); });
+      });
     })();
   </script>
 </body>

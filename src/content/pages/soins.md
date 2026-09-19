@@ -1,7 +1,7 @@
 ---
 hero_eyebrow: Le corps
 hero_titre: Soins
-hero_image: /img/hero-soins.jpg
+hero_image: /img/soins-table.jpg
 portrait_image: /img/portrait.jpg
 coeur: |-
   Pendant longtemps, j'ai refusé de faire des soins de manière professionnelle, malgré des prédispositions évidentes, parce que je ne voulais pas devenir une béquille pour les autres. Je me suis tourné vers l'accompagnement, pour favoriser l'autonomie et activer les **capacités d'auto-guérison**.

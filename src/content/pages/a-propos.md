@@ -13,7 +13,10 @@ chapitres:
 
 
     Deux ans plus tard, je quittais mon job, mon appart et la France pour partir voyager. Je suis devenu nomade pendant près de cinq ans, à explorer le monde de la spiritualité, des philosophies orientales et des traditions indigènes ancestrales.'
-  image: ''
+  image: /img/breath-desert.jpg
+  echos:
+  - fiche: src/content/codex/choisir-sa-vie.md
+  - fiche: src/content/codex/chamanisme.md
 - titre: La méditation
   texte: 'Ma quête m''a d''abord emmené à découvrir la méditation de pleine conscience. Ça a été ma première révélation. Je me suis rendu compte à quel point mon énergie était concentrée dans mon activité mentale, et surtout à quel point elle était gaspillée.
 
@@ -25,9 +28,13 @@ chapitres:
 
 
     Cette exploration des limites m''a amené vers le paranormal, la physique quantique, le pouvoir de l''esprit et de la conscience. J''étais persuadé que ce vide que je cherchais à combler dans la débauche était un vide existentiel auquel je trouverais bientôt des réponses.'
-  image: ''
+  image: /img/IMG_20230103_182213.jpg
+  echos:
+  - fiche: src/content/codex/human-design.md
+  - fiche: src/content/codex/tzolkin.md
+  - fiche: src/content/codex/gene-keys.md
 - titre: Le chamanisme
-  texte: 'C''est alors que le chamanisme est entré dans ma vie. J''ai eu l''immense chance de rencontrer un peuple indigène d''Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
+  texte: 'C''est alors que le chamanisme est entré dans ma vie. J''ai eu l''immense chance de rencontrer, ici en Europe, un peuple indigène d''Amazonie et son chef politique et spirituel, Benki Piyako Ashaninka.
 
 
     C''est dans ces initiations que j''ai retrouvé la connexion à cette force invisible qui donne forme à notre réalité. J''ai pu sentir, avec la plus profonde des joies mêlée à la plus profonde des tristesses, la mémoire de l''univers. Me rappeler pourquoi je suis là, et me reconnecter à une foi inaltérable en la vie. Un tournant majeur.'
@@ -37,10 +44,12 @@ chapitres:
 
 
     Une véritable révélation sur le lien entre corps et esprit. J''ai pu modifier ma posture, mon corps, simplement en méditant et en laissant l''énergie circuler là où elle doit aller.'
-  image: ''
+  image: /img/portrait.jpg
 - titre: Les arts énergétiques
   texte: Ces nouvelles compréhensions ont amené une sensibilité accrue aux sensations du corps et aux ressentis énergétiques. Ça m'a donné envie de découvrir les arts énergétiques, à travers le magnétisme, le Reiki, et les arts énergétiques chinois, le tai-chi et le qi gong.
   image: ''
+  echos:
+  - fiche: src/content/codex/corps-energetique.md
 - titre: Dharamsala
   texte: 'J''ai passé deux mois à Dharamsala, la ville du Dalaï-Lama, avec des moines bouddhistes tibétains. Cela m''a permis de parfaire ma pratique et de mieux comprendre la science de l''esprit : comment la maîtrise des pensées peut permettre de vivre plus en paix, plus présent.'
   image: ''

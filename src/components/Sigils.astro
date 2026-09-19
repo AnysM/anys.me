@@ -1,0 +1,10 @@
+---
+import { univers } from '../lib/univers.mjs';
+const { ids = [], lg = false } = Astro.props;
+const liste = ids.map(univers).filter(Boolean);
+---
+{liste.length > 0 && (
+  <span class={`sigils${lg ? ' sigils--lg' : ''}`}>
+    {liste.map((u) => <span class={`u-${u.id}`} title={u.nom} aria-label={u.nom} role="img"><Fragment set:html={u.icon} /></span>)}
+  </span>
+)}
