@@ -565,3 +565,27 @@ section.artefact { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 .galerie-mur .artefact__vignette { border-radius: 8px; border: 1px solid rgba(236,231,222,0.22); }
 .galerie-mur .artefact__vignette:hover, .galerie-mur .artefact__vignette[aria-current="true"] { border-color: var(--gold); }
 .galerie-mur.plein .galerie-mur__cadre img { object-position: center 38%; }
+
+/* Pied de page : le cœur */
+.foot__coeur { color: var(--coral); }
+
+/* Artefact sur grand écran : deux colonnes, l'œuvre et les infos */
+@media (min-width: 1100px) {
+  .artefact__corps { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); width: min(94%, 1440px); margin: 0 auto; gap: 0; align-items: stretch; }
+  .artefact__corps .galerie-mur { border-radius: 0; padding: clamp(2.5rem, 4vw, 3.5rem) 2rem; display: flex; flex-direction: column; justify-content: center; }
+  .artefact__corps .galerie-mur.plein { padding: 0 0 2rem; justify-content: flex-start; }
+  .artefact__corps .galerie-mur.plein .galerie-mur__cadre img { height: 72vh; }
+  .artefact__corps .galerie-mur__cadre img { max-height: 70vh; }
+  .artefact__corps .artefact-details { padding: clamp(2.5rem, 4vw, 3.5rem) 0 clamp(2.5rem, 4vw, 3.5rem) clamp(2.5rem, 4vw, 4rem); display: flex; align-items: center; }
+  .artefact__corps .artefact-details .wrap { width: 100%; }
+  .artefact__corps .artefact__infos--large { grid-template-columns: 1fr; }
+  .artefact__corps .artefact__infos--large .artefact__statuts { margin-top: 1.8rem; border-top: 1px solid var(--faint); padding-top: 1.4rem; }
+  .artefact__corps .artefact__infos--large .artefact__action { grid-column: auto; }
+}
+
+/* Artefact : les infos et le récit forment un tout, pas de grand vide entre eux */
+.artefact-details { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
+@media (min-width: 1100px) {
+  .artefact__corps .artefact-details { align-items: flex-start; }
+}

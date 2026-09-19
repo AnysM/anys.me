@@ -40,7 +40,9 @@ const jsonld = [
     </div>
   </section>
 
-  <!-- Le mur de galerie : l'œuvre au centre, sur toute la largeur -->
+  <!-- Grand écran : l'œuvre à gauche, les infos à droite ; sinon, empilés -->
+  <div class="artefact__corps">
+  <!-- Le mur de galerie : l'œuvre au centre -->
   <section class="galerie-mur">
     <div class="galerie-mur__cadre"><img id="artefact-image" src={d.images[0]} alt={d.titre} /></div>
     {d.images.length > 1 && (
@@ -84,6 +86,7 @@ const jsonld = [
       </div>
     </div>
   </section>
+  </div>
 
   <section class="artefact-recit">
     <div class="narrow">
