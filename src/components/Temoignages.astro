@@ -1,6 +1,7 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
 const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false } = Astro.props;
+const carrousel = temoignages.length > 3;
 ---
 {temoignages.length > 0 && (
   <section class={`temoins-offre${fond ? ' bloc' : ''}`}>
@@ -15,7 +16,14 @@ const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'T
           </a>
         )}
       </div>
-      <div class="temoins-offre__grille">
+      <div class={carrousel ? 'carrousel' : 'temoins-offre__grille'} data-carrousel={carrousel ? '' : undefined}>
+        {carrousel && (
+          <div class="carrousel__nav">
+            <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Témoignage précédent">←</button>
+            <button type="button" class="carrousel__btn" data-sens="1" aria-label="Témoignage suivant">→</button>
+          </div>
+        )}
+        <div class={carrousel ? 'carrousel__piste' : 'temoins-offre__cartes'}>
         {temoignages.map((x) => (
           <figure class="temoin-carte">
             <span class="temoin-carte__guillemet" aria-hidden="true">“</span>
@@ -23,7 +31,25 @@ const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'T
             <figcaption><b>{x.n}</b>{x.c && <span>{x.c}</span>}</figcaption>
           </figure>
         ))}
+        </div>
       </div>
     </div>
   </section>
 )}
+
+<script is:inline>
+  (function () {
+    // Carrousel sans bibliothèque : défilement natif avec aimantation, flèches pour les souris
+    document.querySelectorAll('[data-carrousel]').forEach(function (c) {
+      if (c.dataset.pret) return; c.dataset.pret = '1';
+      var piste = c.querySelector('.carrousel__piste');
+      c.querySelectorAll('.carrousel__btn').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var carte = piste.querySelector('.temoin-carte');
+          var pas = carte ? carte.getBoundingClientRect().width + 22 : piste.clientWidth * 0.8;
+          piste.scrollBy({ left: pas * Number(b.dataset.sens), behavior: 'smooth' });
+        });
+      });
+    });
+  })();
+</script>

@@ -389,3 +389,32 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .rosace__bulle::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--cream); }
 .rosace__tuile:hover .rosace__bulle, .rosace__tuile:focus-visible .rosace__bulle { opacity: 1; transform: translate(-50%, 0); }
 @media (hover: none) { .rosace__bulle { display: none; } }
+
+/* ── Témoignages : grille (≤ 3) ou carrousel (> 3) ── */
+.temoins-offre__cartes { columns: 3 300px; column-gap: 1.4rem; }
+.carrousel { position: relative; }
+.carrousel__nav { display: flex; justify-content: flex-end; gap: 0.6rem; margin-bottom: 1.2rem; }
+.carrousel__btn { width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(216,162,76,0.5); background: transparent; color: var(--gold); font-size: 1.05rem; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.carrousel__btn:hover { background: var(--gold); color: var(--navy); }
+.carrousel__piste { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 0; padding-bottom: 1rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.carrousel__piste::-webkit-scrollbar { display: none; }
+.carrousel__piste .temoin-carte { flex: 0 0 min(400px, 82%); scroll-snap-align: start; margin: 0; display: flex; flex-direction: column; }
+.carrousel__piste .temoin-carte blockquote { flex: 1; }
+@media (hover: none) { .carrousel__nav { display: none; } }
+
+/* ── Cartes d'événement à l'horizontale : la photo à gauche, les infos à droite ── */
+.egrid { grid-template-columns: 1fr !important; gap: 1.4rem; max-width: 1000px; margin-inline: auto; }
+.ecard { display: grid; grid-template-columns: minmax(220px, 38%) 1fr; }
+.ecard__img { aspect-ratio: auto; min-height: 240px; }
+.ecard__body { justify-content: center; padding: 1.8rem 2rem; }
+.ecard__when { font-size: 1rem; color: var(--coral); }
+.ecard__when .ico { color: var(--coral); }
+.ecard__title { font-size: 1.7rem; }
+.ecard__foot { padding-top: 0.4rem; margin-top: 0.4rem; }
+.ecard__btn { margin-top: 0.6rem; }
+@media (max-width: 700px) {
+  .ecard { grid-template-columns: 1fr; }
+  .ecard__img { aspect-ratio: 16 / 9; min-height: 0; }
+  .ecard__body { padding: 1.4rem 1.4rem 1.6rem; }
+}
+.temoins-offre__grille { columns: auto; }
