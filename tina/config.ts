@@ -175,6 +175,7 @@ export default defineConfig({
           { type: "string", name: "original", label: "L'original", options: [
             { value: "non-disponible", label: "Pas à vendre" }, { value: "disponible", label: "Disponible" }, { value: "acquis", label: "Déjà acquis" } ] },
           { type: "string", name: "original_prix", label: "Prix de l'original" },
+          { type: "string", name: "lien_boutique", label: "Lien vers l'œuvre sur enoqii.art", description: "Dès qu'il est rempli, le bouton principal devient « Acquérir sur enoqii.art »." },
           { type: "string", name: "tirages_statut", label: "Reproductions", options: [
             { value: "aucun", label: "Aucune" }, { value: "bientot", label: "Bientôt (liste d'attente)" }, { value: "disponible", label: "Disponibles" } ] },
           { type: "object", name: "tirages", label: "Formats de reproduction", list: true,

@@ -8,15 +8,16 @@ images:
   - /img/artefact-narita-4.jpg
   - /img/artefact-narita-5.jpg
 naissance: "Cérémonie avec les Noke Koî"
-annee: ""
-technique: ""
-dimensions: ""
+annee: "Mai 2025"
+technique: "Acrylique sur papier cartonné"
+dimensions: "24 × 32 cm"
 codex:
   - fiche: src/content/codex/narita.md
   - fiche: src/content/codex/pyramide-interieure.md
   - fiche: src/content/codex/noke-koi.md
 original: non-disponible
 tirages_statut: bientot
+lien_boutique: ""
 ordre: 1
 publie: true
 ---

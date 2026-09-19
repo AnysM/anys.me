@@ -64,9 +64,15 @@ const jsonld = [
         </div>
 
         <div class="artefact__action">
-          {d.original === 'disponible' && <a class="btn btn--solid" href={acquerir} data-evt="Artefact acquérir">Acquérir l'original</a>}
-          {d.tirages_statut === 'disponible' && <a class="btn btn--solid" href={`${acquerir}%20—%20reproduction`} data-evt="Artefact reproduction">Commander une reproduction</a>}
-          {d.tirages_statut === 'bientot' && <a class="btn btn--solid" href="#prevenir" data-evt="Artefact liste">Être prévenu de la sortie</a>}
+          {d.lien_boutique ? (
+            <a class="btn btn--solid" href={d.lien_boutique} target="_blank" rel="noopener" data-evt="Artefact boutique">Acquérir sur enoqii.art</a>
+          ) : (
+            <Fragment>
+              {d.original === 'disponible' && <a class="btn btn--solid" href={acquerir} data-evt="Artefact acquérir">Acquérir l'original</a>}
+              {d.tirages_statut === 'disponible' && <a class="btn btn--solid" href={`${acquerir}%20—%20reproduction`} data-evt="Artefact reproduction">Commander une reproduction</a>}
+              {d.tirages_statut === 'bientot' && <a class="btn btn--solid" href="#prevenir" data-evt="Artefact liste">Être prévenu de la sortie</a>}
+            </Fragment>
+          )}
         </div>
       </div>
     </div>
@@ -85,7 +91,7 @@ const jsonld = [
     </div>
   </section>
 
-  {d.tirages_statut === 'bientot' && (
+  {d.tirages_statut === 'bientot' && !d.lien_boutique && (
     <div id="prevenir"><Lettre eyebrow="Reproductions" titre="Être *prévenu*" texte={`Les tirages de « ${d.titre} » arrivent bientôt. Laisse ton email : tu seras prévenu en premier.`} bouton="Préviens-moi" source={`artefact-${a.id}`} /></div>
   )}
 
@@ -96,7 +102,7 @@ const jsonld = [
   </section>
 
   <BarreAction titre={d.titre} sous={d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'disponible' ? (d.original_prix ?? 'Original disponible') : ''}>
-    {d.tirages_statut === 'bientot' ? <a class="btn btn--solid" href="#prevenir">Me prévenir</a> : <a class="btn btn--solid" href={acquerir}>Acquérir</a>}
+    {d.lien_boutique ? <a class="btn btn--solid" href={d.lien_boutique} target="_blank" rel="noopener">Acquérir</a> : d.tirages_statut === 'bientot' ? <a class="btn btn--solid" href="#prevenir">Me prévenir</a> : <a class="btn btn--solid" href={acquerir}>Acquérir</a>}
   </BarreAction>
 
   <script is:inline>

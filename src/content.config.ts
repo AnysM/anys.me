@@ -200,6 +200,7 @@ const artefacts = defineCollection({
     original_prix: z.preprocess(videVersUndefined, z.string().optional()),
     tirages_statut: z.enum(['aucun', 'bientot', 'disponible']).default('aucun'),
     tirages: z.array(z.object({ format: z.string(), prix: z.string(), detail: z.string().optional() })).optional(),
+    lien_boutique: z.preprocess(videVersUndefined, z.string().url().optional()),
     ordre: z.number().default(0),
     publie: z.boolean().default(true),
   }),
