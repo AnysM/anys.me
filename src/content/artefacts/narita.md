@@ -8,7 +8,6 @@ images:
   - /img/artefact-narita-3.jpg
   - /img/artefact-narita-4.jpg
   - /img/artefact-narita-5.jpg
-  - /img/artefact-narita-6.jpg
 naissance: "Cérémonie avec les Noke Koî"
 annee: "Mai 2025"
 technique: "Acrylique sur papier cartonné"

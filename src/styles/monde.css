@@ -542,3 +542,17 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .artefact__principale { padding: 0; overflow: hidden; border-radius: 14px; }
 .artefact__principale img { width: 100%; height: auto; max-height: none; display: block; }
 .artefact__infos { top: 110px; }
+
+/* ── Artefact : mur de galerie pleine largeur ── */
+section.artefact { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.artefact__entete { margin-bottom: 0; }
+.galerie-mur { padding: clamp(3rem, 7vw, 5.5rem) 0 clamp(2rem, 4vw, 3rem); background: radial-gradient(ellipse 70% 80% at 50% 25%, #202a5c 0%, #121a40 55%, #090d20 100%); text-align: center; }
+.galerie-mur__cadre { display: inline-block; max-width: min(92vw, 900px); }
+.galerie-mur__cadre img { display: block; max-height: 78vh; max-width: 100%; width: auto; height: auto; margin: 0 auto; box-shadow: 10px 26px 44px rgba(0,0,0,0.6), 3px 8px 14px rgba(0,0,0,0.35); }
+.galerie-mur .artefact__vignettes { justify-content: center; margin-top: clamp(2rem, 4vw, 3rem); }
+.galerie-mur .artefact__vignette { border-radius: 0; border-color: rgba(255,255,255,0.12); }
+.artefact-details { padding-top: clamp(3rem, 6vw, 4.5rem); }
+.artefact__infos--large { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(2rem, 6vw, 5rem); align-items: start; }
+.artefact__infos--large .artefact__statuts { margin-top: 0; border-top: 0; padding-top: 0; }
+.artefact__infos--large .artefact__action { grid-column: 2; }
+@media (max-width: 760px) { .artefact__infos--large { grid-template-columns: 1fr; } .artefact__infos--large .artefact__statuts { margin-top: 1.6rem; border-top: 1px solid var(--faint); padding-top: 1.4rem; } .artefact__infos--large .artefact__action { grid-column: auto; } }

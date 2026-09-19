@@ -38,16 +38,21 @@ const jsonld = [
       <h1>{d.titre}</h1>
       {d.sous_titre && <p class="fiche-resume">{d.sous_titre}</p>}
     </div>
-    <div class="wrap artefact__grille">
-      <div class="artefact__visuel">
-        <div class="artefact__principale"><img id="artefact-image" src={d.images[0]} alt={d.titre} /></div>
-        {d.images.length > 1 && (
-          <div class="artefact__vignettes">
-            {d.images.map((src, i) => <button type="button" class="artefact__vignette" data-src={src} aria-label={`Voir la photo ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}><img src={src} alt="" loading="lazy" /></button>)}
-          </div>
-        )}
+  </section>
+
+  <!-- Le mur de galerie : l'œuvre au centre, sur toute la largeur -->
+  <section class="galerie-mur">
+    <div class="galerie-mur__cadre"><img id="artefact-image" src={d.images[0]} alt={d.titre} /></div>
+    {d.images.length > 1 && (
+      <div class="artefact__vignettes">
+        {d.images.map((src, i) => <button type="button" class="artefact__vignette" data-src={src} aria-label={`Voir la photo ${i + 1}`} aria-current={i === 0 ? 'true' : undefined}><img src={src} alt="" loading="lazy" /></button>)}
       </div>
-      <div class="artefact__infos">
+    )}
+  </section>
+
+  <section class="artefact-details">
+    <div class="wrap">
+      <div class="artefact__infos artefact__infos--large">
         {specs.length > 0 && <dl class="artefact__specs" style="margin-top:0;">{specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
 
         <div class="artefact__statuts">
