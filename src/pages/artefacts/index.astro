@@ -22,7 +22,6 @@ const statut = (d) => d.original === 'disponible' ? `Original disponible${d.orig
           <a class="artefact-carte" href={`/artefacts/${a.id}`}>
             <span class="artefact-carte__img">{a.data.images[0] && <img src={a.data.images[0]} alt={a.data.titre} loading="lazy" />}</span>
             <span class="artefact-carte__corps">
-              {a.data.naissance && <span class="rune">Né de · {a.data.naissance}</span>}
               <span class="artefact-carte__titre">{a.data.titre}</span>
               {a.data.sous_titre && <span class="artefact-carte__sous">{a.data.sous_titre}</span>}
               <span class="artefact-carte__statut">{statut(a.data)}</span>

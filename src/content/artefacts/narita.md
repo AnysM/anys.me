@@ -3,10 +3,10 @@ titre: Narita
 sous_titre: "Le sauvage qui se relie au divin, et devient royal."
 images:
   - /img/artefact-narita-1.jpg
+  - /img/artefact-narita-contexte.webp
   - /img/artefact-narita-2.jpg
   - /img/artefact-narita-3.jpg
   - /img/artefact-narita-4.jpg
-  - /img/artefact-narita-5.jpg
 naissance: "Cérémonie avec les Noke Koî"
 annee: "Mai 2025"
 technique: "Acrylique sur papier cartonné"

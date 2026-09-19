@@ -33,6 +33,11 @@ const jsonld = [
 ---
 <Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre née de : ${d.naissance ?? 'un passage'}.`.trim()} image={d.images[0]} jsonld={jsonld}>
   <section class="artefact">
+    <div class="wrap artefact__entete">
+      <p class="eyebrow"><a href="/artefacts">Artefact</a></p>
+      <h1>{d.titre}</h1>
+      {d.sous_titre && <p class="fiche-resume">{d.sous_titre}</p>}
+    </div>
     <div class="wrap artefact__grille">
       <div class="artefact__visuel">
         <div class="artefact__principale"><img id="artefact-image" src={d.images[0]} alt={d.titre} /></div>
@@ -43,10 +48,7 @@ const jsonld = [
         )}
       </div>
       <div class="artefact__infos">
-        <p class="eyebrow"><a href="/artefacts">Artefact</a>{d.naissance && <Fragment>&nbsp;· Né de {d.naissance}</Fragment>}</p>
-        <h1>{d.titre}</h1>
-        {d.sous_titre && <p class="fiche-resume">{d.sous_titre}</p>}
-        {specs.length > 0 && <dl class="artefact__specs">{specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+        {specs.length > 0 && <dl class="artefact__specs" style="margin-top:0;">{specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
 
         <div class="artefact__statuts">
           <div class="artefact__statut">
