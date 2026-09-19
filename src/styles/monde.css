@@ -556,3 +556,12 @@ section.artefact { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 .artefact__infos--large .artefact__statuts { margin-top: 0; border-top: 0; padding-top: 0; }
 .artefact__infos--large .artefact__action { grid-column: 2; }
 @media (max-width: 760px) { .artefact__infos--large { grid-template-columns: 1fr; } .artefact__infos--large .artefact__statuts { margin-top: 1.6rem; border-top: 1px solid var(--faint); padding-top: 1.4rem; } .artefact__infos--large .artefact__action { grid-column: auto; } }
+
+/* Photos de contexte et détails : immersives, sur toute la largeur, sans ombre */
+.galerie-mur.plein { padding-top: 0; }
+.galerie-mur.plein .galerie-mur__cadre { display: block; max-width: none; }
+.galerie-mur.plein .galerie-mur__cadre img { width: 100%; height: 78vh; max-height: none; object-fit: cover; box-shadow: none; }
+/* Miniatures : léger arrondi, bordure fine */
+.galerie-mur .artefact__vignette { border-radius: 8px; border: 1px solid rgba(236,231,222,0.22); }
+.galerie-mur .artefact__vignette:hover, .galerie-mur .artefact__vignette[aria-current="true"] { border-color: var(--gold); }
+.galerie-mur.plein .galerie-mur__cadre img { object-position: center 38%; }

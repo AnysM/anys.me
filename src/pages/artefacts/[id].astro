@@ -118,6 +118,8 @@ const jsonld = [
       document.querySelectorAll('.artefact__vignette').forEach(function (b) {
         b.addEventListener('click', function () {
           principale.src = b.querySelector('img').src;
+          // L'œuvre seule (1re image) : posée sur le mur avec son ombre ; les autres : en immersif, pleine largeur
+          document.querySelector('.galerie-mur').classList.toggle('plein', b !== document.querySelector('.artefact__vignette'));
           document.querySelectorAll('.artefact__vignette').forEach(function (x) { x.removeAttribute('aria-current'); });
           b.setAttribute('aria-current', 'true');
         });
