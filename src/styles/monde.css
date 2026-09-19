@@ -492,3 +492,46 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .ecard__when { position: relative; margin-top: 0.1rem; padding-bottom: 0.9rem; }
 .ecard__when::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 1px; background: var(--gold); opacity: 0.6; }
 .fiche-question { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: none; letter-spacing: 0.01em; font-size: clamp(1.25rem, 2.2vw, 1.55rem); line-height: 1.3; color: var(--cream); margin-bottom: 1.4rem; }
+
+/* ════════ ARTEFACTS ════════ */
+.artefacts { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.8rem; margin-top: 3rem; }
+.artefact-carte { display: flex; flex-direction: column; border: 1px solid var(--faint); border-radius: 20px; overflow: hidden; background: var(--surface); transition: border-color 0.3s, transform 0.4s var(--ease, ease); }
+.artefact-carte:hover { border-color: rgba(216,162,76,0.5); transform: translateY(-4px); }
+.artefact-carte__img { aspect-ratio: 4 / 5; overflow: hidden; background: #0c1128; }
+.artefact-carte__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease, ease); }
+.artefact-carte:hover .artefact-carte__img img { transform: scale(1.04); }
+.artefact-carte__corps { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.4rem 1.5rem 1.6rem; }
+.artefact-carte__titre { font-family: 'EB Garamond', serif; font-size: 1.6rem; color: var(--cream); line-height: 1.15; }
+.artefact-carte__sous { font-family: 'EB Garamond', serif; font-style: italic; color: #C9CBD8; font-size: 1.02rem; }
+.artefact-carte__statut { margin-top: 0.5rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+
+.artefact { padding-top: 140px; }
+.artefact__grille { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+.artefact__principale { background: #0c1128; border: 1px solid var(--faint); border-radius: 14px; padding: clamp(0.8rem, 2vw, 1.4rem); }
+.artefact__principale img { width: 100%; max-height: 78vh; object-fit: contain; display: block; margin: 0 auto; }
+.artefact__vignettes { display: flex; gap: 0.6rem; margin-top: 0.8rem; flex-wrap: wrap; }
+.artefact__vignette { width: 68px; height: 68px; padding: 0; border: 1px solid var(--faint); border-radius: 10px; overflow: hidden; cursor: pointer; background: none; opacity: 0.6; transition: opacity 0.25s, border-color 0.25s; }
+.artefact__vignette img { width: 100%; height: 100%; object-fit: cover; }
+.artefact__vignette:hover, .artefact__vignette[aria-current="true"] { opacity: 1; border-color: var(--gold); }
+.artefact__infos { position: sticky; top: 110px; }
+.artefact__infos h1 { margin-top: 0.8rem; font-size: clamp(2rem, 4vw, 3rem); }
+.artefact__specs { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0.3rem 2rem; margin-top: 1.6rem; }
+.artefact__specs dt { font-family: 'Jost', sans-serif; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.artefact__specs dd { color: var(--cream); }
+.artefact__statuts { display: grid; gap: 1.2rem; margin-top: 2rem; padding: 1.4rem 0; border-top: 1px solid var(--faint); border-bottom: 1px solid var(--faint); }
+.artefact__statut p { margin-top: 0.35rem; color: #C9CBD8; }
+.artefact__statut b { font-family: 'EB Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--gold); }
+.artefact__tirages { list-style: none; margin-top: 0.5rem; }
+.artefact__tirages li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0; }
+.artefact__tirages small { display: block; color: var(--muted); font-size: 0.8rem; }
+.artefact__tirages b { font-size: 1.3rem; }
+.artefact__action { margin-top: 1.8rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+@media (max-width: 860px) { .artefact__grille { grid-template-columns: 1fr; } .artefact__infos { position: static; } .artefact { padding-top: 110px; } }
+
+/* Encart « L'artefact né de ce chemin » dans une fiche du Codex */
+.fiche-artefact { display: grid; grid-template-columns: 120px 1fr; gap: 1.3rem; align-items: center; margin-top: 3rem; padding: 1.2rem; border: 1px solid rgba(216,162,76,0.35); border-radius: 18px; background: linear-gradient(135deg, rgba(216,162,76,0.08), transparent 60%); transition: border-color 0.3s; }
+.fiche-artefact:hover { border-color: var(--gold); }
+.fiche-artefact img { width: 120px; height: 150px; object-fit: cover; border-radius: 10px; }
+.fiche-artefact b { display: block; font-family: 'EB Garamond', serif; font-weight: 400; font-size: 1.45rem; color: var(--cream); margin-top: 0.3rem; }
+.fiche-artefact span.fiche-artefact__sous { display: block; color: #C9CBD8; font-style: italic; font-family: 'EB Garamond', serif; margin-top: 0.2rem; }
+.fiche-artefact .cta { margin-top: 0.8rem; font-size: 0.7rem; }

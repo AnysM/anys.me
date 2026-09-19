@@ -200,7 +200,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
         <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
-        <a class="cta" href="https://enoqii.art" target="_blank" rel="noopener">Voir les œuvres <span class="line"></span></a>
+        <a class="cta" href="/artefacts">Voir les artefacts <span class="line"></span></a>
       </div>
       <div class="gallery" style="margin-top:2rem;">
         {[acc.art1_image, acc.art2_image, acc.art3_image, acc.art4_image].filter(Boolean).map((src) => <img class="slot-img" src={src} alt="Œuvre d'Indigo Enoqii" loading="lazy" />)}

@@ -183,4 +183,26 @@ const codex = defineCollection({
   }),
 });
 
-export const collections = { agenda, offres, pages, codex };
+// Artefacts : les œuvres nées d'un passage (événement, réalisation, rencontre),
+// reliées aux fiches du Codex. L'original peut ne pas être à vendre ; les tirages oui.
+const artefacts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/artefacts' }),
+  schema: z.object({
+    titre: z.string(),
+    sous_titre: z.preprocess(videVersUndefined, z.string().optional()),
+    images: z.array(z.string()).default([]),
+    naissance: z.preprocess(videVersUndefined, z.string().optional()),
+    annee: z.preprocess(videVersUndefined, z.coerce.string().optional()),
+    technique: z.preprocess(videVersUndefined, z.string().optional()),
+    dimensions: z.preprocess(videVersUndefined, z.string().optional()),
+    codex: refs.default([]),
+    original: z.enum(['non-disponible', 'disponible', 'acquis']).default('non-disponible'),
+    original_prix: z.preprocess(videVersUndefined, z.string().optional()),
+    tirages_statut: z.enum(['aucun', 'bientot', 'disponible']).default('aucun'),
+    tirages: z.array(z.object({ format: z.string(), prix: z.string(), detail: z.string().optional() })).optional(),
+    ordre: z.number().default(0),
+    publie: z.boolean().default(true),
+  }),
+});
+
+export const collections = { agenda, offres, pages, codex, artefacts };

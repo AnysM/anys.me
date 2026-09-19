@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import Lettre from '../../components/Lettre.astro';
+import { getCollection } from 'astro:content';
+const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
+const statut = (d) => d.original === 'disponible' ? `Original disponible${d.original_prix ? ` · ${d.original_prix}` : ''}` : d.tirages_statut === 'disponible' ? 'Reproductions disponibles' : d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'acquis' ? 'Acquis' : 'Collection personnelle';
+---
+<Base title="Artefacts — les œuvres nées du chemin | Indigo Enoqii · Anys Mechkar" description="Chaque œuvre d'Indigo Enoqii est née d'un passage : une cérémonie, une initiation, une rencontre. Des artefacts à accueillir chez soi, originaux et reproductions.">
+  <section class="page-hero fiche-hero">
+    <img src="/img/tex-cosmic.jpg" alt="" />
+    <div class="wrap">
+      <p class="eyebrow">Indigo Enoqii</p>
+      <h1>Les artefacts</h1>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="codex-intro">Chaque œuvre est née d'un passage : une cérémonie, une initiation, une rencontre. Elle en garde la marque, et celui qui l'accueille chez lui emporte une trace du chemin.</p>
+      <div class="artefacts">
+        {artefacts.map((a) => (
+          <a class="artefact-carte" href={`/artefacts/${a.id}`}>
+            <span class="artefact-carte__img">{a.data.images[0] && <img src={a.data.images[0]} alt={a.data.titre} loading="lazy" />}</span>
+            <span class="artefact-carte__corps">
+              {a.data.naissance && <span class="rune">Né de · {a.data.naissance}</span>}
+              <span class="artefact-carte__titre">{a.data.titre}</span>
+              {a.data.sous_titre && <span class="artefact-carte__sous">{a.data.sous_titre}</span>}
+              <span class="artefact-carte__statut">{statut(a.data)}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Lettre eyebrow="Les prochains artefacts" titre="Être *prévenu*" texte="Les nouvelles œuvres et les reproductions arrivent d'abord dans la lettre." bouton="Préviens-moi" source="artefacts" />
+</Base>

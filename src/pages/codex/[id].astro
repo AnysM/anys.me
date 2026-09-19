@@ -5,7 +5,7 @@ import Quete from '../../components/Quete.astro';
 import Icone from '../../components/Icone.astro';
 import Lettre from '../../components/Lettre.astro';
 import BarreAction from '../../components/BarreAction.astro';
-import { render } from 'astro:content';
+import { render, getCollection } from 'astro:content';
 import { MINIMUM_SEO } from '../../lib/lore.mjs';
 import { codex, propositionsDe, chapitresDe } from '../../lib/monde';
 import { typeLabel, SEUIL_IDS, univers } from '../../lib/univers.mjs';
@@ -26,6 +26,8 @@ const d = f.data;
 const { Content } = await render(f);
 const aGouter = (await propositionsDe(f)).sort((a, b) => SEUIL_IDS.indexOf(a.seuil) - SEUIL_IDS.indexOf(b.seuil) || a.ordre - b.ordre);
 const chapitres = await chapitresDe(f.id);
+// Les artefacts (œuvres) nés de ce chemin
+const artefacts = (await getCollection('artefacts')).filter((x) => x.data.publie && x.data.codex.includes(f.id));
 const url = abs(`/codex/${f.id}`);
 const titreSeo = d.seo_titre ?? (d.question ? `${d.question} · ${d.question.length > 44 ? 'Anys Mechkar' : 'Codex d’Anys Mechkar'}` : `${d.titre} · Codex d'Anys Mechkar`);
 // « Où vivre la danse Butô ? » : la partie pratique formulée comme une recherche
@@ -99,6 +101,17 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
           </div>
         </div>
       )}
+      {artefacts.map((x) => (
+        <a class="fiche-artefact" href={`/artefacts/${x.id}`}>
+          {x.data.images[0] && <img src={x.data.images[0]} alt={x.data.titre} loading="lazy" />}
+          <span>
+            <span class="rune">L'artefact né de ce chemin</span>
+            <b>{x.data.titre}</b>
+            {x.data.sous_titre && <span class="fiche-artefact__sous">{x.data.sous_titre}</span>}
+            <span class="cta">Voir l'œuvre <span class="line"></span></span>
+          </span>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -131,6 +144,11 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
       <a class="cta" href="/contact">Une question ? Écris-moi <span class="line"></span></a>
     </div>
   </section>
+  {aGouter.length === 0 && artefacts.length > 0 && (
+    <BarreAction titre="L'artefact né de ce chemin" sous={artefacts[0].data.titre}>
+      <a class="btn btn--solid" href={`/artefacts/${artefacts[0].id}`} data-evt="Codex vers artefact">Voir l'œuvre</a>
+    </BarreAction>
+  )}
   {aGouter.length > 0 && (
     <BarreAction titre="Pour y goûter" sous={aGouter[0].titre}>
       <a class="btn btn--solid" href={aGouter[0].href} target={aGouter[0].externe ? '_blank' : undefined} rel={aGouter[0].externe ? 'noopener' : undefined} data-evt="Codex vers proposition">Découvrir</a>
