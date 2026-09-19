@@ -29,11 +29,11 @@ const carrousel = temoignages.length > 3;
         </div>
         {carrousel && (
           <div class="carrousel__nav">
-            <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Témoignage précédent">←</button>
+            <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Témoignage précédent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
             <div class="carrousel__puces" role="tablist" aria-label="Témoignages">
               {temoignages.map((x, i) => <button type="button" class="carrousel__puce" data-i={i} aria-label={`Témoignage ${i + 1} sur ${temoignages.length}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
             </div>
-            <button type="button" class="carrousel__btn" data-sens="1" aria-label="Témoignage suivant">→</button>
+            <button type="button" class="carrousel__btn" data-sens="1" aria-label="Témoignage suivant"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
           </div>
         )}
       </div>

@@ -432,3 +432,21 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .carrousel__puce { width: 8px; height: 8px; padding: 0; border-radius: 50%; border: 0; background: rgba(236,231,222,0.3); cursor: pointer; transition: background 0.3s, width 0.3s; }
 .carrousel__puce[aria-current="true"] { width: 26px; border-radius: 999px; background: var(--gold); }
 .carrousel__btn { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background: rgba(10,15,32,0.35); }
+
+/* Flèches du carrousel : de simples chevrons, de la famille des puces */
+.carrousel__btn { width: auto; height: auto; padding: 6px; border: 0; border-radius: 0; background: none !important; backdrop-filter: none; -webkit-backdrop-filter: none; color: rgba(236,231,222,0.55); display: grid; place-items: center; }
+.carrousel__btn:hover { color: var(--gold); background: none; }
+.carrousel__nav { gap: 1rem; }
+
+/* La lettre ressort : un bandeau indigo */
+.lettre { background: #2B3088; position: relative; }
+.lettre .eyebrow { color: var(--gold); }
+.lettre .tete h2 { color: #fff; }
+.lettre .tete p.muted { color: rgba(236,231,222,0.85); }
+.lettre__form input { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.28); color: #fff; }
+.lettre__form input::placeholder { color: rgba(236,231,222,0.7); }
+.lettre__form input:focus { border-color: var(--gold); background: rgba(255,255,255,0.14); }
+.lettre__note { color: rgba(236,231,222,0.7); }
+.temoins-offre--photo::before { background: linear-gradient(180deg, rgba(10,15,32,0.78) 0%, rgba(10,15,32,0.3) 38%, rgba(10,15,32,0.3) 70%, rgba(10,15,32,0.8) 100%); }
+.temoins-offre__fond { object-position: center 62%; }
+.temoins-offre--photo .temoin-carte { background: rgba(12,18,44,0.58); }
