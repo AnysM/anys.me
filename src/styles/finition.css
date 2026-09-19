@@ -119,3 +119,6 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 /* Texte des boutons plus lisible */
 .btn, .ecard__btn, .cta, .site-nav__links a { font-weight: 400; }
 .btn, .ecard__btn { font-weight: 500; }
+
+/* Le nom dans le pied de page reprend la typographie du menu */
+.foot__name { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.3em; font-size: 14px; color: var(--cream); }
