@@ -31,3 +31,7 @@ Ni un maître ni un éveillé : un homme qui a trouvé son chemin, qui a besoin 
 Idée : une boutique pour vendre mes œuvres, mais pas un site à côté. Les entrées du Codex peuvent donner sur un **artefact** : une œuvre née en corrélation avec un événement, une réalisation. Les gens peuvent voir l'œuvre et l'acheter.
 
 Ce n'est pas un truc en plus, c'est une extension : la matérialisation du chemin spirituel. Comme une marque de l'initiation, de ce qui s'est imprimé, et les gens peuvent récupérer la marque pour chez eux.
+
+## 2026-09-19 — L'ombre
+
+Plus que la danse Butô, c'est l'accueil du sombre, de l'invisible. Il y a aussi la psychologie jungienne qui aide à ça. Et ça permet de sortir du new age qui enferme dans la lumière, ou du coaching qui enferme dans la performance : on apprend à s'aimer avec son ombre et à marcher avec.
