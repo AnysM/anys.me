@@ -86,7 +86,7 @@ venir_items:
   - "Être entendu, sans schéma plaqué sur toi."
   - "Repartir de ton essence, pour avancer avec fluidité."
 posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
-temoins_image: /img/traversees-dune.jpg
+temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"

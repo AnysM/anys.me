@@ -450,3 +450,4 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .temoins-offre--photo::before { background: linear-gradient(180deg, rgba(10,15,32,0.78) 0%, rgba(10,15,32,0.3) 38%, rgba(10,15,32,0.3) 70%, rgba(10,15,32,0.8) 100%); }
 .temoins-offre__fond { object-position: center 62%; }
 .temoins-offre--photo .temoin-carte { background: rgba(12,18,44,0.58); }
+.temoins-offre__fond { object-position: center 45%; }
