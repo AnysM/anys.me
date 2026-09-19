@@ -316,7 +316,7 @@ const links = [
         var a = e.target.closest && e.target.closest('a[href*="calendly.com/"]');
         if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
         e.preventDefault();
-        var url = a.href + (a.href.indexOf('?') < 0 ? '?' : '&') + 'hide_gdpr_banner=1&background_color=0e1530&text_color=ece7de&primary_color=d8a24c';
+        var url = a.href + (a.href.indexOf('?') < 0 ? '?' : '&') + 'hide_gdpr_banner=1&background_color=ffffff&text_color=0a0f20&primary_color=2b3088';
         charger().then(function () { window.Calendly.initPopupWidget({ url: url }); })
           .catch(function () { window.open(a.href, '_blank', 'noopener'); });
       });
