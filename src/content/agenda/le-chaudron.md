@@ -4,6 +4,7 @@ categorie: cercle
 lieu: "En ligne"
 prix: "Gratuit"
 rythme: "Le dernier dimanche du mois, 20h"
+image: /img/le-chaudron-braises.webp
 resume: "Cercle de parole entre hommes. Se soutenir, libérer la parole, apprendre à être vulnérable."
 lien: "https://chat.whatsapp.com/DGdAPAUZMAOBBNSf0pnqz7?mode=gi_t"
 reservable: false
