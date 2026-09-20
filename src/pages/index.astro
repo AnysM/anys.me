@@ -72,36 +72,57 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 2. CE QUI REVIENT SOUVENT : ce que beaucoup traversent -->
-  {acc.reconnaitre_items?.length > 0 && (
-    <section class="bloc reconnaitre">
-      <div class="wrap">
+  <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
+  {acc.coeur && (
+    <section class="bloc coeur-mot">
+      <div class="narrow">
         <div class="tete">
-          <p class="eyebrow">{acc.reconnaitre_eyebrow}</p>
-          <h2 set:html={fmt(acc.reconnaitre_titre)}></h2>
+          <p class="eyebrow">{acc.coeur_eyebrow}</p>
+          <h2 set:html={fmt(acc.coeur_titre)}></h2>
         </div>
-        <ul class="reconnaitre__liste">
-          {acc.reconnaitre_items.map((x) => <li set:html={tisser(x, ctx)}></li>)}
-        </ul>
-        {acc.reconnaitre_passage && <p class="reconnaitre__passage" set:html={tisser(acc.reconnaitre_passage, ctx)}></p>}
+        <div class="coeur-mot__texte">
+          {acc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(tisser(par, ctx))}></p>)}
+        </div>
       </div>
     </section>
   )}
 
-  <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher, ma posture -->
-  {acc.venir_items?.length > 0 && (
-    <section class="venir">
+  <!-- 3. PROCHAINES DATES : ça a lieu, bientôt -->
+  {dates.length > 0 && (
+    <section class="bloc">
       <div class="wrap">
-        <div class="tete">
-          <p class="eyebrow">{acc.venir_eyebrow}</p>
-          <h2 set:html={fmt(acc.venir_titre)}></h2>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+          <p class="eyebrow">{acc.agenda_eyebrow}</p>
+          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
         </div>
-        <ul class="venir__liste">{acc.venir_items.map((x) => <li><Icone nom="etoile" taille={16} /><span set:html={tisser(x, ctx)}></span></li>)}</ul>
+        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
       </div>
     </section>
   )}
 
-  <!-- 4. L'APPROCHE : ce qui nourrit le chemin (les offres en découlent) -->
+  <!-- 4. LES SEUILS : par où entrer -->
+  <section id="seuils">
+    <div class="wrap">
+      <div class="tete">
+        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
+        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
+      </div>
+      <div class="seuils">
+        {seuils.map((s) => (
+          <div class="seuil">
+            <span class="seuil__num">{s.num}</span>
+            <h3 class="seuil__nom">{s.nom}</h3>
+            <p class="seuil__format">{s.format}</p>
+            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
+            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
+            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
     <div class="wrap">
       <div class="tete">
@@ -117,7 +138,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 4 bis. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
     <section class="difference">
       <div class="wrap">
@@ -140,41 +161,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- RESPIRATION -->
   <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
-
-  <!-- 5. LES SEUILS : les propositions, en conséquence -->
-  <section id="seuils">
-    <div class="wrap">
-      <div class="tete">
-        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
-        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
-      </div>
-      <div class="seuils">
-        {seuils.map((s) => (
-          <div class="seuil">
-            <span class="seuil__num">{s.num}</span>
-            <h3 class="seuil__nom">{s.nom}</h3>
-            <p class="seuil__format">{s.format}</p>
-            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
-            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
-            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. PROCHAINES DATES -->
-  {dates.length > 0 && (
-    <section class="bloc">
-      <div class="wrap">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-          <p class="eyebrow">{acc.agenda_eyebrow}</p>
-          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
-        </div>
-        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
-      </div>
-    </section>
-  )}
 
   <!-- 7. TRAVERSÉES -->
   <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />

@@ -41,7 +41,7 @@ temoins:
     'n': "Camille"
     c: "Lecture Human Design"
 form_eyebrow: Contact
-piliers_titre: Ce qui nourrit *le chemin*
+piliers_titre: Là où je *puise*
 piliers:
   - nom: La présence
     note: 'Méditation, souffle, immobilité'
@@ -70,21 +70,14 @@ citation2: '*Un langage magique,*<br> indéchiffrable par la raison.'
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
-reconnaitre_eyebrow: Ce qui revient souvent
-reconnaitre_titre: "Choisir son chemin, *vraiment*"
-reconnaitre_items:
-  - "Sentir que ce n'est pas aligné, sans savoir par où commencer."
-  - "Voir ses limites, sans savoir comment les dépasser."
-  - "Avoir tout travaillé, et voir que la vie ne change pas."
-  - "Tout porter par la tête, quand il faudrait se laisser porter."
-reconnaitre_passage: "Le mental seul ne suffit pas. Il faut redescendre dans le corps, écouter le cœur, et oser incarner ce qui naît."
-venir_eyebrow: Pourquoi on vient me voir
-venir_titre: "Oser un nouveau *chemin*"
-venir_items:
-  - "Laisser mourir ce qui n'est plus aligné."
-  - "Faire naître ce qui est à l'étroit en toi."
-  - "Être entendu, sans schéma plaqué sur toi."
-  - "Repartir de ton essence, pour avancer avec fluidité."
+coeur_eyebrow: Ce qui revient souvent
+coeur_titre: "Quand la tête ne suffit *plus*"
+coeur: |
+  Souvent, on m'écrit au moment où quelque chose ne tient plus. On a compris, analysé, travaillé, et pourtant la vie ne bouge pas.
+
+  Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de redescendre dans le corps, de laisser mourir ce qui n'est plus aligné, et d'oser faire naître ce qui est à l'étroit.
+
+  C'est là que je marche *à côté de toi*.
 posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
 temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
