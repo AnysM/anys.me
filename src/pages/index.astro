@@ -122,7 +122,20 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
+  <!-- 5. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
+  {acc.venir_items?.length > 0 && (
+    <section class="venir">
+      <div class="wrap">
+        <div class="tete">
+          <p class="eyebrow">{acc.venir_eyebrow}</p>
+          <h2 set:html={fmt(acc.venir_titre)}></h2>
+        </div>
+        <ul class="venir__liste">{acc.venir_items.map((x) => <li><Icone nom="etoile" taille={16} /><span set:html={tisser(x, ctx)}></span></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  <!-- 6. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
     <div class="wrap">
       <div class="tete">
@@ -138,7 +151,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
     <section class="difference">
       <div class="wrap">

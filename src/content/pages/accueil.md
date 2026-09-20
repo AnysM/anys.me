@@ -78,6 +78,13 @@ coeur: |
   Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de redescendre dans le corps, de laisser mourir ce qui n'est plus aligné, et d'oser faire naître ce qui est à l'étroit.
 
   C'est là que je marche *à côté de toi*.
+venir_eyebrow: Pourquoi on vient me voir
+venir_titre: "Oser un nouveau *chemin*"
+venir_items:
+  - "Laisser mourir ce qui n'est plus aligné."
+  - "Faire naître ce qui est à l'étroit en toi."
+  - "Être entendu, sans schéma plaqué sur toi."
+  - "Repartir de ton essence, pour avancer avec fluidité."
 posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
 temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
