@@ -436,7 +436,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .pilier__desc { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; line-height: 1.6; }
 
 .script { font-family: 'Biloxi Script', 'EB Garamond', cursive; font-style: normal; text-transform: none; letter-spacing: 0.01em; }
-.breath .phrase .script { font-size: 1.6em; }
+.breath .phrase .script { font-size: 2em; line-height: 0.72; }
 h1 .script, h2 .script { font-size: 2em; line-height: 0.9; }
 
 /* Placeholder photo neutre (à remplacer par de vraies photos) */
