@@ -7,7 +7,6 @@ lieu: "Sahara marocain, départ de Marrakech"
 prix: "dès 1 350 €"
 earlybird: "10 octobre"
 cta: "Demander une place"
-site: "https://desertmiragejourney.com/index-fr.html"
 lien: "https://desertmiragejourney.com/index-fr.html#register"
 image: /img/desert-mirage-danse.webp
 resume: "Douze jours de résidence artistique dans le Sahara marocain, autour du 間 Ma, l'espace entre les choses. Marche nomade, bivouac, création."
