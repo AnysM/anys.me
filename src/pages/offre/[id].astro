@@ -68,11 +68,6 @@ const jsonld = [
   <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
-      {!enPreparation && (
-        <div class="offre-action">
-          {soin ? <a class="cta" href={contact} data-evt="Contact">Prendre rendez-vous <span class="line"></span></a> : <Appel pour={d.titre} discret />}
-        </div>
-      )}
     </div>
   </section>
 
