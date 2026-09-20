@@ -60,7 +60,8 @@ section { padding: var(--section) 0; }
 .ecard__tag { background: rgba(107,107,255,0.22); border: 1px solid rgba(163,168,255,0.28); color: var(--cream); letter-spacing: 0.16em; padding: 6px 12px; }
 .ecard { background: linear-gradient(180deg, rgba(255,255,255,0.025), transparent 40%), var(--surface); transition: border-color 0.4s, transform 0.5s var(--ease); }
 .ecard:hover { transform: translateY(-4px); border-color: rgba(163,168,255,0.35); }
-.ecard__body { padding: 1.5rem 1.6rem 1.7rem; }
+/* L'air se prend au-dessus du titre, pas entre le texte et le bouton. */
+.ecard__body { padding: clamp(2.4rem, 3.6vw, 3.4rem) clamp(1.8rem, 3vw, 3rem) clamp(1.7rem, 2.2vw, 2.2rem); }
 .evt:hover { border-color: rgba(163,168,255,0.35); }
 .form input, .form select, .form textarea { border-radius: var(--r-md); padding: 1em 1.15em; background: rgba(255,255,255,0.03); transition: border-color 0.3s, background 0.3s; }
 .form input:focus, .form select:focus, .form textarea:focus { background: rgba(255,255,255,0.05); }

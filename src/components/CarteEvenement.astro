@@ -4,13 +4,15 @@ import { hrefAgenda, estExterne, ligneDate } from '../lib/monde';
 const { e } = Astro.props;
 const d = e.data;
 const href = hrefAgenda(e);
+// La date : pas d'icône, et ce qui suit le point médian (l'heure, le nombre de jours) en plus léger.
+const [quand, ...suite] = ligneDate(d).split(' · ');
 const categories = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 ---
 <a class="ecard" href={href} target={estExterne(href) ? '_blank' : undefined} rel={estExterne(href) ? 'noopener' : undefined}>
   <div class="ecard__img">{d.image ? <img src={d.image} alt="" loading="lazy" /> : <div class="imgph"></div>}<span class="ecard__tag">{categories[d.categorie] ?? d.categorie}</span></div>
   <div class="ecard__body">
     <div class="ecard__title">{d.titre}</div>
-    <div class="ecard__when"><Icone nom={d.date ? 'date' : 'duree'} />{ligneDate(d)}</div>
+    <div class="ecard__when">{quand}{suite.length > 0 && <span class="ecard__when-sub"> · {suite.join(' · ')}</span>}</div>
     {d.resume && <div class="ecard__desc">{d.resume}</div>}
     {d.lieu && <div class="ecard__meta"><Icone nom="lieu" />{d.lieu}</div>}
     <div class="ecard__foot">
