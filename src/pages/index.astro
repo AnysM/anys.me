@@ -103,6 +103,9 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
           <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
         </div>
         <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
+        <div style="display:flex; justify-content:center; margin-top:clamp(2.4rem, 5vw, 3.6rem);">
+          <a class="btn btn--bleu" href="/agenda">Voir tous les événements</a>
+        </div>
       </div>
     </section>
   )}
