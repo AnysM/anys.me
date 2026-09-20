@@ -178,7 +178,7 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 
 /* ── Rosace : un cercle au centre, cinq tuiles autour ── */
-.rosace { position: relative; width: min(100%, 900px); margin: 0 auto; aspect-ratio: 100 / 88; }
+.rosace { position: relative; width: min(100%, 760px, 68vh); margin: 0 auto; aspect-ratio: 100 / 88; }
 .rosace__fils { position: absolute; inset: 0; width: 100%; height: 100%; }
 .rosace__fils line { stroke: rgba(236,231,222,0.28); stroke-width: 1.4; stroke-dasharray: 0.1 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .rosace__anneau { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 44%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(236,231,222,0.08); }
@@ -195,7 +195,7 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .rosace__picto { background: var(--fond-symbole); color: var(--u-trait); border: 1px solid rgba(236,231,222,0.14); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
 .rosace__centre { background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.25); box-shadow: 0 0 0 10px var(--surface); }
 .rosace__nom { margin-top: 0.8rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: clamp(0.62rem, 1vw, 0.78rem); color: var(--cream); line-height: 1.35; }
-.rosace__desc { margin-top: 0.3rem; font-size: 0.8rem; line-height: 1.45; color: var(--muted); max-width: 18ch; }
+.rosace__desc { margin-top: 0.3rem; font-size: 0.74rem; line-height: 1.45; color: var(--muted); max-width: 18ch; }
 .rosace__tuile:hover .rosace__picto { transform: translateY(-4px); border-color: var(--u-trait); }
 /* Libellés sous les tuiles du bas et sur les côtés : on les garde courts */
 @media (max-width: 1000px) { .rosace__desc { display: none; } }
@@ -332,7 +332,7 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 /* Centre du schéma en sans serif, lisible ; libellés des univers plus grands */
 .rosace__mot { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.22em; font-size: clamp(0.85rem, 1.6vw, 1.15rem); color: var(--cream); padding-left: 0.22em; }
-.rosace__nom { font-size: clamp(0.78rem, 1.15vw, 0.92rem); letter-spacing: 0.08em; }
+.rosace__nom { font-size: clamp(0.7rem, 1vw, 0.82rem); letter-spacing: 0.08em; }
 
 /* Invitation au Codex sous le schéma : on explique avant de proposer */
 .codex-invite { max-width: 46ch; margin: clamp(4rem, 9vw, 6.5rem) auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
