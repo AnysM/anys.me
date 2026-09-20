@@ -4,6 +4,7 @@ categorie: atelier
 lieu: "Chanka Studio, 51 quai Saint-Vincent, Lyon"
 prix: "15€"
 rythme: "Tous les dimanches, 19h - 20h30"
+image: /img/infloressence-danse.webp
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
 lien: "https://chanka-studio-lyon.fr"
 reservable: false

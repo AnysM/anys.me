@@ -7,7 +7,8 @@ heure: "20h"
 cta: "Réserver"
 prix: "15€"
 resume: "Une expérience sonore et corporelle immersive, un soir de pleine lune. Une traversée que l'on vit ensemble, à la première personne."
-lien: "https://shotgun.live/events/dans-le-triangle-2"
+image: /img/dans-le-triangle.webp
+lien: "https://shotgun.live/fr/events/dans-le-triangle-2"
 reservable: true
 ordre: 2
 publie: true
