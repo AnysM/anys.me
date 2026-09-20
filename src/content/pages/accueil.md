@@ -17,7 +17,7 @@ parcours_titre: '*Qui* suis-je ?'
 parcours_texte: 'Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que *je n''avais jamais vraiment choisi ma vie*. Ça a été le début d''une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd''hui, j''accompagne celles et ceux qui sentent le même appel.'
 parcours_cta: Lire mon histoire
 piliers_eyebrow: Les univers
-agenda_eyebrow: Prochaines dates
+agenda_eyebrow: Prochains rendez-vous
 art_eyebrow: Indigo Enoqii
 art_titre: '*Mon univers* artistique'
 temoins_eyebrow: Traversées

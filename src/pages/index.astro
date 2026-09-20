@@ -37,10 +37,17 @@ const seuils = SEUILS.map((s, i) => ({
 }));
 
 const aujourdhui = new Date(new Date().toDateString());
-const dates = (await getCollection('agenda'))
-  .filter((e) => e.data.publie && e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
+const agendaPublie = (await getCollection('agenda')).filter((e) => e.data.publie);
+// Les rendez-vous réguliers d'abord (on peut venir dès cette semaine), puis les prochaines dates.
+const reguliers = agendaPublie
+  .filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie))
+  .sort((a, b) => a.data.ordre - b.data.ordre)
+  .slice(0, 2);
+const prochaines = agendaPublie
+  .filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
   .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
-  .slice(0, 3);
+  .slice(0, 2);
+const dates = [...reguliers, ...prochaines];
 
 const temoins = acc.temoins ?? [];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
