@@ -74,7 +74,9 @@ section { padding: var(--section) 0; }
 .ecard__meta .ico { color: var(--muted); }
 .infos .k { display: flex; align-items: center; gap: 7px; }
 .infos .k .ico { color: var(--gold); }
-.infos > div { padding: 1rem 1.1rem; border-radius: var(--r-md); background: rgba(255,255,255,0.03); border: 1px solid var(--faint); }
+/* Pas des cartes : trois informations posées côte à côte, séparées par un filet. La valeur domine, l'étiquette accompagne. */
+.infos > div { padding: 0.2rem 0 0.2rem 1.6rem; border-left: 1px solid var(--faint); }
+.infos > div:first-child { padding-left: 0; border-left: 0; }
 .quete__quand { display: flex; align-items: center; gap: 7px; }
 .filtre small { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
 .filtre[aria-pressed="true"] small { color: var(--indigo-soft); }

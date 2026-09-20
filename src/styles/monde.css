@@ -579,3 +579,26 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .coeur-mot__texte p + p { margin-top: 1.4rem; }
 .coeur-mot__texte strong { color: var(--gold); font-weight: 400; }
 .coeur-mot__texte .script { font-size: 1.15em; }
+.billet__ics { font-size: 0.85rem; }
+
+/* ── Agenda : deux vues, les cartes ou la vue d'ensemble ── */
+.vues { display: inline-flex; border: 1px solid var(--line, rgba(236,231,222,0.14)); border-radius: 99px; padding: 3px; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.vues button { font: inherit; font-family: 'Jost', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); background: none; border: 0; border-radius: 99px; padding: 0.45rem 1.1rem; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.vues button[aria-pressed='true'] { background: var(--cream); color: var(--navy); }
+.apercu { display: block; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--faint); }
+.apercu__ligne { border-bottom: 1px solid var(--faint); }
+.apercu__ligne a { display: grid; grid-template-columns: 13rem 1fr 9rem 12rem 5rem; align-items: baseline; gap: 1.2rem; padding: 1.15rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
+.apercu__ligne a:hover { background: rgba(236,231,222,0.04); padding-left: 0.9rem; }
+.apercu__quand { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; font-weight: 500; }
+.apercu__heure { font-weight: 300; color: rgba(236,231,222,0.7); }
+.apercu__titre { font-family: 'EB Garamond', serif; font-size: 1.28rem; }
+.apercu__type { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--indigo-soft); }
+.apercu__lieu, .apercu__prix { font-size: 0.88rem; color: var(--muted); }
+.apercu__prix { text-align: right; font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--cream); }
+@media (max-width: 900px) {
+  .apercu__ligne a { grid-template-columns: 1fr auto; gap: 0.35rem 1rem; padding: 1.1rem 0.2rem; }
+  .apercu__quand { grid-column: 1; }
+  .apercu__prix { grid-column: 2; grid-row: 1; }
+  .apercu__titre { grid-column: 1 / -1; }
+  .apercu__type, .apercu__lieu { grid-column: auto; }
+}

@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Lettre from '../components/Lettre.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { hrefAgenda, estExterne, ligneDate } from '../lib/monde';
 const ag = (await getEntry('pages', 'agenda'))!.data;
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
@@ -16,6 +17,10 @@ const groupes = [
   { titre: 'À venir', items: aVenir },
   { titre: 'Retraites & immersions', items: retraites },
 ].filter((g) => g.items.length > 0);
+
+// Vue d'ensemble : tout sur une ligne, dans le même ordre que les groupes.
+const CATEGORIES = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
+const tout = groupes.flatMap((g) => g.items);
 ---
 <Base title="Agenda — ateliers, voyages sonores, retraites à Lyon | Anys Mechkar" description="Les prochaines dates d'Anys Mechkar : ateliers de méditation et de danse Butô, voyages sonores, cercles de parole et retraites, à Lyon et ailleurs.">
   <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
@@ -24,13 +29,55 @@ const groupes = [
 
   <section>
     <div class="wrap">
+      <div class="vues" role="group" aria-label="Affichage">
+        <button type="button" data-vue="cartes" aria-pressed="true">Cartes</button>
+        <button type="button" data-vue="liste" aria-pressed="false">Vue d'ensemble</button>
+      </div>
+
+      <div id="vue-liste" hidden>
+        <ul class="apercu">
+          {tout.map((e) => {
+            const href = hrefAgenda(e);
+            const externe = estExterne(href);
+            const [quand, ...suite] = (ligneDate(e.data).includes(' · ') ? ligneDate(e.data).split(' · ') : ligneDate(e.data).split(/,\s*(?=\d{1,2}\s*h)/));
+            return (
+              <li class="apercu__ligne">
+                <a href={href} target={externe ? '_blank' : undefined} rel={externe ? 'noopener' : undefined}>
+                  <span class="apercu__quand">{quand}{suite.length > 0 && <span class="apercu__heure">{ligneDate(e.data).includes(' · ') ? ' · ' : ', '}{suite.join(' · ')}</span>}</span>
+                  <span class="apercu__titre">{e.data.titre}</span>
+                  <span class="apercu__type">{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span>
+                  <span class="apercu__lieu">{e.data.lieu}</span>
+                  <span class="apercu__prix">{e.data.prix}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div id="vue-cartes">
       {groupes.map((g) => (
         <div class="group">
           <h2 class="group__title">{g.titre}</h2>
           <div class="egrid">{g.items.map((e) => <CarteEvenement e={e} />)}</div>
         </div>
       ))}
+      </div>
     </div>
   </section>
+  <script is:inline>
+    (function () {
+      var boutons = document.querySelectorAll('.vues button');
+      var vues = { cartes: document.getElementById('vue-cartes'), liste: document.getElementById('vue-liste') };
+      function montrer(nom) {
+        vues.cartes.hidden = nom !== 'cartes';
+        vues.liste.hidden = nom !== 'liste';
+        boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.vue === nom)); });
+        try { localStorage.setItem('vue-agenda', nom); } catch (e) {}
+      }
+      boutons.forEach(function (b) { b.addEventListener('click', function () { montrer(b.dataset.vue); }); });
+      try { var m = localStorage.getItem('vue-agenda'); if (m === 'liste') montrer('liste'); } catch (e) {}
+    })();
+  </script>
   <Lettre source="agenda" texte="Les nouvelles dates arrivent d'abord dans la lettre, avant d'être annoncées ailleurs. Une fois par mois, rien d'autre." />
 </Base>

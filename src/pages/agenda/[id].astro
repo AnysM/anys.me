@@ -131,6 +131,7 @@ const jsonld = [
           </div>
           {lienAction && <a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a>}
           {!lienAction && d.lien && <a class="cta" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">Plus d'infos <span class="line"></span></a>}
+          {d.date && <a class="cta billet__ics" href={`/agenda/${e.id}.ics`} download data-evt="Ajout agenda">Ajouter à mon agenda <span class="line"></span></a>}
         </div>
       </div>
     </div>

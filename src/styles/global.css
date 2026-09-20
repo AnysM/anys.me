@@ -257,9 +257,9 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 /* ── Encart ── */
 .encart { background: var(--surface); border: 1px solid var(--faint); border-left: 3px solid var(--gold); border-radius: 8px; padding: 1.4rem 1.6rem; margin: 1.8rem 0; }
 .encart__title { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.68rem; color: var(--gold); margin-bottom: 1rem; }
-.infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem 1.6rem; }
+.infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.6rem 2rem; }
 .infos .k { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.6rem; color: var(--muted); }
-.infos .v { color: var(--cream); font-size: 1rem; margin-top: 0.25rem; }
+.infos .v { color: var(--cream); font-family: 'EB Garamond', serif; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; margin-top: 0.5rem; }
 
 /* ── Cartes tarifs ── */
 .tarifs { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 1rem; margin: 1.8rem 0; }
