@@ -79,22 +79,22 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .cta:hover .line { width: 66px; }
 
 /* HERO cosmique — photo pleine largeur + voile */
-#hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
+#hero { position: relative; min-height: 92svh; display: flex; align-items: center; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-bg img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
 #hero::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(103deg, rgba(12,24,72,0.88) 0%, rgba(14,28,82,0.62) 44%, rgba(16,32,90,0.40) 100%); }
 #hero::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, transparent 0%, transparent 80%, var(--navy) 100%); }
-.hero-left { position: relative; z-index: 3; padding: 100px clamp(20px,5vw,48px) 76px; max-width: 740px; }
-.hero-name { font-weight: 300; line-height: 1.12; font-size: clamp(1.65rem, 3.1vw, 2.5rem); letter-spacing: 0.02em; font-family: 'Jost', sans-serif; text-transform: none; }
+.hero-left { position: relative; z-index: 3; padding: clamp(56px, 7vh, 92px) clamp(20px,5vw,48px); max-width: 740px; }
+.hero-name { font-weight: 300; line-height: 1.12; font-size: clamp(1.5rem, 2.6vw, 2.15rem); letter-spacing: 0.02em; font-family: 'Jost', sans-serif; text-transform: none; }
 .hero-name .top { text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
-.hero-name .serif-i { display: block; font-weight: 400; font-size: 2.2em; color: var(--cream); margin-top: 0.06em; line-height: 0.82; }
+.hero-name .serif-i { display: block; font-weight: 400; font-size: 2em; color: var(--cream); margin-top: 0.06em; line-height: 0.82; }
 #hero .lead { font-size: clamp(1rem, 1.6vw, 1.14rem); line-height: 1.7; max-width: 44ch; }
 .hero-scroll { position: absolute; bottom: 26px; left: clamp(20px,5vw,48px); display: flex; align-items: center; gap: 14px; font-family: 'Jost', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.62rem; color: var(--muted); z-index: 3; }
 .hero-scroll .l { width: 1px; height: 34px; background: linear-gradient(to bottom, var(--blue), transparent); }
 .dot { position: absolute; border-radius: 50%; z-index: 2; }
 @media (max-width: 860px) {
   #hero { min-height: 86vh; }
-  .hero-left { padding: 94px 22px 70px; }
+  .hero-left { padding: clamp(56px, 7vh, 88px) 22px; }
 }
 
 /* Sections numérotées */
@@ -383,7 +383,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 
   /* Hero d'accueil */
   #hero { min-height: 82vh; }
-  .hero-left { padding: 96px 22px 70px; }
+  .hero-left { padding: clamp(56px, 7vh, 90px) 22px; }
 
   /* Passages centrés et respirations : tailles adaptées */
   .passage p { font-size: clamp(1.25rem, 6vw, 1.7rem); max-width: 26ch; }
@@ -418,7 +418,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   .gallery { grid-template-columns: 1fr; }
   .striptease { grid-template-columns: 1fr; }
   .infos { grid-template-columns: 1fr; }
-  .hero-name { font-size: clamp(2rem, 9vw, 3rem); }
+  .hero-name { font-size: clamp(1.75rem, 8vw, 2.6rem); }
 }
 
 
