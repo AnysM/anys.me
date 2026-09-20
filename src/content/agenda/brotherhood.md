@@ -12,7 +12,7 @@ cta: ''
 site: ''
 lien: ''
 resume: Retraite d'hommes au Portugal, au printemps 2027. Dates à annoncer.
-image: /img/brotherhood-riviere.webp
+image: /img/brotherhood-cercle.webp
 reservable: false
 ordre: 4
 publie: true
