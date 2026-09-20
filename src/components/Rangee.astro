@@ -1,0 +1,19 @@
+---
+// Variante « en ligne » des cinq dimensions : plus facile à scanner que la rosace.
+// Même ordre de lecture que la rosace, du plus intérieur au plus incarné.
+const { univers = [], centre = 'Quintessence' } = Astro.props;
+const ORDRE = ['presence', 'connaissance', 'mouvement', 'vivant', 'art'];
+const rangs = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean);
+---
+<div class="rangee">
+  <p class="rangee__centre"><span>{centre}</span></p>
+  <div class="rangee__liste">
+    {rangs.map((u) => (
+      <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`}>
+        <span class="rangee__picto">{u.image ? <img src={u.image} alt="" /> : <Fragment set:html={u.icon} />}</span>
+        <span class="rangee__nom">{u.nom}</span>
+        {u.note && <span class="rangee__note">{u.note}</span>}
+      </a>
+    ))}
+  </div>
+</div>

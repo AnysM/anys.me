@@ -31,7 +31,7 @@ const tuiles = ranges.map((u, i) => {
   </svg>
 
   <div class="rosace__anneau" aria-hidden="true"></div>
-  <div class="rosace__centre"><span class="rosace__mot">{centre}</span></div>
+  <div class={`rosace__centre${centre ? '' : ' rosace__centre--vide'}`}>{centre && <span class="rosace__mot">{centre}</span>}</div>
 
   {tuiles.map((t) => (
     <a class={`rosace__tuile u-${t.id}`} href={`/codex#${t.id}`} style={`left:${t.x}%; top:${(t.y / 88) * 100}%`}>

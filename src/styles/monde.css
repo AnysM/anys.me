@@ -184,10 +184,11 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .rosace__anneau { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 44%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(236,231,222,0.08); }
 .rosace__anneau svg { width: 100%; height: 100%; display: block; }
 .rosace__anneau text { fill: rgba(236,231,222,0.4); font-family: 'Jost', sans-serif; font-size: 7.2px; letter-spacing: 0.2em; text-transform: uppercase; }
-.rosace__centre { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 29%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 35%, #2A3170, #1A2250 70%); box-shadow: 0 0 0 10px var(--surface), 0 0 60px rgba(107,107,255,0.18); }
+.rosace__centre { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 33%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 35%, #2A3170, #1A2250 70%); box-shadow: 0 0 0 10px var(--surface), 0 0 60px rgba(107,107,255,0.18); }
 .rosace__mot { font-size: clamp(1.7rem, 3.4vw, 2.7rem); line-height: 1; color: var(--cream); }
 .rosace__note { margin-top: 0.7rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(0.5rem, 0.9vw, 0.64rem); color: var(--gold); }
 
+.rosace__centre--vide { width: 22%; background: radial-gradient(circle at 50% 40%, rgba(107,107,255,0.16), transparent 70%); border-color: rgba(236,231,222,0.14); }
 .rosace__tuile { position: absolute; width: 15%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; }
 .rosace__picto { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: 50%; color: var(--cream); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
 .rosace__picto svg { width: 44%; height: 44%; }
@@ -331,7 +332,7 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .seuil__tout { margin-top: 1.4rem; font-size: 0.7rem; }
 
 /* Centre du schéma en sans serif, lisible ; libellés des univers plus grands */
-.rosace__mot { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.22em; font-size: clamp(0.85rem, 1.6vw, 1.15rem); color: var(--cream); padding-left: 0.22em; }
+.rosace__mot { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.72rem, 1.3vw, 1rem); color: var(--cream); padding-left: 0.22em; }
 .rosace__nom { font-size: clamp(0.7rem, 1vw, 0.82rem); letter-spacing: 0.08em; }
 
 /* Invitation au Codex sous le schéma : on explique avant de proposer */
@@ -590,3 +591,19 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 @media (min-width: 1100px) {
   .artefact__corps .artefact-details { align-items: flex-start; }
 }
+
+/* ── Les cinq dimensions en ligne (variante à comparer avec la rosace) ── */
+.rangee { width: min(100%, 1000px); margin: 0 auto; }
+.rangee__centre { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); display: flex; align-items: center; gap: 1rem; justify-content: center; }
+.rangee__centre::before, .rangee__centre::after { content: ''; height: 1px; flex: 1; max-width: 90px; background: linear-gradient(to right, transparent, rgba(236,231,222,0.3)); }
+.rangee__centre::after { background: linear-gradient(to left, transparent, rgba(236,231,222,0.3)); }
+.rangee__centre span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.82rem; color: var(--cream); }
+.rangee__liste { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2.4vw, 2rem); }
+.rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
+.rangee__picto { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.14); color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s; }
+.rangee__picto svg { width: 55%; height: 55%; filter: url(#encre); }
+.rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
+.rangee__item:hover .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); }
+.rangee__nom { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; line-height: 1.35; color: var(--cream); }
+.rangee__note { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 20ch; }
+@media (max-width: 860px) { .rangee__liste { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.2rem; } .rangee__item:last-child { grid-column: 1 / -1; } }
