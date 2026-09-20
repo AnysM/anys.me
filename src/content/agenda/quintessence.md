@@ -3,6 +3,7 @@ titre: "Quintessence"
 categorie: retraite
 lieu: "France"
 rythme: "À venir"
+image: /img/quintessence-oeuvre.webp
 resume: "3 jours de silence, 2 jours de créativité. Une plongée profonde en soi pour se reconnecter à son essence."
 lien: "/quintessence"
 site: "/quintessence"
