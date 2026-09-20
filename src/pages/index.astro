@@ -94,23 +94,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <!-- 3. PROCHAINES DATES : ça a lieu, bientôt -->
-  {dates.length > 0 && (
-    <section class="bloc">
-      <div class="wrap">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-          <p class="eyebrow">{acc.agenda_eyebrow}</p>
-          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
-        </div>
-        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
-        <div style="display:flex; justify-content:center; margin-top:clamp(2.4rem, 5vw, 3.6rem);">
-          <a class="btn btn--bleu" href="/agenda">Voir tous les événements</a>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- 4. LES SEUILS : par où entrer -->
+  <!-- 3. LES SEUILS : par où entrer -->
   <section id="seuils">
     <div class="wrap">
       <div class="tete">
@@ -132,7 +116,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 5. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
+  <!-- 4. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
     <section class="venir">
       <div class="wrap">
@@ -145,7 +129,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <!-- 6. L'APPROCHE : ce dans quoi je puise, et le Codex -->
+  <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
     <div class="wrap">
       <div class="tete">
@@ -161,7 +145,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
     <section class="difference">
       <div class="wrap">
@@ -185,10 +169,26 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- RESPIRATION -->
   <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
-  <!-- 7. TRAVERSÉES -->
+  <!-- 7. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
+  {dates.length > 0 && (
+    <section class="bloc">
+      <div class="wrap">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
+          <p class="eyebrow">{acc.agenda_eyebrow}</p>
+          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
+        </div>
+        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
+        <div style="display:flex; justify-content:center; margin-top:clamp(2.4rem, 5vw, 3.6rem);">
+          <a class="btn btn--bleu" href="/agenda">Voir tous les événements</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 8. TRAVERSÉES -->
   <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
 
-  <!-- 8. L'INVITATION : un premier pas -->
+  <!-- 9. L'INVITATION : un premier pas -->
   <section id="contact">
     <div class="narrow">
       <div class="tete">
@@ -204,7 +204,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- Pas encore prêt : la lettre -->
   <Lettre source="accueil" eyebrow="Pas encore prêt ?" />
 
-  <!-- 9. INDIGO ENOQII : l'art, en signature (deviendra les Artefacts) -->
+  <!-- 10. INDIGO ENOQII : l'art, en signature (deviendra les Artefacts) -->
   <section class="art-signature">
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
