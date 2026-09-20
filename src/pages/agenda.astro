@@ -12,8 +12,8 @@ const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'r
 const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
 const groupes = [
-  { titre: 'À venir', items: aVenir },
   { titre: 'Rendez-vous réguliers', items: reguliers },
+  { titre: 'À venir', items: aVenir },
   { titre: 'Retraites & immersions', items: retraites },
 ].filter((g) => g.items.length > 0);
 ---

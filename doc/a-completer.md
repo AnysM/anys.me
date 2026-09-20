@@ -44,7 +44,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 - [ ] Infloressence, « Avant de venir » : tenue, arriver à l'avance, matériel ?
 - [ ] **Quintessence** : lieu, dates, tarif de la prochaine édition.
 - [ ] **Brotherhood Circle** (Portugal, printemps 2027) : dates exactes, tarif, lieu précis.
-- [x] **Desert Mirage Journey** : tarifs et lien d'inscription repris du site (20/09).
+- [x] **Desert Mirage Journey** : photo, résumé et lien vers le site (20/09).
 - [ ] **Le Chaudron** : le lien WhatsApp est-il fait pour être public ?
 
 ## 4. Codex
