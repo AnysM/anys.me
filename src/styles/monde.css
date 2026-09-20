@@ -178,40 +178,14 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 
 /* ── Rosace : un cercle au centre, cinq tuiles autour ── */
-.rosace { position: relative; width: min(100%, 760px, 68vh); margin: 0 auto; aspect-ratio: 100 / 88; }
-.rosace__fils { position: absolute; inset: 0; width: 100%; height: 100%; }
-.rosace__fils line { stroke: rgba(236,231,222,0.28); stroke-width: 1.4; stroke-dasharray: 0.1 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.rosace__anneau { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 44%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(236,231,222,0.08); }
-.rosace__anneau svg { width: 100%; height: 100%; display: block; }
-.rosace__anneau text { fill: rgba(236,231,222,0.4); font-family: 'Jost', sans-serif; font-size: 7.2px; letter-spacing: 0.2em; text-transform: uppercase; }
-.rosace__centre { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 33%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 35%, #2A3170, #1A2250 70%); box-shadow: 0 0 0 10px var(--surface), 0 0 60px rgba(107,107,255,0.18); }
-.rosace__mot { font-size: clamp(1.7rem, 3.4vw, 2.7rem); line-height: 1; color: var(--cream); }
-.rosace__note { margin-top: 0.7rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(0.5rem, 0.9vw, 0.64rem); color: var(--gold); }
 
-.rosace__centre--vide { width: 22%; background: radial-gradient(circle at 50% 40%, rgba(107,107,255,0.16), transparent 70%); border-color: rgba(236,231,222,0.14); }
-.rosace__tuile { position: absolute; width: 15%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; }
-.rosace__picto { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: 50%; color: var(--cream); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
-.rosace__picto svg { width: 44%; height: 44%; }
-.rosace__picto img { width: 52%; height: 52%; object-fit: contain; }
-.rosace__picto { background: var(--fond-symbole); color: var(--u-trait); border: 1px solid rgba(236,231,222,0.14); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
-.rosace__centre { background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.25); box-shadow: 0 0 0 10px var(--surface); }
-.rosace__nom { margin-top: 0.8rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: clamp(0.62rem, 1vw, 0.78rem); color: var(--cream); line-height: 1.35; }
-.rosace__desc { margin-top: 0.3rem; font-size: 0.74rem; line-height: 1.45; color: var(--muted); max-width: 18ch; }
-.rosace__tuile:hover .rosace__picto { transform: translateY(-4px); border-color: var(--u-trait); }
 /* Libellés sous les tuiles du bas et sur les côtés : on les garde courts */
-@media (max-width: 1000px) { .rosace__desc { display: none; } }
 
 
 /* Symboles des univers aux couleurs du code (partout sur le site) */
 .sigils span[class^="u-"], .filtre span[class^="u-"] { color: var(--u-trait); }
 .filtre[aria-pressed="true"] { border-color: rgba(236,231,222,0.35); background: rgba(236,231,222,0.06); }
-.rosace__picto svg { filter: url(#encre); }
-.rosace__mot { font-size: clamp(2rem, 4.2vw, 3.2rem); }
 /* Chaque cercle est centré sur son point ; le libellé pend en dessous sans le décaler */
-.rosace__tuile { display: block; }
-.rosace__legende { position: absolute; top: calc(100% + 0.9rem); left: 50%; transform: translateX(-50%); width: 190px; display: flex; flex-direction: column; align-items: center; }
-.rosace__legende .rosace__nom { margin-top: 0; }
-.rosace__legende .rosace__nom { background: var(--surface); padding: 0.15rem 0.5rem; }
 
 /* ════════════════════════════════
    CONVERSION — appel, lettre, preuves, questions
@@ -332,8 +306,6 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .seuil__tout { margin-top: 1.4rem; font-size: 0.7rem; }
 
 /* Centre du schéma en sans serif, lisible ; libellés des univers plus grands */
-.rosace__mot { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.72rem, 1.3vw, 1rem); color: var(--cream); padding-left: 0.22em; }
-.rosace__nom { font-size: clamp(0.7rem, 1vw, 0.82rem); letter-spacing: 0.08em; }
 
 /* Invitation au Codex sous le schéma : on explique avant de proposer */
 .codex-invite { max-width: 46ch; margin: clamp(4rem, 9vw, 6.5rem) auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
@@ -377,20 +349,9 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 /* Schéma sur petit écran : toujours en cercle, simplement resserré */
 @media (max-width: 640px) {
-  .rosace { aspect-ratio: 100 / 100; }
-  .rosace__tuile { width: 19%; }
-  .rosace__legende { width: 30vw; top: calc(100% + 0.5rem); }
-  .rosace__legende .rosace__nom { font-size: 0.68rem; letter-spacing: 0.04em; padding: 0.1rem 0.3rem; }
-  .rosace__desc { display: none; }
-  .rosace__mot { font-size: 0.6rem; letter-spacing: 0.1em; padding-left: 0.1em; }
-  .rosace__centre { width: 30%; }
 }
 
 /* Info-bulle au survol d'un univers */
-.rosace__bulle { position: absolute; bottom: calc(100% + 0.8rem); left: 50%; transform: translate(-50%, 6px); white-space: nowrap; padding: 0.5em 0.9em; border-radius: 10px; background: var(--cream); color: var(--navy); font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; z-index: 5; }
-.rosace__bulle::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--cream); }
-.rosace__tuile:hover .rosace__bulle, .rosace__tuile:focus-visible .rosace__bulle { opacity: 1; transform: translate(-50%, 0); }
-@media (hover: none) { .rosace__bulle { display: none; } }
 
 /* ── Témoignages : grille (≤ 3) ou carrousel (> 3) ── */
 .temoins-offre__cartes { columns: 3 300px; column-gap: 1.4rem; }
@@ -592,7 +553,6 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   .artefact__corps .artefact-details { align-items: flex-start; }
 }
 
-/* ── Les cinq dimensions en ligne (variante à comparer avec la rosace) ── */
 .rangee { width: min(100%, 1000px); margin: 0 auto; }
 .rangee__centre { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); display: flex; align-items: center; gap: 1rem; justify-content: center; }
 .rangee__centre::before, .rangee__centre::after { content: ''; height: 1px; flex: 1; max-width: 90px; background: linear-gradient(to right, transparent, rgba(236,231,222,0.3)); }

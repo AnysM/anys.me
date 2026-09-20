@@ -99,7 +99,7 @@ p .script { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.
 p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 
 /* Respiration : titres, blocs et schémas prennent de l'air */
-.rosace { margin-top: clamp(7rem, 15vw, 11rem); margin-bottom: clamp(2rem, 5vw, 4rem); }
+.rangee { margin-top: clamp(4rem, 9vw, 7rem); margin-bottom: clamp(2rem, 5vw, 4rem); }
 .group + .group { margin-top: clamp(4rem, 9vw, 7rem); }
 .group__title { margin-bottom: clamp(1.2rem, 3vw, 2rem); }
 .cgroupe { margin-top: clamp(3.5rem, 8vw, 6rem); }
@@ -107,7 +107,7 @@ p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 .split { gap: clamp(2.5rem, 8vw, 6.5rem); }
 .tl-row { margin-bottom: clamp(4rem, 9vw, 7rem); }
-@media (max-width: 640px) { .rosace { margin-top: 2rem; } }
+@media (max-width: 640px) { .rangee { margin-top: 2rem; } }
 
 /* Voile du hero : dense sous le texte à gauche, léger à droite pour laisser respirer l'œuvre */
 #hero::before { background: linear-gradient(90deg, rgba(10,18,58,0.94) 0%, rgba(10,18,58,0.86) 32%, rgba(12,24,72,0.45) 62%, rgba(12,24,72,0.12) 100%); }
