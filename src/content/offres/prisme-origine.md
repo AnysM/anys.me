@@ -43,9 +43,8 @@ etapes:
     texte: "On revient à ta réalité : tes choix, ton travail, tes relations. Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné, et ce qui demande encore à bouger."
 explore:
   - "Ton fonctionnement | ta façon de décider, d'utiliser ton énergie, d'interagir avec ton environnement"
-  - "Ton énergie | les grandes forces de ton terrain, et comment les équilibrer"
+  - "Ton énergie et ton rythme | les forces de ton terrain, ce qui te nourrit, ce qui t'épuise"
   - "Tes forces et tes talents | si naturels que tu en oublies la valeur"
-  - "Ton rythme | ce qui te nourrit, ce qui t'épuise, ce qui te rend ta fluidité"
   - "Tes relations | ta façon d'entrer en lien, de t'adapter, de trouver ta place"
   - "Ton potentiel | ce qui demande à être reconnu, développé ou incarné"
   - "Ton fil rouge | les thèmes qui traversent les trois systèmes"
