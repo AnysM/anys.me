@@ -94,29 +94,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <!-- 3. LES SEUILS : par où entrer -->
-  <section id="seuils">
-    <div class="wrap">
-      <div class="tete">
-        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
-        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
-      </div>
-      <div class="seuils">
-        {seuils.map((s) => (
-          <div class="seuil">
-            <span class="seuil__num">{s.num}</span>
-            <h3 class="seuil__nom">{s.nom}</h3>
-            <p class="seuil__format">{s.format}</p>
-            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
-            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
-            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- RESPIRATION : la fleur -->
+  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
-  <!-- 4. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
+  <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
     <section class="venir">
       <div class="wrap">
@@ -129,7 +110,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
+  <!-- RESPIRATION : le paon -->
+  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+
+  <!-- 4. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
     <div class="wrap">
       <div class="tete">
@@ -145,7 +129,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  <!-- 5. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
     <section class="difference">
       <div class="wrap">
@@ -166,8 +150,30 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <!-- RESPIRATION -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+  <!-- RESPIRATION : la cellule -->
+  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
+
+  <!-- 6. LES SEUILS : par où entrer -->
+  <section id="seuils">
+    <div class="wrap">
+      <div class="tete">
+        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
+        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
+      </div>
+      <div class="seuils">
+        {seuils.map((s) => (
+          <div class="seuil">
+            <span class="seuil__num">{s.num}</span>
+            <h3 class="seuil__nom">{s.nom}</h3>
+            <p class="seuil__format">{s.format}</p>
+            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
+            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
+            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <!-- 7. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (

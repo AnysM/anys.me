@@ -53,7 +53,7 @@ piliers:
     note: Chamanisme · peuples indigènes · sagesses ancestrales
   - nom: L’art et l’expression créative
     note: Danse · musique · peinture
-citation1: Je reprends ma place de cellule <br>*dans le grand organisme vivant*.
+citation1: On ne fait pas pousser une fleur <br>*en tirant dessus.*
 seuils_eyebrow: Les seuils
 seuils_titre: Par où *entrer*
 seuils:
@@ -66,18 +66,21 @@ seuils:
 codex_eyebrow: Le Codex
 codex_titre: 'Le paysage *intérieur*'
 codex_texte: 'Les notions, les pratiques, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre.'
-citation2: '*Un langage magique,*<br> indéchiffrable par la raison.'
+citation2: Accueillir l'abondance <br>*en osant révéler ta couleur unique.*
+citation3: Accepter de se mettre en relation. <br>*Redevenir une cellule du grand organisme.*
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
-coeur_eyebrow: Ce qui revient souvent
-coeur_titre: "Quand la tête ne suffit *plus*"
+coeur_eyebrow: Ce que tu vis peut-être
+coeur_titre: "Comprendre sans *incarner*"
 coeur: |
   Souvent, on m'écrit au moment où quelque chose ne tient plus. On a compris, analysé, travaillé, et pourtant la vie ne bouge pas.
 
-  Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de redescendre dans le corps, de laisser mourir ce qui n'est plus aligné, et d'oser faire naître ce qui est à l'étroit.
+  Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de redescendre dans le corps.
 
-  C'est là que je marche *à côté de toi*.
+  Et ça ne s'opère pas par la seule volonté. Ça demande d'entrer en relation profonde avec ce qui t'habite, et avec ce qui t'entoure.
+
+  Je marche *à tes côtés* pour retrouver cette capacité à co-créer avec la vie, et sortir de la forteresse d'un mental tout-puissant.
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
