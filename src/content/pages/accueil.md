@@ -93,7 +93,7 @@ avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
 difference_eyebrow: Mon approche
 difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
-  - titre: "Structurer l'invisible"
+  - titre: "De l'invisible au concret"
     piege: "Des accompagnants très sensibles, sans la structure pour construire quelque chose de précis."
     texte: "Ingénieur, chef de projet puis consultant : je sais structurer. Et j'ai été initié au mystère auprès d'un peuple d'Amazonie brésilienne, de moines tibétains et des nomades du désert marocain."
   - titre: "Marcher avec son ombre"
