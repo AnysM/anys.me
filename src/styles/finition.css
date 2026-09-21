@@ -159,3 +159,14 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
 .vues-centre { display: flex; justify-content: center; }
 /* Dans la vue d'ensemble, la même pastille que sur les cartes, posée dans la ligne. */
 .apercu__type .ecard__tag { position: static; display: inline-block; box-shadow: none; white-space: nowrap; }
+
+/* ── Pied de page centré : le logo et la signature en haut, trois colonnes dessous, les mentions au centre ── */
+.foot__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.4rem 2rem; text-align: center; max-width: 900px; }
+.foot__brand { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; margin-bottom: 1rem; }
+.foot__logo { width: 90px; margin-bottom: 1.2rem; }
+.foot__tag { margin-inline: auto; }
+.foot__bottom { flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 0.7rem; }
+@media (max-width: 760px) {
+  .foot__grid { grid-template-columns: 1fr; }
+  .foot__bottom { align-items: center; }
+}
