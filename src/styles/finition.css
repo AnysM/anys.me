@@ -167,3 +167,5 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
 /* Apparitions au défilement (accueil) : un léger fondu qui monte, sans flou sur le texte long. */
 .apparait { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); }
 .apparait.vu { opacity: 1; transform: none; }
+/* Le mot manuscrit au début d'un titre : un peu d'air pour qu'il ne touche pas le mot suivant. */
+h2 .script { margin-inline: 0.06em 0.14em; }

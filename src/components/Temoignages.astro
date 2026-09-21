@@ -1,7 +1,8 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const { temoignages = [], titre = '*Ils et elles* l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
 const carrousel = temoignages.length > 3;
+const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 {temoignages.length > 0 && (
   <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
@@ -9,7 +10,7 @@ const carrousel = temoignages.length > 3;
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{eyebrow}</p>
-        {titre && <h2>{titre}</h2>}
+        {titre && <h2 set:html={avecScript(titre)}></h2>}
         {note && (
           <a class="avis-google" href={lien} target="_blank" rel="noopener">
             <span class="avis-google__etoiles" aria-hidden="true">★★★★★</span>

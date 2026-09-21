@@ -207,8 +207,8 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .offre-action__prix small { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); }
 
 /* Ce que tu repars avec */
-.benefices__liste { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.1rem 2rem; }
-.benefices__liste li { display: flex; gap: 0.8rem; align-items: baseline; color: #D5D6E0; font-size: 1.02rem; line-height: 1.6; }
+.benefices__liste { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.6rem 3rem; padding: 0; }
+.benefices__liste li { display: flex; gap: 0.9rem; align-items: baseline; color: var(--cream); font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 1.8vw, 1.38rem); line-height: 1.45; }
 .benefices__liste .ico { color: var(--gold); transform: translateY(2px); }
 
 /* Témoignages sur les offres */
