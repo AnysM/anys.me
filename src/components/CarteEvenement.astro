@@ -13,7 +13,7 @@ const lien_sep = ligne.includes(' · ') ? ' · ' : ', ';
 const categories = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 ---
 <a class="ecard" href={href} target={estExterne(href) ? '_blank' : undefined} rel={estExterne(href) ? 'noopener' : undefined}>
-  <div class="ecard__img">{d.image ? <img src={d.image} alt="" loading="lazy" /> : <div class="imgph"></div>}<span class="ecard__tag">{categories[d.categorie] ?? d.categorie}</span></div>
+  <div class="ecard__img">{d.image ? <img src={d.image} alt="" loading="lazy" /> : <div class="imgph"></div>}<span class={`ecard__tag type-${d.categorie}`}>{categories[d.categorie] ?? d.categorie}</span></div>
   <div class="ecard__body">
     <div class="ecard__title">{d.titre}</div>
     <div class="ecard__when">{quand}{suite.length > 0 && <span class="ecard__when-sub">{lien_sep}{suite.join(' · ')}</span>}</div>
