@@ -93,13 +93,17 @@ avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
 difference_eyebrow: Mon approche
 difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
-  - titre: "La rigueur et le mystère"
-    texte: "On croise beaucoup d'accompagnants très sensibles, très conscients, sans l'esprit d'analyse et de synthèse qui permet de construire quelque chose de précis. Ingénieur informatique, responsable de projet puis consultant, j'ai appris à structurer. Et j'ai été initié au mystère, à travers des épreuves uniques avec un peuple d'Amazonie brésilienne, des moines bouddhistes tibétains et les nomades du désert marocain."
+  - titre: "Structurer l'invisible"
+    piege: "Des accompagnants très sensibles, sans la structure pour construire quelque chose de précis."
+    texte: "Ingénieur, chef de projet puis consultant : je sais structurer. Et j'ai été initié au mystère auprès d'un peuple d'Amazonie brésilienne, de moines tibétains et des nomades du désert marocain."
   - titre: "Marcher avec son ombre"
-    texte: "La spiritualité moderne élève la lumière et l'éveil au rang d'objectif absolu. Tout ce qui n'y rentre pas est rejeté, renié, ignoré : le pire chemin pour s'aimer vraiment. Ici, on apprend à aimer son ombre, à comprendre que l'ombre et la lumière vont ensemble, et que la vie est la danse qui se crée entre les deux. Avec le Butô et la psychologie jungienne."
+    piege: "Une spiritualité qui fait de la lumière et de l'éveil un objectif absolu, et rejette tout le reste."
+    texte: "Ici, on apprend à aimer son ombre. L'ombre et la lumière vont ensemble : la vie est la danse entre les deux. Avec le Butô et la psychologie jungienne."
   - titre: "Sortir des conditionnements"
-    texte: "Les outils de connaissance de soi, millénaires ou plus récents, comme le Human Design, le Tzolk'in ou le BaZi, servent à revenir à ton fonctionnement unique. On ne demande pas à un poisson de grimper aux arbres. Tu trouves de la force dans tes spécificités, et tu relâches les comportements et les définitions de toi qui t'enferment dans ce que tu n'es pas vraiment."
+    piege: "Des définitions de soi qui t'enferment dans ce que tu n'es pas vraiment."
+    texte: "Human Design, Tzolk'in, BaZi : des outils pour revenir à ton fonctionnement unique et trouver ta force dans tes spécificités. On ne demande pas à un poisson de grimper aux arbres."
   - titre: "Vivre plutôt que guérir"
-    texte: "Tu peux passer ta vie à vouloir guérir, changer, te transformer, sans jamais vivre. Le mental sait s'enfermer dans une forteresse de certitudes qui donne l'impression d'être sur le bon chemin. Tant que rien ne change concrètement, ce ne sont que des histoires. C'est pourquoi je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là inaccessibles."
+    piege: "Passer sa vie à vouloir guérir, changer, se transformer, sans jamais vivre. Le mental adore s'enfermer dans ses certitudes."
+    texte: "Je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là inaccessibles."
 ---
 

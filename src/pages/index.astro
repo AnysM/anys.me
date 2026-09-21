@@ -157,6 +157,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
           {acc.difference.map((x, i) => (
             <li>
               <h3>{x.titre}</h3>
+              {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>
           ))}

@@ -448,7 +448,10 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(2.4rem, 5vw, 3.6rem) clamp(2.4rem, 6vw, 5rem); max-width: 900px; margin: 0 auto; padding: 0; }
 .difference__liste li { position: relative; }
 .difference__liste h3 { margin: 0; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--cream); }
-.difference__liste p { margin-top: 0.6rem; color: #C2C5D2; line-height: 1.75; font-size: 1rem; max-width: 40ch; }
+.difference__liste p { margin-top: 0.9rem; color: var(--cream); line-height: 1.7; font-size: 1rem; max-width: 40ch; }
+/* Le piège d'abord, en une ligne plus discrète ; puis ce que j'apporte, en clair. */
+.difference__piege { color: #9DA2B6 !important; font-size: 0.95rem !important; }
+.difference__piege span { display: block; margin-bottom: 0.3rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.68rem; color: var(--coral); }
 @media (max-width: 820px) { .difference__liste { grid-template-columns: 1fr; gap: 2.2rem; } }
 
 /* ── Témoignages : texte en sans serif (lisible), nom en serif italique ── */
@@ -564,10 +567,11 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__centre span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.82rem; color: var(--cream); }
 .rangee__liste { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1.2rem, 2.6vw, 2.4rem); }
 .rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
-.rangee__picto { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.14); color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s; }
+.rangee__picto { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--fond-symbole); border: 2px solid transparent; color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s, box-shadow 0.35s; }
 .rangee__picto svg { width: 55%; height: 55%; filter: url(#encre); }
 .rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
-.rangee__item:hover .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); }
+/* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
+.rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); box-shadow: 0 0 18px -2px color-mix(in srgb, var(--u-trait) 55%, transparent); }
 .rangee__nom { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(0.88rem, 1.1vw, 0.98rem); line-height: 1.35; color: var(--cream); }
 .rangee__note { font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
 @media (max-width: 860px) { .rangee__liste { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.2rem; } .rangee__item:last-child { grid-column: 1 / -1; } }

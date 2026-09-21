@@ -106,7 +106,7 @@ const pages = defineCollection({
     posture: z.string().optional(),
     difference_eyebrow: z.string().optional(),
     difference_titre: z.string().optional(),
-    difference: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
+    difference: z.array(z.object({ titre: z.string(), piege: z.string().optional(), texte: z.string() })).optional(),
     avis_note: z.string().optional(),
     temoins_image: z.string().optional(),
     avis_nombre: z.number().optional(),
