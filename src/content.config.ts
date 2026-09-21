@@ -22,6 +22,7 @@ const agenda = defineCollection({
     rythme: z.string().optional(),
     heure: z.string().optional(),
     earlybird: z.string().optional(),
+    tarifs: z.array(z.object({ label: z.string(), prix: z.string(), detail: z.string().optional(), avant: z.boolean().optional() })).optional(),
     cta: z.string().optional(),
     site: z.string().optional(),
     resume: z.string().optional(),

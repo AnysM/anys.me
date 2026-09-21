@@ -137,6 +137,29 @@ const jsonld = [
     </div>
   </section>
 
+  {d.tarifs?.length > 0 && (
+    <section class="bloc">
+      <div class="narrow">
+        <div class="tete"><p class="eyebrow">Les formules</p><h2>Comment <span class="script">participer</span></h2></div>
+        <div class="formules">
+          <div class={`formules__grille formules__grille--${d.tarifs.length}`}>
+            {d.tarifs.map((t, i) => {
+              const enAvant = d.tarifs.some((x) => x.avant) ? t.avant : d.tarifs.length === 3 && i === 1;
+              return (
+                <div class={`formule${enAvant ? ' formule--avant' : ''}`}>
+                  {enAvant && <span class="formule__badge">Recommandé</span>}
+                  <span class="formule__duree">{t.label}</span>
+                  <span class="formule__prix">{t.prix}</span>
+                  {t.detail && <span class="formule__detail">{t.detail}</span>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {lienAction && <div class="offre-relance"><a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a></div>}
+      </div>
+    </section>
+  )}
 
   <Temoignages temoignages={d.temoignages} />
   <Faq faq={d.faq} titre="Avant de venir" />

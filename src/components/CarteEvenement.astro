@@ -23,6 +23,6 @@ const categories = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retra
       {d.prix && <span class="ecard__price">{d.prix}</span>}
       {d.earlybird && <span class="ecard__early">Early bird jusqu’au {d.earlybird}</span>}
     </div>
-    {d.reservable && <span class="ecard__btn">{d.cta ?? 'Réserver'} <Icone nom={estExterne(href) ? 'externe' : 'fleche'} /></span>}
+    <span class="ecard__btn">{estExterne(href) ? (d.cta ?? 'En savoir plus') : 'Voir les infos'} <Icone nom={estExterne(href) ? 'externe' : 'fleche'} /></span>
   </div>
 </a>
