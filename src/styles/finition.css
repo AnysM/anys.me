@@ -141,3 +141,8 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 
 /* Dans un titre : <span class="serif"> passe en Garamond, en minuscules, pour jouer avec le manuscrit. */
 h2 .serif { display: inline-block; margin-top: 0.25em; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 1.15em; }
+/* Couleurs de sens dans un texte : le bleu (l'intérieur, la relation), le corail (le corps, l'élan). */
+.en-bleu { color: var(--bleu, #5C7CFF); }
+.en-corail { color: var(--coral); }
+/* Une seconde ligne de titre sous un mot manuscrit : même style que le titre, avec un peu d'air. */
+h2 .ligne { display: inline-block; margin-top: 0.3em; }

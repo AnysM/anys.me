@@ -17,7 +17,8 @@ import { UNIVERS, SEUILS } from '../lib/univers.mjs';
 import { tisser, contexte } from '../lib/lore.mjs';
 
 const acc = (await getEntry('pages', 'accueil'))!.data;
-const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+// **gras doré**, *manuscrit*, {bleu:texte} et {corail:texte} pour les couleurs de sens
+const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>').replace(/\{(bleu|corail):(.+?)\}/g, '<span class="en-$1">$2</span>');
 const ctx = contexte();
 
 const piliers = UNIVERS.map((u, i) => ({ ...u, nom: acc.piliers?.[i]?.nom ?? u.nom, note: acc.piliers?.[i]?.note ?? '', image: acc.piliers?.[i]?.picto || null }));

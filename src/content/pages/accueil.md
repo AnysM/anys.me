@@ -72,15 +72,15 @@ citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
 coeur_eyebrow: Ce que tu vis peut-être
-coeur_titre: '*Comprendre* <br><span class="serif">sans incarner</span>'
+coeur_titre: '*Comprendre* <br><span class="ligne">sans incarner</span>'
 coeur: |
   Souvent, on m'écrit au moment où quelque chose ne tient plus. On a compris, analysé, travaillé, et pourtant la vie ne bouge pas.
 
-  Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de redescendre dans le corps.
+  Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de faire redescendre la compréhension dans le corps.
 
   Et ça ne s'opère pas par la seule volonté. Ça demande d'entrer en relation profonde avec ce qui t'habite, et avec ce qui t'entoure.
 
-  Je marche *à tes côtés* pour retrouver cette capacité à **co-créer avec la vie, et sortir de la forteresse d'un mental trop présent.**
+  Je marche *à tes côtés* pour retrouver cette capacité à {bleu:co-créer avec la vie}, et {corail:sortir de la forteresse} d'un mental trop présent.
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
