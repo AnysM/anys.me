@@ -16,7 +16,7 @@ hero_cta: Par où commencer ?
 parcours_titre: '*Qui* suis-je ?'
 parcours_texte: 'Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que *je n''avais jamais vraiment choisi ma vie*. Ça a été le début d''une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd''hui, j''accompagne celles et ceux qui sentent le même appel.'
 parcours_cta: Lire mon histoire
-piliers_eyebrow: Les univers
+piliers_eyebrow: Les dimensions
 agenda_eyebrow: Prochains rendez-vous
 art_eyebrow: Indigo Enoqii
 art_titre: '*Mon univers* artistique'
@@ -41,7 +41,7 @@ temoins:
     'n': "Camille"
     c: "Lecture Human Design"
 form_eyebrow: Contact
-piliers_titre: Là où je *puise*
+piliers_titre: Ce qui nourrit *le chemin*
 piliers:
   - nom: La présence
     note: 'Méditation, souffle, immobilité'
@@ -81,10 +81,10 @@ coeur: |
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
-  - "Laisser mourir ce qui n'est plus aligné, pour offrir de l'espace à ce qui attend d'entrer dans ta vie."
-  - "Laisser pousser à l'extérieur ce qui est trop à l'étroit à l'intérieur, pour enfin réaliser tes projets de cœur."
-  - "Oser affirmer qui tu es vraiment, même les parts les plus bizarres."
-  - "Apprendre à te connaître et à t'accepter comme tu es vraiment."
+  - "**Laisser mourir** ce qui n'est plus aligné, pour offrir de l'espace à ce qui attend d'entrer dans ta vie."
+  - "**Laisser pousser** à l'extérieur ce qui est trop à l'étroit à l'intérieur, pour enfin réaliser tes projets de cœur."
+  - "**Oser affirmer** qui tu es vraiment, même les parts les plus bizarres."
+  - "**Apprendre** à te connaître et à t'accepter comme tu es vraiment."
 posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
 temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
