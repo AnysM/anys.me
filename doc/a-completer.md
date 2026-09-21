@@ -23,7 +23,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 
 **Accompagnement individuel**
 - [ ] Relire les étapes, les bénéfices (« Ce que tu y trouves ») et la FAQ, que j'ai rédigés à partir de tes textes.
-- [ ] Paiement en plusieurs fois possible ?
+- [x] Paiement en plusieurs fois : oui, à caler lors de l'appel (FAQ ajoutée le 22/09).
 - [ ] Conditions d'annulation ou de report d'une séance ?
 - [ ] La formule mise en avant (« Recommandé ») : 3 mois, c'est bien celle-là ?
 - [ ] Immersion « Nouveau souffle » : où se passe-t-elle ? Logement possible ?

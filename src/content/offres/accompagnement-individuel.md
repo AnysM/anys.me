@@ -27,15 +27,15 @@ etapes:
   - titre: "Un premier échange"
     picto: parole
     texte: "On se parle de ce que tu traverses, pour sentir si c'est juste de cheminer ensemble."
-  - titre: "Le cadre"
+  - titre: "La formule"
     picto: chemin
     texte: "En ligne sur 1, 3 ou 6 mois, ou en immersion individuelle de 3 jours, selon ton besoin."
   - titre: "Les séances"
     picto: souffle
-    texte: "1h à 1h30, avec les outils qui te servent : présence, mouvement, archétypes, connaissance de soi."
-  - titre: "L'incarnation"
+    texte: "1h30 maximum, avec les outils qui te servent : dialogue intérieur, pratiques somatiques, connaissance de soi."
+  - titre: "Les quêtes"
     picto: graine
-    texte: "Entre les séances, tu expérimentes. Petit à petit, la vision devient ton prochain pas."
+    texte: "À la fin de chaque rendez-vous, on choisit ensemble une quête : un engagement concret pour te mettre en mouvement d'ici la prochaine fois."
 benefices:
   - "Voir clair dans la transition que tu traverses"
   - "Retrouver ton axe, et la confiance qui va avec"
@@ -49,6 +49,10 @@ faq:
     r: "Oui. Les séances durent 1h à 1h30 et passent par l'écoute, la présence et des pratiques que tu peux vivre chez toi. Si tu as besoin d'une plongée plus intense, l'immersion « Nouveau souffle » se vit sur 3 jours en individuel."
   - q: "Quelle formule choisir ?"
     r: "Un mois, avec une séance par semaine, pour débloquer une situation précise. Trois ou six mois, avec un rythme plus espacé, pour traverser une transition en profondeur et laisser le temps d'intégrer. On le décide ensemble lors du premier échange."
+  - q: "Peut-on payer en plusieurs fois ?"
+    r: "Oui. Le paiement peut être étalé en plusieurs fois ; on trouve ensemble un rythme tenable pour toi lors de l'appel découverte."
+  - q: "Qu'est-ce qu'une session d'implémentation ?"
+    r: "Une séance où l'on réalise ensemble quelque chose que tu n'arrives pas à faire seul, avec ma présence comme soutien et comme guide. Le but : que tu développes les ressources et la structure pour le faire ensuite en autonomie."
   - q: "Je n'ai jamais fait de démarche de ce genre, c'est grave ?"
     r: "Pas du tout. Que tu aies déjà beaucoup exploré ou que ce soit ta première fois, on part de là où tu en es."
 temoignages:
@@ -63,10 +67,38 @@ temoignages:
     c: "Accompagnement de 6 mois, reconversion"
 image: /img/accompagnement-echange.jpg
 ---
-Un accompagnement pour venir travailler en profondeur et sur la durée. Sur mesure, en fonction du besoin : soit un accompagnement en ligne, soit une immersion de 3 jours en individuel.
+Un accompagnement pour venir travailler en profondeur et sur la durée, quand comprendre ne suffit plus et qu'il est temps de faire descendre le travail dans le corps et dans la vie concrète.
+
+## Mon approche
+
+Elle repose sur ton engagement à te mettre en mouvement. À la fin de chaque rendez-vous, on choisit ensemble une **quête** : un pas concret à vivre d'ici la prochaine fois. L'approche est non directive, elle part de ton unicité, et s'appuie sur trois familles d'outils : le travail avec les sept interlocuteurs et le dialogue intérieur, des pratiques somatiques qui ramènent dans le corps, et des outils de connaissance de soi pour revenir à ton fonctionnement propre et te détacher des conditionnements.
+
+### L'accueil
+Accueillir pleinement ce que tu vis, accepter le rythme et la saison dans laquelle tu es, pour pouvoir la traverser. Cette saison est la configuration qui fait naître la suivante. Souvent, la situation qu'on souhaite reste inaccessible tant qu'on ne laisse pas la saison actuelle se composter pleinement.
+
+### La clarté
+Voir où tu en es, les histoires que tu te racontes, les parts de toi qui s'expriment. On prend du recul sur ce paysage intérieur : ce n'est qu'un paysage. L'acteur principal est ailleurs, souvent étouffé par lui. On fait la clarté entre ce qui demande vraiment à s'exprimer depuis les profondeurs et ce qui reste d'un paysage déjà traversé.
+
+### La confiance
+La clarté donne une vision, et avec elle revient la confiance : dans le chemin, dans les cycles, dans tes capacités. Tu t'appuies sur tes forces, et aussi sur ce que tu appelais tes défauts, qui sont souvent des forces. Tu avances plus sereinement, et tu sors de l'urgence.
+
+### Le corps et les émotions
+Une grande partie du travail est somatique : créer de l'espace pour accueillir les densités émotionnelles et te laisser traverser. Quand on ne sait pas les accueillir, elles nous ramènent dans la boucle et obscurcissent le jugement. Savoir les traverser, et quoi en faire, rend le quotidien plus léger.
+
+## Le cadre
+
+Des rendez-vous réguliers, d'1h30 maximum, qui t'aident à te structurer. Quand c'est utile, des **sessions d'implémentation** : on réalise ensemble ce que tu n'arrives pas à faire seul, pour que tu puisses ensuite le faire en autonomie. Ma mission première est de développer ta souveraineté : que tout ce que je te partage devienne ta propre structure.
+
+## Ce vers quoi on va
+
+On avance par étapes :
+
+- **Faire la paix avec ta situation** et retrouver de la sécurité, dans le cœur et dans le corps. Sortir de l'urgence.
+- **Créer un environnement de vie soutenant et stable**, et mettre en action les projets qui font sens pour toi.
+- **Retrouver ton pouvoir personnel**, cette connexion à quelque chose de plus grand qui ouvre la porte aux synchronicités et donne l'élan d'oser créer.
 
 ## En ligne
-À distance, sur 1 mois, 3 mois ou 6 mois. Les séances durent 1h à 1h30, selon le besoin, avec un rythme qui s'ajuste à la durée de l'accompagnement.
+À distance, sur 1 mois, 3 mois ou 6 mois, avec un rythme qui s'ajuste à la durée de l'accompagnement.
 
 ## Immersion « Nouveau souffle »
 Une plongée profonde, en individuel, pour traverser une transition de vie et retrouver force et énergie dans un moment difficile. Pensée pour les passages difficiles, les renaissances. 5 heures par jour sur 3 jours, avec des activités, des activations et des ateliers sur mesure.

@@ -45,3 +45,25 @@ Plus que la danse Butô, c'est l'accueil du sombre, de l'invisible. Il y a aussi
 **Ta propre carte** (réducteur, pas parlant). L'idée, c'est sortir du conditionnement. Se servir des outils de connaissance de soi, millénaires ou plus récents, pour revenir à ton fonctionnement unique. Parce qu'on ne demande pas à un … de … (métaphore à trouver). L'idée : trouver du soutien, de la force dans ses spécificités, et relâcher les comportements conditionnants et les définitions de soi qui nous enferment dans ce que l'on n'est pas vraiment.
 
 **Vivre plutôt que guérir.** Tu peux passer ton temps à vouloir guérir, changer, te transformer, sans jamais vivre. Le mental est super fort pour s'enfermer dans une forteresse de certitudes qui te font croire que tu es sur le bon chemin, mais si la transformation n'est pas concrète, ce ne sont que des histoires. C'est pourquoi je privilégie l'initiation. L'initiation, c'est vivre une expérience qui imprime profondément l'être au-delà du mental, et qui ouvre de nouvelles portes encore inaccessibles.
+
+## 2026-09-22 — L'accompagnement individuel (extrait d'un mail récapitulatif à une cliente)
+
+Seule la partie « méthode » est reprise ici. La situation personnelle de la cliente n'est pas conservée et ne doit jamais être publiée.
+
+**Mon approche.** Ma démarche d'accompagnement est basée sur l'engagement personnel à se mettre en mouvement, à travers des quêtes qu'on choisit ensemble à la fin de chaque rendez-vous. L'intention des rendez-vous repose sur trois piliers : l'accueil, la clarté et la confiance. Outils : le travail avec les sept interlocuteurs et le dialogue intérieur, des outils somatiques qui ramènent dans le corps, et des outils de connaissance de soi qui permettent de revenir à son fonctionnement propre, de l'accepter et de se détacher des conditionnements.
+
+**L'accueil.** Accueillir pleinement ce que l'on vit, accepter le rythme et la saison dans laquelle on est pour pouvoir la traverser. Ce moment, cette saison, c'est la configuration qui va faire naître le moment suivant. Très souvent, la situation souhaitée est inaccessible parce qu'on ne traverse pas pleinement et qu'on ne laisse pas pleinement composter la saison actuelle.
+
+**La clarté.** Clarté sur où on en est, sur les histoires qu'on se raconte, sur les parts de soi qui s'expriment. Prendre du recul sur ce paysage intérieur, qui n'est qu'un paysage et pas l'acteur principal. On s'identifie à son paysage intérieur ; l'acteur principal est ailleurs, étouffé par le paysage. Faire la clarté entre ce qui demande vraiment à s'exprimer depuis les profondeurs et ce qui est le reliquat d'un paysage déjà traversé.
+
+**La confiance.** La clarté donne une vision et permet de retrouver la confiance : dans le chemin, dans les cycles, dans ses capacités. S'appuyer sur ses forces, mais aussi sur ses « incapacités » ou « défauts », qui sont aussi des forces. Avancer de manière plus fluide, plus sereine, sortir de l'urgence.
+
+**Le corps et les émotions.** Une grosse partie du travail est somatique : créer de l'espace pour accueillir et se laisser traverser par les densités émotionnelles, qui nous font retourner dans la boucle et obscurcissent le jugement. Savoir les traverser et quoi en faire permet de marcher au quotidien avec plus de légèreté.
+
+Approche non directive, basée sur l'unicité et la complexité de l'être, avec la connaissance de soi et le dialogue intérieur comme piliers, et une profondeur qui fait descendre le travail dans le corps et dans l'espace émotionnel, pour sortir du tout mental, du tout analyse.
+
+**Le cadre.** Des rendez-vous réguliers qui aident à structurer, d'1h30 maximum. Des sessions d'implémentation : réaliser avec mon soutien des choses qu'on n'arrive pas à faire seul, pour développer les ressources et la structure pour le faire en autonomie ensuite. Ma mission première : développer ta souveraineté et ton autonomie ; que tout ce que je partage devienne ta propre structure.
+
+**Ce vers quoi on va, par étapes.** D'abord faire la paix avec sa situation et retrouver de la sécurité, dans le cœur et dans le corps ; sortir de l'urgence. Ensuite créer un environnement de vie soutenant et stable, et mettre en action les projets qui font sens. Petit à petit, retrouver son pouvoir personnel, la connexion à quelque chose de plus grand, qui ouvre la porte aux synchronicités et donne l'élan d'oser créer.
+
+**Paiement.** Étalement possible (en 4 fois proposé couramment, jusqu'à 6 fois proposé à une personne en difficulté pour la formule de 3 mois).
