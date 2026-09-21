@@ -29,10 +29,10 @@ const tout = groupes.flatMap((g) => g.items);
 
   <section>
     <div class="wrap">
-      <div class="vues" role="group" aria-label="Affichage">
+      <div class="vues-centre"><div class="vues" role="group" aria-label="Affichage">
         <button type="button" data-vue="cartes" aria-pressed="true">Cartes</button>
         <button type="button" data-vue="liste" aria-pressed="false">Vue d'ensemble</button>
-      </div>
+      </div></div>
 
       <div id="vue-liste" hidden>
         <ul class="apercu">
@@ -45,7 +45,7 @@ const tout = groupes.flatMap((g) => g.items);
                 <a href={href} target={externe ? '_blank' : undefined} rel={externe ? 'noopener' : undefined}>
                   <span class="apercu__quand">{quand}{suite.length > 0 && <span class="apercu__heure">{ligneDate(e.data).includes(' · ') ? ' · ' : ', '}{suite.join(' · ')}</span>}</span>
                   <span class="apercu__titre">{e.data.titre}</span>
-                  <span class={`apercu__type type-${e.data.categorie}`}>{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span>
+                  <span class="apercu__type"><span class={`ecard__tag type-${e.data.categorie}`}>{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span></span>
                   <span class="apercu__lieu">{e.data.lieu}</span>
                   <span class="apercu__prix">{e.data.prix}</span>
                 </a>

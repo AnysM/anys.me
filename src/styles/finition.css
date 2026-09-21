@@ -156,8 +156,6 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
 .ecard__tag.type-voyage-sonore { background: var(--indigo-soft); }
 .ecard__tag.type-residence { background: #FFC53D; }
 .ecard__tag.type-retraite, .ecard__tag.type-immersion { background: var(--cream); }
-.apercu__type.type-atelier { color: var(--coral); }
-.apercu__type.type-cercle { color: #7D97FF; }
-.apercu__type.type-voyage-sonore { color: var(--indigo-soft); }
-.apercu__type.type-residence { color: #FFC53D; }
-.apercu__type.type-retraite, .apercu__type.type-immersion { color: var(--cream); }
+.vues-centre { display: flex; justify-content: center; }
+/* Dans la vue d'ensemble, la même pastille que sur les cartes, posée dans la ligne. */
+.apercu__type .ecard__tag { position: static; display: inline-block; box-shadow: none; white-space: nowrap; }

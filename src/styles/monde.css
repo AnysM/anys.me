@@ -607,7 +607,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .vues button[aria-pressed='true'] { background: var(--cream); color: var(--navy); }
 .apercu { display: block; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--faint); }
 .apercu__ligne { border-bottom: 1px solid var(--faint); }
-.apercu__ligne a { display: grid; grid-template-columns: 13rem 1fr 9rem 12rem 5rem; align-items: baseline; gap: 1.2rem; padding: 1.15rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
+.apercu__ligne a { display: grid; grid-template-columns: 13rem 1fr 11rem 12rem 5rem; align-items: baseline; gap: 1.2rem; padding: 1.15rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
 .apercu__ligne a:hover { background: rgba(236,231,222,0.04); padding-left: 0.9rem; }
 .apercu__quand { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; font-weight: 500; }
 .apercu__heure { font-weight: 300; color: rgba(236,231,222,0.7); }
