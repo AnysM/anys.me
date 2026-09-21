@@ -607,7 +607,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .vues button[aria-pressed='true'] { background: var(--cream); color: var(--navy); }
 .apercu { display: block; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--faint); }
 .apercu__ligne { border-bottom: 1px solid var(--faint); }
-.apercu__ligne a { display: grid; grid-template-columns: 13rem 1fr 11rem 12rem 5rem; align-items: baseline; gap: 1.2rem; padding: 1.15rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
+.apercu__ligne a { display: grid; grid-template-columns: 12rem 1fr 10.5rem 11rem 4.5rem 8.5rem; align-items: baseline; gap: 1.2rem; padding: 1.15rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
 .apercu__ligne a:hover { background: rgba(236,231,222,0.04); padding-left: 0.9rem; }
 .apercu__quand { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; font-weight: 500; }
 .apercu__heure { font-weight: 300; color: rgba(236,231,222,0.7); }
@@ -622,3 +622,9 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   .apercu__titre { grid-column: 1 / -1; }
   .apercu__type, .apercu__lieu { grid-column: auto; }
 }
+
+.apercu__groupe + .apercu__groupe { margin-top: clamp(2.6rem, 5vw, 3.6rem); }
+.apercu__groupe .group__title { margin-bottom: 1rem; }
+.apercu__cta { justify-self: end; white-space: nowrap; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; color: var(--gold); transition: transform 0.25s; }
+.apercu__ligne a:hover .apercu__cta { transform: translateX(4px); }
+@media (max-width: 900px) { .apercu__cta { grid-column: 1 / -1; justify-self: start; margin-top: 0.3rem; } }

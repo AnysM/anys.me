@@ -12,15 +12,15 @@ const aVenir = all.filter((e) => e.data.date && (e.data.date_fin ?? e.data.date)
 const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
+// Trois temps : ce qui revient chaque semaine ou chaque mois, ce qui a une date, ce qui s'annonce.
 const groupes = [
   { titre: 'Rendez-vous réguliers', items: reguliers },
-  { titre: 'À venir', items: aVenir },
-  { titre: 'Retraites & immersions', items: retraites },
+  { titre: 'Dates fixées', items: aVenir },
+  { titre: 'À venir', items: retraites },
 ].filter((g) => g.items.length > 0);
 
 // Vue d'ensemble : tout sur une ligne, dans le même ordre que les groupes.
 const CATEGORIES = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
-const tout = groupes.flatMap((g) => g.items);
 ---
 <Base title="Agenda — ateliers, voyages sonores, retraites à Lyon | Anys Mechkar" description="Les prochaines dates d'Anys Mechkar : ateliers de méditation et de danse Butô, voyages sonores, cercles de parole et retraites, à Lyon et ailleurs.">
   <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
@@ -35,24 +35,32 @@ const tout = groupes.flatMap((g) => g.items);
       </div></div>
 
       <div id="vue-liste" hidden>
-        <ul class="apercu">
-          {tout.map((e) => {
-            const href = hrefAgenda(e);
-            const externe = estExterne(href);
-            const [quand, ...suite] = (ligneDate(e.data).includes(' · ') ? ligneDate(e.data).split(' · ') : ligneDate(e.data).split(/,\s*(?=\d{1,2}\s*h)/));
-            return (
-              <li class="apercu__ligne">
-                <a href={href} target={externe ? '_blank' : undefined} rel={externe ? 'noopener' : undefined}>
-                  <span class="apercu__quand">{quand}{suite.length > 0 && <span class="apercu__heure">{ligneDate(e.data).includes(' · ') ? ' · ' : ', '}{suite.join(' · ')}</span>}</span>
-                  <span class="apercu__titre">{e.data.titre}</span>
-                  <span class="apercu__type"><span class={`ecard__tag type-${e.data.categorie}`}>{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span></span>
-                  <span class="apercu__lieu">{e.data.lieu}</span>
-                  <span class="apercu__prix">{e.data.prix}</span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+        {groupes.map((g) => (
+          <div class="apercu__groupe">
+            <h2 class="group__title">{g.titre}</h2>
+            <ul class="apercu">
+              {g.items.map((e) => {
+                const href = hrefAgenda(e);
+                const externe = estExterne(href);
+                const ligne = ligneDate(e.data);
+                const sep = ligne.includes(' · ') ? ' · ' : ', ';
+                const [quand, ...suite] = ligne.includes(' · ') ? ligne.split(' · ') : ligne.split(/,\s*(?=\d{1,2}\s*h)/);
+                return (
+                  <li class="apercu__ligne">
+                    <a href={href} target={externe ? '_blank' : undefined} rel={externe ? 'noopener' : undefined}>
+                      <span class="apercu__quand">{quand}{suite.length > 0 && <span class="apercu__heure">{sep}{suite.join(' · ')}</span>}</span>
+                      <span class="apercu__titre">{e.data.titre}</span>
+                      <span class="apercu__type"><span class={`ecard__tag type-${e.data.categorie}`}>{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span></span>
+                      <span class="apercu__lieu">{e.data.lieu}</span>
+                      <span class="apercu__prix">{e.data.prix}</span>
+                      <span class="apercu__cta">{externe ? (e.data.cta ?? 'En savoir plus') : 'Voir les infos'} <span aria-hidden="true">→</span></span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
       </div>
 
       <div id="vue-cartes">
