@@ -175,4 +175,4 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
   .vues-barre { position: static; display: flex; justify-content: flex-start; margin-bottom: 1.6rem; }
   #vue-cartes > .group:first-child .group__title, #vue-liste > .apercu__groupe:first-child .group__title { padding-right: 0; }
 }
-.foot__role { font-weight: 500; font-style: italic; color: var(--cream); }
+.foot__role { font-weight: 400; font-style: italic; color: #C2C5D2; }
