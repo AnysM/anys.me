@@ -95,7 +95,7 @@ difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
   - titre: "De l'invisible au concret"
     piege: "Des accompagnants très sensibles, sans la structure pour construire quelque chose de précis."
-    texte: "Ingénieur, chef de projet puis consultant : je sais structurer. Et j'ai été initié au mystère auprès d'un peuple d'Amazonie brésilienne, de moines tibétains et des nomades du désert marocain."
+    texte: "Ingénieur, chef de projet puis consultant, j'ai appris à analyser, synthétiser et structurer. J'ai aussi été initié au mystère auprès d'un peuple d'Amazonie brésilienne, de moines tibétains et des nomades du désert marocain. Avec les deux, on écoute ce qui se passe en toi, puis on en fait des choix clairs et des projets concrets."
   - titre: "Marcher avec son ombre"
     piege: "Une spiritualité qui fait de la lumière et de l'éveil un objectif absolu, et rejette tout le reste."
     texte: "Ici, on apprend à aimer son ombre. L'ombre et la lumière vont ensemble : la vie est la danse entre les deux. Avec le Butô et la psychologie jungienne."
