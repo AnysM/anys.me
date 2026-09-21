@@ -12,10 +12,10 @@ const aVenir = all.filter((e) => e.data.date && (e.data.date_fin ?? e.data.date)
 const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
-// Trois temps : ce qui revient chaque semaine ou chaque mois, ce qui a une date, ce qui s'annonce.
+// Trois temps : ce qui a une date, ce qui revient chaque semaine ou chaque mois, ce qui s'annonce.
 const groupes = [
-  { titre: 'Rendez-vous réguliers', items: reguliers },
   { titre: 'Rendez-vous ponctuels', items: aVenir },
+  { titre: 'Rendez-vous réguliers', items: reguliers },
   { titre: 'À venir', items: retraites },
 ].filter((g) => g.items.length > 0);
 
