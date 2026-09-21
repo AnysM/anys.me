@@ -133,6 +133,7 @@ export default defineConfig({
           { type: "object", name: "cap", label: "Ce vers quoi on va — les étapes", list: true, ui: { itemProps: (i) => ({ label: i?.titre ?? "Étape" }) },
             fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }] },
           { type: "string", name: "cadre", label: "Le cadre", ui: { component: "textarea" }, description: "**mot** = en valeur" },
+            { type: "string", name: "explore", label: "Ce qu'on explore ensemble", list: true, description: "Titre | description. Ex. : Ton rythme | ce qui te nourrit, ce qui t'épuise" },
           { type: "boolean", name: "accueil", label: "À la une sur l'accueil", description: "Coche 1 ou 2 propositions par seuil au maximum : l'accueil doit rester simple. Tout reste visible dans l'agenda et les pages dédiées." },
           { type: "string", name: "seuil", label: "Seuil", description: "Laisser vide pour le choix automatique selon la catégorie.", options: [{ value: "decouvrir", label: "I · Découvrir" }, { value: "approfondir", label: "II · Approfondir" }, { value: "transformer", label: "III · Se transformer" }] },
           { type: "rich-text", name: "body", label: "Contenu de la page", isBody: true },

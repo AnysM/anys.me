@@ -41,14 +41,21 @@ etapes:
   - titre: "L'intégration"
     picto: graine
     texte: "On revient à ta réalité : tes choix, ton travail, tes relations. Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné, et ce qui demande encore à bouger."
+explore:
+  - "Ton fonctionnement | ta façon de décider, d'utiliser ton énergie, d'interagir avec ton environnement"
+  - "Ton énergie | les grandes forces de ton terrain, et comment les équilibrer"
+  - "Tes forces et tes talents | si naturels que tu en oublies la valeur"
+  - "Ton rythme | ce qui te nourrit, ce qui t'épuise, ce qui te rend ta fluidité"
+  - "Tes relations | ta façon d'entrer en lien, de t'adapter, de trouver ta place"
+  - "Ton potentiel | ce qui demande à être reconnu, développé ou incarné"
+  - "Ton fil rouge | les thèmes qui traversent les trois systèmes"
 benefices:
-  - "Ton fonctionnement : ta façon de décider, d'utiliser ton énergie, d'interagir avec ton environnement"
-  - "Ton énergie : les grandes forces de ton terrain, et comment les équilibrer"
-  - "Tes forces et tes talents, si naturels que tu en oublies la valeur"
-  - "Ton rythme : ce qui te nourrit, ce qui t'épuise, ce qui te rend ta fluidité"
-  - "Tes relations : ta façon d'entrer en lien, de t'adapter, de trouver ta juste place"
-  - "Ton potentiel : ce qui demande à être reconnu, développé ou incarné"
-  - "Ton fil rouge : les thèmes qui traversent les trois systèmes"
+  - "Prendre tes décisions avec plus de justesse, en suivant ta propre manière de décider"
+  - "Respecter ton rythme et ton énergie, et t'épuiser beaucoup moins"
+  - "T'appuyer sur tes forces et tes talents, avec confiance"
+  - "Vivre des relations plus justes, en sachant ce dont tu as besoin"
+  - "Trouver ta juste place, dans ton travail comme dans ta vie"
+  - "Te sentir enfin légitime d'être pleinement toi"
 faq:
   - q: "De quoi as-tu besoin ?"
     r: "De ta date, de ton heure et de ton lieu de naissance. C'est la matière de la lecture."

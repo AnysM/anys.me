@@ -118,6 +118,15 @@ const jsonld = [
     </section>
   )}
 
+  {d.explore?.length > 0 && (
+    <section class="explore">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Pendant la lecture</p><h2><span class="script">Ce qu'on</span> explore ensemble</h2></div>
+        <div class="explore__grille">{d.explore.map((x) => { const [t, desc] = x.split('|').map((y) => y.trim()); return <div class="explore__item"><h3>{t}</h3>{desc && <p>{desc}</p>}</div>; })}</div>
+      </div>
+    </section>
+  )}
+
   {d.benefices?.length > 0 && (
     <section class="bloc benefices">
       <div class="narrow">

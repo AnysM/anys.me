@@ -68,6 +68,7 @@ const offres = defineCollection({
     approche: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
     cap: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
     cadre: z.string().optional(),
+    explore: z.array(z.string()).optional(),
   }),
 });
 
