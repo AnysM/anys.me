@@ -19,19 +19,6 @@ section { padding: var(--section) 0; }
 .ico { display: inline-block; flex-shrink: 0; vertical-align: -0.12em; }
 .bloc { background: var(--surface); }
 
-/* ── Étoiles discrètes sur les grands visuels ── */
-.etoiles { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.7;
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 27% 62%, #fff 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 41% 28%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 55% 74%, #fff 50%, transparent 51%),
-    radial-gradient(1px 1px at 68% 14%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 79% 46%, #fff 50%, transparent 51%),
-    radial-gradient(1px 1px at 88% 82%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 93% 22%, #fff 50%, transparent 51%),
-    radial-gradient(1px 1px at 6% 88%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 90%, #fff 50%, transparent 51%);
-  animation: scintille 7s ease-in-out infinite alternate; }
-.etoiles + .etoiles { opacity: 0.45; transform: translate(3%, 6%) scale(1.1); animation-duration: 11s; animation-delay: -4s; }
-@keyframes scintille { from { opacity: 0.25; } to { opacity: 0.8; } }
-@media (prefers-reduced-motion: reduce) { .etoiles { animation: none; } }
-
 /* ── Boutons : pilules, flèche dans un cercle ── */
 .btn { border-radius: var(--pill); padding: 0.95em 1.9em; letter-spacing: 0.18em; font-size: 0.76rem; border-color: rgba(216,162,76,0.7); transition: background 0.35s var(--ease), color 0.35s, border-color 0.35s; }
 .btn--solid { gap: 14px; padding: 0.55em 0.55em 0.55em 1.8em; border: 0; }

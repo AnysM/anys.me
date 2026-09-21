@@ -265,10 +265,6 @@ const links = [
   </script>
   <script is:inline>
     (function () {
-      // Étoiles discrètes sur les grands visuels
-      document.querySelectorAll('#hero, .page-hero').forEach(function (el) {
-        for (var i = 0; i < 2; i++) { var d = document.createElement('div'); d.className = 'etoiles'; d.setAttribute('aria-hidden', 'true'); el.appendChild(d); }
-      });
       // Phrases des respirations : les mots s'allument au fil du défilement
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var phrases = Array.prototype.slice.call(document.querySelectorAll('.breath .phrase'));
