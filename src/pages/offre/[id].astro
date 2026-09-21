@@ -38,6 +38,7 @@ const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
 const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const fmtO = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 const s = seuil(seuilDe(d));
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
@@ -85,6 +86,35 @@ const jsonld = [
       {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}</div>}
     </div>
   </section>
+
+  {d.pourqui?.length > 0 && (
+    <section class="pourqui">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Pour qui</p><h2>C'est pour toi <span class="script">si…</span></h2></div>
+        <ul class="pourqui__liste">{d.pourqui.map((x) => <li set:html={fmtO(x)}></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  {d.approche?.length > 0 && (
+    <section class="bloc approche">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Mon approche</p><h2>Comment on <span class="script">avance</span></h2></div>
+        {d.approche_intro && <p class="approche__intro" set:html={fmtO(d.approche_intro)}></p>}
+        <div class="approche__grille">{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
+      </div>
+    </section>
+  )}
+
+  {d.cap?.length > 0 && (
+    <section class="cap">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Par étapes</p><h2>Ce vers quoi on <span class="script">va</span></h2></div>
+        <ol class="cap__etapes">{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3><p set:html={fmtO(c.texte)}></p></li>)}</ol>
+        {d.cadre && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
+      </div>
+    </section>
+  )}
 
   {d.benefices?.length > 0 && (
     <section class="bloc benefices">

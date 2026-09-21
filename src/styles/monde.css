@@ -631,3 +631,30 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .vues button { display: inline-flex; align-items: center; gap: 0.5rem; }
 .vues__ico { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
 .vues__ico circle { fill: currentColor; stroke: none; }
+
+/* ── Offre : pour qui, approche, étapes ── */
+.pourqui__liste { list-style: none; padding: 0; margin: 0 auto; max-width: 1000px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 2rem; }
+.pourqui__liste li { position: relative; padding: 1.6rem 1.6rem 1.6rem 3.4rem; border-radius: var(--r-lg, 18px); background: rgba(255,255,255,0.025); border: 1px solid var(--faint); font-family: 'EB Garamond', serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); line-height: 1.45; color: var(--cream); }
+.pourqui__liste li::before { content: ''; position: absolute; left: 1.5rem; top: 2.05rem; width: 9px; height: 9px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 12px rgba(240,122,95,0.6); }
+.pourqui__liste li:nth-child(even)::before { background: #5C7CFF; box-shadow: 0 0 12px rgba(92,124,255,0.6); }
+
+.approche__intro { max-width: 60ch; margin: 0 auto clamp(2.4rem, 5vw, 3.4rem); text-align: center; color: #C9CBD8; line-height: 1.8; font-size: 1.05rem; }
+.approche__intro strong { color: var(--gold); font-weight: 400; }
+.approche__grille { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3rem) clamp(2rem, 6vw, 4.5rem); max-width: 900px; margin: 0 auto; }
+.approche__pilier h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.45rem, 2.2vw, 1.75rem); color: var(--cream); padding-bottom: 0.7rem; margin-bottom: 0.7rem; border-bottom: 1px solid var(--faint); position: relative; }
+.approche__pilier h3::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 40px; height: 1px; background: #5C7CFF; }
+.approche__pilier:nth-child(even) h3::after { background: var(--coral); }
+.approche__pilier p { color: #C9CBD8; line-height: 1.75; }
+
+.cap__etapes { list-style: none; padding: 0; margin: 0 auto; max-width: 1040px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.6rem, 4vw, 3rem); counter-reset: none; }
+.cap__etapes li { text-align: center; }
+.cap__num { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(216,162,76,0.55); font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem; }
+.cap__etapes h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.35rem, 2vw, 1.6rem); color: var(--cream); margin-bottom: 0.5rem; }
+.cap__etapes p { color: #C9CBD8; line-height: 1.7; max-width: 30ch; margin: 0 auto; }
+.cap__cadre { max-width: 680px; margin: clamp(3rem, 6vw, 4.5rem) auto 0; padding: 1.8rem 2rem; border-left: 2px solid var(--gold); background: rgba(216,162,76,0.05); border-radius: 0 14px 14px 0; }
+.cap__cadre p:last-child { margin-top: 0.6rem; color: var(--cream); line-height: 1.75; }
+.cap__cadre strong { color: var(--gold); font-weight: 400; }
+
+@media (max-width: 760px) {
+  .pourqui__liste, .approche__grille, .cap__etapes { grid-template-columns: 1fr; }
+}

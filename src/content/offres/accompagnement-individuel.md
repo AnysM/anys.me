@@ -66,45 +66,31 @@ temoignages:
     'n': "S. K."
     c: "Accompagnement de 6 mois, reconversion"
 image: /img/accompagnement-echange.jpg
+pourqui:
+  - "Tu traverses une transition, une séparation, une reconversion, une perte de sens, et tu ne sais pas par où commencer."
+  - "Tu as déjà beaucoup travaillé sur toi, compris beaucoup de choses, et pourtant ton quotidien ne change pas."
+  - "Tu sais ce qui serait juste pour toi, et tu n'arrives pas à passer à l'acte."
+  - "Un projet, une part de toi demande à naître, et tu as besoin de structure pour l'incarner."
+approche_intro: "Elle repose sur ton engagement à te mettre en mouvement. À la fin de chaque rendez-vous, on choisit ensemble une **quête** : un pas concret à vivre d'ici la prochaine fois. Une approche non directive, qui part de ton unicité, avec le dialogue intérieur, des pratiques somatiques et des outils de connaissance de soi."
+approche:
+  - titre: "L'accueil"
+    texte: "Accueillir ce que tu vis, accepter la saison dans laquelle tu es pour pouvoir la traverser. C'est elle qui fait naître la suivante."
+  - titre: "La clarté"
+    texte: "Prendre du recul sur ton paysage intérieur, les histoires que tu te racontes, et distinguer ce qui demande vraiment à s'exprimer."
+  - titre: "La confiance"
+    texte: "Retrouver confiance dans le chemin, dans les cycles, dans tes capacités, en t'appuyant aussi sur ce que tu appelais tes défauts."
+  - titre: "Le corps et les émotions"
+    texte: "Créer de l'espace pour traverser les émotions au lieu de tourner en boucle. Le quotidien devient plus léger."
+cap:
+  - titre: "Retrouver de la sécurité"
+    texte: "Faire la paix avec ta situation, dans le cœur et dans le corps. Sortir de l'urgence."
+  - titre: "Stabiliser ton quotidien"
+    texte: "Créer un environnement de vie soutenant, et mettre en action les projets qui font sens pour toi."
+  - titre: "Retrouver ton élan"
+    texte: "Ton pouvoir personnel, la connexion à quelque chose de plus grand, l'élan d'oser créer."
+cadre: "Des rendez-vous réguliers, d'1h30 maximum, qui t'aident à te structurer. Quand c'est utile, des **sessions d'implémentation** : on réalise ensemble ce que tu n'arrives pas à faire seul, pour que tu puisses ensuite le faire en autonomie. Ma mission première est de développer ta souveraineté."
 ---
 Un accompagnement pour venir travailler en profondeur et sur la durée, quand comprendre ne suffit plus et qu'il est temps de faire descendre le travail dans le corps et dans la vie concrète.
-
-## C'est pour toi si…
-
-- Tu travailles sur toi depuis des années, tu as peut-être fait une thérapie, et pourtant **ta réalité ne bouge pas**.
-- Tu es à bout de forces, et ta vie te semble éparpillée : logement, argent, relations, rien ne tient vraiment.
-- Tu sais ce que tu devrais mettre en place, les décisions qui seraient justes pour toi, et **tu n'arrives pas à passer à l'acte**.
-- T'engager te fait peur, comme si une part de toi refusait encore de regarder la réalité en face.
-
-Comprendre, analyser, faire le travail intellectuel : ça ne suffit jamais. Pour que ta vie change, le travail doit descendre dans la matière, dans l'action et dans le corps. C'est là que je t'accompagne.
-
-## Mon approche
-
-Elle repose sur ton engagement à te mettre en mouvement. À la fin de chaque rendez-vous, on choisit ensemble une **quête** : un pas concret à vivre d'ici la prochaine fois. L'approche est non directive, elle part de ton unicité, et s'appuie sur trois familles d'outils : le travail avec les sept interlocuteurs et le dialogue intérieur, des pratiques somatiques qui ramènent dans le corps, et des outils de connaissance de soi pour revenir à ton fonctionnement propre et te détacher des conditionnements.
-
-### L'accueil
-Accueillir pleinement ce que tu vis, accepter le rythme et la saison dans laquelle tu es, pour pouvoir la traverser. Cette saison est la configuration qui fait naître la suivante. Souvent, la situation qu'on souhaite reste inaccessible tant qu'on ne laisse pas la saison actuelle se composter pleinement.
-
-### La clarté
-Voir où tu en es, les histoires que tu te racontes, les parts de toi qui s'expriment. On prend du recul sur ce paysage intérieur : ce n'est qu'un paysage. L'acteur principal est ailleurs, souvent étouffé par lui. On fait la clarté entre ce qui demande vraiment à s'exprimer depuis les profondeurs et ce qui reste d'un paysage déjà traversé.
-
-### La confiance
-La clarté donne une vision, et avec elle revient la confiance : dans le chemin, dans les cycles, dans tes capacités. Tu t'appuies sur tes forces, et aussi sur ce que tu appelais tes défauts, qui sont souvent des forces. Tu avances plus sereinement, et tu sors de l'urgence.
-
-### Le corps et les émotions
-Une grande partie du travail est somatique : créer de l'espace pour accueillir les densités émotionnelles et te laisser traverser. Quand on ne sait pas les accueillir, elles nous ramènent dans la boucle et obscurcissent le jugement. Savoir les traverser, et quoi en faire, rend le quotidien plus léger.
-
-## Le cadre
-
-Des rendez-vous réguliers, d'1h30 maximum, qui t'aident à te structurer. Quand c'est utile, des **sessions d'implémentation** : on réalise ensemble ce que tu n'arrives pas à faire seul, pour que tu puisses ensuite le faire en autonomie. Ma mission première est de développer ta souveraineté : que tout ce que je te partage devienne ta propre structure.
-
-## Ce vers quoi on va
-
-On avance par étapes :
-
-- **Faire la paix avec ta situation** et retrouver de la sécurité, dans le cœur et dans le corps. Sortir de l'urgence.
-- **Créer un environnement de vie soutenant et stable**, et mettre en action les projets qui font sens pour toi.
-- **Retrouver ton pouvoir personnel**, cette connexion à quelque chose de plus grand qui ouvre la porte aux synchronicités et donne l'élan d'oser créer.
 
 ## En ligne
 À distance, sur 1 mois, 3 mois ou 6 mois, avec un rythme qui s'ajuste à la durée de l'accompagnement.

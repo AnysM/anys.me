@@ -60,6 +60,11 @@ const offres = defineCollection({
     temoignages: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
     faq: z.array(z.object({ q: z.string(), r: z.string() })).optional(),
     benefices: z.array(z.string()).optional(),
+    pourqui: z.array(z.string()).optional(),
+    approche_intro: z.string().optional(),
+    approche: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
+    cap: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
+    cadre: z.string().optional(),
   }),
 });
 
