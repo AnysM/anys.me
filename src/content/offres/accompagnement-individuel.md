@@ -69,6 +69,15 @@ image: /img/accompagnement-echange.jpg
 ---
 Un accompagnement pour venir travailler en profondeur et sur la durée, quand comprendre ne suffit plus et qu'il est temps de faire descendre le travail dans le corps et dans la vie concrète.
 
+## C'est pour toi si…
+
+- Tu travailles sur toi depuis des années, tu as peut-être fait une thérapie, et pourtant **ta réalité ne bouge pas**.
+- Tu es à bout de forces, et ta vie te semble éparpillée : logement, argent, relations, rien ne tient vraiment.
+- Tu sais ce que tu devrais mettre en place, les décisions qui seraient justes pour toi, et **tu n'arrives pas à passer à l'acte**.
+- T'engager te fait peur, comme si une part de toi refusait encore de regarder la réalité en face.
+
+Comprendre, analyser, faire le travail intellectuel : ça ne suffit jamais. Pour que ta vie change, le travail doit descendre dans la matière, dans l'action et dans le corps. C'est là que je t'accompagne.
+
 ## Mon approche
 
 Elle repose sur ton engagement à te mettre en mouvement. À la fin de chaque rendez-vous, on choisit ensemble une **quête** : un pas concret à vivre d'ici la prochaine fois. L'approche est non directive, elle part de ton unicité, et s'appuie sur trois familles d'outils : le travail avec les sept interlocuteurs et le dialogue intérieur, des pratiques somatiques qui ramènent dans le corps, et des outils de connaissance de soi pour revenir à ton fonctionnement propre et te détacher des conditionnements.
