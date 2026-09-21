@@ -15,7 +15,7 @@ const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', '
 // Trois temps : ce qui revient chaque semaine ou chaque mois, ce qui a une date, ce qui s'annonce.
 const groupes = [
   { titre: 'Rendez-vous réguliers', items: reguliers },
-  { titre: 'Dates fixées', items: aVenir },
+  { titre: 'Rendez-vous ponctuels', items: aVenir },
   { titre: 'À venir', items: retraites },
 ].filter((g) => g.items.length > 0);
 

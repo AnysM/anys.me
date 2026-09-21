@@ -237,4 +237,40 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
       </div>
     </div>
   </section>
+  <script is:inline>
+    // Apparitions au défilement : chaque élément important se dévoile quand il arrive à l'écran,
+    // et les éléments frères arrivent l'un après l'autre.
+    (function () {
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var cibles = [
+        'main > section:not(#hero) .tete',
+        '.split .photo', '.split > div > *',
+        '.coeur-mot__texte p',
+        '.rangee__item', '.codex-invite > *',
+        '.difference__liste li',
+        '.seuil', '.seuil .quete',
+        '.egrid .ecard',
+        '#contact .appel', '.contact-bloc',
+        '.lettre__rangee > *',
+        '.art-signature .wrap > *'
+      ].join(',');
+      var els = Array.prototype.slice.call(document.querySelectorAll(cibles)).filter(function (el) { return !el.closest('#hero'); });
+      els.forEach(function (el) {
+        var freres = Array.prototype.filter.call(el.parentNode.children, function (x) { return els.indexOf(x) !== -1; });
+        el.style.transitionDelay = Math.min(freres.indexOf(el) * 0.12, 0.6) + 's';
+        el.classList.add('apparait');
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var el = en.target;
+          el.classList.add('vu');
+          io.unobserve(el);
+          // Une fois apparu, l'élément retrouve ses effets de survol normaux.
+          setTimeout(function () { el.classList.remove('apparait', 'vu'); el.style.transitionDelay = ''; }, 1000 + parseFloat(el.style.transitionDelay || 0) * 1000);
+        });
+      }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </Base>
