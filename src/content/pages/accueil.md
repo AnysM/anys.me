@@ -58,7 +58,7 @@ seuils_eyebrow: Les seuils
 seuils_titre: Par où *entrer*
 seuils:
   - titre: Découvrir
-    texte: 'Ce qui transforme, c''est la régularité. Un atelier, un voyage sonore, un cercle : des portes simples pour revenir au corps et goûter à la présence, sans rien savoir à l''avance.'
+    texte: 'Mettre un pied dans une pratique que tu n''as jamais osée, loin des sentiers battus. Un atelier, un voyage sonore, un cercle : sans rien savoir à l''avance, juste venir voir. Et si ça te parle, la pratique régulière peut devenir un ancrage qui transforme ton quotidien.'
   - titre: Approfondir
     texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Ou une lecture de ton dessin originel, pour éclairer ta nature profonde.'
   - titre: Se transformer
