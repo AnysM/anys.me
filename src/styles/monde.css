@@ -465,8 +465,8 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .difference__liste h3 { margin: 0; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--cream); }
 .difference__liste p { margin-top: 0.9rem; color: var(--cream); line-height: 1.7; font-size: 1rem; max-width: 40ch; }
 /* Le piège d'abord, en une ligne plus discrète ; puis ce que j'apporte, en clair. */
-.difference__piege { color: #9DA2B6 !important; font-size: 0.95rem !important; }
-.difference__piege span { display: block; margin-bottom: 0.3rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.68rem; color: var(--coral); }
+.difference__piege { color: #A9AEC2 !important; font-size: clamp(1.02rem, 1.3vw, 1.1rem) !important; line-height: 1.6 !important; }
+.difference__piege span { display: block; margin-bottom: 0.4rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.78rem; color: var(--coral); }
 @media (max-width: 820px) { .difference__liste { grid-template-columns: 1fr; gap: 2.2rem; } }
 
 /* ── Témoignages : texte en sans serif (lisible), nom en serif italique ── */
