@@ -557,19 +557,19 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   .artefact__corps .artefact-details { align-items: flex-start; }
 }
 
-.rangee { width: min(100%, 1000px); margin: 0 auto; }
+.rangee { width: min(100%, 1120px); margin: 0 auto; }
 .rangee__centre { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); display: flex; align-items: center; gap: 1rem; justify-content: center; }
 .rangee__centre::before, .rangee__centre::after { content: ''; height: 1px; flex: 1; max-width: 90px; background: linear-gradient(to right, transparent, rgba(236,231,222,0.3)); }
 .rangee__centre::after { background: linear-gradient(to left, transparent, rgba(236,231,222,0.3)); }
 .rangee__centre span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.82rem; color: var(--cream); }
-.rangee__liste { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2.4vw, 2rem); }
+.rangee__liste { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1.2rem, 2.6vw, 2.4rem); }
 .rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
-.rangee__picto { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.14); color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s; }
+.rangee__picto { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.14); color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s; }
 .rangee__picto svg { width: 55%; height: 55%; filter: url(#encre); }
 .rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
 .rangee__item:hover .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); }
-.rangee__nom { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; line-height: 1.35; color: var(--cream); }
-.rangee__note { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 20ch; }
+.rangee__nom { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(0.88rem, 1.1vw, 0.98rem); line-height: 1.35; color: var(--cream); }
+.rangee__note { font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
 @media (max-width: 860px) { .rangee__liste { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.2rem; } .rangee__item:last-child { grid-column: 1 / -1; } }
 
 /* ── Cœur à cœur : un seul texte, porté par la voix, à la place des listes ── */
