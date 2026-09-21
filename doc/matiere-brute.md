@@ -67,3 +67,7 @@ Approche non directive, basée sur l'unicité et la complexité de l'être, avec
 **Ce vers quoi on va, par étapes.** D'abord faire la paix avec sa situation et retrouver de la sécurité, dans le cœur et dans le corps ; sortir de l'urgence. Ensuite créer un environnement de vie soutenant et stable, et mettre en action les projets qui font sens. Petit à petit, retrouver son pouvoir personnel, la connexion à quelque chose de plus grand, qui ouvre la porte aux synchronicités et donne l'élan d'oser créer.
 
 **Paiement.** Étalement possible (en 4 fois proposé couramment, jusqu'à 6 fois proposé à une personne en difficulté pour la formule de 3 mois).
+
+## 2026-09-22 — Prisme Origine (texte de travail fourni par Anys, généré avec une IA)
+
+Le texte complet a servi de base à la page de l'offre (réécrite au tutoiement, raccourcie). Idées clés retenues : trois systèmes (Human Design, Tzolk'in, BaZi) = le cœur (Tzolk'in), l'équilibre (BaZi), le guide (Human Design) ; le prisme qui décompose la lumière ; la lecture cherche les liens et les résonances entre les systèmes ; déroulé carte → lecture → synthèse → intégration ; « Je ne suis pas là pour te dire qui tu es, je suis là pour t'aider à le voir » ; tarif 350 €.

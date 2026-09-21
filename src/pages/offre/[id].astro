@@ -38,7 +38,8 @@ const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
 const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
-const fmtO = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+const titreScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+const fmtO = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
@@ -90,7 +91,7 @@ const jsonld = [
   {d.pourqui?.length > 0 && (
     <section class="pourqui">
       <div class="wrap">
-        <div class="tete"><p class="eyebrow">Pour qui</p><h2>C'est <span class="script">pour toi</span> si…</h2></div>
+        <div class="tete"><p class="eyebrow">Pour qui</p><h2 set:html={titreScript(d.pourqui_titre ?? "C'est *pour toi* si…")}></h2></div>
         <ul class="pourqui__liste">{d.pourqui.map((x) => <li set:html={fmtO(x)}></li>)}</ul>
       </div>
     </section>
@@ -99,9 +100,10 @@ const jsonld = [
   {d.approche?.length > 0 && (
     <section class="bloc approche">
       <div class="wrap">
-        <div class="tete"><p class="eyebrow">Mon approche</p><h2><span class="script">Comment</span> on avance</h2></div>
+        <div class="tete"><p class="eyebrow">{d.approche_eyebrow ?? 'Mon approche'}</p><h2 set:html={titreScript(d.approche_titre ?? '*Comment* on avance')}></h2></div>
         {d.approche_intro && <p class="approche__intro" set:html={fmtO(d.approche_intro)}></p>}
-        <div class="approche__grille">{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
+        <div class={`approche__grille approche__grille--${d.approche.length}`}>{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
+        {d.cadre && !(d.cap?.length > 0) && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
       </div>
     </section>
   )}
