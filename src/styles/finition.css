@@ -98,7 +98,8 @@ section { padding: var(--section) 0; }
 
 /* La manuscrite reste pour les titres et les grandes phrases ;
    dans un paragraphe, *mot* devient un italique Garamond lisible */
-p .script { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1em; letter-spacing: 0; color: var(--cream); }
+/* Un mot mis en valeur dans un paragraphe : la même police que le texte, en italique et en blanc (pas de Garamond au milieu du Jost). */
+p .script { font-family: inherit; font-style: italic; font-size: 1em; font-weight: 400; letter-spacing: 0; color: var(--cream); }
 p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 
 /* Respiration : titres, blocs et schémas prennent de l'air */

@@ -578,7 +578,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .coeur-mot__texte p { font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 2.3vw, 1.5rem); line-height: 1.75; color: var(--cream); }
 .coeur-mot__texte p + p { margin-top: 1.4rem; }
 .coeur-mot__texte strong { color: var(--gold); font-weight: 400; }
-.coeur-mot__texte .script { font-size: 1.15em; }
+.coeur-mot__texte .script { font-size: 1em; }
 .billet__ics { font-size: 0.85rem; }
 
 /* ── Agenda : deux vues, les cartes ou la vue d'ensemble ── */
