@@ -31,7 +31,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Artefacts', url: '/artefacts' }, { nom: d.titre, url: `/artefacts/${a.id}` }]),
 ];
 ---
-<Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre née de : ${d.naissance ?? 'un passage'}.`.trim()} image={d.images[0]} jsonld={jsonld}>
+<Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre originale d'Indigo Enoqii.`.trim()} image={d.images[0]} jsonld={jsonld}>
   <section class="artefact">
     <div class="wrap artefact__entete">
       <p class="eyebrow"><a href="/artefacts">Artefact</a></p>
