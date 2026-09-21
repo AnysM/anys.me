@@ -58,7 +58,7 @@ seuils_eyebrow: Les seuils
 seuils_titre: Par où *entrer*
 seuils:
   - titre: Découvrir
-    texte: 'Mettre un pied dans une pratique que tu n''as jamais osée, loin des sentiers battus. Un atelier, un voyage sonore, un cercle : sans rien savoir à l''avance, juste venir voir. Et si ça te parle, la pratique régulière peut devenir un ancrage qui transforme ton quotidien.'
+    texte: 'Essayer une pratique nouvelle, en douceur : méditation, danse Butô, voyage sonore ou cercle de parole. Une soirée de 1h30 à 2h, en petit groupe, sans aucune expérience requise. Et si ça te plaît, venir chaque semaine devient un ancrage qui transforme ton quotidien.'
   - titre: Approfondir
     texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Ou une lecture de ta manière unique de fonctionner, pour éclairer ta nature profonde.'
   - titre: Se transformer
@@ -98,7 +98,7 @@ difference:
   - titre: "Marcher avec son ombre"
     texte: "Ni le new age qui enferme dans la lumière, ni le coaching qui enferme dans la performance. Avec le Butô et la psychologie jungienne, on accueille le sombre et l'invisible, et on apprend à s'aimer avec son ombre."
   - titre: "Ta carte, pas la mienne"
-    texte: "Human Design, Tzolk'in, BaZi : je lis ton dessin originel, et l'accompagnement épouse ta nature au lieu de t'imposer un modèle."
+    texte: "Human Design, Tzolk'in, BaZi : je lis ta manière unique de fonctionner, et l'accompagnement épouse ta nature au lieu de t'imposer un modèle."
   - titre: "Des initiations, pas des séances"
     texte: "Le désert, les cercles, les rituels : on vit des passages, on ne se contente pas d'en parler. C'est là que le changement s'ancre."
 ---
