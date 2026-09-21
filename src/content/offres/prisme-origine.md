@@ -2,6 +2,10 @@
 titre: "Prisme Origine"
 categorie: accompagnement
 tag: "Lecture"
+action: reserver
+cta: "Réserver ma lecture"
+invite_titre: "On *commence* ton Prisme ?"
+invite_texte: "Réserve ta lecture : je te recontacte pour fixer un créneau de 2h, et je te demande ta date, ton heure et ton lieu de naissance."
 duree: "2h"
 resume: "Une lecture croisée du Human Design, du Tzolk'in et du BaZi, pour revenir à ce qui te rend unique."
 tarifs:
@@ -63,7 +67,7 @@ faq:
   - q: "Est-ce une prédiction de mon avenir ?"
     r: "C'est une lecture de ton fonctionnement, un outil d'exploration. Ton avenir reste entre tes mains, et tu restes libre de ce qui résonne pour toi."
   - q: "Et après la lecture ?"
-    r: "Un mois après la lecture, on se retrouve 30 min pour voir ce qui s'est incarné. Et si tu as envie d'aller plus loin, la lecture peut se prolonger par un accompagnement."
+    r: "Un mois après la lecture, on se retrouve 30 min pour voir ce qui s'est incarné. Et si tu as envie d'aller plus loin, la lecture peut se prolonger par un accompagnement : on en parle à ce moment-là."
 temoignages:
   - t: "Anys m'a accompagnée pour une lecture de mon Human Design, avec beaucoup de présence, de douceur et de clarté. Je recommande fortement de partager un moment d'ouverture à soi avec lui."
     'n': "Camille"

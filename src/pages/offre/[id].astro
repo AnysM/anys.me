@@ -42,6 +42,14 @@ const titreScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1
 const fmtO = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+// Le bouton principal dépend de l'offre : un appel découverte pour un accompagnement,
+// un rendez-vous pour un soin, une réservation directe pour une lecture comme le Prisme.
+const mode = d.action ?? (soin ? 'rdv' : 'appel');
+const lienAction = d.lien || (mode === 'reserver' ? `/contact?pour=${encodeURIComponent(`Réservation : ${d.titre}`)}&interet=approfondir` : contact);
+const labelAction = d.cta ?? (mode === 'reserver' ? 'Réserver' : 'Prendre rendez-vous');
+const externeAction = /^https?:/.test(lienAction);
+const inviteTitre = d.invite_titre ?? (mode === 'appel' ? 'Commençons par un appel' : soin ? 'Envie de prendre soin de toi ?' : 'On *commence* ?');
+const inviteTexte = d.invite_texte ?? (mode === 'appel' ? 'Un appel découverte pour faire le point sur ta situation, sentir si ce chemin est fait pour toi, et voir quel accompagnement serait le plus adapté.' : 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.');
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
 // Formules regroupées (ex. : En ligne / Immersion) pour une lecture hiérarchisée
 const groupes = Object.entries((d.tarifs ?? []).reduce((acc, t) => { (acc[t.groupe ?? ''] ??= []).push(t); return acc; }, {} as Record<string, NonNullable<typeof d.tarifs>>));
@@ -84,7 +92,7 @@ const jsonld = [
       {avec.length > 0 && (
         <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
       )}
-      {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}</div>}
+      {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
     </div>
   </section>
 
@@ -132,7 +140,7 @@ const jsonld = [
       <div class="narrow">
         <div class="tete"><p class="eyebrow">Ce que tu y trouves</p><h2><span class="script">Ce que</span> ça peut ouvrir</h2></div>
         <ul class="benefices__liste">{d.benefices.map((b) => <li><Icone nom="etoile" taille={16} /><span>{b}</span></li>)}</ul>
-        {!enPreparation && <div class="offre-relance">{soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}</div>}
+        {!enPreparation && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
       </div>
     </section>
   )}
@@ -168,7 +176,7 @@ const jsonld = [
                 </div>
               </div>
             ))}
-            <div class="offre-relance">{soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}</div>
+            <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>
           </div>
         </section>
       )}
@@ -178,16 +186,16 @@ const jsonld = [
       <section class="invite">
         <div class="narrow">
           <p class="eyebrow">Un premier pas</p>
-          <h2>{soin ? 'Envie de prendre soin de toi ?' : 'Commençons par un appel'}</h2>
-          <p class="muted" style="margin:0.9rem auto 0; max-width:50ch;">{soin ? 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.' : 'Un appel découverte pour faire le point sur ta situation, sentir si ce chemin est fait pour toi, et voir quel accompagnement serait le plus adapté.'}</p>
+          <h2 set:html={titreScript(inviteTitre)}></h2>
+          <p class="muted" style="margin:0.9rem auto 0; max-width:50ch;">{inviteTexte}</p>
           <div class="invite__btns">
-            {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}
+            {mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}
           </div>
         </div>
       </section>
 
       <BarreAction titre={d.titre} sous={prixDepart ?? ''}>
-        {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Réserver</a> : <Appel pour={d.titre} secondaire={false} court />}
+        {mode === 'appel' ? <Appel pour={d.titre} secondaire={false} court /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{soin ? 'Réserver' : labelAction}</a>}
       </BarreAction>
     </Fragment>
   )}
