@@ -674,4 +674,4 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .temoins-offre__grille--seul .temoin-carte { background: none; border: 0; box-shadow: none; text-align: center; padding: 0; }
 .temoins-offre__grille--seul .temoin-carte__guillemet { position: static; display: block; font-size: 4rem; line-height: 0.6; margin-bottom: 0.4rem; }
 .temoins-offre__grille--seul blockquote p { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.35rem, 2.4vw, 1.8rem); line-height: 1.5; color: var(--cream); }
-.temoins-offre__grille--seul figcaption { justify-content: center; margin-top: 1.4rem; }
+.temoins-offre__grille--seul figcaption { align-items: center; border-top: 0; margin-top: 1.2rem; padding-top: 0; }
