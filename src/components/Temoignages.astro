@@ -1,7 +1,10 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { temoignages = [], titre = '*Ils et elles* l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const { temoignages = [], titre: titreDonne = null, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
 const carrousel = temoignages.length > 3;
+const seul = temoignages.length === 1;
+// Un seul témoignage : un titre au singulier et une grande citation, au lieu d'une carte isolée.
+const titre = titreDonne ?? (seul ? '*Un* retour' : '*Ils et elles* l’ont traversé');
 const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 {temoignages.length > 0 && (
@@ -18,7 +21,7 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
           </a>
         )}
       </div>
-      <div class={carrousel ? 'carrousel' : 'temoins-offre__grille'} data-carrousel={carrousel ? '' : undefined}>
+      <div class={carrousel ? 'carrousel' : `temoins-offre__grille${seul ? ' temoins-offre__grille--seul' : ''}`} data-carrousel={carrousel ? '' : undefined}>
         <div class={carrousel ? 'carrousel__piste' : 'temoins-offre__cartes'}>
         {temoignages.map((x) => (
           <figure class="temoin-carte">
