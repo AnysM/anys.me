@@ -81,10 +81,10 @@ coeur: |
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
-  - "Laisser mourir ce qui n'est plus aligné."
-  - "Faire naître ce qui est à l'étroit en toi."
-  - "Être entendu, sans schéma plaqué sur toi."
-  - "Repartir de ton essence, pour avancer avec fluidité."
+  - "Laisser mourir ce qui n'est plus aligné, pour offrir de l'espace à ce qui attend d'entrer dans ta vie."
+  - "Laisser pousser à l'extérieur ce qui est trop à l'étroit à l'intérieur, pour enfin réaliser tes projets de cœur."
+  - "Oser affirmer qui tu es vraiment, même les parts les plus bizarres."
+  - "Apprendre à te connaître et à t'accepter comme tu es vraiment."
 posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
 temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
