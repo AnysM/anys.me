@@ -3,9 +3,9 @@ hero_eyebrow: Présence · Mouvement · Créativité
 hero_titre: Marcher un chemin qui
 hero_image: /img/univers-art.jpg
 portrait_image: /img/portrait.jpg
-resp1_image: /img/michael-c-Ofb4nzmv7uM-unsplash.jpg
+resp1_image: /img/respiration-feuillage.jpg
 resp2_image: /img/harshitha-b-j-XDMfaQ47Uow-unsplash.jpg
-resp3_image: /img/mathew-schwartz-ZLec57sOjlg-unsplash.jpg
+resp3_image: /img/michael-c-Ofb4nzmv7uM-unsplash.jpg
 art1_image: /img/IMG_5904.PNG
 art2_image: /img/IMG_5911.PNG
 art3_image: /img/IMG_5916.PNG
@@ -53,7 +53,7 @@ piliers:
     note: Chamanisme · peuples indigènes · sagesses ancestrales
   - nom: L’art et l’expression créative
     note: Danse · musique · peinture
-citation1: On ne fait pas <br>pousser une fleur <br>*en tirant dessus.*
+citation1: On ne fait pas pousser une fleur <br>*en tirant dessus.*
 seuils_eyebrow: Les seuils
 seuils_titre: Par où *entrer*
 seuils:
@@ -66,7 +66,7 @@ seuils:
 codex_eyebrow: Le Codex
 codex_titre: 'Le paysage *intérieur*'
 codex_texte: 'Les notions, les pratiques, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre.'
-citation2: Accueillir l'abondance en osant révéler <br>*ta couleur unique.*
+citation2: Oser révéler *ta couleur unique* <br>afin d'accueillir l'abondance.
 citation3: Accepter de se mettre en relation <br>et redevenir *une cellule* <br>du grand organisme.
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'

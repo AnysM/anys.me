@@ -345,13 +345,18 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .venir__liste { grid-template-columns: 1fr; gap: clamp(2.2rem, 4.5vw, 3.4rem); max-width: 1000px; margin: 0 auto; padding: 0; }
 /* Quatre phrases qui comptent : l'action en Jost (capitales fines, en couleur), la finalité en grand Garamond italique.
    Chacune se dévoile quand elle entre à l'écran, l'action d'abord, puis la finalité. */
-.venir__liste { justify-items: center; text-align: center; gap: clamp(2.8rem, 6vw, 4.4rem); }
-.venir__liste li { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; max-width: 34ch; margin: 0 auto; }
+.venir__liste { gap: clamp(4rem, 9vw, 7rem); max-width: 1040px; }
+/* En quinconce : une phrase à gauche, la suivante à droite, pour garder du mouvement. */
+.venir__liste li { display: flex; flex-direction: column; gap: 0.7rem; max-width: 30ch; }
+.venir__liste li:nth-child(odd) { align-items: flex-start; text-align: left; margin-right: auto; }
+.venir__liste li:nth-child(even) { align-items: flex-end; text-align: right; margin-left: auto; }
+@media (max-width: 700px) { .venir__liste li:nth-child(n) { align-items: center; text-align: center; margin: 0 auto; } }
 .venir__action { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.82rem, 1.1vw, 0.95rem); line-height: 1.6; }
 .venir__liste li:nth-child(odd) .venir__action { color: var(--bleu, #5C7CFF); }
 .venir__liste li:nth-child(even) .venir__action { color: var(--coral); }
 .venir__fin { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.35rem); line-height: 1.22; color: var(--cream); }
-html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 0; filter: blur(6px); transform: translateY(20px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
+html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 0; filter: blur(6px); transform: translateX(-36px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
+html.js .venir__liste li:nth-child(even) .venir__action, html.js .venir__liste li:nth-child(even) .venir__fin { transform: translateX(36px); }
 html.js .venir__liste li .venir__fin { transition-delay: 0.35s; }
 html.js .venir__liste li.vu .venir__action, html.js .venir__liste li.vu .venir__fin { opacity: 1; filter: blur(0); transform: none; }
 @media (prefers-reduced-motion: reduce) { html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 1; filter: none; transform: none; transition: none; } }
