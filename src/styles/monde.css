@@ -593,7 +593,9 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 
 /* ── Cœur à cœur : un seul texte, porté par la voix, à la place des listes ── */
 .coeur-mot__texte { max-width: 46ch; margin: 0 auto; text-align: center; }
-.coeur-mot__texte p { font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 2.3vw, 1.5rem); line-height: 1.75; color: var(--cream); }
+/* Le constat en Jost, la réponse (dernier paragraphe) en Garamond, plus grande. */
+.coeur-mot__texte p { font-family: 'Jost', sans-serif; font-weight: 300; font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.8; color: #CDD0DC; }
+.coeur-mot__texte p:last-child { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.45rem, 2.6vw, 1.9rem); line-height: 1.45; color: var(--cream); margin-top: 2.2rem; }
 .coeur-mot__texte p + p { margin-top: 1.4rem; }
 .coeur-mot__texte strong { color: var(--gold); font-weight: 400; }
 .coeur-mot__texte .script { font-size: 1em; }

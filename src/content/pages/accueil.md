@@ -80,7 +80,7 @@ coeur: |
 
   Et ça ne s'opère pas par la seule volonté. Ça demande d'entrer en relation profonde avec ce qui t'habite, et avec ce qui t'entoure.
 
-  Je marche *à tes côtés* pour retrouver cette capacité à co-créer avec la vie, et sortir de la forteresse d'un mental trop présent.
+  Je marche *à tes côtés* pour retrouver cette capacité à **co-créer avec la vie, et sortir de la forteresse d'un mental trop présent.**
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:

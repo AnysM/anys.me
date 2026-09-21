@@ -190,11 +190,11 @@ const links = [
           if (r.bottom < -80 || r.top > H + 80) continue;
           var prog = (r.top + r.height / 2 - H / 2) / H;
           prog = Math.max(-1, Math.min(1, prog));
-          var py = prog * -32;
+          var py = prog * -18;
           var ph = parseFloat(el.dataset.ph) || 0;
-          var dx = Math.sin(t / 3400 + ph) * 12;
-          var dy = Math.cos(t / 4200 + ph) * 8;
-          el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + (py + dy).toFixed(1) + 'px,0) scale(1.18)';
+          var dx = Math.sin(t / 3400 + ph) * 8;
+          var dy = Math.cos(t / 4200 + ph) * 5;
+          el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + (py + dy).toFixed(1) + 'px,0) scale(1.07)';
         }
         requestAnimationFrame(loop);
       }

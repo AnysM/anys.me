@@ -223,7 +223,7 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 }
 
 /* ── Respirations pleine largeur voilées ── */
-.breath { position: relative; min-height: 82vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.breath { position: relative; min-height: 72vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
 .breath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.95) brightness(0.78); will-change: transform; }
 .breath::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(12,24,72,0.80), rgba(14,28,82,0.5) 50%, rgba(12,24,72,0.80)); }
 .breath .phrase { position: relative; z-index: 2; font-family: 'Jost', sans-serif; font-style: italic; font-weight: 300; font-size: clamp(1.45rem, 3vw, 2.3rem); color: var(--cream); max-width: min(92vw, 42ch); line-height: 1.4; padding: 0 24px; text-wrap: balance; }
