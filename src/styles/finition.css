@@ -156,7 +156,6 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
 .ecard__tag.type-voyage-sonore { background: var(--indigo-soft); }
 .ecard__tag.type-residence { background: #FFC53D; }
 .ecard__tag.type-retraite, .ecard__tag.type-immersion { background: var(--cream); }
-.vues-centre { display: flex; justify-content: center; }
 /* Dans la vue d'ensemble, la même pastille que sur les cartes, posée dans la ligne. */
 .apercu__type .ecard__tag { position: static; display: inline-block; box-shadow: none; white-space: nowrap; }
 
@@ -167,3 +166,13 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
 
 /* Agenda : la liste commence juste sous l'en-tête. */
 .agenda-liste { padding-top: clamp(2.4rem, 5vw, 3.6rem); }
+/* La bascule des vues se pose sur la ligne du premier titre, à droite, sans ajouter de ligne. */
+.agenda-liste .wrap { position: relative; }
+.vues-barre { position: absolute; top: 0; right: 0; z-index: 2; }
+.vues-barre .vues { margin-bottom: 0; background: var(--navy); }
+#vue-cartes > .group:first-child .group__title, #vue-liste > .apercu__groupe:first-child .group__title { min-height: 44px; padding-right: 235px; }
+@media (max-width: 700px) {
+  .vues-barre { position: static; display: flex; justify-content: flex-start; margin-bottom: 1.6rem; }
+  #vue-cartes > .group:first-child .group__title, #vue-liste > .apercu__groupe:first-child .group__title { padding-right: 0; }
+}
+.foot__role { font-weight: 500; font-style: italic; color: var(--cream); }
