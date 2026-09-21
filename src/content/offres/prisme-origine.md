@@ -2,11 +2,12 @@
 titre: "Prisme Origine"
 categorie: accompagnement
 tag: "Lecture"
+duree: "2h"
 resume: "Une lecture croisée du Human Design, du Tzolk'in et du BaZi, pour revenir à ce qui te rend unique."
 tarifs:
   - label: "Prisme Origine"
     prix: "350€"
-    detail: "Préparation de ta carte, séance de lecture et de synthèse"
+    detail: "Préparation de ta carte, puis 2h de lecture et de synthèse"
 accueil: true
 ordre: 2
 seuil: approfondir
@@ -33,7 +34,7 @@ etapes:
     texte: "À partir de ta date, de ton heure et de ton lieu de naissance, je prépare ton Prisme."
   - titre: "La lecture"
     picto: carte
-    texte: "Une séance individuelle pour parcourir les dimensions de ton Prisme, du cœur au guide."
+    texte: "Une séance individuelle de 2h pour parcourir les dimensions de ton Prisme, du cœur au guide."
   - titre: "La synthèse"
     picto: etoile
     texte: "On fait émerger les correspondances, les thèmes récurrents, ce qui compte le plus pour toi."
