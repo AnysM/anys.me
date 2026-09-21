@@ -343,20 +343,19 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .posture { margin-top: 1.6rem; padding-left: 1.3rem; border-left: 2px solid var(--gold); font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.18rem; line-height: 1.55; color: var(--cream); }
 /* Pourquoi on vient me voir : liste courte, sur deux colonnes */
 .venir__liste { grid-template-columns: 1fr; gap: clamp(2.2rem, 4.5vw, 3.4rem); max-width: 1000px; margin: 0 auto; padding: 0; }
-/* Quatre phrases qui comptent : grandes, en vague, le verbe en or, et elles arrivent l'une après l'autre. */
-.venir__liste li { font-family: 'EB Garamond', serif; font-size: clamp(1.45rem, 2.6vw, 2.05rem); line-height: 1.3; color: var(--cream); max-width: 31ch; gap: 1.1rem; }
-.venir__liste li:nth-child(2) { margin-left: 18%; }
-.venir__liste li:nth-child(3) { margin-left: 6%; }
-.venir__liste li:nth-child(4) { margin-left: 24%; }
-.venir__liste li strong { color: var(--gold); font-weight: 400; }
-.venir__liste .ico { flex: none; transform: translateY(0.18em); }
-html.js .venir .venir__liste li { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease, transform 0.9s ease; }
-html.js .venir.is-in .venir__liste li { opacity: 1; transform: none; }
-.venir.is-in .venir__liste li:nth-child(2) { transition-delay: 0.18s; }
-.venir.is-in .venir__liste li:nth-child(3) { transition-delay: 0.36s; }
-.venir.is-in .venir__liste li:nth-child(4) { transition-delay: 0.54s; }
-@media (max-width: 700px) { .venir__liste li:nth-child(n) { margin-left: 0; } }
-@media (prefers-reduced-motion: reduce) { html.js .venir .venir__liste li { opacity: 1; transform: none; transition: none; } }
+/* Quatre phrases qui comptent : centrées, grandes, le verbe en corail ou en bleu (le corps, l'intérieur),
+   et elles se dévoilent l'une après l'autre en sortant du flou. */
+.venir__liste { justify-items: center; text-align: center; }
+.venir__liste li { display: block; font-family: 'EB Garamond', serif; font-size: clamp(1.45rem, 2.6vw, 2.05rem); line-height: 1.3; color: var(--cream); max-width: 32ch; margin: 0 auto; }
+.venir__liste li strong { font-weight: 400; }
+.venir__liste li:nth-child(odd) strong { color: var(--bleu, #5C7CFF); }
+.venir__liste li:nth-child(even) strong { color: var(--coral); }
+html.js .venir .venir__liste li { opacity: 0; filter: blur(8px); transform: translateY(26px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1), filter 1.1s ease; }
+html.js .venir.is-in .venir__liste li { opacity: 1; filter: blur(0); transform: none; }
+.venir.is-in .venir__liste li:nth-child(2) { transition-delay: 0.35s; }
+.venir.is-in .venir__liste li:nth-child(3) { transition-delay: 0.7s; }
+.venir.is-in .venir__liste li:nth-child(4) { transition-delay: 1.05s; }
+@media (prefers-reduced-motion: reduce) { html.js .venir .venir__liste li { opacity: 1; filter: none; transform: none; transition: none; } }
 .reconnaitre__liste li { font-size: 1.28rem; }
 
 /* Schéma sur petit écran : toujours en cercle, simplement resserré */

@@ -105,7 +105,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
           <p class="eyebrow">{acc.venir_eyebrow}</p>
           <h2 set:html={fmt(acc.venir_titre)}></h2>
         </div>
-        <ul class="venir__liste">{acc.venir_items.map((x) => <li><Icone nom="etoile" taille={20} /><span set:html={fmt(tisser(x, ctx))}></span></li>)}</ul>
+        <ul class="venir__liste">{acc.venir_items.map((x) => <li><span set:html={fmt(tisser(x, ctx))}></span></li>)}</ul>
       </div>
     </section>
   )}

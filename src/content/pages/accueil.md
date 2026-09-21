@@ -53,7 +53,7 @@ piliers:
     note: Chamanisme · peuples indigènes · sagesses ancestrales
   - nom: L’art et l’expression créative
     note: Danse · musique · peinture
-citation1: On ne fait pas pousser une fleur <br>*en tirant dessus.*
+citation1: On ne fait pas <br>pousser une fleur <br>*en tirant dessus.*
 seuils_eyebrow: Les seuils
 seuils_titre: Par où *entrer*
 seuils:
@@ -66,8 +66,8 @@ seuils:
 codex_eyebrow: Le Codex
 codex_titre: 'Le paysage *intérieur*'
 codex_texte: 'Les notions, les pratiques, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre.'
-citation2: Accueillir l'abondance <br>*en osant révéler ta couleur unique.*
-citation3: Accepter de se mettre en relation. <br>*Redevenir une cellule du grand organisme.*
+citation2: Accueillir l'abondance en osant révéler <br>*ta couleur unique.*
+citation3: Accepter de se mettre en relation <br>et redevenir *une cellule* <br>du grand organisme.
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
@@ -80,14 +80,14 @@ coeur: |
 
   Et ça ne s'opère pas par la seule volonté. Ça demande d'entrer en relation profonde avec ce qui t'habite, et avec ce qui t'entoure.
 
-  Je marche *à tes côtés* pour retrouver cette capacité à co-créer avec la vie, et sortir de la forteresse d'un mental tout-puissant.
+  Je marche *à tes côtés* pour retrouver cette capacité à co-créer avec la vie, et sortir de la forteresse d'un mental trop présent.
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
+  - "**Apprendre** à te connaître et à t'accepter comme tu es vraiment."
+  - "**Oser affirmer** qui tu es vraiment, même les parts les plus bizarres."
   - "**Laisser mourir** ce qui n'est plus aligné, pour offrir de l'espace à ce qui attend d'entrer dans ta vie."
   - "**Laisser pousser** à l'extérieur ce qui est trop à l'étroit à l'intérieur, pour enfin réaliser tes projets de cœur."
-  - "**Oser affirmer** qui tu es vraiment, même les parts les plus bizarres."
-  - "**Apprendre** à te connaître et à t'accepter comme tu es vraiment."
 posture: "Ni un maître, ni un éveillé : un homme qui a trouvé son chemin, et qui a besoin de le partager pour inspirer d'autres à trouver le leur."
 temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
