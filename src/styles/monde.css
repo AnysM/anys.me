@@ -343,19 +343,18 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .posture { margin-top: 1.6rem; padding-left: 1.3rem; border-left: 2px solid var(--gold); font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.18rem; line-height: 1.55; color: var(--cream); }
 /* Pourquoi on vient me voir : liste courte, sur deux colonnes */
 .venir__liste { grid-template-columns: 1fr; gap: clamp(2.2rem, 4.5vw, 3.4rem); max-width: 1000px; margin: 0 auto; padding: 0; }
-/* Quatre phrases qui comptent : centrées, grandes, le verbe en corail ou en bleu (le corps, l'intérieur),
-   et elles se dévoilent l'une après l'autre en sortant du flou. */
-.venir__liste { justify-items: center; text-align: center; }
-.venir__liste li { display: block; font-family: 'EB Garamond', serif; font-size: clamp(1.45rem, 2.6vw, 2.05rem); line-height: 1.3; color: var(--cream); max-width: 32ch; margin: 0 auto; }
-.venir__liste li strong { font-weight: 400; }
-.venir__liste li:nth-child(odd) strong { color: var(--bleu, #5C7CFF); }
-.venir__liste li:nth-child(even) strong { color: var(--coral); }
-html.js .venir .venir__liste li { opacity: 0; filter: blur(8px); transform: translateY(26px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1), filter 1.1s ease; }
-html.js .venir.is-in .venir__liste li { opacity: 1; filter: blur(0); transform: none; }
-.venir.is-in .venir__liste li:nth-child(2) { transition-delay: 0.35s; }
-.venir.is-in .venir__liste li:nth-child(3) { transition-delay: 0.7s; }
-.venir.is-in .venir__liste li:nth-child(4) { transition-delay: 1.05s; }
-@media (prefers-reduced-motion: reduce) { html.js .venir .venir__liste li { opacity: 1; filter: none; transform: none; transition: none; } }
+/* Quatre phrases qui comptent : l'action en Jost (capitales fines, en couleur), la finalité en grand Garamond italique.
+   Chacune se dévoile quand elle entre à l'écran, l'action d'abord, puis la finalité. */
+.venir__liste { justify-items: center; text-align: center; gap: clamp(2.8rem, 6vw, 4.4rem); }
+.venir__liste li { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; max-width: 34ch; margin: 0 auto; }
+.venir__action { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.82rem, 1.1vw, 0.95rem); line-height: 1.6; }
+.venir__liste li:nth-child(odd) .venir__action { color: var(--bleu, #5C7CFF); }
+.venir__liste li:nth-child(even) .venir__action { color: var(--coral); }
+.venir__fin { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.35rem); line-height: 1.22; color: var(--cream); }
+html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 0; filter: blur(6px); transform: translateY(20px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
+html.js .venir__liste li .venir__fin { transition-delay: 0.35s; }
+html.js .venir__liste li.vu .venir__action, html.js .venir__liste li.vu .venir__fin { opacity: 1; filter: blur(0); transform: none; }
+@media (prefers-reduced-motion: reduce) { html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 1; filter: none; transform: none; transition: none; } }
 .reconnaitre__liste li { font-size: 1.28rem; }
 
 /* Schéma sur petit écran : toujours en cercle, simplement resserré */

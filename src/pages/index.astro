@@ -105,7 +105,21 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
           <p class="eyebrow">{acc.venir_eyebrow}</p>
           <h2 set:html={fmt(acc.venir_titre)}></h2>
         </div>
-        <ul class="venir__liste">{acc.venir_items.map((x) => <li><span set:html={fmt(tisser(x, ctx))}></span></li>)}</ul>
+        <ul class="venir__liste">{acc.venir_items.map((x) => {
+          const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
+          return <li><span class="venir__action" set:html={tisser(action, ctx)}></span>{fin && <span class="venir__fin" set:html={tisser(fin, ctx)}></span>}</li>;
+        })}</ul>
+        <script is:inline>
+          // Chaque phrase se dévoile quand elle arrive à l'écran : l'action d'abord, puis ce à quoi elle mène.
+          (function () {
+            var items = document.querySelectorAll('.venir__liste li');
+            if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(function (li) { li.classList.add('vu'); }); return; }
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('vu'); io.unobserve(en.target); } });
+            }, { rootMargin: '0px 0px -18% 0px' });
+            items.forEach(function (li) { io.observe(li); });
+          })();
+        </script>
       </div>
     </section>
   )}

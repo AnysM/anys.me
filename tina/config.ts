@@ -228,7 +228,7 @@ export default defineConfig({
           { type: "string", name: "coeur", label: "Coeur a coeur — texte", description: "**dore**, *manuscrite*, paragraphes = ligne vide", ui: { component: "textarea" } },
           { type: "string", name: "venir_eyebrow", label: "Pourquoi on vient me voir — sur-titre" },
           { type: "string", name: "venir_titre", label: "Pourquoi on vient me voir — titre", description: "*mot* = manuscrite" },
-          { type: "string", name: "venir_items", label: "Pourquoi on vient me voir — raisons", list: true },
+          { type: "string", name: "venir_items", label: "Pourquoi on vient me voir — raisons", list: true, description: "L'action | ce à quoi elle mène. Le « | » sépare les deux : l'action en capitales fines, la finalité en grand italique." },
           { type: "string", name: "posture", label: "Ma posture (citation)", ui: { component: "textarea" } },
           { type: "string", name: "difference_eyebrow", label: "Mon approche — sur-titre" },
           { type: "string", name: "difference_titre", label: "Mon approche — titre", description: "*mot* = manuscrite" },
