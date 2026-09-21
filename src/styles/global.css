@@ -480,3 +480,5 @@ html.js main > section.is-in, html.js main > article > section.is-in { opacity: 
 .ph-band, .imgph { background: url('/img/tex-cosmic.jpg') center / cover no-repeat, var(--surface); }
 .imgph { filter: saturate(0.8) brightness(0.7); }
 .ph-band::after, .imgph span { display: none; }
+/* Le nénuphar est en portrait : on cadre sur la fleur plutôt qu'au centre. */
+.breath img[src*="nenuphar"] { object-position: 50% 62%; }

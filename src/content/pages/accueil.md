@@ -3,7 +3,7 @@ hero_eyebrow: Présence · Mouvement · Créativité
 hero_titre: Marcher un chemin qui
 hero_image: /img/univers-art.jpg
 portrait_image: /img/portrait.jpg
-resp1_image: /img/respiration-feuillage.jpg
+resp1_image: /img/respiration-nenuphar.jpg
 resp2_image: /img/harshitha-b-j-XDMfaQ47Uow-unsplash.jpg
 resp3_image: /img/michael-c-Ofb4nzmv7uM-unsplash.jpg
 art1_image: /img/IMG_5904.PNG
