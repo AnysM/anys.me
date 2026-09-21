@@ -156,7 +156,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <span class="difference__num">{['I', 'II', 'III', 'IV'][i]}</span>
               <h3>{x.titre}</h3>
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>

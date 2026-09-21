@@ -90,16 +90,16 @@ temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
-difference_eyebrow: Ce qui change tout
+difference_eyebrow: Mon approche
 difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
   - titre: "La rigueur et le mystère"
-    texte: "Ingénieur de formation, initié auprès des Ashaninka, de moines bouddhistes tibétains, des nomades du désert, en Vipassana. Un regard précis et structurant, et l'ouverture de celui qui a traversé l'invisible."
+    texte: "Ingénieur de formation, initié auprès des Ashaninka, de moines tibétains et des nomades du désert. Un regard précis, qui a aussi traversé l'invisible."
   - titre: "Marcher avec son ombre"
-    texte: "Ni le new age qui enferme dans la lumière, ni le coaching qui enferme dans la performance. Avec le Butô et la psychologie jungienne, on accueille le sombre et l'invisible, et on apprend à s'aimer avec son ombre."
-  - titre: "Ta carte, pas la mienne"
-    texte: "Human Design, Tzolk'in, BaZi : je lis ta manière unique de fonctionner, et l'accompagnement épouse ta nature au lieu de t'imposer un modèle."
-  - titre: "Des initiations, pas des séances"
-    texte: "Le désert, les cercles, les rituels : on vit des passages, on ne se contente pas d'en parler. C'est là que le changement s'ancre."
+    texte: "Avec le Butô et la psychologie jungienne, on accueille le sombre et l'invisible. On apprend à s'aimer avec son ombre, et à marcher avec."
+  - titre: "Ta propre carte"
+    texte: "Human Design, Tzolk'in, BaZi : je lis ta manière unique de fonctionner, et l'accompagnement se construit à partir de ta nature."
+  - titre: "Vivre les passages"
+    texte: "Le désert, les cercles, les rituels : on traverse les choses avec le corps. C'est là que le changement s'ancre."
 ---
 

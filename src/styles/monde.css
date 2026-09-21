@@ -445,17 +445,16 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .carrousel__puce[aria-current="true"]:hover { background: var(--gold); }
 
 /* ── Ce qui change tout : trois différences, courtes ── */
-.difference__liste { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.6rem, 4vw, 3.2rem); max-width: 1080px; margin: 0 auto; }
-.difference__liste li { position: relative; padding-top: 1.4rem; border-top: 1px solid rgba(216,162,76,0.45); }
-.difference__num { font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; }
-.difference__liste h3 { margin-top: 0.4rem; font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em; font-size: 1.05rem; color: var(--cream); }
-.difference__liste p { margin-top: 0.8rem; color: #C9CBD8; line-height: 1.75; font-size: 1rem; }
+.difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(2.4rem, 5vw, 3.6rem) clamp(2.4rem, 6vw, 5rem); max-width: 900px; margin: 0 auto; padding: 0; }
+.difference__liste li { position: relative; }
+.difference__liste h3 { margin: 0; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--cream); }
+.difference__liste p { margin-top: 0.6rem; color: #C2C5D2; line-height: 1.75; font-size: 1rem; max-width: 40ch; }
 @media (max-width: 820px) { .difference__liste { grid-template-columns: 1fr; gap: 2.2rem; } }
 
 /* ── Témoignages : texte en sans serif (lisible), nom en serif italique ── */
 .temoin-carte blockquote p { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 1.02rem; line-height: 1.75; color: #E4E1DA; }
 .temoin-carte figcaption b { font-family: 'EB Garamond', serif; font-style: italic; font-weight: 400; font-size: 1.25rem; color: var(--cream); }
-.difference__liste { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 1180px; }
+
 /* Événement : titre, puis date juste dessous, puis le trait doré */
 .ecard__when { position: relative; margin-top: 1.4rem; padding-bottom: 1.3rem; }
 .ecard__when::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 1px; background: var(--gold); opacity: 0.6; }
