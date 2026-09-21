@@ -72,7 +72,7 @@ citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
 coeur_eyebrow: Ce que tu vis peut-être
-coeur_titre: "Comprendre sans *incarner*"
+coeur_titre: '*Comprendre* <br><span class="serif">sans incarner</span>'
 coeur: |
   Souvent, on m'écrit au moment où quelque chose ne tient plus. On a compris, analysé, travaillé, et pourtant la vie ne bouge pas.
 

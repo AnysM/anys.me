@@ -138,3 +138,6 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 /* Pop-in Calendly : voile aux couleurs du site */
 .calendly-overlay { background-color: rgba(10, 15, 32, 0.86) !important; backdrop-filter: blur(6px); }
 .calendly-overlay .calendly-popup { border-radius: 14px; overflow: hidden; }
+
+/* Dans un titre : <span class="serif"> passe en Garamond, en minuscules, pour jouer avec le manuscrit. */
+h2 .serif { display: inline-block; margin-top: 0.25em; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 1.15em; }
