@@ -60,7 +60,7 @@ seuils:
   - titre: Découvrir
     texte: 'Mettre un pied dans une pratique que tu n''as jamais osée, loin des sentiers battus. Un atelier, un voyage sonore, un cercle : sans rien savoir à l''avance, juste venir voir. Et si ça te parle, la pratique régulière peut devenir un ancrage qui transforme ton quotidien.'
   - titre: Approfondir
-    texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Ou une lecture de ton dessin originel, pour éclairer ta nature profonde.'
+    texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Ou une lecture de ta manière unique de fonctionner, pour éclairer ta nature profonde.'
   - titre: Se transformer
     texte: 'Un cheminement sur la durée pour traverser une transition et incarner un projet qui te ressemble. Ou une immersion hors du quotidien, pour se déposer en profondeur.'
 codex_eyebrow: Le Codex
