@@ -97,7 +97,7 @@ difference_eyebrow: Mon approche
 difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
   - titre: "De l'invisible au concret"
-    piege: "Des accompagnants très sensibles, sans la structure pour construire quelque chose de précis."
+    piege: "Des accompagnants très sensibles, sans la structure pour pouvoir matérialiser ensuite."
     texte: "Ingénieur, chef de projet puis consultant, j'ai appris à analyser, synthétiser et structurer. J'ai aussi été initié au mystère auprès d'un peuple d'Amazonie brésilienne, de moines tibétains et des nomades du désert marocain. Avec les deux, on écoute ce qui se passe en toi, puis on en fait des choix clairs et des projets concrets."
   - titre: "Marcher avec son ombre"
     piege: "Une spiritualité qui fait de la lumière et de l'éveil un objectif absolu, et rejette tout le reste."
