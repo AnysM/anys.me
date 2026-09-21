@@ -35,3 +35,13 @@ Ce n'est pas un truc en plus, c'est une extension : la matérialisation du chemi
 ## 2026-09-19 — L'ombre
 
 Plus que la danse Butô, c'est l'accueil du sombre, de l'invisible. Il y a aussi la psychologie jungienne qui aide à ça. Et ça permet de sortir du new age qui enferme dans la lumière, ou du coaching qui enferme dans la performance : on apprend à s'aimer avec son ombre et à marcher avec.
+
+## 2026-09-21 — Ce que tu ne trouveras pas ailleurs (les pièges classiques)
+
+**La rigueur et le mystère.** Tu peux te retrouver avec des personnes qui t'accompagnent, très sensibles, très conscientes, mais qui n'ont pas l'esprit d'analyse, de synthèse, la capacité à structurer et la rigueur pour construire des choses précises. Mon passé d'ingénieur informatique, responsable projet et consultant me donne ça, en plus d'avoir été initié au mystère et d'avoir vécu des épreuves initiatiques uniques avec les peuples d'Amazonie brésilienne, les moines bouddhistes tibétains ou encore les nomades du désert marocain.
+
+**Marcher avec son ombre.** C'est le contrepied du new age et de la spiritualité moderne qui élève la lumière et l'éveil au rang d'objectif absolu. Alors tout ce qui ne rentre pas là-dedans est à jeter, renier, ignorer. Le pire truc pour s'aimer vraiment. Nous, on fait le travail d'aimer l'ombre et de comprendre que l'ombre et la lumière ne vont pas l'une sans l'autre, et que la vie, c'est la danse qui se crée entre les deux. On peut citer les outils après.
+
+**Ta propre carte** (réducteur, pas parlant). L'idée, c'est sortir du conditionnement. Se servir des outils de connaissance de soi, millénaires ou plus récents, pour revenir à ton fonctionnement unique. Parce qu'on ne demande pas à un … de … (métaphore à trouver). L'idée : trouver du soutien, de la force dans ses spécificités, et relâcher les comportements conditionnants et les définitions de soi qui nous enferment dans ce que l'on n'est pas vraiment.
+
+**Vivre plutôt que guérir.** Tu peux passer ton temps à vouloir guérir, changer, te transformer, sans jamais vivre. Le mental est super fort pour s'enfermer dans une forteresse de certitudes qui te font croire que tu es sur le bon chemin, mais si la transformation n'est pas concrète, ce ne sont que des histoires. C'est pourquoi je privilégie l'initiation. L'initiation, c'est vivre une expérience qui imprime profondément l'être au-delà du mental, et qui ouvre de nouvelles portes encore inaccessibles.
