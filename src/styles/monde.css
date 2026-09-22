@@ -690,3 +690,5 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .btn-agenda .ico { color: var(--gold); }
 .btn-agenda:hover { background: var(--cream); color: var(--navy); border-color: var(--cream); }
 .seances__action { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.8rem); }
+/* La promesse de l'offre, juste sous le titre */
+.page-hero .offre-lead { margin-top: 1.2rem; max-width: 46ch; font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.45; color: var(--cream); }
