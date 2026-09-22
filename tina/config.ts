@@ -33,6 +33,14 @@ export default defineConfig({
           { type: "string", name: "lieu", label: "Lieu" },
           { type: "string", name: "prix", label: "Prix" },
           { type: "string", name: "earlybird", label: "Early bird — date limite" },
+          { type: "object", name: "seances", label: "Séances (rendez-vous réguliers)", list: true,
+            description: "Les dates des prochaines séances : la prochaine s'affiche sur la carte, toutes s'affichent sur la page.",
+            ui: { itemProps: (i) => ({ label: i?.date ? `${String(i.date).slice(0, 10)} ${i.heure ?? ""}` : "Séance" }) },
+            fields: [
+              { type: "datetime", name: "date", label: "Date", ui: { dateFormat: "YYYY-MM-DD" } },
+              { type: "string", name: "heure", label: "Horaire", description: "Ex. : 19h - 20h30" },
+              { type: "string", name: "note", label: "Note", description: "Ex. : horaire exceptionnel" },
+            ] },
           { type: "object", name: "tarifs", label: "Formules (séance, mois, année…)", list: true,
             ui: { itemProps: (i) => ({ label: i?.label ? `${i.label} — ${i.prix ?? ""}` : "Formule" }) },
             fields: [

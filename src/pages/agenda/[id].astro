@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
-import { codexDe } from '../../lib/monde';
+import { codexDe, seancesAVenir } from '../../lib/monde';
 import Temoignages from '../../components/Temoignages.astro';
 import Faq from '../../components/Faq.astro';
 import Lettre from '../../components/Lettre.astro';
@@ -43,6 +43,10 @@ const billet = d.date
     }
   : null;
 const lienAction = d.lien && d.reservable ? d.lien : null;
+// Rendez-vous réguliers : les séances à venir, groupées par mois
+const moisDe = (x: Date) => new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(x);
+const seancesParMois = Object.entries(seancesAVenir(d).reduce((acc: any, s: any) => { (acc[moisDe(s.date)] ??= []).push(s); return acc; }, {}));
+const jourSeance = (x: Date) => `${new Intl.DateTimeFormat('fr-FR', { weekday: 'long' }).format(x)} ${x.getDate() === 1 ? '1er' : x.getDate()}`;
 const lies = await codexDe(`agenda/${e.id}`);
 const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
@@ -136,6 +140,22 @@ const jsonld = [
       </div>
     </div>
   </section>
+
+  {seancesParMois.length > 0 && (
+    <section class="seances">
+      <div class="narrow">
+        <div class="tete"><p class="eyebrow">Calendrier</p><h2><span class="script">Les prochaines</span> séances</h2></div>
+        <div class="seances__mois">
+          {seancesParMois.map(([mois, liste]) => (
+            <div class="seances__bloc">
+              <h3>{mois}</h3>
+              <ul>{(liste as any[]).map((x) => <li><span class="seances__jour">{jourSeance(x.date)}</span><span class="seances__heure">{x.heure}</span>{x.note && <span class="seances__note">{x.note}</span>}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   {d.tarifs?.length > 0 && (
     <section class="bloc">

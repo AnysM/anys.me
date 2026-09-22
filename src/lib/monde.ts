@@ -22,7 +22,14 @@ export type Proposition = {
 
 const fmtCourt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d).replace('.', '');
 
+const aujourdhuiMinuit = () => new Date(new Date().toDateString());
+const fmtSeance = (x: Date) => `${new Intl.DateTimeFormat('fr-FR', { weekday: 'short' }).format(x).replace('.', '')} ${x.getDate() === 1 ? '1er' : x.getDate()} ${new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '')}`;
+/** Les séances à venir d'un rendez-vous régulier, dans l'ordre. */
+export const seancesAVenir = (d: any) => (d.seances ?? []).filter((s: any) => s.date >= aujourdhuiMinuit()).sort((a: any, b: any) => a.date.getTime() - b.date.getTime());
+
 export function ligneDate(d: any): string {
+  const prochaine = !d.date && seancesAVenir(d)[0];
+  if (prochaine) return `Prochaine : ${fmtSeance(prochaine.date)}` + (prochaine.heure ? ` · ${prochaine.heure}` : '');
   if (!d.date) return d.rythme ?? 'Sur inscription';
   if (d.date_fin) {
     const j = Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1;

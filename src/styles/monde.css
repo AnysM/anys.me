@@ -675,3 +675,12 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .temoins-offre__grille--seul .temoin-carte__guillemet { position: static; display: block; font-size: 4rem; line-height: 0.6; margin-bottom: 0.4rem; }
 .temoins-offre__grille--seul blockquote p { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.35rem, 2.4vw, 1.8rem); line-height: 1.5; color: var(--cream); }
 .temoins-offre__grille--seul figcaption { align-items: center; border-top: 0; margin-top: 1.2rem; padding-top: 0; }
+
+/* Calendrier des séances d'un rendez-vous régulier */
+.seances__mois { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem 3rem; }
+.seances__bloc h3 { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.82rem; color: var(--gold); padding-bottom: 0.7rem; border-bottom: 1px solid var(--faint); margin-bottom: 0.4rem; }
+.seances__bloc ul { list-style: none; margin: 0; padding: 0; }
+.seances__bloc li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.9rem; padding: 0.75rem 0; border-bottom: 1px solid var(--faint); }
+.seances__jour { font-family: 'EB Garamond', serif; font-size: 1.2rem; color: var(--cream); text-transform: capitalize; min-width: 9.5rem; }
+.seances__heure { font-family: 'Jost', sans-serif; font-weight: 300; color: rgba(236,231,222,0.75); }
+.seances__note { flex-basis: 100%; font-size: 0.78rem; letter-spacing: 0.06em; color: var(--coral); }

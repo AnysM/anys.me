@@ -3,7 +3,27 @@ titre: "Infloressence"
 categorie: atelier
 lieu: "Chanka Studio, 51 quai Saint-Vincent, Lyon"
 prix: "20€ la séance"
-rythme: "Chaque semaine dès octobre, dimanche ou vendredi soir"
+rythme: "Chaque semaine, le vendredi ou le dimanche soir"
+seances:
+  - date: 2026-10-02
+    heure: "17h30 - 19h"
+    note: "horaire exceptionnel"
+  - date: 2026-10-11
+    heure: "19h - 20h30"
+  - date: 2026-10-16
+    heure: "18h30 - 20h"
+  - date: 2026-10-25
+    heure: "19h - 20h30"
+  - date: 2026-11-01
+    heure: "19h - 20h30"
+  - date: 2026-11-06
+    heure: "18h30 - 20h"
+  - date: 2026-11-15
+    heure: "19h - 20h30"
+  - date: 2026-11-20
+    heure: "18h30 - 20h"
+  - date: 2026-11-27
+    heure: "18h30 - 20h"
 image: /img/infloressence-danse.webp
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
 cta: "Je m'inscris"
@@ -27,7 +47,7 @@ faq:
   - q: "Faut-il de l'expérience ?"
     r: "Aucune expérience requise. L'atelier est pensé pour que chacun puisse entrer, à son rythme."
   - q: "Où et quand ?"
-    r: "À Chanka Studio, 51 quai Saint-Vincent, Lyon. Les ateliers hebdomadaires reprennent en octobre ; le créneau (dimanche soir ou vendredi soir) est en train d'être calé."
+    r: "À Chanka Studio, 51 quai Saint-Vincent, Lyon. Chaque semaine, en alternance le vendredi (18h30 - 20h) et le dimanche (19h - 20h30). Toutes les dates sont dans le calendrier ci-dessus."
   - q: "Comment s'inscrire ?"
     r: "Envoie-moi un message avec la formule qui te tente : je te réponds avec le créneau et les modalités."
 temoignages:
