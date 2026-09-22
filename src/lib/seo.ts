@@ -15,7 +15,7 @@ export const personne = {
   jobTitle: 'Accompagnant, praticien de soins énergétiques et artiste',
   address: { '@type': 'PostalAddress', addressLocality: 'Lyon', addressCountry: 'FR' },
   knowsAbout: ['Méditation de pleine conscience', 'Danse Butô', 'Soin énergétique', 'Chamanisme', 'Human Design', 'Accompagnement des transitions de vie'],
-  sameAs: ['https://www.instagram.com/anys.mechkar/', 'https://www.youtube.com/@anys.mechkar', 'https://www.facebook.com/anys.mechkar/', 'https://enoqii.art'],
+  sameAs: ['https://www.instagram.com/anys.mechkar/', 'https://www.youtube.com/@anys.mechkar', 'https://www.facebook.com/anys.mechkar/'],
 };
 
 export const siteWeb = {
