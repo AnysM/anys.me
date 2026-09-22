@@ -684,3 +684,9 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .seances__jour { font-family: 'EB Garamond', serif; font-size: 1.2rem; color: var(--cream); text-transform: capitalize; min-width: 9.5rem; }
 .seances__heure { font-family: 'Jost', sans-serif; font-weight: 300; color: rgba(236,231,222,0.75); }
 .seances__note { flex-basis: 100%; font-size: 0.78rem; letter-spacing: 0.06em; color: var(--coral); }
+
+/* « Ajouter à mon agenda » : un vrai bouton, bien visible, à côté de la réservation */
+.btn-agenda { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8em 1.4em; border-radius: 999px; border: 1px solid rgba(236,231,222,0.55); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.3s, border-color 0.3s, color 0.3s; }
+.btn-agenda .ico { color: var(--gold); }
+.btn-agenda:hover { background: var(--cream); color: var(--navy); border-color: var(--cream); }
+.seances__action { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.8rem); }

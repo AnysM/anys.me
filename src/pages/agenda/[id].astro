@@ -135,7 +135,7 @@ const jsonld = [
           </div>
           {lienAction && <a class="btn btn--solid" href={lienAction} target={lienAction.startsWith('http') ? '_blank' : undefined} rel="noopener" data-evt="Réserver">{d.cta ?? 'Réserver'}</a>}
           {!lienAction && d.lien && <a class="cta" href={d.lien} target={d.lien.startsWith('http') ? '_blank' : undefined} rel="noopener">Plus d'infos <span class="line"></span></a>}
-          {d.date && <a class="cta billet__ics" href={`/agenda/${e.id}.ics`} download data-evt="Ajout agenda">Ajouter à mon agenda <span class="line"></span></a>}
+          {(d.date || seancesParMois.length > 0) && <a class="btn-agenda" href={`/agenda/${e.id}.ics`} download data-evt="Ajout agenda"><Icone nom="date" taille={16} />{d.date ? 'Ajouter à mon agenda' : 'Ajouter les séances à mon agenda'}</a>}
         </div>
       </div>
     </div>
@@ -153,6 +153,7 @@ const jsonld = [
             </div>
           ))}
         </div>
+        <div class="seances__action"><a class="btn-agenda" href={`/agenda/${e.id}.ics`} download data-evt="Ajout agenda"><Icone nom="date" taille={16} />Ajouter toutes les séances à mon agenda</a></div>
       </div>
     </section>
   )}

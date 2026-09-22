@@ -37,8 +37,8 @@ tarifs:
     prix: "60€ / mois"
     detail: "Soit 15€ la séance. Sans engagement, tu t'arrêtes quand tu veux."
   - label: "À l'année"
-    prix: "dès 350€"
-    detail: "Soit environ 11€ la séance au lieu de 20€, payable en 2 fois (175€ + 175€). Sur la saison, 290€ d'économie par rapport à la séance."
+    prix: "350€"
+    detail: "Soit environ 11€ la séance au lieu de 20€, payable en 2 ou 3 fois. Sur la saison, 290€ d'économie par rapport à la séance."
     avant: true
 accueil: true
 ordre: 1
