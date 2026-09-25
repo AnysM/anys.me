@@ -100,10 +100,10 @@ etapes:
     texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
 benefices:
   - "Faire la paix avec les parts de toi que tu gardais cachées"
+  - "Sortir de la demi-mesure et prendre la décision que tu retardes depuis trop longtemps"
   - "Une force d'homme qui protège, sans écraser"
-  - "Tenir dans la durée, porté par des hommes qui te connaissent"
-  - "Sortir de la demi-mesure et décider pour de vrai"
-  - "Un projet de cœur qui prend forme, concrètement"
+  - "Tenir dans la durée afin d'aboutir enfin tes projets les plus personnels"
+  - "Te sentir vivant, en mouvement et fier de toi"
 faq:
   - q: "C'est pour qui ?"
     r: "Pour des hommes prêts à regarder ce qu'ils évitent, et à marcher ensemble pendant quatre mois. Aucune expérience particulière n'est demandée."
