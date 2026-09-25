@@ -75,8 +75,8 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
-    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
+  <section class={`page-hero${d.logo ? ' page-hero--sigil' : ''}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    <div class="narrow">{d.logo && <img class="offre-logo" src={d.logo} alt="" />}<p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
       {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}
     </div>
@@ -120,7 +120,7 @@ const jsonld = [
   {d.cap?.length > 0 && (
     <section class="cap">
       <div class="wrap">
-        <div class="tete"><p class="eyebrow">Par étapes</p><h2><span class="script">Ce vers quoi</span> on va</h2></div>
+        <div class="tete"><p class="eyebrow">{d.cap_eyebrow ?? 'Par étapes'}</p><h2 set:html={titreScript(d.cap_titre ?? '*Ce vers quoi* on va')}></h2></div>
         <ol class="cap__etapes">{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3><p set:html={fmtO(c.texte)}></p></li>)}</ol>
         {d.cadre && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
       </div>

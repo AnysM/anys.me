@@ -2,6 +2,7 @@
 titre: "IN CARNE"
 categorie: accompagnement
 tag: "Parcours d'hommes"
+logo: /img/in-carne-logo.png
 format: "4 mois, en ligne"
 duree: "4 mois"
 seuil: transformer
@@ -19,29 +20,33 @@ tarifs:
     detail: "Payable en 6 fois."
 pourqui_titre: "C'est *pour toi* si…"
 pourqui:
-  - "Tu as beaucoup lu, compris, travaillé sur toi, et ton quotidien reste le même."
-  - "Tu avances seul, et tu t'arrêtes dès que ça devient difficile."
-  - "Tu portes un projet de cœur que tu remets sans cesse à plus tard."
-  - "Tu cherches une force d'homme qui laisse aussi de la place à ta sensibilité."
+  - "**Le chic type** : tu donnes tout, tu évites le conflit, et tu finis par t'effacer."
+  - "**Le performer** : tu avances à la volonté, tu tiens, et ton corps paie l'addition."
+  - "**L'homme spirituel perché** : tu comprends tout, tu vibres haut, et ta vie concrète ne bouge pas."
+  - "Tu portes un projet, une part de toi qui demande à naître, et tu la remets à plus tard."
 approche_eyebrow: "Le cœur du parcours"
 approche_titre: "*Accueillir* l'ombre"
-approche_intro: "Ce parcours part de ce qu'on préfère cacher. **L'ombre écoutée devient une force** : elle cesse de tirer les ficelles, et l'énergie qu'elle retenait revient dans ta vie."
+approche_intro: "Ce parcours part de ce qu'on préfère cacher. **L'ombre écoutée devient une force** : elle cesse de tirer les ficelles, et l'énergie qu'elle retenait revient dans ta vie. On ouvre à l'intérieur pour que le mouvement juste puisse s'exprimer, et que tu oses prendre ta place."
 approche:
   - titre: "L'ombre"
     texte: "La petite voix qui murmure « reste petit, ne fais pas de vagues, tu n'es pas assez ». On l'écoute, on la comprend, on apprend à marcher avec."
   - titre: "Une masculinité entière"
-    texte: "Une force qui protège et une sensibilité qui relie. Tes parts intérieures retrouvent leur place, du guerrier à l'enfant."
+    texte: "La part sombre du masculin a sa place : la colère, le désir, la puissance de trancher. Ni écrasée, ni lâchée sur les autres. Une force qui protège, et une sensibilité qui relie."
   - titre: "La quête"
     texte: "Un cap choisi, vécu comme une aventure. Entre chaque rendez-vous, une quête concrète à vivre dans ton quotidien."
   - titre: "La fraternité"
-    texte: "Une tribu d'hommes qui comprend ce que tu traverses, te soutient et te tient. Personne ne marche seul."
+    texte: "Une tribu d'hommes qui comprend ce que tu traverses, te soutient et te tient. C'est aussi là que se rejouent tes relations, en plus clair."
+cap_eyebrow: "Le parcours"
+cap_titre: "*Le chemin,* en quatre temps"
 cap:
-  - titre: "Ouvrir"
-    texte: "Les deux premiers mois : accueillir ce qui est là, reconnaître ton ombre et ton fonctionnement propre."
-  - titre: "Intégrer"
-    texte: "Le troisième mois : un temps de respiration, pour laisser le travail descendre dans le corps et dans les actes."
-  - titre: "Donner forme"
-    texte: "Le quatrième mois : finaliser, incarner, et lancer ce qui te tient à cœur."
+  - titre: "Repartir de toi"
+    texte: "On commence par ton Prisme Origine : ton fonctionnement, ton énergie, ton rythme. Le chemin part de toi, et de personne d'autre."
+  - titre: "Accueillir"
+    texte: "Ce qui est là, y compris ce que tu gardais caché. La première direction de la roue : rien ne se transforme sans être accueilli."
+  - titre: "Transformer"
+    texte: "Par le corps : méditation, mouvement, pratiques somatiques. On incarne, on ne fait pas que parler."
+  - titre: "Transmettre"
+    texte: "Prendre ta place et offrir ce qui est devenu solide : dans ton projet, tes relations, ta manière d'habiter ta vie."
 cadre: "Tout se vit **en ligne**. Un rendez-vous individuel toutes les deux semaines, **La Forge** en collectif toutes les deux semaines, et **Le Chaudron**, le cercle de parole, chaque mois. Entre les rendez-vous, tes quêtes. Trois places sont ouvertes, et on entre quand on est prêt."
 etapes:
   - titre: "Un appel"
@@ -85,22 +90,9 @@ temoignages:
     'n': "Matthieu"
     c: "IN CARNE"
 ---
-Quatre mois pour accueillir ce que tu gardes dans l'ombre, et laisser revenir la force qui était retenue là.
+Quatre mois pour ouvrir à l'intérieur, laisser le mouvement juste s'exprimer, et oser prendre ta place.
 
-## Pourquoi ce parcours existe
+Le parcours suit le cycle de la roue des 7 directions : accueillir, transformer, transmettre. Tout commence par ton Prisme Origine, pour repartir de toi, et tout passe par le corps, la méditation et le mouvement.
 
-Il y a un an, toute ma vie s'est effondrée. Un travail où personne ne reconnaissait ma singularité, une relation qui s'est arrêtée, et cette question qui est tombée d'un coup : qu'est-ce que j'ai fait pour en arriver là, alors que j'avais l'impression de tout faire correctement ?
-
-La réponse a été brutale. J'avais cru qu'en donnant tout, en étant parfait, j'allais être aimé et que tout se passerait bien. Le syndrome du chic type, du bon élève. À force de me lisser, je m'étais trahi moi-même, et le monde extérieur me renvoyait exactement ça.
-
-Devenir un homme, ça a commencé là. Le jour où j'ai choisi de ne plus être guidé par l'enfant qui cherche à être aimé, de réintégrer toutes mes parts et de les exprimer, quel que soit le résultat. De cette réintégration est née la pyramide intérieure, et IN CARNE est né de là.
-
-## Pourquoi l'ombre
-
-La spiritualité moderne élève la lumière au rang d'objectif. Tout ce qui n'y rentre pas est mis de côté : la colère, la peur, la honte, le désir, le doute. Ces parts continuent pourtant d'agir, et elles tirent les ficelles en silence.
-
-Ici, on fait le chemin inverse. On va les écouter, une par une, jusqu'à ce qu'elles deviennent des alliées. C'est ce qui rend une force d'homme sûre : elle n'a plus besoin d'écraser, ni de se retenir.
-
-## La quête, plutôt que l'objectif
-
-Un objectif à tout prix se paie toujours quelque part : dans le corps, dans les relations, dans le sens. Une quête, elle, se vit. Elle a un cap, des épreuves, des compagnons, et elle te transforme en chemin. Chaque rendez-vous se termine par la tienne, à vivre dans ton quotidien.
+## D'où ça vient
+Il y a un an, ma vie s'est effondrée : un travail où ma singularité n'avait pas sa place, une relation qui s'arrête, et cette question qui tombe d'un coup. À force de me lisser pour être aimé, je m'étais trahi moi-même. Devenir un homme a commencé là, le jour où j'ai choisi de réintégrer toutes mes parts et de les exprimer, quel que soit le résultat. De cette traversée sont nées la pyramide intérieure, et IN CARNE.
