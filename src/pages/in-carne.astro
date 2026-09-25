@@ -95,14 +95,17 @@ const jsonld = [
     </div>
   </section>
 
-  <!-- 6. LES PIÈGES -->
-  <section class="ic-pieges">
+  <!-- 6. C'EST POUR TOI SI… -->
+  <section class="ic-pourtoi">
     <div class="ic-large">
-      <p class="eyebrow">Ce qui t'attend au tournant</p>
-      <h2>Trois manières de <span class="script">passer à côté</span></h2>
-      <div class="ic-pieges__grille">
-        {(d.pourqui ?? []).map((x) => <div class="ic-piege ic-reveal" set:html={fmt(x)}></div>)}
-      </div>
+      <p class="eyebrow">Pour qui</p>
+      <h2>C'est <span class="script">pour toi</span> si…</h2>
+      <ul class="ic-pourtoi__liste">
+        {(d.pourtoi ?? []).map((x) => { const [phrase, masque] = x.split('|').map((y) => y.trim()); return (
+          <li class="ic-reveal"><p>{phrase}</p>{masque && <span class="ic-masque">{masque}</span>}</li>
+        ); })}
+      </ul>
+      {d.pourtoi_note && <p class="ic-pourtoi__note">{d.pourtoi_note}</p>}
     </div>
   </section>
 
@@ -244,11 +247,15 @@ const jsonld = [
   .ic-mouvement__question { margin-top: 0.8rem; max-width: 52ch; color: #C9CBD8; line-height: 1.75; font-size: 1.05rem; }
   .ic-roue__note { max-width: 52ch; margin: clamp(2.4rem, 5vw, 3.4rem) auto 0; text-align: center; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; line-height: 1.7; color: #C9CBD8; }
 
-  /* 6. Les pièges */
-  .ic-pieges { background: var(--navy); padding-block: clamp(5rem, 11vw, 9rem); }
-  .ic-pieges__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(1.4rem, 3vw, 2rem); margin-top: clamp(2.4rem, 5vw, 3.4rem); }
-  .ic-piege { padding: 1.8rem 1.7rem; border-radius: 18px; border: 1px solid var(--faint); background: rgba(255,255,255,0.02); font-family: 'EB Garamond', serif; font-size: 1.2rem; line-height: 1.5; color: var(--cream); }
-  .ic-piege strong { display: block; margin-bottom: 0.6rem; font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.76rem; color: var(--coral); }
+  /* 6. C'est pour toi si… : la phrase d'abord, le masque ensuite */
+  .ic-pourtoi { background: var(--navy); padding-block: clamp(5rem, 11vw, 9rem); }
+  .ic-pourtoi__liste { list-style: none; margin: clamp(2.4rem, 5vw, 3.4rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.8rem, 4vw, 2.8rem) clamp(2.4rem, 6vw, 4rem); }
+  .ic-pourtoi__liste li { position: relative; padding-left: 1.8rem; }
+  .ic-pourtoi__liste li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px rgba(216,162,76,0.6); }
+  .ic-pourtoi__liste p { font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 1.8vw, 1.42rem); line-height: 1.5; color: var(--cream); }
+  .ic-masque { display: inline-block; margin-top: 0.6rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; color: var(--coral); }
+  .ic-pourtoi__note { max-width: 46ch; margin: clamp(2.4rem, 5vw, 3.2rem) auto 0; text-align: center; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; color: #C9CBD8; }
+  @media (max-width: 760px) { .ic-pourtoi__liste { grid-template-columns: 1fr; } }
 
   /* 7. Le cadre */
   .ic-cadre { background: var(--navy2); padding-block: clamp(5rem, 11vw, 9rem); }

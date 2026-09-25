@@ -63,6 +63,8 @@ const offres = defineCollection({
     benefices: z.array(z.string()).optional(),
     pourqui_titre: z.string().optional(),
     pourqui: z.array(z.string()).optional(),
+    pourtoi: z.array(z.string()).optional(),
+    pourtoi_note: z.string().optional(),
     approche_eyebrow: z.string().optional(),
     approche_titre: z.string().optional(),
     approche_intro: z.string().optional(),
