@@ -115,7 +115,7 @@ const jsonld = [
       <p class="eyebrow">Ce que tu vis, concrètement</p>
       <h2>Quatre mois, <span class="script">trois rendez-vous</span></h2>
       <div class="ic-cadre__grille">
-        {(d.etapes ?? []).map((e) => (
+        {(d.cadre_items ?? []).map((e) => (
           <div class="ic-cadre__item ic-reveal">
             <h3>{e.titre}</h3>
             <p>{e.texte}</p>
@@ -147,7 +147,7 @@ const jsonld = [
   <section class="ic-engagement" id="engagement">
     <div class="ic-large">
       <p class="eyebrow">L'engagement</p>
-      <h2>Trois places, <span class="script">ouvertes</span></h2>
+      <h2><span class="script">Quand</span> tu es prêt</h2>
       <div class="ic-tarifs">
         {(d.tarifs ?? []).map((t) => (
           <div class={`ic-tarif${t.avant ? ' ic-tarif--avant' : ''}`}>
@@ -157,8 +157,9 @@ const jsonld = [
           </div>
         ))}
       </div>
-      <p class="ic-engagement__mot">On entre quand on est prêt. Un appel d'abord, pour voir si c'est ton moment.</p>
+      <p class="ic-engagement__mot">Un appel d'abord, pour voir si c'est ton moment, et si le groupe est juste pour toi.</p>
       <div class="ic-engagement__action"><Appel pour="IN CARNE" centre /></div>
+      <p class="ic-engagement__places">Trois places ouvertes · on entre quand on est prêt</p>
     </div>
   </section>
 
@@ -223,7 +224,7 @@ const jsonld = [
   .ic-recit__texte p { font-family: 'EB Garamond', serif; font-size: clamp(1.15rem, 1.6vw, 1.35rem); line-height: 1.7; color: var(--cream); }
   .ic-recit__texte p + p { margin-top: 1.3rem; }
   .ic-recit__texte strong { color: var(--gold); font-weight: 400; }
-  @media (max-width: 820px) { .ic-recit__grille { grid-template-columns: 1fr; } .ic-recit__photo { max-width: 320px; } }
+  @media (max-width: 820px) { .ic-recit__grille { grid-template-columns: 1fr; } .ic-recit__photo { max-width: 320px; } .ic-cadre__grille { grid-template-columns: 1fr; } }
 
   /* 4. Le nom */
   .ic-nom { background: linear-gradient(to bottom, var(--navy), var(--navy2)); padding-block: clamp(5rem, 11vw, 9rem); text-align: center; }
@@ -259,7 +260,7 @@ const jsonld = [
 
   /* 7. Le cadre */
   .ic-cadre { background: var(--navy2); padding-block: clamp(5rem, 11vw, 9rem); }
-  .ic-cadre__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: clamp(1.8rem, 4vw, 3rem); margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+  .ic-cadre__grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.8rem, 4vw, 3rem); margin-top: clamp(2.4rem, 5vw, 3.4rem); }
   .ic-cadre__item h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: 1.45rem; color: var(--cream); padding-bottom: 0.6rem; border-bottom: 1px solid var(--faint); margin-bottom: 0.7rem; }
   .ic-cadre__item p { color: #C9CBD8; line-height: 1.7; }
   .ic-cadre__note { max-width: 60ch; margin: clamp(2.4rem, 5vw, 3.4rem) auto 0; padding: 1.6rem 1.8rem; border-left: 2px solid var(--gold); background: rgba(216,162,76,0.06); border-radius: 0 14px 14px 0; color: var(--cream); line-height: 1.75; }
@@ -281,4 +282,5 @@ const jsonld = [
   .ic-tarif__detail { font-size: 0.92rem; color: #C9CBD8; line-height: 1.6; max-width: 26ch; margin-inline: auto; }
   .ic-engagement__mot { max-width: 44ch; margin: clamp(2.4rem, 5vw, 3.2rem) auto 0; font-family: 'EB Garamond', serif; font-size: 1.25rem; line-height: 1.7; color: var(--cream); }
   .ic-engagement__action { display: flex; justify-content: center; margin-top: 2rem; }
+  .ic-engagement__places { margin-top: 2.6rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; color: var(--gold); }
 </style>

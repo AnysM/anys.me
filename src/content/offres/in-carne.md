@@ -85,7 +85,14 @@ cap:
     posture: "Je suis guidé"
     texte: "Ai-je confiance en ce qui m'est donné, relié à mon intuition et à la magie de la vie, sachant que ma seule volonté ne suffit jamais ?"
 cap_note: "Ces sept mouvements viennent de la roue des 7 directions et des sept interlocuteurs. Ensemble, ils forment une unité : chaque part retrouve sa place. Puis la boucle reprend, et l'ancrage fait de la place pour ce qui demande à être accueilli ensuite."
-cadre: "Tout commence par ton **Prisme Origine**, pour repartir de toi et de personne d'autre. Ensuite, tout se vit **en ligne**. Un rendez-vous individuel toutes les deux semaines, **La Forge** en collectif toutes les deux semaines, et **Le Chaudron**, le cercle de parole, chaque mois. Entre les rendez-vous, tes quêtes. Trois places sont ouvertes, et on entre quand on est prêt."
+cadre: "Tout se vit **en ligne**, et tout commence par ton **Prisme Origine**, pour repartir de toi. Quatre mois : deux d'ouverture, un mois d'intégration, un mois pour donner forme. Entre les rendez-vous, tes quêtes."
+cadre_items:
+  - titre: "Le rendez-vous individuel"
+    texte: "Toutes les deux semaines, un temps rien que pour toi : ce qui bouge, ce qui bloque, ce qui demande à naître."
+  - titre: "La Forge"
+    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan de la tribu."
+  - titre: "Le Chaudron"
+    texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
 etapes:
   - titre: "Un appel"
     picto: parole

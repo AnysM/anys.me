@@ -149,6 +149,8 @@ export default defineConfig({
                 { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } },
               ] },
           { type: "string", name: "cadre", label: "Le cadre", ui: { component: "textarea" }, description: "**mot** = en valeur" },
+            { type: "object", name: "cadre_items", label: "Les rendez-vous (page dédiée)", list: true, ui: { itemProps: (i) => ({ label: i?.titre ?? "Rendez-vous" }) },
+              fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }] },
             { type: "string", name: "explore", label: "Ce qu'on explore ensemble", list: true, description: "Titre | description. Ex. : Ton rythme | ce qui te nourrit, ce qui t'épuise" },
             { type: "string", name: "action", label: "Bouton principal", options: [{ value: "appel", label: "Appel découverte" }, { value: "rdv", label: "Prendre rendez-vous" }, { value: "reserver", label: "Réserver directement" }], description: "Par défaut : appel découverte pour les accompagnements, rendez-vous pour les soins." },
             { type: "string", name: "cta", label: "Texte du bouton", description: "Ex. : Réserver ma lecture" },
