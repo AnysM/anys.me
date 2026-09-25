@@ -3,6 +3,7 @@ titre: "IN CARNE"
 categorie: accompagnement
 tag: "Parcours d'hommes"
 logo: /img/in-carne-logo.png
+image: /img/artefact-narita-4.jpg
 format: "4 mois, en ligne"
 duree: "4 mois"
 seuil: transformer
@@ -18,6 +19,19 @@ tarifs:
   - label: "Le parcours"
     prix: "1 200€"
     detail: "Payable en 6 fois."
+intention_eyebrow: "Un mot, d'homme à homme"
+intention: |
+  J'ai longtemps compris beaucoup de choses sans les incarner. Il y avait un décalage entre ce que je suis vraiment et mes aspirations profondes.
+
+  Ça venait de ma tête : anticiper, réfléchir, porter des masques. Par envie d'être aimé, par peur d'être rejeté, par honte, par culpabilité.
+
+  Souvent, c'est un effondrement qui déclenche. Un travail qui ne correspond plus, une relation qui s'achève. **La vie met du chaos pour te mettre face à tes masques**, et faire naître qui tu es vraiment.
+
+  Pour ça, il faut récupérer ton territoire intérieur. Il est colonisé par des injonctions, des croyances et des peurs qui te séparent du mouvement naturel de la vie et te coupent de tes élans.
+
+  Ce chemin t'invite à incarner : que ce que tu sais possible, ce que tu soupçonnes être capable de réaliser, prenne enfin place en toi et dans la matière.
+nom_titre: "IN CARNE, *dans la chair*"
+nom_texte: "Le nom dit le chemin : faire descendre dans la chair ce que la tête a déjà compris. C'est aussi un jeu de mots avec **incarner**, parce que tout se joue là — dans le corps, dans les actes, dans la matière. Une version authentique et souveraine de toi, plutôt qu'une version améliorée."
 pourqui_titre: "C'est *pour toi* si…"
 pourqui:
   - "**Le chic type** : tu donnes tout, tu évites le conflit, et tu finis par t'effacer."
@@ -37,17 +51,24 @@ approche:
   - titre: "La fraternité"
     texte: "Une tribu d'hommes qui comprend ce que tu traverses, te soutient et te tient. C'est aussi là que se rejouent tes relations, en plus clair."
 cap_eyebrow: "Le parcours"
-cap_titre: "*Le chemin,* en quatre temps"
+cap_titre: "*Sept mouvements,* un cycle"
 cap:
-  - titre: "Repartir de toi"
-    texte: "On commence par ton Prisme Origine : ton fonctionnement, ton énergie, ton rythme. Le chemin part de toi, et de personne d'autre."
   - titre: "Accueillir"
-    texte: "Ce qui est là, y compris ce que tu gardais caché. La première direction de la roue : rien ne se transforme sans être accueilli."
+    texte: "Ce qui est là, même tes ombres. Rien ne se transforme avant d'être accueilli."
   - titre: "Transformer"
-    texte: "Par le corps : méditation, mouvement, pratiques somatiques. On incarne, on ne fait pas que parler."
-  - titre: "Transmettre"
-    texte: "Prendre ta place et offrir ce qui est devenu solide : dans ton projet, tes relations, ta manière d'habiter ta vie."
-cadre: "Tout se vit **en ligne**. Un rendez-vous individuel toutes les deux semaines, **La Forge** en collectif toutes les deux semaines, et **Le Chaudron**, le cercle de parole, chaque mois. Entre les rendez-vous, tes quêtes. Trois places sont ouvertes, et on entre quand on est prêt."
+    texte: "Ressentir profondément, redescendre dans le corps, transformer les émotions coincées et purifier ton espace intérieur."
+  - titre: "Recevoir"
+    texte: "Écouter les messages, les récits et les mémoires présentes, et recevoir leurs enseignements."
+  - titre: "Accepter"
+    texte: "Accepter où tu en es, pour t'engager sur un chemin qui te ressemble vraiment."
+  - titre: "Grandir"
+    texte: "Marcher ton chemin, grandir, et te relier aux autres."
+  - titre: "Équilibrer"
+    texte: "Trouver l'équilibre de vie qui nourrit ta discipline au quotidien, en restant à l'écoute de tes besoins."
+  - titre: "Offrir"
+    texte: "Offrir au monde ce qui émerge de tout ce chemin."
+cap_note: "Puis la boucle reprend. L'ancrage et l'intégration font de la place pour ce qui demande à être accueilli ensuite. Ces sept mouvements viennent de la roue des 7 directions et des sept interlocuteurs."
+cadre: "Tout commence par ton **Prisme Origine**, pour repartir de toi et de personne d'autre. Ensuite, tout se vit **en ligne**. Un rendez-vous individuel toutes les deux semaines, **La Forge** en collectif toutes les deux semaines, et **Le Chaudron**, le cercle de parole, chaque mois. Entre les rendez-vous, tes quêtes. Trois places sont ouvertes, et on entre quand on est prêt."
 etapes:
   - titre: "Un appel"
     picto: parole
@@ -90,9 +111,3 @@ temoignages:
     'n': "Matthieu"
     c: "IN CARNE"
 ---
-Quatre mois pour ouvrir à l'intérieur, laisser le mouvement juste s'exprimer, et oser prendre ta place.
-
-Le parcours suit le cycle de la roue des 7 directions : accueillir, transformer, transmettre. Tout commence par ton Prisme Origine, pour repartir de toi, et tout passe par le corps, la méditation et le mouvement.
-
-## D'où ça vient
-Il y a un an, ma vie s'est effondrée : un travail où ma singularité n'avait pas sa place, une relation qui s'arrête, et cette question qui tombe d'un coup. À force de me lisser pour être aimé, je m'étais trahi moi-même. Devenir un homme a commencé là, le jour où j'ai choisi de réintégrer toutes mes parts et de les exprimer, quel que soit le résultat. De cette traversée sont nées la pyramide intérieure, et IN CARNE.

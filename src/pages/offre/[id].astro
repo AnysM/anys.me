@@ -75,8 +75,8 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class={`page-hero${d.logo ? ' page-hero--sigil' : ''}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
-    <div class="narrow">{d.logo && <img class="offre-logo" src={d.logo} alt="" />}<p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
+  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
       {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}
     </div>
@@ -96,6 +96,39 @@ const jsonld = [
       {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
     </div>
   </section>
+
+  {d.intention && (
+    <section class="intention">
+      <div class="narrow">
+        <p class="eyebrow">{d.intention_eyebrow ?? "Note d'intention"}</p>
+        <div class="intention__texte">{d.intention.split(/\n\n+/).map((par) => <p set:html={fmtO(par)}></p>)}</div>
+      </div>
+      <script is:inline>
+        // Le texte se dévoile paragraphe après paragraphe, à mesure qu'on descend.
+        (function () {
+          var els = document.querySelectorAll('.intention__texte p');
+          if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          els.forEach(function (el) { el.classList.add('devoile'); });
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('vu'); io.unobserve(en.target); } });
+          }, { rootMargin: '0px 0px -15% 0px' });
+          els.forEach(function (el) { io.observe(el); });
+        })();
+      </script>
+    </section>
+  )}
+
+  {d.nom_texte && (
+    <section class="bloc nom-offre">
+      <div class="wrap nom-offre__grille">
+        {d.logo && <div class="nom-offre__sigil"><img src={d.logo} alt="" /></div>}
+        <div>
+          <h2 set:html={titreScript(d.nom_titre ?? d.titre)}></h2>
+          <p set:html={fmtO(d.nom_texte)}></p>
+        </div>
+      </div>
+    </section>
+  )}
 
   {d.pourqui?.length > 0 && (
     <section class="pourqui">
@@ -121,7 +154,8 @@ const jsonld = [
     <section class="cap">
       <div class="wrap">
         <div class="tete"><p class="eyebrow">{d.cap_eyebrow ?? 'Par étapes'}</p><h2 set:html={titreScript(d.cap_titre ?? '*Ce vers quoi* on va')}></h2></div>
-        <ol class="cap__etapes">{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3><p set:html={fmtO(c.texte)}></p></li>)}</ol>
+        <ol class={`cap__etapes${d.cap.length > 4 ? ' cap__etapes--chemin' : ''}`}>{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3><p set:html={fmtO(c.texte)}></p></li>)}</ol>
+        {d.cap_note && <p class="cap__note" set:html={fmtO(d.cap_note)}></p>}
         {d.cadre && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
       </div>
     </section>

@@ -169,3 +169,5 @@ h2 .ligne { display: inline-block; margin-top: 0.3em; }
 .apparait.vu { opacity: 1; transform: none; }
 /* Le mot manuscrit au début d'un titre : un peu d'air pour qu'il ne touche pas le mot suivant. */
 h2 .script { margin-inline: 0.06em 0.14em; }
+/* Une offre peut n'avoir aucun texte libre : le bloc ne laisse alors pas de vide. */
+.prose:empty { display: none; }
