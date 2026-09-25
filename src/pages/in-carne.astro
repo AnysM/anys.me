@@ -214,7 +214,8 @@ const jsonld = [
   .ic-souffle img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
   .ic-souffle::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,7,16,0.85), rgba(5,7,16,0.35) 50%, rgba(10,15,32,0.95)); }
   .ic-souffle__mot { position: relative; z-index: 2; max-width: 22ch; text-align: center; font-family: 'Jost', sans-serif; font-weight: 300; font-style: italic; font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.45; color: var(--cream); padding: 0 22px; }
-  .ic-souffle__mot .script { font-size: 1.9em; line-height: 0.95; }
+  /* Dans un paragraphe, *mot* passe en italique : ici on veut la vraie écriture manuscrite. */
+  .ic-souffle__mot .script { font-family: 'Biloxi Script', 'EB Garamond', cursive; font-style: normal; font-size: 1.9em; line-height: 0.95; }
 
   /* 3. Le récit */
   .ic-recit { background: var(--navy); padding-block: clamp(5rem, 11vw, 9rem); }
