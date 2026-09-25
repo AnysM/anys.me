@@ -40,15 +40,34 @@ pourqui:
   - "Tu portes un projet, une part de toi qui demande à naître, et tu la remets à plus tard."
 pourtoi:
   - "Tu veux passer à l'action, te donner les moyens, et faire naître ce que tu portes."
-  - "Tu sais que ça passe par le corps : redescendre, bouger, sentir, plutôt que comprendre encore."
+  - "Tu sais que ça passe par le corps : redescendre, bouger, sentir."
   - "Tu ne veux plus te trahir, et tu veux des relations vraies, qui te nourrissent."
-  - "Tu donnes tout, tu évites le conflit, et tu finis par t'effacer. | le chic type"
-  - "Tu avances à la volonté, tu tiens, et ton corps paie l'addition. | le performer"
-  - "Tu comprends tout, tu vibres haut, et ta vie concrète ne bouge pas. | l'homme spirituel perché"
-  - "Tu as quitté le chemin tout tracé, tu te disperses dans mille projets, et ton projet de cœur reste une idée."
-  - "Tu n'attends aucune méthode miracle, et personne pour te sauver : tu sais que ça se joue dans la durée, dans les petits gestes du quotidien."
+  - "Tu n'attends aucune méthode miracle, et personne pour te sauver : ça se joue dans la durée, dans les petits gestes du quotidien."
+pourtoi_contre_titre: "Et si tu te reconnais là…"
+pourtoi_contre:
+  - "Tu as quitté le chemin tout tracé, et tu te disperses dans mille projets."
+  - "Ton projet de cœur reste une idée, repoussée depuis des mois."
+  - "Tu as lu, suivi, médité, consulté, et les mêmes schémas reviennent."
+  - "Ça déteint sur tes relations, et tu le sais."
 pourtoi_note: "Souvent entre 30 et 50 ans, au moment où l'on sent que c'est maintenant."
-places: "**3** places pour entrer en novembre 2026"
+masques_titre: "Les trois *masques*"
+masques:
+  - "Le chic type | Tu donnes tout, tu évites le conflit, et tu finis par t'effacer."
+  - "Le performer | Tu avances à la volonté, tu tiens, et ton corps paie l'addition."
+  - "L'homme spirituel | Tu comprends tout, tu vibres haut, et ta vie concrète ne bouge pas."
+chemin_eyebrow: "Le chemin"
+chemin_titre: "*Sentir*, avant de comprendre"
+chemin: |
+  Tout passe par le corps. On redescend, on ressent, on laisse traverser. C'est **un processus**, pas une méthode : il se déroule mouvement après mouvement, au rythme qui est le tien. C'est là que se joue la différence avec tout ce que tu as déjà essayé.
+
+  Il s'appuie sur la psychologie jungienne et le travail avec les archétypes, sur la roue des 7 directions et sur le jeu des 7 interlocuteurs de TAMAKEAPA. La méditation et ton Prisme Origine posent les bases : revenir au corps, et repartir de ton fonctionnement propre.
+chemin_appuis:
+  - "Les archétypes | /codex/archetypes"
+  - "La roue des 7 directions | /codex/roue-des-7-directions"
+  - "TAMAKEAPA | /codex/tamakeapa"
+  - "La méditation | /codex/meditation"
+  - "La pyramide intérieure | /codex/pyramide-interieure"
+  - "Prisme Origine | /offre/prisme-origine"
 approche_eyebrow: "Le cœur du parcours"
 approche_titre: "*Accueillir* l'ombre"
 approche_intro: "Ce parcours part de ce qu'on préfère cacher. **L'ombre écoutée devient une force** : elle cesse de tirer les ficelles, et l'énergie qu'elle retenait revient dans ta vie. On ouvre à l'intérieur pour que le mouvement juste puisse s'exprimer, et que tu oses prendre ta place."

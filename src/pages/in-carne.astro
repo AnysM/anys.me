@@ -73,25 +73,24 @@ const jsonld = [
     <p set:html={fmt(d.nom_texte ?? '')}></p>
   </section>
 
-  <!-- 5. LES SEPT MOUVEMENTS -->
-  <section class="ic-roue" id="mouvements">
+  <!-- 5. LE CHEMIN -->
+  <section class="ic-chemin" id="chemin">
     <div class="ic-large">
-      <p class="eyebrow">{d.cap_eyebrow}</p>
-      <h2 set:html={fmt(d.cap_titre ?? '')}></h2>
-      <p class="ic-roue__intro">Sept interlocuteurs intérieurs, sept directions. À chaque rendez-vous, l'un d'eux prend la parole et pose sa question.</p>
-      <ol class="ic-mouvements">
-        {(d.cap ?? []).map((m, i) => (
-          <li class="ic-reveal" style={`--teinte:${COULEURS[i % COULEURS.length]}`}>
-            <span class="ic-mouvement__num">{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3>{m.titre}</h3>
-              {m.posture && <p class="ic-mouvement__posture">{m.posture}</p>}
-              <p class="ic-mouvement__question">{m.texte}</p>
-            </div>
-          </li>
-        ))}
+      <p class="eyebrow">{d.chemin_eyebrow}</p>
+      <h2 set:html={fmt(d.chemin_titre ?? '')}></h2>
+      <div class="ic-chemin__texte">{(d.chemin ?? '').split(/\n\n+/).filter(Boolean).map((par) => <p class="ic-reveal" set:html={fmt(par)}></p>)}</div>
+      <ol class="ic-cycle">
+        {(d.cap ?? []).map((m, i) => <li style={`--teinte:${COULEURS[i % COULEURS.length]}`}><span>{String(i + 1).padStart(2, '0')}</span>{m.titre}</li>)}
       </ol>
-      {d.cap_note && <p class="ic-roue__note" set:html={fmt(d.cap_note)}></p>}
+      {d.cap_note && <p class="ic-chemin__note" set:html={fmt(d.cap_note)}></p>}
+      {d.chemin_appuis?.length > 0 && (
+        <div class="ic-appuis">
+          <p class="rune">Ce sur quoi ça s'appuie</p>
+          <div class="ic-appuis__liens">
+            {d.chemin_appuis.map((x) => { const [nom, href] = x.split('|').map((y) => y.trim()); return <a class="echo" href={href}>{nom}</a>; })}
+          </div>
+        </div>
+      )}
     </div>
   </section>
 
@@ -101,13 +100,34 @@ const jsonld = [
       <p class="eyebrow">Pour qui</p>
       <h2>C'est <span class="script">pour toi</span> si…</h2>
       <ul class="ic-pourtoi__liste">
-        {(d.pourtoi ?? []).map((x) => { const [phrase, masque] = x.split('|').map((y) => y.trim()); return (
-          <li class="ic-reveal"><p>{phrase}</p>{masque && <span class="ic-masque">{masque}</span>}</li>
-        ); })}
+        {(d.pourtoi ?? []).map((x) => <li class="ic-reveal"><p>{x}</p></li>)}
       </ul>
+      {d.pourtoi_contre?.length > 0 && (
+        <div class="ic-pourtoi__contre">
+          <p class="rune">{d.pourtoi_contre_titre}</p>
+          <ul class="ic-pourtoi__liste ic-pourtoi__liste--contre">
+            {d.pourtoi_contre.map((x) => <li class="ic-reveal"><p>{x}</p></li>)}
+          </ul>
+        </div>
+      )}
       {d.pourtoi_note && <p class="ic-pourtoi__note">{d.pourtoi_note}</p>}
     </div>
   </section>
+
+  <!-- 6 bis. LES MASQUES -->
+  {d.masques?.length > 0 && (
+    <section class="ic-masques">
+      <div class="ic-large">
+        <p class="eyebrow">Ce qui parle à ta place</p>
+        <h2 set:html={fmt(d.masques_titre ?? '')}></h2>
+        <div class="ic-masques__grille">
+          {d.masques.map((x) => { const [nom, texte] = x.split('|').map((y) => y.trim()); return (
+            <div class="ic-masque-carte ic-reveal"><h3>{nom}</h3><p>{texte}</p></div>
+          ); })}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- 7. LE CADRE -->
   <section class="ic-cadre">
@@ -234,7 +254,20 @@ const jsonld = [
   .ic-nom p { max-width: 54ch; margin: 1.6rem auto 0; font-family: 'EB Garamond', serif; font-size: clamp(1.15rem, 1.6vw, 1.35rem); line-height: 1.7; color: #C9CBD8; padding-inline: 22px; }
   .ic-nom strong { color: var(--gold); font-weight: 400; }
 
-  /* 5. Les sept mouvements */
+  /* 5. Le chemin */
+  .ic-chemin { background: var(--navy2); padding-block: clamp(5rem, 11vw, 9rem); }
+  .ic-chemin__texte { max-width: 60ch; margin-top: 1.8rem; }
+  .ic-chemin__texte p { font-family: 'EB Garamond', serif; font-size: clamp(1.18rem, 1.7vw, 1.4rem); line-height: 1.7; color: var(--cream); }
+  .ic-chemin__texte p + p { margin-top: 1.3rem; }
+  .ic-chemin__texte strong { color: var(--gold); font-weight: 400; }
+  .ic-cycle { list-style: none; margin: clamp(2.6rem, 5vw, 3.6rem) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.9rem 1.4rem; }
+  .ic-cycle li { display: inline-flex; align-items: baseline; gap: 0.55rem; padding: 0.6rem 1.2rem; border-radius: 99px; border: 1px solid var(--teinte); color: var(--cream); font-family: 'EB Garamond', serif; font-size: 1.15rem; }
+  .ic-cycle li span { font-family: 'Jost', sans-serif; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--teinte); }
+  .ic-chemin__note { max-width: 56ch; margin-top: clamp(2rem, 4vw, 2.8rem); font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.12rem; line-height: 1.7; color: #C9CBD8; }
+  .ic-appuis { margin-top: clamp(2.6rem, 5vw, 3.6rem); }
+  .ic-appuis__liens { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.9rem; }
+
+  /* 5 bis. (ancien bloc des sept mouvements, conservé pour l'autre version) */
   .ic-roue { background: var(--navy2); padding-block: clamp(5rem, 11vw, 9rem); }
   .ic-roue h2, .ic-pieges h2, .ic-cadre h2, .ic-engagement h2 { margin-top: 0.6rem; }
   .ic-roue__intro { max-width: 48ch; margin-top: 1.4rem; color: #C9CBD8; line-height: 1.8; }
@@ -256,6 +289,15 @@ const jsonld = [
   .ic-pourtoi__liste li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px rgba(216,162,76,0.6); }
   .ic-pourtoi__liste p { font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 1.8vw, 1.42rem); line-height: 1.5; color: var(--cream); }
   .ic-masque { display: inline-block; margin-top: 0.6rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; color: var(--coral); }
+  .ic-pourtoi__contre { margin-top: clamp(2.8rem, 5vw, 3.6rem); }
+  .ic-pourtoi__liste--contre { margin-top: 1.2rem; }
+  .ic-pourtoi__liste--contre li::before { background: var(--coral); box-shadow: 0 0 12px rgba(240,122,95,0.6); }
+  .ic-masques { background: var(--navy2); padding-block: clamp(4.5rem, 10vw, 8rem); }
+  .ic-masques__grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); margin-top: clamp(2.2rem, 5vw, 3rem); }
+  .ic-masque-carte { padding: 1.9rem 1.8rem; border-radius: 18px; border: 1px solid var(--faint); background: rgba(255,255,255,0.02); }
+  .ic-masque-carte h3 { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--coral); margin-bottom: 0.8rem; }
+  .ic-masque-carte p { font-family: 'EB Garamond', serif; font-size: 1.18rem; line-height: 1.5; color: var(--cream); }
+  @media (max-width: 760px) { .ic-masques__grille { grid-template-columns: 1fr; } }
   .ic-pourtoi__note { max-width: 46ch; margin: clamp(2.4rem, 5vw, 3.2rem) auto 0; text-align: center; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; color: #C9CBD8; }
   @media (max-width: 760px) { .ic-pourtoi__liste { grid-template-columns: 1fr; } }
 
