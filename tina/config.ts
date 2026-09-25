@@ -144,6 +144,7 @@ export default defineConfig({
             { type: "string", name: "explore", label: "Ce qu'on explore ensemble", list: true, description: "Titre | description. Ex. : Ton rythme | ce qui te nourrit, ce qui t'épuise" },
             { type: "string", name: "action", label: "Bouton principal", options: [{ value: "appel", label: "Appel découverte" }, { value: "rdv", label: "Prendre rendez-vous" }, { value: "reserver", label: "Réserver directement" }], description: "Par défaut : appel découverte pour les accompagnements, rendez-vous pour les soins." },
             { type: "string", name: "cta", label: "Texte du bouton", description: "Ex. : Réserver ma lecture" },
+            { type: "string", name: "temoins_titre", label: "Témoignages — titre", description: "Par défaut : *Ils et elles* l'ont traversé" },
             { type: "string", name: "invite_titre", label: "Fin de page — titre", description: "*mot* = manuscrite" },
             { type: "string", name: "invite_texte", label: "Fin de page — texte", ui: { component: "textarea" } },
           { type: "boolean", name: "accueil", label: "À la une sur l'accueil", description: "Coche 1 ou 2 propositions par seuil au maximum : l'accueil doit rester simple. Tout reste visible dans l'agenda et les pages dédiées." },

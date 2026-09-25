@@ -1,6 +1,6 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { temoignages = [], titre: titreDonne = null, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const { temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
 const carrousel = temoignages.length > 3;
 const seul = temoignages.length === 1;
 // Un seul témoignage : un titre au singulier et une grande citation, au lieu d'une carte isolée.

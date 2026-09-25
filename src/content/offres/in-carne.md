@@ -2,7 +2,7 @@
 titre: "IN CARNE"
 categorie: accompagnement
 tag: "Parcours d'hommes"
-format: "4 mois, en groupe"
+format: "4 mois, en ligne"
 duree: "4 mois"
 seuil: transformer
 resume: "Quatre mois avec une tribu d'hommes pour accueillir ton ombre, sortir de la demi-mesure et donner corps à ce qui te tient à cœur."
@@ -42,7 +42,7 @@ cap:
     texte: "Le troisième mois : un temps de respiration, pour laisser le travail descendre dans le corps et dans les actes."
   - titre: "Donner forme"
     texte: "Le quatrième mois : finaliser, incarner, et lancer ce qui te tient à cœur."
-cadre: "Un rendez-vous individuel toutes les deux semaines, un rendez-vous collectif toutes les deux semaines, et un cercle de parole chaque mois. Entre les rendez-vous, tes quêtes."
+cadre: "Tout se vit **en ligne**. Un rendez-vous individuel toutes les deux semaines, **La Forge** en collectif toutes les deux semaines, et **Le Chaudron**, le cercle de parole, chaque mois. Entre les rendez-vous, tes quêtes. Trois places sont ouvertes, et on entre quand on est prêt."
 etapes:
   - titre: "Un appel"
     picto: parole
@@ -50,12 +50,12 @@ etapes:
   - titre: "Les rendez-vous individuels"
     picto: souffle
     texte: "Toutes les deux semaines, un temps rien que pour toi : ce qui bouge, ce qui bloque, ce qui demande à naître."
-  - titre: "Les rendez-vous collectifs"
+  - titre: "La Forge"
     picto: mains
-    texte: "Toutes les deux semaines avec la tribu : pratiques, partages, et l'élan du groupe."
-  - titre: "Le cercle de parole"
+    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan de la tribu."
+  - titre: "Le Chaudron"
     picto: son
-    texte: "Chaque mois, un cercle pour déposer ce qui est vivant et être entendu sans jugement."
+    texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
 benefices:
   - "Faire la paix avec les parts de toi que tu gardais cachées"
   - "Une force d'homme qui protège, sans écraser"
@@ -66,13 +66,34 @@ faq:
   - q: "C'est pour qui ?"
     r: "Pour des hommes prêts à regarder ce qu'ils évitent, et à marcher ensemble pendant quatre mois. Aucune expérience particulière n'est demandée."
   - q: "Comment se passent les rendez-vous ?"
-    r: "Un rendez-vous individuel et un rendez-vous collectif toutes les deux semaines, plus un cercle de parole chaque mois. Entre les rendez-vous, tu vis tes quêtes dans ton quotidien."
+    r: "Tout se vit en ligne. Un rendez-vous individuel toutes les deux semaines, La Forge en collectif toutes les deux semaines, et Le Chaudron, le cercle de parole, chaque mois. Entre les rendez-vous, tu vis tes quêtes dans ton quotidien."
+  - q: "Quand est-ce que ça commence ?"
+    r: "Quand tu es prêt. Il n'y a pas de session qui démarre à date fixe : tu entres dans le parcours et tes quatre mois commencent. Trois places sont ouvertes."
   - q: "Et le mois d'intégration ?"
     r: "Le troisième mois est un temps de respiration : le travail continue dans ta vie, sans nouveau contenu. C'est souvent là que les choses s'ancrent."
   - q: "Peut-on payer en plusieurs fois ?"
     r: "Oui, le parcours est payable en 6 fois. On en parle lors de l'appel."
+temoins_titre: "*Ils* l'ont traversé"
+temoignages:
+  - t: "Tout seul, c'est long et laborieux, et on peut vite se décourager. Là, c'est une communauté qui te permet de t'entraider."
+    'n': "David"
+    c: "IN CARNE"
+  - t: "Pouvoir avoir l'espace pour en parler et ne pas être seul face à cette montagne. Si tu as besoin d'un cocon pour avancer, d'être accompagné individuellement et en groupe, c'est un programme intéressant."
+    'n': "Christophe"
+    c: "IN CARNE"
+  - t: "La régularité des échanges m'a permis de structurer ma pensée. Ta mise en confiance m'a permis de me dire que c'est possible."
+    'n': "Matthieu"
+    c: "IN CARNE"
 ---
 Quatre mois pour accueillir ce que tu gardes dans l'ombre, et laisser revenir la force qui était retenue là.
+
+## Pourquoi ce parcours existe
+
+Il y a un an, toute ma vie s'est effondrée. Un travail où personne ne reconnaissait ma singularité, une relation qui s'est arrêtée, et cette question qui est tombée d'un coup : qu'est-ce que j'ai fait pour en arriver là, alors que j'avais l'impression de tout faire correctement ?
+
+La réponse a été brutale. J'avais cru qu'en donnant tout, en étant parfait, j'allais être aimé et que tout se passerait bien. Le syndrome du chic type, du bon élève. À force de me lisser, je m'étais trahi moi-même, et le monde extérieur me renvoyait exactement ça.
+
+Devenir un homme, ça a commencé là. Le jour où j'ai choisi de ne plus être guidé par l'enfant qui cherche à être aimé, de réintégrer toutes mes parts et de les exprimer, quel que soit le résultat. De cette réintégration est née la pyramide intérieure, et IN CARNE est né de là.
 
 ## Pourquoi l'ombre
 

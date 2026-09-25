@@ -148,7 +148,7 @@ const jsonld = [
 
   <Etapes etapes={d.etapes} />
 
-  <Temoignages temoignages={d.temoignages} />
+  <Temoignages temoignages={d.temoignages} titre={d.temoins_titre} />
 
   {enPreparation ? (
     <Lettre eyebrow="En préparation" titre="Être *prévenu*" texte={`${d.titre} se prépare. Laisse ton email : tu seras parmi les premiers informés, avant l'annonce publique.`} bouton="Préviens-moi" source={`attente-${o.id}`} />
