@@ -69,7 +69,7 @@ const offres = defineCollection({
     approche: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
     cap_eyebrow: z.string().optional(),
     cap_titre: z.string().optional(),
-    cap: z.array(z.object({ titre: z.string(), texte: z.string() })).optional(),
+    cap: z.array(z.object({ titre: z.string(), posture: z.string().optional(), texte: z.string() })).optional(),
     cadre: z.string().optional(),
     explore: z.array(z.string()).optional(),
     action: z.preprocess((v) => (v === '' || v === null ? undefined : v), z.enum(['appel', 'rdv', 'reserver']).optional()),

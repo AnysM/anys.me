@@ -154,7 +154,7 @@ const jsonld = [
     <section class="cap">
       <div class="wrap">
         <div class="tete"><p class="eyebrow">{d.cap_eyebrow ?? 'Par étapes'}</p><h2 set:html={titreScript(d.cap_titre ?? '*Ce vers quoi* on va')}></h2></div>
-        <ol class={`cap__etapes${d.cap.length > 4 ? ' cap__etapes--chemin' : ''}`}>{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3><p set:html={fmtO(c.texte)}></p></li>)}</ol>
+        <ol class={`cap__etapes${d.cap.length > 4 ? ' cap__etapes--chemin' : ''}`}>{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3>{c.posture && <span class="cap__posture">{c.posture}</span>}<p set:html={fmtO(c.texte)}></p></li>)}</ol>
         {d.cap_note && <p class="cap__note" set:html={fmtO(d.cap_note)}></p>}
         {d.cadre && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
       </div>

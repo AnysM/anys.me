@@ -21,17 +21,17 @@ tarifs:
     detail: "Payable en 6 fois."
 intention_eyebrow: "Un mot, d'homme à homme"
 intention: |
-  J'ai longtemps compris beaucoup de choses sans les incarner. Il y avait un décalage entre ce que je suis vraiment et mes aspirations profondes.
+  Pendant des années, j'ai compris. J'ai lu, analysé, travaillé sur moi. Et pourtant, entre ce que j'étais vraiment et ce que je vivais, il restait un écart que rien ne comblait.
 
-  Ça venait de ma tête : anticiper, réfléchir, porter des masques. Par envie d'être aimé, par peur d'être rejeté, par honte, par culpabilité.
+  Cet écart venait de ma tête : anticiper, réfléchir, prévoir. Et des masques que je portais pour être aimé, par peur d'être rejeté, par honte, par culpabilité.
 
-  Souvent, c'est un effondrement qui déclenche. Un travail qui ne correspond plus, une relation qui s'achève. **La vie met du chaos pour te mettre face à tes masques**, et faire naître qui tu es vraiment.
+  Ce sont rarement les livres qui font tomber les masques. C'est un effondrement. Un travail qui ne te correspond plus, une relation qui s'achève. **La vie met du chaos pour te mettre face à ce que tu joues**, et faire naître celui que tu es.
 
-  Pour ça, il faut récupérer ton territoire intérieur. Il est colonisé par des injonctions, des croyances et des peurs qui te séparent du mouvement naturel de la vie et te coupent de tes élans.
+  J'ai découvert là que mon territoire intérieur était colonisé. Des injonctions, des croyances, des peurs, qui me coupaient de mes élans et du mouvement naturel de la vie. Le reprendre ne se fait pas dans la tête.
 
-  Ce chemin t'invite à incarner : que ce que tu sais possible, ce que tu soupçonnes être capable de réaliser, prenne enfin place en toi et dans la matière.
+  IN CARNE est né de cette traversée. Quatre mois pour que ce que tu sais possible, ce que tu soupçonnes être capable de réaliser, prenne enfin place en toi, et dans la matière.
 nom_titre: "IN CARNE, *dans la chair*"
-nom_texte: "Le nom dit le chemin : faire descendre dans la chair ce que la tête a déjà compris. C'est aussi un jeu de mots avec **incarner**, parce que tout se joue là — dans le corps, dans les actes, dans la matière. Une version authentique et souveraine de toi, plutôt qu'une version améliorée."
+nom_texte: "Le nom dit le chemin : faire descendre dans la chair ce que la tête a déjà compris. C'est aussi un jeu de mots avec **incarner**, parce que tout se joue là, dans le corps, dans les actes, dans la matière. Au bout, une version authentique et souveraine de toi."
 pourqui_titre: "C'est *pour toi* si…"
 pourqui:
   - "**Le chic type** : tu donnes tout, tu évites le conflit, et tu finis par t'effacer."
@@ -53,21 +53,28 @@ approche:
 cap_eyebrow: "Le parcours"
 cap_titre: "*Sept mouvements,* un cycle"
 cap:
-  - titre: "Accueillir"
-    texte: "Ce qui est là, même tes ombres. Rien ne se transforme avant d'être accueilli."
-  - titre: "Transformer"
-    texte: "Ressentir profondément, redescendre dans le corps, transformer les émotions coincées et purifier ton espace intérieur."
-  - titre: "Recevoir"
-    texte: "Écouter les messages, les récits et les mémoires présentes, et recevoir leurs enseignements."
-  - titre: "Accepter"
-    texte: "Accepter où tu en es, pour t'engager sur un chemin qui te ressemble vraiment."
+  - titre: "S'accueillir"
+    posture: "Je suis ancré"
+    texte: "Suis-je assez ancré pour accueillir ce qui est là, tel que c'est, mes ombres comprises ?"
+  - titre: "Se transformer"
+    posture: "Je suis sensible"
+    texte: "Suis-je assez sensible pour traverser mes densités émotionnelles, les transformer et faire de la place ?"
+  - titre: "M'être transmis"
+    posture: "Je suis à l'écoute"
+    texte: "Suis-je à l'écoute de ce qui m'est transmis, relié à mes racines, à mes ancêtres, à ma mémoire, pour transmettre à mon tour ?"
+  - titre: "S'accepter"
+    posture: "Je suis engagé"
+    texte: "Suis-je assez engagé dans la vie pour accepter ce qui est et marcher depuis là où je suis, hors du déni ?"
   - titre: "Grandir"
-    texte: "Marcher ton chemin, grandir, et te relier aux autres."
-  - titre: "Équilibrer"
-    texte: "Trouver l'équilibre de vie qui nourrit ta discipline au quotidien, en restant à l'écoute de tes besoins."
-  - titre: "Offrir"
-    texte: "Offrir au monde ce qui émerge de tout ce chemin."
-cap_note: "Puis la boucle reprend. L'ancrage et l'intégration font de la place pour ce qui demande à être accueilli ensuite. Ces sept mouvements viennent de la roue des 7 directions et des sept interlocuteurs."
+    posture: "Je suis communicant"
+    texte: "Est-ce que je me relie, j'offre de moi, je teste et je joue, pour grandir au contact des autres ?"
+  - titre: "S'équilibrer"
+    posture: "Je suis vigilant"
+    texte: "Est-ce que je reste debout là où les contradictions et les paradoxes se rejoignent, sans juger ni séparer, avec toutes mes parts ?"
+  - titre: "M'être donné"
+    posture: "Je suis guidé"
+    texte: "Ai-je confiance en ce qui m'est donné, relié à mon intuition et à la magie de la vie, sachant que ma seule volonté ne suffit jamais ?"
+cap_note: "Ces sept mouvements viennent de la roue des 7 directions et des sept interlocuteurs. Ensemble, ils forment une unité : chaque part retrouve sa place. Puis la boucle reprend, et l'ancrage fait de la place pour ce qui demande à être accueilli ensuite."
 cadre: "Tout commence par ton **Prisme Origine**, pour repartir de toi et de personne d'autre. Ensuite, tout se vit **en ligne**. Un rendez-vous individuel toutes les deux semaines, **La Forge** en collectif toutes les deux semaines, et **Le Chaudron**, le cercle de parole, chaque mois. Entre les rendez-vous, tes quêtes. Trois places sont ouvertes, et on entre quand on est prêt."
 etapes:
   - titre: "Un appel"
