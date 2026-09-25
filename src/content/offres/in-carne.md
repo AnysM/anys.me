@@ -7,7 +7,7 @@ image: /img/artefact-narita-4.jpg
 format: "4 mois, en ligne"
 duree: "4 mois"
 seuil: transformer
-resume: "Quatre mois avec une tribu d'hommes pour accueillir ton ombre, sortir de la demi-mesure et donner corps à ce qui te tient à cœur."
+resume: "Quatre mois de mentorat pour accueillir ton ombre, sortir de la demi-mesure et donner corps à ce qui te tient à cœur, en marchant avec d'autres hommes."
 accueil: true
 ordre: 3
 action: appel
@@ -79,7 +79,7 @@ approche:
   - titre: "La quête"
     texte: "Un cap choisi, vécu comme une aventure. Entre chaque rendez-vous, une quête concrète à vivre dans ton quotidien."
   - titre: "La fraternité"
-    texte: "Une tribu d'hommes qui comprend ce que tu traverses, te soutient et te tient. C'est aussi là que se rejouent tes relations, en plus clair."
+    texte: "Des hommes qui comprennent ce que tu traverses, qui te soutiennent et qui te tiennent. C'est aussi là que se rejouent tes relations, en plus clair."
 cap_eyebrow: "Le parcours"
 cap_titre: "*Sept mouvements,* un cycle"
 cap:
@@ -110,7 +110,7 @@ cadre_items:
   - titre: "Le rendez-vous individuel"
     texte: "Toutes les deux semaines, un temps rien que pour toi : ce qui bouge, ce qui bloque, ce qui demande à naître."
   - titre: "La Forge"
-    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan de la tribu."
+    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan du groupe."
   - titre: "Le Chaudron"
     texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
 etapes:
@@ -122,14 +122,14 @@ etapes:
     texte: "Toutes les deux semaines, un temps rien que pour toi : ce qui bouge, ce qui bloque, ce qui demande à naître."
   - titre: "La Forge"
     picto: mains
-    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan de la tribu."
+    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan du groupe."
   - titre: "Le Chaudron"
     picto: son
     texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
 benefices:
   - "Faire la paix avec les parts de toi que tu gardais cachées"
   - "Une force d'homme qui protège, sans écraser"
-  - "Tenir dans la durée, porté par une tribu qui te connaît"
+  - "Tenir dans la durée, porté par des hommes qui te connaissent"
   - "Sortir de la demi-mesure et décider pour de vrai"
   - "Un projet de cœur qui prend forme, concrètement"
 faq:
@@ -174,4 +174,4 @@ Ce n'est pas une question de discipline, de motivation ou de volonté.
 
 C'est que la compréhension reste dans la tête, que le corps n'est pas convié, et que tu marches seul.
 
-**IN CARNE réunit les trois : la connaissance de toi, l'action dans la matière, et une tribu qui te tient.**
+**IN CARNE réunit les trois : la connaissance de toi, l'action dans la matière, et des hommes qui te tiennent.**
