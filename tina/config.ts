@@ -135,6 +135,7 @@ export default defineConfig({
             { type: "string", name: "pourqui", label: "C'est pour toi si… (situations)", list: true },
             { type: "string", name: "pourtoi", label: "C'est pour toi si… (page dédiée)", list: true, description: "La phrase, puis « | » et le nom du masque. Ex. : Tu donnes tout… | le chic type" },
             { type: "string", name: "pourtoi_note", label: "C'est pour toi si… — phrase de fin" },
+            { type: "string", name: "places", label: "Places (à côté du bouton)", description: "Ex. : **3** places pour entrer en novembre 2027" },
             { type: "string", name: "approche_eyebrow", label: "Approche — sur-titre", description: "Par défaut : Mon approche" },
             { type: "string", name: "approche_titre", label: "Approche — titre", description: "Par défaut : *Comment* on avance" },
           { type: "string", name: "approche_intro", label: "Mon approche — introduction", ui: { component: "textarea" }, description: "**mot** = en valeur" },

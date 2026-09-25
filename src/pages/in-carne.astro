@@ -159,7 +159,7 @@ const jsonld = [
       </div>
       <p class="ic-engagement__mot">Un appel d'abord, pour voir si c'est ton moment, et si le groupe est juste pour toi.</p>
       <div class="ic-engagement__action"><Appel pour="IN CARNE" centre /></div>
-      <p class="ic-engagement__places">Trois places ouvertes · on entre quand on est prêt</p>
+      {d.places && <p class="ic-engagement__places" set:html={fmt(d.places)}></p>}
     </div>
   </section>
 
@@ -283,5 +283,6 @@ const jsonld = [
   .ic-tarif__detail { font-size: 0.92rem; color: #C9CBD8; line-height: 1.6; max-width: 26ch; margin-inline: auto; }
   .ic-engagement__mot { max-width: 44ch; margin: clamp(2.4rem, 5vw, 3.2rem) auto 0; font-family: 'EB Garamond', serif; font-size: 1.25rem; line-height: 1.7; color: var(--cream); }
   .ic-engagement__action { display: flex; justify-content: center; margin-top: 2rem; }
-  .ic-engagement__places { margin-top: 2.6rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; color: var(--gold); }
+  .ic-engagement__places { display: flex; align-items: baseline; justify-content: center; gap: 0.6rem; margin-top: 2.6rem; font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--cream); }
+  .ic-engagement__places strong { font-family: 'EB Garamond', serif; font-weight: 500; font-size: 2.4em; line-height: 0.9; color: var(--gold); }
 </style>
