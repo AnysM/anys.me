@@ -75,6 +75,7 @@ const offres = defineCollection({
     action: z.preprocess((v) => (v === '' || v === null ? undefined : v), z.enum(['appel', 'rdv', 'reserver']).optional()),
     cta: z.string().optional(),
     logo: z.string().optional(),
+    page: z.string().optional(),
     intention_eyebrow: z.string().optional(),
     intention: z.string().optional(),
     nom_titre: z.string().optional(),

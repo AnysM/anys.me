@@ -55,7 +55,7 @@ const outils = ac.outils ?? [];
       <h2 style="margin-top:0.8rem;" set:html={fmt(ac.formules_titre)}></h2>
       <div style="margin-top:2.4rem;">
         {items.map((o) => (
-          <a class="evt" href={`/offre/${o.id}`}>
+          <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
             <div class="evt__img">{o.data.image ? <img src={o.data.image} alt={o.data.titre} /> : <div class="imgph"><span>Photo</span></div>}</div>
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>

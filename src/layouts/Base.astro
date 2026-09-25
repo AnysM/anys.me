@@ -82,11 +82,11 @@ const links = [
       <a href="/a-propos">À propos</a>
       <div class="has-sub">
         <a href="/soins">Soins</a>
-        <div class="subnav">{soins.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
+        <div class="subnav">{soins.map((o) => <a href={o.data.page ?? `/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
       <div class="has-sub">
         <a href="/accompagnement">Accompagnement</a>
-        <div class="subnav">{accs.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
+        <div class="subnav">{accs.map((o) => <a href={o.data.page ?? `/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
       <a href="/codex">Codex</a>
       <a class="ext" href="/artefacts">Artefacts</a>

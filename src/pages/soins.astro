@@ -27,7 +27,7 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
       <p class="muted" style="margin-top:0.8rem;">{sc.soins_intro}</p>
       <div style="margin-top:2.4rem;">
         {soins.map((o) => (
-          <a class="evt" href={`/offre/${o.id}`}>
+          <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
             <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>

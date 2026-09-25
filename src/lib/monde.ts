@@ -54,7 +54,7 @@ export async function propositions(): Promise<Proposition[]> {
   const agenda = (await getCollection('agenda')).filter((e) => e.data.publie);
   return [
     ...offres.map((o) => ({
-      cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: `/offre/${o.id}`, externe: false,
+      cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: o.data.page ?? `/offre/${o.id}`, externe: false,
       seuil: seuilDe(o.data), categorie: o.data.categorie, resume: o.data.resume, image: o.data.image, ordre: o.data.ordre,
       accueil: o.data.accueil, prix: o.data.prix ?? (o.data.tarifs?.length ? `dès ${o.data.tarifs.map((t) => t.prix).sort((a, b) => parseInt(a) - parseInt(b))[0]}` : undefined),
       quand: o.data.duree ?? o.data.format,

@@ -151,6 +151,7 @@ export default defineConfig({
             { type: "string", name: "action", label: "Bouton principal", options: [{ value: "appel", label: "Appel découverte" }, { value: "rdv", label: "Prendre rendez-vous" }, { value: "reserver", label: "Réserver directement" }], description: "Par défaut : appel découverte pour les accompagnements, rendez-vous pour les soins." },
             { type: "string", name: "cta", label: "Texte du bouton", description: "Ex. : Réserver ma lecture" },
             { type: "image", name: "logo", label: "Logo de l'offre", description: "Affiché à côté de l'explication du nom." },
+            { type: "string", name: "page", label: "Page dédiée", description: "Ex. : /in-carne. L'offre est alors présentée sur sa propre page." },
             { type: "string", name: "intention_eyebrow", label: "Note d'intention — sur-titre", description: "Par défaut : Note d'intention" },
             { type: "string", name: "intention", label: "Note d'intention (texte du cœur)", ui: { component: "textarea" }, description: "Paragraphes séparés par une ligne vide. **mot** = en valeur." },
             { type: "string", name: "nom_titre", label: "Le nom — titre", description: "*mot* = manuscrite" },

@@ -14,7 +14,7 @@ import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 const ICONES = { 'Durée': 'duree', 'Tarif': 'prix', 'Format': 'format', 'Modalité': 'format' };
 export async function getStaticPaths() {
-  const offres = (await getCollection('offres')).filter((o) => o.data.publie);
+  const offres = (await getCollection('offres')).filter((o) => o.data.publie && !o.data.page);
   return offres.map((o) => {
     const sameCat = offres.filter((x) => x.data.categorie === o.data.categorie).sort((a, b) => a.data.ordre - b.data.ordre);
     const idx = sameCat.findIndex((x) => x.id === o.id);
