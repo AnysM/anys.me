@@ -48,7 +48,7 @@ pourtoi:
   - "Tu as quitté le chemin tout tracé, tu te disperses dans mille projets, et ton projet de cœur reste une idée."
   - "Tu n'attends aucune méthode miracle, et personne pour te sauver : tu sais que ça se joue dans la durée, dans les petits gestes du quotidien."
 pourtoi_note: "Souvent entre 30 et 50 ans, au moment où l'on sent que c'est maintenant."
-places: "**3** places pour entrer en novembre 2027"
+places: "**3** places pour entrer en novembre 2026"
 approche_eyebrow: "Le cœur du parcours"
 approche_titre: "*Accueillir* l'ombre"
 approche_intro: "Ce parcours part de ce qu'on préfère cacher. **L'ombre écoutée devient une force** : elle cesse de tirer les ficelles, et l'énergie qu'elle retenait revient dans ta vie. On ouvre à l'intérieur pour que le mouvement juste puisse s'exprimer, et que tu oses prendre ta place."
