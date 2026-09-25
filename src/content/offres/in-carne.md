@@ -47,7 +47,7 @@ pourtoi_contre_titre: "Et si tu te reconnais là…"
 pourtoi_contre:
   - "Tu as quitté le chemin tout tracé, mais tu te disperses dans mille projets et tu te sens parfois perdu."
   - "Ton projet de cœur reste une idée, repoussée depuis des mois."
-  - "Tu as lu, suivi, médité, consulté, et les mêmes schémas reviennent."
+  - "Tu as lu, suivi, médité, consulté, mais les mêmes schémas reviennent."
   - "Ça déteint sur tes relations, et tu le sais."
 pourtoi_note: "Souvent entre 30 et 50 ans, au moment où l'on sent que c'est maintenant."
 masques_titre: "Les trois *masques*"
