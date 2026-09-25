@@ -100,8 +100,8 @@ etapes:
     texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
 benefices:
   - "Faire la paix avec les parts de toi que tu gardais cachées"
-  - "Sortir de la demi-mesure et prendre la décision que tu retardes depuis trop longtemps"
-  - "Une force d'homme qui protège, sans écraser"
+  - "Équilibrer ta sensibilité et ta puissance, pour protéger sans écraser et bâtir sans forcer"
+  - "Sortir de la demi-mesure et prendre les décisions que tu retardes depuis trop longtemps"
   - "Tenir dans la durée afin d'aboutir enfin tes projets les plus personnels"
   - "Te sentir vivant, en mouvement et fier de toi"
 faq:
@@ -125,6 +125,9 @@ temoignages:
     c: "IN CARNE"
   - t: "La régularité des échanges m'a permis de structurer ma pensée. Ta mise en confiance m'a permis de me dire que c'est possible."
     'n': "Matthieu"
+    c: "IN CARNE"
+  - t: "Le Chaudron, un lieu rempli de bienveillance où tous nos discours résonnaient. Les power coaching, un point d'ancrage dans cette mission."
+    'n': "Jérémy"
     c: "IN CARNE"
 ---
 
