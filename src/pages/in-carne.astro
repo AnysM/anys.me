@@ -52,6 +52,21 @@ const jsonld = [
     </div>
   </section>
 
+  <!-- 3. LES MASQUES -->
+  {d.masques?.length > 0 && (
+    <section class="ic-masques">
+      <div class="ic-large">
+        <p class="eyebrow">Ce qui parle à ta place</p>
+        <h2 set:html={fmt(d.masques_titre ?? '')}></h2>
+        <div class="ic-masques__grille">
+          {d.masques.map((x) => { const [nom, texte] = x.split('|').map((y) => y.trim()); return (
+            <div class="ic-masque-carte ic-reveal"><h3>{nom}</h3><p>{texte}</p></div>
+          ); })}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- RESPIRATION : le feu -->
   <section class="ic-souffle">
     <img src="/img/hero.jpg" alt="" loading="lazy" />
@@ -104,21 +119,6 @@ const jsonld = [
       {d.pourtoi_note && <p class="ic-pourtoi__note">{d.pourtoi_note}</p>}
     </div>
   </section>
-
-  <!-- 6 bis. LES MASQUES -->
-  {d.masques?.length > 0 && (
-    <section class="ic-masques">
-      <div class="ic-large">
-        <p class="eyebrow">Ce qui parle à ta place</p>
-        <h2 set:html={fmt(d.masques_titre ?? '')}></h2>
-        <div class="ic-masques__grille">
-          {d.masques.map((x) => { const [nom, texte] = x.split('|').map((y) => y.trim()); return (
-            <div class="ic-masque-carte ic-reveal"><h3>{nom}</h3><p>{texte}</p></div>
-          ); })}
-        </div>
-      </div>
-    </section>
-  )}
 
   <!-- 7. LE CADRE -->
   <section class="ic-cadre">
