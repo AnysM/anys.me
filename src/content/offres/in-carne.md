@@ -42,10 +42,10 @@ pourtoi:
   - "Tu veux passer à l'action, te donner les moyens, et faire naître ce que tu portes."
   - "Tu sais que ça passe par le corps : redescendre, bouger, sentir."
   - "Tu ne veux plus te trahir, et tu veux des relations vraies, qui te nourrissent."
-  - "Tu n'attends aucune méthode miracle, et personne pour te sauver : ça se joue dans la durée, dans les petits gestes du quotidien."
+  - "Tu n'attends aucune méthode miracle, et personne pour te sauver : tu sais que ça se joue dans la durée, dans les petits gestes du quotidien."
 pourtoi_contre_titre: "Et si tu te reconnais là…"
 pourtoi_contre:
-  - "Tu as quitté le chemin tout tracé, et tu te disperses dans mille projets."
+  - "Tu as quitté le chemin tout tracé, mais tu te disperses dans mille projets et tu te sens parfois perdu."
   - "Ton projet de cœur reste une idée, repoussée depuis des mois."
   - "Tu as lu, suivi, médité, consulté, et les mêmes schémas reviennent."
   - "Ça déteint sur tes relations, et tu le sais."
@@ -56,55 +56,17 @@ masques:
   - "Le performer | Tu avances à la volonté, tu tiens, et ton corps paie l'addition."
   - "L'homme spirituel | Tu comprends tout, tu vibres haut, et ta vie concrète ne bouge pas."
 chemin_eyebrow: "Le chemin"
-chemin_titre: "*Sentir*, avant de comprendre"
+chemin_titre: "*Ressentir,* avant de comprendre"
 chemin: |
-  Tout passe par le corps. On redescend, on ressent, on laisse traverser. C'est **un processus**, pas une méthode : il se déroule mouvement après mouvement, au rythme qui est le tien. C'est là que se joue la différence avec tout ce que tu as déjà essayé.
+  Il n'y a rien à forcer. Ce qui change une vie suit le cycle des saisons, comme dans la nature.
 
-  Il s'appuie sur la psychologie jungienne et le travail avec les archétypes, sur la roue des 7 directions et sur le jeu des 7 interlocuteurs de TAMAKEAPA. La méditation et ton Prisme Origine posent les bases : revenir au corps, et repartir de ton fonctionnement propre.
-chemin_appuis:
-  - "Les archétypes | /codex/archetypes"
-  - "La roue des 7 directions | /codex/roue-des-7-directions"
-  - "TAMAKEAPA | /codex/tamakeapa"
-  - "La méditation | /codex/meditation"
-  - "La pyramide intérieure | /codex/pyramide-interieure"
-  - "Prisme Origine | /offre/prisme-origine"
-approche_eyebrow: "Le cœur du parcours"
-approche_titre: "*Accueillir* l'ombre"
-approche_intro: "Ce parcours part de ce qu'on préfère cacher. **L'ombre écoutée devient une force** : elle cesse de tirer les ficelles, et l'énergie qu'elle retenait revient dans ta vie. On ouvre à l'intérieur pour que le mouvement juste puisse s'exprimer, et que tu oses prendre ta place."
-approche:
-  - titre: "L'ombre"
-    texte: "La petite voix qui murmure « reste petit, ne fais pas de vagues, tu n'es pas assez ». On l'écoute, on la comprend, on apprend à marcher avec."
-  - titre: "Une masculinité entière"
-    texte: "La part sombre du masculin a sa place : la colère, le désir, la puissance de trancher. Ni écrasée, ni lâchée sur les autres. Une force qui protège, et une sensibilité qui relie."
-  - titre: "La quête"
-    texte: "Un cap choisi, vécu comme une aventure. Entre chaque rendez-vous, une quête concrète à vivre dans ton quotidien."
-  - titre: "La fraternité"
-    texte: "Des hommes qui comprennent ce que tu traverses, qui te soutiennent et qui te tiennent. C'est aussi là que se rejouent tes relations, en plus clair."
-cap_eyebrow: "Le parcours"
-cap_titre: "*Sept mouvements,* un cycle"
-cap:
-  - titre: "S'accueillir"
-    posture: "Je suis ancré"
-    texte: "Suis-je assez ancré pour accueillir ce qui est là, tel que c'est, mes ombres comprises ?"
-  - titre: "Se transformer"
-    posture: "Je suis sensible"
-    texte: "Suis-je assez sensible pour traverser mes densités émotionnelles, les transformer et faire de la place ?"
-  - titre: "M'être transmis"
-    posture: "Je suis à l'écoute"
-    texte: "Suis-je à l'écoute de ce qui m'est transmis, relié à mes racines, à mes ancêtres, à ma mémoire, pour transmettre à mon tour ?"
-  - titre: "S'accepter"
-    posture: "Je suis engagé"
-    texte: "Suis-je assez engagé dans la vie pour accepter ce qui est et marcher depuis là où je suis, hors du déni ?"
-  - titre: "Grandir"
-    posture: "Je suis communicant"
-    texte: "Est-ce que je me relie, j'offre de moi, je teste et je joue, pour grandir au contact des autres ?"
-  - titre: "S'équilibrer"
-    posture: "Je suis vigilant"
-    texte: "Est-ce que je reste debout là où les contradictions et les paradoxes se rejoignent, sans juger ni séparer, avec toutes mes parts ?"
-  - titre: "M'être donné"
-    posture: "Je suis guidé"
-    texte: "Ai-je confiance en ce qui m'est donné, relié à mon intuition et à la magie de la vie, sachant que ma seule volonté ne suffit jamais ?"
-cap_note: "Ces sept mouvements viennent de la roue des 7 directions et des sept interlocuteurs. Ensemble, ils forment une unité : chaque part retrouve sa place. Puis la boucle reprend, et l'ancrage fait de la place pour ce qui demande à être accueilli ensuite."
+  On accueille d'abord ce qui demande à mourir, et on en fait du **compost**. On laisse la transformation opérer, le temps qu'il faut, jusqu'à ce que ça devienne un terreau fertile.
+
+  De là, depuis un espace d'expansion et de pureté, on se relie à la graine qui demande à germer. On la plante. Et on s'engage à prendre soin de la terre : la nourrir, l'arroser, revenir chaque jour.
+
+  C'est le mouvement que décrit [la roue des 7 directions indigènes](/codex/roue-des-7-directions) : se laisser traverser par les saisons de la vie, et s'en servir pour avancer. [La méditation](/codex/meditation) et le travail avec [les archétypes](/codex/archetypes) ramènent dans le corps ; ton [Prisme Origine](/offre/prisme-origine) te dit à quel rythme tu fonctionnes.
+
+  Et tout tient dans une chose : **le juste effort**. Celui qui respecte la saison où tu es.
 cadre: "Tout se vit **en ligne**, et tout commence par ton **Prisme Origine**, pour repartir de toi. Quatre mois : deux d'ouverture, un mois d'intégration, un mois pour donner forme. Entre les rendez-vous, tes quêtes."
 cadre_items:
   - titre: "Le rendez-vous individuel"

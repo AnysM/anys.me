@@ -10,7 +10,10 @@ import { fil, description, PERSONNE_ID, SITE, abs } from '../lib/seo';
 
 const o = (await getEntry('offres', 'in-carne'))!;
 const d = o.data;
-const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+const fmt = (t = '') => t
+  .replace(/\[(.+?)\]\((.+?)\)/g, '<a class="lore" href="$2">$1</a>')
+  .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+  .replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const intention = (d.intention ?? '').split(/\n\n+/).filter(Boolean);
 const contact = `/contact?pour=${encodeURIComponent('IN CARNE')}&interet=transformer`;
 
@@ -79,18 +82,6 @@ const jsonld = [
       <p class="eyebrow">{d.chemin_eyebrow}</p>
       <h2 set:html={fmt(d.chemin_titre ?? '')}></h2>
       <div class="ic-chemin__texte">{(d.chemin ?? '').split(/\n\n+/).filter(Boolean).map((par) => <p class="ic-reveal" set:html={fmt(par)}></p>)}</div>
-      <ol class="ic-cycle">
-        {(d.cap ?? []).map((m, i) => <li style={`--teinte:${COULEURS[i % COULEURS.length]}`}><span>{String(i + 1).padStart(2, '0')}</span>{m.titre}</li>)}
-      </ol>
-      {d.cap_note && <p class="ic-chemin__note" set:html={fmt(d.cap_note)}></p>}
-      {d.chemin_appuis?.length > 0 && (
-        <div class="ic-appuis">
-          <p class="rune">Ce sur quoi ça s'appuie</p>
-          <div class="ic-appuis__liens">
-            {d.chemin_appuis.map((x) => { const [nom, href] = x.split('|').map((y) => y.trim()); return <a class="echo" href={href}>{nom}</a>; })}
-          </div>
-        </div>
-      )}
     </div>
   </section>
 
