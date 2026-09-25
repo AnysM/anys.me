@@ -124,15 +124,18 @@ const jsonld = [
   <section class="ic-cadre">
     <div class="ic-large">
       <p class="eyebrow">Ce que tu vis, concrètement</p>
-      <h2>Quatre mois, <span class="script">trois rendez-vous</span></h2>
-      <div class="ic-cadre__grille">
+      <h2>Le <span class="script">déroulé</span></h2>
+      <ol class="ic-frise">
         {(d.cadre_items ?? []).map((e) => (
-          <div class="ic-cadre__item ic-reveal">
-            <h3>{e.titre}</h3>
-            <p>{e.texte}</p>
-          </div>
+          <li class="ic-reveal">
+            <span class="ic-frise__cadence">{e.cadence}</span>
+            <div class="ic-frise__corps">
+              <h3>{e.titre}</h3>
+              <p>{e.texte}</p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
       {d.cadre && <p class="ic-cadre__note" set:html={fmt(d.cadre)}></p>}
     </div>
   </section>
@@ -294,9 +297,24 @@ const jsonld = [
 
   /* 7. Le cadre */
   .ic-cadre { background: var(--navy2); padding-block: clamp(5rem, 11vw, 9rem); }
-  .ic-cadre__grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.8rem, 4vw, 3rem); margin-top: clamp(2.4rem, 5vw, 3.4rem); }
-  .ic-cadre__item h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: 1.45rem; color: var(--cream); padding-bottom: 0.6rem; border-bottom: 1px solid var(--faint); margin-bottom: 0.7rem; }
-  .ic-cadre__item p { color: #C9CBD8; line-height: 1.7; }
+  /* La frise : la cadence à gauche, l'espace à droite, un fil doré entre les deux */
+  .ic-frise { list-style: none; margin: clamp(2.4rem, 5vw, 3.4rem) 0 0; padding: 0; max-width: 880px; }
+  .ic-frise li { display: grid; grid-template-columns: 13rem 1fr; gap: 0 clamp(1.6rem, 3vw, 2.6rem); position: relative; padding-bottom: clamp(2rem, 4vw, 2.8rem); }
+  .ic-frise li::before { content: ''; position: absolute; left: calc(13rem + clamp(1.6rem, 3vw, 2.6rem) / 2 - 4px); top: 1.4rem; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 14px rgba(216,162,76,0.6); }
+  .ic-frise li::after { content: ''; position: absolute; left: calc(13rem + clamp(1.6rem, 3vw, 2.6rem) / 2); top: 2.2rem; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(216,162,76,0.45), rgba(216,162,76,0.08)); }
+  .ic-frise li:last-child { padding-bottom: 0; }
+  .ic-frise li:last-child::after { display: none; }
+  .ic-frise__cadence { text-align: right; padding-top: 0.75rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; color: var(--gold); }
+  .ic-frise__corps { padding-left: clamp(1.2rem, 2vw, 1.8rem); }
+  .ic-frise h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.35rem, 2vw, 1.6rem); color: var(--cream); }
+  .ic-frise p { margin-top: 0.4rem; color: #C9CBD8; line-height: 1.7; max-width: 48ch; }
+  @media (max-width: 760px) {
+    .ic-frise li { grid-template-columns: 1fr; gap: 0.3rem; padding-left: 1.6rem; }
+    .ic-frise li::before { left: 0; top: 0.6rem; }
+    .ic-frise li::after { left: 4px; top: 1.4rem; }
+    .ic-frise__cadence { text-align: left; padding-top: 0; }
+    .ic-frise__corps { padding-left: 0; }
+  }
   .ic-cadre__note { max-width: 60ch; margin: clamp(2.4rem, 5vw, 3.4rem) auto 0; padding: 1.6rem 1.8rem; border-left: 2px solid var(--gold); background: rgba(216,162,76,0.06); border-radius: 0 14px 14px 0; color: var(--cream); line-height: 1.75; }
   .ic-cadre__note strong { color: var(--gold); font-weight: 400; }
 

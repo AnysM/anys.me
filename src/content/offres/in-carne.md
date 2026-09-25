@@ -67,14 +67,24 @@ chemin: |
   C'est le mouvement que décrit [la roue des 7 directions indigènes](/codex/roue-des-7-directions) : se laisser traverser par les saisons de la vie, et s'en servir pour avancer. [La méditation](/codex/meditation) et le travail avec [les archétypes](/codex/archetypes) ramènent dans le corps ; ton [Prisme Origine](/offre/prisme-origine) te dit à quel rythme tu fonctionnes.
 
   Et tout tient dans une chose : **le juste effort**. Celui qui respecte la saison où tu es.
-cadre: "Tout se vit **en ligne**, et tout commence par ton **Prisme Origine**, pour repartir de toi. Quatre mois : deux d'ouverture, un mois d'intégration, un mois pour donner forme. Entre les rendez-vous, tes quêtes."
+cadre: "Tout se vit **en ligne**. Quatre mois : **deux mois d'ouverture**, **un mois d'intégration** où le travail descend dans les actes, puis **un mois pour donner forme**."
 cadre_items:
+  - titre: "Ton Prisme Origine"
+    cadence: "Au départ"
+    texte: "Une lecture de 2h de ton Human Design, ton Tzolk'in et ton BaZi : on repart de ton fonctionnement, et de personne d'autre."
   - titre: "Le rendez-vous individuel"
-    texte: "Toutes les deux semaines, un temps rien que pour toi : ce qui bouge, ce qui bloque, ce qui demande à naître."
+    cadence: "Toutes les 2 semaines"
+    texte: "Un temps rien que pour toi : ce qui bouge, ce qui bloque, ce qui demande à naître."
   - titre: "La Forge"
-    texte: "Le rendez-vous collectif, toutes les deux semaines : pratiques, partages, et l'élan du groupe."
+    cadence: "Toutes les 2 semaines"
+    texte: "Le rendez-vous collectif : pratiques, partages, et l'élan du groupe."
   - titre: "Le Chaudron"
-    texte: "Chaque mois, le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
+    cadence: "Chaque mois"
+    texte: "Le cercle de parole : déposer ce qui est vivant, être entendu sans jugement."
+  - titre: "Tes quêtes"
+    cadence: "Entre les rendez-vous"
+    texte: "Un pas concret à vivre dans ton quotidien, choisi ensemble à la fin de chaque rendez-vous."
+
 etapes:
   - titre: "Un appel"
     picto: parole

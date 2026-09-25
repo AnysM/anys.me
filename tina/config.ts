@@ -148,7 +148,7 @@ export default defineConfig({
             { type: "string", name: "approche_titre", label: "Approche — titre", description: "Par défaut : *Comment* on avance" },
           { type: "string", name: "approche_intro", label: "Mon approche — introduction", ui: { component: "textarea" }, description: "**mot** = en valeur" },
           { type: "object", name: "approche", label: "Mon approche — les piliers", list: true, ui: { itemProps: (i) => ({ label: i?.titre ?? "Pilier" }) },
-            fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }] },
+            fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "cadence", label: "Cadence", description: "Ex. : toutes les 2 semaines" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }] },
           { type: "string", name: "cap_eyebrow", label: "Étapes — sur-titre", description: "Par défaut : Par étapes" },
             { type: "string", name: "cap_titre", label: "Étapes — titre", description: "Par défaut : *Ce vers quoi* on va" },
             { type: "object", name: "cap", label: "Les étapes du chemin", list: true, ui: { itemProps: (i) => ({ label: i?.titre ?? "Étape" }) },
