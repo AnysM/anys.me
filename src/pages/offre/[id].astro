@@ -92,6 +92,26 @@ const jsonld = [
   )}
 
 
+  {d.pourqui?.length > 0 && (
+    <section class="pourqui">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Pour qui</p><h2 set:html={titreScript(d.pourqui_titre ?? "C'est *pour toi* si…")}></h2></div>
+        <ul class="pourqui__liste">{d.pourqui.map((x) => <li set:html={fmtO(x)}></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  {d.approche?.length > 0 && (
+    <section class="bloc approche">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">{d.approche_eyebrow ?? 'Mon approche'}</p><h2 set:html={titreScript(d.approche_titre ?? '*Comment* on avance')}></h2></div>
+        {d.approche_intro && <p class="approche__intro" set:html={fmtO(d.approche_intro)}></p>}
+        <div class={`approche__grille approche__grille--${d.approche.length}`}>{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
+        {d.cadre && !(d.cap?.length > 0) && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
+      </div>
+    </section>
+  )}
+
   {d.intention && (
     <section class="intention">
       <div class="narrow">
@@ -121,26 +141,6 @@ const jsonld = [
           <h2 set:html={titreScript(d.nom_titre ?? d.titre)}></h2>
           <p set:html={fmtO(d.nom_texte)}></p>
         </div>
-      </div>
-    </section>
-  )}
-
-  {d.pourqui?.length > 0 && (
-    <section class="pourqui">
-      <div class="wrap">
-        <div class="tete"><p class="eyebrow">Pour qui</p><h2 set:html={titreScript(d.pourqui_titre ?? "C'est *pour toi* si…")}></h2></div>
-        <ul class="pourqui__liste">{d.pourqui.map((x) => <li set:html={fmtO(x)}></li>)}</ul>
-      </div>
-    </section>
-  )}
-
-  {d.approche?.length > 0 && (
-    <section class="bloc approche">
-      <div class="wrap">
-        <div class="tete"><p class="eyebrow">{d.approche_eyebrow ?? 'Mon approche'}</p><h2 set:html={titreScript(d.approche_titre ?? '*Comment* on avance')}></h2></div>
-        {d.approche_intro && <p class="approche__intro" set:html={fmtO(d.approche_intro)}></p>}
-        <div class={`approche__grille approche__grille--${d.approche.length}`}>{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
-        {d.cadre && !(d.cap?.length > 0) && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
       </div>
     </section>
   )}

@@ -1,7 +1,7 @@
 ---
 titre: "IN CARNE"
 categorie: accompagnement
-tag: "Parcours d'hommes"
+tag: "Entre hommes"
 logo: /img/in-carne-logo.png
 image: /img/artefact-narita-4.jpg
 format: "4 mois, en ligne"
@@ -118,3 +118,23 @@ temoignages:
     'n': "Matthieu"
     c: "IN CARNE"
 ---
+
+## Tu as déjà essayé de changer
+
+Tu as lu les livres. Fait les formations. Peut-être même une thérapie, des retraites, des cercles.
+
+Tu as compris beaucoup de choses sur toi. Tu as eu des moments de clarté intense, où tu as vu qui tu pouvais devenir.
+
+**Et au final, ça ne tient jamais.**
+
+Tu retombes dans les mêmes schémas. La procrastination. La dispersion. L'écart entre tes élans et tes actes.
+
+Et ça touche tout le reste : **tes projets, tes relations, ta capacité à te sentir stable, confiant, à ta place**.
+
+### Pourquoi ça ne tient pas
+
+Ce n'est pas une question de discipline, de motivation ou de volonté.
+
+C'est que la compréhension reste dans la tête, que le corps n'est pas convié, et que tu marches seul.
+
+**IN CARNE réunit les trois : la connaissance de toi, l'action dans la matière, et une tribu qui te tient.**
