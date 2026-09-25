@@ -725,3 +725,5 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .cap__note { max-width: 46ch; margin: clamp(1.6rem, 3vw, 2.4rem) auto 0; text-align: center; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; color: #C9CBD8; }
 .cap__posture { display: block; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; color: var(--gold); margin-bottom: 0.5rem; }
 .cap__etapes--chemin .cap__posture { margin-top: 0.1rem; }
+/* Les liens vers le Codex, en fin de page */
+.lore-offre { padding-top: 0; }

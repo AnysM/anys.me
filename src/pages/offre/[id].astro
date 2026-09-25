@@ -41,6 +41,7 @@ const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').repla
 const titreScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const fmtO = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
+const aDuTexte = (o.body ?? '').trim().length > 0;
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
 // Le bouton principal dépend de l'offre : un appel découverte pour un accompagnement,
 // un rendez-vous pour un soin, une réservation directe pour une lecture comme le Prisme.
@@ -82,20 +83,14 @@ const jsonld = [
     </div>
   </section>
 
-  <section>
-    <div class="narrow"><div class="prose"><Content /></div>
-      {touche.length > 0 && (
-        <div class="touche">
-          <p class="rune">Ce que ça touche</p>
-          <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
-        </div>
-      )}
-      {avec.length > 0 && (
-        <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
-      )}
-      {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
-    </div>
-  </section>
+  {aDuTexte && (
+    <section>
+      <div class="narrow"><div class="prose"><Content /></div>
+        {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
+      </div>
+    </section>
+  )}
+
 
   {d.intention && (
     <section class="intention">
@@ -217,6 +212,22 @@ const jsonld = [
       )}
 
       <Faq faq={d.faq} />
+
+      {(touche.length > 0 || avec.length > 0) && (
+        <section class="lore-offre">
+          <div class="narrow">
+            {touche.length > 0 && (
+              <div class="touche">
+                <p class="rune">Ce que ça touche</p>
+                <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+              </div>
+            )}
+            {avec.length > 0 && (
+              <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
+            )}
+          </div>
+        </section>
+      )}
 
       <section class="invite">
         <div class="narrow">
