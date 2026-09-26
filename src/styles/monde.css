@@ -589,9 +589,15 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__roue { position: relative; width: min(100%, 520px); margin: 0 auto clamp(4rem, 9vw, 6rem); aspect-ratio: 1; }
 .rangee__trame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 /* Chaque rayon se trace depuis le centre, l'un après l'autre */
-.rangee__rayon { stroke: rgba(236,231,222,0.22); stroke-width: 0.22; stroke-dasharray: var(--long); stroke-dashoffset: var(--long); transition: stroke-dashoffset 0.75s cubic-bezier(.3,.7,.3,1); transition-delay: calc(var(--i) * 0.42s); }
+.rangee__cercle { fill: none; }
+.rangee__creux .rangee__cercle, .rangee__creux .rangee__rayon { stroke: #070B1B; }
+.rangee__lueur .rangee__cercle, .rangee__lueur .rangee__rayon { stroke: rgba(236,231,222,0.07); }
+.rangee__cercle { stroke-width: 0.34; }
+.rangee__moyeu { fill: #070B1B; }
+.rangee__moyeu--lueur { fill: rgba(236,231,222,0.09); }
+.rangee__rayon { stroke-width: 0.34; stroke-dasharray: var(--long); stroke-dashoffset: var(--long); transition: stroke-dashoffset 0.75s cubic-bezier(.3,.7,.3,1); transition-delay: calc(var(--i) * 0.42s); }
 .rangee__roue.est-vue .rangee__rayon { stroke-dashoffset: 0; }
-.rangee__moyeu { fill: #ECE7DE; opacity: 0.55; }
+
 /* Le placement passe par les marges : l'apparition au défilement garde sa translation */
 .rangee__item { position: absolute; width: 168px; margin: -40px 0 0 -84px; opacity: 0; transform: translateY(10px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 0.42s + 0.55s); }
 .rangee__roue.est-vue .rangee__item { opacity: 1; transform: none; }
@@ -601,8 +607,8 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
 /* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
 .rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); box-shadow: 0 0 18px -2px color-mix(in srgb, var(--u-trait) 55%, transparent); }
-.rangee__nom { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(0.88rem, 1.1vw, 0.98rem); line-height: 1.35; color: var(--cream); }
-.rangee__note { font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
+.rangee__nom { font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(0.88rem, 1.1vw, 0.98rem); line-height: 1.35; color: var(--cream); }
+.rangee__note { font-style: italic; font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
 @media (max-width: 760px) {
   .rangee__roue { aspect-ratio: auto; width: 100%; }
   .rangee__anneau, .rangee__point { display: none; }

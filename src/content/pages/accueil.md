@@ -44,7 +44,7 @@ form_eyebrow: Contact
 piliers_titre: Ce qui nourrit *le chemin*
 piliers:
   - nom: La présence
-    note: 'Méditation, souffle, immobilité'
+    note: Méditation pleine conscience · respiration
   - nom: La connaissance de soi
     note: Archétypes · Human Design · Tzolk’in · BaZi
   - nom: Le mouvement

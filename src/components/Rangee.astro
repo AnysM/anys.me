@@ -26,11 +26,24 @@ const points = rangs.map((u, i) => {
   {centre && <p class="rangee__centre"><span>{centre}</span></p>}
   <div class="rangee__roue">
     <svg class="rangee__trame" viewBox="0 0 100 100" aria-hidden="true">
-      {points.map((p, i) => (
-        <line class="rangee__rayon" style={`--i:${i}; --long:${LONG.toFixed(2)}`}
-          x1={50 + p.dx * DEBUT} y1={50 + p.dy * DEBUT}
-          x2={50 + p.dx * (R - R_PICTO)} y2={50 + p.dy * (R - R_PICTO)} />
-      ))}
+      <!-- Gravé dans le fond : un trait sombre, et son surlignage juste en dessous -->
+      <g class="rangee__lueur">
+        <circle cx="50" cy="50.4" r={R} class="rangee__cercle" />
+        {points.map((p, i) => (
+          <line class="rangee__rayon" style={`--i:${i}; --long:${LONG.toFixed(2)}`}
+            x1={50 + p.dx * DEBUT} y1={50.4 + p.dy * DEBUT}
+            x2={50 + p.dx * (R - R_PICTO)} y2={50.4 + p.dy * (R - R_PICTO)} />
+        ))}
+      </g>
+      <g class="rangee__creux">
+        <circle cx="50" cy="50" r={R} class="rangee__cercle" />
+        {points.map((p, i) => (
+          <line class="rangee__rayon" style={`--i:${i}; --long:${LONG.toFixed(2)}`}
+            x1={50 + p.dx * DEBUT} y1={50 + p.dy * DEBUT}
+            x2={50 + p.dx * (R - R_PICTO)} y2={50 + p.dy * (R - R_PICTO)} />
+        ))}
+      </g>
+      <circle cx="50" cy="50.4" r={R_MOYEU} class="rangee__moyeu rangee__moyeu--lueur" />
       <circle cx="50" cy="50" r={R_MOYEU} class="rangee__moyeu" />
     </svg>
     <div class="rangee__liste">
