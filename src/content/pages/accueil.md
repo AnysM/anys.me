@@ -75,13 +75,13 @@ form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te 
 coeur_eyebrow: Quand tout s'effondre
 coeur_titre: '*Danser* <br><span class="ligne">avec la vie</span>'
 coeur: |
-  On est tellement focalisés sur le résultat, sur la destination, qu'on finit par bâtir une vie entière là-dessus. Une vie posée sur des conditionnements. Et **sans s'en rendre compte, on construit des prisons**.
+  On vise la destination, et on bâtit une vie entière pour y arriver. Une vie posée sur des conditionnements. Sans s'en rendre compte, **on construit sa propre prison**.
 
-  Quand la vie fait tout s'effondrer, ce sont avant tout {corail:les murs de la prison} qui tombent. Et quoi de plus effrayant que de se retrouver face à soi-même, face à toutes les possibilités.
+  Quand la vie fait tout s'effondrer, ce sont les murs de cette prison qui tombent. Et rien n'est plus effrayant que de se retrouver face à soi-même, face à {corail:toutes les possibilités}.
 
-  C'est là qu'on apprend à *danser* avec la vie. À {bleu:co-créer avec le vivant}, et à faire le pas dans l'inconnu.
+  C'est là qu'on apprend à *danser* avec la vie. À {bleu:co-créer avec le vivant}. À faire le pas dans l'inconnu, et à aimer le chemin plus que la destination.
 
-  Apprendre à aimer le chemin plus que la destination. Parce que quand on marche son propre chemin, la destination importe peu.
+  Quand on marche son propre chemin, la destination importe peu.
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
