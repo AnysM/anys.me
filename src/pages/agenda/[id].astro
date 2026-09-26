@@ -53,6 +53,8 @@ const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
 const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
 const souffles = d.citations ?? [];
+// Le résumé du hero : la première phrase dit ce que c'est, la suite invite.
+const phrases = (d.resume ?? '').split(/(?<=\.)\s+/).filter(Boolean);
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
 const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
@@ -93,7 +95,12 @@ const jsonld = [
       <p class="eyebrow">{quand}</p>
       <h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
-      {souffles[0] && d.resume && <p class="page-hero__phrase">{d.resume}</p>}
+      {souffles[0] && phrases.length > 0 && (
+        <p class="page-hero__phrase">
+          <span class="page-hero__quoi">{phrases[0]}</span>
+          {phrases.length > 1 && <span class="page-hero__invite">{phrases.slice(1).join(' ')}</span>}
+        </p>
+      )}
     </div>
     <div class="ph-scroll"><span></span>Découvrir</div>
   </section>

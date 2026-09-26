@@ -32,7 +32,7 @@ citations:
     source: "Inflorescence, rhizome de poésie vivante"
     image: /img/fleur-eclosion.jpg
   - texte: "La résonance, c'est l'art d'être ouvert à l'autre tout en restant *en soi.*"
-    image: /img/meiso-photo.jpg
+    image: /img/fleurs-melees.jpg
   - texte: "Alors, on *fleurit* ensemble ?"
     image: /img/arbre-en-fleurs.jpg
 cta: "Je m'inscris"

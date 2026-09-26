@@ -747,11 +747,13 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 
 /* ── Le hero d'un événement : une photo qui prend la page, comme sur IN CARNE ── */
 .page-hero--grand { min-height: 88svh; align-items: center; justify-content: center; text-align: center; padding: 140px 0 110px; }
-.page-hero--grand > img { opacity: 0.9; filter: saturate(1.15) brightness(0.92) contrast(1.04); }
-.page-hero--grand::before { background: radial-gradient(58% 48% at 50% 38%, rgba(216,162,76,0.18), transparent 72%), linear-gradient(to bottom, rgba(5,7,16,0.62), rgba(5,7,16,0.18) 42%, rgba(10,15,32,0.95)); }
+.page-hero--grand > img { opacity: 0.85; filter: saturate(1.12) brightness(0.66) contrast(1.02); }
+.page-hero--grand::before { background: radial-gradient(58% 48% at 50% 38%, rgba(216,162,76,0.16), transparent 72%), linear-gradient(to bottom, rgba(5,7,16,0.72), rgba(5,7,16,0.45) 42%, rgba(10,15,32,0.97)); }
 .page-hero--grand h1 { text-shadow: 0 2px 34px rgba(5,7,16,0.6); margin-top: 1.2rem; font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.02; }
 .page-hero--grand .seuil-tag { justify-content: center; }
-.page-hero__phrase { text-shadow: 0 2px 26px rgba(5,7,16,0.8); margin: 2.2rem auto 0; max-width: 34ch; font-family: 'EB Garamond', serif; font-size: clamp(1.22rem, 2.2vw, 1.62rem); line-height: 1.5; color: var(--cream); }
+.page-hero__phrase { text-shadow: 0 2px 26px rgba(5,7,16,0.8); margin: 2.2rem auto 0; max-width: 36ch; font-size: clamp(1.22rem, 2.2vw, 1.62rem); line-height: 1.5; color: var(--cream); }
+.page-hero__quoi { display: block; font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.84em; line-height: 1.45; letter-spacing: 0.02em; }
+.page-hero__invite { display: block; margin-top: 0.7rem; font-family: 'EB Garamond', serif; line-height: 1.45; }
 .ph-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.6rem; color: var(--muted); }
 .ph-scroll span { width: 1px; height: 34px; background: linear-gradient(to bottom, var(--gold), transparent); }
 @media (max-width: 760px) { .page-hero--grand { min-height: 80svh; padding: 110px 0 90px; } }
