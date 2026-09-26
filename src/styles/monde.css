@@ -586,12 +586,15 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__centre::before, .rangee__centre::after { content: ''; height: 1px; flex: 1; max-width: 90px; background: linear-gradient(to right, transparent, rgba(236,231,222,0.3)); }
 .rangee__centre::after { background: linear-gradient(to left, transparent, rgba(236,231,222,0.3)); }
 .rangee__centre span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.82rem; color: var(--cream); }
-.rangee__roue { position: relative; width: min(100%, 760px); margin: 0 auto; aspect-ratio: 1 / 0.92; }
-.rangee__anneau { position: absolute; left: 6%; top: 11%; width: 88%; height: 78%; border: 1px solid rgba(236,231,222,0.09); border-radius: 50%; }
-.rangee__point { position: absolute; left: 50%; top: 50%; width: 54px; height: 54px; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 50% 42%, #101733, #05070F 72%); box-shadow: 0 0 0 1px rgba(236,231,222,0.08), 0 0 44px rgba(5,7,15,0.9) inset; }
-.rangee__item { position: absolute; transform: translate(-50%, -50%); width: min(30%, 230px); }
+.rangee__roue { position: relative; width: min(100%, 520px); margin: 0 auto clamp(4rem, 9vw, 6rem); aspect-ratio: 1; }
+.rangee__trame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rangee__cercle { fill: none; stroke: rgba(236,231,222,0.08); stroke-width: 0.25; }
+.rangee__rayon { stroke: rgba(236,231,222,0.16); stroke-width: 0.25; stroke-dasharray: 1.4 1.4; }
+.rangee__moyeu { fill: #070B18; stroke: rgba(236,231,222,0.12); stroke-width: 0.25; }
+/* Le placement passe par les marges : l'apparition au défilement garde sa translation */
+.rangee__item { position: absolute; width: 168px; margin: -40px 0 0 -84px; }
 .rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
-.rangee__picto { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--fond-symbole); border: 2px solid transparent; color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s, box-shadow 0.35s; }
+.rangee__picto { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: var(--fond-symbole); border: 2px solid transparent; color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s, box-shadow 0.35s; }
 .rangee__picto svg { width: 55%; height: 55%; filter: url(#encre); }
 .rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
 /* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
@@ -748,6 +751,14 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .agenda-carrousel .carrousel__piste { gap: 1.4rem; }
 .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 min(860px, 88%); scroll-snap-align: start; }
 @media (max-width: 700px) { .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 86%; } }
+/* Les flèches sur les côtés, en grand, posées sur les cartes */
+.agenda-carrousel { position: relative; }
+.agenda-carrousel .carrousel__btn { position: absolute; top: calc((100% - 4.4rem) / 2); transform: translateY(-50%); z-index: 3; width: 62px; height: 62px; border-radius: 50%; padding: 0; background: rgba(8,12,28,0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(236,231,222,0.16); color: var(--cream); transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.agenda-carrousel .carrousel__btn:hover { background: var(--gold) !important; border-color: var(--gold); color: var(--navy); }
+.agenda-carrousel .carrousel__btn svg { width: 30px; height: 30px; stroke-width: 1.8; }
+.agenda-carrousel .carrousel__btn[data-sens="-1"] { left: 14px; }
+.agenda-carrousel .carrousel__btn[data-sens="1"] { right: 14px; }
+@media (max-width: 760px) { .agenda-carrousel .carrousel__btn { display: none; } }
 
 /* ── Toutes les formules dans le billet, comme une carte de prix ── */
 .billet__formules { list-style: none; margin: 0 0 0.4rem; padding: 0; display: grid; gap: 0.7rem; }
