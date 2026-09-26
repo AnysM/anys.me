@@ -787,3 +787,13 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .ph-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.6rem; color: var(--muted); }
 .ph-scroll span { width: 1px; height: 34px; background: linear-gradient(to bottom, var(--gold), transparent); }
 @media (max-width: 760px) { .page-hero--grand { min-height: 80svh; padding: 110px 0 90px; } }
+
+/* ── Le prochain rendez-vous, une ligne fine juste après l'appel ── */
+.prochain { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1rem; padding: 0.95rem var(--gouttiere); border-block: 1px solid var(--faint); background: var(--navy); transition: background 0.3s; }
+.prochain:hover { background: var(--navy2); }
+.prochain__label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.68rem; color: var(--gold); }
+.prochain__quand { font-family: 'Jost', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--cream); }
+.prochain__titre { font-family: 'EB Garamond', serif; font-size: 1.12rem; color: var(--cream); }
+.prochain__fleche { color: var(--gold); transition: transform 0.3s; }
+.prochain:hover .prochain__fleche { transform: translateX(4px); display: inline-block; }
+@media (max-width: 560px) { .prochain { justify-content: flex-start; gap: 0.3rem 0.8rem; } .prochain__titre { width: 100%; } }

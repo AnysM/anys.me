@@ -13,7 +13,7 @@ import Carrousel from '../components/Carrousel.astro';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { propositions } from '../lib/monde';
+import { propositions, ligneDate, hrefAgenda } from '../lib/monde';
 import { UNIVERS, SEUILS } from '../lib/univers.mjs';
 import { tisser, contexte } from '../lib/lore.mjs';
 
@@ -50,6 +50,8 @@ const prochaines = agendaPublie
   .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
   .slice(0, 4);
 const dates = [...prochaines, ...reguliers];
+// Le prochain rendez-vous daté : de quoi voir tout de suite ce qui vient, même en revenant.
+const prochain = prochaines[0];
 
 const temoins = acc.temoins ?? [];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
@@ -67,6 +69,15 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
+
+  {prochain && (
+    <a class="prochain" href={hrefAgenda(prochain)}>
+      <span class="prochain__label">Prochain rendez-vous</span>
+      <span class="prochain__quand">{ligneDate(prochain.data)}</span>
+      <span class="prochain__titre">{prochain.data.titre}</span>
+      <span class="prochain__fleche" aria-hidden="true">→</span>
+    </a>
+  )}
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
   <section>
