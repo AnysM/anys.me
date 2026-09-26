@@ -72,16 +72,16 @@ citation3: Accepter de se mettre en relation <br>et redevenir *une cellule* <br>
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
-coeur_eyebrow: Ce que tu vis peut-être
-coeur_titre: '*Comprendre* <br><span class="ligne">sans incarner</span>'
+coeur_eyebrow: Le mouvement de la vie
+coeur_titre: '*Danser* <br><span class="ligne">avec la vie</span>'
 coeur: |
-  Souvent, on m'écrit au moment où quelque chose ne tient plus. On a compris, analysé, travaillé, et pourtant la vie ne bouge pas.
+  On est tellement focalisés sur le résultat, sur la destination, qu'on finit par bâtir une vie entière là-dessus. Une vie posée sur des conditionnements. Et **sans s'en rendre compte, on construit des prisons**.
 
-  Parce que **la tête seule ne suffit pas**. Ce qui change, c'est de faire redescendre la compréhension dans le corps.
+  Quand la vie fait tout s'effondrer, ce sont avant tout {corail:les murs de la prison} qui tombent. Et quoi de plus effrayant que de se retrouver face à soi-même, face à toutes les possibilités.
 
-  Et ça ne s'opère pas par la seule volonté. Ça demande d'entrer en relation profonde avec ce qui t'habite, et avec ce qui t'entoure.
+  C'est là qu'on apprend à *danser* avec la vie. À {bleu:co-créer avec le vivant}, et à faire le pas dans l'inconnu.
 
-  Je marche *à tes côtés* pour retrouver cette capacité à {bleu:co-créer avec la vie}, et {corail:sortir de la forteresse} d'un mental trop présent.
+  Apprendre à aimer le chemin plus que la destination. Parce que quand on marche son propre chemin, la destination importe peu.
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:
