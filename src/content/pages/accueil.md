@@ -72,7 +72,7 @@ citation3: Accepter de se mettre en relation <br>et redevenir *une cellule* <br>
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
-coeur_eyebrow: Le mouvement de la vie
+coeur_eyebrow: Le mouvement
 coeur_titre: '*Danser* <br><span class="ligne">avec la vie</span>'
 coeur: |
   On est tellement focalisés sur le résultat, sur la destination, qu'on finit par bâtir une vie entière là-dessus. Une vie posée sur des conditionnements. Et **sans s'en rendre compte, on construit des prisons**.
