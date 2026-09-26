@@ -55,6 +55,10 @@ const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
 const souffles = d.citations ?? [];
 // Le résumé du hero : la première phrase dit ce que c'est, la suite invite.
 const phrases = (d.resume ?? '').split(/(?<=\.)\s+/).filter(Boolean);
+// Ce que c'est (en capitales, « | » pour aller à la ligne), l'invitation, puis la note pratique.
+const lignes = (d.accroche ?? phrases[0] ?? '').split('|').map((x) => x.trim()).filter(Boolean);
+const note = phrases.length > 2 ? phrases[phrases.length - 1] : null;
+const invite = phrases.slice(1, note ? -1 : undefined).join(' ');
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
 const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
@@ -95,10 +99,11 @@ const jsonld = [
       <p class="eyebrow">{quand}</p>
       <h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
-      {souffles[0] && phrases.length > 0 && (
+      {souffles[0] && lignes.length > 0 && (
         <p class="page-hero__phrase">
-          <span class="page-hero__quoi">{phrases[0]}</span>
-          {phrases.length > 1 && <span class="page-hero__invite">{phrases.slice(1).join(' ')}</span>}
+          <span class="page-hero__quoi">{lignes.map((l, i) => <Fragment>{i > 0 && <br />}{l}</Fragment>)}</span>
+          {invite && <span class="page-hero__invite">{invite}</span>}
+          {note && <span class="page-hero__note">{note}</span>}
         </p>
       )}
     </div>

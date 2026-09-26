@@ -62,6 +62,7 @@ export default defineConfig({
             ] },
           { type: "image", name: "image", label: "Image" },
           { type: "image", name: "image_hero", label: "Image du grand bandeau (par défaut, l'image)" },
+          { type: "string", name: "accroche", label: "Accroche du bandeau, en capitales (« | » pour aller à la ligne)" },
           { type: "boolean", name: "reservable", label: "Réservable" },
           { type: "number", name: "ordre", label: "Ordre d'affichage" },
           { type: "boolean", name: "publie", label: "Publié" },
