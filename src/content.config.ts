@@ -138,7 +138,7 @@ const pages = defineCollection({
     appel_cta: z.string().optional(),
     temoins: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
     chapitres: z.array(z.object({ titre: z.string(), texte: z.string(), image: z.string().optional(), echos: refs.optional() })).optional(),
-    seuils: z.array(z.object({ titre: z.string().optional(), texte: z.string() })).optional(),
+    seuils: z.array(z.object({ titre: z.string().optional(), texte: z.string().optional() })).optional(),
     seuils_eyebrow: z.string().optional(),
     coeur_eyebrow: z.string().optional(),
     coeur_titre: z.string().optional(),

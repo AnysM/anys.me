@@ -24,7 +24,7 @@ export const typeLabel = (id) => TYPES.find((t) => t.id === id)?.label ?? id;
 
 // Les trois seuils : du premier pas à la transformation.
 export const SEUILS = [
-  { id: 'decouvrir', num: 'I', nom: 'Découvrir', format: 'une soirée, un cercle' },
+  { id: 'decouvrir', num: 'I', nom: 'Découvrir', format: 'un atelier, un cercle' },
   { id: 'approfondir', num: 'II', nom: 'Approfondir', format: 'un soin, une lecture' },
   { id: 'transformer', num: 'III', nom: 'Se transformer', format: 'un chemin, une immersion' },
 ];

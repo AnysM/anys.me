@@ -59,11 +59,8 @@ seuils_eyebrow: Les seuils
 seuils_titre: Par où *entrer*
 seuils:
   - titre: Découvrir
-    texte: 'Essayer une pratique nouvelle, en douceur : méditation, danse Butô, voyage sonore ou cercle de parole. Une soirée de 1h30 à 2h, en petit groupe, sans aucune expérience requise. Et si ça te plaît, venir chaque semaine devient un ancrage qui transforme ton quotidien.'
   - titre: Approfondir
-    texte: 'Un temps pour relâcher, harmoniser et remettre du mouvement là où la vie s''est figée. Ou une lecture de ta manière unique de fonctionner, pour éclairer ta nature profonde.'
   - titre: Se transformer
-    texte: 'Un cheminement sur la durée pour traverser une transition et incarner un projet qui te ressemble. Ou une immersion hors du quotidien, pour se déposer en profondeur.'
 codex_eyebrow: Le Codex
 codex_titre: 'Le paysage *intérieur*'
 codex_texte: 'Les notions, les pratiques, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre.'
@@ -107,7 +104,7 @@ difference:
     piege: "Des définitions de soi qui t'enferment dans ce que tu n'es pas vraiment."
     texte: "Revenir à ton fonctionnement unique et trouver ta force dans tes spécificités. On ne demande pas à un poisson de grimper aux arbres."
   - titre: "Vivre plutôt que guérir"
-    piege: "Passer sa vie à vouloir guérir, changer, se transformer, sans jamais vivre. Le mental adore s'enfermer dans ses certitudes."
+    piege: "Passer sa vie à vouloir guérir, changer, se transformer, sans jamais vivre."
     texte: "Je considère qu'il n'y a rien à réparer, juste à grandir. C'est pourquoi je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là inaccessibles."
 ---
 
