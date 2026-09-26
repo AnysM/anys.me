@@ -25,14 +25,16 @@ seances:
   - date: 2026-11-27
     heure: "18h30 - 20h"
 image: /img/infloressence-danse.webp
+image_hero: /img/fleurs-bleues.jpg
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
 citations:
   - texte: "Il suffit d'une graine pour commencer à *fleurir.*"
     source: "Inflorescence, rhizome de poésie vivante"
+    image: /img/fleur-eclosion.jpg
   - texte: "La résonance, c'est l'art d'être ouvert à l'autre tout en restant *en soi.*"
     image: /img/meiso-photo.jpg
   - texte: "Alors, on *fleurit* ensemble ?"
-    image: /img/art-1.jpg
+    image: /img/arbre-en-fleurs.jpg
 cta: "Je m'inscris"
 lien: "/contact?pour=Inscription%20aux%20ateliers%20Infloressence&interet=decouvrir"
 reservable: true

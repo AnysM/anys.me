@@ -61,6 +61,7 @@ export default defineConfig({
               { type: "image", name: "image", label: "Photo (par défaut celle de l'événement)" },
             ] },
           { type: "image", name: "image", label: "Image" },
+          { type: "image", name: "image_hero", label: "Image du grand bandeau (par défaut, l'image)" },
           { type: "boolean", name: "reservable", label: "Réservable" },
           { type: "number", name: "ordre", label: "Ordre d'affichage" },
           { type: "boolean", name: "publie", label: "Publié" },

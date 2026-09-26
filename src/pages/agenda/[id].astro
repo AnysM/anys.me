@@ -88,7 +88,7 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero page-hero--grand">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero page-hero--grand">{(d.image_hero ?? d.image) ? <img src={d.image_hero ?? d.image} alt="" /> : <div class="ph-band"></div>}
     <div class="wrap">
       <p class="eyebrow">{quand}</p>
       <h1>{d.titre}</h1>
