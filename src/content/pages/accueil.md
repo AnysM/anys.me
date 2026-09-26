@@ -72,7 +72,7 @@ citation3: Accepter de se mettre en relation <br>et redevenir *une cellule* <br>
 citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
-coeur_eyebrow: Le mouvement
+coeur_eyebrow: Quand tout s'effondre
 coeur_titre: '*Danser* <br><span class="ligne">avec la vie</span>'
 coeur: |
   On est tellement focalisés sur le résultat, sur la destination, qu'on finit par bâtir une vie entière là-dessus. Une vie posée sur des conditionnements. Et **sans s'en rendre compte, on construit des prisons**.
@@ -108,6 +108,6 @@ difference:
     texte: "Revenir à ton fonctionnement unique et trouver ta force dans tes spécificités. On ne demande pas à un poisson de grimper aux arbres."
   - titre: "Vivre plutôt que guérir"
     piege: "Passer sa vie à vouloir guérir, changer, se transformer, sans jamais vivre. Le mental adore s'enfermer dans ses certitudes."
-    texte: "Je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là inaccessibles."
+    texte: "Je considère qu'il n'y a rien à réparer, juste à grandir. C'est pourquoi je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là inaccessibles."
 ---
 
