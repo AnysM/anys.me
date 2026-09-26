@@ -788,12 +788,16 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .ph-scroll span { width: 1px; height: 34px; background: linear-gradient(to bottom, var(--gold), transparent); }
 @media (max-width: 760px) { .page-hero--grand { min-height: 80svh; padding: 110px 0 90px; } }
 
-/* ── Le prochain rendez-vous, une ligne fine juste après l'appel ── */
-.prochain { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1rem; padding: 0.95rem var(--gouttiere); border-block: 1px solid var(--faint); background: var(--navy); transition: background 0.3s; }
-.prochain:hover { background: var(--navy2); }
-.prochain__label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.68rem; color: var(--gold); }
-.prochain__quand { font-family: 'Jost', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--cream); }
-.prochain__titre { font-family: 'EB Garamond', serif; font-size: 1.12rem; color: var(--cream); }
-.prochain__fleche { color: var(--gold); transition: transform 0.3s; }
-.prochain:hover .prochain__fleche { transform: translateX(4px); display: inline-block; }
-@media (max-width: 560px) { .prochain { justify-content: flex-start; gap: 0.3rem 0.8rem; } .prochain__titre { width: 100%; } }
+/* ── Le prochain rendez-vous : une bande, juste après « qui suis-je » ── */
+.prochain { padding: 0; border-block: 1px solid var(--faint); background: var(--navy2); }
+.prochain__dedans { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem 2rem; padding-block: 1.1rem; }
+.prochain__lien { display: flex; align-items: center; gap: 1.1rem; min-width: 0; }
+.prochain__img { flex: none; width: 64px; height: 64px; border-radius: 14px; overflow: hidden; background: var(--fond-symbole); }
+.prochain__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s var(--ease, ease); }
+.prochain__lien:hover .prochain__img img { transform: scale(1.06); }
+.prochain__txt { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+.prochain__label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.66rem; color: var(--gold); }
+.prochain__titre { font-family: 'EB Garamond', serif; font-size: clamp(1.22rem, 2vw, 1.5rem); line-height: 1.2; color: var(--cream); transition: color 0.3s; }
+.prochain__lien:hover .prochain__titre { color: var(--coral); }
+.prochain__quand { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--muted); }
+@media (max-width: 620px) { .prochain__dedans { flex-direction: column; align-items: flex-start; } .prochain__tout { width: 100%; justify-content: center; } }

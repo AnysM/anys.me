@@ -127,6 +127,7 @@ const pages = defineCollection({
     parcours_cta: z.string().optional(),
     piliers_eyebrow: z.string().optional(),
     agenda_eyebrow: z.string().optional(),
+    agenda_titre: z.string().optional(),
     art_eyebrow: z.string().optional(),
     art_titre: z.string().optional(),
     temoins_eyebrow: z.string().optional(),

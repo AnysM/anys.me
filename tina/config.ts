@@ -301,6 +301,7 @@ export default defineConfig({
             ] },
           { type: "string", name: "piliers_eyebrow", label: "Piliers — sur-titre" },
           { type: "string", name: "agenda_eyebrow", label: "Agenda — sur-titre" },
+          { type: "string", name: "agenda_titre", label: "Agenda — titre (* pour le manuscrit)" },
           { type: "string", name: "art_eyebrow", label: "Art — sur-titre" },
           { type: "string", name: "art_titre", label: "Art — titre", description: "*mot* = manuscrite" },
           { type: "string", name: "temoins_eyebrow", label: "Temoignages — sur-titre" },

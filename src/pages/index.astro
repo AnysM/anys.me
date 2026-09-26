@@ -70,15 +70,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     <div class="hero-scroll"><span class="l"></span>Scroll</div>
   </section>
 
-  {prochain && (
-    <a class="prochain" href={hrefAgenda(prochain)}>
-      <span class="prochain__label">Prochain rendez-vous</span>
-      <span class="prochain__quand">{ligneDate(prochain.data)}</span>
-      <span class="prochain__titre">{prochain.data.titre}</span>
-      <span class="prochain__fleche" aria-hidden="true">→</span>
-    </a>
-  )}
-
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
   <section>
     <div class="wrap split">
@@ -91,6 +82,22 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
       </div>
     </div>
   </section>
+
+  {prochain && (
+    <section class="prochain">
+      <div class="wrap prochain__dedans">
+        <a class="prochain__lien" href={hrefAgenda(prochain)}>
+          {prochain.data.image && <span class="prochain__img"><img src={prochain.data.image} alt="" loading="lazy" /></span>}
+          <span class="prochain__txt">
+            <span class="prochain__label">Prochain rendez-vous</span>
+            <span class="prochain__titre">{prochain.data.titre}</span>
+            <span class="prochain__quand">{ligneDate(prochain.data)}{prochain.data.lieu ? ` · ${prochain.data.lieu.split(',')[0]}` : ''}</span>
+          </span>
+        </a>
+        <a class="btn btn--bleu prochain__tout" href="/agenda">Voir tous les événements</a>
+      </div>
+    </section>
+  )}
 
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
@@ -141,8 +148,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   {dates.length > 0 && (
     <section class="bloc">
       <div class="wrap">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-          <p class="eyebrow">{acc.agenda_eyebrow}</p>
+        <div class="tete-agenda">
+          <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
           <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
         </div>
         <Carrousel n={dates.length} label="Rendez-vous" classe="agenda-carrousel">{dates.map((e) => <CarteEvenement e={e} />)}</Carrousel>

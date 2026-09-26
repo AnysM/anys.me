@@ -18,6 +18,7 @@ parcours_texte: 'Ancien ingénieur informatique, je me suis réveillé à 28 ans
 parcours_cta: Lire mon histoire
 piliers_eyebrow: Les dimensions
 agenda_eyebrow: Prochains rendez-vous
+agenda_titre: Prochains *rendez-vous*
 art_eyebrow: Indigo Enoqii
 art_titre: '*Mon univers* artistique'
 temoins_eyebrow: Traversées
