@@ -5,8 +5,10 @@ const ORDRE = ['presence', 'connaissance', 'mouvement', 'vivant', 'art'];
 const rangs = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean);
 // Tout est exprimé en pourcentage du carré : le SVG et les pastilles partagent la même géométrie.
 const R = 36;        // rayon de la roue
-const R_MOYEU = 6;   // rayon du point du centre
+const R_MOYEU = 2;   // le point du centre
 const R_PICTO = 7;   // demi-taille d'une pastille
+const DEBUT = R_MOYEU + 1.6;
+const LONG = R - R_PICTO - DEBUT;
 const points = rangs.map((u, i) => {
   const a = (i / rangs.length) * 2 * Math.PI;
   return { u, x: 50 + R * Math.sin(a), y: 50 - R * Math.cos(a), dx: Math.sin(a), dy: -Math.cos(a) };
@@ -24,15 +26,16 @@ const points = rangs.map((u, i) => {
   {centre && <p class="rangee__centre"><span>{centre}</span></p>}
   <div class="rangee__roue">
     <svg class="rangee__trame" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="50" r={R} class="rangee__cercle" />
-      {points.map((p) => (
-        <line x1={50 + p.dx * (R_MOYEU + 1)} y1={50 + p.dy * (R_MOYEU + 1)} x2={50 + p.dx * (R - R_PICTO)} y2={50 + p.dy * (R - R_PICTO)} class="rangee__rayon" />
+      {points.map((p, i) => (
+        <line class="rangee__rayon" style={`--i:${i}; --long:${LONG.toFixed(2)}`}
+          x1={50 + p.dx * DEBUT} y1={50 + p.dy * DEBUT}
+          x2={50 + p.dx * (R - R_PICTO)} y2={50 + p.dy * (R - R_PICTO)} />
       ))}
       <circle cx="50" cy="50" r={R_MOYEU} class="rangee__moyeu" />
     </svg>
     <div class="rangee__liste">
-      {points.map(({ u, x, y }) => (
-        <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`} style={`left:${x.toFixed(2)}%; top:${y.toFixed(2)}%;`}>
+      {points.map(({ u, x, y }, i) => (
+        <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`} style={`left:${x.toFixed(2)}%; top:${y.toFixed(2)}%; --i:${i};`}>
           <span class="rangee__picto">{u.image ? <img src={u.image} alt="" /> : <Fragment set:html={u.icon} />}</span>
           <span class="rangee__nom">{u.nom}</span>
           {u.note && <span class="rangee__note">{u.note}</span>}
@@ -41,3 +44,17 @@ const points = rangs.map((u, i) => {
     </div>
   </div>
 </div>
+
+<script is:inline>
+  // La roue se dessine quand elle arrive à l'écran : un rayon part du centre,
+  // puis la dimension apparaît au bout. Dans le sens horaire, depuis le haut.
+  (function () {
+    var roue = document.querySelector('.rangee__roue');
+    if (!roue) return;
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { roue.classList.add('est-vue'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('est-vue'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -15% 0px' });
+    io.observe(roue);
+  })();
+</script>
