@@ -25,7 +25,7 @@ temoins:
   - t: "Ayant moi-même parcouru un long chemin de conscience et exerçant dans l'accompagnement, je suis particulièrement exigeante. Anys réunit une grande rigueur, une réflexion fine, un remarquable discernement, et une présence profondément humaine. Il sait créer un espace à la fois contenant et structurant."
     'n': "Stéphanie M."
     c: "Accompagnement, depuis plusieurs années"
-  - t: "Moi qui avais très peur de voyager, j'ai senti un filet de sécurité suffisant pour oser. Anis a su m'accompagner dans la traversée du « désert intérieur », tout en gardant mon autonomie : le cœur, la présence, la douceur, le non-jugement."
+  - t: "Moi qui avais très peur de voyager, j'ai senti un filet de sécurité suffisant pour oser. Anys a su m'accompagner dans la traversée du « désert intérieur », tout en gardant mon autonomie : le cœur, la présence, la douceur, le non-jugement."
     'n': "Sandrine B."
     c: "Voyage initiatique, désert marocain"
   - t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à la fois légère, ancrée et ressourcée."

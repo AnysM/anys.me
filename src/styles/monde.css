@@ -755,13 +755,13 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 min(860px, 88%); scroll-snap-align: start; }
 @media (max-width: 700px) { .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 86%; } }
 /* Les flèches sur les côtés, en grand, posées sur les cartes */
-.agenda-carrousel { position: relative; }
-.agenda-carrousel .carrousel__btn { position: absolute; top: calc((100% - 4.4rem) / 2); transform: translateY(-50%); z-index: 3; width: 62px; height: 62px; border-radius: 50%; padding: 0; background: rgba(8,12,28,0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(236,231,222,0.16); color: var(--cream); transition: background 0.3s, color 0.3s, border-color 0.3s; }
-.agenda-carrousel .carrousel__btn:hover { background: var(--gold) !important; border-color: var(--gold); color: var(--navy); }
-.agenda-carrousel .carrousel__btn svg { width: 30px; height: 30px; stroke-width: 1.8; }
-.agenda-carrousel .carrousel__btn[data-sens="-1"] { left: 14px; }
-.agenda-carrousel .carrousel__btn[data-sens="1"] { right: 14px; }
-@media (max-width: 760px) { .agenda-carrousel .carrousel__btn { display: none; } }
+.carrousel { position: relative; }
+.carrousel__btn { position: absolute; top: calc((100% - 4.4rem) / 2); transform: translateY(-50%); z-index: 3; width: 62px; height: 62px; border-radius: 50%; padding: 0; background: rgba(8,12,28,0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(236,231,222,0.16); color: var(--cream); transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.carrousel__btn:hover { background: var(--gold) !important; border-color: var(--gold); color: var(--navy); }
+.carrousel__btn svg { width: 30px; height: 30px; stroke-width: 1.8; }
+.carrousel__btn[data-sens="-1"] { left: 4px; }
+.carrousel__btn[data-sens="1"] { right: 4px; }
+@media (max-width: 760px) { .carrousel__btn { display: none; } }
 
 /* ── Toutes les formules dans le billet, comme une carte de prix ── */
 .billet__formules { list-style: none; margin: 0 0 0.4rem; padding: 0; display: grid; gap: 0.7rem; }
