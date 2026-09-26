@@ -27,6 +27,8 @@ const agenda = defineCollection({
     cta: z.string().optional(),
     site: z.string().optional(),
     resume: z.string().optional(),
+    citation: z.string().optional(),
+    citation_source: z.string().optional(),
     image: z.string().optional(),
     lien: z.string().optional(),
     reservable: z.boolean().default(false),

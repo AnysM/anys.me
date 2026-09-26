@@ -4,7 +4,7 @@ const { temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées'
 const carrousel = temoignages.length > 3;
 const seul = temoignages.length === 1;
 // Un seul témoignage : un titre au singulier et une grande citation, au lieu d'une carte isolée.
-const titre = titreDonne ?? (seul ? '*Un* retour' : '*Ils et elles* l’ont traversé');
+const titre = titreDonne ?? (seul ? 'Témoignage' : '*Ils et elles* l’ont traversé');
 const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 {temoignages.length > 0 && (

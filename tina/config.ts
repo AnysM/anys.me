@@ -53,6 +53,8 @@ export default defineConfig({
           { type: "string", name: "site", label: "Lien direct de la carte" },
           { type: "string", name: "lien", label: "Lien de réservation" },
           { type: "string", name: "resume", label: "Résumé", ui: { component: "textarea" } },
+          { type: "string", name: "citation", label: "Citation (sur la photo, à la place du résumé)", ui: { component: "textarea" } },
+          { type: "string", name: "citation_source", label: "Source de la citation" },
           { type: "image", name: "image", label: "Image" },
           { type: "boolean", name: "reservable", label: "Réservable" },
           { type: "number", name: "ordre", label: "Ordre d'affichage" },
