@@ -6,7 +6,7 @@ prix: "20€ la séance"
 rythme: "Chaque semaine, le vendredi ou le dimanche soir"
 seances:
   - date: 2026-10-02
-    heure: "17h30 - 19h"
+    heure: "18h15 - 19h15"
     note: "horaire exceptionnel"
   - date: 2026-10-11
     heure: "19h - 20h30"

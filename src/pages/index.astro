@@ -9,6 +9,7 @@ import Rangee from '../components/Rangee.astro';
 import Appel from '../components/Appel.astro';
 import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
+import Carrousel from '../components/Carrousel.astro';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
 import { getCollection, getEntry } from 'astro:content';
@@ -47,7 +48,7 @@ const reguliers = agendaPublie
 const prochaines = agendaPublie
   .filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
   .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
-  .slice(0, 2);
+  .slice(0, 4);
 const dates = [...prochaines, ...reguliers];
 
 const temoins = acc.temoins ?? [];
@@ -198,7 +199,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
           <p class="eyebrow">{acc.agenda_eyebrow}</p>
           <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
         </div>
-        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
+        <Carrousel n={dates.length} label="Rendez-vous" classe="agenda-carrousel">{dates.map((e) => <CarteEvenement e={e} />)}</Carrousel>
         <div style="display:flex; justify-content:center; margin-top:clamp(2.4rem, 5vw, 3.6rem);">
           <a class="btn btn--bleu" href="/agenda">Voir tous les événements</a>
         </div>
@@ -249,7 +250,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
         '.rangee__item', '.codex-invite > *',
         '.difference__liste li',
         '.seuil', '.seuil .quete',
-        '.egrid .ecard',
         '#contact .appel', '.contact-bloc',
         '.lettre__rangee > *',
         '.art-signature .wrap > *'

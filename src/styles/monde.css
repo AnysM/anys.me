@@ -727,3 +727,9 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .cap__etapes--chemin .cap__posture { margin-top: 0.1rem; }
 /* Les liens vers le Codex, en fin de page */
 .lore-offre { padding-top: 0; }
+
+/* ── Les rendez-vous de l'accueil défilent, une carte à la fois ── */
+.agenda-carrousel { margin-top: clamp(2rem, 5vw, 3rem); }
+.agenda-carrousel .carrousel__piste { gap: 1.4rem; }
+.agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 min(860px, 88%); scroll-snap-align: start; }
+@media (max-width: 700px) { .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 86%; } }
