@@ -1,7 +1,7 @@
 ---
 // Une respiration : une photo plein écran, une phrase posée dessus, et sa source.
 const { image, texte = '', source = null } = Astro.props;
-const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 {texte && (
   <section class="breath">

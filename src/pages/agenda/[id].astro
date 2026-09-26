@@ -88,9 +88,14 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
-    <div class="wrap"><p class="eyebrow">{quand}</p><h1>{d.titre}</h1>
-      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p></div>
+  <section class="page-hero page-hero--grand">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    <div class="wrap">
+      <p class="eyebrow">{quand}</p>
+      <h1>{d.titre}</h1>
+      <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
+      {souffles[0] && d.resume && <p class="page-hero__phrase">{d.resume}</p>}
+    </div>
+    <div class="ph-scroll"><span></span>Découvrir</div>
   </section>
 
   <section>
