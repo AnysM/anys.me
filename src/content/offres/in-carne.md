@@ -2,6 +2,7 @@
 titre: "IN CARNE"
 categorie: accompagnement
 tag: "Parcours initiatique"
+page: /in-carne
 logo: /img/in-carne-logo.svg
 image: /img/artefact-narita-4.jpg
 format: "4 mois, en ligne"
