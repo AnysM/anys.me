@@ -73,13 +73,13 @@ citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
 coeur_eyebrow: Quand tout s'effondre
-coeur_titre: '*Danser* <br><span class="ligne">avec la vie</span>'
+coeur_titre: 'Apprendre à *danser* <br><span class="ligne">avec la vie</span>'
 coeur: |
-  On vise la destination, et on bâtit une vie entière pour y arriver. Une vie posée sur des conditionnements. Sans s'en rendre compte, **on construit sa propre prison**.
+  On nous apprend à viser la destination. Alors on bâtit une vie entière pour y arriver, sur des conditionnements hérités. Et sans s'en rendre compte, **on construit sa propre prison**.
 
   Quand la vie fait tout s'effondrer, ce sont les murs de cette prison qui tombent. Et rien n'est plus effrayant que de se retrouver face à soi-même, face à {corail:toutes les possibilités}.
 
-  C'est là qu'on apprend à *danser* avec la vie. À {bleu:co-créer avec le vivant}. À faire le pas dans l'inconnu, et à aimer le chemin plus que la destination.
+  C'est là que la danse commence. {bleu:Co-créer avec le vivant}, faire le pas dans l'inconnu, et aimer le chemin plus que la destination.
 
   Quand on marche son propre chemin, la destination importe peu.
 venir_eyebrow: Pourquoi on vient me voir
