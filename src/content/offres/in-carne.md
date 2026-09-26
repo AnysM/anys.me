@@ -8,6 +8,7 @@ image: /img/artefact-narita-4.jpg
 format: "4 mois, en ligne"
 duree: "4 mois"
 seuil: transformer
+accroche: "Accueillir ton ombre, sortir de la demi-mesure, et donner corps à ce qui te tient à *cœur.*|En marchant avec d'autres hommes."
 resume: "Quatre mois de mentorat pour accueillir ton ombre, sortir de la demi-mesure et donner corps à ce qui te tient à cœur, en marchant avec d'autres hommes."
 accueil: true
 ordre: 3

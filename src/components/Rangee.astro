@@ -1,8 +1,13 @@
 ---
-// Les cinq dimensions, en ligne : lecture rapide, du plus intérieur au plus incarné.
-const { univers = [], centre = 'Quintessence' } = Astro.props;
+// Les cinq dimensions, en cercle autour d'un point sombre : on les lit d'un seul regard.
+const { univers = [], centre = '' } = Astro.props;
 const ORDRE = ['presence', 'connaissance', 'mouvement', 'vivant', 'art'];
 const rangs = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean);
+// Cinq points sur le cercle, le premier en haut.
+const place = (i, n) => {
+  const a = (i / n) * 2 * Math.PI;
+  return `left:${(50 + 44 * Math.sin(a)).toFixed(2)}%; top:${(50 - 39 * Math.cos(a)).toFixed(2)}%;`;
+};
 ---
 <div class="rangee">
   <!-- Filtre « encre » : le trait tremble et s'épaissit légèrement, comme au pinceau -->
@@ -14,13 +19,17 @@ const rangs = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean
     </filter>
   </svg>
   {centre && <p class="rangee__centre"><span>{centre}</span></p>}
-  <div class="rangee__liste">
-    {rangs.map((u) => (
-      <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`}>
-        <span class="rangee__picto">{u.image ? <img src={u.image} alt="" /> : <Fragment set:html={u.icon} />}</span>
-        <span class="rangee__nom">{u.nom}</span>
-        {u.note && <span class="rangee__note">{u.note}</span>}
-      </a>
-    ))}
+  <div class="rangee__roue">
+    <span class="rangee__anneau" aria-hidden="true"></span>
+    <span class="rangee__point" aria-hidden="true"></span>
+    <div class="rangee__liste">
+      {rangs.map((u, i) => (
+        <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`} style={place(i, rangs.length)}>
+          <span class="rangee__picto">{u.image ? <img src={u.image} alt="" /> : <Fragment set:html={u.icon} />}</span>
+          <span class="rangee__nom">{u.nom}</span>
+          {u.note && <span class="rangee__note">{u.note}</span>}
+        </a>
+      ))}
+    </div>
   </div>
 </div>

@@ -53,6 +53,7 @@ const offres = defineCollection({
     format: z.string().optional(),
     tag: z.string().optional(),
     resume: z.string().optional(),
+    accroche: z.string().optional(),
     tarifs: z.array(z.object({ label: z.string(), prix: z.string(), detail: z.string().optional(), groupe: z.string().optional(), avant: z.boolean().optional() })).optional(),
     etapes: z.array(z.object({ titre: z.string(), texte: z.string().optional(), picto: z.string().optional() })).optional(),
     lien: z.string().optional(),

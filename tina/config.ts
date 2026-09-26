@@ -94,6 +94,7 @@ export default defineConfig({
           { type: "string", name: "categorie", label: "Catégorie", required: true, options: ["soin", "accompagnement"] },
           { type: "string", name: "tag", label: "Étiquette" },
           { type: "string", name: "resume", label: "Résumé", ui: { component: "textarea" } },
+          { type: "string", name: "accroche", label: "Phrase du bandeau (« | » avant la note)", ui: { component: "textarea" } },
           { type: "string", name: "prix", label: "Prix" },
           { type: "string", name: "duree", label: "Durée" },
           { type: "string", name: "format", label: "Format" },
