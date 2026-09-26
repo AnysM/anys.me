@@ -161,7 +161,32 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  <!-- RESPIRATION : la cellule -->
+  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
+
+  <!-- 6. LES SEUILS : par où entrer -->
+  <section id="seuils">
+    <div class="wrap">
+      <div class="tete">
+        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
+        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
+      </div>
+      <div class="seuils">
+        {seuils.map((s) => (
+          <div class="seuil">
+            <span class="seuil__num">{s.num}</span>
+            <h3 class="seuil__nom">{s.nom}</h3>
+            <p class="seuil__format">{s.format}</p>
+            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
+            <div class="seuil__items">{s.items.map((p) => <Quete p={p} vignette />)}</div>
+            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
     <section class="difference">
       <div class="wrap">
@@ -181,31 +206,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
       </div>
     </section>
   )}
-
-  <!-- RESPIRATION : la cellule -->
-  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
-
-  <!-- 7. LES SEUILS : par où entrer -->
-  <section id="seuils">
-    <div class="wrap">
-      <div class="tete">
-        <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
-        <h2 set:html={fmt(acc.seuils_titre ?? 'Par où *entrer*')}></h2>
-      </div>
-      <div class="seuils">
-        {seuils.map((s) => (
-          <div class="seuil">
-            <span class="seuil__num">{s.num}</span>
-            <h3 class="seuil__nom">{s.nom}</h3>
-            <p class="seuil__format">{s.format}</p>
-            {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
-            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
-            {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <!-- 8. TRAVERSÉES -->
   <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />

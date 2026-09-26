@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
 import Appel from '../components/Appel.astro';
 import BarreAction from '../components/BarreAction.astro';
+import Carrousel from '../components/Carrousel.astro';
 import { getEntry } from 'astro:content';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../lib/seo';
 
@@ -168,14 +169,14 @@ const jsonld = [
     <section class="ic-traversees">
       <div class="ic-large">
         <p class="eyebrow">Ils l'ont traversé</p>
-        <div class="ic-traversees__grille">
+        <Carrousel n={d.temoignages.length} label="Témoignage" classe="ic-carrousel">
           {d.temoignages.map((t) => (
-            <figure class="ic-reveal">
+            <figure>
               <blockquote>{t.t}</blockquote>
               <figcaption>{t.n}</figcaption>
             </figure>
           ))}
-        </div>
+        </Carrousel>
       </div>
     </section>
   )}
@@ -353,7 +354,9 @@ const jsonld = [
   .ic-ouvre__action { margin-top: clamp(2.4rem, 5vw, 3.2rem); }
 
   .ic-traversees { background: var(--navy); padding-block: clamp(5rem, 11vw, 9rem); }
-  .ic-traversees__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(2rem, 5vw, 3.4rem); margin-top: 2.4rem; }
+  .ic-carrousel { margin-top: clamp(2.2rem, 5vw, 3rem); }
+  .ic-carrousel .carrousel__piste { gap: clamp(2rem, 4vw, 3rem); }
+  .ic-carrousel .carrousel__piste > figure { flex: 0 0 min(540px, 84%); scroll-snap-align: start; margin: 0; }
   .ic-traversees blockquote { margin: 0; font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.2rem, 1.8vw, 1.4rem); line-height: 1.6; color: var(--cream); }
   .ic-traversees figcaption { margin-top: 1rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; color: var(--gold); }
 

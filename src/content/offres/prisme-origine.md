@@ -1,5 +1,6 @@
 ---
 titre: "Prisme Origine"
+image: /img/prisme-mandala.jpg
 categorie: accompagnement
 tag: "Lecture"
 action: reserver
