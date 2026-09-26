@@ -467,7 +467,10 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 
 /* ── Ce qui change tout : trois différences, courtes ── */
 .difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(2.4rem, 5vw, 3.6rem) clamp(2.4rem, 6vw, 5rem); max-width: 900px; margin: 0 auto; padding: 0; }
-.difference__liste li { position: relative; }
+/* La colonne de droite descend d'un cran : la lecture part en biais, en Z */
+.difference__liste li { position: relative; align-self: start; }
+.difference__liste li:nth-child(even) { margin-top: clamp(2.5rem, 6vw, 5rem); }
+@media (max-width: 820px) { .difference__liste li:nth-child(even) { margin-top: 0; } }
 .difference__liste h3 { margin: 0; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--cream); }
 .difference__liste p { margin-top: 0.9rem; color: var(--cream); line-height: 1.7; font-size: 1rem; max-width: 40ch; }
 /* Le piège d'abord, en une ligne plus discrète ; puis ce que j'apporte, en clair. */
