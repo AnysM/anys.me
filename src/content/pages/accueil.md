@@ -88,7 +88,7 @@ venir_items:
   - "Oser affirmer qui tu es vraiment | même les parts les plus bizarres."
   - "Laisser mourir ce qui n'est plus aligné | pour offrir de l'espace à ce qui attend d'entrer dans ta vie."
   - "Laisser pousser à l'extérieur ce qui est trop à l'étroit à l'intérieur | pour enfin réaliser tes projets de cœur."
-posture: "Ni maître, ni éveillé, je suis juste un homme qui a fini par trouver comment marcher un chemin qui me nourrit profondément. Aujourd'hui, j'ai à cœur de t'inspirer et de t'accompagner à trouver le tien."
+posture: "Ni maître, ni éveillé, je suis juste un homme qui a fini par trouver comment marcher un chemin qui me nourrit profondément. Aujourd'hui, j'ai à cœur de t'inspirer et de t'accompagner à marcher le tien avec justesse."
 temoins_image: /img/traversees-dune-vent.jpg
 avis_note: "4,9"
 avis_nombre: 10
