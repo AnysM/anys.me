@@ -98,7 +98,7 @@ difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
 difference:
   - titre: "De l'invisible au concret"
     piege: "Des accompagnants très sensibles, sans la structure pour pouvoir matérialiser ensuite."
-    texte: "Ingénieur, chef de projet, consultant : je sais structurer. J'ai aussi passé des années à écouter ce qui ne se voit pas, et à m'y fier. On écoute ce qui se passe en toi, puis on en fait des décisions claires et des projets qui avancent."
+    texte: "Ingénieur, chef de projet, consultant : je sais structurer. J'ai aussi passé des années à écouter ce qui ne se voit pas, et à m'y fier. On écoute ce qui se passe en toi, puis on décide et on construit."
   - titre: "Marcher avec son ombre"
     piege: "Une spiritualité qui fait de la lumière et de l'éveil un objectif absolu, et rejette tout le reste."
     texte: "Ici, on apprend à aimer son ombre. L'ombre et la lumière vont ensemble, et la vie est la danse entre les deux. C'est là que se trouve ce que tu gardais de côté."
@@ -107,6 +107,6 @@ difference:
     texte: "On part de ton fonctionnement à toi, celui avec lequel tu es né. Ta force vient de tes différences, et le chemin devient beaucoup plus simple quand tu cesses de les combattre. On ne demande pas à un poisson de grimper aux arbres."
   - titre: "Vivre plutôt que guérir"
     piege: "Passer sa vie à vouloir guérir, changer, se transformer, sans jamais vivre. Le mental adore s'enfermer dans ses certitudes."
-    texte: "Je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là fermées. On vit quelque chose, et quelque chose a bougé."
+    texte: "Je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là fermées."
 ---
 
