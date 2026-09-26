@@ -20,7 +20,7 @@ const pratiques = qc.pratiques ?? [];
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath" style="min-height:52vh;">{qc.resp_image ? <img src={qc.resp_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(qc.citation)}></div></section>
+  <section class="breath">{qc.resp_image ? <img src={qc.resp_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(qc.citation)}></div></section>
 
   <!-- LE VOYAGE (image + texte) -->
   <section style="padding:0;">

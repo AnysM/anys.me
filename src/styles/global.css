@@ -223,10 +223,10 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 }
 
 /* ── Respirations pleine largeur voilées ── */
-.breath { position: relative; min-height: 72vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-.breath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.95) brightness(0.78); will-change: transform; }
-.breath::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(12,24,72,0.80), rgba(14,28,82,0.5) 50%, rgba(12,24,72,0.80)); }
-.breath .phrase { position: relative; z-index: 2; font-family: 'Jost', sans-serif; font-style: italic; font-weight: 300; font-size: clamp(1.45rem, 3vw, 2.3rem); color: var(--cream); max-width: min(92vw, 42ch); line-height: 1.4; padding: 0 24px; text-wrap: balance; }
+.breath { position: relative; min-height: 82svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.breath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.15) brightness(0.82) contrast(1.04); will-change: transform; }
+.breath::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(12,24,72,0.62), rgba(14,28,82,0.2) 50%, rgba(12,24,72,0.68)); }
+.breath .phrase { position: relative; z-index: 2; text-shadow: 0 2px 30px rgba(5,7,16,0.7); font-family: 'Jost', sans-serif; font-style: italic; font-weight: 300; font-size: clamp(1.6rem, 3.4vw, 2.6rem); color: var(--cream); max-width: min(92vw, 42ch); line-height: 1.4; padding: 0 24px; text-wrap: balance; }
 
 /* ── Étoile séparateur ── */
 .star-div { display: flex; align-items: center; justify-content: center; gap: 18px; padding: clamp(2.2rem, 5vw, 3.6rem) 0; }

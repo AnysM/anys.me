@@ -26,8 +26,13 @@ seances:
     heure: "18h30 - 20h"
 image: /img/infloressence-danse.webp
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
-citation: "Il suffit d'une graine pour commencer à fleurir."
-citation_source: "Inflorescence, rhizome de poésie vivante"
+citations:
+  - texte: "Il suffit d'une graine pour commencer à fleurir."
+    source: "Inflorescence, rhizome de poésie vivante"
+  - texte: "La résonance, c'est l'art d'être ouvert à l'autre tout en restant en soi."
+    image: /img/u-atelier.jpg
+  - texte: "Alors, on fleurit ensemble ?"
+    image: /img/mathew-schwartz-ZLec57sOjlg-unsplash.jpg
 cta: "Je m'inscris"
 lien: "/contact?pour=Inscription%20aux%20ateliers%20Infloressence&interet=decouvrir"
 reservable: true

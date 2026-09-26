@@ -5,6 +5,7 @@ import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
 import { codexDe, seancesAVenir } from '../../lib/monde';
 import Temoignages from '../../components/Temoignages.astro';
+import Souffle from '../../components/Souffle.astro';
 import Faq from '../../components/Faq.astro';
 import Lettre from '../../components/Lettre.astro';
 import BarreAction from '../../components/BarreAction.astro';
@@ -51,6 +52,7 @@ const lies = await codexDe(`agenda/${e.id}`);
 const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
 const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
+const souffles = d.citations ?? [];
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
 const appel = (await getEntry('pages', 'contact'))!.data.appel_lien;
@@ -105,15 +107,7 @@ const jsonld = [
     </div>
   </section>
 
-  {(d.citation ?? d.resume) && (
-    <section class="breath" style="min-height:44vh;">
-      {d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
-      <div class="phrase">
-        <span set:html={fmt(d.citation ?? d.resume ?? '')}></span>
-        {d.citation && d.citation_source && <span class="breath__source">{d.citation_source}</span>}
-      </div>
-    </section>
-  )}
+  <Souffle image={souffles[0]?.image ?? d.image} texte={souffles[0]?.texte ?? d.resume} source={souffles[0]?.source} />
 
   <section class="bloc-or">
     <div class="wrap">
@@ -173,6 +167,8 @@ const jsonld = [
     </section>
   )}
 
+  {souffles[1] && <Souffle image={souffles[1].image ?? d.image} texte={souffles[1].texte} source={souffles[1].source} />}
+
   {d.tarifs?.length > 0 && (
     <section class="bloc" id="formules">
       <div class="narrow">
@@ -200,6 +196,8 @@ const jsonld = [
   <Temoignages temoignages={d.temoignages} />
   <Faq faq={d.faq} titre="Avant de venir" />
   {!d.date && !d.reservable && <Lettre eyebrow="Prochaine édition" titre="Être *prévenu*" texte={`Les dates de ${d.titre} ne sont pas encore annoncées. Laisse ton email : tu seras informé avant l'ouverture publique.`} bouton="Préviens-moi" source={`attente-${e.id}`} />}
+
+  {souffles[2] && <Souffle image={souffles[2].image ?? d.image} texte={souffles[2].texte} source={souffles[2].source} />}
 
   <section class="invite">
     <div class="narrow">
