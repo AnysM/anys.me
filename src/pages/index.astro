@@ -19,6 +19,7 @@ import { tisser, contexte } from '../lib/lore.mjs';
 
 const acc = (await getEntry('pages', 'accueil'))!.data;
 // **gras doré**, *manuscrit*, {bleu:texte} et {corail:texte} pour les couleurs de sens
+const saut = (t) => t.replace(/&lt;br\s*\/?&gt;/g, '<br>');
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>').replace(/\{(bleu|corail):(.+?)\}/g, '<span class="en-$1">$2</span>');
 const ctx = contexte();
 
@@ -132,7 +133,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
         </div>
         <ul class="venir__liste">{acc.venir_items.map((x) => {
           const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
-          return <li><span class="venir__action" set:html={tisser(action, ctx)}></span>{fin && <span class="venir__fin" set:html={tisser(fin, ctx)}></span>}</li>;
+          return <li><span class="venir__action" set:html={saut(tisser(action, ctx))}></span>{fin && <span class="venir__fin" set:html={saut(tisser(fin, ctx))}></span>}</li>;
         })}</ul>
         <script is:inline>
           // Chaque phrase se dévoile quand elle arrive à l'écran : l'action d'abord, puis ce à quoi elle mène.
