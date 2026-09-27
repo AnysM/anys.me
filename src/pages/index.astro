@@ -66,7 +66,9 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 <Base title="Anys Mechkar — Présence, mouvement, créativité">
   <!-- L'APPEL -->
   <section id="hero">
-    <div class="hero-bg"><img src={acc.hero_image ?? '/img/univers-art.jpg'} alt="Œuvre d'Indigo Enoqii" /></div>
+    <div class="hero-bg">
+      <img src={acc.hero_photo ?? '/img/hero-fusion.jpg'} alt="" />
+    </div>
     <div class="hero-left">
       <p class="eyebrow">{acc.hero_eyebrow}</p>
       <h1 class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></h1>

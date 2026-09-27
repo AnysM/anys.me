@@ -164,6 +164,7 @@ const pages = defineCollection({
     soins_titre: z.string().optional(),
     soins_intro: z.string().optional(),
     hero_image: z.string().optional(),
+    hero_photo: z.string().optional(),
     portrait_image: z.string().optional(),
     resp1_image: z.string().optional(),
     resp2_image: z.string().optional(),
