@@ -37,7 +37,7 @@ const points = rangs.map((u, i) => {
       {points.map(({ u, x, y }, i) => (
         <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`} style={`left:${x.toFixed(2)}%; top:${y.toFixed(2)}%; --i:${i};`}>
           <span class="rangee__picto">{u.image ? <img src={u.image} alt="" /> : <Fragment set:html={u.icon} />}</span>
-          <span class="rangee__nom">{u.nom}</span>
+          <span class="rangee__nom" set:html={u.nom}></span>
           {u.note && <span class="rangee__note">{u.note}</span>}
         </a>
       ))}

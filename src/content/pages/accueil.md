@@ -46,13 +46,13 @@ piliers_titre: Ce qui nourrit *le chemin*
 piliers:
   - nom: La présence
     note: Méditation pleine conscience · respiration
-  - nom: La connaissance de soi
+  - nom: La connaissance <br>de soi
     note: Archétypes · Human Design · Tzolk’in · BaZi
   - nom: Le mouvement
     note: Danse Butoh · Kung-fu · mouvement naturel
-  - nom: Le lien au vivant
+  - nom: La relation <br>au vivant
     note: Chamanisme · peuples indigènes · sagesses ancestrales
-  - nom: L’art et l’expression créative
+  - nom: L’art et <br>l’expression créative
     note: Danse · musique · peinture
 citation1: On ne fait pas pousser une fleur <br>*en tirant dessus.*
 seuils_eyebrow: Les seuils
