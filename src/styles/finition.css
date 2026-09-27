@@ -101,10 +101,11 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 .tl-row { margin-bottom: clamp(4rem, 9vw, 7rem); }
 @media (max-width: 640px) { .rangee { margin-top: 2rem; } }
 
-/* Voile du hero : dense sous le texte à gauche, léger à droite pour laisser respirer l'œuvre */
-#hero::before { background: linear-gradient(90deg, rgba(10,18,58,0.94) 0%, rgba(10,18,58,0.86) 32%, rgba(12,24,72,0.45) 62%, rgba(12,24,72,0.12) 100%); }
+/* Voile du hero : il se multiplie à l'image, dense sous le texte à gauche,
+   transparent à droite — le soleil et les couleurs traversent. */
+#hero::before { background: linear-gradient(94deg, #2A3250 0%, #4C5473 32%, #A8AEC2 64%, #FFFFFF 100%); mix-blend-mode: multiply; }
 @media (max-width: 760px) {
-  #hero::before { background: linear-gradient(180deg, rgba(10,18,58,0.55) 0%, rgba(10,18,58,0.82) 40%, rgba(10,18,58,0.9) 100%); }
+  #hero::before { background: linear-gradient(180deg, #6E7590 0%, #2A3150 45%, #1B2238 100%); }
 }
 
 /* Texte des boutons plus lisible */

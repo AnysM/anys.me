@@ -8,6 +8,10 @@ import sharp from 'sharp';
 
 const MAX_WIDTH = 2000;
 const QUALITY = 78;
+// Les images qui s'affichent en pleine largeur méritent plus de définition.
+const PLEINE_LARGEUR = /^(hero|in-carne-feu|in-carne-marche|fleur|fleurs|arbre-en-fleurs|traversees|respiration)/i;
+const MAX_WIDTH_HD = 2600;
+const QUALITY_HD = 86;
 const SOURCES = new Set(['.jpg', '.jpeg', '.png']);
 
 async function walk(dir) {
@@ -36,7 +40,11 @@ export default function optimizeImages() {
           if (!SOURCES.has(ext.toLowerCase())) continue;
           const target = file.slice(0, -ext.length) + '.webp';
           const size = (await stat(file)).size;
-          await sharp(file).rotate().resize({ width: MAX_WIDTH, withoutEnlargement: true }).webp({ quality: QUALITY }).toFile(target);
+          const hd = PLEINE_LARGEUR.test(basename(file));
+          await sharp(file).rotate()
+            .resize({ width: hd ? MAX_WIDTH_HD : MAX_WIDTH, withoutEnlargement: true })
+            .webp({ quality: hd ? QUALITY_HD : QUALITY })
+            .toFile(target);
           before += size;
           after += (await stat(target)).size;
           renamed.set(basename(file), basename(target));
