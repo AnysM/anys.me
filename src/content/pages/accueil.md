@@ -14,7 +14,7 @@ hero_accent: te ressemble vraiment.
 hero_paragraphe: 'J''accompagne les transitions de vie, avec des outils ancrés dans la connaissance de soi, le retour à la présence, le mouvement et la créativité, pour **faire de la crise une opportunité d''alignement** et d''évolution.'
 hero_cta: Par où commencer ?
 parcours_titre: '*Qui* suis-je ?'
-parcours_texte: 'Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que *je n''avais jamais vraiment choisi ma vie*. Ça a été le début d''une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd''hui, j''accompagne celles et ceux qui sentent ce même appel à créer une vie qui leur ressemble vraiment.'
+parcours_texte: 'Ancien ingénieur informatique, je me suis réveillé à 28 ans en prenant conscience que *je n''avais jamais vraiment choisi ma vie*. Ça a été le début d''une longue quête, de la méditation au chamanisme, du Butoh aux arts énergétiques. Aujourd''hui, j''accompagne celles et ceux qui sentent ce même appel à **créer une vie qui leur ressemble vraiment**.'
 parcours_cta: Lire mon histoire
 piliers_eyebrow: Les dimensions
 agenda_eyebrow: Prochains rendez-vous
@@ -72,13 +72,24 @@ form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te 
 coeur_eyebrow: Quand tout s'effondre
 coeur_titre: 'Apprendre à *danser* <br><span class="ligne">avec la vie</span>'
 coeur: |
-  On nous apprend à viser la destination. Alors on bâtit une vie entière pour y arriver, sur des conditionnements hérités. Et sans s'en rendre compte, **on construit sa propre prison**.
+  On nous apprend à viser la destination.
+  Alors on bâtit une vie entière pour y arriver,
+  sur des conditionnements hérités.
+  Et sans s'en rendre compte,
+  **on construit sa propre prison**.
 
-  Quand la vie fait tout s'effondrer, ce sont les murs de cette prison qui tombent. Et rien n'est plus effrayant que de se retrouver face à soi-même et face à {corail:tous les possibles}.
+  Quand la vie fait tout s'effondrer,
+  ce sont les murs de cette prison qui tombent.
+  Et rien n'est plus effrayant que de se retrouver
+  face à soi-même et face à {corail:tous les possibles}.
 
-  C'est là que la danse commence. {bleu:Co-créer avec le vivant}, faire le pas dans l'inconnu, et aimer le chemin plus que la destination.
+  C'est là que la danse commence.
+  {bleu:Co-créer avec le vivant}.
+  Faire le pas dans l'inconnu,
+  et aimer le chemin plus que la destination.
 
-  Quand on marche son propre chemin, la destination importe peu.
+  Quand on *marche son propre chemin*,
+  la destination importe peu.
 venir_eyebrow: Pourquoi on vient me voir
 venir_titre: "Oser un nouveau *chemin*"
 venir_items:

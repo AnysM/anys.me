@@ -113,7 +113,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
           <h2 set:html={fmt(acc.coeur_titre)}></h2>
         </div>
         <div class="coeur-mot__texte">
-          {acc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(tisser(par, ctx))}></p>)}
+          {acc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(tisser(par, ctx)).replace(/\n/g, '<br>')}></p>)}
         </div>
       </div>
     </section>
