@@ -70,7 +70,7 @@ citation_contact: Un premier pas ?
 form_titre: '*Écris-moi*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
 coeur_eyebrow: Quand tout s'effondre
-coeur_titre: 'Apprendre à *danser* <br><span class="ligne">avec la vie</span>'
+coeur_titre: 'Apprendre à <br>*danser* <span class="ligne">avec la vie</span>'
 coeur: |
   On nous apprend à viser la destination.
   Alors on bâtit une vie entière pour y arriver,
