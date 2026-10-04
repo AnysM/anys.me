@@ -3,7 +3,7 @@ titre: "Massage à l'huile"
 categorie: soin
 duree: "1h - 1h30"
 prix: "60€ - 90€"
-format: "Sur rendez-vous"
+format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin du corps"
 resume: "Massage sur mesure et intuitif, qui délie en profondeur les tensions et fait circuler l'énergie stagnante."
 ordre: 1

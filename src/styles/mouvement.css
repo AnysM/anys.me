@@ -1,0 +1,44 @@
+/* ── Les élans : des traits de couleur qui traversent les coutures des sections ──
+   Plus on descend, plus ils sont vifs et présents : le mouvement entre dans la page. */
+/* Les traits débordent sur les côtés : la page les rogne sans bloquer le défilement vertical */
+html, body { overflow-x: clip; }
+main > section, main > div { position: relative; }
+main > section > .wrap, main > section > .narrow, main > section > div { position: relative; z-index: 1; }
+
+.elan { position: relative; }
+.elan::before, .elan::after { content: ''; position: absolute; z-index: 0; pointer-events: none; background-repeat: no-repeat; background-size: contain; opacity: 0; transition: opacity 1.6s ease, transform 2.4s cubic-bezier(.2,.7,.2,1); }
+.elan.vu::before, .elan.vu::after { opacity: var(--force, 0.5); transform: none; }
+
+/* La lueur qui accompagne le trait */
+.elan::after { background: radial-gradient(closest-side, var(--lueur, rgba(92,124,255,0.5)), transparent 72%); filter: blur(10px); }
+
+@media (prefers-reduced-motion: reduce) { .elan::before, .elan::after { transition: none; } }
+
+.elan--1 { --force: 0.34; --lueur: rgba(92,124,255,0.40); }
+.elan--1::before { left:-6%;  top:-120px; width: 46vw; height: 320px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M20%20340%20C%20160%20300%2C%20220%20120%2C%20420%2090%20C%20520%2076%2C%20560%20120%2C%20580%20170%22%20fill%3D%22none%22%20stroke%3D%22%235C7CFF%22%20stroke-width%3D%227%22%20stroke-linecap%3D%22round%22%20opacity%3D%221%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--1::after { left:-6%;  top:-120px; width: 46vw; height: 320px; transform: translateY(26px) scale(0.92); }
+
+.elan--2 { --force: 0.42; --lueur: rgba(216,162,76,0.40); }
+.elan--2::before { right:-8%; top:-150px; width: 52vw; height: 360px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M30%20120%20C%20180%2060%2C%20300%20260%2C%20470%20300%20C%20540%20316%2C%20570%20280%2C%20586%20240%22%20fill%3D%22none%22%20stroke%3D%22%23D8A24C%22%20stroke-width%3D%229%22%20stroke-linecap%3D%22round%22%20opacity%3D%221%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--2::after { right:-8%; top:-150px; width: 52vw; height: 360px; transform: translateY(26px) scale(0.92); }
+
+.elan--3 { --force: 0.5; --lueur: rgba(143,179,255,0.45); }
+.elan--3::before { left:-10%; top:-170px; width: 56vw; height: 380px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M24%20300%20C%20120%20150%2C%20300%20330%2C%20420%20180%20C%20470%20118%2C%20540%20120%2C%20580%20160%22%20fill%3D%22none%22%20stroke%3D%22%238FB3FF%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20opacity%3D%221%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--3::after { left:-10%; top:-170px; width: 56vw; height: 380px; transform: translateY(26px) scale(0.92); }
+
+.elan--4 { --force: 0.6; --lueur: rgba(240,122,95,0.45); }
+.elan--4::before { right:-10%;top:-190px; width: 60vw; height: 420px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M20%20200%20C%20140%2040%2C%20260%20360%2C%20400%20220%20C%20470%20150%2C%20530%20250%2C%20584%20210%22%20fill%3D%22none%22%20stroke%3D%22%23F07A5F%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%20opacity%3D%221%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--4::after { right:-10%;top:-190px; width: 60vw; height: 420px; transform: translateY(26px) scale(0.92); }
+
+.elan--5 { --force: 0.7; --lueur: rgba(216,162,76,0.50); }
+.elan--5::before { left:-12%; top:-200px; width: 64vw; height: 440px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M18%20260%20C%20120%20320%2C%20200%2080%2C%20330%20120%20C%20450%20158%2C%20480%20330%2C%20586%20300%22%20fill%3D%22none%22%20stroke%3D%22%23D8A24C%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%20opacity%3D%221%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--5::after { left:-12%; top:-200px; width: 64vw; height: 440px; transform: translateY(26px) scale(0.92); }
+
+.elan--6 { --force: 0.8; --lueur: rgba(240,122,95,0.55); }
+.elan--6::before { right:-12%;top:-210px; width: 68vw; height: 460px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M20%20160%20C%20130%20300%2C%20250%2060%2C%20360%20200%20C%20450%20314%2C%20500%20120%2C%20586%20180%22%20fill%3D%22none%22%20stroke%3D%22%23F07A5F%22%20stroke-width%3D%2212%22%20stroke-linecap%3D%22round%22%20opacity%3D%221%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--6::after { right:-12%;top:-210px; width: 68vw; height: 460px; transform: translateY(26px) scale(0.92); }
+
+@media (max-width: 760px) {
+  .elan::before, .elan::after { width: 120vw !important; left: -20vw !important; right: auto !important; }
+  .elan { --force: 0.3; }
+}

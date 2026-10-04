@@ -6,7 +6,7 @@ const sc = (await getEntry('pages', 'soins')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
-<Base title="Soins — Anys Mechkar">
+<Base title="Soins énergétiques et massages à Lyon — Anys Mechkar" description="Soin énergétique et massage à l'huile à Lyon, en studio sur les quais de Saône ou à domicile. Un temps pour relâcher, harmoniser et remettre du mouvement.">
   <section class="page-hero">{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>

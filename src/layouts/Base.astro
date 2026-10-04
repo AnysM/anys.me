@@ -4,8 +4,9 @@ import '../styles/global.css';
 import '../styles/nav.css';
 import '../styles/monde.css';
 import '../styles/finition.css';
+import '../styles/mouvement.css';
 import { getCollection } from 'astro:content';
-import { personne, siteWeb } from '../lib/seo';
+import { personne, siteWeb, lieu } from '../lib/seo';
 import { typeLabel } from '../lib/univers.mjs';
 const {
   title = 'Anys Mechkar',
@@ -28,7 +29,7 @@ const lexique = JSON.stringify(Object.fromEntries(
 )).replace(/</g, '\\u003c');
 // Statistiques sans cookies : actives seulement si PUBLIC_PLAUSIBLE_DOMAIN est défini (Netlify › variables)
 const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
-const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, ...jsonld] });
+const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, lieu, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
 const accs = offres.filter((o) => o.data.categorie === 'accompagnement');

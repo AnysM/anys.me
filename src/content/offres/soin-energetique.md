@@ -3,7 +3,7 @@ titre: "Soin énergétique"
 categorie: soin
 duree: "1h30"
 prix: "80€"
-format: "Sur rendez-vous"
+format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin subtil"
 resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
 accueil: true

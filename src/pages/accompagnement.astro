@@ -7,7 +7,7 @@ const ac = (await getEntry('pages', 'accompagnement')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const outils = ac.outils ?? [];
 ---
-<Base title="Accompagnement — Anys Mechkar">
+<Base title="Accompagnement des transitions de vie à Lyon — Anys Mechkar" description="Accompagnement individuel, Prisme Origine et parcours initiatiques, à Lyon ou en ligne, pour traverser une transition et donner forme à ce qui te tient à cœur.">
   <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>

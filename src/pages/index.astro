@@ -63,7 +63,7 @@ const temoins = acc.temoins ?? [];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
 ---
-<Base title="Anys Mechkar — Présence, mouvement, créativité">
+<Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
   <!-- L'APPEL -->
   <section id="hero">
     <div class="hero-bg">
@@ -79,7 +79,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
-  <section>
+  <section class="elan elan--1">
     <div class="wrap split">
       <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
       <div>
@@ -109,7 +109,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
-    <section class="bloc coeur-mot">
+    <section class="bloc coeur-mot elan elan--2">
       <div class="narrow">
         <div class="tete">
           <p class="eyebrow">{acc.coeur_eyebrow}</p>
@@ -127,7 +127,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
-    <section class="venir">
+    <section class="venir elan elan--3">
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.venir_eyebrow}</p>
@@ -154,7 +154,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
-    <section class="bloc">
+    <section class="bloc elan elan--4">
       <div class="wrap">
         <div class="tete-agenda">
           <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
@@ -191,7 +191,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer -->
-  <section id="seuils">
+  <section id="seuils" class="elan elan--5">
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -214,7 +214,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
-    <section class="difference">
+    <section class="difference elan elan--6">
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.difference_eyebrow}</p>
@@ -269,6 +269,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     // et les éléments frères arrivent l'un après l'autre.
     (function () {
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.querySelectorAll('.elan').forEach(function (el) {
+        var io2 = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vu'); io2.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+        io2.observe(el);
+      });
       var cibles = [
         'main > section:not(#hero) .tete',
         '.split .photo', '.split > div > *',
