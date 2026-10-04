@@ -42,3 +42,7 @@ main > section > .wrap, main > section > .narrow, main > section > div { positio
   .elan::before, .elan::after { width: 120vw !important; left: -20vw !important; right: auto !important; }
   .elan { --force: 0.3; }
 }
+
+.elan--7 { --force: 0.85; --lueur: rgba(92,124,255,0.55); }
+.elan--7::before { left: -8%; top: -220px; width: 70vw; height: 470px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20600%20400%22%3E%3Cpath%20d%3D%22M20%20220%20C%20140%2060%2C%20300%20340%2C%20430%20160%20C%20490%2080%2C%20550%20180%2C%20584%20140%22%20fill%3D%22none%22%20stroke%3D%22%235C7CFF%22%20stroke-width%3D%2212%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E"); transform: translateY(26px); }
+.elan--7::after { left: -8%; top: -220px; width: 70vw; height: 470px; transform: translateY(26px) scale(0.92); }

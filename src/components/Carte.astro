@@ -1,0 +1,65 @@
+---
+// Une carte dessinée : la Saône et le Rhône d'après OpenStreetMap, et les lieux en points d'or.
+// Aucune requête vers un service tiers : tout est tracé ici.
+import rivieres from '../lib/rivieres.json';
+import { LIEUX } from '../lib/lieux';
+
+const { lieux = LIEUX, marge = 0.008, hauteur = '440px', titres = true, format = 1.32 } = Astro.props;
+
+const lats = lieux.map((l) => l.lat);
+const lons = lieux.map((l) => l.lon);
+// On cadre sur les lieux, puis on élargit le côté le plus court pour atteindre le format voulu :
+// tout tient dans l'image, sans déformer la géographie.
+const k = Math.cos((Math.max(...lats) + Math.min(...lats)) / 2 * Math.PI / 180);
+const L = 1000;
+const H = Math.round(L / format);
+let [s0, n0] = [Math.min(...lats) - marge, Math.max(...lats) + marge];
+let [o0, e0] = [Math.min(...lons) - marge / k, Math.max(...lons) + marge / k];
+const hauteurGeo = n0 - s0;
+const largeurGeo = (e0 - o0) * k;
+if (largeurGeo / hauteurGeo < format) {
+  const vise = hauteurGeo * format / k;
+  const centre = (o0 + e0) / 2;
+  [o0, e0] = [centre - vise / 2, centre + vise / 2];
+} else {
+  const vise = largeurGeo / format;
+  const centre = (s0 + n0) / 2;
+  [s0, n0] = [centre - vise / 2, centre + vise / 2];
+}
+const bbox = { n: n0, s: s0, e: e0, o: o0 };
+const X = (lon: number) => ((lon - bbox.o) / (bbox.e - bbox.o)) * L;
+const Y = (lat: number) => ((bbox.n - lat) / (bbox.n - bbox.s)) * H;
+
+const dans = (p: number[]) => p[0] > bbox.s - 0.02 && p[0] < bbox.n + 0.02 && p[1] > bbox.o - 0.02 && p[1] < bbox.e + 0.02;
+const traces = rivieres
+  .map((r) => ({ nom: r.nom, pts: r.pts.filter(dans) }))
+  .filter((r) => r.pts.length > 1)
+  .map((r) => ({ nom: r.nom, d: r.pts.map((p, i) => `${i ? 'L' : 'M'}${X(p[1]).toFixed(1)} ${Y(p[0]).toFixed(1)}`).join(' ') }));
+---
+<figure class="carte" style={`--h:${hauteur}`}>
+  <svg viewBox={`0 0 ${L} ${H}`} role="img" aria-label="Carte des lieux à Lyon" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <radialGradient id="halo-lieu">
+        <stop offset="0" stop-color="#D8A24C" stop-opacity="0.55" />
+        <stop offset="1" stop-color="#D8A24C" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    {traces.map((t) => <path class={`carte__eau carte__eau--${t.nom}`} d={t.d} />)}
+    {lieux.map((l) => (
+      <g class="carte__lieu" transform={`translate(${X(l.lon).toFixed(1)} ${Y(l.lat).toFixed(1)})`}>
+        <circle class="carte__halo" r="38" fill="url(#halo-lieu)" />
+        <circle class="carte__point" r="7" />
+      </g>
+    ))}
+  </svg>
+  {titres && (
+    <ul class="carte__liste">
+      {lieux.map((l) => (
+        <li>
+          {l.href ? <a href={l.href}>{l.nom}</a> : <span>{l.nom}</span>}
+          <small>{l.quoi}</small>
+        </li>
+      ))}
+    </ul>
+  )}
+</figure>

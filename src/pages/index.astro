@@ -10,6 +10,7 @@ import Appel from '../components/Appel.astro';
 import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Carrousel from '../components/Carrousel.astro';
+import Carte from '../components/Carte.astro';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
 import { getCollection, getEntry } from 'astro:content';
@@ -237,6 +238,18 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
 
   <!-- 9. L'INVITATION : un premier pas -->
+  <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
+  <section class="bloc elan elan--7">
+    <div class="wrap">
+      <div class="tete">
+        <p class="eyebrow">À Lyon</p>
+        <h2>Où ça se <span class="script">vit</span></h2>
+      </div>
+      <Carte />
+      <p class="carte__mot">Les ateliers et les soins se donnent sur les quais de Saône, à l'Oāsis Meïsō et à l'Île Barbe. Je me déplace aussi <strong>à domicile</strong>, sur Lyon et sa métropole. Les accompagnements se vivent en présence ou en ligne.</p>
+    </div>
+  </section>
+
   <section id="contact">
     <div class="narrow">
       <div class="tete">

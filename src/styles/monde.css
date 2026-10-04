@@ -804,3 +804,21 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .prochain__lien:hover .prochain__titre { color: var(--coral); }
 .prochain__quand { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--muted); }
 @media (max-width: 620px) { .prochain__dedans { flex-direction: column; align-items: flex-start; } .prochain__tout { width: 100%; justify-content: center; } }
+
+/* ── La carte des lieux : les deux rivières, et des points d'or ── */
+.carte { margin: 0; display: grid; gap: clamp(1.4rem, 3vw, 2.2rem); grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.8fr); align-items: center; }
+.carte svg { width: 100%; height: var(--h, 440px); border-radius: 18px; background: linear-gradient(160deg, #0C1330 0%, #080D1E 100%); border: 1px solid var(--faint); }
+.carte__eau { fill: none; stroke: #2B3C7A; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; }
+.carte__eau--saone { stroke: #35497F; }
+.carte__point { fill: var(--gold); }
+.carte__lieu { transition: transform 0.4s var(--ease, ease); }
+.carte__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.carte__liste li { display: flex; flex-direction: column; gap: 0.2rem; padding-left: 1.1rem; position: relative; }
+.carte__liste li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px rgba(216,162,76,0.6); }
+.carte__liste a, .carte__liste span { font-family: 'EB Garamond', serif; font-size: 1.18rem; color: var(--cream); }
+.carte__liste a:hover { color: var(--coral); }
+.carte__liste small { font-family: 'Jost', sans-serif; font-size: 0.8rem; color: var(--muted); }
+@media (max-width: 760px) { .carte { grid-template-columns: 1fr; } .carte svg { height: 300px; } }
+
+.carte__mot { max-width: 62ch; margin: clamp(2rem, 4vw, 2.8rem) auto 0; text-align: center; font-family: 'EB Garamond', serif; font-size: clamp(1.1rem, 1.6vw, 1.26rem); line-height: 1.6; color: #C9CBD8; }
+.carte__mot strong { color: var(--gold); font-weight: 400; }
