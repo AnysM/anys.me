@@ -11,6 +11,8 @@ import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Carrousel from '../components/Carrousel.astro';
 import Carte from '../components/Carte.astro';
+import Fil from '../components/Fil.astro';
+import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
 import { getCollection, getEntry } from 'astro:content';
@@ -66,6 +68,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 ---
 <Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
   <!-- L'APPEL -->
+  <Fil />
+
   <section id="hero">
     <div class="hero-bg">
       <img src={acc.hero_photo ?? '/img/hero-fusion.jpg'} alt="" />
@@ -80,7 +84,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
-  <section class="elan elan--1 coupe" style="--fond: var(--navy)">
+  <section>
     <div class="wrap split">
       <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
       <div>
@@ -110,7 +114,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
-    <section class="bloc coeur-mot elan elan--2 coupe coupe--b" style="--fond: var(--surface)">
+    <section class="bloc coeur-mot">
       <div class="narrow">
         <div class="tete">
           <p class="eyebrow">{acc.coeur_eyebrow}</p>
@@ -128,7 +132,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
-    <section class="venir elan elan--3 coupe" style="--fond: var(--navy)">
+    <section class="venir">
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.venir_eyebrow}</p>
@@ -155,7 +159,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
-    <section class="bloc elan elan--4 coupe coupe--b" style="--fond: var(--surface)">
+    <section class="bloc">
       <div class="wrap">
         <div class="tete-agenda">
           <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
@@ -192,7 +196,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer -->
-  <section id="seuils" class="elan elan--5 coupe" style="--fond: var(--navy)">
+  <section id="seuils">
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -215,7 +219,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
-    <section class="difference elan elan--6 coupe coupe--b" style="--fond: var(--navy)">
+    <section class="difference">
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.difference_eyebrow}</p>
@@ -239,14 +243,21 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 9. L'INVITATION : un premier pas -->
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
-  <section class="bloc elan elan--7 coupe" style="--fond: var(--surface)">
+  <section class="territoire" style="min-height:min(78svh, 680px); display:flex; align-items:center;">
+    <Carte fond />
+    <div class="territoire__voile"></div>
     <div class="wrap">
-      <div class="tete">
-        <p class="eyebrow">À Lyon</p>
-        <h2>Où ça se <span class="script">vit</span></h2>
-      </div>
-      <Carte />
-      <p class="carte__mot">Les ateliers et les soins se donnent sur les quais de Saône, à l'Oāsis Meïsō et à l'Île Barbe. Je me déplace aussi <strong>à domicile</strong>, sur Lyon et sa métropole. Les accompagnements se vivent en présence ou en ligne.</p>
+      <p class="eyebrow">À Lyon</p>
+      <h2>Où ça se <span class="script">vit</span></h2>
+      <ul class="territoire__liste">
+        {LIEUX.map((l) => (
+          <li>
+            {l.href ? <a href={l.href}>{l.nom}</a> : <span>{l.nom}</span>}
+            <small>{l.quoi}</small>
+          </li>
+        ))}
+      </ul>
+      <p class="carte__mot">Je me déplace aussi <strong>à domicile</strong>, sur Lyon et sa métropole. Les accompagnements se vivent en présence ou en ligne.</p>
     </div>
   </section>
 
@@ -282,10 +293,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     // et les éléments frères arrivent l'un après l'autre.
     (function () {
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      document.querySelectorAll('.elan').forEach(function (el) {
-        var io2 = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vu'); io2.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
-        io2.observe(el);
-      });
       var cibles = [
         'main > section:not(#hero) .tete',
         '.split .photo', '.split > div > *',

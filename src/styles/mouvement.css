@@ -1,59 +1,17 @@
-/* ── Les élans : de vrais coups de pinceau entre les sections ──
-   Les brosses servent de masque, la couleur vient du CSS. Plus on descend,
-   plus elles sont vives : le mouvement entre dans la page. */
+/* ── Le fil : un trait d'encre qui descend toute la page ── */
 html, body { overflow-x: clip; }
+main { position: relative; }
 main > section, main > div { position: relative; }
 main > section > .wrap, main > section > .narrow, main > section > div { position: relative; z-index: 1; }
 
-/* La couture : le fond de la section est repeint au pinceau sur la section du dessus */
-.coupe::before {
-  content: ''; position: absolute; z-index: 0; left: -3%; right: -3%; top: -44px; height: 96px;
-  background-color: var(--fond, var(--navy));
-  -webkit-mask: var(--bande, url(/img/brosses/bande-a.svg)) center / 100% 100% no-repeat;
-  mask: var(--bande, url(/img/brosses/bande-a.svg)) center / 100% 100% no-repeat;
-  pointer-events: none;
+.fil { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.fil svg { width: 100%; height: 100%; }
+.fil__trait {
+  fill: none;
+  stroke: var(--gold);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
-.coupe--b::before { --bande: url(/img/brosses/bande-b.svg); }
-
-/* Le trait de couleur qui traverse la couture */
-.elan::before, .elan::after {
-  content: ''; position: absolute; z-index: 0; pointer-events: none;
-  opacity: 0; transition: opacity 1.8s ease, transform 2.6s cubic-bezier(.2,.7,.2,1);
-}
-.elan::before {
-  background-color: var(--teinte, #5C7CFF);
-  -webkit-mask: var(--brosse, url(/img/brosses/trait-a.svg)) center / 100% 100% no-repeat;
-  mask: var(--brosse, url(/img/brosses/trait-a.svg)) center / 100% 100% no-repeat;
-  transform: translateY(28px);
-}
-.elan::after { background: radial-gradient(closest-side, var(--lueur), transparent 72%); filter: blur(16px); transform: translateY(28px) scale(0.9); }
-.elan.vu::before { opacity: var(--force, 0.4); transform: none; }
-.elan.vu::after { opacity: calc(var(--force, 0.4) * 0.8); transform: none; }
-@media (prefers-reduced-motion: reduce) { .elan::before, .elan::after { transition: none; } }
-
-.elan--1 { --force: 0.26; --teinte: #5C7CFF; --lueur: rgba(92,124,255,0.35); --brosse: url(/img/brosses/trait-a.svg); }
-.elan--1::before, .elan--1::after { left:-10%; top:-150px; width:54vw; height:300px; }
-
-.elan--2 { --force: 0.32; --teinte: #D8A24C; --lueur: rgba(216,162,76,0.35); --brosse: url(/img/brosses/trait-c.svg); }
-.elan--2::before, .elan--2::after { right:-12%; top:-180px; width:58vw; height:340px; transform-origin:right center; }
-
-.elan--3 { --force: 0.4; --teinte: #8FB3FF; --lueur: rgba(143,179,255,0.40); --brosse: url(/img/brosses/trait-b.svg); }
-.elan--3::before, .elan--3::after { left:-14%; top:-190px; width:62vw; height:360px; }
-
-.elan--4 { --force: 0.5; --teinte: #F07A5F; --lueur: rgba(240,122,95,0.40); --brosse: url(/img/brosses/trait-a.svg); }
-.elan--4::before, .elan--4::after { right:-14%; top:-200px; width:66vw; height:380px; }
-
-.elan--5 { --force: 0.6; --teinte: #D8A24C; --lueur: rgba(216,162,76,0.45); --brosse: url(/img/brosses/trait-c.svg); }
-.elan--5::before, .elan--5::after { left:-16%; top:-210px; width:70vw; height:400px; }
-
-.elan--6 { --force: 0.7; --teinte: #F07A5F; --lueur: rgba(240,122,95,0.50); --brosse: url(/img/brosses/trait-b.svg); }
-.elan--6::before, .elan--6::after { right:-16%; top:-220px; width:72vw; height:420px; }
-
-.elan--7 { --force: 0.78; --teinte: #5C7CFF; --lueur: rgba(92,124,255,0.50); --brosse: url(/img/brosses/trait-c.svg); }
-.elan--7::before, .elan--7::after { left:-16%; top:-230px; width:74vw; height:430px; }
-
-@media (max-width: 760px) {
-  .elan::before, .elan::after { width: 130vw !important; left: -25vw !important; right: auto !important; }
-  .elan { --force: 0.24; }
-  .coupe::before { height: 60px; top: -28px; }
-}
+.fil__trait--large { stroke-width: 2.6; opacity: 0.17; }
+.fil__trait--fin { stroke-width: 0.8; opacity: 0.3; transform: translateX(0.6%); }
+@media (max-width: 760px) { .fil__trait--large { stroke-width: 1.6; } .fil__trait--fin { stroke-width: 0.6; } }

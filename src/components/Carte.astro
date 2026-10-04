@@ -1,34 +1,23 @@
 ---
-// La carte de Lyon, interactive : fond OpenStreetMap teinté nuit, points d'or sur les lieux.
-// Leaflet est servi depuis le site ; seules les tuiles viennent d'OpenStreetMap, au moment
-// où la carte entre à l'écran.
+// La carte de Lyon : un fond sombre et nu, les deux rivières reprises en indigo,
+// et les lieux en points d'or. Leaflet est servi depuis le site.
 import { LIEUX } from '../lib/lieux';
+import rivieres from '../lib/rivieres.json';
 
-const { lieux = LIEUX, hauteur = '460px', titres = true, zoom = 13 } = Astro.props;
+const { lieux = LIEUX, zoom = 13, fond = false } = Astro.props;
 const centre = {
   lat: (Math.max(...lieux.map((l) => l.lat)) + Math.min(...lieux.map((l) => l.lat))) / 2,
   lon: (Math.max(...lieux.map((l) => l.lon)) + Math.min(...lieux.map((l) => l.lon))) / 2,
 };
 ---
-<figure class="carte" style={`--h:${hauteur}`}>
-  <div
-    class="carte__plan"
-    data-carte
-    data-lieux={JSON.stringify(lieux)}
-    data-centre={JSON.stringify(centre)}
-    data-zoom={zoom}
-  ></div>
-  {titres && (
-    <ul class="carte__liste">
-      {lieux.map((l) => (
-        <li>
-          {l.href ? <a href={l.href}>{l.nom}</a> : <span>{l.nom}</span>}
-          <small>{l.quoi}</small>
-        </li>
-      ))}
-    </ul>
-  )}
-</figure>
+<div
+  class={`carte${fond ? ' carte--fond' : ''}`}
+  data-carte
+  data-lieux={JSON.stringify(lieux)}
+  data-eaux={JSON.stringify(rivieres)}
+  data-centre={JSON.stringify(centre)}
+  data-zoom={zoom}
+></div>
 
 <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
 <script is:inline>
@@ -38,17 +27,24 @@ const centre = {
 
     function dessine(plan) {
       var lieux = JSON.parse(plan.dataset.lieux);
+      var eaux = JSON.parse(plan.dataset.eaux || '[]');
       var centre = JSON.parse(plan.dataset.centre);
       var carte = L.map(plan, {
         center: [centre.lat, centre.lon],
         zoom: Number(plan.dataset.zoom),
         scrollWheelZoom: false,
+        zoomControl: false,
         attributionControl: true,
       });
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+      L.control.zoom({ position: 'bottomright' }).addTo(carte);
+      L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 16,
+        attribution: 'Esri · © OpenStreetMap',
       }).addTo(carte);
+      // Les deux rivières, redessinées en indigo par-dessus le fond
+      eaux.forEach(function (e) {
+        L.polyline(e.pts, { color: '#2F3C86', weight: e.nom === 'rhone' ? 8 : 6, opacity: 0.6, lineCap: 'round', lineJoin: 'round', interactive: false }).addTo(carte);
+      });
       lieux.forEach(function (l) {
         var point = L.marker([l.lat, l.lon], {
           icon: L.divIcon({ className: 'carte__epingle', html: '<span></span>', iconSize: [16, 16] }),
@@ -57,7 +53,7 @@ const centre = {
         var lien = l.href ? '<a href="' + l.href + '">' + l.nom + '</a>' : '<b>' + l.nom + '</b>';
         point.bindPopup('<span class="carte__bulle">' + lien + '<small>' + l.quoi + '</small></span>');
       });
-      if (lieux.length > 1) carte.fitBounds(lieux.map(function (l) { return [l.lat, l.lon]; }), { padding: [46, 46] });
+      if (lieux.length > 1) carte.fitBounds(lieux.map(function (l) { return [l.lat, l.lon]; }), { padding: [70, 70] });
     }
 
     function charge(plan) {
