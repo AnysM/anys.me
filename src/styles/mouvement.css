@@ -1,18 +1,3 @@
-/* ── Les coutures : un trait de pinceau posé sur la frontière, en fusion claire ── */
-.couture::before {
-  content: ''; position: absolute; z-index: 0; left: -6%; right: -6%;
-  height: var(--hauteur, 110px); top: calc(var(--hauteur, 110px) * -0.5);
-  background-color: var(--teinte, #ECE7DE);
-  opacity: var(--force, 0.12);
-  mix-blend-mode: screen;
-  -webkit-mask: var(--bande, url(/img/brosses/bande-a.svg)) center / 100% 100% no-repeat;
-  mask: var(--bande, url(/img/brosses/bande-a.svg)) center / 100% 100% no-repeat;
-  pointer-events: none;
-}
-.couture--b::before { --bande: url(/img/brosses/bande-b.svg); }
-.couture--c::before { --bande: url(/img/brosses/bande-c.svg); }
-.couture--d::before { --bande: url(/img/brosses/bande-d.svg); }
-
 /* ── Les sceaux : tes œuvres détourées, posées le long de la descente ── */
 .sceau { position: absolute; z-index: 0; pointer-events: none; opacity: 0;
   /* Fusion « écran » : plus aucun bord de découpe, seule la matière claire ressort */
@@ -23,20 +8,6 @@
 @media (max-width: 760px) { .sceau { display: none; } }
 @media (prefers-reduced-motion: reduce) { .sceau { transition: none; } }
 
-/* ── Les bandes photo ne se coupent plus au couteau : leurs bords sont déchirés au pinceau ── */
-.breath > img, .temoins-offre__fond {
-  -webkit-mask-image: url(/img/brosses/bande-a.svg), linear-gradient(#000, #000), url(/img/brosses/bande-b.svg);
-  mask-image: url(/img/brosses/bande-a.svg), linear-gradient(#000, #000), url(/img/brosses/bande-b.svg);
-  -webkit-mask-position: top center, center, bottom center;
-  mask-position: top center, center, bottom center;
-  -webkit-mask-size: 104% 120px, 100% calc(100% - 220px), 104% 120px;
-  mask-size: 104% 120px, 100% calc(100% - 220px), 104% 120px;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-}
-@media (max-width: 760px) {
-  .breath > img, .temoins-offre__fond {
-    -webkit-mask-size: 130% 70px, 100% calc(100% - 130px), 130% 70px;
-    mask-size: 130% 70px, 100% calc(100% - 130px), 130% 70px;
-  }
-}
+
+/* ── Les séparations : le contour d'un pinceau, peint de la couleur qui arrive ── */
+.sep { display: block; width: 100%; height: var(--sep-h, 72px); margin-block: -1px; position: relative; z-index: 3; pointer-events: none; }

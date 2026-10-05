@@ -1,0 +1,18 @@
+---
+// Une séparation organique : le contour d'un vrai coup de pinceau, en forme fermée,
+// peinte de la couleur de la section qui arrive. Modèle éprouvé : viewBox fixe,
+// preserveAspectRatio="none", tracé refermé en bas.
+import tracés from '../lib/separateurs.json';
+const { variante = 'traitc', couleur = 'var(--navy)', hauteur = 'clamp(56px, 8vw, 130px)', retourne = false } = Astro.props;
+const t = tracés.find((x) => x.nom === variante) ?? tracés[0];
+---
+<svg
+  class="sep"
+  style={`--sep-h:${hauteur}; color:${couleur}; ${retourne ? 'transform: scaleX(-1);' : ''}`}
+  viewBox="0 0 1200 120"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d={t.d} fill="currentColor" />
+</svg>

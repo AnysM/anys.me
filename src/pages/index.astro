@@ -11,6 +11,7 @@ import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Carrousel from '../components/Carrousel.astro';
 import Carte from '../components/Carte.astro';
+import Separateur from '../components/Separateur.astro';
 import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
@@ -127,9 +128,11 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- RESPIRATION : la fleur -->
   <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
+  <Separateur variante="traitc" couleur="var(--navy)" />
+
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
-    <section class="venir couture couture--b" style="--teinte: #8FB3FF; --force: .22; --hauteur: 150px">
+    <section class="venir">
       <span class="sceau" style="--force:.30; right:-6%; top:6%; width:min(28vw,340px)"><img src="/img/traces/glyphes-cyan-nuit.png" alt="" loading="lazy" /></span>
       <div class="wrap">
         <div class="tete">
@@ -155,6 +158,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
+  <Separateur variante="enso" couleur="var(--surface)" />
+
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
     <section class="bloc">
@@ -174,8 +179,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- RESPIRATION : le paon -->
   <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
+  <Separateur variante="traita" couleur="var(--surface)" />
+
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
-  <section class="bloc couture couture--d" style="--teinte: #ECE7DE; --force: .30; --hauteur: 170px">
+  <section class="bloc">
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
@@ -193,8 +200,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- RESPIRATION : la cellule -->
   <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
+  <Separateur variante="bandec" couleur="var(--navy)" />
+
   <!-- 6. LES SEUILS : par où entrer -->
-  <section id="seuils" class="couture couture--c" style="--teinte: #D8A24C; --force: .40; --hauteur: 190px">
+  <section id="seuils">
     <span class="sceau" style="--force:.45; left:-10%; top:-4%; width:min(34vw,420px)"><img src="/img/traces/croissant-noir-nuit.png" alt="" loading="lazy" /></span>
     <div class="wrap">
       <div class="tete">
@@ -242,8 +251,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
 
   <!-- 9. L'INVITATION : un premier pas -->
+  <Separateur variante="croissant" couleur="var(--navy)" />
+
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
-  <section class="territoire couture" style="--teinte: #F07A5F; --force: .50; --hauteur: 210px; min-height:min(78svh, 680px); display:flex; align-items:center;">
+  <section  class="territoire" style="min-height:min(78svh, 680px); display:flex; align-items:center;">
     <Carte fond />
     <div class="territoire__voile"></div>
     <div class="wrap">
