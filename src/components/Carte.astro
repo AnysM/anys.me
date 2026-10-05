@@ -2,7 +2,6 @@
 // La carte de Lyon : un fond sombre et nu, les deux rivières reprises en indigo,
 // et les lieux en points d'or. Leaflet est servi depuis le site.
 import { LIEUX } from '../lib/lieux';
-import rivieres from '../lib/rivieres.json';
 
 const { lieux = LIEUX, zoom = 13, fond = false } = Astro.props;
 const centre = {
@@ -14,7 +13,6 @@ const centre = {
   class={`carte${fond ? ' carte--fond' : ''}`}
   data-carte
   data-lieux={JSON.stringify(lieux)}
-  data-eaux={JSON.stringify(rivieres)}
   data-centre={JSON.stringify(centre)}
   data-zoom={zoom}
 ></div>
@@ -27,7 +25,6 @@ const centre = {
 
     function dessine(plan) {
       var lieux = JSON.parse(plan.dataset.lieux);
-      var eaux = JSON.parse(plan.dataset.eaux || '[]');
       var centre = JSON.parse(plan.dataset.centre);
       var carte = L.map(plan, {
         center: [centre.lat, centre.lon],
@@ -41,10 +38,6 @@ const centre = {
         maxZoom: 16,
         attribution: 'Esri · © OpenStreetMap',
       }).addTo(carte);
-      // Les deux rivières, redessinées en indigo par-dessus le fond
-      eaux.forEach(function (e) {
-        L.polyline(e.pts, { color: '#4258C4', weight: e.nom === 'rhone' ? 9 : 7, opacity: 0.8, lineCap: 'round', lineJoin: 'round', interactive: false }).addTo(carte);
-      });
       lieux.forEach(function (l) {
         var point = L.marker([l.lat, l.lon], {
           icon: L.divIcon({ className: 'carte__epingle', html: '<span style="--teinte:' + l.couleur + '"></span>', iconSize: [18, 18] }),
