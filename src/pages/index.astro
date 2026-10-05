@@ -111,7 +111,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
-    <section class="bloc coeur-mot couture" style="--fond: var(--surface); --hauteur: 90px">
+    <section class="bloc coeur-mot">
       <div class="narrow">
         <div class="tete">
           <p class="eyebrow">{acc.coeur_eyebrow}</p>
@@ -129,8 +129,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
-    <section class="venir couture couture--b" style="--fond: var(--navy); --hauteur: 110px">
-      <span class="sceau" style="--force:.16; right:-6%; top:6%; width:min(28vw,340px)"><img src="/img/traces/glyphes-cyan.png" alt="" loading="lazy" /></span>
+    <section class="venir couture couture--b" style="--teinte: #8FB3FF; --force: .22; --hauteur: 150px">
+      <span class="sceau" style="--force:.30; right:-6%; top:6%; width:min(28vw,340px)"><img src="/img/traces/glyphes-cyan-nuit.png" alt="" loading="lazy" /></span>
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.venir_eyebrow}</p>
@@ -175,7 +175,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
-  <section class="bloc">
+  <section class="bloc couture couture--d" style="--teinte: #ECE7DE; --force: .30; --hauteur: 170px">
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
@@ -194,8 +194,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer -->
-  <section id="seuils" class="couture couture--c" style="--fond: var(--navy); --hauteur: 130px">
-    <span class="sceau" style="--force:.3; left:-10%; top:-4%; width:min(34vw,420px)"><img src="/img/traces/croissant-noir.png" alt="" loading="lazy" /></span>
+  <section id="seuils" class="couture couture--c" style="--teinte: #D8A24C; --force: .40; --hauteur: 190px">
+    <span class="sceau" style="--force:.45; left:-10%; top:-4%; width:min(34vw,420px)"><img src="/img/traces/croissant-noir-nuit.png" alt="" loading="lazy" /></span>
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -218,8 +218,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
-    <section class="difference couture couture--d" style="--fond: var(--navy); --hauteur: 150px">
-      <span class="sceau" style="--force:.42; right:-12%; top:2%; width:min(40vw,520px)"><img src="/img/traces/enso-orange.png" alt="" loading="lazy" /></span>
+    <section class="difference">
+      <span class="sceau" style="--force:.55; right:-12%; top:2%; width:min(40vw,520px)"><img src="/img/traces/enso-orange-nuit.png" alt="" loading="lazy" /></span>
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.difference_eyebrow}</p>
@@ -243,7 +243,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 9. L'INVITATION : un premier pas -->
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
-  <section class="territoire" style="min-height:min(78svh, 680px); display:flex; align-items:center;">
+  <section class="territoire couture" style="--teinte: #F07A5F; --force: .50; --hauteur: 210px; min-height:min(78svh, 680px); display:flex; align-items:center;">
     <Carte fond />
     <div class="territoire__voile"></div>
     <div class="wrap">
