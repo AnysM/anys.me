@@ -11,7 +11,6 @@ import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Carrousel from '../components/Carrousel.astro';
 import Carte from '../components/Carte.astro';
-import Fil from '../components/Fil.astro';
 import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
@@ -68,8 +67,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 ---
 <Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
   <!-- L'APPEL -->
-  <Fil />
-
   <section id="hero">
     <div class="hero-bg">
       <img src={acc.hero_photo ?? '/img/hero-fusion.jpg'} alt="" />
@@ -115,6 +112,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
     <section class="bloc coeur-mot">
+      <span class="encre encre--gauche"><img src="/img/trait-encre.png" alt="" loading="lazy" /></span>
       <div class="narrow">
         <div class="tete">
           <p class="eyebrow">{acc.coeur_eyebrow}</p>
@@ -197,6 +195,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 6. LES SEUILS : par où entrer -->
   <section id="seuils">
+    <span class="encre encre--droite"><img src="/img/trait-encre.png" alt="" loading="lazy" /></span>
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -247,8 +246,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     <Carte fond />
     <div class="territoire__voile"></div>
     <div class="wrap">
-      <p class="eyebrow">À Lyon</p>
-      <h2>Où ça se <span class="script">vit</span></h2>
+      <p class="eyebrow">Le territoire</p>
+      <h2>Basé à <span class="script">Lyon</span></h2>
       <ul class="territoire__liste">
         {LIEUX.map((l) => (
           <li>
@@ -293,6 +292,10 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     // et les éléments frères arrivent l'un après l'autre.
     (function () {
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.querySelectorAll('.encre').forEach(function (el) {
+        var io3 = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('vu'); io3.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+        io3.observe(el);
+      });
       var cibles = [
         'main > section:not(#hero) .tete',
         '.split .photo', '.split > div > *',
