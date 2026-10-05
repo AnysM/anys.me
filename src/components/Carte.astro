@@ -47,13 +47,13 @@ const centre = {
       });
       lieux.forEach(function (l) {
         var point = L.marker([l.lat, l.lon], {
-          icon: L.divIcon({ className: 'carte__epingle', html: '<span></span>', iconSize: [16, 16] }),
+          icon: L.divIcon({ className: 'carte__epingle', html: '<span style="--teinte:' + l.couleur + '"></span>', iconSize: [18, 18] }),
           title: l.nom,
         }).addTo(carte);
         var lien = l.href ? '<a href="' + l.href + '">' + l.nom + '</a>' : '<b>' + l.nom + '</b>';
         point.bindPopup('<span class="carte__bulle">' + lien + '<small>' + l.quoi + '</small></span>');
       });
-      if (lieux.length > 1) carte.fitBounds(lieux.map(function (l) { return [l.lat, l.lon]; }), { padding: [70, 70] });
+      if (lieux.length > 1) carte.fitBounds(lieux.map(function (l) { return [l.lat, l.lon]; }), { padding: [130, 130], maxZoom: 13 });
     }
 
     function charge(plan) {

@@ -1,0 +1,181 @@
+---
+// Banc d'essai : on compare des variantes côte à côte, on règle au curseur,
+// et on garde les valeurs qui plaisent. Page de travail, hors du site public.
+import Base from '../layouts/Base.astro';
+import Carte from '../components/Carte.astro';
+
+const BANDES = ['bande-a', 'bande-b', 'bande-c', 'bande-d'];
+const TRAITS = ['trait-a', 'trait-b', 'trait-c', 'encre'];
+const VARIANTES = [
+  { id: 1, titre: 'Bande pleine', note: 'Le fond de la section du dessous est peint au pinceau par-dessus celle du dessus.', bande: 'bande-a', hauteur: 110, chevauchement: 55, rotation: 0, trait: '' },
+  { id: 2, titre: 'Bande sèche', note: 'Même principe, avec une brosse plus griffée.', bande: 'bande-b', hauteur: 120, chevauchement: 50, rotation: 0, trait: '' },
+  { id: 3, titre: 'Bande inclinée', note: 'La couture part en biais, comme un geste qui traverse.', bande: 'bande-c', hauteur: 130, chevauchement: 50, rotation: -1.5, trait: '' },
+  { id: 4, titre: 'Bande + trait', note: 'La couture au pinceau, et un trait de couleur qui la suit.', bande: 'bande-a', hauteur: 110, chevauchement: 55, rotation: 0, trait: 'trait-c' },
+  { id: 5, titre: 'Trait seul', note: 'Pas de couture peinte : un seul trait de couleur posé sur la jointure.', bande: '', hauteur: 0, chevauchement: 0, rotation: 0, trait: 'trait-a' },
+  { id: 6, titre: 'Bande douce', note: 'Une brosse large et calme, à peine marquée.', bande: 'bande-d', hauteur: 90, chevauchement: 60, rotation: 0, trait: '' },
+];
+---
+<Base title="Banc d'essai — séparations et traits" noindex>
+  <section class="bloc" style="padding-block: clamp(3rem,6vw,5rem);">
+    <div class="wrap">
+      <p class="eyebrow">Page de travail</p>
+      <h1 style="margin-top:0.6rem;">Séparations et traits</h1>
+      <p class="muted" style="max-width:62ch; margin-top:1rem;">
+        Chaque variante montre la même jointure entre deux sections. Règle au curseur celle qui te parle,
+        puis donne-moi son numéro et les valeurs affichées en bas : je les applique au site.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="bloc" style="padding-block: clamp(3rem,6vw,4rem);">
+    <div class="wrap">
+      <p class="eyebrow">Réglage</p>
+      <h2>La teinte de la carte</h2>
+      <p class="muted" style="max-width:60ch; margin-top:0.8rem;">Bouge les curseurs jusqu'à ce que ça te plaise, puis donne-moi la ligne du bas.</p>
+    </div>
+  </section>
+  <div class="territoire" id="essai-carte" style="position:relative; min-height:min(70svh, 620px); display:flex; align-items:center;">
+    <Carte fond />
+    <div class="territoire__voile"></div>
+    <div class="wrap">
+      <h2 style="margin:0;">Basé à <span class="script">Lyon</span></h2>
+      <div class="essai__reglages" style="margin-top:1.6rem;">
+        <label>Luminosité <input type="range" min="20" max="200" step="5" value="95" data-c="brightness" /><b>0.95</b></label>
+        <label>Saturation <input type="range" min="0" max="400" step="10" value="240" data-c="saturate" /><b>2.4</b></label>
+        <label>Teinte <input type="range" min="120" max="260" step="2" value="188" data-c="hue-rotate" /><b>188°</b></label>
+        <label>Contraste <input type="range" min="50" max="200" step="5" value="115" data-c="contrast" /><b>1.15</b></label>
+        <label>Opacité du voile <input type="range" min="0" max="100" step="5" value="100" data-c="voile" /><b>1</b></label>
+        <output id="sortie-carte"></output>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var bloc = document.getElementById('essai-carte');
+      if (!bloc) return;
+      var sortie = document.getElementById('sortie-carte');
+      function maj() {
+        var v = {};
+        bloc.querySelectorAll('[data-c]').forEach(function (c) { v[c.dataset.c] = Number(c.value); });
+        var f = 'grayscale(1) sepia(1) hue-rotate(' + v['hue-rotate'] + 'deg) saturate(' + (v.saturate / 100) + ') brightness(' + (v.brightness / 100) + ') contrast(' + (v.contrast / 100) + ')';
+        var pane = bloc.querySelector('.leaflet-tile-pane');
+        if (pane) pane.style.filter = f;
+        var voile = bloc.querySelector('.territoire__voile');
+        if (voile) voile.style.opacity = v.voile / 100;
+        bloc.querySelectorAll('[data-c]').forEach(function (c) {
+          var b = c.parentElement.querySelector('b');
+          var val = Number(c.value);
+          b.textContent = c.dataset.c === 'hue-rotate' ? val + '°' : (val / 100).toFixed(2);
+        });
+        sortie.textContent = 'filtre : ' + f + '  ·  voile : ' + (v.voile / 100).toFixed(2);
+      }
+      bloc.querySelectorAll('[data-c]').forEach(function (c) { c.addEventListener('input', maj); });
+      setTimeout(maj, 2000);
+    })();
+  </script>
+
+  {VARIANTES.map((v) => (
+    <div class="essai" data-essai={v.id}
+      style={`--bande: ${v.bande ? `url(/img/brosses/${v.bande}.svg)` : 'none'}; --hauteur: ${v.hauteur}px; --chevauchement: ${v.chevauchement}; --rotation: ${v.rotation}deg; --trait: ${v.trait ? `url(/img/brosses/${v.trait}.svg)` : 'none'}; --trait-opacite: 0.35; --trait-teinte: #D8A24C;`}>
+      <section class="essai__haut">
+        <div class="wrap"><p class="eyebrow">Variante {v.id}</p><h2>{v.titre}</h2><p class="muted" style="max-width:52ch;">{v.note}</p></div>
+      </section>
+      <section class="essai__bas">
+        <span class="essai__couture"></span>
+        <span class="essai__trait"></span>
+        <div class="wrap">
+          <p style="font-family:'EB Garamond',serif; font-size:1.3rem; max-width:46ch;">La section suivante commence ici. Le texte doit rester lisible, et la couture doit se sentir sans se voir.</p>
+          <div class="essai__reglages">
+            <label>Hauteur <input type="range" min="30" max="220" step="2" value={v.hauteur} data-r="hauteur" /><b>{v.hauteur}px</b></label>
+            <label>Chevauchement <input type="range" min="0" max="100" step="5" value={v.chevauchement} data-r="chevauchement" /><b>{v.chevauchement}%</b></label>
+            <label>Inclinaison <input type="range" min="-4" max="4" step="0.5" value={v.rotation} data-r="rotation" /><b>{v.rotation}°</b></label>
+            <label>Opacité du trait <input type="range" min="0" max="100" step="5" value="35" data-r="trait-opacite" /><b>0.35</b></label>
+            <label>Brosse
+              <select data-r="bande">
+                <option value="">aucune</option>
+                {BANDES.map((b) => <option value={b} selected={b === v.bande}>{b}</option>)}
+              </select>
+            </label>
+            <label>Trait
+              <select data-r="trait">
+                <option value="">aucun</option>
+                {TRAITS.map((t) => <option value={t} selected={t === v.trait}>{t}</option>)}
+              </select>
+            </label>
+            <label>Couleur
+              <select data-r="trait-teinte">
+                <option value="#D8A24C">or</option>
+                <option value="#F07A5F">corail</option>
+                <option value="#5C7CFF">indigo</option>
+                <option value="#8FB3FF">bleu clair</option>
+                <option value="#ECE7DE">crème</option>
+              </select>
+            </label>
+            <output></output>
+          </div>
+        </div>
+      </section>
+    </div>
+  ))}
+
+  <style is:global>
+    .essai { position: relative; }
+    .essai__haut { background: var(--surface); padding-block: clamp(3rem, 6vw, 5rem); }
+    .essai__bas { position: relative; background: var(--navy); padding-block: clamp(4rem, 8vw, 6rem); }
+    .essai__bas .wrap { position: relative; z-index: 2; }
+    /* La couture : le fond du bas, peint au pinceau par-dessus le haut */
+    .essai__couture { position: absolute; z-index: 1; left: -4%; right: -4%; height: var(--hauteur);
+      top: calc(var(--hauteur) * var(--chevauchement) / -100);
+      transform: rotate(var(--rotation));
+      background-color: var(--navy);
+      -webkit-mask: var(--bande) center / 100% 100% no-repeat; mask: var(--bande) center / 100% 100% no-repeat; }
+    /* Le trait de couleur posé sur la jointure */
+    .essai__trait { position: absolute; z-index: 1; left: -6%; right: -6%; height: calc(var(--hauteur) * 1.6);
+      top: calc(var(--hauteur) * -0.8);
+      transform: rotate(var(--rotation));
+      opacity: var(--trait-opacite);
+      background-color: var(--trait-teinte);
+      -webkit-mask: var(--trait) center / 100% 100% no-repeat; mask: var(--trait) center / 100% 100% no-repeat; }
+    .essai__reglages { margin-top: 2.4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.8rem 1.6rem; max-width: 900px; }
+    .essai__reglages label { display: flex; align-items: center; gap: 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+    .essai__reglages input[type=range] { flex: 1; accent-color: var(--gold); }
+    .essai__reglages select { background: #0A0F20; color: var(--cream); border: 1px solid var(--faint); border-radius: 6px; padding: 0.3rem 0.5rem; font-family: 'Jost', sans-serif; }
+    .essai__reglages b { color: var(--gold); font-weight: 400; min-width: 4ch; }
+    .essai__reglages output { grid-column: 1 / -1; font-family: ui-monospace, monospace; font-size: 0.74rem; color: var(--cream); background: #0A0F20; border: 1px solid var(--faint); border-radius: 8px; padding: 0.6rem 0.8rem; }
+  </style>
+
+  <script is:inline>
+    document.querySelectorAll('.essai').forEach(function (essai) {
+      var sortie = essai.querySelector('output');
+      function maj() {
+        var lignes = [];
+        essai.querySelectorAll('[data-r]').forEach(function (champ) {
+          var cle = champ.dataset.r;
+          var val = champ.value;
+          if (cle === 'bande' || cle === 'trait') {
+            essai.style.setProperty('--' + cle, val ? 'url(/img/brosses/' + val + '.svg)' : 'none');
+            lignes.push(cle + ' : ' + (val || 'aucun'));
+          } else if (cle === 'trait-opacite') {
+            essai.style.setProperty('--trait-opacite', (val / 100).toFixed(2));
+            lignes.push('opacité : ' + (val / 100).toFixed(2));
+          } else if (cle === 'trait-teinte') {
+            essai.style.setProperty('--trait-teinte', val);
+            lignes.push('couleur : ' + champ.options[champ.selectedIndex].text);
+          } else {
+            var unite = cle === 'rotation' ? 'deg' : cle === 'chevauchement' ? '' : 'px';
+            essai.style.setProperty('--' + cle, val + unite);
+            lignes.push(cle + ' : ' + val + (unite || '%'));
+          }
+          var b = champ.parentElement.querySelector('b');
+          if (b) b.textContent = val + (cle === 'rotation' ? '°' : cle === 'hauteur' ? 'px' : cle === 'chevauchement' ? '%' : '');
+          if (b && cle === 'trait-opacite') b.textContent = (val / 100).toFixed(2);
+        });
+        sortie.textContent = 'Variante ' + essai.dataset.essai + ' — ' + lignes.join(' · ');
+      }
+      essai.querySelectorAll('[data-r]').forEach(function (c) { c.addEventListener('input', maj); });
+      maj();
+    });
+  </script>
+</Base>

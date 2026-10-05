@@ -810,8 +810,8 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .carte--fond { position: absolute; inset: 0; z-index: 0; }
 .carte .leaflet-container { background: #0A0F20; font-family: 'Jost', sans-serif; }
 /* Le fond de carte reste discret : ni couleur, ni contraste — seules l'eau et les lieux parlent */
-.carte .leaflet-tile-pane { filter: grayscale(1) brightness(1.75) contrast(1.15); opacity: 0.9; }
-.carte__epingle span { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--gold); border: 2px solid #0A0F20; box-shadow: 0 0 0 5px rgba(216,162,76,0.25); cursor: pointer; }
+.carte .leaflet-tile-pane { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(2.4) brightness(0.95) contrast(1.15); opacity: 0.95; }
+.carte__epingle span { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--teinte, var(--gold)); border: 2px solid #0A0F20; box-shadow: 0 0 0 5px color-mix(in srgb, var(--teinte, #D8A24C) 28%, transparent); cursor: pointer; }
 .carte .leaflet-popup-content-wrapper { background: #0A0F20; color: var(--cream); border: 1px solid var(--faint); border-radius: 12px; }
 .carte .leaflet-popup-tip { background: #0A0F20; }
 .carte__bulle { display: flex; flex-direction: column; gap: 0.2rem; }
@@ -832,7 +832,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .territoire .wrap h2, .territoire .wrap p, .territoire .wrap li, .territoire .wrap a { pointer-events: auto; }
 .territoire__liste { list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0; display: grid; gap: 1.1rem; max-width: 30ch; }
 .territoire__liste li { display: flex; flex-direction: column; gap: 0.15rem; padding-left: 1.1rem; position: relative; }
-.territoire__liste li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+.territoire__liste li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--teinte, var(--gold)); box-shadow: 0 0 10px color-mix(in srgb, var(--teinte, #D8A24C) 60%, transparent); }
 .territoire__liste a, .territoire__liste span { font-family: 'EB Garamond', serif; font-size: 1.16rem; color: var(--cream); }
 .territoire__liste a:hover { color: var(--coral); }
 .territoire__liste small { font-family: 'Jost', sans-serif; font-size: 0.78rem; color: var(--muted); }
