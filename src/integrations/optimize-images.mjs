@@ -2,7 +2,7 @@
 // et réécrit les références dans le HTML/CSS/JS générés.
 // Les chemins saisis dans Tina (/img/xxx.jpg) restent inchangés dans le contenu source.
 import { readdir, readFile, writeFile, stat, unlink, mkdir } from 'node:fs/promises';
-import { join, extname, basename } from 'node:path';
+import { join, extname, basename, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
@@ -47,7 +47,8 @@ export default function optimizeImages() {
             .toFile(target);
           before += size;
           after += (await stat(target)).size;
-          renamed.set(basename(file), basename(target));
+          // On garde le chemin relatif à /img : les sous-dossiers doivent être réécrits aussi.
+          renamed.set(relative(imgDir, file).split(sep).join('/'), relative(imgDir, target).split(sep).join('/'));
           await unlink(file);
         }
 
