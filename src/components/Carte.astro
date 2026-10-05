@@ -43,7 +43,7 @@ const centre = {
       }).addTo(carte);
       // Les deux rivières, redessinées en indigo par-dessus le fond
       eaux.forEach(function (e) {
-        L.polyline(e.pts, { color: '#2F3C86', weight: e.nom === 'rhone' ? 8 : 6, opacity: 0.6, lineCap: 'round', lineJoin: 'round', interactive: false }).addTo(carte);
+        L.polyline(e.pts, { color: '#4258C4', weight: e.nom === 'rhone' ? 9 : 7, opacity: 0.8, lineCap: 'round', lineJoin: 'round', interactive: false }).addTo(carte);
       });
       lieux.forEach(function (l) {
         var point = L.marker([l.lat, l.lon], {
@@ -67,10 +67,9 @@ const centre = {
       }
     }
 
-    if (!('IntersectionObserver' in window)) { plans.forEach(charge); return; }
-    var io = new IntersectionObserver(function (entrees) {
-      entrees.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); charge(e.target); } });
-    }, { rootMargin: '300px' });
-    plans.forEach(function (p) { io.observe(p); });
+    // On charge dès que le navigateur est disponible : la carte doit être prête quand on arrive dessus.
+    function lance() { plans.forEach(charge); }
+    if ('requestIdleCallback' in window) requestIdleCallback(lance, { timeout: 2500 });
+    else setTimeout(lance, 600);
   })();
 </script>
