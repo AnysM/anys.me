@@ -126,9 +126,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : la fleur -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
-
-  <Separateur variante="traitc" couleur="var(--navy)" />
+  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" /><Separateur cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
@@ -158,8 +156,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <Separateur variante="enso" couleur="var(--surface)" />
-
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
     <section class="bloc">
@@ -177,9 +173,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : le paon -->
-  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation2)}></div></section>
-
-  <Separateur variante="traita" couleur="var(--surface)" />
+  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" retourne /><Separateur cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
@@ -198,9 +192,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <!-- RESPIRATION : la cellule -->
-  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation3)}></div></section>
-
-  <Separateur variante="bandec" couleur="var(--navy)" />
+  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" /><Separateur cote="bas" couleur="var(--navy)" retourne /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer -->
   <section id="seuils">
@@ -251,8 +243,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
 
   <!-- 9. L'INVITATION : un premier pas -->
-  <Separateur variante="croissant" couleur="var(--navy)" />
-
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
   <section  class="territoire" style="min-height:min(78svh, 680px); display:flex; align-items:center;">
     <Carte fond />

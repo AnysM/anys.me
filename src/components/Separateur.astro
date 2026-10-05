@@ -1,18 +1,15 @@
 ---
-// Une séparation organique : le contour d'un vrai coup de pinceau, en forme fermée,
-// peinte de la couleur de la section qui arrive. Modèle éprouvé : viewBox fixe,
-// preserveAspectRatio="none", tracé refermé en bas.
-import tracés from '../lib/separateurs.json';
-const { variante = 'traitc', couleur = 'var(--navy)', hauteur = 'clamp(56px, 8vw, 130px)', retourne = false } = Astro.props;
-const t = tracés.find((x) => x.nom === variante) ?? tracés[0];
+// La séparation organique, même recette que sur muysua : un rectangle de la couleur
+// qui arrive, masqué par un vrai bord de pinceau. Les rotations donnent les variantes.
+const {
+  cote = 'bas',          // « bas » : posé au pied de la section · « haut » : à sa tête
+  couleur = 'var(--navy)',
+  retourne = false,
+  hauteur = 'clamp(36px, 6vw, 90px)',
+} = Astro.props;
 ---
-<svg
-  class="sep"
-  style={`--sep-h:${hauteur}; color:${couleur}; ${retourne ? 'transform: scaleX(-1);' : ''}`}
-  viewBox="0 0 1200 120"
-  preserveAspectRatio="none"
+<div
+  class:list={['brosse', `brosse--${cote}`, retourne && 'brosse--retournee']}
+  style={`color:${couleur}; --brosse-h:${hauteur}`}
   aria-hidden="true"
-  focusable="false"
->
-  <path d={t.d} fill="currentColor" />
-</svg>
+></div>

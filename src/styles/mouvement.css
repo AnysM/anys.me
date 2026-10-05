@@ -9,5 +9,16 @@
 @media (prefers-reduced-motion: reduce) { .sceau { transition: none; } }
 
 
-/* ── Les séparations : le contour d'un pinceau, peint de la couleur qui arrive ── */
-.sep { display: block; width: 100%; height: var(--sep-h, 72px); margin-block: -1px; position: relative; z-index: 3; pointer-events: none; }
+/* ── Les séparations : un bord de pinceau, de la couleur de la section d'en face ── */
+.brosse {
+  position: absolute; left: 0; right: 0; z-index: 2;
+  height: var(--brosse-h, clamp(36px, 6vw, 90px));
+  background-color: currentColor;
+  pointer-events: none;
+  -webkit-mask: url(/img/brosses/vague.svg) 0 0 / 100% 100% no-repeat;
+  mask: url(/img/brosses/vague.svg) 0 0 / 100% 100% no-repeat;
+}
+.brosse--haut { top: -1px; }
+.brosse--bas { bottom: -1px; transform: rotate(180deg); }
+.brosse--haut.brosse--retournee { transform: scaleX(-1); }
+.brosse--bas.brosse--retournee { transform: rotate(180deg) scaleX(-1); }

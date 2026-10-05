@@ -10,6 +10,8 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
 {temoignages.length > 0 && (
   <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
     {image && <img class="temoins-offre__fond" src={image} alt="" loading="lazy" />}
+    {image && <div class="brosse brosse--haut" style="color: var(--navy)" aria-hidden="true"></div>}
+    {image && <div class="brosse brosse--bas brosse--retournee" style="color: var(--navy)" aria-hidden="true"></div>}
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{eyebrow}</p>
