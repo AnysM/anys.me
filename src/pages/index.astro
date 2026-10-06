@@ -197,9 +197,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- RESPIRATION : la cellule -->
   <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={2} retourne /><Separateur cote="bas" couleur="var(--navy)" vague={3} zoom={120} decalage={60} /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
-  <!-- 6. LES SEUILS : par où entrer -->
+  <!-- 6. LES SEUILS : par où entrer. Pas de trait ici, un fond plus sombre à la place. -->
   <section id="seuils">
-    <Trace n={4} x={22} entree={14} force={0.21} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
