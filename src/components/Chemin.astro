@@ -1,9 +1,0 @@
----
-// Le chemin : ton tracé à l'encre, détouré, qui descend toute la page.
-// Le gabarit couvrait la largeur entière de la page : le tracé la couvre aussi.
-// Il gagne en présence à mesure qu'on descend, de 12 % à 100 %.
-const { largeur = '86%', cote = 'left: 7%' } = Astro.props;
----
-<div class="chemin" style={`--chemin-l:${largeur}; ${cote}`} aria-hidden="true">
-  <img src="/img/chemin/trace.png" alt="" />
-</div>

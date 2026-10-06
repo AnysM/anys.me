@@ -1,0 +1,14 @@
+---
+// Un fragment de ton tracé à l'encre, détouré, posé dans une section sans photo.
+// La largeur est donnée, la hauteur suit : l'image garde son format d'origine.
+const { n, cote = 'gauche', largeur = '34%', haut = '8%', force = 0.4 } = Astro.props;
+const bord = cote === 'droite' ? 'right' : 'left';
+---
+<img
+  class="trace"
+  src={`/img/chemin/t${n}.png`}
+  alt=""
+  aria-hidden="true"
+  loading="lazy"
+  style={`${bord}:0; --trace-x:${largeur}; top:${haut}; width:${largeur}; opacity:${force}`}
+/>
