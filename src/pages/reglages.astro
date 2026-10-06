@@ -11,6 +11,8 @@ const acc = (await getEntry('pages', 'accueil'))!.data;
 
 // Chaque séparation, avec ce qu'il y a de part et d'autre : l'aperçu est fidèle.
 const SEPS = [
+  { id: 'hero-bas', titre: 'Sortie du hero', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.hero_photo ?? '/img/hero-fusion.jpg' },
   { id: 'coeur-haut', titre: 'Sous le prochain rendez-vous', cote: 'haut',
     couleur: 'var(--navy2)', dessus: '#0E1530', dessous: '#111A38' },
   { id: 'nenuphar-haut', titre: 'Entrée du nénuphar', cote: 'haut',

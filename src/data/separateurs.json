@@ -82,5 +82,12 @@
     "hauteur": 46,
     "largeur": 100,
     "decalage": 0
+  },
+  "hero-bas": {
+    "bord": 2,
+    "retourne": true,
+    "hauteur": 45,
+    "largeur": 100,
+    "decalage": 0
   }
 }
