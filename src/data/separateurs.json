@@ -1,0 +1,58 @@
+{
+  "coeur-haut": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 70,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "nenuphar-haut": {
+    "bord": 1,
+    "retourne": false,
+    "hauteur": 55,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "nenuphar-bas": {
+    "bord": 2,
+    "retourne": false,
+    "hauteur": 55,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "agenda-haut": {
+    "bord": 1,
+    "retourne": true,
+    "hauteur": 70,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "paon-haut": {
+    "bord": 3,
+    "retourne": true,
+    "hauteur": 55,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "paon-bas": {
+    "bord": 4,
+    "retourne": false,
+    "hauteur": 55,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "cellule-haut": {
+    "bord": 2,
+    "retourne": true,
+    "hauteur": 55,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "cellule-bas": {
+    "bord": 3,
+    "retourne": true,
+    "hauteur": 55,
+    "largeur": 100,
+    "decalage": 0
+  }
+}

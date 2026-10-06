@@ -18,8 +18,8 @@ main > section > div { position: relative; z-index: 2; }
   position: absolute; left: 0; right: 0; z-index: 2;
   background-color: currentColor;
   pointer-events: none;
-  -webkit-mask: var(--brosse-img) 0 0 / 100% 100% no-repeat;
-  mask: var(--brosse-img) 0 0 / 100% 100% no-repeat;
+  -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
+  mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
 }
 /* Le masque a son bord de pinceau en haut et le plein en dessous.
    En pied de section on le pose tel quel ; en tête on le retourne. */
