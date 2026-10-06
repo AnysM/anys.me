@@ -12,6 +12,7 @@ import CarteEvenement from '../components/CarteEvenement.astro';
 import Carrousel from '../components/Carrousel.astro';
 import Carte from '../components/Carte.astro';
 import Separateur from '../components/Separateur.astro';
+import Chemin from '../components/Chemin.astro';
 import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
@@ -68,6 +69,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 ---
 <Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
   <!-- L'APPEL -->
+  <Chemin />
+
   <section id="hero">
     <div class="hero-bg">
       <img src={acc.hero_photo ?? '/img/hero-fusion.jpg'} alt="" />
@@ -126,7 +129,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : la fleur -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" /><Separateur cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={1} /><Separateur cote="bas" couleur="var(--navy)" vague={2} zoom={130} decalage={20} /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
@@ -173,7 +176,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : le paon -->
-  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" retourne /><Separateur cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={3} retourne /><Separateur cote="bas" couleur="var(--surface)" vague={1} zoom={150} decalage={45} /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
@@ -192,7 +195,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <!-- RESPIRATION : la cellule -->
-  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" /><Separateur cote="bas" couleur="var(--navy)" retourne /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
+  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={2} retourne /><Separateur cote="bas" couleur="var(--navy)" vague={3} zoom={120} decalage={60} /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer -->
   <section id="seuils">

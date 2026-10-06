@@ -1,15 +1,19 @@
 ---
-// La séparation organique, même recette que sur muysua : un rectangle de la couleur
-// qui arrive, masqué par un vrai bord de pinceau. Les rotations donnent les variantes.
+// La séparation : un aplat de la couleur d'en face, masqué par un bord de pinceau.
+// Trois vagues, des symétries et un cadrage variable : aucune frontière ne se répète.
 const {
-  cote = 'bas',          // « bas » : posé au pied de la section · « haut » : à sa tête
+  cote = 'bas',
   couleur = 'var(--navy)',
+  vague = 1,
   retourne = false,
+  zoom = 100,        // largeur du masque, en % : au-delà de 100, on n'en voit qu'une partie
+  decalage = 0,      // d'où commence le masque, en %
   hauteur = 'clamp(36px, 6vw, 90px)',
 } = Astro.props;
+const fichier = vague === 1 ? 'vague' : `vague-${vague}`;
 ---
 <div
   class:list={['brosse', `brosse--${cote}`, retourne && 'brosse--retournee']}
-  style={`color:${couleur}; --brosse-h:${hauteur}`}
+  style={`color:${couleur}; --brosse-h:${hauteur}; --brosse-img:url(/img/brosses/${fichier}.svg); --brosse-zoom:${zoom}%; --brosse-x:${decalage}%`}
   aria-hidden="true"
 ></div>
