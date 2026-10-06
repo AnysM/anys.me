@@ -9,11 +9,9 @@ const {
   source = 'site',
   compact = false,
 } = Astro.props;
-import Separateur from './Separateur.astro';
 const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 <section class={`lettre${compact ? ' lettre--compacte' : ''}`}>
-  <Separateur id="lettre-haut" cote="haut" couleur="var(--navy)" />
   <div class="wrap lettre__rangee">
     <div class="lettre__texte">
       <p class="eyebrow">{eyebrow}</p>

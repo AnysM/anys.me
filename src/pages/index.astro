@@ -121,6 +121,7 @@ const reglage = (c: string) =>
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
     <section class="bloc coeur-mot">
+      <Separateur id="danse-bas" cote="bas" couleur="var(--navy)" />
       <Fond src={acc.danse_image} force={F.danse_image?.voile} lumiere={F.danse_image?.lumiere} x={F.danse_image?.x} y={F.danse_image?.y} />
       <Separateur id="coeur-haut" cote="haut" couleur="var(--navy)" />
       <Trace n={1} x={50} entree={83} force={0.07} />
@@ -166,13 +167,12 @@ const reglage = (c: string) =>
   )}
 
   <!-- RESPIRATION : la fleur -->
-  <section class="breath" style={reglage('resp1_image')}>{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="nenuphar-haut" cote="haut" couleur="var(--surface)" /><Separateur id="nenuphar-bas" cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+  <section class="breath" style={reglage('resp1_image')}>{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="nenuphar-haut" cote="haut" couleur="var(--navy)" /><Separateur id="nenuphar-bas" cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
 
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
     <section class="bloc">
-      <Separateur id="agenda-haut" cote="haut" couleur="var(--navy)" />
       <div class="wrap">
         <div class="tete-agenda">
           <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
@@ -233,6 +233,8 @@ const reglage = (c: string) =>
 
   <!-- 7. LES SEUILS : par où entrer -->
   <section id="seuils">
+    <Separateur id="seuils-haut" cote="haut" couleur="var(--navy)" />
+    <Separateur id="seuils-bas" cote="bas" couleur="var(--navy)" />
     <Fond src={acc.seuils_image} force={F.seuils_image?.voile} lumiere={F.seuils_image?.lumiere} x={F.seuils_image?.x} y={F.seuils_image?.y} />
     <div class="wrap">
       <div class="tete">
@@ -256,7 +258,7 @@ const reglage = (c: string) =>
 
 
   <!-- 8. TRAVERSÉES -->
-  <Temoignages bordHaut={false} reglage={reglage('temoins_image')} temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
+  <Temoignages bordHaut={false} reglage={reglage('temoins_image')} temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={null} />
 
   <!-- 9. L'INVITATION : un premier pas -->
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
@@ -279,6 +281,7 @@ const reglage = (c: string) =>
   </section>
 
   <section id="contact">
+    <Separateur id="contact-bas" cote="bas" couleur="#2B3088" />
     <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} />
     <Trace n={6} x={85} entree={84} force={0.11} />
     <div class="narrow">
