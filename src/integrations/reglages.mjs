@@ -48,8 +48,9 @@ export default function reglages() {
           if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
           lire(req).then(async (corps) => {
             try {
-              await writeFile(chemin('data/separateurs.json'),
-                JSON.stringify(JSON.parse(corps), null, 2) + '\n', 'utf8');
+              const d = JSON.parse(corps);
+              if (!d || typeof d !== 'object' || !Object.keys(d).length) throw new Error('réglages vides');
+              await writeFile(chemin('data/separateurs.json'), JSON.stringify(d, null, 2) + '\n', 'utf8');
               json(res, { ok: true });
             } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
           });
@@ -60,8 +61,9 @@ export default function reglages() {
           if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
           lire(req).then(async (corps) => {
             try {
-              await writeFile(chemin('data/fonds.json'),
-                JSON.stringify(JSON.parse(corps), null, 2) + '\n', 'utf8');
+              const d = JSON.parse(corps);
+              if (!d || typeof d !== 'object' || !Object.keys(d).length) throw new Error('réglages vides');
+              await writeFile(chemin('data/fonds.json'), JSON.stringify(d, null, 2) + '\n', 'utf8');
               json(res, { ok: true });
             } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
           });

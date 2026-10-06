@@ -137,6 +137,7 @@ const PLACES = [
     async function enregistrerFonds() {
       const rep = await fetch('/__fonds', { method: 'POST',
         headers: { 'content-type': 'application/json' }, body: JSON.stringify(FONDS, null, 2) });
+      if (rep.status === 404) return { ok: false, erreur: 'route absente — coupe et relance npm run dev' };
       return rep.json();
     }
 
@@ -207,7 +208,7 @@ const PLACES = [
               etat.textContent = 'Enregistré. Recharge la page d’accueil.';
             } else { etat.textContent = 'Échec : ' + (j.erreur || g.erreur); poser.disabled = false; }
           } catch (e) {
-            etat.textContent = 'Échec : cette page n’enregistre qu’en local (npm run dev).';
+            etat.textContent = 'Échec : ' + e + ' — si tu viens de me voir modifier le projet, coupe et relance npm run dev.';
             poser.disabled = false;
           }
         });
