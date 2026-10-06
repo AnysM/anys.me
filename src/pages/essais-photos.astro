@@ -18,6 +18,12 @@ const PLACES = [
     actuel: acc.resp2_image,  phrase: acc.citation2 },
   { champ: 'resp3_image',   titre: 'Respiration 3',        type: 'breath',
     actuel: acc.resp3_image,  phrase: acc.citation3 },
+  { champ: 'danse_image',   titre: 'Derrière « Apprendre à danser »', type: 'breath',
+    actuel: acc.danse_image,  phrase: 'Apprendre à danser avec la vie' },
+  { champ: 'seuils_image',  titre: 'Derrière « Par où entrer »',     type: 'breath',
+    actuel: acc.seuils_image, phrase: 'Par où entrer' },
+  { champ: 'contact_image', titre: 'Derrière « Écris-moi »',         type: 'breath',
+    actuel: acc.contact_image, phrase: 'Écris-moi' },
   { champ: 'temoins_image', titre: 'Les témoignages',      type: 'breath',
     actuel: acc.temoins_image ?? '/img/traversees-dune-vent.jpg', phrase: 'Ce qu’ils et elles en disent' },
 ];
@@ -46,11 +52,11 @@ const PLACES = [
     <section class="place" data-champ={p.champ} data-type={p.type} data-actuel={p.actuel}>
       <h2>{p.titre} <span class="place__champ">{p.champ}</span></h2>
       <div class={`vue vue--${p.type}`}>
-        <img class="vue__img" src={p.actuel} alt="" />
+        <img class="vue__img" src={p.actuel ?? '/img/portrait.jpg'} alt="" />
         <div class="vue__voile"></div>
         <p class="vue__phrase" set:html={fmt(p.phrase ?? '')}></p>
       </div>
-      <p class="place__etat" data-nom>actuelle : {p.actuel}</p>
+      <p class="place__etat" data-nom>actuelle : {p.actuel ?? 'aucune'}</p>
       <div class="bande" data-bande></div>
       <button type="button" class="bouton" data-poser disabled>Enregistrer cet emplacement</button>
     </section>

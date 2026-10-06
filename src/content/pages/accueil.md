@@ -1,4 +1,8 @@
 ---
+contact_image: /img/photos/dscf1640.jpg
+seuils_image: /img/photos/dscf2487.jpg
+danse_image: /img/photos/dscf2313.jpg
+hero_photo: /img/photos/dscf1737.jpg
 hero_eyebrow: Présence · Mouvement · Créativité
 hero_titre: Marcher un chemin qui
 hero_image: /img/univers-art.jpg
@@ -101,7 +105,7 @@ venir_items:
   - "Laisser mourir <br>ce qui n'est plus aligné | pour offrir de l'espace à ce qui attend d'entrer dans ta vie."
   - "Laisser pousser à l'extérieur <br>ce qui est trop à l'étroit <br>à l'intérieur | pour enfin réaliser tes projets de cœur."
 posture: "Ni maître, ni éveillé, je suis juste un homme qui a fini par trouver comment marcher un chemin qui me nourrit profondément. Aujourd'hui, j'ai à cœur de t'inspirer et de t'accompagner à marcher le tien avec justesse."
-temoins_image: /img/traversees-dune-vent.jpg
+temoins_image: /img/photos/dscf1406.jpg
 avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"

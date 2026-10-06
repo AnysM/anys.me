@@ -13,6 +13,7 @@ import Carrousel from '../components/Carrousel.astro';
 import Carte from '../components/Carte.astro';
 import Separateur from '../components/Separateur.astro';
 import Trace from '../components/Trace.astro';
+import Fond from '../components/Fond.astro';
 import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
@@ -115,6 +116,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
     <section class="bloc coeur-mot">
+      <Fond src={acc.danse_image} force={0.76} />
       <Separateur id="coeur-haut" cote="haut" couleur="var(--navy)" />
       <Trace n={1} x={50} entree={83} force={0.07} />
       <div class="narrow">
@@ -268,6 +270,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <section id="contact">
+    <Fond src={acc.contact_image} force={0.74} />
     <Trace n={6} x={85} entree={84} force={0.11} />
     <div class="narrow">
       <div class="tete">

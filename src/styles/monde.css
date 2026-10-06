@@ -436,7 +436,7 @@ html.js .venir__liste li.vu .venir__action, html.js .venir__liste li.vu .venir__
 .lettre__form input::placeholder { color: rgba(236,231,222,0.7); }
 .lettre__form input:focus { border-color: var(--gold); background: rgba(255,255,255,0.14); }
 .lettre__note { color: rgba(236,231,222,0.7); }
-.temoins-offre--photo::before { background: linear-gradient(180deg, rgba(10,15,32,0.78) 0%, rgba(10,15,32,0.3) 38%, rgba(10,15,32,0.3) 70%, rgba(10,15,32,0.8) 100%); }
+.temoins-offre--photo::before { background: linear-gradient(180deg, rgba(10,15,32,0.86) 0%, rgba(10,15,32,0.62) 38%, rgba(10,15,32,0.62) 70%, rgba(10,15,32,0.88) 100%); }
 .temoins-offre__fond { object-position: center 62%; }
 .temoins-offre--photo .temoin-carte { background: rgba(12,18,44,0.58); }
 .temoins-offre__fond { object-position: center 45%; }
