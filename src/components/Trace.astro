@@ -1,8 +1,10 @@
 ---
-// Un fragment de ton tracé à l'encre, détouré, posé dans une section sans photo.
-// La largeur est donnée, la hauteur suit : l'image garde son format d'origine.
-const { n, cote = 'gauche', largeur = '34%', haut = '8%', force = 0.4 } = Astro.props;
-const bord = cote === 'droite' ? 'right' : 'left';
+// Un fragment de ton tracé : il prend toute la hauteur de la section,
+// entre par le bord du haut et ressort par le bord du bas.
+// La hauteur commande, la largeur suit : l'encre n'est jamais déformée.
+// « x » place le point d'entrée sur la largeur de la page,
+// « entree » dit où ce point se trouve dans l'image elle-même.
+const { n, x = 50, entree = 50, force = 0.35 } = Astro.props;
 ---
 <img
   class="trace"
@@ -10,5 +12,5 @@ const bord = cote === 'droite' ? 'right' : 'left';
   alt=""
   aria-hidden="true"
   loading="lazy"
-  style={`${bord}:0; --trace-x:${largeur}; top:${haut}; width:${largeur}; opacity:${force}`}
+  style={`left:${x}%; transform:translateX(-${entree}%); opacity:${force}`}
 />

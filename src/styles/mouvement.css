@@ -21,9 +21,7 @@ main > section > div { position: relative; z-index: 2; }
 .brosse--haut.brosse--retournee { transform: scaleX(-1); }
 .brosse--bas.brosse--retournee { transform: rotate(180deg) scaleX(-1); }
 
-/* ── Le chemin : tes fragments d'encre, à leur format d'origine ── */
-.trace { position: absolute; z-index: 1; height: auto; max-width: none;
-  pointer-events: none; user-select: none; }
-@media (max-width: 760px) {
-  .trace { width: min(52%, 220px) !important; opacity: 0.26 !important; }
-}
+/* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
+.trace { position: absolute; top: 0; height: 100%; width: auto; max-width: none;
+  z-index: 1; pointer-events: none; user-select: none; }
+@media (max-width: 760px) { .trace { opacity: 0.2 !important; } }

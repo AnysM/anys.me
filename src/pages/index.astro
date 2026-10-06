@@ -114,7 +114,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
     <section class="bloc coeur-mot">
-      <Trace n={1} cote="droite" largeur="20%" haut="10%" force={0.16} />
+      <Trace n={1} x={50} entree={83} force={0.12} />
       <div class="narrow">
         <div class="tete">
           <p class="eyebrow">{acc.coeur_eyebrow}</p>
@@ -133,8 +133,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
     <section class="venir">
-      <Trace n={2} cote="droite" largeur="17%" haut="3%" force={0.2} />
-      <Trace n={3} cote="gauche" largeur="36%" haut="52%" force={0.26} />
+      <Trace n={2} x={35} entree={40} force={0.15} />
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.venir_eyebrow}</p>
@@ -162,7 +161,6 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
     <section class="bloc">
-      <Trace n={4} cote="gauche" largeur="34%" haut="12%" force={0.3} />
       <div class="wrap">
         <div class="tete-agenda">
           <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
@@ -181,7 +179,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
-    <Trace n={5} cote="droite" largeur="30%" haut="26%" force={0.36} />
+    <Trace n={3} x={85} entree={71} force={0.18} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
@@ -201,7 +199,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 6. LES SEUILS : par où entrer -->
   <section id="seuils">
-    <Trace n={6} cote="gauche" largeur="24%" haut="30%" force={0.42} />
+    <Trace n={4} x={22} entree={14} force={0.21} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -225,7 +223,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 7. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
     <section class="difference">
-      <Trace n={7} cote="droite" largeur="32%" haut="16%" force={0.48} />
+      <Trace n={5} x={20} entree={24} force={0.25} />
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.difference_eyebrow}</p>
@@ -268,7 +266,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <section id="contact">
-    <Trace n={8} cote="gauche" largeur="32%" haut="14%" force={0.54} />
+    <Trace n={6} x={85} entree={84} force={0.28} />
     <div class="narrow">
       <div class="tete">
         <p class="eyebrow">{acc.form_eyebrow}</p>
@@ -285,7 +283,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 10. INDIGO ENOQII : l'art, en signature (deviendra les Artefacts) -->
   <section class="art-signature">
-    <Trace n={9} cote="gauche" largeur="28%" haut="2%" force={0.6} />
+    <Trace n={7} x={18} entree={22} force={0.32} />
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
         <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
