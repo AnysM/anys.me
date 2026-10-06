@@ -609,7 +609,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__note { padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 16px var(--surface); font-style: italic; font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
 @media (max-width: 760px) {
   .rangee__roue { aspect-ratio: auto; width: 100%; }
-  .rangee__anneau, .rangee__point { display: none; }
+  .rangee__anneau, .rangee__point, .rangee__trame { display: none; }
   .rangee__liste { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.2rem 1.2rem; }
   .rangee__item { position: static; transform: none; width: auto; }
   .rangee__item:last-child { grid-column: 1 / -1; }

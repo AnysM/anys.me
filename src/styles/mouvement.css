@@ -28,4 +28,4 @@ main > section > div { position: relative; z-index: 2; }
 /* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
 .trace { position: absolute; top: 0; height: 100%; width: auto; max-width: none;
   z-index: 1; pointer-events: none; user-select: none; }
-@media (max-width: 760px) { .trace { opacity: 0.2 !important; } }
+@media (max-width: 760px) { .trace { opacity: 0.09 !important; } }
