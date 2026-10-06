@@ -1,10 +1,10 @@
 ---
 // Une photo posée derrière une section, sous un voile. Elle reste en fond :
 // le tracé passe devant elle, et le texte devant tout.
-const { src, force = 0.72, position = '50% 50%' } = Astro.props;
+const { src, force = 0.72, lumiere = 0.74, x = 50, y = 50 } = Astro.props;
 ---
 {src && (
-  <div class="fond" aria-hidden="true" style={`--fond-voile:${force}`}>
-    <img src={src} alt="" loading="lazy" style={`object-position:${position}`} />
+  <div class="fond" aria-hidden="true" style={`--fond-voile:${force}; --fond-lum:${lumiere}`}>
+    <img src={src} alt="" loading="lazy" style={`object-position:${x}% ${y}%`} />
   </div>
 )}

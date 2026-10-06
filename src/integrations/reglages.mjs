@@ -55,6 +55,18 @@ export default function reglages() {
           });
         });
 
+        // ── Le voile et la lumière de chaque photo de fond ───────────────
+        server.middlewares.use('/__fonds', (req, res) => {
+          if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
+          lire(req).then(async (corps) => {
+            try {
+              await writeFile(chemin('data/fonds.json'),
+                JSON.stringify(JSON.parse(corps), null, 2) + '\n', 'utf8');
+              json(res, { ok: true });
+            } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
+          });
+        });
+
         // ── Les photos : la liste de ce qu'on peut essayer ───────────────
         server.middlewares.use('/__photos/liste', async (req, res) => {
           const sortie = [];

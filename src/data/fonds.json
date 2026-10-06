@@ -1,0 +1,50 @@
+{
+  "hero_photo": {
+    "voile": 0.5,
+    "lumiere": 1,
+    "x": 50,
+    "y": 50
+  },
+  "resp1_image": {
+    "voile": 0.62,
+    "lumiere": 0.56,
+    "x": 50,
+    "y": 50
+  },
+  "resp2_image": {
+    "voile": 0.62,
+    "lumiere": 0.8,
+    "x": 50,
+    "y": 50
+  },
+  "resp3_image": {
+    "voile": 0.62,
+    "lumiere": 0.8,
+    "x": 50,
+    "y": 50
+  },
+  "danse_image": {
+    "voile": 0.76,
+    "lumiere": 0.74,
+    "x": 50,
+    "y": 50
+  },
+  "seuils_image": {
+    "voile": 0.66,
+    "lumiere": 0.74,
+    "x": 50,
+    "y": 50
+  },
+  "contact_image": {
+    "voile": 0.74,
+    "lumiere": 0.74,
+    "x": 50,
+    "y": 50
+  },
+  "temoins_image": {
+    "voile": 0.62,
+    "lumiere": 1,
+    "x": 50,
+    "y": 50
+  }
+}

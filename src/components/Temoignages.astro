@@ -1,6 +1,6 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const { reglage = undefined, temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
 import Separateur from './Separateur.astro';
 const carrousel = temoignages.length > 3;
 const seul = temoignages.length === 1;
@@ -9,7 +9,7 @@ const titre = titreDonne ?? (seul ? 'Témoignage' : '*Ils et elles* l’ont trav
 const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 {temoignages.length > 0 && (
-  <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
+  <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`} style={reglage}>
     {image && <img class="temoins-offre__fond" src={image} alt="" loading="lazy" />}
     {image && <Separateur id="temoins-haut" cote="haut" couleur="var(--navy)" />}
     {image && <Separateur id="temoins-bas" cote="bas" couleur="var(--navy)" />}

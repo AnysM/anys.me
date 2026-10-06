@@ -2,8 +2,10 @@
 // Atelier des photos. Page de travail : hors menu, hors plan du site, et
 // l'enregistrement ne marche qu'en local (npm run dev).
 import { getEntry } from 'astro:content';
+import FONDS from '../data/fonds.json';
 const acc = (await getEntry('pages', 'accueil'))!.data;
 
+const F = FONDS as Record<string, { voile: number; lumiere: number }>;
 const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 
 // Chaque emplacement de la page d'accueil, avec ce qu'il montre aujourd'hui.
@@ -51,14 +53,24 @@ const PLACES = [
   {PLACES.map((p) => (
     <section class="place" data-champ={p.champ} data-type={p.type} data-actuel={p.actuel}>
       <h2>{p.titre} <span class="place__champ">{p.champ}</span></h2>
-      <div class={`vue vue--${p.type}`}>
+      <div class={`vue vue--${p.type}`} style={`--voile:${F[p.champ]?.voile ?? 0.62}; --lum:${F[p.champ]?.lumiere ?? 0.8}; --posx:${F[p.champ]?.x ?? 50}%; --posy:${F[p.champ]?.y ?? 50}%`}>
         <img class="vue__img" src={p.actuel ?? '/img/portrait.jpg'} alt="" />
         <div class="vue__voile"></div>
         <p class="vue__phrase" set:html={fmt(p.phrase ?? '')}></p>
       </div>
       <p class="place__etat" data-nom>actuelle : {p.actuel ?? 'aucune'}</p>
+      <div class="curseurs">
+        <label>Voile <b data-sortie="voile">{Math.round((F[p.champ]?.voile ?? 0.62) * 100)} %</b>
+          <input type="range" data-reg="voile" min="0" max="100" step="2" value={Math.round((F[p.champ]?.voile ?? 0.62) * 100)} /></label>
+        <label>Lumière <b data-sortie="lumiere">{Math.round((F[p.champ]?.lumiere ?? 0.8) * 100)} %</b>
+          <input type="range" data-reg="lumiere" min="20" max="140" step="2" value={Math.round((F[p.champ]?.lumiere ?? 0.8) * 100)} /></label>
+        <label>Cadrage horizontal <b data-sortie="x">{F[p.champ]?.x ?? 50} %</b>
+          <input type="range" data-reg="x" min="0" max="100" step="1" value={F[p.champ]?.x ?? 50} /></label>
+        <label>Cadrage vertical <b data-sortie="y">{F[p.champ]?.y ?? 50} %</b>
+          <input type="range" data-reg="y" min="0" max="100" step="1" value={F[p.champ]?.y ?? 50} /></label>
+      </div>
       <div class="bande" data-bande></div>
-      <button type="button" class="bouton" data-poser disabled>Enregistrer cet emplacement</button>
+      <button type="button" class="bouton" data-poser>Enregistrer cet emplacement</button>
     </section>
   ))}
 
@@ -89,12 +101,19 @@ const PLACES = [
     .vue--hero { height: clamp(300px, 46vh, 520px); }
     .vue--breath { height: clamp(260px, 40vh, 460px); }
     .vue--portrait { height: clamp(300px, 46vh, 520px); }
-    .vue__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .vue--breath .vue__img { filter: saturate(1.14) brightness(0.8) contrast(1.02); }
+    .vue__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      object-position: var(--posx, 50%) var(--posy, 50%); }
+    .vue--breath .vue__img, .vue--hero .vue__img { filter: saturate(1.1) brightness(var(--lum, 0.8)) contrast(1.02); }
     .vue--portrait .vue__img { object-fit: contain; }
     .vue__voile { position: absolute; inset: 0; }
-    .vue--breath .vue__voile { background: linear-gradient(to bottom, rgba(10,16,48,0.62), rgba(10,18,56,0.3) 50%, rgba(10,16,48,0.66)); }
-    .vue--hero .vue__voile { background: linear-gradient(to right, rgba(8,12,26,0.78), rgba(8,12,26,0.2) 70%); }
+    .vue--breath .vue__voile, .vue--hero .vue__voile { background: linear-gradient(to bottom,
+      rgba(10,16,48,var(--voile, 0.62)), rgba(10,18,56,calc(var(--voile, 0.62) * 0.48)) 50%,
+      rgba(10,16,48,calc(var(--voile, 0.62) * 1.07))); }
+    .curseurs { display: flex; gap: 2rem; flex-wrap: wrap; margin: 0.9rem 0 1rem; }
+    .curseurs label { display: block; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #9AA0B4; min-width: 220px; }
+    .curseurs b { color: var(--cream); font-weight: 500; }
+    .curseurs input { width: 100%; accent-color: var(--gold); margin-top: 0.4rem; }
     .vue__phrase { position: relative; z-index: 2; margin: 0; padding: 0 6%; text-align: center;
       font-style: italic; font-weight: 300; font-size: clamp(1.1rem, 2.4vw, 1.9rem);
       color: var(--cream); text-shadow: 0 2px 18px rgba(5,7,16,0.9), 0 0 42px rgba(5,7,16,0.75); }
@@ -110,8 +129,36 @@ const PLACES = [
     .vignette[aria-pressed=true] { border-color: var(--gold); }
   </style>
 
+  <script type="application/json" id="fonds-init" set:html={JSON.stringify(FONDS)}></script>
   <script is:inline>
     const etat = document.getElementById('etat');
+    const FONDS = JSON.parse(document.getElementById('fonds-init').textContent);
+
+    async function enregistrerFonds() {
+      const rep = await fetch('/__fonds', { method: 'POST',
+        headers: { 'content-type': 'application/json' }, body: JSON.stringify(FONDS, null, 2) });
+      return rep.json();
+    }
+
+    document.querySelectorAll('.place').forEach((place) => {
+      const champ = place.dataset.champ;
+      const vue = place.querySelector('.vue');
+      if (!FONDS[champ]) FONDS[champ] = { voile: 0.62, lumiere: 0.8, x: 50, y: 50 };
+      place.querySelectorAll('[data-reg]').forEach((inp) => {
+        inp.addEventListener('input', () => {
+          const quoi = inp.dataset.reg;
+          const brut = Number(inp.value);
+          if (quoi === 'x' || quoi === 'y') {
+            FONDS[champ][quoi] = brut;
+            vue.style.setProperty(quoi === 'x' ? '--posx' : '--posy', brut + '%');
+          } else {
+            FONDS[champ][quoi] = brut / 100;
+            vue.style.setProperty(quoi === 'voile' ? '--voile' : '--lum', String(brut / 100));
+          }
+          place.querySelector('[data-sortie=' + quoi + ']').textContent = brut + ' %';
+        });
+      });
+    });
 
     fetch('/__photos/liste').then((r) => r.json()).then((photos) => {
       etat.textContent = photos.length + ' photos disponibles.';
@@ -120,6 +167,7 @@ const PLACES = [
         const vue = place.querySelector('.vue__img');
         const nom = place.querySelector('[data-nom]');
         const poser = place.querySelector('[data-poser]');
+        poser.disabled = false;
         let choisie = null;
 
         photos.forEach((p) => {
@@ -142,17 +190,22 @@ const PLACES = [
         });
 
         poser.addEventListener('click', async () => {
-          if (!choisie) return;
           poser.disabled = true;
           etat.textContent = 'Enregistrement…';
           try {
-            const rep = await fetch('/__photos/choisir', {
-              method: 'POST', headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ champ: place.dataset.champ, cle: choisie.cle }),
-            });
-            const j = await rep.json();
-            if (j.ok) { nom.textContent = 'enregistrée : ' + j.dedans; etat.textContent = 'Enregistré. Recharge la page d’accueil.'; }
-            else { etat.textContent = 'Échec : ' + j.erreur; poser.disabled = false; }
+            let j = { ok: true, dedans: null };
+            if (choisie) {
+              const rep = await fetch('/__photos/choisir', {
+                method: 'POST', headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ champ: place.dataset.champ, cle: choisie.cle }),
+              });
+              j = await rep.json();
+            }
+            const g = await enregistrerFonds();
+            if (j.ok && g.ok) {
+              if (j.dedans) nom.textContent = 'enregistrée : ' + j.dedans;
+              etat.textContent = 'Enregistré. Recharge la page d’accueil.';
+            } else { etat.textContent = 'Échec : ' + (j.erreur || g.erreur); poser.disabled = false; }
           } catch (e) {
             etat.textContent = 'Échec : cette page n’enregistre qu’en local (npm run dev).';
             poser.disabled = false;

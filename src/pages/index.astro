@@ -14,6 +14,7 @@ import Carte from '../components/Carte.astro';
 import Separateur from '../components/Separateur.astro';
 import Trace from '../components/Trace.astro';
 import Fond from '../components/Fond.astro';
+import FONDS from '../data/fonds.json';
 import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
@@ -66,11 +67,15 @@ const prochain = prochaines[0];
 
 const temoins = acc.temoins ?? [];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
+// Le voile et la lumière de chaque photo de fond, réglés sur /essais-photos.
+const F = FONDS as Record<string, { voile: number; lumiere: number }>;
+const reglage = (c: string) =>
+  `--voile:${F[c]?.voile ?? 0.62}; --lum:${F[c]?.lumiere ?? 0.8}; --posx:${F[c]?.x ?? 50}%; --posy:${F[c]?.y ?? 50}%`;
 
 ---
 <Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
   <!-- L'APPEL -->
-  <section id="hero">
+  <section id="hero" style={reglage('hero_photo')}>
     <Separateur id="hero-bas" cote="bas" couleur="var(--navy)" />
     <div class="hero-bg">
       <img src={acc.hero_photo ?? '/img/hero-fusion.jpg'} alt="" />
@@ -116,7 +121,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
     <section class="bloc coeur-mot">
-      <Fond src={acc.danse_image} force={0.76} />
+      <Fond src={acc.danse_image} force={F.danse_image?.voile} lumiere={F.danse_image?.lumiere} x={F.danse_image?.x} y={F.danse_image?.y} />
       <Separateur id="coeur-haut" cote="haut" couleur="var(--navy)" />
       <Trace n={1} x={50} entree={83} force={0.07} />
       <div class="narrow">
@@ -132,7 +137,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : la fleur -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="nenuphar-haut" cote="haut" couleur="var(--surface)" /><Separateur id="nenuphar-bas" cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+  <section class="breath" style={reglage('resp1_image')}>{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="nenuphar-haut" cote="haut" couleur="var(--surface)" /><Separateur id="nenuphar-bas" cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
@@ -180,7 +185,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : le paon -->
-  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="paon-haut" cote="haut" couleur="var(--surface)" /><Separateur id="paon-bas" cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+  <section class="breath" style={reglage('resp2_image')}>{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="paon-haut" cote="haut" couleur="var(--surface)" /><Separateur id="paon-bas" cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
@@ -200,10 +205,11 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <!-- RESPIRATION : la cellule -->
-  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="cellule-haut" cote="haut" couleur="var(--surface)" /><Separateur id="cellule-bas" cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
+  <section class="breath" style={reglage('resp3_image')}>{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="cellule-haut" cote="haut" couleur="var(--surface)" /><Separateur id="cellule-bas" cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer. Pas de trait ici, un fond plus sombre à la place. -->
   <section id="seuils">
+    <Fond src={acc.seuils_image} force={F.seuils_image?.voile} lumiere={F.seuils_image?.lumiere} x={F.seuils_image?.x} y={F.seuils_image?.y} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -247,7 +253,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- 8. TRAVERSÉES -->
-  <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
+  <Temoignages reglage={reglage('temoins_image')} temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
 
   <!-- 9. L'INVITATION : un premier pas -->
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
@@ -270,7 +276,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <section id="contact">
-    <Fond src={acc.contact_image} force={0.74} />
+    <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} />
     <Trace n={6} x={85} entree={84} force={0.11} />
     <div class="narrow">
       <div class="tete">
