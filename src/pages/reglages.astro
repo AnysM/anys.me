@@ -4,8 +4,8 @@
 import { getEntry } from 'astro:content';
 import { BORDS } from '../lib/bords';
 import REGLAGES from '../data/separateurs.json';
-import '../styles/global.css';
-import '../styles/mouvement.css';
+// Pas d'import des feuilles du site : il décalerait l'ordre du CSS global.
+// L'atelier porte les quelques règles dont il a besoin.
 
 const acc = (await getEntry('pages', 'accueil'))!.data;
 
@@ -27,6 +27,14 @@ const SEPS = [
     couleur: 'var(--surface)', dessus: '#111A38', photo: acc.resp3_image },
   { id: 'cellule-bas', titre: 'Sortie de la cellule', cote: 'bas',
     couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.resp3_image },
+  { id: 'temoins-haut', titre: 'Entrée des témoignages', cote: 'haut',
+    couleur: 'var(--navy)', dessus: '#0A0F20', photo: acc.temoins_image ?? '/img/traversees-dune-vent.jpg' },
+  { id: 'temoins-bas', titre: 'Sortie des témoignages', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.temoins_image ?? '/img/traversees-dune-vent.jpg' },
+  { id: 'lettre-haut', titre: 'Entrée de la lettre', cote: 'haut',
+    couleur: 'var(--navy)', dessus: '#0A0F20', dessous: '#2B3088' },
+  { id: 'art-haut', titre: 'Entrée de l’univers artistique', cote: 'haut',
+    couleur: '#2B3088', dessus: '#2B3088', dessous: '#0A0F20' },
 ];
 const R: Record<string, any> = REGLAGES as any;
 ---
@@ -101,6 +109,17 @@ const R: Record<string, any> = REGLAGES as any;
   })}
 
   <style is:global>
+    /* Les mêmes règles que sur le site, recopiées ici pour ne rien déplacer. */
+    .brosse { position: absolute; left: 0; right: 0; z-index: 2; background-color: currentColor;
+      pointer-events: none;
+      -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
+      mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x; }
+    .brosse--bas { bottom: -1px; }
+    .brosse--haut { top: -1px; transform: scaleY(-1); }
+    .brosse--bas.brosse--retournee { transform: scaleX(-1); }
+    .brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
+    :root { --navy: #0A0F20; --navy2: #0E1530; --surface: #111A38; }
+    * { box-sizing: border-box; }
     body.atelier { background: #080C1A; color: #ECE7DE; font-family: 'Jost', system-ui, sans-serif; padding: 0 0 6rem; }
     .atelier__tete { padding: 2.4rem clamp(1rem, 4vw, 3rem) 1.6rem; border-bottom: 1px solid rgba(236,231,222,0.12); }
     .atelier__tete h1 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0.06em; margin: 0 0 0.5rem; }

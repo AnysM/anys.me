@@ -21,6 +21,14 @@ main > section > div { position: relative; z-index: 2; }
   -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
   mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
 }
+/* Une section qui porte un bord de pinceau se donne l'air qu'il faut :
+   le texte ne vient pas se glisser sous le trait. Les bandes-photo gardent
+   leur cadrage, le trait y passe sur l'image. */
+main > section:not(.breath):not(.temoins-offre--photo):has(> .brosse--haut) {
+  padding-top: clamp(130px, 13vw, 230px); }
+main > section:not(.breath):not(.temoins-offre--photo):has(> .brosse--bas) {
+  padding-bottom: clamp(130px, 13vw, 230px); }
+
 /* Le masque a son bord de pinceau en haut et le plein en dessous.
    En pied de section on le pose tel quel ; en tête on le retourne. */
 .brosse--bas { bottom: -1px; }

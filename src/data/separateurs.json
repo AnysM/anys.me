@@ -54,5 +54,33 @@
     "hauteur": 55,
     "largeur": 100,
     "decalage": 0
+  },
+  "temoins-haut": {
+    "bord": 3,
+    "retourne": false,
+    "hauteur": 40,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "temoins-bas": {
+    "bord": 1,
+    "retourne": true,
+    "hauteur": 40,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "lettre-haut": {
+    "bord": 2,
+    "retourne": false,
+    "hauteur": 22,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "art-haut": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 26,
+    "largeur": 100,
+    "decalage": 0
   }
 }

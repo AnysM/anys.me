@@ -1,6 +1,7 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
 const { temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+import Separateur from './Separateur.astro';
 const carrousel = temoignages.length > 3;
 const seul = temoignages.length === 1;
 // Un seul témoignage : un titre au singulier et une grande citation, au lieu d'une carte isolée.
@@ -10,8 +11,8 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
 {temoignages.length > 0 && (
   <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
     {image && <img class="temoins-offre__fond" src={image} alt="" loading="lazy" />}
-    {image && <div class="brosse brosse--haut brosse--retournee" style="color: var(--navy); --brosse-img:url(/img/brosses/vague-3.svg); --brosse-zoom:140%; --brosse-x:15%" aria-hidden="true"></div>}
-    {image && <div class="brosse brosse--bas" style="color: var(--navy); --brosse-img:url(/img/brosses/vague-2.svg); --brosse-zoom:115%; --brosse-x:70%" aria-hidden="true"></div>}
+    {image && <Separateur id="temoins-haut" cote="haut" couleur="var(--navy)" />}
+    {image && <Separateur id="temoins-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{eyebrow}</p>

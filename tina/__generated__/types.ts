@@ -88,6 +88,10 @@ export type Query = {
   agendaConnection: AgendaConnection;
   offres: Offres;
   offresConnection: OffresConnection;
+  codex: Codex;
+  codexConnection: CodexConnection;
+  artefacts: Artefacts;
+  artefactsConnection: ArtefactsConnection;
   pages: Pages;
   pagesConnection: PagesConnection;
   page_apropos: Page_Apropos;
@@ -102,8 +106,6 @@ export type Query = {
   page_contactConnection: Page_ContactConnection;
   page_agenda: Page_Agenda;
   page_agendaConnection: Page_AgendaConnection;
-  page_partenaires: Page_Partenaires;
-  page_partenairesConnection: Page_PartenairesConnection;
 };
 
 
@@ -155,6 +157,36 @@ export type QueryOffresConnectionArgs = {
   last?: InputMaybe<Scalars['Float']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<OffresFilter>;
+};
+
+
+export type QueryCodexArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryCodexConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<CodexFilter>;
+};
+
+
+export type QueryArtefactsArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryArtefactsConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ArtefactsFilter>;
 };
 
 
@@ -262,24 +294,11 @@ export type QueryPage_AgendaConnectionArgs = {
   filter?: InputMaybe<Page_AgendaFilter>;
 };
 
-
-export type QueryPage_PartenairesArgs = {
-  relativePath?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryPage_PartenairesConnectionArgs = {
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<Page_PartenairesFilter>;
-};
-
 export type DocumentFilter = {
   agenda?: InputMaybe<AgendaFilter>;
   offres?: InputMaybe<OffresFilter>;
+  codex?: InputMaybe<CodexFilter>;
+  artefacts?: InputMaybe<ArtefactsFilter>;
   pages?: InputMaybe<PagesFilter>;
   page_apropos?: InputMaybe<Page_AproposFilter>;
   page_soins?: InputMaybe<Page_SoinsFilter>;
@@ -287,7 +306,6 @@ export type DocumentFilter = {
   page_quintessence?: InputMaybe<Page_QuintessenceFilter>;
   page_contact?: InputMaybe<Page_ContactFilter>;
   page_agenda?: InputMaybe<Page_AgendaFilter>;
-  page_partenaires?: InputMaybe<Page_PartenairesFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -327,7 +345,42 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Agenda | Offres | Pages | Page_Apropos | Page_Soins | Page_Accompagnement | Page_Quintessence | Page_Contact | Page_Agenda | Page_Partenaires | Folder;
+export type DocumentNode = Agenda | Offres | Codex | Artefacts | Pages | Page_Apropos | Page_Soins | Page_Accompagnement | Page_Quintessence | Page_Contact | Page_Agenda | Folder;
+
+export type AgendaSeances = {
+  __typename?: 'AgendaSeances';
+  date?: Maybe<Scalars['String']['output']>;
+  heure?: Maybe<Scalars['String']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+};
+
+export type AgendaTarifs = {
+  __typename?: 'AgendaTarifs';
+  label?: Maybe<Scalars['String']['output']>;
+  prix?: Maybe<Scalars['String']['output']>;
+  detail?: Maybe<Scalars['String']['output']>;
+  avant?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type AgendaCitations = {
+  __typename?: 'AgendaCitations';
+  texte?: Maybe<Scalars['String']['output']>;
+  source?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+};
+
+export type AgendaTemoignages = {
+  __typename?: 'AgendaTemoignages';
+  t?: Maybe<Scalars['String']['output']>;
+  n?: Maybe<Scalars['String']['output']>;
+  c?: Maybe<Scalars['String']['output']>;
+};
+
+export type AgendaFaq = {
+  __typename?: 'AgendaFaq';
+  q?: Maybe<Scalars['String']['output']>;
+  r?: Maybe<Scalars['String']['output']>;
+};
 
 export type Agenda = Node & Document & {
   __typename?: 'Agenda';
@@ -340,14 +393,23 @@ export type Agenda = Node & Document & {
   lieu?: Maybe<Scalars['String']['output']>;
   prix?: Maybe<Scalars['String']['output']>;
   earlybird?: Maybe<Scalars['String']['output']>;
+  seances?: Maybe<Array<Maybe<AgendaSeances>>>;
+  tarifs?: Maybe<Array<Maybe<AgendaTarifs>>>;
   cta?: Maybe<Scalars['String']['output']>;
   site?: Maybe<Scalars['String']['output']>;
   lien?: Maybe<Scalars['String']['output']>;
   resume?: Maybe<Scalars['String']['output']>;
+  citations?: Maybe<Array<Maybe<AgendaCitations>>>;
   image?: Maybe<Scalars['String']['output']>;
+  image_hero?: Maybe<Scalars['String']['output']>;
+  accroche?: Maybe<Scalars['String']['output']>;
   reservable?: Maybe<Scalars['Boolean']['output']>;
   ordre?: Maybe<Scalars['Float']['output']>;
   publie?: Maybe<Scalars['Boolean']['output']>;
+  temoignages?: Maybe<Array<Maybe<AgendaTemoignages>>>;
+  faq?: Maybe<Array<Maybe<AgendaFaq>>>;
+  accueil?: Maybe<Scalars['Boolean']['output']>;
+  seuil?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['RichText']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -369,6 +431,24 @@ export type DatetimeFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type AgendaSeancesFilter = {
+  date?: InputMaybe<DatetimeFilter>;
+  heure?: InputMaybe<StringFilter>;
+  note?: InputMaybe<StringFilter>;
+};
+
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type AgendaTarifsFilter = {
+  label?: InputMaybe<StringFilter>;
+  prix?: InputMaybe<StringFilter>;
+  detail?: InputMaybe<StringFilter>;
+  avant?: InputMaybe<BooleanFilter>;
+};
+
 export type ImageFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -376,9 +456,10 @@ export type ImageFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type BooleanFilter = {
-  eq?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
+export type AgendaCitationsFilter = {
+  texte?: InputMaybe<StringFilter>;
+  source?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
 };
 
 export type NumberFilter = {
@@ -389,6 +470,17 @@ export type NumberFilter = {
   eq?: InputMaybe<Scalars['Float']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+};
+
+export type AgendaTemoignagesFilter = {
+  t?: InputMaybe<StringFilter>;
+  n?: InputMaybe<StringFilter>;
+  c?: InputMaybe<StringFilter>;
+};
+
+export type AgendaFaqFilter = {
+  q?: InputMaybe<StringFilter>;
+  r?: InputMaybe<StringFilter>;
 };
 
 export type RichTextFilter = {
@@ -407,14 +499,23 @@ export type AgendaFilter = {
   lieu?: InputMaybe<StringFilter>;
   prix?: InputMaybe<StringFilter>;
   earlybird?: InputMaybe<StringFilter>;
+  seances?: InputMaybe<AgendaSeancesFilter>;
+  tarifs?: InputMaybe<AgendaTarifsFilter>;
   cta?: InputMaybe<StringFilter>;
   site?: InputMaybe<StringFilter>;
   lien?: InputMaybe<StringFilter>;
   resume?: InputMaybe<StringFilter>;
+  citations?: InputMaybe<AgendaCitationsFilter>;
   image?: InputMaybe<ImageFilter>;
+  image_hero?: InputMaybe<ImageFilter>;
+  accroche?: InputMaybe<StringFilter>;
   reservable?: InputMaybe<BooleanFilter>;
   ordre?: InputMaybe<NumberFilter>;
   publie?: InputMaybe<BooleanFilter>;
+  temoignages?: InputMaybe<AgendaTemoignagesFilter>;
+  faq?: InputMaybe<AgendaFaqFilter>;
+  accueil?: InputMaybe<BooleanFilter>;
+  seuil?: InputMaybe<StringFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
 
@@ -436,6 +537,48 @@ export type OffresTarifs = {
   label?: Maybe<Scalars['String']['output']>;
   prix?: Maybe<Scalars['String']['output']>;
   detail?: Maybe<Scalars['String']['output']>;
+  groupe?: Maybe<Scalars['String']['output']>;
+  avant?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type OffresEtapes = {
+  __typename?: 'OffresEtapes';
+  titre?: Maybe<Scalars['String']['output']>;
+  texte?: Maybe<Scalars['String']['output']>;
+  picto?: Maybe<Scalars['String']['output']>;
+};
+
+export type OffresTemoignages = {
+  __typename?: 'OffresTemoignages';
+  t?: Maybe<Scalars['String']['output']>;
+  n?: Maybe<Scalars['String']['output']>;
+  c?: Maybe<Scalars['String']['output']>;
+};
+
+export type OffresFaq = {
+  __typename?: 'OffresFaq';
+  q?: Maybe<Scalars['String']['output']>;
+  r?: Maybe<Scalars['String']['output']>;
+};
+
+export type OffresApproche = {
+  __typename?: 'OffresApproche';
+  titre?: Maybe<Scalars['String']['output']>;
+  cadence?: Maybe<Scalars['String']['output']>;
+  texte?: Maybe<Scalars['String']['output']>;
+};
+
+export type OffresCap = {
+  __typename?: 'OffresCap';
+  titre?: Maybe<Scalars['String']['output']>;
+  posture?: Maybe<Scalars['String']['output']>;
+  texte?: Maybe<Scalars['String']['output']>;
+};
+
+export type OffresCadre_Items = {
+  __typename?: 'OffresCadre_items';
+  titre?: Maybe<Scalars['String']['output']>;
+  texte?: Maybe<Scalars['String']['output']>;
 };
 
 export type Offres = Node & Document & {
@@ -444,15 +587,57 @@ export type Offres = Node & Document & {
   categorie: Scalars['String']['output'];
   tag?: Maybe<Scalars['String']['output']>;
   resume?: Maybe<Scalars['String']['output']>;
+  accroche?: Maybe<Scalars['String']['output']>;
   prix?: Maybe<Scalars['String']['output']>;
   duree?: Maybe<Scalars['String']['output']>;
   format?: Maybe<Scalars['String']['output']>;
   tarifs?: Maybe<Array<Maybe<OffresTarifs>>>;
+  etapes?: Maybe<Array<Maybe<OffresEtapes>>>;
   image?: Maybe<Scalars['String']['output']>;
   lien?: Maybe<Scalars['String']['output']>;
   reservable?: Maybe<Scalars['Boolean']['output']>;
   ordre?: Maybe<Scalars['Float']['output']>;
   publie?: Maybe<Scalars['Boolean']['output']>;
+  temoignages?: Maybe<Array<Maybe<OffresTemoignages>>>;
+  faq?: Maybe<Array<Maybe<OffresFaq>>>;
+  benefices?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  pourqui_titre?: Maybe<Scalars['String']['output']>;
+  pourqui?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  pourtoi?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  pourtoi_note?: Maybe<Scalars['String']['output']>;
+  places?: Maybe<Scalars['String']['output']>;
+  pourtoi_contre_titre?: Maybe<Scalars['String']['output']>;
+  pourtoi_contre?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  masques_titre?: Maybe<Scalars['String']['output']>;
+  masques?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  chemin_eyebrow?: Maybe<Scalars['String']['output']>;
+  chemin_titre?: Maybe<Scalars['String']['output']>;
+  chemin?: Maybe<Scalars['String']['output']>;
+  chemin_appuis?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  approche_eyebrow?: Maybe<Scalars['String']['output']>;
+  approche_titre?: Maybe<Scalars['String']['output']>;
+  approche_intro?: Maybe<Scalars['String']['output']>;
+  approche?: Maybe<Array<Maybe<OffresApproche>>>;
+  cap_eyebrow?: Maybe<Scalars['String']['output']>;
+  cap_titre?: Maybe<Scalars['String']['output']>;
+  cap?: Maybe<Array<Maybe<OffresCap>>>;
+  cadre?: Maybe<Scalars['String']['output']>;
+  cadre_items?: Maybe<Array<Maybe<OffresCadre_Items>>>;
+  explore?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  action?: Maybe<Scalars['String']['output']>;
+  cta?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  page?: Maybe<Scalars['String']['output']>;
+  intention_eyebrow?: Maybe<Scalars['String']['output']>;
+  intention?: Maybe<Scalars['String']['output']>;
+  nom_titre?: Maybe<Scalars['String']['output']>;
+  nom_texte?: Maybe<Scalars['String']['output']>;
+  cap_note?: Maybe<Scalars['String']['output']>;
+  temoins_titre?: Maybe<Scalars['String']['output']>;
+  invite_titre?: Maybe<Scalars['String']['output']>;
+  invite_texte?: Maybe<Scalars['String']['output']>;
+  accueil?: Maybe<Scalars['Boolean']['output']>;
+  seuil?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['RichText']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
@@ -463,6 +648,42 @@ export type OffresTarifsFilter = {
   label?: InputMaybe<StringFilter>;
   prix?: InputMaybe<StringFilter>;
   detail?: InputMaybe<StringFilter>;
+  groupe?: InputMaybe<StringFilter>;
+  avant?: InputMaybe<BooleanFilter>;
+};
+
+export type OffresEtapesFilter = {
+  titre?: InputMaybe<StringFilter>;
+  texte?: InputMaybe<StringFilter>;
+  picto?: InputMaybe<StringFilter>;
+};
+
+export type OffresTemoignagesFilter = {
+  t?: InputMaybe<StringFilter>;
+  n?: InputMaybe<StringFilter>;
+  c?: InputMaybe<StringFilter>;
+};
+
+export type OffresFaqFilter = {
+  q?: InputMaybe<StringFilter>;
+  r?: InputMaybe<StringFilter>;
+};
+
+export type OffresApprocheFilter = {
+  titre?: InputMaybe<StringFilter>;
+  cadence?: InputMaybe<StringFilter>;
+  texte?: InputMaybe<StringFilter>;
+};
+
+export type OffresCapFilter = {
+  titre?: InputMaybe<StringFilter>;
+  posture?: InputMaybe<StringFilter>;
+  texte?: InputMaybe<StringFilter>;
+};
+
+export type OffresCadre_ItemsFilter = {
+  titre?: InputMaybe<StringFilter>;
+  texte?: InputMaybe<StringFilter>;
 };
 
 export type OffresFilter = {
@@ -470,15 +691,57 @@ export type OffresFilter = {
   categorie?: InputMaybe<StringFilter>;
   tag?: InputMaybe<StringFilter>;
   resume?: InputMaybe<StringFilter>;
+  accroche?: InputMaybe<StringFilter>;
   prix?: InputMaybe<StringFilter>;
   duree?: InputMaybe<StringFilter>;
   format?: InputMaybe<StringFilter>;
   tarifs?: InputMaybe<OffresTarifsFilter>;
+  etapes?: InputMaybe<OffresEtapesFilter>;
   image?: InputMaybe<ImageFilter>;
   lien?: InputMaybe<StringFilter>;
   reservable?: InputMaybe<BooleanFilter>;
   ordre?: InputMaybe<NumberFilter>;
   publie?: InputMaybe<BooleanFilter>;
+  temoignages?: InputMaybe<OffresTemoignagesFilter>;
+  faq?: InputMaybe<OffresFaqFilter>;
+  benefices?: InputMaybe<StringFilter>;
+  pourqui_titre?: InputMaybe<StringFilter>;
+  pourqui?: InputMaybe<StringFilter>;
+  pourtoi?: InputMaybe<StringFilter>;
+  pourtoi_note?: InputMaybe<StringFilter>;
+  places?: InputMaybe<StringFilter>;
+  pourtoi_contre_titre?: InputMaybe<StringFilter>;
+  pourtoi_contre?: InputMaybe<StringFilter>;
+  masques_titre?: InputMaybe<StringFilter>;
+  masques?: InputMaybe<StringFilter>;
+  chemin_eyebrow?: InputMaybe<StringFilter>;
+  chemin_titre?: InputMaybe<StringFilter>;
+  chemin?: InputMaybe<StringFilter>;
+  chemin_appuis?: InputMaybe<StringFilter>;
+  approche_eyebrow?: InputMaybe<StringFilter>;
+  approche_titre?: InputMaybe<StringFilter>;
+  approche_intro?: InputMaybe<StringFilter>;
+  approche?: InputMaybe<OffresApprocheFilter>;
+  cap_eyebrow?: InputMaybe<StringFilter>;
+  cap_titre?: InputMaybe<StringFilter>;
+  cap?: InputMaybe<OffresCapFilter>;
+  cadre?: InputMaybe<StringFilter>;
+  cadre_items?: InputMaybe<OffresCadre_ItemsFilter>;
+  explore?: InputMaybe<StringFilter>;
+  action?: InputMaybe<StringFilter>;
+  cta?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  page?: InputMaybe<StringFilter>;
+  intention_eyebrow?: InputMaybe<StringFilter>;
+  intention?: InputMaybe<StringFilter>;
+  nom_titre?: InputMaybe<StringFilter>;
+  nom_texte?: InputMaybe<StringFilter>;
+  cap_note?: InputMaybe<StringFilter>;
+  temoins_titre?: InputMaybe<StringFilter>;
+  invite_titre?: InputMaybe<StringFilter>;
+  invite_texte?: InputMaybe<StringFilter>;
+  accueil?: InputMaybe<BooleanFilter>;
+  seuil?: InputMaybe<StringFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
 
@@ -495,6 +758,202 @@ export type OffresConnection = Connection & {
   edges?: Maybe<Array<Maybe<OffresConnectionEdges>>>;
 };
 
+export type CodexOffresOffre = Offres;
+
+export type CodexOffres = {
+  __typename?: 'CodexOffres';
+  offre?: Maybe<CodexOffresOffre>;
+};
+
+export type CodexAgendaEvenement = Agenda;
+
+export type CodexAgenda = {
+  __typename?: 'CodexAgenda';
+  evenement?: Maybe<CodexAgendaEvenement>;
+};
+
+export type CodexLiensFiche = Codex;
+
+export type CodexLiens = {
+  __typename?: 'CodexLiens';
+  fiche?: Maybe<CodexLiensFiche>;
+};
+
+export type Codex = Node & Document & {
+  __typename?: 'Codex';
+  titre: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  univers?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  question?: Maybe<Scalars['String']['output']>;
+  resume?: Maybe<Scalars['String']['output']>;
+  alias?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  offres?: Maybe<Array<Maybe<CodexOffres>>>;
+  agenda?: Maybe<Array<Maybe<CodexAgenda>>>;
+  liens?: Maybe<Array<Maybe<CodexLiens>>>;
+  image?: Maybe<Scalars['String']['output']>;
+  lien_externe?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  logo_blanc?: Maybe<Scalars['Boolean']['output']>;
+  date?: Maybe<Scalars['String']['output']>;
+  seo_titre?: Maybe<Scalars['String']['output']>;
+  seo_description?: Maybe<Scalars['String']['output']>;
+  ordre?: Maybe<Scalars['Float']['output']>;
+  publie?: Maybe<Scalars['Boolean']['output']>;
+  body?: Maybe<Scalars['RichText']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type CodexOffresOffreFilter = {
+  offres?: InputMaybe<OffresFilter>;
+};
+
+export type CodexOffresFilter = {
+  offre?: InputMaybe<CodexOffresOffreFilter>;
+};
+
+export type CodexAgendaEvenementFilter = {
+  agenda?: InputMaybe<AgendaFilter>;
+};
+
+export type CodexAgendaFilter = {
+  evenement?: InputMaybe<CodexAgendaEvenementFilter>;
+};
+
+export type CodexLiensFicheFilter = {
+  codex?: InputMaybe<CodexFilter>;
+};
+
+export type CodexLiensFilter = {
+  fiche?: InputMaybe<CodexLiensFicheFilter>;
+};
+
+export type CodexFilter = {
+  titre?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
+  univers?: InputMaybe<StringFilter>;
+  question?: InputMaybe<StringFilter>;
+  resume?: InputMaybe<StringFilter>;
+  alias?: InputMaybe<StringFilter>;
+  offres?: InputMaybe<CodexOffresFilter>;
+  agenda?: InputMaybe<CodexAgendaFilter>;
+  liens?: InputMaybe<CodexLiensFilter>;
+  image?: InputMaybe<ImageFilter>;
+  lien_externe?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  logo_blanc?: InputMaybe<BooleanFilter>;
+  date?: InputMaybe<DatetimeFilter>;
+  seo_titre?: InputMaybe<StringFilter>;
+  seo_description?: InputMaybe<StringFilter>;
+  ordre?: InputMaybe<NumberFilter>;
+  publie?: InputMaybe<BooleanFilter>;
+  body?: InputMaybe<RichTextFilter>;
+};
+
+export type CodexConnectionEdges = {
+  __typename?: 'CodexConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Codex>;
+};
+
+export type CodexConnection = Connection & {
+  __typename?: 'CodexConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<CodexConnectionEdges>>>;
+};
+
+export type ArtefactsCodexFiche = Codex;
+
+export type ArtefactsCodex = {
+  __typename?: 'ArtefactsCodex';
+  fiche?: Maybe<ArtefactsCodexFiche>;
+};
+
+export type ArtefactsTirages = {
+  __typename?: 'ArtefactsTirages';
+  format?: Maybe<Scalars['String']['output']>;
+  prix?: Maybe<Scalars['String']['output']>;
+  detail?: Maybe<Scalars['String']['output']>;
+};
+
+export type Artefacts = Node & Document & {
+  __typename?: 'Artefacts';
+  titre: Scalars['String']['output'];
+  sous_titre?: Maybe<Scalars['String']['output']>;
+  images?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  naissance?: Maybe<Scalars['String']['output']>;
+  annee?: Maybe<Scalars['String']['output']>;
+  technique?: Maybe<Scalars['String']['output']>;
+  dimensions?: Maybe<Scalars['String']['output']>;
+  codex?: Maybe<Array<Maybe<ArtefactsCodex>>>;
+  original?: Maybe<Scalars['String']['output']>;
+  original_prix?: Maybe<Scalars['String']['output']>;
+  lien_boutique?: Maybe<Scalars['String']['output']>;
+  tirages_statut?: Maybe<Scalars['String']['output']>;
+  tirages?: Maybe<Array<Maybe<ArtefactsTirages>>>;
+  ordre?: Maybe<Scalars['Float']['output']>;
+  publie?: Maybe<Scalars['Boolean']['output']>;
+  body?: Maybe<Scalars['RichText']['output']>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type ArtefactsCodexFicheFilter = {
+  codex?: InputMaybe<CodexFilter>;
+};
+
+export type ArtefactsCodexFilter = {
+  fiche?: InputMaybe<ArtefactsCodexFicheFilter>;
+};
+
+export type ArtefactsTiragesFilter = {
+  format?: InputMaybe<StringFilter>;
+  prix?: InputMaybe<StringFilter>;
+  detail?: InputMaybe<StringFilter>;
+};
+
+export type ArtefactsFilter = {
+  titre?: InputMaybe<StringFilter>;
+  sous_titre?: InputMaybe<StringFilter>;
+  images?: InputMaybe<ImageFilter>;
+  naissance?: InputMaybe<StringFilter>;
+  annee?: InputMaybe<StringFilter>;
+  technique?: InputMaybe<StringFilter>;
+  dimensions?: InputMaybe<StringFilter>;
+  codex?: InputMaybe<ArtefactsCodexFilter>;
+  original?: InputMaybe<StringFilter>;
+  original_prix?: InputMaybe<StringFilter>;
+  lien_boutique?: InputMaybe<StringFilter>;
+  tirages_statut?: InputMaybe<StringFilter>;
+  tirages?: InputMaybe<ArtefactsTiragesFilter>;
+  ordre?: InputMaybe<NumberFilter>;
+  publie?: InputMaybe<BooleanFilter>;
+  body?: InputMaybe<RichTextFilter>;
+};
+
+export type ArtefactsConnectionEdges = {
+  __typename?: 'ArtefactsConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Artefacts>;
+};
+
+export type ArtefactsConnection = Connection & {
+  __typename?: 'ArtefactsConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<ArtefactsConnectionEdges>>>;
+};
+
+export type PagesDifference = {
+  __typename?: 'PagesDifference';
+  titre?: Maybe<Scalars['String']['output']>;
+  piege?: Maybe<Scalars['String']['output']>;
+  texte?: Maybe<Scalars['String']['output']>;
+};
+
 export type PagesTemoins = {
   __typename?: 'PagesTemoins';
   t?: Maybe<Scalars['String']['output']>;
@@ -506,14 +965,13 @@ export type PagesPiliers = {
   __typename?: 'PagesPiliers';
   nom?: Maybe<Scalars['String']['output']>;
   note?: Maybe<Scalars['String']['output']>;
+  picto?: Maybe<Scalars['String']['output']>;
 };
 
-export type PagesPropositions = {
-  __typename?: 'PagesPropositions';
+export type PagesSeuils = {
+  __typename?: 'PagesSeuils';
   titre?: Maybe<Scalars['String']['output']>;
   texte?: Maybe<Scalars['String']['output']>;
-  cta?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
 };
 
 export type Pages = Node & Document & {
@@ -535,26 +993,52 @@ export type Pages = Node & Document & {
   parcours_titre?: Maybe<Scalars['String']['output']>;
   parcours_texte?: Maybe<Scalars['String']['output']>;
   parcours_cta?: Maybe<Scalars['String']['output']>;
+  coeur_eyebrow?: Maybe<Scalars['String']['output']>;
+  coeur_titre?: Maybe<Scalars['String']['output']>;
+  coeur?: Maybe<Scalars['String']['output']>;
+  venir_eyebrow?: Maybe<Scalars['String']['output']>;
+  venir_titre?: Maybe<Scalars['String']['output']>;
+  venir_items?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  posture?: Maybe<Scalars['String']['output']>;
+  difference_eyebrow?: Maybe<Scalars['String']['output']>;
+  difference_titre?: Maybe<Scalars['String']['output']>;
+  difference?: Maybe<Array<Maybe<PagesDifference>>>;
   piliers_eyebrow?: Maybe<Scalars['String']['output']>;
   agenda_eyebrow?: Maybe<Scalars['String']['output']>;
+  agenda_titre?: Maybe<Scalars['String']['output']>;
   art_eyebrow?: Maybe<Scalars['String']['output']>;
   art_titre?: Maybe<Scalars['String']['output']>;
   temoins_eyebrow?: Maybe<Scalars['String']['output']>;
+  temoins_image?: Maybe<Scalars['String']['output']>;
+  avis_note?: Maybe<Scalars['String']['output']>;
+  avis_nombre?: Maybe<Scalars['Float']['output']>;
+  avis_lien?: Maybe<Scalars['String']['output']>;
   temoins?: Maybe<Array<Maybe<PagesTemoins>>>;
-  partenaires_eyebrow?: Maybe<Scalars['String']['output']>;
   form_eyebrow?: Maybe<Scalars['String']['output']>;
   piliers_titre?: Maybe<Scalars['String']['output']>;
+  piliers_centre?: Maybe<Scalars['String']['output']>;
   piliers?: Maybe<Array<Maybe<PagesPiliers>>>;
   citation1?: Maybe<Scalars['String']['output']>;
-  propositions_titre?: Maybe<Scalars['String']['output']>;
-  propositions?: Maybe<Array<Maybe<PagesPropositions>>>;
+  seuils_eyebrow?: Maybe<Scalars['String']['output']>;
+  seuils_titre?: Maybe<Scalars['String']['output']>;
+  seuils?: Maybe<Array<Maybe<PagesSeuils>>>;
+  codex_eyebrow?: Maybe<Scalars['String']['output']>;
+  codex_titre?: Maybe<Scalars['String']['output']>;
+  codex_texte?: Maybe<Scalars['String']['output']>;
   citation2?: Maybe<Scalars['String']['output']>;
+  citation3?: Maybe<Scalars['String']['output']>;
   citation_contact?: Maybe<Scalars['String']['output']>;
   form_titre?: Maybe<Scalars['String']['output']>;
   form_intro?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type PagesDifferenceFilter = {
+  titre?: InputMaybe<StringFilter>;
+  piege?: InputMaybe<StringFilter>;
+  texte?: InputMaybe<StringFilter>;
 };
 
 export type PagesTemoinsFilter = {
@@ -566,13 +1050,12 @@ export type PagesTemoinsFilter = {
 export type PagesPiliersFilter = {
   nom?: InputMaybe<StringFilter>;
   note?: InputMaybe<StringFilter>;
+  picto?: InputMaybe<ImageFilter>;
 };
 
-export type PagesPropositionsFilter = {
+export type PagesSeuilsFilter = {
   titre?: InputMaybe<StringFilter>;
   texte?: InputMaybe<StringFilter>;
-  cta?: InputMaybe<StringFilter>;
-  image?: InputMaybe<ImageFilter>;
 };
 
 export type PagesFilter = {
@@ -593,20 +1076,40 @@ export type PagesFilter = {
   parcours_titre?: InputMaybe<StringFilter>;
   parcours_texte?: InputMaybe<StringFilter>;
   parcours_cta?: InputMaybe<StringFilter>;
+  coeur_eyebrow?: InputMaybe<StringFilter>;
+  coeur_titre?: InputMaybe<StringFilter>;
+  coeur?: InputMaybe<StringFilter>;
+  venir_eyebrow?: InputMaybe<StringFilter>;
+  venir_titre?: InputMaybe<StringFilter>;
+  venir_items?: InputMaybe<StringFilter>;
+  posture?: InputMaybe<StringFilter>;
+  difference_eyebrow?: InputMaybe<StringFilter>;
+  difference_titre?: InputMaybe<StringFilter>;
+  difference?: InputMaybe<PagesDifferenceFilter>;
   piliers_eyebrow?: InputMaybe<StringFilter>;
   agenda_eyebrow?: InputMaybe<StringFilter>;
+  agenda_titre?: InputMaybe<StringFilter>;
   art_eyebrow?: InputMaybe<StringFilter>;
   art_titre?: InputMaybe<StringFilter>;
   temoins_eyebrow?: InputMaybe<StringFilter>;
+  temoins_image?: InputMaybe<ImageFilter>;
+  avis_note?: InputMaybe<StringFilter>;
+  avis_nombre?: InputMaybe<NumberFilter>;
+  avis_lien?: InputMaybe<StringFilter>;
   temoins?: InputMaybe<PagesTemoinsFilter>;
-  partenaires_eyebrow?: InputMaybe<StringFilter>;
   form_eyebrow?: InputMaybe<StringFilter>;
   piliers_titre?: InputMaybe<StringFilter>;
+  piliers_centre?: InputMaybe<StringFilter>;
   piliers?: InputMaybe<PagesPiliersFilter>;
   citation1?: InputMaybe<StringFilter>;
-  propositions_titre?: InputMaybe<StringFilter>;
-  propositions?: InputMaybe<PagesPropositionsFilter>;
+  seuils_eyebrow?: InputMaybe<StringFilter>;
+  seuils_titre?: InputMaybe<StringFilter>;
+  seuils?: InputMaybe<PagesSeuilsFilter>;
+  codex_eyebrow?: InputMaybe<StringFilter>;
+  codex_titre?: InputMaybe<StringFilter>;
+  codex_texte?: InputMaybe<StringFilter>;
   citation2?: InputMaybe<StringFilter>;
+  citation3?: InputMaybe<StringFilter>;
   citation_contact?: InputMaybe<StringFilter>;
   form_titre?: InputMaybe<StringFilter>;
   form_intro?: InputMaybe<StringFilter>;
@@ -625,11 +1128,19 @@ export type PagesConnection = Connection & {
   edges?: Maybe<Array<Maybe<PagesConnectionEdges>>>;
 };
 
+export type Page_AproposChapitresEchosFiche = Codex;
+
+export type Page_AproposChapitresEchos = {
+  __typename?: 'Page_aproposChapitresEchos';
+  fiche?: Maybe<Page_AproposChapitresEchosFiche>;
+};
+
 export type Page_AproposChapitres = {
   __typename?: 'Page_aproposChapitres';
   titre?: Maybe<Scalars['String']['output']>;
   texte?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  echos?: Maybe<Array<Maybe<Page_AproposChapitresEchos>>>;
 };
 
 export type Page_Apropos = Node & Document & {
@@ -643,10 +1154,19 @@ export type Page_Apropos = Node & Document & {
   _values: Scalars['JSON']['output'];
 };
 
+export type Page_AproposChapitresEchosFicheFilter = {
+  codex?: InputMaybe<CodexFilter>;
+};
+
+export type Page_AproposChapitresEchosFilter = {
+  fiche?: InputMaybe<Page_AproposChapitresEchosFicheFilter>;
+};
+
 export type Page_AproposChapitresFilter = {
   titre?: InputMaybe<StringFilter>;
   texte?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
+  echos?: InputMaybe<Page_AproposChapitresEchosFilter>;
 };
 
 export type Page_AproposFilter = {
@@ -829,6 +1349,8 @@ export type Page_Contact = Node & Document & {
   appel_eyebrow?: Maybe<Scalars['String']['output']>;
   appel_texte?: Maybe<Scalars['String']['output']>;
   appel_cta?: Maybe<Scalars['String']['output']>;
+  appel_lien?: Maybe<Scalars['String']['output']>;
+  appel_mention?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -842,6 +1364,8 @@ export type Page_ContactFilter = {
   appel_eyebrow?: InputMaybe<StringFilter>;
   appel_texte?: InputMaybe<StringFilter>;
   appel_cta?: InputMaybe<StringFilter>;
+  appel_lien?: InputMaybe<StringFilter>;
+  appel_mention?: InputMaybe<StringFilter>;
 };
 
 export type Page_ContactConnectionEdges = {
@@ -886,56 +1410,6 @@ export type Page_AgendaConnection = Connection & {
   edges?: Maybe<Array<Maybe<Page_AgendaConnectionEdges>>>;
 };
 
-export type Page_PartenairesPartenaires = {
-  __typename?: 'Page_partenairesPartenaires';
-  n?: Maybe<Scalars['String']['output']>;
-  d?: Maybe<Scalars['String']['output']>;
-  lien?: Maybe<Scalars['String']['output']>;
-  logo?: Maybe<Scalars['String']['output']>;
-  logoWhite?: Maybe<Scalars['Boolean']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-};
-
-export type Page_Partenaires = Node & Document & {
-  __typename?: 'Page_partenaires';
-  hero_eyebrow?: Maybe<Scalars['String']['output']>;
-  hero_titre?: Maybe<Scalars['String']['output']>;
-  hero_image?: Maybe<Scalars['String']['output']>;
-  partenaires?: Maybe<Array<Maybe<Page_PartenairesPartenaires>>>;
-  id: Scalars['ID']['output'];
-  _sys: SystemInfo;
-  _values: Scalars['JSON']['output'];
-};
-
-export type Page_PartenairesPartenairesFilter = {
-  n?: InputMaybe<StringFilter>;
-  d?: InputMaybe<StringFilter>;
-  lien?: InputMaybe<StringFilter>;
-  logo?: InputMaybe<ImageFilter>;
-  logoWhite?: InputMaybe<BooleanFilter>;
-  image?: InputMaybe<ImageFilter>;
-};
-
-export type Page_PartenairesFilter = {
-  hero_eyebrow?: InputMaybe<StringFilter>;
-  hero_titre?: InputMaybe<StringFilter>;
-  hero_image?: InputMaybe<ImageFilter>;
-  partenaires?: InputMaybe<Page_PartenairesPartenairesFilter>;
-};
-
-export type Page_PartenairesConnectionEdges = {
-  __typename?: 'Page_partenairesConnectionEdges';
-  cursor: Scalars['String']['output'];
-  node?: Maybe<Page_Partenaires>;
-};
-
-export type Page_PartenairesConnection = Connection & {
-  __typename?: 'Page_partenairesConnection';
-  pageInfo: PageInfo;
-  totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<Page_PartenairesConnectionEdges>>>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -947,6 +1421,10 @@ export type Mutation = {
   createAgenda: Agenda;
   updateOffres: Offres;
   createOffres: Offres;
+  updateCodex: Codex;
+  createCodex: Codex;
+  updateArtefacts: Artefacts;
+  createArtefacts: Artefacts;
   updatePages: Pages;
   createPages: Pages;
   updatePage_apropos: Page_Apropos;
@@ -961,8 +1439,6 @@ export type Mutation = {
   createPage_contact: Page_Contact;
   updatePage_agenda: Page_Agenda;
   createPage_agenda: Page_Agenda;
-  updatePage_partenaires: Page_Partenaires;
-  createPage_partenaires: Page_Partenaires;
 };
 
 
@@ -1020,6 +1496,30 @@ export type MutationUpdateOffresArgs = {
 export type MutationCreateOffresArgs = {
   relativePath: Scalars['String']['input'];
   params: OffresMutation;
+};
+
+
+export type MutationUpdateCodexArgs = {
+  relativePath: Scalars['String']['input'];
+  params: CodexMutation;
+};
+
+
+export type MutationCreateCodexArgs = {
+  relativePath: Scalars['String']['input'];
+  params: CodexMutation;
+};
+
+
+export type MutationUpdateArtefactsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: ArtefactsMutation;
+};
+
+
+export type MutationCreateArtefactsArgs = {
+  relativePath: Scalars['String']['input'];
+  params: ArtefactsMutation;
 };
 
 
@@ -1106,21 +1606,11 @@ export type MutationCreatePage_AgendaArgs = {
   params: Page_AgendaMutation;
 };
 
-
-export type MutationUpdatePage_PartenairesArgs = {
-  relativePath: Scalars['String']['input'];
-  params: Page_PartenairesMutation;
-};
-
-
-export type MutationCreatePage_PartenairesArgs = {
-  relativePath: Scalars['String']['input'];
-  params: Page_PartenairesMutation;
-};
-
 export type DocumentUpdateMutation = {
   agenda?: InputMaybe<AgendaMutation>;
   offres?: InputMaybe<OffresMutation>;
+  codex?: InputMaybe<CodexMutation>;
+  artefacts?: InputMaybe<ArtefactsMutation>;
   pages?: InputMaybe<PagesMutation>;
   page_apropos?: InputMaybe<Page_AproposMutation>;
   page_soins?: InputMaybe<Page_SoinsMutation>;
@@ -1128,13 +1618,14 @@ export type DocumentUpdateMutation = {
   page_quintessence?: InputMaybe<Page_QuintessenceMutation>;
   page_contact?: InputMaybe<Page_ContactMutation>;
   page_agenda?: InputMaybe<Page_AgendaMutation>;
-  page_partenaires?: InputMaybe<Page_PartenairesMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type DocumentMutation = {
   agenda?: InputMaybe<AgendaMutation>;
   offres?: InputMaybe<OffresMutation>;
+  codex?: InputMaybe<CodexMutation>;
+  artefacts?: InputMaybe<ArtefactsMutation>;
   pages?: InputMaybe<PagesMutation>;
   page_apropos?: InputMaybe<Page_AproposMutation>;
   page_soins?: InputMaybe<Page_SoinsMutation>;
@@ -1142,7 +1633,36 @@ export type DocumentMutation = {
   page_quintessence?: InputMaybe<Page_QuintessenceMutation>;
   page_contact?: InputMaybe<Page_ContactMutation>;
   page_agenda?: InputMaybe<Page_AgendaMutation>;
-  page_partenaires?: InputMaybe<Page_PartenairesMutation>;
+};
+
+export type AgendaSeancesMutation = {
+  date?: InputMaybe<Scalars['String']['input']>;
+  heure?: InputMaybe<Scalars['String']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AgendaTarifsMutation = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  prix?: InputMaybe<Scalars['String']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+  avant?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type AgendaCitationsMutation = {
+  texte?: InputMaybe<Scalars['String']['input']>;
+  source?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AgendaTemoignagesMutation = {
+  t?: InputMaybe<Scalars['String']['input']>;
+  n?: InputMaybe<Scalars['String']['input']>;
+  c?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type AgendaFaqMutation = {
+  q?: InputMaybe<Scalars['String']['input']>;
+  r?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type AgendaMutation = {
@@ -1155,14 +1675,23 @@ export type AgendaMutation = {
   lieu?: InputMaybe<Scalars['String']['input']>;
   prix?: InputMaybe<Scalars['String']['input']>;
   earlybird?: InputMaybe<Scalars['String']['input']>;
+  seances?: InputMaybe<Array<InputMaybe<AgendaSeancesMutation>>>;
+  tarifs?: InputMaybe<Array<InputMaybe<AgendaTarifsMutation>>>;
   cta?: InputMaybe<Scalars['String']['input']>;
   site?: InputMaybe<Scalars['String']['input']>;
   lien?: InputMaybe<Scalars['String']['input']>;
   resume?: InputMaybe<Scalars['String']['input']>;
+  citations?: InputMaybe<Array<InputMaybe<AgendaCitationsMutation>>>;
   image?: InputMaybe<Scalars['String']['input']>;
+  image_hero?: InputMaybe<Scalars['String']['input']>;
+  accroche?: InputMaybe<Scalars['String']['input']>;
   reservable?: InputMaybe<Scalars['Boolean']['input']>;
   ordre?: InputMaybe<Scalars['Float']['input']>;
   publie?: InputMaybe<Scalars['Boolean']['input']>;
+  temoignages?: InputMaybe<Array<InputMaybe<AgendaTemoignagesMutation>>>;
+  faq?: InputMaybe<Array<InputMaybe<AgendaFaqMutation>>>;
+  accueil?: InputMaybe<Scalars['Boolean']['input']>;
+  seuil?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['RichText']['input']>;
 };
 
@@ -1170,6 +1699,42 @@ export type OffresTarifsMutation = {
   label?: InputMaybe<Scalars['String']['input']>;
   prix?: InputMaybe<Scalars['String']['input']>;
   detail?: InputMaybe<Scalars['String']['input']>;
+  groupe?: InputMaybe<Scalars['String']['input']>;
+  avant?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OffresEtapesMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  texte?: InputMaybe<Scalars['String']['input']>;
+  picto?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OffresTemoignagesMutation = {
+  t?: InputMaybe<Scalars['String']['input']>;
+  n?: InputMaybe<Scalars['String']['input']>;
+  c?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OffresFaqMutation = {
+  q?: InputMaybe<Scalars['String']['input']>;
+  r?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OffresApprocheMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  cadence?: InputMaybe<Scalars['String']['input']>;
+  texte?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OffresCapMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  posture?: InputMaybe<Scalars['String']['input']>;
+  texte?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OffresCadre_ItemsMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  texte?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type OffresMutation = {
@@ -1177,16 +1742,127 @@ export type OffresMutation = {
   categorie?: InputMaybe<Scalars['String']['input']>;
   tag?: InputMaybe<Scalars['String']['input']>;
   resume?: InputMaybe<Scalars['String']['input']>;
+  accroche?: InputMaybe<Scalars['String']['input']>;
   prix?: InputMaybe<Scalars['String']['input']>;
   duree?: InputMaybe<Scalars['String']['input']>;
   format?: InputMaybe<Scalars['String']['input']>;
   tarifs?: InputMaybe<Array<InputMaybe<OffresTarifsMutation>>>;
+  etapes?: InputMaybe<Array<InputMaybe<OffresEtapesMutation>>>;
   image?: InputMaybe<Scalars['String']['input']>;
   lien?: InputMaybe<Scalars['String']['input']>;
   reservable?: InputMaybe<Scalars['Boolean']['input']>;
   ordre?: InputMaybe<Scalars['Float']['input']>;
   publie?: InputMaybe<Scalars['Boolean']['input']>;
+  temoignages?: InputMaybe<Array<InputMaybe<OffresTemoignagesMutation>>>;
+  faq?: InputMaybe<Array<InputMaybe<OffresFaqMutation>>>;
+  benefices?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pourqui_titre?: InputMaybe<Scalars['String']['input']>;
+  pourqui?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pourtoi?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pourtoi_note?: InputMaybe<Scalars['String']['input']>;
+  places?: InputMaybe<Scalars['String']['input']>;
+  pourtoi_contre_titre?: InputMaybe<Scalars['String']['input']>;
+  pourtoi_contre?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  masques_titre?: InputMaybe<Scalars['String']['input']>;
+  masques?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  chemin_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  chemin_titre?: InputMaybe<Scalars['String']['input']>;
+  chemin?: InputMaybe<Scalars['String']['input']>;
+  chemin_appuis?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  approche_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  approche_titre?: InputMaybe<Scalars['String']['input']>;
+  approche_intro?: InputMaybe<Scalars['String']['input']>;
+  approche?: InputMaybe<Array<InputMaybe<OffresApprocheMutation>>>;
+  cap_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  cap_titre?: InputMaybe<Scalars['String']['input']>;
+  cap?: InputMaybe<Array<InputMaybe<OffresCapMutation>>>;
+  cadre?: InputMaybe<Scalars['String']['input']>;
+  cadre_items?: InputMaybe<Array<InputMaybe<OffresCadre_ItemsMutation>>>;
+  explore?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  action?: InputMaybe<Scalars['String']['input']>;
+  cta?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  page?: InputMaybe<Scalars['String']['input']>;
+  intention_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  intention?: InputMaybe<Scalars['String']['input']>;
+  nom_titre?: InputMaybe<Scalars['String']['input']>;
+  nom_texte?: InputMaybe<Scalars['String']['input']>;
+  cap_note?: InputMaybe<Scalars['String']['input']>;
+  temoins_titre?: InputMaybe<Scalars['String']['input']>;
+  invite_titre?: InputMaybe<Scalars['String']['input']>;
+  invite_texte?: InputMaybe<Scalars['String']['input']>;
+  accueil?: InputMaybe<Scalars['Boolean']['input']>;
+  seuil?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['RichText']['input']>;
+};
+
+export type CodexOffresMutation = {
+  offre?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CodexAgendaMutation = {
+  evenement?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CodexLiensMutation = {
+  fiche?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CodexMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  univers?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  question?: InputMaybe<Scalars['String']['input']>;
+  resume?: InputMaybe<Scalars['String']['input']>;
+  alias?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  offres?: InputMaybe<Array<InputMaybe<CodexOffresMutation>>>;
+  agenda?: InputMaybe<Array<InputMaybe<CodexAgendaMutation>>>;
+  liens?: InputMaybe<Array<InputMaybe<CodexLiensMutation>>>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  lien_externe?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  logo_blanc?: InputMaybe<Scalars['Boolean']['input']>;
+  date?: InputMaybe<Scalars['String']['input']>;
+  seo_titre?: InputMaybe<Scalars['String']['input']>;
+  seo_description?: InputMaybe<Scalars['String']['input']>;
+  ordre?: InputMaybe<Scalars['Float']['input']>;
+  publie?: InputMaybe<Scalars['Boolean']['input']>;
+  body?: InputMaybe<Scalars['RichText']['input']>;
+};
+
+export type ArtefactsCodexMutation = {
+  fiche?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ArtefactsTiragesMutation = {
+  format?: InputMaybe<Scalars['String']['input']>;
+  prix?: InputMaybe<Scalars['String']['input']>;
+  detail?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ArtefactsMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  sous_titre?: InputMaybe<Scalars['String']['input']>;
+  images?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  naissance?: InputMaybe<Scalars['String']['input']>;
+  annee?: InputMaybe<Scalars['String']['input']>;
+  technique?: InputMaybe<Scalars['String']['input']>;
+  dimensions?: InputMaybe<Scalars['String']['input']>;
+  codex?: InputMaybe<Array<InputMaybe<ArtefactsCodexMutation>>>;
+  original?: InputMaybe<Scalars['String']['input']>;
+  original_prix?: InputMaybe<Scalars['String']['input']>;
+  lien_boutique?: InputMaybe<Scalars['String']['input']>;
+  tirages_statut?: InputMaybe<Scalars['String']['input']>;
+  tirages?: InputMaybe<Array<InputMaybe<ArtefactsTiragesMutation>>>;
+  ordre?: InputMaybe<Scalars['Float']['input']>;
+  publie?: InputMaybe<Scalars['Boolean']['input']>;
+  body?: InputMaybe<Scalars['RichText']['input']>;
+};
+
+export type PagesDifferenceMutation = {
+  titre?: InputMaybe<Scalars['String']['input']>;
+  piege?: InputMaybe<Scalars['String']['input']>;
+  texte?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PagesTemoinsMutation = {
@@ -1198,13 +1874,12 @@ export type PagesTemoinsMutation = {
 export type PagesPiliersMutation = {
   nom?: InputMaybe<Scalars['String']['input']>;
   note?: InputMaybe<Scalars['String']['input']>;
+  picto?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PagesPropositionsMutation = {
+export type PagesSeuilsMutation = {
   titre?: InputMaybe<Scalars['String']['input']>;
   texte?: InputMaybe<Scalars['String']['input']>;
-  cta?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PagesMutation = {
@@ -1225,29 +1900,54 @@ export type PagesMutation = {
   parcours_titre?: InputMaybe<Scalars['String']['input']>;
   parcours_texte?: InputMaybe<Scalars['String']['input']>;
   parcours_cta?: InputMaybe<Scalars['String']['input']>;
+  coeur_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  coeur_titre?: InputMaybe<Scalars['String']['input']>;
+  coeur?: InputMaybe<Scalars['String']['input']>;
+  venir_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  venir_titre?: InputMaybe<Scalars['String']['input']>;
+  venir_items?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  posture?: InputMaybe<Scalars['String']['input']>;
+  difference_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  difference_titre?: InputMaybe<Scalars['String']['input']>;
+  difference?: InputMaybe<Array<InputMaybe<PagesDifferenceMutation>>>;
   piliers_eyebrow?: InputMaybe<Scalars['String']['input']>;
   agenda_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  agenda_titre?: InputMaybe<Scalars['String']['input']>;
   art_eyebrow?: InputMaybe<Scalars['String']['input']>;
   art_titre?: InputMaybe<Scalars['String']['input']>;
   temoins_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  temoins_image?: InputMaybe<Scalars['String']['input']>;
+  avis_note?: InputMaybe<Scalars['String']['input']>;
+  avis_nombre?: InputMaybe<Scalars['Float']['input']>;
+  avis_lien?: InputMaybe<Scalars['String']['input']>;
   temoins?: InputMaybe<Array<InputMaybe<PagesTemoinsMutation>>>;
-  partenaires_eyebrow?: InputMaybe<Scalars['String']['input']>;
   form_eyebrow?: InputMaybe<Scalars['String']['input']>;
   piliers_titre?: InputMaybe<Scalars['String']['input']>;
+  piliers_centre?: InputMaybe<Scalars['String']['input']>;
   piliers?: InputMaybe<Array<InputMaybe<PagesPiliersMutation>>>;
   citation1?: InputMaybe<Scalars['String']['input']>;
-  propositions_titre?: InputMaybe<Scalars['String']['input']>;
-  propositions?: InputMaybe<Array<InputMaybe<PagesPropositionsMutation>>>;
+  seuils_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  seuils_titre?: InputMaybe<Scalars['String']['input']>;
+  seuils?: InputMaybe<Array<InputMaybe<PagesSeuilsMutation>>>;
+  codex_eyebrow?: InputMaybe<Scalars['String']['input']>;
+  codex_titre?: InputMaybe<Scalars['String']['input']>;
+  codex_texte?: InputMaybe<Scalars['String']['input']>;
   citation2?: InputMaybe<Scalars['String']['input']>;
+  citation3?: InputMaybe<Scalars['String']['input']>;
   citation_contact?: InputMaybe<Scalars['String']['input']>;
   form_titre?: InputMaybe<Scalars['String']['input']>;
   form_intro?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Page_AproposChapitresEchosMutation = {
+  fiche?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Page_AproposChapitresMutation = {
   titre?: InputMaybe<Scalars['String']['input']>;
   texte?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  echos?: InputMaybe<Array<InputMaybe<Page_AproposChapitresEchosMutation>>>;
 };
 
 export type Page_AproposMutation = {
@@ -1315,28 +2015,14 @@ export type Page_ContactMutation = {
   appel_eyebrow?: InputMaybe<Scalars['String']['input']>;
   appel_texte?: InputMaybe<Scalars['String']['input']>;
   appel_cta?: InputMaybe<Scalars['String']['input']>;
+  appel_lien?: InputMaybe<Scalars['String']['input']>;
+  appel_mention?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Page_AgendaMutation = {
   hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
   hero_titre?: InputMaybe<Scalars['String']['input']>;
   hero_image?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Page_PartenairesPartenairesMutation = {
-  n?: InputMaybe<Scalars['String']['input']>;
-  d?: InputMaybe<Scalars['String']['input']>;
-  lien?: InputMaybe<Scalars['String']['input']>;
-  logo?: InputMaybe<Scalars['String']['input']>;
-  logoWhite?: InputMaybe<Scalars['Boolean']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Page_PartenairesMutation = {
-  hero_eyebrow?: InputMaybe<Scalars['String']['input']>;
-  hero_titre?: InputMaybe<Scalars['String']['input']>;
-  hero_image?: InputMaybe<Scalars['String']['input']>;
-  partenaires?: InputMaybe<Array<InputMaybe<Page_PartenairesPartenairesMutation>>>;
 };
 
 export type StringFilter = {
@@ -1354,6 +2040,24 @@ export type DatetimeFilter = {
   in?: Array<string | null | undefined> | null | undefined;
 };
 
+export type AgendaSeancesFilter = {
+  date?: DatetimeFilter | null | undefined;
+  heure?: StringFilter | null | undefined;
+  note?: StringFilter | null | undefined;
+};
+
+export type BooleanFilter = {
+  eq?: boolean | null | undefined;
+  exists?: boolean | null | undefined;
+};
+
+export type AgendaTarifsFilter = {
+  label?: StringFilter | null | undefined;
+  prix?: StringFilter | null | undefined;
+  detail?: StringFilter | null | undefined;
+  avant?: BooleanFilter | null | undefined;
+};
+
 export type ImageFilter = {
   startsWith?: string | null | undefined;
   eq?: string | null | undefined;
@@ -1361,9 +2065,10 @@ export type ImageFilter = {
   in?: Array<string | null | undefined> | null | undefined;
 };
 
-export type BooleanFilter = {
-  eq?: boolean | null | undefined;
-  exists?: boolean | null | undefined;
+export type AgendaCitationsFilter = {
+  texte?: StringFilter | null | undefined;
+  source?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
 };
 
 export type NumberFilter = {
@@ -1374,6 +2079,17 @@ export type NumberFilter = {
   eq?: number | null | undefined;
   exists?: boolean | null | undefined;
   in?: Array<number | null | undefined> | null | undefined;
+};
+
+export type AgendaTemoignagesFilter = {
+  t?: StringFilter | null | undefined;
+  n?: StringFilter | null | undefined;
+  c?: StringFilter | null | undefined;
+};
+
+export type AgendaFaqFilter = {
+  q?: StringFilter | null | undefined;
+  r?: StringFilter | null | undefined;
 };
 
 export type RichTextFilter = {
@@ -1392,14 +2108,23 @@ export type AgendaFilter = {
   lieu?: StringFilter | null | undefined;
   prix?: StringFilter | null | undefined;
   earlybird?: StringFilter | null | undefined;
+  seances?: AgendaSeancesFilter | null | undefined;
+  tarifs?: AgendaTarifsFilter | null | undefined;
   cta?: StringFilter | null | undefined;
   site?: StringFilter | null | undefined;
   lien?: StringFilter | null | undefined;
   resume?: StringFilter | null | undefined;
+  citations?: AgendaCitationsFilter | null | undefined;
   image?: ImageFilter | null | undefined;
+  image_hero?: ImageFilter | null | undefined;
+  accroche?: StringFilter | null | undefined;
   reservable?: BooleanFilter | null | undefined;
   ordre?: NumberFilter | null | undefined;
   publie?: BooleanFilter | null | undefined;
+  temoignages?: AgendaTemoignagesFilter | null | undefined;
+  faq?: AgendaFaqFilter | null | undefined;
+  accueil?: BooleanFilter | null | undefined;
+  seuil?: StringFilter | null | undefined;
   body?: RichTextFilter | null | undefined;
 };
 
@@ -1407,6 +2132,42 @@ export type OffresTarifsFilter = {
   label?: StringFilter | null | undefined;
   prix?: StringFilter | null | undefined;
   detail?: StringFilter | null | undefined;
+  groupe?: StringFilter | null | undefined;
+  avant?: BooleanFilter | null | undefined;
+};
+
+export type OffresEtapesFilter = {
+  titre?: StringFilter | null | undefined;
+  texte?: StringFilter | null | undefined;
+  picto?: StringFilter | null | undefined;
+};
+
+export type OffresTemoignagesFilter = {
+  t?: StringFilter | null | undefined;
+  n?: StringFilter | null | undefined;
+  c?: StringFilter | null | undefined;
+};
+
+export type OffresFaqFilter = {
+  q?: StringFilter | null | undefined;
+  r?: StringFilter | null | undefined;
+};
+
+export type OffresApprocheFilter = {
+  titre?: StringFilter | null | undefined;
+  cadence?: StringFilter | null | undefined;
+  texte?: StringFilter | null | undefined;
+};
+
+export type OffresCapFilter = {
+  titre?: StringFilter | null | undefined;
+  posture?: StringFilter | null | undefined;
+  texte?: StringFilter | null | undefined;
+};
+
+export type OffresCadre_ItemsFilter = {
+  titre?: StringFilter | null | undefined;
+  texte?: StringFilter | null | undefined;
 };
 
 export type OffresFilter = {
@@ -1414,16 +2175,143 @@ export type OffresFilter = {
   categorie?: StringFilter | null | undefined;
   tag?: StringFilter | null | undefined;
   resume?: StringFilter | null | undefined;
+  accroche?: StringFilter | null | undefined;
   prix?: StringFilter | null | undefined;
   duree?: StringFilter | null | undefined;
   format?: StringFilter | null | undefined;
   tarifs?: OffresTarifsFilter | null | undefined;
+  etapes?: OffresEtapesFilter | null | undefined;
   image?: ImageFilter | null | undefined;
   lien?: StringFilter | null | undefined;
   reservable?: BooleanFilter | null | undefined;
   ordre?: NumberFilter | null | undefined;
   publie?: BooleanFilter | null | undefined;
+  temoignages?: OffresTemoignagesFilter | null | undefined;
+  faq?: OffresFaqFilter | null | undefined;
+  benefices?: StringFilter | null | undefined;
+  pourqui_titre?: StringFilter | null | undefined;
+  pourqui?: StringFilter | null | undefined;
+  pourtoi?: StringFilter | null | undefined;
+  pourtoi_note?: StringFilter | null | undefined;
+  places?: StringFilter | null | undefined;
+  pourtoi_contre_titre?: StringFilter | null | undefined;
+  pourtoi_contre?: StringFilter | null | undefined;
+  masques_titre?: StringFilter | null | undefined;
+  masques?: StringFilter | null | undefined;
+  chemin_eyebrow?: StringFilter | null | undefined;
+  chemin_titre?: StringFilter | null | undefined;
+  chemin?: StringFilter | null | undefined;
+  chemin_appuis?: StringFilter | null | undefined;
+  approche_eyebrow?: StringFilter | null | undefined;
+  approche_titre?: StringFilter | null | undefined;
+  approche_intro?: StringFilter | null | undefined;
+  approche?: OffresApprocheFilter | null | undefined;
+  cap_eyebrow?: StringFilter | null | undefined;
+  cap_titre?: StringFilter | null | undefined;
+  cap?: OffresCapFilter | null | undefined;
+  cadre?: StringFilter | null | undefined;
+  cadre_items?: OffresCadre_ItemsFilter | null | undefined;
+  explore?: StringFilter | null | undefined;
+  action?: StringFilter | null | undefined;
+  cta?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  page?: StringFilter | null | undefined;
+  intention_eyebrow?: StringFilter | null | undefined;
+  intention?: StringFilter | null | undefined;
+  nom_titre?: StringFilter | null | undefined;
+  nom_texte?: StringFilter | null | undefined;
+  cap_note?: StringFilter | null | undefined;
+  temoins_titre?: StringFilter | null | undefined;
+  invite_titre?: StringFilter | null | undefined;
+  invite_texte?: StringFilter | null | undefined;
+  accueil?: BooleanFilter | null | undefined;
+  seuil?: StringFilter | null | undefined;
   body?: RichTextFilter | null | undefined;
+};
+
+export type CodexOffresOffreFilter = {
+  offres?: OffresFilter | null | undefined;
+};
+
+export type CodexOffresFilter = {
+  offre?: CodexOffresOffreFilter | null | undefined;
+};
+
+export type CodexAgendaEvenementFilter = {
+  agenda?: AgendaFilter | null | undefined;
+};
+
+export type CodexAgendaFilter = {
+  evenement?: CodexAgendaEvenementFilter | null | undefined;
+};
+
+export type CodexLiensFicheFilter = {
+  codex?: CodexFilter | null | undefined;
+};
+
+export type CodexLiensFilter = {
+  fiche?: CodexLiensFicheFilter | null | undefined;
+};
+
+export type CodexFilter = {
+  titre?: StringFilter | null | undefined;
+  type?: StringFilter | null | undefined;
+  univers?: StringFilter | null | undefined;
+  question?: StringFilter | null | undefined;
+  resume?: StringFilter | null | undefined;
+  alias?: StringFilter | null | undefined;
+  offres?: CodexOffresFilter | null | undefined;
+  agenda?: CodexAgendaFilter | null | undefined;
+  liens?: CodexLiensFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  lien_externe?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  logo_blanc?: BooleanFilter | null | undefined;
+  date?: DatetimeFilter | null | undefined;
+  seo_titre?: StringFilter | null | undefined;
+  seo_description?: StringFilter | null | undefined;
+  ordre?: NumberFilter | null | undefined;
+  publie?: BooleanFilter | null | undefined;
+  body?: RichTextFilter | null | undefined;
+};
+
+export type ArtefactsCodexFicheFilter = {
+  codex?: CodexFilter | null | undefined;
+};
+
+export type ArtefactsCodexFilter = {
+  fiche?: ArtefactsCodexFicheFilter | null | undefined;
+};
+
+export type ArtefactsTiragesFilter = {
+  format?: StringFilter | null | undefined;
+  prix?: StringFilter | null | undefined;
+  detail?: StringFilter | null | undefined;
+};
+
+export type ArtefactsFilter = {
+  titre?: StringFilter | null | undefined;
+  sous_titre?: StringFilter | null | undefined;
+  images?: ImageFilter | null | undefined;
+  naissance?: StringFilter | null | undefined;
+  annee?: StringFilter | null | undefined;
+  technique?: StringFilter | null | undefined;
+  dimensions?: StringFilter | null | undefined;
+  codex?: ArtefactsCodexFilter | null | undefined;
+  original?: StringFilter | null | undefined;
+  original_prix?: StringFilter | null | undefined;
+  lien_boutique?: StringFilter | null | undefined;
+  tirages_statut?: StringFilter | null | undefined;
+  tirages?: ArtefactsTiragesFilter | null | undefined;
+  ordre?: NumberFilter | null | undefined;
+  publie?: BooleanFilter | null | undefined;
+  body?: RichTextFilter | null | undefined;
+};
+
+export type PagesDifferenceFilter = {
+  titre?: StringFilter | null | undefined;
+  piege?: StringFilter | null | undefined;
+  texte?: StringFilter | null | undefined;
 };
 
 export type PagesTemoinsFilter = {
@@ -1435,13 +2323,12 @@ export type PagesTemoinsFilter = {
 export type PagesPiliersFilter = {
   nom?: StringFilter | null | undefined;
   note?: StringFilter | null | undefined;
+  picto?: ImageFilter | null | undefined;
 };
 
-export type PagesPropositionsFilter = {
+export type PagesSeuilsFilter = {
   titre?: StringFilter | null | undefined;
   texte?: StringFilter | null | undefined;
-  cta?: StringFilter | null | undefined;
-  image?: ImageFilter | null | undefined;
 };
 
 export type PagesFilter = {
@@ -1462,29 +2349,58 @@ export type PagesFilter = {
   parcours_titre?: StringFilter | null | undefined;
   parcours_texte?: StringFilter | null | undefined;
   parcours_cta?: StringFilter | null | undefined;
+  coeur_eyebrow?: StringFilter | null | undefined;
+  coeur_titre?: StringFilter | null | undefined;
+  coeur?: StringFilter | null | undefined;
+  venir_eyebrow?: StringFilter | null | undefined;
+  venir_titre?: StringFilter | null | undefined;
+  venir_items?: StringFilter | null | undefined;
+  posture?: StringFilter | null | undefined;
+  difference_eyebrow?: StringFilter | null | undefined;
+  difference_titre?: StringFilter | null | undefined;
+  difference?: PagesDifferenceFilter | null | undefined;
   piliers_eyebrow?: StringFilter | null | undefined;
   agenda_eyebrow?: StringFilter | null | undefined;
+  agenda_titre?: StringFilter | null | undefined;
   art_eyebrow?: StringFilter | null | undefined;
   art_titre?: StringFilter | null | undefined;
   temoins_eyebrow?: StringFilter | null | undefined;
+  temoins_image?: ImageFilter | null | undefined;
+  avis_note?: StringFilter | null | undefined;
+  avis_nombre?: NumberFilter | null | undefined;
+  avis_lien?: StringFilter | null | undefined;
   temoins?: PagesTemoinsFilter | null | undefined;
-  partenaires_eyebrow?: StringFilter | null | undefined;
   form_eyebrow?: StringFilter | null | undefined;
   piliers_titre?: StringFilter | null | undefined;
+  piliers_centre?: StringFilter | null | undefined;
   piliers?: PagesPiliersFilter | null | undefined;
   citation1?: StringFilter | null | undefined;
-  propositions_titre?: StringFilter | null | undefined;
-  propositions?: PagesPropositionsFilter | null | undefined;
+  seuils_eyebrow?: StringFilter | null | undefined;
+  seuils_titre?: StringFilter | null | undefined;
+  seuils?: PagesSeuilsFilter | null | undefined;
+  codex_eyebrow?: StringFilter | null | undefined;
+  codex_titre?: StringFilter | null | undefined;
+  codex_texte?: StringFilter | null | undefined;
   citation2?: StringFilter | null | undefined;
+  citation3?: StringFilter | null | undefined;
   citation_contact?: StringFilter | null | undefined;
   form_titre?: StringFilter | null | undefined;
   form_intro?: StringFilter | null | undefined;
+};
+
+export type Page_AproposChapitresEchosFicheFilter = {
+  codex?: CodexFilter | null | undefined;
+};
+
+export type Page_AproposChapitresEchosFilter = {
+  fiche?: Page_AproposChapitresEchosFicheFilter | null | undefined;
 };
 
 export type Page_AproposChapitresFilter = {
   titre?: StringFilter | null | undefined;
   texte?: StringFilter | null | undefined;
   image?: ImageFilter | null | undefined;
+  echos?: Page_AproposChapitresEchosFilter | null | undefined;
 };
 
 export type Page_AproposFilter = {
@@ -1552,6 +2468,8 @@ export type Page_ContactFilter = {
   appel_eyebrow?: StringFilter | null | undefined;
   appel_texte?: StringFilter | null | undefined;
   appel_cta?: StringFilter | null | undefined;
+  appel_lien?: StringFilter | null | undefined;
+  appel_mention?: StringFilter | null | undefined;
 };
 
 export type Page_AgendaFilter = {
@@ -1560,29 +2478,17 @@ export type Page_AgendaFilter = {
   hero_image?: ImageFilter | null | undefined;
 };
 
-export type Page_PartenairesPartenairesFilter = {
-  n?: StringFilter | null | undefined;
-  d?: StringFilter | null | undefined;
-  lien?: StringFilter | null | undefined;
-  logo?: ImageFilter | null | undefined;
-  logoWhite?: BooleanFilter | null | undefined;
-  image?: ImageFilter | null | undefined;
-};
+export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null };
 
-export type Page_PartenairesFilter = {
-  hero_eyebrow?: StringFilter | null | undefined;
-  hero_titre?: StringFilter | null | undefined;
-  hero_image?: ImageFilter | null | undefined;
-  partenaires?: Page_PartenairesPartenairesFilter | null | undefined;
-};
+export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null };
 
-export type AgendaPartsFragment = { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null };
+export type CodexPartsFragment = { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null };
 
-export type OffresPartsFragment = { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null };
+export type ArtefactsPartsFragment = { __typename: 'Artefacts', titre: string, sous_titre: string | null, images: Array<string | null> | null, naissance: string | null, annee: string | null, technique: string | null, dimensions: string | null, original: string | null, original_prix: string | null, lien_boutique: string | null, tirages_statut: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, codex: Array<{ __typename: 'ArtefactsCodex', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, tirages: Array<{ __typename: 'ArtefactsTirages', format: string | null, prix: string | null, detail: string | null } | null> | null };
 
-export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null };
+export type PagesPartsFragment = { __typename: 'Pages', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, coeur_eyebrow: string | null, coeur_titre: string | null, coeur: string | null, venir_eyebrow: string | null, venir_titre: string | null, venir_items: Array<string | null> | null, posture: string | null, difference_eyebrow: string | null, difference_titre: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, agenda_titre: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, temoins_image: string | null, avis_note: string | null, avis_nombre: number | null, avis_lien: string | null, form_eyebrow: string | null, piliers_titre: string | null, piliers_centre: string | null, citation1: string | null, seuils_eyebrow: string | null, seuils_titre: string | null, codex_eyebrow: string | null, codex_titre: string | null, codex_texte: string | null, citation2: string | null, citation3: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, difference: Array<{ __typename: 'PagesDifference', titre: string | null, piege: string | null, texte: string | null } | null> | null, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null, picto: string | null } | null> | null, seuils: Array<{ __typename: 'PagesSeuils', titre: string | null, texte: string | null } | null> | null };
 
-export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null };
+export type Page_AproposPartsFragment = { __typename: 'Page_apropos', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null, echos: Array<{ __typename: 'Page_aproposChapitresEchos', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } | null> | null };
 
 export type Page_SoinsPartsFragment = { __typename: 'Page_soins', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, coeur: string | null, soins_eyebrow: string | null, soins_titre: string | null, soins_intro: string | null };
 
@@ -1590,18 +2496,16 @@ export type Page_AccompagnementPartsFragment = { __typename: 'Page_accompagnemen
 
 export type Page_QuintessencePartsFragment = { __typename: 'Page_quintessence', hero_eyebrow: string | null, hero_titre: string | null, hero_lead: string | null, hero_image: string | null, silence_image: string | null, crea_image: string | null, resp_image: string | null, fin_image: string | null, passage: string | null, citation: string | null, silence_titre: string | null, silence_texte: string | null, crea_titre: string | null, crea_texte: string | null, pratiques_eyebrow: string | null, pratiques_titre: string | null, pratiques: Array<string | null> | null, cta_texte: string | null };
 
-export type Page_ContactPartsFragment = { __typename: 'Page_contact', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, appel_eyebrow: string | null, appel_texte: string | null, appel_cta: string | null };
+export type Page_ContactPartsFragment = { __typename: 'Page_contact', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, appel_eyebrow: string | null, appel_texte: string | null, appel_cta: string | null, appel_lien: string | null, appel_mention: string | null };
 
 export type Page_AgendaPartsFragment = { __typename: 'Page_agenda', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null };
-
-export type Page_PartenairesPartsFragment = { __typename: 'Page_partenaires', hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, partenaires: Array<{ __typename: 'Page_partenairesPartenaires', n: string | null, d: string | null, lien: string | null, logo: string | null, logoWhite: boolean | null, image: string | null } | null> | null };
 
 export type AgendaQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type AgendaQuery = { agenda: { __typename: 'Agenda', id: string, titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type AgendaQuery = { agenda: { __typename: 'Agenda', id: string, titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null } };
 
 export type AgendaConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1613,14 +2517,14 @@ export type AgendaConnectionQueryVariables = Exact<{
 }>;
 
 
-export type AgendaConnectionQuery = { agendaConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Agenda', id: string, titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type AgendaConnectionQuery = { agendaConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Agenda', id: string, titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null } | null } | null> | null } };
 
 export type OffresQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type OffresQuery = { offres: { __typename: 'Offres', id: string, titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null } };
+export type OffresQuery = { offres: { __typename: 'Offres', id: string, titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null } };
 
 export type OffresConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1632,14 +2536,52 @@ export type OffresConnectionQueryVariables = Exact<{
 }>;
 
 
-export type OffresConnectionQuery = { offresConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Offres', id: string, titre: string, categorie: string, tag: string | null, resume: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null } | null> | null } | null } | null> | null } };
+export type OffresConnectionQuery = { offresConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Offres', id: string, titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null } | null } | null> | null } };
+
+export type CodexQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type CodexQuery = { codex: { __typename: 'Codex', id: string, titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type CodexConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: CodexFilter | null | undefined;
+}>;
+
+
+export type CodexConnectionQuery = { codexConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Codex', id: string, titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } | null } | null> | null } };
+
+export type ArtefactsQueryVariables = Exact<{
+  relativePath: string;
+}>;
+
+
+export type ArtefactsQuery = { artefacts: { __typename: 'Artefacts', id: string, titre: string, sous_titre: string | null, images: Array<string | null> | null, naissance: string | null, annee: string | null, technique: string | null, dimensions: string | null, original: string | null, original_prix: string | null, lien_boutique: string | null, tirages_statut: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, codex: Array<{ __typename: 'ArtefactsCodex', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, tirages: Array<{ __typename: 'ArtefactsTirages', format: string | null, prix: string | null, detail: string | null } | null> | null } };
+
+export type ArtefactsConnectionQueryVariables = Exact<{
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: ArtefactsFilter | null | undefined;
+}>;
+
+
+export type ArtefactsConnectionQuery = { artefactsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Artefacts', id: string, titre: string, sous_titre: string | null, images: Array<string | null> | null, naissance: string | null, annee: string | null, technique: string | null, dimensions: string | null, original: string | null, original_prix: string | null, lien_boutique: string | null, tirages_statut: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, codex: Array<{ __typename: 'ArtefactsCodex', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, tirages: Array<{ __typename: 'ArtefactsTirages', format: string | null, prix: string | null, detail: string | null } | null> | null } | null } | null> | null } };
 
 export type PagesQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type PagesQuery = { pages: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } };
+export type PagesQuery = { pages: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, coeur_eyebrow: string | null, coeur_titre: string | null, coeur: string | null, venir_eyebrow: string | null, venir_titre: string | null, venir_items: Array<string | null> | null, posture: string | null, difference_eyebrow: string | null, difference_titre: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, agenda_titre: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, temoins_image: string | null, avis_note: string | null, avis_nombre: number | null, avis_lien: string | null, form_eyebrow: string | null, piliers_titre: string | null, piliers_centre: string | null, citation1: string | null, seuils_eyebrow: string | null, seuils_titre: string | null, codex_eyebrow: string | null, codex_titre: string | null, codex_texte: string | null, citation2: string | null, citation3: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, difference: Array<{ __typename: 'PagesDifference', titre: string | null, piege: string | null, texte: string | null } | null> | null, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null, picto: string | null } | null> | null, seuils: Array<{ __typename: 'PagesSeuils', titre: string | null, texte: string | null } | null> | null } };
 
 export type PagesConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1651,14 +2593,14 @@ export type PagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, partenaires_eyebrow: string | null, form_eyebrow: string | null, piliers_titre: string | null, citation1: string | null, propositions_titre: string | null, citation2: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null } | null> | null, propositions: Array<{ __typename: 'PagesPropositions', titre: string | null, texte: string | null, cta: string | null, image: string | null } | null> | null } | null } | null> | null } };
+export type PagesConnectionQuery = { pagesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pages', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, portrait_image: string | null, resp1_image: string | null, resp2_image: string | null, resp3_image: string | null, art1_image: string | null, art2_image: string | null, art3_image: string | null, art4_image: string | null, hero_accent: string | null, hero_paragraphe: string | null, hero_cta: string | null, parcours_titre: string | null, parcours_texte: string | null, parcours_cta: string | null, coeur_eyebrow: string | null, coeur_titre: string | null, coeur: string | null, venir_eyebrow: string | null, venir_titre: string | null, venir_items: Array<string | null> | null, posture: string | null, difference_eyebrow: string | null, difference_titre: string | null, piliers_eyebrow: string | null, agenda_eyebrow: string | null, agenda_titre: string | null, art_eyebrow: string | null, art_titre: string | null, temoins_eyebrow: string | null, temoins_image: string | null, avis_note: string | null, avis_nombre: number | null, avis_lien: string | null, form_eyebrow: string | null, piliers_titre: string | null, piliers_centre: string | null, citation1: string | null, seuils_eyebrow: string | null, seuils_titre: string | null, codex_eyebrow: string | null, codex_titre: string | null, codex_texte: string | null, citation2: string | null, citation3: string | null, citation_contact: string | null, form_titre: string | null, form_intro: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, difference: Array<{ __typename: 'PagesDifference', titre: string | null, piege: string | null, texte: string | null } | null> | null, temoins: Array<{ __typename: 'PagesTemoins', t: string | null, n: string | null, c: string | null } | null> | null, piliers: Array<{ __typename: 'PagesPiliers', nom: string | null, note: string | null, picto: string | null } | null> | null, seuils: Array<{ __typename: 'PagesSeuils', titre: string | null, texte: string | null } | null> | null } | null } | null> | null } };
 
 export type Page_AproposQueryVariables = Exact<{
   relativePath: string;
 }>;
 
 
-export type Page_AproposQuery = { page_apropos: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null } };
+export type Page_AproposQuery = { page_apropos: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null, echos: Array<{ __typename: 'Page_aproposChapitresEchos', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } | null> | null } };
 
 export type Page_AproposConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1670,7 +2612,7 @@ export type Page_AproposConnectionQueryVariables = Exact<{
 }>;
 
 
-export type Page_AproposConnectionQuery = { page_aproposConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null } | null> | null } | null } | null> | null } };
+export type Page_AproposConnectionQuery = { page_aproposConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_apropos', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, chapitres: Array<{ __typename: 'Page_aproposChapitres', titre: string | null, texte: string | null, image: string | null, echos: Array<{ __typename: 'Page_aproposChapitresEchos', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres', offre: { __typename: 'Offres', titre: string, categorie: string, tag: string | null, resume: string | null, accroche: string | null, prix: string | null, duree: string | null, format: string | null, image: string | null, lien: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, benefices: Array<string | null> | null, pourqui_titre: string | null, pourqui: Array<string | null> | null, pourtoi: Array<string | null> | null, pourtoi_note: string | null, places: string | null, pourtoi_contre_titre: string | null, pourtoi_contre: Array<string | null> | null, masques_titre: string | null, masques: Array<string | null> | null, chemin_eyebrow: string | null, chemin_titre: string | null, chemin: string | null, chemin_appuis: Array<string | null> | null, approche_eyebrow: string | null, approche_titre: string | null, approche_intro: string | null, cap_eyebrow: string | null, cap_titre: string | null, cadre: string | null, explore: Array<string | null> | null, action: string | null, cta: string | null, logo: string | null, page: string | null, intention_eyebrow: string | null, intention: string | null, nom_titre: string | null, nom_texte: string | null, cap_note: string | null, temoins_titre: string | null, invite_titre: string | null, invite_texte: string | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, tarifs: Array<{ __typename: 'OffresTarifs', label: string | null, prix: string | null, detail: string | null, groupe: string | null, avant: boolean | null } | null> | null, etapes: Array<{ __typename: 'OffresEtapes', titre: string | null, texte: string | null, picto: string | null } | null> | null, temoignages: Array<{ __typename: 'OffresTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'OffresFaq', q: string | null, r: string | null } | null> | null, approche: Array<{ __typename: 'OffresApproche', titre: string | null, cadence: string | null, texte: string | null } | null> | null, cap: Array<{ __typename: 'OffresCap', titre: string | null, posture: string | null, texte: string | null } | null> | null, cadre_items: Array<{ __typename: 'OffresCadre_items', titre: string | null, texte: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, agenda: Array<{ __typename: 'CodexAgenda', evenement: { __typename: 'Agenda', titre: string, categorie: string, date: string | null, date_fin: string | null, rythme: string | null, heure: string | null, lieu: string | null, prix: string | null, earlybird: string | null, cta: string | null, site: string | null, lien: string | null, resume: string | null, image: string | null, image_hero: string | null, accroche: string | null, reservable: boolean | null, ordre: number | null, publie: boolean | null, accueil: boolean | null, seuil: string | null, body: TinaMarkdownContent | null, id: string, seances: Array<{ __typename: 'AgendaSeances', date: string | null, heure: string | null, note: string | null } | null> | null, tarifs: Array<{ __typename: 'AgendaTarifs', label: string | null, prix: string | null, detail: string | null, avant: boolean | null } | null> | null, citations: Array<{ __typename: 'AgendaCitations', texte: string | null, source: string | null, image: string | null } | null> | null, temoignages: Array<{ __typename: 'AgendaTemoignages', t: string | null, n: string | null, c: string | null } | null> | null, faq: Array<{ __typename: 'AgendaFaq', q: string | null, r: string | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, liens: Array<{ __typename: 'CodexLiens', fiche: { __typename: 'Codex', titre: string, type: string, univers: Array<string | null> | null, question: string | null, resume: string | null, alias: Array<string | null> | null, image: string | null, lien_externe: string | null, logo: string | null, logo_blanc: boolean | null, date: string | null, seo_titre: string | null, seo_description: string | null, ordre: number | null, publie: boolean | null, body: TinaMarkdownContent | null, id: string, offres: Array<{ __typename: 'CodexOffres' } | null> | null, agenda: Array<{ __typename: 'CodexAgenda' } | null> | null, liens: Array<{ __typename: 'CodexLiens' } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type Page_SoinsQueryVariables = Exact<{
   relativePath: string;
@@ -1734,7 +2676,7 @@ export type Page_ContactQueryVariables = Exact<{
 }>;
 
 
-export type Page_ContactQuery = { page_contact: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, appel_eyebrow: string | null, appel_texte: string | null, appel_cta: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type Page_ContactQuery = { page_contact: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, appel_eyebrow: string | null, appel_texte: string | null, appel_cta: string | null, appel_lien: string | null, appel_mention: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type Page_ContactConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1746,7 +2688,7 @@ export type Page_ContactConnectionQueryVariables = Exact<{
 }>;
 
 
-export type Page_ContactConnectionQuery = { page_contactConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, appel_eyebrow: string | null, appel_texte: string | null, appel_cta: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type Page_ContactConnectionQuery = { page_contactConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_contact', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, intro: string | null, appel_eyebrow: string | null, appel_texte: string | null, appel_cta: string | null, appel_lien: string | null, appel_mention: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type Page_AgendaQueryVariables = Exact<{
   relativePath: string;
@@ -1767,25 +2709,6 @@ export type Page_AgendaConnectionQueryVariables = Exact<{
 
 export type Page_AgendaConnectionQuery = { page_agendaConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_agenda', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
-export type Page_PartenairesQueryVariables = Exact<{
-  relativePath: string;
-}>;
-
-
-export type Page_PartenairesQuery = { page_partenaires: { __typename: 'Page_partenaires', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, partenaires: Array<{ __typename: 'Page_partenairesPartenaires', n: string | null, d: string | null, lien: string | null, logo: string | null, logoWhite: boolean | null, image: string | null } | null> | null } };
-
-export type Page_PartenairesConnectionQueryVariables = Exact<{
-  before?: string | null | undefined;
-  after?: string | null | undefined;
-  first?: number | null | undefined;
-  last?: number | null | undefined;
-  sort?: string | null | undefined;
-  filter?: Page_PartenairesFilter | null | undefined;
-}>;
-
-
-export type Page_PartenairesConnectionQuery = { page_partenairesConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page_partenaires', id: string, hero_eyebrow: string | null, hero_titre: string | null, hero_image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, partenaires: Array<{ __typename: 'Page_partenairesPartenaires', n: string | null, d: string | null, lien: string | null, logo: string | null, logoWhite: boolean | null, image: string | null } | null> | null } | null } | null> | null } };
-
 export const AgendaPartsFragmentDoc = gql`
     fragment AgendaParts on Agenda {
   __typename
@@ -1798,14 +2721,48 @@ export const AgendaPartsFragmentDoc = gql`
   lieu
   prix
   earlybird
+  seances {
+    __typename
+    date
+    heure
+    note
+  }
+  tarifs {
+    __typename
+    label
+    prix
+    detail
+    avant
+  }
   cta
   site
   lien
   resume
+  citations {
+    __typename
+    texte
+    source
+    image
+  }
   image
+  image_hero
+  accroche
   reservable
   ordre
   publie
+  temoignages {
+    __typename
+    t
+    n
+    c
+  }
+  faq {
+    __typename
+    q
+    r
+  }
+  accueil
+  seuil
   body
 }
     `;
@@ -1816,6 +2773,7 @@ export const OffresPartsFragmentDoc = gql`
   categorie
   tag
   resume
+  accroche
   prix
   duree
   format
@@ -1824,10 +2782,838 @@ export const OffresPartsFragmentDoc = gql`
     label
     prix
     detail
+    groupe
+    avant
+  }
+  etapes {
+    __typename
+    titre
+    texte
+    picto
   }
   image
   lien
   reservable
+  ordre
+  publie
+  temoignages {
+    __typename
+    t
+    n
+    c
+  }
+  faq {
+    __typename
+    q
+    r
+  }
+  benefices
+  pourqui_titre
+  pourqui
+  pourtoi
+  pourtoi_note
+  places
+  pourtoi_contre_titre
+  pourtoi_contre
+  masques_titre
+  masques
+  chemin_eyebrow
+  chemin_titre
+  chemin
+  chemin_appuis
+  approche_eyebrow
+  approche_titre
+  approche_intro
+  approche {
+    __typename
+    titre
+    cadence
+    texte
+  }
+  cap_eyebrow
+  cap_titre
+  cap {
+    __typename
+    titre
+    posture
+    texte
+  }
+  cadre
+  cadre_items {
+    __typename
+    titre
+    texte
+  }
+  explore
+  action
+  cta
+  logo
+  page
+  intention_eyebrow
+  intention
+  nom_titre
+  nom_texte
+  cap_note
+  temoins_titre
+  invite_titre
+  invite_texte
+  accueil
+  seuil
+  body
+}
+    `;
+export const CodexPartsFragmentDoc = gql`
+    fragment CodexParts on Codex {
+  __typename
+  titre
+  type
+  univers
+  question
+  resume
+  alias
+  offres {
+    __typename
+    offre {
+      ... on Offres {
+        __typename
+        titre
+        categorie
+        tag
+        resume
+        accroche
+        prix
+        duree
+        format
+        tarifs {
+          __typename
+          label
+          prix
+          detail
+          groupe
+          avant
+        }
+        etapes {
+          __typename
+          titre
+          texte
+          picto
+        }
+        image
+        lien
+        reservable
+        ordre
+        publie
+        temoignages {
+          __typename
+          t
+          n
+          c
+        }
+        faq {
+          __typename
+          q
+          r
+        }
+        benefices
+        pourqui_titre
+        pourqui
+        pourtoi
+        pourtoi_note
+        places
+        pourtoi_contre_titre
+        pourtoi_contre
+        masques_titre
+        masques
+        chemin_eyebrow
+        chemin_titre
+        chemin
+        chemin_appuis
+        approche_eyebrow
+        approche_titre
+        approche_intro
+        approche {
+          __typename
+          titre
+          cadence
+          texte
+        }
+        cap_eyebrow
+        cap_titre
+        cap {
+          __typename
+          titre
+          posture
+          texte
+        }
+        cadre
+        cadre_items {
+          __typename
+          titre
+          texte
+        }
+        explore
+        action
+        cta
+        logo
+        page
+        intention_eyebrow
+        intention
+        nom_titre
+        nom_texte
+        cap_note
+        temoins_titre
+        invite_titre
+        invite_texte
+        accueil
+        seuil
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  agenda {
+    __typename
+    evenement {
+      ... on Agenda {
+        __typename
+        titre
+        categorie
+        date
+        date_fin
+        rythme
+        heure
+        lieu
+        prix
+        earlybird
+        seances {
+          __typename
+          date
+          heure
+          note
+        }
+        tarifs {
+          __typename
+          label
+          prix
+          detail
+          avant
+        }
+        cta
+        site
+        lien
+        resume
+        citations {
+          __typename
+          texte
+          source
+          image
+        }
+        image
+        image_hero
+        accroche
+        reservable
+        ordre
+        publie
+        temoignages {
+          __typename
+          t
+          n
+          c
+        }
+        faq {
+          __typename
+          q
+          r
+        }
+        accueil
+        seuil
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  liens {
+    __typename
+    fiche {
+      ... on Codex {
+        __typename
+        titre
+        type
+        univers
+        question
+        resume
+        alias
+        offres {
+          __typename
+          offre {
+            ... on Offres {
+              __typename
+              titre
+              categorie
+              tag
+              resume
+              accroche
+              prix
+              duree
+              format
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                groupe
+                avant
+              }
+              etapes {
+                __typename
+                titre
+                texte
+                picto
+              }
+              image
+              lien
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              benefices
+              pourqui_titre
+              pourqui
+              pourtoi
+              pourtoi_note
+              places
+              pourtoi_contre_titre
+              pourtoi_contre
+              masques_titre
+              masques
+              chemin_eyebrow
+              chemin_titre
+              chemin
+              chemin_appuis
+              approche_eyebrow
+              approche_titre
+              approche_intro
+              approche {
+                __typename
+                titre
+                cadence
+                texte
+              }
+              cap_eyebrow
+              cap_titre
+              cap {
+                __typename
+                titre
+                posture
+                texte
+              }
+              cadre
+              cadre_items {
+                __typename
+                titre
+                texte
+              }
+              explore
+              action
+              cta
+              logo
+              page
+              intention_eyebrow
+              intention
+              nom_titre
+              nom_texte
+              cap_note
+              temoins_titre
+              invite_titre
+              invite_texte
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        agenda {
+          __typename
+          evenement {
+            ... on Agenda {
+              __typename
+              titre
+              categorie
+              date
+              date_fin
+              rythme
+              heure
+              lieu
+              prix
+              earlybird
+              seances {
+                __typename
+                date
+                heure
+                note
+              }
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                avant
+              }
+              cta
+              site
+              lien
+              resume
+              citations {
+                __typename
+                texte
+                source
+                image
+              }
+              image
+              image_hero
+              accroche
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        liens {
+          __typename
+          fiche {
+            ... on Codex {
+              __typename
+              titre
+              type
+              univers
+              question
+              resume
+              alias
+              offres {
+                __typename
+              }
+              agenda {
+                __typename
+              }
+              liens {
+                __typename
+              }
+              image
+              lien_externe
+              logo
+              logo_blanc
+              date
+              seo_titre
+              seo_description
+              ordre
+              publie
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        image
+        lien_externe
+        logo
+        logo_blanc
+        date
+        seo_titre
+        seo_description
+        ordre
+        publie
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  image
+  lien_externe
+  logo
+  logo_blanc
+  date
+  seo_titre
+  seo_description
+  ordre
+  publie
+  body
+}
+    `;
+export const ArtefactsPartsFragmentDoc = gql`
+    fragment ArtefactsParts on Artefacts {
+  __typename
+  titre
+  sous_titre
+  images
+  naissance
+  annee
+  technique
+  dimensions
+  codex {
+    __typename
+    fiche {
+      ... on Codex {
+        __typename
+        titre
+        type
+        univers
+        question
+        resume
+        alias
+        offres {
+          __typename
+          offre {
+            ... on Offres {
+              __typename
+              titre
+              categorie
+              tag
+              resume
+              accroche
+              prix
+              duree
+              format
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                groupe
+                avant
+              }
+              etapes {
+                __typename
+                titre
+                texte
+                picto
+              }
+              image
+              lien
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              benefices
+              pourqui_titre
+              pourqui
+              pourtoi
+              pourtoi_note
+              places
+              pourtoi_contre_titre
+              pourtoi_contre
+              masques_titre
+              masques
+              chemin_eyebrow
+              chemin_titre
+              chemin
+              chemin_appuis
+              approche_eyebrow
+              approche_titre
+              approche_intro
+              approche {
+                __typename
+                titre
+                cadence
+                texte
+              }
+              cap_eyebrow
+              cap_titre
+              cap {
+                __typename
+                titre
+                posture
+                texte
+              }
+              cadre
+              cadre_items {
+                __typename
+                titre
+                texte
+              }
+              explore
+              action
+              cta
+              logo
+              page
+              intention_eyebrow
+              intention
+              nom_titre
+              nom_texte
+              cap_note
+              temoins_titre
+              invite_titre
+              invite_texte
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        agenda {
+          __typename
+          evenement {
+            ... on Agenda {
+              __typename
+              titre
+              categorie
+              date
+              date_fin
+              rythme
+              heure
+              lieu
+              prix
+              earlybird
+              seances {
+                __typename
+                date
+                heure
+                note
+              }
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                avant
+              }
+              cta
+              site
+              lien
+              resume
+              citations {
+                __typename
+                texte
+                source
+                image
+              }
+              image
+              image_hero
+              accroche
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        liens {
+          __typename
+          fiche {
+            ... on Codex {
+              __typename
+              titre
+              type
+              univers
+              question
+              resume
+              alias
+              offres {
+                __typename
+              }
+              agenda {
+                __typename
+              }
+              liens {
+                __typename
+              }
+              image
+              lien_externe
+              logo
+              logo_blanc
+              date
+              seo_titre
+              seo_description
+              ordre
+              publie
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        image
+        lien_externe
+        logo
+        logo_blanc
+        date
+        seo_titre
+        seo_description
+        ordre
+        publie
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  original
+  original_prix
+  lien_boutique
+  tirages_statut
+  tirages {
+    __typename
+    format
+    prix
+    detail
+  }
   ordre
   publie
   body
@@ -1853,35 +3639,59 @@ export const PagesPartsFragmentDoc = gql`
   parcours_titre
   parcours_texte
   parcours_cta
+  coeur_eyebrow
+  coeur_titre
+  coeur
+  venir_eyebrow
+  venir_titre
+  venir_items
+  posture
+  difference_eyebrow
+  difference_titre
+  difference {
+    __typename
+    titre
+    piege
+    texte
+  }
   piliers_eyebrow
   agenda_eyebrow
+  agenda_titre
   art_eyebrow
   art_titre
   temoins_eyebrow
+  temoins_image
+  avis_note
+  avis_nombre
+  avis_lien
   temoins {
     __typename
     t
     n
     c
   }
-  partenaires_eyebrow
   form_eyebrow
   piliers_titre
+  piliers_centre
   piliers {
     __typename
     nom
     note
+    picto
   }
   citation1
-  propositions_titre
-  propositions {
+  seuils_eyebrow
+  seuils_titre
+  seuils {
     __typename
     titre
     texte
-    cta
-    image
   }
+  codex_eyebrow
+  codex_titre
+  codex_texte
   citation2
+  citation3
   citation_contact
   form_titre
   form_intro
@@ -1898,6 +3708,270 @@ export const Page_AproposPartsFragmentDoc = gql`
     titre
     texte
     image
+    echos {
+      __typename
+      fiche {
+        ... on Codex {
+          __typename
+          titre
+          type
+          univers
+          question
+          resume
+          alias
+          offres {
+            __typename
+            offre {
+              ... on Offres {
+                __typename
+                titre
+                categorie
+                tag
+                resume
+                accroche
+                prix
+                duree
+                format
+                tarifs {
+                  __typename
+                  label
+                  prix
+                  detail
+                  groupe
+                  avant
+                }
+                etapes {
+                  __typename
+                  titre
+                  texte
+                  picto
+                }
+                image
+                lien
+                reservable
+                ordre
+                publie
+                temoignages {
+                  __typename
+                  t
+                  n
+                  c
+                }
+                faq {
+                  __typename
+                  q
+                  r
+                }
+                benefices
+                pourqui_titre
+                pourqui
+                pourtoi
+                pourtoi_note
+                places
+                pourtoi_contre_titre
+                pourtoi_contre
+                masques_titre
+                masques
+                chemin_eyebrow
+                chemin_titre
+                chemin
+                chemin_appuis
+                approche_eyebrow
+                approche_titre
+                approche_intro
+                approche {
+                  __typename
+                  titre
+                  cadence
+                  texte
+                }
+                cap_eyebrow
+                cap_titre
+                cap {
+                  __typename
+                  titre
+                  posture
+                  texte
+                }
+                cadre
+                cadre_items {
+                  __typename
+                  titre
+                  texte
+                }
+                explore
+                action
+                cta
+                logo
+                page
+                intention_eyebrow
+                intention
+                nom_titre
+                nom_texte
+                cap_note
+                temoins_titre
+                invite_titre
+                invite_texte
+                accueil
+                seuil
+                body
+              }
+              ... on Document {
+                _sys {
+                  filename
+                  basename
+                  hasReferences
+                  breadcrumbs
+                  path
+                  relativePath
+                  extension
+                }
+                id
+              }
+            }
+          }
+          agenda {
+            __typename
+            evenement {
+              ... on Agenda {
+                __typename
+                titre
+                categorie
+                date
+                date_fin
+                rythme
+                heure
+                lieu
+                prix
+                earlybird
+                seances {
+                  __typename
+                  date
+                  heure
+                  note
+                }
+                tarifs {
+                  __typename
+                  label
+                  prix
+                  detail
+                  avant
+                }
+                cta
+                site
+                lien
+                resume
+                citations {
+                  __typename
+                  texte
+                  source
+                  image
+                }
+                image
+                image_hero
+                accroche
+                reservable
+                ordre
+                publie
+                temoignages {
+                  __typename
+                  t
+                  n
+                  c
+                }
+                faq {
+                  __typename
+                  q
+                  r
+                }
+                accueil
+                seuil
+                body
+              }
+              ... on Document {
+                _sys {
+                  filename
+                  basename
+                  hasReferences
+                  breadcrumbs
+                  path
+                  relativePath
+                  extension
+                }
+                id
+              }
+            }
+          }
+          liens {
+            __typename
+            fiche {
+              ... on Codex {
+                __typename
+                titre
+                type
+                univers
+                question
+                resume
+                alias
+                offres {
+                  __typename
+                }
+                agenda {
+                  __typename
+                }
+                liens {
+                  __typename
+                }
+                image
+                lien_externe
+                logo
+                logo_blanc
+                date
+                seo_titre
+                seo_description
+                ordre
+                publie
+                body
+              }
+              ... on Document {
+                _sys {
+                  filename
+                  basename
+                  hasReferences
+                  breadcrumbs
+                  path
+                  relativePath
+                  extension
+                }
+                id
+              }
+            }
+          }
+          image
+          lien_externe
+          logo
+          logo_blanc
+          date
+          seo_titre
+          seo_description
+          ordre
+          publie
+          body
+        }
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+      }
+    }
   }
 }
     `;
@@ -1967,6 +4041,8 @@ export const Page_ContactPartsFragmentDoc = gql`
   appel_eyebrow
   appel_texte
   appel_cta
+  appel_lien
+  appel_mention
 }
     `;
 export const Page_AgendaPartsFragmentDoc = gql`
@@ -1975,23 +4051,6 @@ export const Page_AgendaPartsFragmentDoc = gql`
   hero_eyebrow
   hero_titre
   hero_image
-}
-    `;
-export const Page_PartenairesPartsFragmentDoc = gql`
-    fragment Page_partenairesParts on Page_partenaires {
-  __typename
-  hero_eyebrow
-  hero_titre
-  hero_image
-  partenaires {
-    __typename
-    n
-    d
-    lien
-    logo
-    logoWhite
-    image
-  }
 }
     `;
 export const AgendaDocument = gql`
@@ -2108,6 +4167,120 @@ export const OffresConnectionDocument = gql`
   }
 }
     ${OffresPartsFragmentDoc}`;
+export const CodexDocument = gql`
+    query codex($relativePath: String!) {
+  codex(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...CodexParts
+  }
+}
+    ${CodexPartsFragmentDoc}`;
+export const CodexConnectionDocument = gql`
+    query codexConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: CodexFilter) {
+  codexConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...CodexParts
+      }
+    }
+  }
+}
+    ${CodexPartsFragmentDoc}`;
+export const ArtefactsDocument = gql`
+    query artefacts($relativePath: String!) {
+  artefacts(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ArtefactsParts
+  }
+}
+    ${ArtefactsPartsFragmentDoc}`;
+export const ArtefactsConnectionDocument = gql`
+    query artefactsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ArtefactsFilter) {
+  artefactsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ArtefactsParts
+      }
+    }
+  }
+}
+    ${ArtefactsPartsFragmentDoc}`;
 export const PagesDocument = gql`
     query pages($relativePath: String!) {
   pages(relativePath: $relativePath) {
@@ -2507,63 +4680,6 @@ export const Page_AgendaConnectionDocument = gql`
   }
 }
     ${Page_AgendaPartsFragmentDoc}`;
-export const Page_PartenairesDocument = gql`
-    query page_partenaires($relativePath: String!) {
-  page_partenaires(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...Page_partenairesParts
-  }
-}
-    ${Page_PartenairesPartsFragmentDoc}`;
-export const Page_PartenairesConnectionDocument = gql`
-    query page_partenairesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_partenairesFilter) {
-  page_partenairesConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...Page_partenairesParts
-      }
-    }
-  }
-}
-    ${Page_PartenairesPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -2578,6 +4694,18 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     offresConnection(variables?: OffresConnectionQueryVariables, options?: C): Promise<{data: OffresConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: OffresConnectionQueryVariables, query: string}> {
         return requester<{data: OffresConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: OffresConnectionQueryVariables, query: string}, OffresConnectionQueryVariables>(OffresConnectionDocument, variables, options);
+      },
+    codex(variables: CodexQueryVariables, options?: C): Promise<{data: CodexQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CodexQueryVariables, query: string}> {
+        return requester<{data: CodexQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CodexQueryVariables, query: string}, CodexQueryVariables>(CodexDocument, variables, options);
+      },
+    codexConnection(variables?: CodexConnectionQueryVariables, options?: C): Promise<{data: CodexConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CodexConnectionQueryVariables, query: string}> {
+        return requester<{data: CodexConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: CodexConnectionQueryVariables, query: string}, CodexConnectionQueryVariables>(CodexConnectionDocument, variables, options);
+      },
+    artefacts(variables: ArtefactsQueryVariables, options?: C): Promise<{data: ArtefactsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ArtefactsQueryVariables, query: string}> {
+        return requester<{data: ArtefactsQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ArtefactsQueryVariables, query: string}, ArtefactsQueryVariables>(ArtefactsDocument, variables, options);
+      },
+    artefactsConnection(variables?: ArtefactsConnectionQueryVariables, options?: C): Promise<{data: ArtefactsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ArtefactsConnectionQueryVariables, query: string}> {
+        return requester<{data: ArtefactsConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ArtefactsConnectionQueryVariables, query: string}, ArtefactsConnectionQueryVariables>(ArtefactsConnectionDocument, variables, options);
       },
     pages(variables: PagesQueryVariables, options?: C): Promise<{data: PagesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PagesQueryVariables, query: string}> {
         return requester<{data: PagesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PagesQueryVariables, query: string}, PagesQueryVariables>(PagesDocument, variables, options);
@@ -2620,12 +4748,6 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     page_agendaConnection(variables?: Page_AgendaConnectionQueryVariables, options?: C): Promise<{data: Page_AgendaConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AgendaConnectionQueryVariables, query: string}> {
         return requester<{data: Page_AgendaConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_AgendaConnectionQueryVariables, query: string}, Page_AgendaConnectionQueryVariables>(Page_AgendaConnectionDocument, variables, options);
-      },
-    page_partenaires(variables: Page_PartenairesQueryVariables, options?: C): Promise<{data: Page_PartenairesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_PartenairesQueryVariables, query: string}> {
-        return requester<{data: Page_PartenairesQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_PartenairesQueryVariables, query: string}, Page_PartenairesQueryVariables>(Page_PartenairesDocument, variables, options);
-      },
-    page_partenairesConnection(variables?: Page_PartenairesConnectionQueryVariables, options?: C): Promise<{data: Page_PartenairesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_PartenairesConnectionQueryVariables, query: string}> {
-        return requester<{data: Page_PartenairesConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: Page_PartenairesConnectionQueryVariables, query: string}, Page_PartenairesConnectionQueryVariables>(Page_PartenairesConnectionDocument, variables, options);
       }
     };
   }
@@ -2674,7 +4796,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "https://content.tinajs.io/3.0/content/ac005920-bdf5-45df-a7d6-5d99cc50423a/github/tina",
+        url: "http://localhost:4001/graphql",
         queries,
       })
     )
