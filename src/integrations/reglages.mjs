@@ -49,7 +49,9 @@ export default function reglages() {
           lire(req).then(async (corps) => {
             try {
               const d = JSON.parse(corps);
-              if (!d || typeof d !== 'object' || !Object.keys(d).length) throw new Error('réglages vides');
+              const bon = d && typeof d === 'object' && Object.keys(d).length >= 4
+                && Object.values(d).every((v) => v && typeof v === 'object' && 'bord' in v);
+              if (!bon) throw new Error('ce ne sont pas des réglages de séparations');
               await writeFile(chemin('data/separateurs.json'), JSON.stringify(d, null, 2) + '\n', 'utf8');
               json(res, { ok: true });
             } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
@@ -62,7 +64,9 @@ export default function reglages() {
           lire(req).then(async (corps) => {
             try {
               const d = JSON.parse(corps);
-              if (!d || typeof d !== 'object' || !Object.keys(d).length) throw new Error('réglages vides');
+              const bon = d && typeof d === 'object' && Object.keys(d).length >= 4
+                && Object.values(d).every((v) => v && typeof v === 'object' && 'voile' in v && 'lumiere' in v);
+              if (!bon) throw new Error('ce ne sont pas des réglages de photos');
               await writeFile(chemin('data/fonds.json'), JSON.stringify(d, null, 2) + '\n', 'utf8');
               json(res, { ok: true });
             } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
