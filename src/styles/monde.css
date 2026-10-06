@@ -597,20 +597,20 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__roue.est-vue .rangee__rayon { stroke-dashoffset: 0; }
 
 /* Le placement passe par les marges : l'apparition au défilement garde sa translation */
-.rangee__item { position: absolute; width: 176px; margin: -37px 0 0 -88px; opacity: 0; transform: translateY(10px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 0.72s + 0.85s); }
+.rangee__item { position: absolute; width: 176px; margin: -32px 0 0 -88px; opacity: 0; transform: translateY(10px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 0.72s + 0.85s); }
 .rangee__roue.est-vue .rangee__item { opacity: 1; transform: none; }
 .rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
-.rangee__picto { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--fond-symbole); border: 0; color: var(--u-trait); transition: transform 0.35s var(--ease, ease); }
+.rangee__picto { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--fond-symbole); border: 0; color: var(--u-trait); transition: transform 0.35s var(--ease, ease); }
 /* Tes pictos portent déjà la main : aucun filtre par-dessus.
    Et ils sortent par le haut : le cercle les porte au lieu de les enfermer.
    Le pas de côté dépend du dessin, pour que ce soit sa pointe qui dépasse. */
-.rangee__picto svg { width: 119%; height: 119%; transform: translate(var(--picto-x, 0%), -14%); }
+.rangee__picto svg { width: 142%; height: 142%; transform: translate(var(--picto-x, 0%), -14%); }
 .u-presence .rangee__picto svg { --picto-x: 1%; }
 .u-connaissance .rangee__picto svg { --picto-x: 2%; }
 .u-mouvement .rangee__picto svg { --picto-x: 0%; }
 .u-vivant .rangee__picto svg { --picto-x: 7%; }
 .u-art .rangee__picto svg { --picto-x: -8%; }
-.rangee__picto img { width: 119%; height: 119%; object-fit: contain; transform: translate(var(--picto-x, 0%), -14%); }
+.rangee__picto img { width: 142%; height: 142%; object-fit: contain; transform: translate(var(--picto-x, 0%), -14%); }
 /* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
 .rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); }
 .rangee__nom { white-space: nowrap; padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 18px var(--surface); font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; font-size: clamp(0.8rem, 1vw, 0.88rem); line-height: 1.35; color: var(--cream); }
@@ -767,7 +767,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 @media (max-width: 700px) { .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 86%; } }
 /* Les flèches sur les côtés, en grand, posées sur les cartes */
 .carrousel { position: relative; }
-.carrousel__btn { position: absolute; top: calc((100% - 4.4rem) / 2); transform: translateY(-50%); z-index: 3; width: 62px; height: 62px; border-radius: 50%; padding: 0; background: rgba(8,12,28,0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(236,231,222,0.16); color: var(--cream); transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.carrousel__btn { position: absolute; top: calc((100% - 4.4rem) / 2); transform: translateY(-50%); z-index: 3; width: 52px; height: 52px; border-radius: 50%; padding: 0; background: rgba(8,12,28,0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(236,231,222,0.16); color: var(--cream); transition: background 0.3s, color 0.3s, border-color 0.3s; }
 .carrousel__btn:hover { background: var(--gold) !important; border-color: var(--gold); color: var(--navy); }
 .carrousel__btn svg { width: 30px; height: 30px; stroke-width: 1.8; }
 .carrousel__btn[data-sens="-1"] { left: 4px; }
