@@ -114,6 +114,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
     <section class="bloc coeur-mot">
+      <Separateur cote="haut" couleur="var(--navy2)" bord={4} retourne />
       <Trace n={1} x={50} entree={83} force={0.07} />
       <div class="narrow">
         <div class="tete">
@@ -128,7 +129,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : la fleur -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={1} /><Separateur cote="bas" couleur="var(--navy)" vague={2} zoom={130} decalage={20} /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" bord={1} /><Separateur cote="bas" couleur="var(--navy)" bord={2} /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
 
   <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher -->
   {acc.venir_items?.length > 0 && (
@@ -161,6 +162,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
     <section class="bloc">
+      <Separateur cote="haut" couleur="var(--navy)" bord={1} retourne />
       <div class="wrap">
         <div class="tete-agenda">
           <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
@@ -175,7 +177,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   )}
 
   <!-- RESPIRATION : le paon -->
-  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={3} retourne /><Separateur cote="bas" couleur="var(--surface)" vague={1} zoom={150} decalage={45} /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+  <section class="breath">{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" bord={3} retourne /><Separateur cote="bas" couleur="var(--surface)" bord={4} /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
   <section class="bloc">
@@ -195,7 +197,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   </section>
 
   <!-- RESPIRATION : la cellule -->
-  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" vague={2} retourne /><Separateur cote="bas" couleur="var(--navy)" vague={3} zoom={120} decalage={60} /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
+  <section class="breath">{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur cote="haut" couleur="var(--surface)" bord={2} retourne /><Separateur cote="bas" couleur="var(--navy)" bord={3} retourne /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
 
   <!-- 6. LES SEUILS : par où entrer. Pas de trait ici, un fond plus sombre à la place. -->
   <section id="seuils">

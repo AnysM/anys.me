@@ -14,18 +14,25 @@ main > section > div { position: relative; z-index: 2; }
 /* ── Les séparations : un bord de pinceau, de la couleur de la section d'en face ── */
 .brosse {
   position: absolute; left: 0; right: 0; z-index: 2;
-  height: var(--brosse-h, clamp(36px, 6vw, 90px));
+  aspect-ratio: 1800 / 190;          /* le format du bord photographié */
   background-color: currentColor;
   pointer-events: none;
-  -webkit-mask: var(--brosse-img, url(/img/brosses/vague.svg)) var(--brosse-x, 0) 0 / var(--brosse-zoom, 100%) 100% no-repeat;
-  mask: var(--brosse-img, url(/img/brosses/vague.svg)) var(--brosse-x, 0) 0 / var(--brosse-zoom, 100%) 100% no-repeat;
+  -webkit-mask: var(--brosse-img) 0 0 / 100% 100% no-repeat;
+  mask: var(--brosse-img) 0 0 / 100% 100% no-repeat;
 }
-.brosse--haut { top: -1px; }
-.brosse--bas { bottom: -1px; transform: rotate(180deg); }
-.brosse--haut.brosse--retournee { transform: scaleX(-1); }
-.brosse--bas.brosse--retournee { transform: rotate(180deg) scaleX(-1); }
+/* Le masque a son bord de pinceau en haut et le plein en dessous.
+   En pied de section on le pose tel quel ; en tête on le retourne. */
+.brosse--bas { bottom: -1px; }
+.brosse--haut { top: -1px; transform: scaleY(-1); }
+.brosse--bas.brosse--retournee { transform: scaleX(-1); }
+.brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
 
 /* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
-.trace { position: absolute; top: 0; height: 100%; width: auto; max-width: none;
-  z-index: 1; pointer-events: none; user-select: none; }
+.trace { position: absolute; top: 0; height: calc(100% + var(--debord, 0px));
+  width: auto; max-width: none; z-index: 1; pointer-events: none; user-select: none;
+  /* Les deux bouts se dissolvent : aucune coupure droite au bord d'une section. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 86%, transparent 100%); }
+/* La section garde son trait chez elle : le débord passe sous la section suivante. */
+main > section:has(> .trace) { isolation: isolate; }
 @media (max-width: 760px) { .trace { opacity: 0.09 !important; } }
