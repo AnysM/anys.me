@@ -169,6 +169,8 @@ const pages = defineCollection({
     resp1_image: z.string().optional(),
     resp2_image: z.string().optional(),
     resp3_image: z.string().optional(),
+    art_fond: z.string().optional(),
+    art_phrase: z.string().optional(),
     art1_image: z.string().optional(),
     art2_image: z.string().optional(),
     art3_image: z.string().optional(),

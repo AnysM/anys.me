@@ -722,6 +722,8 @@ type Pages implements Node & Document {
   resp1_image: String
   resp2_image: String
   resp3_image: String
+  art_fond: String
+  art_phrase: String
   art1_image: String
   art2_image: String
   art3_image: String
@@ -805,6 +807,8 @@ input PagesFilter {
   resp1_image: ImageFilter
   resp2_image: ImageFilter
   resp3_image: ImageFilter
+  art_fond: ImageFilter
+  art_phrase: StringFilter
   art1_image: ImageFilter
   art2_image: ImageFilter
   art3_image: ImageFilter
@@ -1441,6 +1445,8 @@ input PagesMutation {
   resp1_image: String
   resp2_image: String
   resp3_image: String
+  art_fond: String
+  art_phrase: String
   art1_image: String
   art2_image: String
   art3_image: String

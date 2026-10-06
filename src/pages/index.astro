@@ -283,18 +283,15 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- Pas encore prêt : la lettre -->
   <Lettre source="accueil" eyebrow="Pas encore prêt ?" />
 
-  <!-- 10. INDIGO ENOQII : l'art, en signature (deviendra les Artefacts) -->
+  <!-- 10. INDIGO ENOQII : l'art, en dernière respiration, juste avant la signature -->
   <section class="art-signature">
+    <img class="art-signature__fond" src={acc.art_fond ?? '/img/art-3.jpg'} alt="" loading="lazy" />
     <Separateur id="art-haut" cote="haut" couleur="#2B3088" />
-    <Trace n={7} x={18} entree={22} force={0.13} />
     <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
-        <a class="cta" href="/artefacts">Voir les artefacts <span class="line"></span></a>
-      </div>
-      <div class="gallery" style="margin-top:2rem;">
-        {[acc.art1_image, acc.art2_image, acc.art3_image, acc.art4_image].filter(Boolean).map((src) => <img class="slot-img" src={src} alt="Œuvre d'Indigo Enoqii" loading="lazy" />)}
-      </div>
+      <p class="eyebrow">{acc.art_eyebrow}</p>
+      <h2 set:html={fmt(acc.art_titre)}></h2>
+      {acc.art_phrase && <p class="art-signature__phrase">{acc.art_phrase}</p>}
+      <a class="btn" href="/artefacts">Voir les artefacts</a>
     </div>
   </section>
   <script is:inline>

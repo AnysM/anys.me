@@ -859,3 +859,16 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 
 .carte__mot { max-width: 44ch; margin: clamp(1.6rem, 3vw, 2.2rem) 0 0; text-align: left; font-family: 'EB Garamond', serif; font-size: clamp(1.1rem, 1.6vw, 1.26rem); line-height: 1.6; color: #C9CBD8; }
 .carte__mot strong { color: var(--gold); font-weight: 400; }
+
+/* ── Indigo Enoqii : la dernière respiration, une œuvre en pleine page ── */
+.art-signature { position: relative; min-height: 86svh; display: flex; align-items: center;
+  justify-content: center; text-align: center; overflow: hidden; }
+.art-signature__fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(1.1) brightness(0.52) contrast(1.04); }
+.art-signature::before { content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, rgba(10,16,48,0.72), rgba(10,18,56,0.4) 48%, rgba(8,12,26,0.86)); }
+.art-signature .wrap { position: relative; z-index: 2; max-width: 46ch; }
+.art-signature h2 { margin-top: 0.9rem; }
+.art-signature__phrase { margin: 1.6rem auto 2.2rem; font-family: 'EB Garamond', serif;
+  font-size: clamp(1.15rem, 2vw, 1.42rem); line-height: 1.6; color: #D6D9E4;
+  text-shadow: 0 2px 22px rgba(5,7,16,0.8); }
