@@ -495,3 +495,8 @@ html.js main > article > section.is-in > *:not(.brosse):not(.trace):not(img) {
 .ph-band::after, .imgph span { display: none; }
 /* Le nénuphar est en portrait : on cadre sur la fleur plutôt qu'au centre. */
 .breath img[src*="nenuphar"] { object-position: 50% 62%; }
+/* La fleur posée sur le bras : la peau au soleil est claire, la phrase a besoin
+   d'un cran d'ombre en plus, et la tige doit rester dans le cadre. */
+.breath img[src*="dscf2333"] { filter: saturate(1.08) brightness(0.56) contrast(1.06); object-position: 62% 50%; }
+/* La phrase descend là où la pierre est sombre : la peau garde sa lumière. */
+.breath:has(img[src*="dscf2333"]) { align-items: flex-end; padding-bottom: clamp(2.5rem, 9vh, 6rem); }

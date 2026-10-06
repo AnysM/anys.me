@@ -1,0 +1,159 @@
+---
+// Atelier des photos. Page de travail : hors menu, hors plan du site, et
+// l'enregistrement ne marche qu'en local (npm run dev).
+import { getEntry } from 'astro:content';
+const acc = (await getEntry('pages', 'accueil'))!.data;
+
+const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+
+// Chaque emplacement de la page d'accueil, avec ce qu'il montre aujourd'hui.
+const PLACES = [
+  { champ: 'hero_photo',    titre: 'Le hero',              type: 'hero',
+    actuel: acc.hero_photo ?? '/img/hero-fusion.jpg',  phrase: 'Marcher un chemin qui te ressemble vraiment' },
+  { champ: 'portrait_image', titre: 'Le portrait de la bio', type: 'portrait',
+    actuel: acc.portrait_image, phrase: 'Qui suis-je ?' },
+  { champ: 'resp1_image',   titre: 'Respiration 1',        type: 'breath',
+    actuel: acc.resp1_image,  phrase: acc.citation1 },
+  { champ: 'resp2_image',   titre: 'Respiration 2',        type: 'breath',
+    actuel: acc.resp2_image,  phrase: acc.citation2 },
+  { champ: 'resp3_image',   titre: 'Respiration 3',        type: 'breath',
+    actuel: acc.resp3_image,  phrase: acc.citation3 },
+  { champ: 'temoins_image', titre: 'Les témoignages',      type: 'breath',
+    actuel: acc.temoins_image ?? '/img/traversees-dune-vent.jpg', phrase: 'Ce qu’ils et elles en disent' },
+];
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Atelier des photos</title>
+</head>
+<body class="atelier">
+  <header class="atelier__tete">
+    <h1>Atelier des photos</h1>
+    <p>Chaque emplacement de la page d'accueil, avec son image d'aujourd'hui. Clique
+      une vignette pour l'essayer : l'aperçu reçoit le même traitement que sur le site
+      (assombrissement, voile, citation). Rien n'est touché tant que tu n'enregistres pas.</p>
+    <div class="atelier__actions">
+      <a class="bouton bouton--creux" href="/" target="_blank">Voir la page d'accueil</a>
+      <span id="etat" class="atelier__etat">Chargement des photos…</span>
+    </div>
+  </header>
+
+  {PLACES.map((p) => (
+    <section class="place" data-champ={p.champ} data-type={p.type} data-actuel={p.actuel}>
+      <h2>{p.titre} <span class="place__champ">{p.champ}</span></h2>
+      <div class={`vue vue--${p.type}`}>
+        <img class="vue__img" src={p.actuel} alt="" />
+        <div class="vue__voile"></div>
+        <p class="vue__phrase" set:html={fmt(p.phrase ?? '')}></p>
+      </div>
+      <p class="place__etat" data-nom>actuelle : {p.actuel}</p>
+      <div class="bande" data-bande></div>
+      <button type="button" class="bouton" data-poser disabled>Enregistrer cet emplacement</button>
+    </section>
+  ))}
+
+  <style is:global>
+    :root { --navy: #0A0F20; --cream: #ECE7DE; --gold: #D8A24C; }
+    * { box-sizing: border-box; }
+    body.atelier { background: #080C1A; color: var(--cream); font-family: 'Jost', system-ui, sans-serif;
+      margin: 0; padding: 0 0 6rem; }
+    .atelier__tete { padding: 2.4rem clamp(1rem,4vw,3rem) 1.6rem; border-bottom: 1px solid rgba(236,231,222,0.12); }
+    .atelier__tete h1 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0.06em; margin: 0 0 0.5rem; }
+    .atelier__tete p { color: #9AA0B4; max-width: 68ch; margin: 0 0 1.2rem; line-height: 1.6; }
+    .atelier__actions { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+    .bouton { background: var(--gold); color: var(--navy); border: 1px solid var(--gold); border-radius: 999px;
+      padding: 0.6rem 1.4rem; font: inherit; letter-spacing: 0.08em; text-transform: uppercase;
+      font-size: 0.74rem; cursor: pointer; text-decoration: none; }
+    .bouton[disabled] { opacity: 0.35; cursor: default; }
+    .bouton--creux { background: transparent; color: var(--gold); }
+    .atelier__etat { color: #8FB3FF; font-size: 0.82rem; }
+
+    .place { padding: 2.2rem clamp(1rem,4vw,3rem); border-bottom: 1px solid rgba(236,231,222,0.08); }
+    .place h2 { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin: 0 0 1rem; }
+    .place__champ { color: #4E5468; letter-spacing: 0.04em; margin-left: 0.6rem; }
+    .place__etat { color: #6E7489; font-size: 0.76rem; margin: 0.7rem 0 0.9rem; word-break: break-all; }
+
+    .vue { position: relative; width: 100%; overflow: hidden; background: #0E1426;
+      display: grid; place-items: center; }
+    .vue--hero { height: clamp(300px, 46vh, 520px); }
+    .vue--breath { height: clamp(260px, 40vh, 460px); }
+    .vue--portrait { height: clamp(300px, 46vh, 520px); }
+    .vue__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .vue--breath .vue__img { filter: saturate(1.14) brightness(0.8) contrast(1.02); }
+    .vue--portrait .vue__img { object-fit: contain; }
+    .vue__voile { position: absolute; inset: 0; }
+    .vue--breath .vue__voile { background: linear-gradient(to bottom, rgba(10,16,48,0.62), rgba(10,18,56,0.3) 50%, rgba(10,16,48,0.66)); }
+    .vue--hero .vue__voile { background: linear-gradient(to right, rgba(8,12,26,0.78), rgba(8,12,26,0.2) 70%); }
+    .vue__phrase { position: relative; z-index: 2; margin: 0; padding: 0 6%; text-align: center;
+      font-style: italic; font-weight: 300; font-size: clamp(1.1rem, 2.4vw, 1.9rem);
+      color: var(--cream); text-shadow: 0 2px 18px rgba(5,7,16,0.9), 0 0 42px rgba(5,7,16,0.75); }
+    .vue--hero .vue__phrase { text-align: left; justify-self: start; }
+    .vue--portrait .vue__phrase { display: none; }
+
+    .bande { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+    .bande::-webkit-scrollbar { height: 8px; }
+    .bande::-webkit-scrollbar-thumb { background: rgba(236,231,222,0.2); border-radius: 99px; }
+    .vignette { flex: none; width: 112px; height: 112px; border-radius: 8px; overflow: hidden;
+      border: 2px solid transparent; background: #111A38; cursor: pointer; padding: 0; }
+    .vignette img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .vignette[aria-pressed=true] { border-color: var(--gold); }
+  </style>
+
+  <script is:inline>
+    const etat = document.getElementById('etat');
+
+    fetch('/__photos/liste').then((r) => r.json()).then((photos) => {
+      etat.textContent = photos.length + ' photos disponibles.';
+      document.querySelectorAll('.place').forEach((place) => {
+        const bande = place.querySelector('[data-bande]');
+        const vue = place.querySelector('.vue__img');
+        const nom = place.querySelector('[data-nom]');
+        const poser = place.querySelector('[data-poser]');
+        let choisie = null;
+
+        photos.forEach((p) => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.className = 'vignette'; b.title = p.fichier;
+          b.setAttribute('aria-pressed', 'false');
+          const im = document.createElement('img');
+          im.loading = 'lazy';
+          im.src = p.dedans ?? ('/__photos/vue?l=220&cle=' + p.cle);
+          b.appendChild(im);
+          b.addEventListener('click', () => {
+            choisie = p;
+            vue.src = p.dedans ?? ('/__photos/vue?l=1800&cle=' + p.cle);
+            nom.textContent = 'essai : ' + p.fichier;
+            poser.disabled = false;
+            bande.querySelectorAll('.vignette').forEach((x) => x.setAttribute('aria-pressed', 'false'));
+            b.setAttribute('aria-pressed', 'true');
+          });
+          bande.appendChild(b);
+        });
+
+        poser.addEventListener('click', async () => {
+          if (!choisie) return;
+          poser.disabled = true;
+          etat.textContent = 'Enregistrement…';
+          try {
+            const rep = await fetch('/__photos/choisir', {
+              method: 'POST', headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ champ: place.dataset.champ, cle: choisie.cle }),
+            });
+            const j = await rep.json();
+            if (j.ok) { nom.textContent = 'enregistrée : ' + j.dedans; etat.textContent = 'Enregistré. Recharge la page d’accueil.'; }
+            else { etat.textContent = 'Échec : ' + j.erreur; poser.disabled = false; }
+          } catch (e) {
+            etat.textContent = 'Échec : cette page n’enregistre qu’en local (npm run dev).';
+            poser.disabled = false;
+          }
+        });
+      });
+    }).catch(() => { etat.textContent = 'Les photos ne se chargent qu’en local (npm run dev).'; });
+  </script>
+</body>
+</html>
