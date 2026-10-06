@@ -24,10 +24,10 @@
     "y": 50
   },
   "danse_image": {
-    "voile": 0.76,
-    "lumiere": 0.74,
+    "voile": 0.82,
+    "lumiere": 1.12,
     "x": 50,
-    "y": 72
+    "y": 18
   },
   "seuils_image": {
     "voile": 0.66,

@@ -15,6 +15,8 @@ import Separateur from '../components/Separateur.astro';
 import Trace from '../components/Trace.astro';
 import Fond from '../components/Fond.astro';
 import FONDS from '../data/fonds.json';
+import SEPS from '../data/separateurs.json';
+import { BORDS } from '../lib/bords';
 import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
@@ -69,6 +71,18 @@ const temoins = acc.temoins ?? [];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 // Le voile et la lumière de chaque photo de fond, réglés sur /essais-photos.
 const F = FONDS as Record<string, { voile: number; lumiere: number }>;
+// Après une bande de respiration, le bord de pinceau tient déjà lieu d'air.
+const apresBande = 'padding-top: clamp(1.2rem, 2.6vw, 2.6rem)';
+// L'air qu'une section doit se donner d'un côté : la hauteur exacte du bord
+// de pinceau qu'elle y porte, plus de quoi respirer. Le bord occupe toute la
+// largeur, donc sa hauteur suit le format du masque.
+const S = SEPS as Record<string, { bord: number; hauteur: number }>;
+const air = (id: string) => {
+  const r = S[id]; if (!r) return '';
+  const f = BORDS[r.bord] ?? BORDS[1];
+  const k = (f.h * (r.hauteur / 100)) / f.l;
+  return `calc(100vw * ${k.toFixed(4)} + clamp(2rem, 4.5vw, 4.5rem))`;
+};
 const reglage = (c: string) =>
   `--voile:${F[c]?.voile ?? 0.62}; --lum:${F[c]?.lumiere ?? 0.8}; --posx:${F[c]?.x ?? 50}%; --posy:${F[c]?.y ?? 50}%`;
 
@@ -120,7 +134,7 @@ const reglage = (c: string) =>
 
   <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
   {acc.coeur && (
-    <section class="bloc coeur-mot">
+    <section class="bloc coeur-mot" style={`padding-top:${air('coeur-haut')}; padding-bottom:${air('danse-bas')}`}>
       <Separateur id="danse-bas" cote="bas" couleur="var(--navy)" />
       <Fond src={acc.danse_image} force={F.danse_image?.voile} lumiere={F.danse_image?.lumiere} x={F.danse_image?.x} y={F.danse_image?.y} />
       <Separateur id="coeur-haut" cote="haut" couleur="var(--navy)" />
@@ -172,7 +186,7 @@ const reglage = (c: string) =>
 
   <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
   {dates.length > 0 && (
-    <section class="bloc">
+    <section class="bloc" style={apresBande}>
       <div class="wrap">
         <div class="tete-agenda">
           <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
@@ -190,7 +204,7 @@ const reglage = (c: string) =>
   <section class="breath" style={reglage('resp2_image')}>{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="paon-haut" cote="haut" couleur="var(--surface)" /><Separateur id="paon-bas" cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
 
   <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
-  <section class="bloc">
+  <section class="bloc" style={apresBande}>
     <Trace n={3} x={85} entree={71} force={0.09} />
     <div class="wrap">
       <div class="tete">
@@ -211,7 +225,7 @@ const reglage = (c: string) =>
 
   <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
-    <section class="difference">
+    <section class="difference" style={apresBande}>
       <Trace n={4} x={30} entree={14} force={0.09} />
       <div class="wrap">
         <div class="tete">
@@ -232,7 +246,7 @@ const reglage = (c: string) =>
   )}
 
   <!-- 7. LES SEUILS : par où entrer -->
-  <section id="seuils">
+  <section id="seuils" style={`padding-top:${air('seuils-haut')}; padding-bottom:${air('seuils-bas')}`}>
     <Separateur id="seuils-haut" cote="haut" couleur="var(--navy)" />
     <Separateur id="seuils-bas" cote="bas" couleur="var(--navy)" />
     <Fond src={acc.seuils_image} force={F.seuils_image?.voile} lumiere={F.seuils_image?.lumiere} x={F.seuils_image?.x} y={F.seuils_image?.y} />
@@ -280,7 +294,7 @@ const reglage = (c: string) =>
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" style={`padding-bottom:${air('contact-bas')}`}>
     <Separateur id="contact-bas" cote="bas" couleur="#2B3088" />
     <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} />
     <Trace n={6} x={85} entree={84} force={0.11} />
@@ -299,7 +313,7 @@ const reglage = (c: string) =>
   <Lettre source="accueil" eyebrow="Pas encore prêt ?" />
 
   <!-- 10. INDIGO ENOQII : l'art, en dernière respiration, juste avant la signature -->
-  <section class="art-signature">
+  <section class="art-signature" style={`padding-top:${air('art-haut')}`}>
     {(acc.art_fonds?.length ? acc.art_fonds : [acc.art_fond ?? '/img/oeuvres/spirale-glyphes.jpg']).map((src, i) => (
       <img class:list={['art-signature__fond', i === 0 && 'vu']} src={src} alt="" loading="lazy" />
     ))}
