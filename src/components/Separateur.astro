@@ -1,17 +1,18 @@
 ---
-// La séparation : un aplat de la couleur d'en face, masqué par un vrai bord
-// de pinceau. Quatre bords photographiés, leurs symétries : aucune frontière
-// ne se répète. Le masque garde ses proportions, donc les poils ne s'écrasent pas.
+// La séparation : un aplat de la couleur d'en face, masqué par un de tes
+// bords de pinceau. La bande prend le format exact du bord, donc ta forme
+// traverse la page une seule fois, d'un bord à l'autre, sans déformation.
+import { BORDS } from '../lib/bords';
 const {
   cote = 'bas',          // « bas » : au pied de la section · « haut » : à sa tête
   couleur = 'var(--navy)',
   bord = 1,              // 1 à 4
   retourne = false,      // symétrie gauche-droite
-  decalage = 0,          // d'où on entre dans le coup de pinceau, en %
 } = Astro.props;
+const f = BORDS[bord] ?? BORDS[1];
 ---
 <div
   class:list={['brosse', `brosse--${cote}`, retourne && 'brosse--retournee']}
-  style={`color:${couleur}; --brosse-img:url(/img/brosses/bord-${bord}.png); --brosse-x:${decalage}%`}
+  style={`color:${couleur}; --brosse-img:url(/img/brosses/bord-${bord}.png); aspect-ratio:${f.l} / ${f.h}`}
   aria-hidden="true"
 ></div>

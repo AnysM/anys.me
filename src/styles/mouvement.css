@@ -12,17 +12,14 @@ main > section > div { position: relative; z-index: 2; }
   rgba(0,0,0,0) 0%, rgba(0,0,0,0.26) 16%, rgba(0,0,0,0.26) 84%, rgba(0,0,0,0) 100%); }
 
 /* ── Les séparations : un bord de pinceau, de la couleur de la section d'en face ──
-   La bande garde une hauteur fixe et le masque garde son format : le coup de
-   pinceau reste à sa taille, quelle que soit la largeur de la page. Sur un écran
-   étroit on en voit moins, au lieu de le compresser. Le masque est doublé en
-   miroir, donc sa répétition est sans couture. */
+   La bande prend le format du bord photographié : la forme traverse la page
+   une fois, entière, et se réduit avec elle sans jamais se compresser. */
 .brosse {
   position: absolute; left: 0; right: 0; z-index: 2;
-  height: 120px;
   background-color: currentColor;
   pointer-events: none;
-  -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / auto 100% repeat-x;
-  mask: var(--brosse-img) var(--brosse-x, 0) 0 / auto 100% repeat-x;
+  -webkit-mask: var(--brosse-img) 0 0 / 100% 100% no-repeat;
+  mask: var(--brosse-img) 0 0 / 100% 100% no-repeat;
 }
 /* Le masque a son bord de pinceau en haut et le plein en dessous.
    En pied de section on le pose tel quel ; en tête on le retourne. */
@@ -30,7 +27,6 @@ main > section > div { position: relative; z-index: 2; }
 .brosse--haut { top: -1px; transform: scaleY(-1); }
 .brosse--bas.brosse--retournee { transform: scaleX(-1); }
 .brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
-@media (max-width: 760px) { .brosse { height: 88px; } }
 
 /* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
 .trace { position: absolute; top: 0; height: calc(100% + var(--debord, 0px));
