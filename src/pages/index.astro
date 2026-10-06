@@ -285,7 +285,9 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
 
   <!-- 10. INDIGO ENOQII : l'art, en dernière respiration, juste avant la signature -->
   <section class="art-signature">
-    <img class="art-signature__fond" src={acc.art_fond ?? '/img/art-3.jpg'} alt="" loading="lazy" />
+    {(acc.art_fonds?.length ? acc.art_fonds : [acc.art_fond ?? '/img/oeuvres/spirale-glyphes.jpg']).map((src, i) => (
+      <img class:list={['art-signature__fond', i === 0 && 'vu']} src={src} alt="" loading="lazy" />
+    ))}
     <Separateur id="art-haut" cote="haut" couleur="#2B3088" />
     <div class="wrap">
       <p class="eyebrow">{acc.art_eyebrow}</p>
@@ -294,6 +296,20 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
       <a class="btn" href="/artefacts">Voir les artefacts</a>
     </div>
   </section>
+  <script is:inline>
+    // Les œuvres de la bande finale se succèdent en fondu, sans rien précipiter.
+    (function () {
+      var fonds = document.querySelectorAll('.art-signature__fond');
+      if (fonds.length < 2) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var i = 0;
+      setInterval(function () {
+        fonds[i].classList.remove('vu');
+        i = (i + 1) % fonds.length;
+        fonds[i].classList.add('vu');
+      }, 7000);
+    })();
+  </script>
   <script is:inline>
     // Apparitions au défilement : chaque élément important se dévoile quand il arrive à l'écran,
     // et les éléments frères arrivent l'un après l'autre.

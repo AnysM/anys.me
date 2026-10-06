@@ -170,6 +170,7 @@ const pages = defineCollection({
     resp2_image: z.string().optional(),
     resp3_image: z.string().optional(),
     art_fond: z.string().optional(),
+    art_fonds: z.array(z.string()).optional(),
     art_phrase: z.string().optional(),
     art1_image: z.string().optional(),
     art2_image: z.string().optional(),

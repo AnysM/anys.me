@@ -926,6 +926,7 @@ export const PagesPartsFragmentDoc = gql`
   resp2_image
   resp3_image
   art_fond
+  art_fonds
   art_phrase
   art1_image
   art2_image

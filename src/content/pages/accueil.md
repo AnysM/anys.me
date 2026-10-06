@@ -6,7 +6,12 @@ portrait_image: /img/portrait.jpg
 resp1_image: /img/respiration-nenuphar.jpg
 resp2_image: /img/harshitha-b-j-XDMfaQ47Uow-unsplash.jpg
 resp3_image: /img/michael-c-Ofb4nzmv7uM-unsplash.jpg
-art_fond: /img/art-1.jpg
+art_fond: /img/oeuvres/spirale-glyphes.jpg
+art_fonds:
+  - /img/oeuvres/spirale-glyphes.jpg
+  - /img/oeuvres/spirales-vives.jpg
+  - /img/oeuvres/rouge-indigo.jpg
+  - /img/oeuvres/eclat-bleu.jpg
 art_phrase: 'Je peins ce que les mots ne tiennent pas. Les œuvres et les accompagnements viennent du même geste.'
 art1_image: /img/IMG_5904.PNG
 art2_image: /img/IMG_5911.PNG

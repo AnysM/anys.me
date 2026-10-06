@@ -380,6 +380,7 @@ var config_default = defineConfig({
           { type: "image", name: "resp2_image", label: "Respiration 2 (fond)" },
           { type: "image", name: "resp3_image", label: "Respiration bas (fond)" },
           { type: "image", name: "art_fond", label: "Oeuvre de fond (pleine page)" },
+          { type: "image", name: "art_fonds", label: "Oeuvres de fond (elles se succedent)", list: true },
           { type: "string", name: "art_phrase", label: "La phrase", ui: { component: "textarea" } },
           { type: "image", name: "art1_image", label: "Oeuvre 1" },
           { type: "image", name: "art2_image", label: "Oeuvre 2" },
