@@ -597,22 +597,22 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__roue.est-vue .rangee__rayon { stroke-dashoffset: 0; }
 
 /* Le placement passe par les marges : l'apparition au défilement garde sa translation */
-.rangee__item { position: absolute; width: 176px; margin: -40px 0 0 -88px; opacity: 0; transform: translateY(10px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 0.72s + 0.85s); }
+.rangee__item { position: absolute; width: 176px; margin: -49px 0 0 -88px; opacity: 0; transform: translateY(10px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 0.72s + 0.85s); }
 .rangee__roue.est-vue .rangee__item { opacity: 1; transform: none; }
 .rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
-.rangee__picto { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: var(--fond-symbole); border: 2px solid transparent; color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s, box-shadow 0.35s; }
+.rangee__picto { display: grid; place-items: center; width: 86px; height: 86px; border-radius: 50%; background: var(--fond-symbole); border: 2px solid transparent; color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s, box-shadow 0.35s; }
 /* Tes pictos portent déjà la main : aucun filtre par-dessus. */
-.rangee__picto svg { width: 62%; height: 62%; }
-.rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
+.rangee__picto svg { width: 56%; height: 56%; }
+.rangee__picto img { width: 56%; height: 56%; object-fit: contain; }
 /* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
-.rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); box-shadow: 0 0 18px -2px color-mix(in srgb, var(--u-trait) 55%, transparent); }
+.rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); border-color: color-mix(in srgb, var(--u-trait) 32%, transparent); box-shadow: 0 0 26px -6px color-mix(in srgb, var(--u-trait) 30%, transparent); }
 .rangee__nom { white-space: nowrap; padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 18px var(--surface); font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; font-size: clamp(0.8rem, 1vw, 0.88rem); line-height: 1.35; color: var(--cream); }
 .rangee__note { padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 16px var(--surface); font-style: italic; font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
 @media (max-width: 760px) {
   .rangee__roue { aspect-ratio: auto; width: 100%; }
   .rangee__anneau, .rangee__point, .rangee__trame { display: none; }
   .rangee__liste { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.2rem 1.2rem; }
-  .rangee__item { position: static; transform: none; width: auto; }
+  .rangee__item { position: static; transform: none; width: auto; margin: 0; }
   .rangee__item:last-child { grid-column: 1 / -1; }
 }
 

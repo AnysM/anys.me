@@ -6,7 +6,7 @@ const rangs = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean
 // Tout est exprimé en pourcentage du carré : le SVG et les pastilles partagent la même géométrie.
 const R = 36;        // rayon de la roue
 const R_MOYEU = 2;   // le point du centre
-const R_PICTO = 7;   // demi-taille d'une pastille
+const R_PICTO = 8.5; // demi-taille d'une pastille
 const DEBUT = R_MOYEU + 1.6;
 const LONG = R - R_PICTO - DEBUT;
 const points = rangs.map((u, i) => {
