@@ -27,7 +27,7 @@
     "voile": 0.76,
     "lumiere": 0.74,
     "x": 50,
-    "y": 50
+    "y": 72
   },
   "seuils_image": {
     "voile": 0.66,
@@ -37,13 +37,19 @@
   },
   "contact_image": {
     "voile": 0.74,
-    "lumiere": 0.74,
+    "lumiere": 0.3,
     "x": 50,
     "y": 50
   },
   "temoins_image": {
     "voile": 0.62,
-    "lumiere": 1,
+    "lumiere": 0.36,
+    "x": 61,
+    "y": 39
+  },
+  "portrait_image": {
+    "voile": 0.62,
+    "lumiere": 0.8,
     "x": 50,
     "y": 50
   }
