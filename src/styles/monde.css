@@ -601,7 +601,8 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .rangee__roue.est-vue .rangee__item { opacity: 1; transform: none; }
 .rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
 .rangee__picto { display: grid; place-items: center; width: 68px; height: 68px; border-radius: 50%; background: var(--fond-symbole); border: 2px solid transparent; color: var(--u-trait); transition: transform 0.35s var(--ease, ease), border-color 0.35s, box-shadow 0.35s; }
-.rangee__picto svg { width: 55%; height: 55%; filter: url(#encre); }
+/* Tes pictos portent déjà la main : aucun filtre par-dessus. */
+.rangee__picto svg { width: 62%; height: 62%; }
 .rangee__picto img { width: 58%; height: 58%; object-fit: contain; }
 /* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
 .rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); border-color: var(--u-trait); box-shadow: 0 0 18px -2px color-mix(in srgb, var(--u-trait) 55%, transparent); }
