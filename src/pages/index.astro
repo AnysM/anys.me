@@ -169,7 +169,7 @@ const reglage = (c: string) => {
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.venir_eyebrow}</p>
-          <h2 class="avec-signe"><span set:html={fmt(acc.venir_titre)}></span><Signe n="goutte" taille="2.1em" force={0.5} fin /></h2>
+          <h2 class="avec-signe"><span set:html={fmt(acc.venir_titre)}></span><Signe n="goutte" taille="2.1em" force={1} fin /></h2>
         </div>
         <ul class="venir__liste">{acc.venir_items.map((x) => {
           const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
@@ -245,7 +245,7 @@ const reglage = (c: string) => {
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <h3 class="avec-signe"><span>{x.titre}</span><Signe n={['duo','indigo-2','indigo-3','corail'][i % 4]} taille="2.3em" force={0.55} fin /></h3>
+              <h3 class="avec-signe"><span>{x.titre}</span><Signe n={['duo','indigo-2','indigo-3','corail'][i % 4]} taille="2.3em" force={1} fin /></h3>
               {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>
