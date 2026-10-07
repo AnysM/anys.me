@@ -7,7 +7,7 @@ coeur: |-
   Je t'aide dans la compréhension profonde de qui tu es, pour retrouver **alignement, souveraineté et pouvoir créateur**. Mon parcours m'a permis de traverser tout ça, et chacune de ces crises a été **une initiation** pour me rapprocher de qui je suis vraiment.
 hero_image: /img/photos/dscf1794.jpg
 portrait_image: /img/portrait.jpg
-outils_image: /img/photos/dscf1873.jpg
+outils_image: /img/photos/dscf2524.jpg
 pourqui_eyebrow: Pour qui
 pourqui_titre: Deux façons de se perdre
 pourqui_texte: |-

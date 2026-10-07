@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Separateur from '../../components/Separateur.astro';
+import { airSousBord } from '../../lib/bords';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
@@ -94,7 +96,8 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero page-hero--grand">{(d.image_hero ?? d.image) ? <img src={d.image_hero ?? d.image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero page-hero--grand" style={`padding-bottom:${airSousBord('page-bas')}`}>{(d.image_hero ?? d.image) ? <img src={d.image_hero ?? d.image} alt="" /> : <div class="ph-band"></div>}
+    {(d.image_hero ?? d.image) && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap">
       <p class="eyebrow">{quand}</p>
       <h1>{d.titre}</h1>

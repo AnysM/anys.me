@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Separateur from '../../components/Separateur.astro';
+import { airSousBord } from '../../lib/bords';
 import Sigils from '../../components/Sigils.astro';
 import Quete from '../../components/Quete.astro';
 import Icone from '../../components/Icone.astro';
@@ -76,8 +78,9 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
 ---
 <Base title={titreSeo} description={desc} image={image} type="article" publie={publie} modifie={modifie} jsonld={jsonld} noindex={mince}>
   <article>
-  <section class="page-hero fiche-hero">
+  <section class="page-hero fiche-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
     <img src={d.image ?? '/img/tex-cosmic.jpg'} alt="" />
+    <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />
     <div class="narrow">
       <nav aria-label="Fil d'Ariane"><p class="eyebrow"><a href="/codex">Codex</a>&nbsp;· {typeLabel(d.type)}</p></nav>
       <h1>{d.titre}</h1>

@@ -54,6 +54,9 @@ em { font-style: italic; }
 .wrap   { width: min(92%, 1200px); margin-inline: auto; }
 .narrow { width: min(92%, 680px);  margin-inline: auto; }
 section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+/* Le bord de pinceau d'une en-tête sépare déjà : la section qui suit démarre
+   serré, au lieu d'ajouter une pleine respiration à celle de la brosse. */
+.page-hero + section { padding-top: clamp(1.6rem, 3.4vw, 3rem); }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 14px;
