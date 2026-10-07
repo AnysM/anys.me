@@ -66,4 +66,14 @@ main > section:has(> .trace) { isolation: isolate; }
 /* Dans une ligne de texte : devant un titre, à sa hauteur. */
 .signe--ligne { display: inline-block; height: var(--signe-t, 1.05em); margin: 0 0.55em 0 0;
   vertical-align: -0.16em; }
-@media (max-width: 760px) { .signe { margin-bottom: 0.7rem; } }
+/* Posé derrière le début du titre : le signe et le mot se touchent, au lieu
+   de se tenir côte à côte sans se parler. */
+.avec-signe { position: relative; }
+.avec-signe > span { position: relative; z-index: 1; }
+.signe--fond { position: absolute; left: -0.5em; top: 50%; z-index: 0;
+  height: var(--signe-t, 2.5em); width: auto; margin: 0;
+  transform: translateY(-46%); }
+@media (max-width: 760px) {
+  .signe { margin-bottom: 0.7rem; }
+  .signe--fond { left: -0.35em; }
+}

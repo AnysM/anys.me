@@ -246,7 +246,7 @@ const reglage = (c: string) => {
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <h3><Signe n={['corail','indigo-3','or','duo'][i % 4]} taille="1.5em" force={0.9} ligne /> {x.titre}</h3>
+              <h3 class="avec-signe"><Signe n={['indigo-2','corail','indigo-3','duo'][i % 4]} taille="2.5em" force={0.5} fond /><span>{x.titre}</span></h3>
               {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>
