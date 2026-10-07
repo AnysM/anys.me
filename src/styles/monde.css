@@ -495,8 +495,9 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 @media (max-width: 820px) { .difference__liste { grid-template-columns: 1fr; gap: 2.2rem; } }
 
 /* ── L'entrée d'une page d'offres : un seul niveau, puis les propositions ── */
-/* Le bord de pinceau sépare déjà de l'en-tête : l'entrée démarre serré. */
-.entree { padding-top: clamp(1.6rem, 3.4vw, 3rem); }
+/* Le bord de pinceau sépare déjà de l'en-tête : l'entrée démarre serré. Et elle
+   laisse la section suivante poser seule sa respiration, au lieu de l'additionner. */
+.entree { padding-top: clamp(1.6rem, 3.4vw, 3rem); padding-bottom: 0; }
 .entree__tete { text-align: center; }
 .entree__tete h2 { margin-top: 0.8rem; }
 .entree__chapeau { margin-top: 0.9rem; }
