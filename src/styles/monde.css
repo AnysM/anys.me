@@ -474,7 +474,7 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 /* Les signes de la première rangée montent haut dans l'espace sous le titre :
    cette tête-là respire plus que les autres. */
 .difference .tete { margin-bottom: clamp(6rem, 13vw, 10rem); }
-.difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(3.4rem, 7vw, 5.6rem) clamp(2.4rem, 6vw, 5rem); max-width: 900px; margin: 0 auto; padding: 0; }
+.difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(5rem, 10vw, 8.5rem) clamp(3.5rem, 8vw, 7.5rem); max-width: 960px; margin: 0 auto; padding: 0; }
 /* La colonne de droite descend d'un cran : la lecture part en biais, en Z */
 .difference__liste li { position: relative; align-self: start; }
 .difference__liste li:nth-child(even) { margin-top: clamp(2.5rem, 6vw, 5rem); }
