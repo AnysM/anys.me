@@ -495,11 +495,17 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 @media (max-width: 820px) {
   /* En une colonne, le signe prend sa propre ligne au-dessus du titre : sa place
      ne dépend plus de la longueur du titre, et il cesse de mordre sur le bloc
-     d'avant. Il garde son alignement à gauche, comme le texte. */
+     d'avant. Son décalage, réglé pour le bout de titre, n'a plus lieu d'être —
+     seule son attitude, rotation et miroir, le suit ici. */
   .difference__liste { grid-template-columns: 1fr; gap: clamp(3.4rem, 9vw, 4.6rem); }
   .difference__liste .avec-signe--fin { display: flex; flex-direction: column; align-items: flex-start; }
-  .difference__liste .avec-signe--fin .signe { order: -1; margin: 0 0 0.35em; }
+  .difference__liste .avec-signe--fin .signe { order: -1; margin: 0 0 0.35em;
+    transform: var(--signe-attitude, rotate(0deg)); }
   .difference__liste h3 + p { margin-top: 1.2rem; }
+  /* Un bloc sur deux bascule à droite : la lecture zigzague au lieu de tomber droit. */
+  .difference__liste li:nth-child(even) { text-align: right; }
+  .difference__liste li:nth-child(even) .avec-signe--fin { align-items: flex-end; }
+  .difference__liste li:nth-child(even) p { margin-left: auto; margin-right: 0; }
 }
 
 /* ── L'entrée d'une page d'offres : un seul niveau, puis les propositions ── */

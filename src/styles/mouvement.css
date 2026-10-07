@@ -61,8 +61,9 @@ main > section:has(> .trace) { isolation: isolate; }
   rgba(10,15,32,calc(var(--fond-voile, 0.72) + 0.14)) 100%); }
 
 /* ── Les petites présences : tes glyphes, en ponctuation ── */
-.signe { display: block; height: var(--signe-t, 34px); width: auto;
-  pointer-events: none; user-select: none; transform: var(--signe-bouge, none); }
+.signe { display: block; height: var(--signe-t, 34px); width: auto; pointer-events: none;
+  user-select: none;
+  transform: var(--signe-place, translate(0, 0)) var(--signe-attitude, rotate(0deg)); }
 /* Au-dessus d'un titre, centré. */
 .signe--haut { margin: 0 auto 1rem; }
 /* En bout de titre : juste après le dernier mot. */
@@ -72,7 +73,8 @@ main > section:has(> .trace) { isolation: isolate; }
 .signe--libre { margin: 0; }
 /* Quand le signe fait lui-même partie d'une apparition, il garde sa pose :
    seule son opacité s'anime, sinon il saute en place une seconde plus tard. */
-.signe.apparait, .signe.apparait.vu { transform: var(--signe-bouge, none); }
+.signe.apparait, .signe.apparait.vu {
+  transform: var(--signe-place, translate(0, 0)) var(--signe-attitude, rotate(0deg)); }
 
 /* Un titre qui porte un signe : la pose choisie dans l'atelier décide de la mise en place. */
 .avec-signe--haut { display: flex; flex-direction: column; align-items: center; }
