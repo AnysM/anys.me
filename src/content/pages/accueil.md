@@ -74,7 +74,7 @@ codex_texte: 'Les notions, les pratiques, les rencontres et les réalisations qu
 citation2: Oser révéler *ta couleur unique* <br>afin d'accueillir l'abondance.
 citation3: Accepter de se mettre en relation <br>et redevenir *une cellule* <br>du grand organisme.
 citation_contact: Un premier pas ?
-form_titre: '*Écris-moi*'
+form_titre: '*On échange ?*'
 form_intro: 'Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds à chaque message.'
 coeur_eyebrow: Quand tout s'effondre
 coeur_titre: 'Apprendre à <br>*danser* <span class="ligne">avec la vie</span>'
