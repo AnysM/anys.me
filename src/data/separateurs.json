@@ -103,5 +103,12 @@
     "hauteur": 40,
     "largeur": 100,
     "decalage": 0
+  },
+  "page-bas": {
+    "bord": 2,
+    "retourne": true,
+    "hauteur": 45,
+    "largeur": 100,
+    "decalage": 0
   }
 }

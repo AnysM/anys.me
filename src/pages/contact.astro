@@ -1,11 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import Contact from '../components/Contact.astro';
 import { getEntry } from 'astro:content';
 const cc = (await getEntry('pages', 'contact'))!.data;
 ---
 <Base title="Contact — Anys Mechkar" description="Écris-moi : une question, une envie, un premier pas.">
-  <section class="page-hero" style="min-height:34vh;">{cc.hero_image ? <img src={cc.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style={`min-height:34vh; padding-bottom:${airSousBord('page-bas')}`}>{cc.hero_image ? <img src={cc.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {cc.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{cc.hero_eyebrow}</p><h1>{cc.hero_titre}</h1></div>
   </section>
   <section>

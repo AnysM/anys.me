@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import { getEntry } from 'astro:content';
 import { recit } from '../lib/monde';
 import { tisser, contexte } from '../lib/lore.mjs';
@@ -10,7 +12,8 @@ const ctx = contexte();
 const chapitres = (await recit()).map((c) => ({ ...c, html: c.texte.split(/\n\n+/).map((par) => tisser(par, ctx)) }));
 ---
 <Base title="À propos — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
-  <section class="page-hero" style="min-height:52vh;">{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style={`min-height:52vh; padding-bottom:${airSousBord('page-bas')}`}>{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {ap.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{ap.hero_eyebrow}</p><h1>{ap.hero_titre}</h1></div>
   </section>
 

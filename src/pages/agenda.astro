@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Lettre from '../components/Lettre.astro';
 import { getCollection, getEntry } from 'astro:content';
@@ -23,7 +25,8 @@ const groupes = [
 const CATEGORIES = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 ---
 <Base title="Agenda — ateliers, voyages sonores, retraites à Lyon | Anys Mechkar" description="Les prochaines dates d'Anys Mechkar : ateliers de méditation et de danse Butô, voyages sonores, cercles de parole et retraites, à Lyon et ailleurs.">
-  <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {ag.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap"><p class="eyebrow">{ag.hero_eyebrow}</p><h1>{ag.hero_titre}</h1></div>
   </section>
 
@@ -48,6 +51,9 @@ const CATEGORIES = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retra
                 return (
                   <li class="apercu__ligne">
                     <a href={href} target={externe ? '_blank' : undefined} rel={externe ? 'noopener' : undefined}>
+                      <span class="apercu__vignette">{e.data.image
+                        ? <img src={e.data.image} alt="" loading="lazy" />
+                        : <span class="apercu__vignette--vide" aria-hidden="true"></span>}</span>
                       <span class="apercu__quand">{quand}{suite.length > 0 && <span class="apercu__heure">{sep}{suite.join(' · ')}</span>}</span>
                       <span class="apercu__titre">{e.data.titre}</span>
                       <span class="apercu__type"><span class={`ecard__tag type-${e.data.categorie}`}>{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span></span>

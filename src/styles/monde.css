@@ -670,7 +670,14 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .vues button[aria-pressed='true'] { background: var(--cream); color: var(--navy); }
 .apercu { display: block; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--faint); }
 .apercu__ligne { border-bottom: 1px solid var(--faint); }
-.apercu__ligne a { display: grid; grid-template-columns: 12rem 1fr 10.5rem 11rem 4.5rem 8.5rem; align-items: baseline; gap: 1.2rem; padding: 1.15rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
+.apercu__ligne a { display: grid; grid-template-columns: 3.6rem 10.5rem 1fr 9.5rem 9.5rem 4.5rem 8rem; align-items: center; gap: 1rem; padding: 0.9rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
+/* Une vignette carrée ouvre la ligne : on reconnaît l'évènement d'un coup d'œil. */
+.apercu__vignette { display: block; width: 3.6rem; height: 3.6rem; border-radius: 10px; overflow: hidden; background: var(--surface); }
+.apercu__vignette img { width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.4s var(--ease, ease); }
+.apercu__ligne a:hover .apercu__vignette img { transform: scale(1.06); }
+.apercu__vignette--vide { display: block; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(163,168,255,0.14), rgba(216,162,76,0.1)); }
 .apercu__ligne a:hover { background: rgba(236,231,222,0.04); padding-left: 0.9rem; }
 .apercu__quand { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; font-weight: 500; }
 .apercu__heure { font-weight: 300; color: rgba(236,231,222,0.7); }
@@ -679,10 +686,11 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .apercu__lieu, .apercu__prix { font-size: 0.88rem; color: var(--muted); }
 .apercu__prix { text-align: right; font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--cream); }
 @media (max-width: 900px) {
-  .apercu__ligne a { grid-template-columns: 1fr auto; gap: 0.35rem 1rem; padding: 1.1rem 0.2rem; }
-  .apercu__quand { grid-column: 1; }
-  .apercu__prix { grid-column: 2; grid-row: 1; }
-  .apercu__titre { grid-column: 1 / -1; }
+  .apercu__ligne a { grid-template-columns: 3rem 1fr auto; gap: 0.35rem 0.9rem; padding: 1rem 0.2rem; align-items: start; }
+  .apercu__vignette { width: 3rem; height: 3rem; grid-row: 1 / span 2; }
+  .apercu__quand { grid-column: 2; }
+  .apercu__prix { grid-column: 3; grid-row: 1; }
+  .apercu__titre { grid-column: 2 / -1; }
   .apercu__type, .apercu__lieu { grid-column: auto; }
 }
 

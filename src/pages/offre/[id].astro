@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Separateur from '../../components/Separateur.astro';
+import { airSousBord } from '../../lib/bords';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
@@ -76,7 +78,8 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`padding-bottom:${airSousBord('page-bas')}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    {d.image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
       {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}

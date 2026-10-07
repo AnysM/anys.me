@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import { getCollection } from 'astro:content';
 import { getEntry } from 'astro:content';
 const sc = (await getEntry('pages', 'soins')).data;
@@ -7,7 +9,8 @@ const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').re
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
 <Base title="Soins énergétiques et massages à Lyon — Anys Mechkar" description="Soin énergétique et massage à l'huile à Lyon, en studio sur les quais de Saône ou à domicile. Un temps pour relâcher, harmoniser et remettre du mouvement.">
-  <section class="page-hero">{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {sc.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>
 
