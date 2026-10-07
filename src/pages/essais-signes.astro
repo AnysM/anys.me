@@ -22,7 +22,9 @@ const PLACES = [
     id: `difference-${i + 1}`, genre: 'diff',
     titre: `Ce que tu ne trouveras pas ailleurs — ${i + 1}`,
     eyebrow: null, texte: d.titre })),
-  { id: 'lettre', genre: 'lettre', titre: 'La lettre', eyebrow: 'La lettre', texte: 'Rester *relié*' },
+  { id: 'lettre', genre: 'lettre', titre: 'La lettre', eyebrow: 'Pas encore prêt ?',
+    texte: 'Rester *relié*',
+    intro: "Une fois par mois : les prochaines dates, un texte, une pratique. Rien d'autre." },
 ];
 const R = REGLAGES as Record<string, any>;
 ---
@@ -67,9 +69,10 @@ const R = REGLAGES as Record<string, any>;
           {p.genre === 'lettre' && (
             <div class="ap-rangee">
               <img class="ap-signe" data-signe src={`/img/signes/${r.n ?? 'indigo-1'}.png`} alt="" />
-              <div>
-                <p class="ap-eyebrow">{p.eyebrow}</p>
+              <div class="ap-lettre">
+                <p class="ap-eyebrow ap-eyebrow--petit">{p.eyebrow}</p>
                 <h2 class="ap-h2b" set:html={fmt(p.texte)}></h2>
+                <p class="ap-intro">{(p as any).intro}</p>
               </div>
             </div>
           )}
@@ -138,7 +141,7 @@ const R = REGLAGES as Record<string, any>;
     :root { --navy: #0A0F20; --cream: #ECE7DE; --gold: #D8A24C; }
     * { box-sizing: border-box; }
     body.atelier { background: #080C1A; color: var(--cream); margin: 0; padding: 0 0 6rem;
-      font-family: 'Jost', system-ui, sans-serif; }
+      font-family: 'Jost', system-ui, sans-serif; font-weight: 300; font-size: 17px; line-height: 1.8; }
     .atelier__tete { padding: 2.4rem clamp(1rem,4vw,3rem) 1.6rem; border-bottom: 1px solid rgba(236,231,222,0.12); }
     .atelier__tete h1 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0.06em; margin: 0 0 0.5rem; }
     .atelier__tete p { color: #9AA0B4; max-width: 66ch; margin: 0 0 1.2rem; line-height: 1.6; }
@@ -155,7 +158,7 @@ const R = REGLAGES as Record<string, any>;
 
     .apercu { background: #111A38; border-radius: 10px; padding: clamp(1.6rem, 4vw, 3rem);
       display: flex; flex-direction: column; min-height: 200px; justify-content: center;
-      overflow: auto; font-size: 1rem; }
+      overflow: auto; font-size: 17px; }
     .apercu--diff { align-items: flex-start; }
     /* L'aperçu est à la même échelle que la page : les clamp() se mesurent sur la
        largeur de la fenêtre, donc à fenêtre égale le signe a exactement la même taille. */
@@ -175,8 +178,16 @@ const R = REGLAGES as Record<string, any>;
       font-size: clamp(1.45rem, 2.2vw, 1.75rem); margin: 0; }
     .script { font-family: 'Biloxi Script', 'EB Garamond', cursive; font-style: normal;
       text-transform: none; letter-spacing: 0.01em; }
-    .ap-h2 .script, .ap-h2b .script { font-size: 2em; line-height: 0.9; margin-inline: 0.06em 0.14em; }
-    .ap-rangee { display: flex; align-items: center; gap: clamp(1.4rem, 4vw, 3rem); text-align: left; }
+    .ap-h2 .script { font-size: 2em; line-height: 0.9; margin-inline: 0.06em 0.14em; }
+    .ap-h2b .script { font-size: 1.7em; line-height: 0.9; margin-inline: 0.06em 0.14em; }
+    .apercu--lettre { background: #2B3088; }
+    .ap-rangee { display: grid; grid-template-columns: auto minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 1.4rem clamp(1.6rem, 4vw, 3.2rem); align-items: center; text-align: left; }
+    .ap-rangee .ap-signe { margin: 0 0 0 0.3em; }
+    .ap-eyebrow--petit { font-size: 0.66rem; }
+    .ap-h2b { margin: 0.5rem 0 0; font-size: clamp(1.3rem, 2.4vw, 1.7rem); color: #fff; }
+    .ap-intro { margin: 0.5rem 0 0; font-size: 0.92rem; line-height: 1.6;
+      color: rgba(236,231,222,0.82); max-width: 44ch; }
     .ap-signe { display: block; height: 2.3em; width: auto; }
     /* Les trois poses, exactement comme .avec-signe-- sur le site. */
     .ap-porte .ap-signe { display: inline-block; margin: 0 0 0 0.3em; vertical-align: -0.8em; }

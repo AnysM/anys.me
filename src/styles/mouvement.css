@@ -70,6 +70,9 @@ main > section:has(> .trace) { isolation: isolate; }
   position: relative; z-index: 0; }
 /* Libre : il tient sa propre place dans la mise en page. */
 .signe--libre { margin: 0; }
+/* Quand le signe fait lui-même partie d'une apparition, il garde sa pose :
+   seule son opacité s'anime, sinon il saute en place une seconde plus tard. */
+.signe.apparait, .signe.apparait.vu { transform: var(--signe-bouge, none); }
 
 /* Un titre qui porte un signe : la pose choisie dans l'atelier décide de la mise en place. */
 .avec-signe--haut { display: flex; flex-direction: column; align-items: center; }
