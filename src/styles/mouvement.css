@@ -70,4 +70,10 @@ main > section:has(> .trace) { isolation: isolate; }
   position: relative; z-index: 0; }
 /* Libre : il tient sa propre place dans la mise en page. */
 .signe--libre { margin: 0; }
+
+/* Un titre qui porte un signe : la pose choisie dans l'atelier décide de la mise en place. */
+.avec-signe--haut { display: flex; flex-direction: column; align-items: center; }
+.avec-signe--haut .signe { order: -1; margin: 0 0 0.3em; }
+.avec-signe--libre { display: flex; align-items: center; gap: clamp(0.7rem, 1.8vw, 1.5rem); }
+.avec-signe--libre .signe { flex: none; }
 @media (max-width: 760px) { .signe--haut { margin-bottom: 0.7rem; } }

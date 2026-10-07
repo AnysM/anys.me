@@ -4,19 +4,25 @@
 import { getEntry } from 'astro:content';
 import REGLAGES from '../data/signes.json';
 import { readdirSync } from 'node:fs';
+import '../styles/fonts.css';
 
 const acc = (await getEntry('pages', 'accueil'))!.data;
 const SIGNES = readdirSync('public/img/signes').filter((f) => f.endsWith('.png'))
   .map((f) => f.replace('.png', '')).sort();
 
-// Chaque présence, avec le texte à côté duquel elle se tient.
+// Les accents en écriture manuscrite, comme sur le site.
+const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+
+// Chaque présence, dans le titre qui la porte — même typographie, même échelle
+// que sur la page, pour que ce que tu règles ici soit ce que tu verras là-bas.
 const PLACES = [
-  { id: 'venir', titre: 'Au-dessus d’« Oser un nouveau chemin »',
-    eyebrow: acc.venir_eyebrow, texte: acc.venir_titre?.replace(/\*/g, '') ?? '' },
+  { id: 'venir', genre: 'venir', titre: 'Pourquoi on vient me voir',
+    eyebrow: acc.venir_eyebrow, texte: acc.venir_titre ?? '' },
   ...(acc.difference ?? []).slice(0, 4).map((d: any, i: number) => ({
-    id: `difference-${i + 1}`, titre: `Ce que tu ne trouveras pas ailleurs — ${i + 1}`,
+    id: `difference-${i + 1}`, genre: 'diff',
+    titre: `Ce que tu ne trouveras pas ailleurs — ${i + 1}`,
     eyebrow: null, texte: d.titre })),
-  { id: 'lettre', titre: 'La lettre', eyebrow: 'Pas encore prêt ?', texte: 'Rester relié' },
+  { id: 'lettre', genre: 'lettre', titre: 'La lettre', eyebrow: 'La lettre', texte: 'Rester *relié*' },
 ];
 const R = REGLAGES as Record<string, any>;
 ---
@@ -48,12 +54,25 @@ const R = REGLAGES as Record<string, any>;
       <section class="place" data-id={p.id}>
         <h2>{p.titre}</h2>
 
-        <div class="apercu" data-mode={r.mode ?? 'fin'}>
-          {p.eyebrow && <p class="ap-eyebrow">{p.eyebrow}</p>}
-          <div class="ap-ligne">
-            <img class="ap-signe" data-signe src={`/img/signes/${r.n ?? 'indigo-1'}.png`} alt="" />
-            <span class="ap-texte">{p.texte}</span>
-          </div>
+        <div class={`apercu apercu--${p.genre}`} data-mode={r.mode ?? 'fin'}>
+          {p.genre === 'venir' && (
+            <div class="ap-tete">
+              <p class="ap-eyebrow">{p.eyebrow}</p>
+              <h2 class="ap-h2 ap-porte"><span set:html={fmt(p.texte)}></span><img class="ap-signe" data-signe src={`/img/signes/${r.n ?? 'indigo-1'}.png`} alt="" /></h2>
+            </div>
+          )}
+          {p.genre === 'diff' && (
+            <h3 class="ap-h3 ap-porte"><span>{p.texte}</span><img class="ap-signe" data-signe src={`/img/signes/${r.n ?? 'indigo-1'}.png`} alt="" /></h3>
+          )}
+          {p.genre === 'lettre' && (
+            <div class="ap-rangee">
+              <img class="ap-signe" data-signe src={`/img/signes/${r.n ?? 'indigo-1'}.png`} alt="" />
+              <div>
+                <p class="ap-eyebrow">{p.eyebrow}</p>
+                <h2 class="ap-h2b" set:html={fmt(p.texte)}></h2>
+              </div>
+            </div>
+          )}
         </div>
 
         <div class="reglages">
@@ -71,11 +90,13 @@ const R = REGLAGES as Record<string, any>;
 
           <div class="champ">
             <label>Pose</label>
-            <div class="poses">
+            {p.genre === 'lettre'
+              ? <p class="ap-note">Ce signe-là se tient à gauche du bloc, à sa place. Sa taille se règle en pixels.</p>
+              : <div class="poses">
               {[['fin', 'en bout de titre'], ['haut', 'au-dessus, centré'], ['libre', 'à sa place']].map(([m, l]) => (
                 <button type="button" class="pose" data-mode={m} aria-pressed={String((r.mode ?? 'fin') === m)}>{l}</button>
               ))}
-            </div>
+              </div>}
           </div>
 
           <div class="champ">
@@ -112,6 +133,8 @@ const R = REGLAGES as Record<string, any>;
   })}
 
   <style is:global>
+    @font-face { font-family: 'Biloxi Script'; src: url('/fonts/Biloxi_Script.ttf') format('truetype');
+      font-weight: 400; font-style: normal; font-display: swap; }
     :root { --navy: #0A0F20; --cream: #ECE7DE; --gold: #D8A24C; }
     * { box-sizing: border-box; }
     body.atelier { background: #080C1A; color: var(--cream); margin: 0; padding: 0 0 6rem;
@@ -127,24 +150,41 @@ const R = REGLAGES as Record<string, any>;
     .atelier__etat { color: #8FB3FF; font-size: 0.82rem; }
 
     .place { padding: 2rem clamp(1rem,4vw,3rem); border-bottom: 1px solid rgba(236,231,222,0.08); }
-    .place h2 { font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+    .place > h2 { font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--gold); font-weight: 500; margin: 0 0 1.1rem; }
 
     .apercu { background: #111A38; border-radius: 10px; padding: clamp(1.6rem, 4vw, 3rem);
       display: flex; flex-direction: column; min-height: 200px; justify-content: center;
-      overflow: auto; }
-    .ap-eyebrow { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold); margin: 0 0 0.7rem; }
-    .ap-ligne { display: flex; align-items: center; gap: 0; }
-    .ap-texte { font-size: clamp(1.2rem, 2.4vw, 1.8rem); font-weight: 300; color: var(--cream); }
-    .ap-signe { height: 2.3em; width: auto; display: inline-block; }
-    /* Les trois poses, comme sur le site. */
-    .apercu[data-mode="fin"] .ap-ligne { flex-direction: row; }
-    .apercu[data-mode="fin"] .ap-signe { order: 2; margin-left: 0.3em; }
-    .apercu[data-mode="haut"] { align-items: center; text-align: center; }
-    .apercu[data-mode="haut"] .ap-ligne { flex-direction: column; }
-    .apercu[data-mode="haut"] .ap-signe { margin-bottom: 1rem; }
-    .apercu[data-mode="libre"] .ap-ligne { gap: clamp(1.4rem, 4vw, 3rem); }
+      overflow: auto; font-size: 1rem; }
+    .apercu--diff { align-items: flex-start; }
+    /* L'aperçu est à la même échelle que la page : les clamp() se mesurent sur la
+       largeur de la fenêtre, donc à fenêtre égale le signe a exactement la même taille. */
+    .ap-tete { text-align: center; }
+    .ap-eyebrow { display: inline-flex; align-items: center; gap: 14px; margin: 0 0 0.3rem;
+      font-family: 'Jost', sans-serif; font-weight: 400; color: var(--gold);
+      letter-spacing: 0.28em; text-transform: uppercase; font-size: 0.72rem; }
+    .ap-eyebrow::after { content: ''; width: 42px; height: 1px; background: var(--gold); opacity: 0.55; }
+    .ap-h2 { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase;
+      letter-spacing: 0.08em; line-height: 1.12; color: var(--cream);
+      font-size: clamp(1.7rem, 4vw, 2.7rem); margin: 0; }
+    .ap-h2b { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase;
+      letter-spacing: 0.08em; line-height: 1.12; color: #fff;
+      font-size: clamp(1.3rem, 2.4vw, 1.75rem); margin: 0; }
+    .ap-h3 { font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none;
+      letter-spacing: 0; line-height: 1.2; color: var(--cream);
+      font-size: clamp(1.45rem, 2.2vw, 1.75rem); margin: 0; }
+    .script { font-family: 'Biloxi Script', 'EB Garamond', cursive; font-style: normal;
+      text-transform: none; letter-spacing: 0.01em; }
+    .ap-h2 .script, .ap-h2b .script { font-size: 2em; line-height: 0.9; margin-inline: 0.06em 0.14em; }
+    .ap-rangee { display: flex; align-items: center; gap: clamp(1.4rem, 4vw, 3rem); text-align: left; }
+    .ap-signe { display: block; height: 2.3em; width: auto; }
+    /* Les trois poses, exactement comme .avec-signe-- sur le site. */
+    .ap-porte .ap-signe { display: inline-block; margin: 0 0 0 0.3em; vertical-align: -0.8em; }
+    .apercu[data-mode="haut"] .ap-porte { display: flex; flex-direction: column; align-items: center; }
+    .apercu[data-mode="haut"] .ap-porte .ap-signe { order: -1; margin: 0 0 0.3em; }
+    .apercu[data-mode="libre"] .ap-porte { display: flex; align-items: center;
+      gap: clamp(0.7rem, 1.8vw, 1.5rem); }
+    .apercu[data-mode="libre"] .ap-porte .ap-signe { flex: none; margin: 0; vertical-align: baseline; }
 
     .reglages { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 1.2rem 2rem; margin-top: 1.3rem; align-items: start; }
@@ -166,6 +206,7 @@ const R = REGLAGES as Record<string, any>;
     .pose { border: 1px solid rgba(236,231,222,0.16); background: transparent; color: #9AA0B4;
       border-radius: 999px; padding: 0.35rem 0.8rem; font: inherit; font-size: 0.72rem; cursor: pointer; }
     .pose[aria-pressed=true] { border-color: var(--gold); color: var(--cream); }
+    .ap-note { color: #6E7489; font-size: 0.8rem; line-height: 1.5; margin: 0; max-width: 34ch; }
   </style>
 
   <script type="application/json" id="init" set:html={JSON.stringify(REGLAGES)}></script>

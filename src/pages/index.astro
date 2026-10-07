@@ -15,6 +15,9 @@ import Separateur from '../components/Separateur.astro';
 import Trace from '../components/Trace.astro';
 import Fond from '../components/Fond.astro';
 import Signe from '../components/Signe.astro';
+import SIGNES from '../data/signes.json';
+// La pose choisie dans l'atelier : le titre qui porte le signe s'arrange en conséquence.
+const pose = (id: string) => ((SIGNES as Record<string, any>)[id]?.mode ?? 'fin');
 import FONDS from '../data/fonds.json';
 import SEPS from '../data/separateurs.json';
 import { BORDS } from '../lib/bords';
@@ -168,9 +171,8 @@ const reglage = (c: string) => {
       <Trace n={2} x={35} entree={40} force={0.08} />
       <div class="wrap">
         <div class="tete">
-          <Signe id="venir" />
           <p class="eyebrow">{acc.venir_eyebrow}</p>
-          <h2 set:html={fmt(acc.venir_titre)}></h2>
+          <h2 class:list={['avec-signe', `avec-signe--${pose('venir')}`]}><span set:html={fmt(acc.venir_titre)}></span><Signe id="venir" /></h2>
         </div>
         <ul class="venir__liste">{acc.venir_items.map((x) => {
           const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
@@ -246,7 +248,7 @@ const reglage = (c: string) => {
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <h3 class="avec-signe"><span>{x.titre}</span><Signe id={`difference-${(i % 4) + 1}`} /></h3>
+              <h3 class:list={['avec-signe', `avec-signe--${pose(`difference-${(i % 4) + 1}`)}`]}><span>{x.titre}</span><Signe id={`difference-${(i % 4) + 1}`} /></h3>
               {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>

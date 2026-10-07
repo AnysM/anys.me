@@ -1,8 +1,62 @@
 {
-  "venir": { "n": "vague", "mode": "haut", "taille": 80, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
-  "difference-1": { "n": "duo", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
-  "difference-2": { "n": "indigo-2", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
-  "difference-3": { "n": "indigo-3", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
-  "difference-4": { "n": "corail", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
-  "lettre": { "n": "soleil", "mode": "libre", "taille": 220, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false }
+  "venir": {
+    "n": "duo",
+    "mode": "fin",
+    "taille": 2.84,
+    "force": 1,
+    "dx": -5,
+    "dy": -8,
+    "tour": 0,
+    "miroir": false
+  },
+  "difference-1": {
+    "n": "rose-noire",
+    "mode": "fin",
+    "taille": 6.4,
+    "force": 1,
+    "dx": -15,
+    "dy": -17,
+    "tour": 0,
+    "miroir": false
+  },
+  "difference-2": {
+    "n": "soleil",
+    "mode": "fin",
+    "taille": 5.95,
+    "force": 1,
+    "dx": -26,
+    "dy": 12,
+    "tour": 0,
+    "miroir": false
+  },
+  "difference-3": {
+    "n": "indigo-2",
+    "mode": "fin",
+    "taille": 5.35,
+    "force": 1,
+    "dx": -14,
+    "dy": -1,
+    "tour": 1,
+    "miroir": false
+  },
+  "difference-4": {
+    "n": "corail",
+    "mode": "fin",
+    "taille": 5,
+    "force": 1,
+    "dx": -8,
+    "dy": -4,
+    "tour": 0,
+    "miroir": false
+  },
+  "lettre": {
+    "n": "etoile",
+    "mode": "fin",
+    "taille": 3.7,
+    "force": 1,
+    "dx": -15,
+    "dy": -22,
+    "tour": 25,
+    "miroir": false
+  }
 }
