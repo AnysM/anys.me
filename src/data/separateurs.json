@@ -96,5 +96,12 @@
     "hauteur": 54,
     "largeur": 100,
     "decalage": 0
+  },
+  "pied-haut": {
+    "bord": 3,
+    "retourne": true,
+    "hauteur": 40,
+    "largeur": 100,
+    "decalage": 0
   }
 }
