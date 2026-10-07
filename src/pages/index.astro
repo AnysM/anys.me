@@ -117,8 +117,8 @@ const reglage = (c: string) => {
   </section>
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
-  <section style="padding:0;">
-    <div class="split split--pleine">
+  <section>
+    <div class="wrap split split--carte">
       <div class="photo" style="--img-y:38%;">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
       <div>
         <h2 set:html={fmt(acc.parcours_titre)}></h2>

@@ -935,17 +935,19 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   font-size: clamp(1.15rem, 2vw, 1.42rem); line-height: 1.6; color: #D6D9E4;
   text-shadow: 0 2px 22px rgba(5,7,16,0.8); }
 
-/* ── Le portrait prend toute une moitié d'écran, bord à bord ──
-   Dans un cadre de 400 px la photo était posée là ; à pleine hauteur elle
-   tient la page, et le texte s'installe dans son propre pan de couleur. */
-.split.split--pleine { max-width: none; width: 100vw; margin-left: calc(50% - 50vw);
-  padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; }
-.split.split--pleine .photo { aspect-ratio: auto; min-height: 64vh; border: 0; background: var(--surface); }
-.split.split--pleine .photo img { object-position: 50% var(--img-y, 50%); }
-.split.split--pleine > div:last-child { background: var(--navy2);
-  padding: clamp(2.4rem, 5vw, 5rem) clamp(1.6rem, 4.5vw, 4.5rem);
+/* ── Le portrait et son texte dans une même carte ──
+   Dans un cadre de 400 px la photo était posée là ; sur toute la largeur elle
+   coupait au carré. En carte, les deux moitiés se tiennent, et les angles
+   ronds répondent aux courbes des bords de pinceau. */
+.split.split--carte { padding: 0; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; align-items: stretch; border-radius: clamp(20px, 2.4vw, 34px); overflow: hidden; }
+.split.split--carte .photo { aspect-ratio: auto; min-height: 56vh; border: 0;
+  border-radius: 0; background: var(--surface); }
+.split.split--carte .photo img { object-position: 50% var(--img-y, 50%); }
+.split.split--carte > div:last-child { background: var(--navy2);
+  padding: clamp(2.2rem, 4.5vw, 4rem) clamp(1.8rem, 4vw, 3.6rem);
   display: flex; flex-direction: column; justify-content: center; }
 @media (max-width: 860px) {
-  .split.split--pleine { grid-template-columns: 1fr; }
-  .split.split--pleine .photo { min-height: 54vh; order: 0; }
+  .split.split--carte { grid-template-columns: 1fr; }
+  .split.split--carte .photo { min-height: 52vh; order: 0; }
 }
