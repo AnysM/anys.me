@@ -8,7 +8,7 @@ const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').re
 const outils = ac.outils ?? [];
 ---
 <Base title="Accompagnement des transitions de vie à Lyon — Anys Mechkar" description="Accompagnement individuel, Prisme Origine et parcours initiatiques, à Lyon ou en ligne, pour traverser une transition et donner forme à ce qui te tient à cœur.">
-  <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style="min-height:52vh; --hero-y:62%;">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band"></div>}
     <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>
 

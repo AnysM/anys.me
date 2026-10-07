@@ -65,7 +65,7 @@ temoignages:
   - t: "Anys m'a accompagné six mois, au moment où je démarrais un projet avec une reconversion. Il m'a permis de ne pas me sentir seul, de trouver en moi les ressources dont j'avais besoin. Mon projet a pu prendre forme."
     'n': "S. K."
     c: "Accompagnement de 6 mois, reconversion"
-image: /img/photos/dscf1571.jpg
+image: /img/photos/dscf1872.jpg
 pourqui:
   - "Tu traverses une transition, une séparation, une reconversion, une perte de sens, et tu ne sais pas par où commencer."
   - "Tu as déjà beaucoup travaillé sur toi, compris beaucoup de choses, et pourtant ton quotidien ne change pas."
