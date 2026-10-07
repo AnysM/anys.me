@@ -19,7 +19,7 @@ const outils = ac.outils ?? [];
        après un écran, sans détour par un portrait — il est déjà sur l'accueil. -->
   <section class="entree">
     <div class="narrow entree__tete">
-      <p class="eyebrow">{ac.formules_eyebrow}</p>
+      {ac.formules_eyebrow && <p class="eyebrow">{ac.formules_eyebrow}</p>}
       <h2 set:html={fmt(ac.formules_titre)}></h2>
       <div class="entree__mot">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>

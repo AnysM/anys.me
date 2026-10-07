@@ -18,7 +18,7 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
        On arrive vite au choix, sans détour par un portrait. -->
   <section class="entree">
     <div class="narrow entree__tete">
-      <p class="eyebrow">{sc.soins_eyebrow}</p>
+      {sc.soins_eyebrow && <p class="eyebrow">{sc.soins_eyebrow}</p>}
       <h2 set:html={fmt(sc.soins_titre)}></h2>
       <p class="muted entree__chapeau">{sc.soins_intro}</p>
       <div class="entree__mot">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
