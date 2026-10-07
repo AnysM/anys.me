@@ -28,7 +28,7 @@ faq:
     r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
     r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble. Je te réponds sous 48 h."
-image: /img/photos/dscf2211.jpg
+image: /img/photos/dscf1640.jpg
 ---
 Un soin profond de purification et de réharmonisation de la sphère énergétique.
 

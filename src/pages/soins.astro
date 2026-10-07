@@ -11,21 +11,16 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
     <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>
 
-  <!-- CŒUR À CŒUR -->
-  <section class="coeur">
-    <div class="wrap split">
-      <div class="photo">{sc.portrait_image ? <img class="slot-img" src={sc.portrait_image} alt="" /> : <div class="imgph"><span>SOINS-PORTRAIT</span></div>}</div>
-      <div class="coeur__text">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
-    </div>
-  </section>
-
-  <!-- LES SOINS -->
-  <section>
-    <div class="wrap">
+  <!-- Un seul niveau : ce que je mets dans un soin, puis les deux soins.
+       On arrive vite au choix, sans détour par un portrait. -->
+  <section class="soins-entree">
+    <div class="narrow soins-tete">
       <p class="eyebrow">{sc.soins_eyebrow}</p>
-      <h2 style="margin-top:0.8rem;" set:html={fmt(sc.soins_titre)}></h2>
-      <p class="muted" style="margin-top:0.8rem;">{sc.soins_intro}</p>
-      <div style="margin-top:2.4rem;">
+      <h2 set:html={fmt(sc.soins_titre)}></h2>
+      <p class="muted soins-chapeau">{sc.soins_intro}</p>
+      <div class="soins-mot">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
+    </div>
+    <div class="wrap soins-cartes">
         {soins.map((o) => (
           <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
             <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
@@ -38,7 +33,6 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
             </div>
           </a>
         ))}
-      </div>
     </div>
   </section>
 </Base>
