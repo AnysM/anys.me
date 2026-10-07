@@ -59,3 +59,11 @@ main > section:has(> .trace) { isolation: isolate; }
   rgba(10,15,32,var(--fond-voile, 0.72)) 42%,
   rgba(10,15,32,var(--fond-voile, 0.72)) 62%,
   rgba(10,15,32,calc(var(--fond-voile, 0.72) + 0.14)) 100%); }
+
+/* ── Les petites présences : tes glyphes, en ponctuation ── */
+.signe { display: block; height: var(--signe-t, 34px); width: auto;
+  margin: 0 auto 1rem; pointer-events: none; user-select: none; }
+/* Dans une ligne de texte : devant un titre, à sa hauteur. */
+.signe--ligne { display: inline-block; height: var(--signe-t, 1.05em); margin: 0 0.55em 0 0;
+  vertical-align: -0.16em; }
+@media (max-width: 760px) { .signe { margin-bottom: 0.7rem; } }

@@ -9,11 +9,13 @@ const {
   source = 'site',
   compact = false,
 } = Astro.props;
+import Signe from './Signe.astro';
 const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 <section class={`lettre${compact ? ' lettre--compacte' : ''}`}>
   <div class="wrap lettre__rangee">
     <div class="lettre__texte">
+      <Signe n="or" taille="30px" force={0.9} />
       <p class="eyebrow">{eyebrow}</p>
       <h2 set:html={fmt(titre)}></h2>
       {texte && <p class="lettre__intro">{texte}</p>}

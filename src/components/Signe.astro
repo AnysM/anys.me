@@ -1,0 +1,13 @@
+---
+// Une petite présence : un de tes glyphes, posé près d'un titre ou d'un item
+// qui n'a ni photo ni icône. Rien de plus qu'un signe.
+const { n = 'indigo-1', taille = '34px', ligne = false, force = 0.85 } = Astro.props;
+---
+<img
+  class:list={['signe', ligne && 'signe--ligne']}
+  src={`/img/signes/${n}.png`}
+  alt=""
+  aria-hidden="true"
+  loading="lazy"
+  style={`--signe-t:${taille}; opacity:${force}`}
+/>

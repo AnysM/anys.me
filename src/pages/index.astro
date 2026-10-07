@@ -14,6 +14,7 @@ import Carte from '../components/Carte.astro';
 import Separateur from '../components/Separateur.astro';
 import Trace from '../components/Trace.astro';
 import Fond from '../components/Fond.astro';
+import Signe from '../components/Signe.astro';
 import FONDS from '../data/fonds.json';
 import SEPS from '../data/separateurs.json';
 import { BORDS } from '../lib/bords';
@@ -167,6 +168,7 @@ const reglage = (c: string) => {
       <Trace n={2} x={35} entree={40} force={0.08} />
       <div class="wrap">
         <div class="tete">
+          <Signe n="indigo-2" taille="44px" force={0.8} />
           <p class="eyebrow">{acc.venir_eyebrow}</p>
           <h2 set:html={fmt(acc.venir_titre)}></h2>
         </div>
@@ -244,7 +246,7 @@ const reglage = (c: string) => {
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <h3>{x.titre}</h3>
+              <h3><Signe n={['corail','indigo-3','or','duo'][i % 4]} taille="1.5em" force={0.9} ligne /> {x.titre}</h3>
               {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>
