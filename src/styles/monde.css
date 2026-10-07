@@ -492,7 +492,15 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 /* Le piège d'abord, en une ligne plus discrète ; puis ce que j'apporte, en clair. */
 .difference__piege { color: #A9AEC2 !important; font-size: clamp(1.02rem, 1.3vw, 1.1rem) !important; line-height: 1.6 !important; }
 .difference__piege span { display: block; margin-bottom: 0.4rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.78rem; color: var(--coral); }
-@media (max-width: 820px) { .difference__liste { grid-template-columns: 1fr; gap: 2.2rem; } }
+@media (max-width: 820px) {
+  /* En une colonne, le signe prend sa propre ligne au-dessus du titre : sa place
+     ne dépend plus de la longueur du titre, et il cesse de mordre sur le bloc
+     d'avant. Il garde son alignement à gauche, comme le texte. */
+  .difference__liste { grid-template-columns: 1fr; gap: clamp(3.4rem, 9vw, 4.6rem); }
+  .difference__liste .avec-signe--fin { display: flex; flex-direction: column; align-items: flex-start; }
+  .difference__liste .avec-signe--fin .signe { order: -1; margin: 0 0 0.35em; }
+  .difference__liste h3 + p { margin-top: 1.2rem; }
+}
 
 /* ── L'entrée d'une page d'offres : un seul niveau, puis les propositions ── */
 /* Le bord de pinceau sépare déjà de l'en-tête : l'entrée démarre serré. Et elle
