@@ -88,8 +88,12 @@ const air = (id: string) => {
   const k = (f.h * (r.hauteur / 100)) / f.l;
   return `calc(100vw * ${k.toFixed(4)} + clamp(2rem, 4.5vw, 4.5rem))`;
 };
-const reglage = (c: string) =>
-  `--voile:${F[c]?.voile ?? 0.62}; --lum:${F[c]?.lumiere ?? 0.8}; --posx:${F[c]?.x ?? 50}%; --posy:${F[c]?.y ?? 50}%`;
+const reglage = (c: string) => {
+  const r = F[c] ?? ({} as any);
+  return `--voile:${r.voile ?? 0.62}; --lum:${r.lumiere ?? 0.8}; --posx:${r.x ?? 50}%; --posy:${r.y ?? 50}%;`
+    + ` --voile-m:${r.voilem ?? r.voile ?? 0.62}; --lum-m:${r.lumierem ?? r.lumiere ?? 0.8};`
+    + ` --posx-m:${r.xm ?? r.x ?? 50}%; --posy-m:${r.ym ?? r.y ?? 50}%`;
+};
 
 ---
 <Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
@@ -141,7 +145,7 @@ const reglage = (c: string) =>
   {acc.coeur && (
     <section class="bloc coeur-mot" style={`padding-top:${air('coeur-haut')}; padding-bottom:${air('danse-bas')}`}>
       <Separateur id="danse-bas" cote="bas" couleur="var(--navy)" />
-      <Fond src={acc.danse_image} force={F.danse_image?.voile} lumiere={F.danse_image?.lumiere} x={F.danse_image?.x} y={F.danse_image?.y} />
+      <Fond src={acc.danse_image} force={F.danse_image?.voile} lumiere={F.danse_image?.lumiere} x={F.danse_image?.x} y={F.danse_image?.y} xm={F.danse_image?.xm} ym={F.danse_image?.ym} voilem={F.danse_image?.voilem} lumierem={F.danse_image?.lumierem} />
       <Separateur id="coeur-haut" cote="haut" couleur="var(--navy)" />
       <Trace n={1} x={50} entree={83} force={0.07} />
       <div class="narrow">
@@ -254,7 +258,7 @@ const reglage = (c: string) =>
   <section id="seuils" style={`padding-top:${air('seuils-haut')}; padding-bottom:${air('seuils-bas')}`}>
     <Separateur id="seuils-haut" cote="haut" couleur="var(--navy)" />
     <Separateur id="seuils-bas" cote="bas" couleur="var(--navy)" />
-    <Fond src={acc.seuils_image} force={F.seuils_image?.voile} lumiere={F.seuils_image?.lumiere} x={F.seuils_image?.x} y={F.seuils_image?.y} />
+    <Fond src={acc.seuils_image} force={F.seuils_image?.voile} lumiere={F.seuils_image?.lumiere} x={F.seuils_image?.x} y={F.seuils_image?.y} xm={F.seuils_image?.xm} ym={F.seuils_image?.ym} voilem={F.seuils_image?.voilem} lumierem={F.seuils_image?.lumierem} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -301,7 +305,7 @@ const reglage = (c: string) =>
 
   <section id="contact" style={`padding-bottom:${air('contact-bas')}`}>
     <Separateur id="contact-bas" cote="bas" couleur="#2B3088" />
-    <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} />
+    <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} xm={F.contact_image?.xm} ym={F.contact_image?.ym} voilem={F.contact_image?.voilem} lumierem={F.contact_image?.lumierem} />
     <Trace n={6} x={85} entree={84} force={0.055} />
     <div class="narrow">
       <div class="tete">

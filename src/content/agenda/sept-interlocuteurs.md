@@ -1,7 +1,7 @@
 ---
 titre: "Et si tu étais une tribu ?"
 categorie: atelier
-date: 2026-10-07
+date: 2026-10-21
 heure: "20h - 22h"
 lieu: "Oasis Meïsō, à l'étage, Lyon"
 prix: "20€"

@@ -1,7 +1,7 @@
 ---
 titre: "Dans le Triangle"
 categorie: voyage-sonore
-date: 2026-10-26
+date: 2026-11-27
 lieu: "Blast Art, Lyon"
 heure: "19h30"
 cta: "Réserver"

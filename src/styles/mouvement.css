@@ -41,7 +41,19 @@ main > section:has(> .trace) { isolation: isolate; }
 /* ── Une photo derrière une section, sous son voile ── */
 .fond { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
 .fond img { width: 100%; height: 100%; object-fit: cover;
+  object-position: var(--fond-x, 50%) var(--fond-y, 50%);
   filter: saturate(1.06) brightness(var(--fond-lum, 0.74)) contrast(1.02); }
+/* En écran étroit la photo est recadrée serré : elle a son propre cadrage
+   et son propre voile, pour que le sujet reste dans l'image. */
+@media (max-width: 760px) {
+  .fond img { object-position: var(--fond-x-m, 50%) var(--fond-y-m, 50%);
+    filter: saturate(1.06) brightness(var(--fond-lum-m, 0.74)) contrast(1.02); }
+  .fond::after { background: linear-gradient(180deg,
+    rgba(10,15,32,calc(var(--fond-voile-m, 0.72) + 0.12)) 0%,
+    rgba(10,15,32,var(--fond-voile-m, 0.72)) 42%,
+    rgba(10,15,32,var(--fond-voile-m, 0.72)) 62%,
+    rgba(10,15,32,calc(var(--fond-voile-m, 0.72) + 0.14)) 100%); }
+}
 .fond::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg,
   rgba(10,15,32,calc(var(--fond-voile, 0.72) + 0.12)) 0%,
   rgba(10,15,32,var(--fond-voile, 0.72)) 42%,
