@@ -607,13 +607,18 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* Tes pictos portent déjà la main : aucun filtre par-dessus.
    Et ils sortent par le haut : le cercle les porte au lieu de les enfermer.
    Le pas de côté dépend du dessin, pour que ce soit sa pointe qui dépasse. */
-.rangee__picto svg { width: 142%; height: 142%; transform: translate(var(--picto-x, 0%), -14%); }
+/* Chaque signe a sa densité : l'ensō remplit son carré, les autres respirent.
+   Un facteur propre à chacun les ramène au même poids à l'œil. */
+.rangee__picto svg { width: 142%; height: 142%;
+  transform: translate(var(--picto-x, 0%), -14%) scale(var(--picto-k, 1)); }
+.u-presence .rangee__picto svg { --picto-k: 0.84; }
 .u-presence .rangee__picto svg { --picto-x: 1%; }
 .u-connaissance .rangee__picto svg { --picto-x: 2%; }
 .u-mouvement .rangee__picto svg { --picto-x: 0%; }
 .u-vivant .rangee__picto svg { --picto-x: 7%; }
 .u-art .rangee__picto svg { --picto-x: -8%; }
-.rangee__picto img { width: 142%; height: 142%; object-fit: contain; transform: translate(var(--picto-x, 0%), -14%); }
+.rangee__picto img { width: 142%; height: 142%; object-fit: contain;
+  transform: translate(var(--picto-x, 0%), -14%) scale(var(--picto-k, 1)); }
 /* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
 .rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); }
 .rangee__nom { white-space: nowrap; padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 18px var(--surface); font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; font-size: clamp(0.8rem, 1vw, 0.88rem); line-height: 1.35; color: var(--cream); }
