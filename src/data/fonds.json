@@ -25,19 +25,19 @@
   },
   "danse_image": {
     "voile": 0.82,
-    "lumiere": 1.12,
+    "lumiere": 1.32,
     "x": 50,
     "y": 18
   },
   "seuils_image": {
     "voile": 0.66,
-    "lumiere": 0.74,
+    "lumiere": 1.4,
     "x": 50,
     "y": 0
   },
   "contact_image": {
-    "voile": 0.74,
-    "lumiere": 0.3,
+    "voile": 0.7,
+    "lumiere": 0.96,
     "x": 50,
     "y": 50
   },
