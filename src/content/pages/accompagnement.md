@@ -5,7 +5,7 @@ coeur: |-
   Je t'accompagne à traverser une crise existentielle, achever une transition de vie ou aboutir un projet de cœur.
 
   Je t'aide dans la compréhension profonde de qui tu es, pour retrouver **alignement, souveraineté et pouvoir créateur**. Mon parcours m'a permis de traverser tout ça, et chacune de ces crises a été **une initiation** pour me rapprocher de qui je suis vraiment.
-hero_image: /img/art-2.jpg
+hero_image: /img/photos/dscf2001.jpg
 portrait_image: /img/portrait.jpg
 outils_image: /img/IMG_8825.PNG
 pourqui_eyebrow: Pour qui

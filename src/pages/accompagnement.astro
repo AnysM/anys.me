@@ -12,11 +12,27 @@ const outils = ac.outils ?? [];
     <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>
 
-  <!-- CŒUR À CŒUR -->
-  <section class="coeur">
-    <div class="wrap split">
-      <div class="photo">{ac.portrait_image ? <img class="slot-img" src={ac.portrait_image} alt="" /> : <div class="imgph"><span>ACCOMP-PORTRAIT</span></div>}</div>
-      <div class="coeur__text">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
+  <!-- Un seul niveau : l'intention, puis les propositions. On arrive au choix
+       après un écran, sans détour par un portrait — il est déjà sur l'accueil. -->
+  <section class="entree">
+    <div class="narrow entree__tete">
+      <p class="eyebrow">{ac.formules_eyebrow}</p>
+      <h2 set:html={fmt(ac.formules_titre)}></h2>
+      <div class="entree__mot">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
+    </div>
+    <div class="wrap entree__cartes">
+        {items.map((o) => (
+          <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
+            <div class="evt__img">{o.data.image ? <img src={o.data.image} alt={o.data.titre} /> : <div class="imgph"><span>Photo</span></div>}</div>
+            <div class="evt__body">
+              <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
+              <div class="evt__title">{o.data.titre}</div>
+              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
+              {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
+              <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
+            </div>
+          </a>
+        ))}
     </div>
   </section>
 
@@ -48,27 +64,6 @@ const outils = ac.outils ?? [];
     </div>
   </section>
 
-  <!-- LES FORMULES -->
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">{ac.formules_eyebrow}</p>
-      <h2 style="margin-top:0.8rem;" set:html={fmt(ac.formules_titre)}></h2>
-      <div style="margin-top:2.4rem;">
-        {items.map((o) => (
-          <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
-            <div class="evt__img">{o.data.image ? <img src={o.data.image} alt={o.data.titre} /> : <div class="imgph"><span>Photo</span></div>}</div>
-            <div class="evt__body">
-              <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
-              <div class="evt__title">{o.data.titre}</div>
-              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
-              {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
-              <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
   <section class="invite">
     <div class="narrow">
       <p class="eyebrow">Un premier pas</p>

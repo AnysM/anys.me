@@ -59,5 +59,5 @@ chapitres:
 
     Un mois de pratiques intensives m''a permis de redéfinir complètement mon rapport au corps, au mouvement et à l''autre. Petit à petit, je reprends ma place de cellule dans le grand organisme vivant.'
   image: /img/photos/dscf2308.jpg
-hero_image: /img/photos/dscf1807.jpg
+hero_image: /img/photos/dscf1308.jpg
 ---
