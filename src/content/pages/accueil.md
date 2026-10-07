@@ -121,7 +121,7 @@ difference:
   - titre: "Sortir des conditionnements"
     piege: "Des définitions de soi qui t'enferment dans ce que tu n'es pas vraiment."
     texte: "Ta force est dans tes spécificités. On revient à ton fonctionnement unique. On ne demande pas à un poisson de grimper aux arbres."
-  - titre: "Vivre et grandir"
+  - titre: "Vivre plutôt que guérir"
     piege: "Passer sa vie à vouloir guérir, changer, se transformer, sans jamais vivre."
     texte: "Je considère qu'il n'y a rien à réparer, juste à grandir. C'est pourquoi je privilégie l'initiation : une expérience qui imprime l'être au-delà du mental, et ouvre des portes jusque-là inaccessibles."
 ---
