@@ -62,24 +62,12 @@ main > section:has(> .trace) { isolation: isolate; }
 
 /* ── Les petites présences : tes glyphes, en ponctuation ── */
 .signe { display: block; height: var(--signe-t, 34px); width: auto;
-  margin: 0 auto 1rem; pointer-events: none; user-select: none; }
-/* Dans une ligne de texte : devant un titre, à sa hauteur. */
-.signe--ligne { display: inline-block; height: var(--signe-t, 1.05em); margin: 0 0.55em 0 0;
-  vertical-align: -0.16em; }
-/* Posé derrière le début du titre : le signe et le mot se touchent, au lieu
-   de se tenir côte à côte sans se parler. */
-.avec-signe { position: relative; }
-.avec-signe > span { position: relative; z-index: 1; }
-/* Libre : le signe tient sa propre place, sans marge imposée. */
+  pointer-events: none; user-select: none; transform: var(--signe-bouge, none); }
+/* Au-dessus d'un titre, centré. */
+.signe--haut { margin: 0 auto 1rem; }
+/* En bout de titre : juste après le dernier mot. */
+.signe--fin { display: inline-block; margin: 0 0 0 0.3em; vertical-align: -0.8em;
+  position: relative; z-index: 0; }
+/* Libre : il tient sa propre place dans la mise en page. */
 .signe--libre { margin: 0; }
-
-/* En bout de titre : le signe se tient juste après le dernier mot. */
-.signe--fin { display: inline-block; height: var(--signe-t, 2.2em); width: auto;
-  margin: 0 0 0 0.3em; vertical-align: -0.8em; position: relative; z-index: 0; }
-.signe--fond { position: absolute; left: -0.5em; top: 50%; z-index: 0;
-  height: var(--signe-t, 2.5em); width: auto; margin: 0;
-  transform: translateY(-46%); }
-@media (max-width: 760px) {
-  .signe { margin-bottom: 0.7rem; }
-  .signe--fond { left: -0.35em; }
-}
+@media (max-width: 760px) { .signe--haut { margin-bottom: 0.7rem; } }

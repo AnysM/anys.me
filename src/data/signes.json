@@ -1,0 +1,8 @@
+{
+  "venir": { "n": "vague", "mode": "haut", "taille": 80, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
+  "difference-1": { "n": "duo", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
+  "difference-2": { "n": "indigo-2", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
+  "difference-3": { "n": "indigo-3", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
+  "difference-4": { "n": "corail", "mode": "fin", "taille": 2.3, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false },
+  "lettre": { "n": "soleil", "mode": "libre", "taille": 220, "force": 1, "dx": 0, "dy": 0, "tour": 0, "miroir": false }
+}

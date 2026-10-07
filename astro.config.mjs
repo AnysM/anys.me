@@ -4,7 +4,7 @@ import optimizeImages from './src/integrations/optimize-images.mjs';
 import reglages from './src/integrations/reglages.mjs';
 import { rehypeLore, fichesMinces } from './src/lib/lore.mjs';
 
-const exclues = ['/merci', '/admin', '/reglages', '/essais-photos', ...fichesMinces().map((id) => `/codex/${id}/`)];
+const exclues = ['/merci', '/admin', '/reglages', '/essais-photos', '/essais-signes', ...fichesMinces().map((id) => `/codex/${id}/`)];
 
 export default defineConfig({
   site: 'https://anys.me',

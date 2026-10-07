@@ -1,0 +1,238 @@
+---
+// Atelier des signes. Page de travail : hors menu, hors plan du site, et
+// l'enregistrement ne marche qu'en local (npm run dev).
+import { getEntry } from 'astro:content';
+import REGLAGES from '../data/signes.json';
+import { readdirSync } from 'node:fs';
+
+const acc = (await getEntry('pages', 'accueil'))!.data;
+const SIGNES = readdirSync('public/img/signes').filter((f) => f.endsWith('.png'))
+  .map((f) => f.replace('.png', '')).sort();
+
+// Chaque présence, avec le texte à côté duquel elle se tient.
+const PLACES = [
+  { id: 'venir', titre: 'Au-dessus d’« Oser un nouveau chemin »',
+    eyebrow: acc.venir_eyebrow, texte: acc.venir_titre?.replace(/\*/g, '') ?? '' },
+  ...(acc.difference ?? []).slice(0, 4).map((d: any, i: number) => ({
+    id: `difference-${i + 1}`, titre: `Ce que tu ne trouveras pas ailleurs — ${i + 1}`,
+    eyebrow: null, texte: d.titre })),
+  { id: 'lettre', titre: 'La lettre', eyebrow: 'Pas encore prêt ?', texte: 'Rester relié' },
+];
+const R = REGLAGES as Record<string, any>;
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Atelier des signes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+</head>
+<body class="atelier">
+  <header class="atelier__tete">
+    <h1>Atelier des signes</h1>
+    <p>Chaque présence posée sur le site, avec son texte. Change le signe, sa pose,
+      sa taille, son opacité, son décalage, sa rotation. Rien n'est touché tant que
+      tu n'enregistres pas.</p>
+    <div class="atelier__actions">
+      <button id="enregistrer" class="bouton">Enregistrer</button>
+      <a class="bouton bouton--creux" href="/" target="_blank">Voir la page d'accueil</a>
+      <span id="etat" class="atelier__etat"></span>
+    </div>
+  </header>
+
+  {PLACES.map((p) => {
+    const r = R[p.id] ?? {};
+    return (
+      <section class="place" data-id={p.id}>
+        <h2>{p.titre}</h2>
+
+        <div class="apercu" data-mode={r.mode ?? 'fin'}>
+          {p.eyebrow && <p class="ap-eyebrow">{p.eyebrow}</p>}
+          <div class="ap-ligne">
+            <img class="ap-signe" data-signe src={`/img/signes/${r.n ?? 'indigo-1'}.png`} alt="" />
+            <span class="ap-texte">{p.texte}</span>
+          </div>
+        </div>
+
+        <div class="reglages">
+          <div class="champ champ--large">
+            <label>Signe</label>
+            <div class="grille">
+              {SIGNES.map((s) => (
+                <button type="button" class="vignette" data-signe-nom={s} title={s}
+                  aria-pressed={String((r.n ?? '') === s)}>
+                  <img src={`/img/signes/${s}.png`} alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="champ">
+            <label>Pose</label>
+            <div class="poses">
+              {[['fin', 'en bout de titre'], ['haut', 'au-dessus, centré'], ['libre', 'à sa place']].map(([m, l]) => (
+                <button type="button" class="pose" data-mode={m} aria-pressed={String((r.mode ?? 'fin') === m)}>{l}</button>
+              ))}
+            </div>
+          </div>
+
+          <div class="champ">
+            <label>Taille <b data-sortie="taille">{r.taille ?? 2.3}</b><small data-unite>{(r.mode ?? 'fin') === 'fin' ? ' fois le texte' : ' px'}</small></label>
+            <input type="range" data-reg="taille" min="40" max="400" step="2" value={Math.round((r.taille ?? 2.3) * ((r.mode ?? 'fin') === 'fin' ? 100 : 1))} />
+          </div>
+
+          <div class="champ">
+            <label>Opacité <b data-sortie="force">{Math.round((r.force ?? 1) * 100)} %</b></label>
+            <input type="range" data-reg="force" min="10" max="100" step="2" value={Math.round((r.force ?? 1) * 100)} />
+          </div>
+
+          <div class="champ">
+            <label>Décalage horizontal <b data-sortie="dx">{r.dx ?? 0} px</b></label>
+            <input type="range" data-reg="dx" min="-120" max="120" step="1" value={r.dx ?? 0} />
+          </div>
+
+          <div class="champ">
+            <label>Décalage vertical <b data-sortie="dy">{r.dy ?? 0} px</b></label>
+            <input type="range" data-reg="dy" min="-120" max="120" step="1" value={r.dy ?? 0} />
+          </div>
+
+          <div class="champ">
+            <label>Rotation <b data-sortie="tour">{r.tour ?? 0}°</b></label>
+            <input type="range" data-reg="tour" min="-180" max="180" step="1" value={r.tour ?? 0} />
+          </div>
+
+          <div class="champ">
+            <label><input type="checkbox" data-miroir checked={!!r.miroir} /> Retourner</label>
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <style is:global>
+    :root { --navy: #0A0F20; --cream: #ECE7DE; --gold: #D8A24C; }
+    * { box-sizing: border-box; }
+    body.atelier { background: #080C1A; color: var(--cream); margin: 0; padding: 0 0 6rem;
+      font-family: 'Jost', system-ui, sans-serif; }
+    .atelier__tete { padding: 2.4rem clamp(1rem,4vw,3rem) 1.6rem; border-bottom: 1px solid rgba(236,231,222,0.12); }
+    .atelier__tete h1 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0.06em; margin: 0 0 0.5rem; }
+    .atelier__tete p { color: #9AA0B4; max-width: 66ch; margin: 0 0 1.2rem; line-height: 1.6; }
+    .atelier__actions { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+    .bouton { background: var(--gold); color: var(--navy); border: 1px solid var(--gold); border-radius: 999px;
+      padding: 0.6rem 1.4rem; font: inherit; letter-spacing: 0.08em; text-transform: uppercase;
+      font-size: 0.74rem; cursor: pointer; text-decoration: none; }
+    .bouton--creux { background: transparent; color: var(--gold); }
+    .atelier__etat { color: #8FB3FF; font-size: 0.82rem; }
+
+    .place { padding: 2rem clamp(1rem,4vw,3rem); border-bottom: 1px solid rgba(236,231,222,0.08); }
+    .place h2 { font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin: 0 0 1.1rem; }
+
+    .apercu { background: #111A38; border-radius: 10px; padding: clamp(1.6rem, 4vw, 3rem);
+      display: flex; flex-direction: column; min-height: 200px; justify-content: center; }
+    .ap-eyebrow { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin: 0 0 0.7rem; }
+    .ap-ligne { display: flex; align-items: center; gap: 0; }
+    .ap-texte { font-size: clamp(1.2rem, 2.4vw, 1.8rem); font-weight: 300; color: var(--cream); }
+    .ap-signe { height: 2.3em; width: auto; display: inline-block; }
+    /* Les trois poses, comme sur le site. */
+    .apercu[data-mode="fin"] .ap-ligne { flex-direction: row; }
+    .apercu[data-mode="fin"] .ap-signe { order: 2; margin-left: 0.3em; }
+    .apercu[data-mode="haut"] { align-items: center; text-align: center; }
+    .apercu[data-mode="haut"] .ap-ligne { flex-direction: column; }
+    .apercu[data-mode="haut"] .ap-signe { margin-bottom: 1rem; }
+    .apercu[data-mode="libre"] .ap-ligne { gap: clamp(1.4rem, 4vw, 3rem); }
+
+    .reglages { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.2rem 2rem; margin-top: 1.3rem; align-items: start; }
+    .champ--large { grid-column: 1 / -1; }
+    .champ label { display: block; font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #9AA0B4; margin-bottom: 0.45rem; }
+    .champ b { color: var(--cream); font-weight: 500; }
+    .champ small { color: #6E7489; text-transform: none; letter-spacing: 0; }
+    .champ input[type=range] { width: 100%; accent-color: var(--gold); }
+    .champ input[type=checkbox] { accent-color: var(--gold); margin-right: 0.4rem; }
+
+    .grille { display: flex; gap: 6px; flex-wrap: wrap; }
+    .vignette { width: 62px; height: 62px; border-radius: 8px; cursor: pointer; padding: 4px;
+      border: 1px solid rgba(236,231,222,0.16); background: #0E1426; }
+    .vignette img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .vignette[aria-pressed=true] { border-color: var(--gold); background: #16204A; }
+
+    .poses { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pose { border: 1px solid rgba(236,231,222,0.16); background: transparent; color: #9AA0B4;
+      border-radius: 999px; padding: 0.35rem 0.8rem; font: inherit; font-size: 0.72rem; cursor: pointer; }
+    .pose[aria-pressed=true] { border-color: var(--gold); color: var(--cream); }
+  </style>
+
+  <script type="application/json" id="init" set:html={JSON.stringify(REGLAGES)}></script>
+  <script is:inline>
+    const S = JSON.parse(document.getElementById('init').textContent);
+    const etat = document.getElementById('etat');
+
+    document.querySelectorAll('.place').forEach((place) => {
+      const id = place.dataset.id;
+      if (!S[id]) S[id] = { n: 'indigo-1', mode: 'fin', taille: 2.3, force: 1, dx: 0, dy: 0, tour: 0, miroir: false };
+      const r = S[id];
+      const apercu = place.querySelector('.apercu');
+      const img = place.querySelector('[data-signe]');
+
+      function peindre() {
+        apercu.dataset.mode = r.mode;
+        img.src = '/img/signes/' + r.n + '.png';
+        img.style.height = r.mode === 'fin' ? r.taille + 'em' : r.taille + 'px';
+        img.style.opacity = r.force;
+        img.style.transform = 'translate(' + r.dx + 'px,' + r.dy + 'px) rotate(' + r.tour + 'deg)'
+          + (r.miroir ? ' scaleX(-1)' : '');
+        place.querySelector('[data-sortie=taille]').textContent = r.taille;
+        place.querySelector('[data-unite]').textContent = r.mode === 'fin' ? ' fois le texte' : ' px';
+        place.querySelector('[data-sortie=force]').textContent = Math.round(r.force * 100) + ' %';
+        place.querySelector('[data-sortie=dx]').textContent = r.dx + ' px';
+        place.querySelector('[data-sortie=dy]').textContent = r.dy + ' px';
+        place.querySelector('[data-sortie=tour]').textContent = r.tour + '°';
+        place.querySelectorAll('[data-signe-nom]').forEach((b) =>
+          b.setAttribute('aria-pressed', String(b.dataset.signeNom === r.n)));
+        place.querySelectorAll('.pose').forEach((b) =>
+          b.setAttribute('aria-pressed', String(b.dataset.mode === r.mode)));
+      }
+
+      place.querySelectorAll('[data-signe-nom]').forEach((b) =>
+        b.addEventListener('click', () => { r.n = b.dataset.signeNom; peindre(); }));
+      place.querySelectorAll('.pose').forEach((b) =>
+        b.addEventListener('click', () => {
+          const avant = r.mode; r.mode = b.dataset.mode;
+          // on garde une taille qui a du sens quand on change d'unité
+          if (avant === 'fin' && r.mode !== 'fin') r.taille = Math.round(r.taille * 40);
+          if (avant !== 'fin' && r.mode === 'fin') r.taille = Math.round(r.taille / 40 * 10) / 10;
+          place.querySelector('[data-reg=taille]').value = r.mode === 'fin' ? r.taille * 100 : r.taille;
+          peindre();
+        }));
+      place.querySelectorAll('[data-reg]').forEach((inp) =>
+        inp.addEventListener('input', () => {
+          const q = inp.dataset.reg, v = Number(inp.value);
+          if (q === 'taille') r.taille = r.mode === 'fin' ? Math.round(v) / 100 : Math.round(v);
+          else if (q === 'force') r.force = v / 100;
+          else r[q] = v;
+          peindre();
+        }));
+      place.querySelector('[data-miroir]').addEventListener('change', (e) => {
+        r.miroir = e.target.checked; peindre();
+      });
+      peindre();
+    });
+
+    document.getElementById('enregistrer').addEventListener('click', async () => {
+      etat.textContent = 'Enregistrement…';
+      try {
+        const rep = await fetch('/__signes', { method: 'POST',
+          headers: { 'content-type': 'application/json' }, body: JSON.stringify(S, null, 2) });
+        if (rep.status === 404) { etat.textContent = 'Route absente — coupe et relance npm run dev.'; return; }
+        const j = await rep.json();
+        etat.textContent = j.ok ? 'Enregistré. Recharge la page d’accueil.' : 'Échec : ' + j.erreur;
+      } catch (e) { etat.textContent = 'Échec : ' + e; }
+    });
+  </script>
+</body>
+</html>

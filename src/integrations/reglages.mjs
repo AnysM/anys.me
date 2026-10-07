@@ -73,6 +73,21 @@ export default function reglages() {
           });
         });
 
+        // ── Les signes ───────────────────────────────────────────────────
+        server.middlewares.use('/__signes', (req, res) => {
+          if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
+          lire(req).then(async (corps) => {
+            try {
+              const d = JSON.parse(corps);
+              const bon = d && typeof d === 'object' && Object.keys(d).length >= 3
+                && Object.values(d).every((v) => v && typeof v === 'object' && 'n' in v && 'mode' in v);
+              if (!bon) throw new Error('ce ne sont pas des réglages de signes');
+              await writeFile(chemin('data/signes.json'), JSON.stringify(d, null, 2) + '\n', 'utf8');
+              json(res, { ok: true });
+            } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
+          });
+        });
+
         // ── Les photos : la liste de ce qu'on peut essayer ───────────────
         server.middlewares.use('/__photos/liste', async (req, res) => {
           const sortie = [];

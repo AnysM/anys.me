@@ -168,7 +168,7 @@ const reglage = (c: string) => {
       <Trace n={2} x={35} entree={40} force={0.08} />
       <div class="wrap">
         <div class="tete">
-          <Signe n="vague" taille="clamp(62px, 7vw, 92px)" force={1} />
+          <Signe id="venir" />
           <p class="eyebrow">{acc.venir_eyebrow}</p>
           <h2 set:html={fmt(acc.venir_titre)}></h2>
         </div>
@@ -246,7 +246,7 @@ const reglage = (c: string) => {
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <h3 class="avec-signe"><span>{x.titre}</span><Signe n={['duo','indigo-2','indigo-3','corail'][i % 4]} taille="2.3em" force={1} fin /></h3>
+              <h3 class="avec-signe"><span>{x.titre}</span><Signe id={`difference-${(i % 4) + 1}`} /></h3>
               {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>

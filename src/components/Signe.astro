@@ -1,13 +1,22 @@
 ---
-// Une petite présence : un de tes glyphes, posé près d'un titre ou d'un item
-// qui n'a ni photo ni icône. Rien de plus qu'un signe.
-const { n = 'indigo-1', taille = '34px', ligne = false, fond = false, fin = false, libre = false, force = 0.85 } = Astro.props;
+// Une petite présence : un de tes glyphes. Tous les réglages se font sur
+// /essais-signes et se rangent dans src/data/signes.json.
+import REGLAGES from '../data/signes.json';
+const { id, n: nDonne, mode: modeDonne, taille: tDonne, force: fDonne } = Astro.props;
+const r = (REGLAGES as Record<string, any>)[id] ?? {};
+const n = nDonne ?? r.n ?? 'indigo-1';
+const mode = modeDonne ?? r.mode ?? 'fin';
+const force = fDonne ?? r.force ?? 1;
+const t = tDonne ?? r.taille ?? (mode === 'fin' ? 2.3 : 80);
+const taille = mode === 'fin' ? `${t}em` : `${t}px`;
+const dx = r.dx ?? 0, dy = r.dy ?? 0, tour = r.tour ?? 0, miroir = r.miroir ?? false;
+const bouge = `translate(${dx}px, ${dy}px) rotate(${tour}deg)${miroir ? ' scaleX(-1)' : ''}`;
 ---
 <img
-  class:list={['signe', ligne && 'signe--ligne', fond && 'signe--fond', fin && 'signe--fin', libre && 'signe--libre']}
+  class:list={['signe', `signe--${mode}`]}
   src={`/img/signes/${n}.png`}
   alt=""
   aria-hidden="true"
   loading="lazy"
-  style={`--signe-t:${taille}; opacity:${force}`}
+  style={`--signe-t:${taille}; --signe-bouge:${bouge}; opacity:${force}`}
 />
