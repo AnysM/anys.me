@@ -471,6 +471,9 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .carrousel__puce[aria-current="true"]:hover { background: var(--gold); }
 
 /* ── Ce qui change tout : trois différences, courtes ── */
+/* Les signes de la première rangée montent haut dans l'espace sous le titre :
+   cette tête-là respire plus que les autres. */
+.difference .tete { margin-bottom: clamp(6rem, 13vw, 10rem); }
 .difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(3.4rem, 7vw, 5.6rem) clamp(2.4rem, 6vw, 5rem); max-width: 900px; margin: 0 auto; padding: 0; }
 /* La colonne de droite descend d'un cran : la lecture part en biais, en Z */
 .difference__liste li { position: relative; align-self: start; }

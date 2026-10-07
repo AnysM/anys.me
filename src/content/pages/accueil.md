@@ -110,7 +110,7 @@ avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
 difference_eyebrow: Mon approche
-difference_titre: "Ce que tu ne trouveras *pas ailleurs*"
+difference_titre: "Ce en quoi *je crois*"
 difference:
   - titre: "De l'invisible au concret"
     piege: "Des accompagnants très sensibles, sans la structure pour pouvoir matérialiser ensuite."
