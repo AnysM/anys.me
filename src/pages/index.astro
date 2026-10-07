@@ -113,11 +113,11 @@ const reglage = (c: string) => {
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
       <div class="hero-actions"><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
     </div>
-    <div class="hero-scroll" style={`bottom: calc(${hauteurBord('hero-bas')} - 2.4rem)`}><span class="l"></span>Scroll</div>
+    <div class="hero-scroll" style="bottom: clamp(1.6rem, 3vw, 2.8rem)"><span class="l"></span>Scroll</div>
   </section>
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
-  <section>
+  <section class="carte-portrait">
     <div class="wrap split split--carte">
       <div class="photo" style="--img-y:38%;">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
       <div>

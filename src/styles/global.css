@@ -102,7 +102,8 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .hero-scroll { position: absolute; left: 50%; transform: translateX(-50%); flex-direction: column; gap: 10px; transition: opacity 0.5s ease; display: flex; align-items: center; gap: 14px; font-family: 'Jost', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.62rem; color: var(--muted); z-index: 3; }
 /* Le trait descend doucement, comme une invitation, et tout s'efface dès
    que la page bouge : l'indication n'a plus lieu d'être. */
-.hero-scroll .l { order: 2; width: 1px; height: 42px; background: linear-gradient(to bottom, var(--blue), transparent);
+.hero-scroll .l { order: 2; width: 1px; height: clamp(96px, 13vh, 165px);
+  background: linear-gradient(to bottom, var(--blue) 0%, var(--blue) 55%, transparent 100%);
   transform-origin: top; animation: goutte 2.6s ease-in-out infinite; }
 @keyframes goutte { 0%, 100% { transform: scaleY(0.55); opacity: 0.5; } 45% { transform: scaleY(1); opacity: 1; } }
 body.a-defile .hero-scroll { opacity: 0; pointer-events: none; }

@@ -939,8 +939,12 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
    Dans un cadre de 400 px la photo était posée là ; sur toute la largeur elle
    coupait au carré. En carte, les deux moitiés se tiennent, et les angles
    ronds répondent aux courbes des bords de pinceau. */
-.split.split--carte { padding: 0; display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0; align-items: stretch; border-radius: clamp(20px, 2.4vw, 34px); overflow: hidden; }
+.split.split--carte { width: min(96%, 1440px); padding: 0; display: grid;
+  grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch;
+  border-radius: clamp(20px, 2.4vw, 34px); overflow: hidden; }
+/* Elle vient presque toucher le bord de pinceau de l'en-tête, et le prochain
+   rendez-vous se rapproche en dessous. */
+.carte-portrait { padding: clamp(0.6rem, 1.4vw, 1.4rem) 0 clamp(5rem, 9vw, 7.5rem) !important; }
 .split.split--carte .photo { aspect-ratio: auto; min-height: 56vh; border: 0;
   border-radius: 0; background: var(--surface); }
 .split.split--carte .photo img { object-position: 50% var(--img-y, 50%); }
