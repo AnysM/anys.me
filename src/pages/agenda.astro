@@ -5,7 +5,7 @@ import { airSousBord } from '../lib/bords';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Lettre from '../components/Lettre.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { hrefAgenda, estExterne, ligneDate } from '../lib/monde';
+import { hrefAgenda, estExterne, ligneDate, seancesAVenir, texteSeance } from '../lib/monde';
 const ag = (await getEntry('pages', 'agenda'))!.data;
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
@@ -19,6 +19,21 @@ const groupes = [
   { titre: 'Rendez-vous ponctuels', items: aVenir },
   { titre: 'Rendez-vous réguliers', items: reguliers },
   { titre: 'À venir', items: retraites },
+].filter((g) => g.items.length > 0);
+
+// Vue d'ensemble : c'est le calendrier. Chaque séance à venir d'un rendez-vous
+// régulier y prend sa place parmi les dates, au lieu de rester cachée derrière
+// un « prochaine : … ». Les cartes, elles, gardent une fiche par rendez-vous.
+const datees = [
+  ...aVenir.map((e) => ({ e, quand: e.data.date, texte: ligneDate(e.data) })),
+  ...reguliers.flatMap((e) => seancesAVenir(e.data).map((s) => ({ e, quand: s.date, texte: texteSeance(s) }))),
+].sort((a, b) => a.quand.getTime() - b.quand.getTime());
+const sansDate = reguliers.filter((e) => seancesAVenir(e.data).length === 0);
+
+const groupesListe = [
+  { titre: 'Les prochaines dates', items: datees },
+  { titre: 'Rendez-vous réguliers', items: sansDate.map((e) => ({ e, texte: ligneDate(e.data) })) },
+  { titre: 'À venir', items: retraites.map((e) => ({ e, texte: ligneDate(e.data) })) },
 ].filter((g) => g.items.length > 0);
 
 // Vue d'ensemble : tout sur une ligne, dans le même ordre que les groupes.
@@ -38,14 +53,13 @@ const CATEGORIES = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retra
       </div></div>
 
       <div id="vue-liste" hidden>
-        {groupes.map((g) => (
+        {groupesListe.map((g) => (
           <div class="apercu__groupe">
             <h2 class="group__title">{g.titre}</h2>
             <ul class="apercu">
-              {g.items.map((e) => {
+              {g.items.map(({ e, texte: ligne }) => {
                 const href = hrefAgenda(e);
                 const externe = estExterne(href);
-                const ligne = ligneDate(e.data);
                 const sep = ligne.includes(' · ') ? ' · ' : ', ';
                 const [quand, ...suite] = ligne.includes(' · ') ? ligne.split(' · ') : ligne.split(/,\s*(?=\d{1,2}\s*h)/);
                 return (

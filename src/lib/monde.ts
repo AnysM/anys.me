@@ -24,6 +24,10 @@ const fmtCourt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric',
 
 const aujourdhuiMinuit = () => new Date(new Date().toDateString());
 const fmtSeance = (x: Date) => `${new Intl.DateTimeFormat('fr-FR', { weekday: 'short' }).format(x).replace('.', '')} ${x.getDate() === 1 ? '1er' : x.getDate()} ${new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '')}`;
+/** Une séance isolée, telle qu'elle s'écrit dans le calendrier. */
+export const texteSeance = (s: any) =>
+  fmtSeance(s.date) + (s.heure ? ` · ${s.heure}` : '') + (s.note ? ` · ${s.note}` : '');
+
 /** Les séances à venir d'un rendez-vous régulier, dans l'ordre. */
 export const seancesAVenir = (d: any) => (d.seances ?? []).filter((s: any) => s.date >= aujourdhuiMinuit()).sort((a: any, b: any) => a.date.getTime() - b.date.getTime());
 
