@@ -1,10 +1,10 @@
 ---
 // Une petite présence : un de tes glyphes, posé près d'un titre ou d'un item
 // qui n'a ni photo ni icône. Rien de plus qu'un signe.
-const { n = 'indigo-1', taille = '34px', ligne = false, fond = false, force = 0.85 } = Astro.props;
+const { n = 'indigo-1', taille = '34px', ligne = false, fond = false, fin = false, force = 0.85 } = Astro.props;
 ---
 <img
-  class:list={['signe', ligne && 'signe--ligne', fond && 'signe--fond']}
+  class:list={['signe', ligne && 'signe--ligne', fond && 'signe--fond', fin && 'signe--fin']}
   src={`/img/signes/${n}.png`}
   alt=""
   aria-hidden="true"

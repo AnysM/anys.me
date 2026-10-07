@@ -70,6 +70,9 @@ main > section:has(> .trace) { isolation: isolate; }
    de se tenir côte à côte sans se parler. */
 .avec-signe { position: relative; }
 .avec-signe > span { position: relative; z-index: 1; }
+/* En bout de titre : le signe mord sur le dernier mot et passe dessous. */
+.signe--fin { display: inline-block; height: var(--signe-t, 2.2em); width: auto;
+  margin: 0 0 0 -0.5em; vertical-align: -0.8em; position: relative; z-index: 0; }
 .signe--fond { position: absolute; left: -0.5em; top: 50%; z-index: 0;
   height: var(--signe-t, 2.5em); width: auto; margin: 0;
   transform: translateY(-46%); }

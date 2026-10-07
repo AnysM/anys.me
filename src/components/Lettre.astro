@@ -15,9 +15,8 @@ const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>'
 <section class={`lettre${compact ? ' lettre--compacte' : ''}`}>
   <div class="wrap lettre__rangee">
     <div class="lettre__texte">
-      <Signe n="duo" taille="40px" force={0.8} />
       <p class="eyebrow">{eyebrow}</p>
-      <h2 set:html={fmt(titre)}></h2>
+      <h2 class="avec-signe"><span set:html={fmt(titre)}></span><Signe n="boucle" taille="2em" force={0.55} fin /></h2>
       {texte && <p class="lettre__intro">{texte}</p>}
     </div>
     <div class="lettre__action">
