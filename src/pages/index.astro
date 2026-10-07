@@ -168,8 +168,9 @@ const reglage = (c: string) => {
       <Trace n={2} x={35} entree={40} force={0.08} />
       <div class="wrap">
         <div class="tete">
+          <Signe n="vague" taille="clamp(62px, 7vw, 92px)" force={1} />
           <p class="eyebrow">{acc.venir_eyebrow}</p>
-          <h2 class="avec-signe"><span set:html={fmt(acc.venir_titre)}></span><Signe n="goutte" taille="2.1em" force={1} fin /></h2>
+          <h2 set:html={fmt(acc.venir_titre)}></h2>
         </div>
         <ul class="venir__liste">{acc.venir_items.map((x) => {
           const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
