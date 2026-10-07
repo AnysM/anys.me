@@ -110,5 +110,26 @@
     "hauteur": 45,
     "largeur": 100,
     "decalage": 0
+  },
+  "carte-haut": {
+    "bord": 3,
+    "retourne": false,
+    "hauteur": 14,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "photo-haut": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 38,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "photo-bas": {
+    "bord": 1,
+    "retourne": false,
+    "hauteur": 38,
+    "largeur": 100,
+    "decalage": 30
   }
 }

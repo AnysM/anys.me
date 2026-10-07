@@ -82,3 +82,9 @@ main > section:has(> .trace) { isolation: isolate; }
 .avec-signe--libre { display: flex; align-items: center; gap: clamp(0.7rem, 1.8vw, 1.5rem); }
 .avec-signe--libre .signe { flex: none; }
 @media (max-width: 760px) { .signe--haut { margin-bottom: 0.7rem; } }
+
+/* ── Une photo qui se termine en matière plutôt qu'au couteau ──
+   Deux bords de pinceau de la couleur du fond viennent mordre le haut et le
+   bas ; l'image reste entière dessous, et les deux bords se règlent dans
+   l'atelier comme les frontières entre sections. */
+.photo--brossee { position: relative; border: 0; background: transparent; }

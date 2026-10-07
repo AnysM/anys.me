@@ -119,7 +119,10 @@ const reglage = (c: string) => {
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
   <section>
     <div class="wrap split">
-      <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
+      <div class="photo photo--brossee">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}
+        <Separateur id="photo-haut" cote="haut" couleur="var(--navy)" />
+        <Separateur id="photo-bas" cote="bas" couleur="var(--navy)" />
+      </div>
       <div>
         <h2 set:html={fmt(acc.parcours_titre)}></h2>
         <p class="muted" set:html={tisser(acc.parcours_texte, ctx)}></p>
@@ -289,8 +292,9 @@ const reglage = (c: string) => {
 
   <!-- 9. L'INVITATION : un premier pas -->
   <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
-  <section  class="territoire" style="min-height:min(78svh, 680px); display:flex; align-items:center;">
+  <section class="territoire" style="position:relative; min-height:min(78svh, 680px); display:flex; align-items:center;">
     <Carte fond />
+    <Separateur id="carte-haut" cote="haut" couleur="var(--navy)" />
     <div class="territoire__voile"></div>
     <div class="wrap">
       <p class="eyebrow">Le territoire</p>
