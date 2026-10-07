@@ -80,7 +80,7 @@ const R = REGLAGES as Record<string, any>;
 
           <div class="champ">
             <label>Taille <b data-sortie="taille">{r.taille ?? 2.3}</b><small data-unite>{(r.mode ?? 'fin') === 'fin' ? ' fois le texte' : ' px'}</small></label>
-            <input type="range" data-reg="taille" min="40" max="400" step="2" value={Math.round((r.taille ?? 2.3) * ((r.mode ?? 'fin') === 'fin' ? 100 : 1))} />
+            <input type="range" data-reg="taille" value={Math.round((r.taille ?? 2.3) * ((r.mode ?? 'fin') === 'fin' ? 100 : 1))} />
           </div>
 
           <div class="champ">
@@ -131,7 +131,8 @@ const R = REGLAGES as Record<string, any>;
       color: var(--gold); font-weight: 500; margin: 0 0 1.1rem; }
 
     .apercu { background: #111A38; border-radius: 10px; padding: clamp(1.6rem, 4vw, 3rem);
-      display: flex; flex-direction: column; min-height: 200px; justify-content: center; }
+      display: flex; flex-direction: column; min-height: 200px; justify-content: center;
+      overflow: auto; }
     .ap-eyebrow { font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--gold); margin: 0 0 0.7rem; }
     .ap-ligne { display: flex; align-items: center; gap: 0; }
@@ -179,8 +180,18 @@ const R = REGLAGES as Record<string, any>;
       const apercu = place.querySelector('.apercu');
       const img = place.querySelector('[data-signe]');
 
+      const curseurT = place.querySelector('[data-reg=taille]');
+      function bornes() {
+        // en bout de titre la taille se compte en hauteurs de texte, ailleurs en pixels
+        const fin = r.mode === 'fin';
+        curseurT.min = 30;
+        curseurT.max = fin ? 1600 : 600;
+        curseurT.step = fin ? 5 : 2;
+        curseurT.value = fin ? Math.round(r.taille * 100) : Math.round(r.taille);
+      }
       function peindre() {
         apercu.dataset.mode = r.mode;
+        bornes();
         img.src = '/img/signes/' + r.n + '.png';
         img.style.height = r.mode === 'fin' ? r.taille + 'em' : r.taille + 'px';
         img.style.opacity = r.force;
@@ -206,7 +217,6 @@ const R = REGLAGES as Record<string, any>;
           // on garde une taille qui a du sens quand on change d'unité
           if (avant === 'fin' && r.mode !== 'fin') r.taille = Math.round(r.taille * 40);
           if (avant !== 'fin' && r.mode === 'fin') r.taille = Math.round(r.taille / 40 * 10) / 10;
-          place.querySelector('[data-reg=taille]').value = r.mode === 'fin' ? r.taille * 100 : r.taille;
           peindre();
         }));
       place.querySelectorAll('[data-reg]').forEach((inp) =>
