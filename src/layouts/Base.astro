@@ -155,7 +155,10 @@ const links = [
       var burger = document.querySelector('.site-nav__burger');
       var body = document.body;
       if (!nav || !burger) return;
-      window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        document.body.classList.toggle('a-defile', window.scrollY > 40);
+      }, { passive: true });
       function close() { body.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); body.style.overflow = ''; }
       burger.addEventListener('click', function () {
         var open = body.classList.toggle('nav-open');

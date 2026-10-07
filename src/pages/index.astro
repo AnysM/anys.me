@@ -77,6 +77,11 @@ const apresBande = 'padding-top: clamp(1.2rem, 2.6vw, 2.6rem)';
 // de pinceau qu'elle y porte, plus de quoi respirer. Le bord occupe toute la
 // largeur, donc sa hauteur suit le format du masque.
 const S = SEPS as Record<string, { bord: number; hauteur: number }>;
+const hauteurBord = (id: string) => {
+  const r = S[id]; if (!r) return '0px';
+  const f = BORDS[r.bord] ?? BORDS[1];
+  return `calc(100vw * ${((f.h * (r.hauteur / 100)) / f.l).toFixed(4)})`;
+};
 const air = (id: string) => {
   const r = S[id]; if (!r) return '';
   const f = BORDS[r.bord] ?? BORDS[1];
@@ -100,7 +105,7 @@ const reglage = (c: string) =>
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
       <div class="hero-actions"><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
     </div>
-    <div class="hero-scroll"><span class="l"></span>Scroll</div>
+    <div class="hero-scroll" style={`bottom: calc(${hauteurBord('hero-bas')} + 1.4rem)`}><span class="l"></span>Scroll</div>
   </section>
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
@@ -297,7 +302,7 @@ const reglage = (c: string) =>
   <section id="contact" style={`padding-bottom:${air('contact-bas')}`}>
     <Separateur id="contact-bas" cote="bas" couleur="#2B3088" />
     <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} />
-    <Trace n={6} x={85} entree={84} force={0.11} />
+    <Trace n={6} x={85} entree={84} force={0.055} />
     <div class="narrow">
       <div class="tete">
         <p class="eyebrow">{acc.form_eyebrow}</p>

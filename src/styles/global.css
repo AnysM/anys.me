@@ -96,8 +96,14 @@ section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
 .hero-name .top { text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
 .hero-name .serif-i { display: block; font-weight: 400; font-size: 2em; color: var(--cream); margin-top: 0.06em; line-height: 0.82; }
 #hero .lead { font-size: clamp(1rem, 1.6vw, 1.14rem); line-height: 1.7; max-width: 44ch; }
-.hero-scroll { position: absolute; bottom: 26px; left: var(--gouttiere); display: flex; align-items: center; gap: 14px; font-family: 'Jost', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.62rem; color: var(--muted); z-index: 3; }
-.hero-scroll .l { width: 1px; height: 34px; background: linear-gradient(to bottom, var(--blue), transparent); }
+.hero-scroll { position: absolute; left: 50%; transform: translateX(-50%); flex-direction: column; gap: 10px; transition: opacity 0.5s ease; display: flex; align-items: center; gap: 14px; font-family: 'Jost', sans-serif; letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.62rem; color: var(--muted); z-index: 3; }
+/* Le trait descend doucement, comme une invitation, et tout s'efface dès
+   que la page bouge : l'indication n'a plus lieu d'être. */
+.hero-scroll .l { order: 2; width: 1px; height: 42px; background: linear-gradient(to bottom, var(--blue), transparent);
+  transform-origin: top; animation: goutte 2.6s ease-in-out infinite; }
+@keyframes goutte { 0%, 100% { transform: scaleY(0.55); opacity: 0.5; } 45% { transform: scaleY(1); opacity: 1; } }
+body.a-defile .hero-scroll { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .hero-scroll .l { animation: none; } }
 .dot { position: absolute; border-radius: 50%; z-index: 2; }
 @media (max-width: 860px) {
   #hero { min-height: 86vh; }
