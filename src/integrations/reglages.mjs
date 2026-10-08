@@ -88,6 +88,22 @@ export default function reglages() {
           });
         });
 
+        // ── Le fond du pied de page ──────────────────────────────────────
+        server.middlewares.use('/__pied', (req, res) => {
+          if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
+          lire(req).then(async (corps) => {
+            try {
+              const d = JSON.parse(corps);
+              const bon = d && typeof d === 'object' && typeof d.fusion === 'string'
+                && ['normal', 'overlay', 'screen', 'soft-light', 'luminosity', 'multiply'].includes(d.fusion)
+                && ['opacite', 'saturation', 'luminosite', 'contraste'].every((k) => typeof d[k] === 'number');
+              if (!bon) throw new Error('ce ne sont pas des réglages de pied de page');
+              await writeFile(chemin('data/pied.json'), JSON.stringify(d, null, 2) + '\n', 'utf8');
+              json(res, { ok: true });
+            } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
+          });
+        });
+
         // ── Les photos : la liste de ce qu'on peut essayer ───────────────
         server.middlewares.use('/__photos/liste', async (req, res) => {
           const sortie = [];
