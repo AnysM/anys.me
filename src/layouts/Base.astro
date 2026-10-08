@@ -194,11 +194,10 @@ const links = [
   <script is:inline>
     (function () {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // parallax-vivant
-      var items = Array.prototype.slice.call(document.querySelectorAll('.hero-bg img, .breath img'));
+      var items = Array.prototype.slice.call(document.querySelectorAll('.breath img'));
       if (!items.length) return;
-      items.forEach(function (el, i) {
+      items.forEach(function (el) {
         el.style.willChange = 'transform';
-        el.dataset.ph = (i * 1.7).toFixed(2);
         // Les bandes de respiration voyagent franchement ; le hero reste sage.
         var large = !!el.closest('.breath');
         el.dataset.course = large ? 92 : 10;
@@ -214,10 +213,7 @@ const links = [
           // La course verticale au défilement : il faut de la marge sous l'image
           // pour la parcourir, d'où l'agrandissement qui l'accompagne.
           var py = prog * -(parseFloat(el.dataset.course) || 24);
-          var ph = parseFloat(el.dataset.ph) || 0;
-          var dx = Math.sin(t / 3400 + ph) * 8;
-          var dy = Math.cos(t / 4200 + ph) * 5;
-          el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + (py + dy).toFixed(1) + 'px,0) scale(' + (el.dataset.zoom || 1.09) + ')';
+          el.style.transform = 'translate3d(0,' + py.toFixed(1) + 'px,0) scale(' + (el.dataset.zoom || 1.26) + ')';
         }
         requestAnimationFrame(loop);
       }
