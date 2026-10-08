@@ -46,8 +46,8 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
    renforce, par-dessus la photo et sous le texte, pour qu'il se détache. */
 #seuils { position: relative; }
 #seuils::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(10,15,32,0) 24%, rgba(10,15,32,0.44) 50%,
-    rgba(10,15,32,0.68) 74%, rgba(10,15,32,0.72) 100%); }
+  background: linear-gradient(to bottom, rgba(10,15,32,0) 20%, rgba(10,15,32,0.58) 46%,
+    rgba(10,15,32,0.84) 70%, rgba(10,15,32,0.88) 100%); }
 
 .seuils { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem); margin-top: 3rem; }
 .seuils::before { content: ''; position: absolute; top: 1.35rem; left: 0; right: 0; height: 1px; background: linear-gradient(to right, rgba(216,162,76,0.15), var(--gold) 45%, var(--coral)); }
