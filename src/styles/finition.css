@@ -107,7 +107,10 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 
 /* Voile du hero : il se multiplie à l'image, dense sous le texte à gauche,
    transparent à droite — le soleil et les couleurs traversent. */
-#hero::before { background: linear-gradient(94deg, #39415E 0%, #646C88 34%, #BFC4D2 66%, #FFFFFF 100%); mix-blend-mode: multiply; }
+#hero::before { background:
+  radial-gradient(ellipse 26% 20% at 3% 17%, #EDEFF5 0%, rgba(237,239,245,0) 76%),
+  linear-gradient(94deg, #2E3760 0%, #5A638C 34%, #BFC4D2 66%, #FFFFFF 100%);
+  mix-blend-mode: multiply; }
 @media (max-width: 760px) {
   #hero::before { background: linear-gradient(180deg, #6E7590 0%, #2A3150 45%, #1B2238 100%); }
 }

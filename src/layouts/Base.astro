@@ -201,8 +201,8 @@ const links = [
         el.dataset.ph = (i * 1.7).toFixed(2);
         // Les bandes de respiration voyagent franchement ; le hero reste sage.
         var large = !!el.closest('.breath');
-        el.dataset.course = large ? 92 : 24;
-        el.dataset.zoom = large ? 1.26 : 1.09;
+        el.dataset.course = large ? 92 : 10;
+        el.dataset.zoom = large ? 1.26 : 1.03;
       });
       function loop(t) {
         var H = window.innerHeight;
