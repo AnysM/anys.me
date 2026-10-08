@@ -7,7 +7,7 @@ chapitres:
 
 
     Mais au fond, je sentais que quelque chose n''allait pas. Et mon rapport aux paradis artificiels, la fête, l''alcool, les substances, en disait long sur ce vide intérieur que je ne savais pas encore regarder ni nommer.'
-  image: ''
+  image: /img/photos/dscf2304.jpg
 - titre: Le réveil
   texte: 'Comme souvent, la vie m''a amené l''événement électrochoc pour enfin regarder au bon endroit. Ça a été le début d''une quête de soi qui a conduit à une rupture profonde avec mon ancienne vie.
 
@@ -52,7 +52,7 @@ chapitres:
   - fiche: src/content/codex/corps-energetique.md
 - titre: Dharamsala
   texte: 'J''ai passé deux mois à Dharamsala, la ville du Dalaï-Lama, avec des moines bouddhistes tibétains. Cela m''a permis de parfaire ma pratique et de mieux comprendre la science de l''esprit : comment la maîtrise des pensées peut permettre de vivre plus en paix, plus présent.'
-  image: ''
+  image: /img/photos/dscf1718.jpg
 - titre: Le Butô
   texte: 'C''est aussi pendant ce voyage que s''est ouverte à moi la voie du Butô. Cette danse japonaise qui accueille l''inesthétique pour récupérer toutes les parts de soi, parfois laissées à l''abandon par jugement : le bizarre, le sombre, l''inexpliqué, l''inconnu.
 

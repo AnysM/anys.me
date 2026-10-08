@@ -1,7 +1,7 @@
 ---
 hero_eyebrow: Prendre contact
 hero_titre: On échange ?
-hero_image: ''
+hero_image: /img/photos/dscf2150.jpg
 intro: Une question, une envie, un premier pas ? Laisse-moi un mot, je te réponds.
 appel_eyebrow: Ou prendre un appel
 appel_texte: "Tu préfères qu'on se parle ? Réserve un appel découverte, offert, de 30 minutes."
