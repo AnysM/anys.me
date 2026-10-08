@@ -474,6 +474,11 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .carrousel__puce:hover { background: rgba(236,231,222,0.7); }
 .carrousel__puce[aria-current="true"]:hover { background: var(--gold); }
 
+/* ── La tête de l'agenda, centrée comme les autres têtes de section ── */
+.tete-agenda { text-align: center; margin-bottom: clamp(2.6rem, 5vw, 4rem); }
+.tete-agenda h2 { margin-bottom: 0; }
+.tete-agenda .cta { margin-top: 1.1rem; }
+
 /* ── Ce qui change tout : trois différences, courtes ── */
 /* Les signes de la première rangée montent haut dans l'espace sous le titre :
    cette tête-là respire plus que les autres. */
