@@ -42,6 +42,13 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 @media (hover: none) { .pilier__more { opacity: 1; } }
 
 /* ── Les seuils : du premier pas à la transformation ── */
+/* Le contenu des seuils occupe la moitié basse de la section : un voile s'y
+   renforce, par-dessus la photo et sous le texte, pour qu'il se détache. */
+#seuils { position: relative; }
+#seuils::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10,15,32,0) 26%, rgba(10,15,32,0.34) 52%,
+    rgba(10,15,32,0.5) 76%, rgba(10,15,32,0.5) 100%); }
+
 .seuils { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem); margin-top: 3rem; }
 .seuils::before { content: ''; position: absolute; top: 1.35rem; left: 0; right: 0; height: 1px; background: linear-gradient(to right, rgba(216,162,76,0.15), var(--gold) 45%, var(--coral)); }
 .seuil { position: relative; display: flex; flex-direction: column; }
