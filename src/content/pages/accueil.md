@@ -2,7 +2,7 @@
 contact_image: /img/photos/dscf1644.jpg
 seuils_image: /img/photos/dscf2446.jpg
 danse_image: /img/photos/dscf1861.jpg
-hero_photo: /img/photos/dscf1737.jpg
+hero_photo: /img/hero-fusion.jpg
 hero_eyebrow: Présence · Mouvement · Créativité
 hero_titre: Marcher un chemin qui
 hero_image: /img/univers-art.jpg
