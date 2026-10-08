@@ -210,7 +210,8 @@ body.a-defile .hero-scroll { opacity: 0; pointer-events: none; }
 .foot { position: relative; isolation: isolate; overflow: hidden; background: var(--navy);
   padding: clamp(7rem, 14vw, 11rem) 0 2rem; color: var(--muted); font-family: 'Jost', sans-serif; }
 .foot__fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  z-index: -2; filter: saturate(1.12) brightness(0.7) contrast(1.04); opacity: 0.6; }
+  z-index: -2; filter: saturate(1.15) brightness(0.86) contrast(1.06); opacity: 0.88;
+  mix-blend-mode: screen; }
 .foot::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to bottom,
   rgba(10,15,32,1) 0%, rgba(10,15,32,0.97) 6%, rgba(10,15,32,0.68) 28%,
   rgba(10,15,32,0.62) 52%, rgba(10,15,32,0.62) 100%); }
