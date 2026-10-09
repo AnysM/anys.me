@@ -263,7 +263,7 @@ body.a-defile .hero-scroll { opacity: 0; pointer-events: none; }
 }
 
 /* ── Respirations pleine largeur voilées ── */
-.breath { position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+.breath { position: relative; min-height: 114svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
 .breath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.14) brightness(var(--lum, 0.8)) contrast(1.02); object-position: var(--posx, 50%) var(--posy, 50%); will-change: transform; }
 .breath::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom,
   rgba(10,16,48,var(--voile, 0.62)), rgba(10,18,56,calc(var(--voile, 0.62) * 0.48)) 50%, rgba(10,16,48,calc(var(--voile, 0.62) * 1.07))); }
