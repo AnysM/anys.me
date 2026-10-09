@@ -2,11 +2,53 @@
 titre: "Infloressence"
 categorie: atelier
 lieu: "Chanka Studio, 51 quai Saint-Vincent, Lyon"
-prix: "15€"
-rythme: "Tous les dimanches, 19h - 20h30"
+prix: "20€ la séance"
+rythme: "Chaque semaine, le vendredi ou le dimanche soir"
+seances:
+  - date: 2026-10-02
+    heure: "18h15 - 19h15"
+    note: "horaire exceptionnel"
+  - date: 2026-10-11
+    heure: "19h - 20h30"
+  - date: 2026-10-16
+    heure: "18h30 - 20h"
+  - date: 2026-10-25
+    heure: "19h - 20h30"
+  - date: 2026-11-01
+    heure: "19h - 20h30"
+  - date: 2026-11-06
+    heure: "18h30 - 20h"
+  - date: 2026-11-15
+    heure: "19h - 20h30"
+  - date: 2026-11-20
+    heure: "18h30 - 20h"
+  - date: 2026-11-27
+    heure: "18h30 - 20h"
+image: /img/infloressence-danse.webp
+image_hero: /img/fleurs-bleues.jpg
+accroche: "Méditation de pleine conscience, danse Butoh|et voyage sonore."
 resume: "Méditation de pleine conscience, danse Butoh et voyage sonore. Un parcours pour revenir au corps et à la présence. Aucune expérience requise."
-lien: "https://chanka-studio-lyon.fr"
-reservable: false
+citations:
+  - texte: "Il suffit d'une graine pour commencer à *fleurir.*"
+    image: /img/fleur-eclosion.jpg
+  - texte: "La résonance, c'est l'art d'être ouvert à l'autre tout en restant *en soi.*"
+    image: /img/fleurs-melees.jpg
+  - texte: "Alors, on *fleurit* ensemble ?"
+    image: /img/arbre-en-fleurs.jpg
+cta: "Je m'inscris"
+lien: "/contact?pour=Inscription%20aux%20ateliers%20Infloressence&interet=decouvrir"
+reservable: true
+tarifs:
+  - label: "À la séance"
+    prix: "20€"
+    detail: "Pour venir ponctuellement, sans engagement."
+  - label: "Au mois"
+    prix: "60€ / mois"
+    detail: "Soit 15€ la séance. Sans engagement, tu t'arrêtes quand tu veux."
+  - label: "À l'année"
+    prix: "350€"
+    detail: "Soit environ 11€ la séance au lieu de 20€, payable en 2 ou 3 fois. Sur la saison, 290€ d'économie par rapport à la séance."
+    avant: true
 accueil: true
 ordre: 1
 publie: true
@@ -14,13 +56,15 @@ faq:
   - q: "Faut-il de l'expérience ?"
     r: "Aucune expérience requise. L'atelier est pensé pour que chacun puisse entrer, à son rythme."
   - q: "Où et quand ?"
-    r: "Tous les dimanches, de 19h à 20h30, à Chanka Studio, 51 quai Saint-Vincent, Lyon."
+    r: "À Chanka Studio, 51 quai Saint-Vincent, Lyon. Chaque semaine, en alternance le vendredi (18h30 - 20h) et le dimanche (19h - 20h30). Toutes les dates sont dans le calendrier ci-dessus."
+  - q: "Comment s'inscrire ?"
+    r: "Envoie-moi un message avec la formule qui te tente : je te réponds avec le créneau et les modalités."
 temoignages:
   - t: "Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à la fois légère, ancrée et ressourcée."
     'n': "Sonia D."
     c: "Ateliers Infloressence"
 ---
-Un espace pour **revenir au corps et à la présence**.
+Un rendez-vous chaque semaine, où **le corps reprend la parole**.
 
 Ce qui demande à circuler en nous reste souvent bloqué par le mental, les injonctions, les conditionnements du quotidien. Cet atelier ouvre un passage.
 

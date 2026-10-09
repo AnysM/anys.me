@@ -1,0 +1,23 @@
+---
+// La séparation : un aplat de la couleur d'en face, masqué par un de tes bords
+// de pinceau. La forme, son sens, sa hauteur et sa largeur se règlent sur
+// /reglages et se rangent dans src/data/separateurs.json.
+import { BORDS } from '../lib/bords';
+import REGLAGES from '../data/separateurs.json';
+
+const { id, cote = 'bas', couleur = 'var(--navy)' } = Astro.props;
+const r = (REGLAGES as Record<string, any>)[id] ?? {};
+const bord = r.bord ?? 1;
+const retourne = r.retourne ?? false;
+const hauteur = r.hauteur ?? 100;     // 100 = les proportions exactes de ton trait
+const largeur = r.largeur ?? 100;     // 100 = le trait traverse la page une fois
+const decalage = r.decalage ?? 0;     // par où on entre dans le trait, en %
+const f = BORDS[bord] ?? BORDS[1];
+const rapport = `${f.l} / ${Math.round(f.h * hauteur / 100 * 100 / largeur)}`;
+---
+<div
+  class:list={['brosse', `brosse--${cote}`, retourne && 'brosse--retournee']}
+  data-sep={id}
+  style={`color:${couleur}; --brosse-img:url(/img/brosses/bord-${bord}.png); aspect-ratio:${rapport}; --brosse-l:${largeur}%; --brosse-x:${decalage}%`}
+  aria-hidden="true"
+></div>

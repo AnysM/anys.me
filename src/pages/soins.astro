@@ -1,33 +1,31 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import { getCollection } from 'astro:content';
 import { getEntry } from 'astro:content';
 const sc = (await getEntry('pages', 'soins')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'soin').sort((a, b) => a.data.ordre - b.data.ordre);
 ---
-<Base title="Soins — Anys Mechkar">
-  <section class="page-hero">{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band"></div>}
+<Base title="Soins énergétiques et massages à Lyon — Anys Mechkar" description="Soin énergétique et massage à l'huile à Lyon, en studio sur les quais de Saône ou à domicile. Un temps pour relâcher, harmoniser et remettre du mouvement.">
+  <section class="page-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>{sc.hero_image ? <img src={sc.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {sc.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{sc.hero_eyebrow}</p><h1>{sc.hero_titre}</h1></div>
   </section>
 
-  <!-- CŒUR À CŒUR -->
-  <section class="coeur">
-    <div class="wrap split">
-      <div class="photo">{sc.portrait_image ? <img class="slot-img" src={sc.portrait_image} alt="" /> : <div class="imgph"><span>SOINS-PORTRAIT</span></div>}</div>
-      <div class="coeur__text">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
+  <!-- Un seul niveau : ce que je mets dans un soin, puis les deux soins.
+       On arrive vite au choix, sans détour par un portrait. -->
+  <section class="entree">
+    <div class="narrow entree__tete">
+      {sc.soins_eyebrow && <p class="eyebrow">{sc.soins_eyebrow}</p>}
+      <h2 set:html={fmt(sc.soins_titre)}></h2>
+      <p class="muted entree__chapeau">{sc.soins_intro}</p>
+      <div class="entree__mot">{sc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>
-  </section>
-
-  <!-- LES SOINS -->
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">{sc.soins_eyebrow}</p>
-      <h2 style="margin-top:0.8rem;" set:html={fmt(sc.soins_titre)}></h2>
-      <p class="muted" style="margin-top:0.8rem;">{sc.soins_intro}</p>
-      <div style="margin-top:2.4rem;">
+    <div class="wrap entree__cartes">
         {soins.map((o) => (
-          <a class="evt" href={`/offre/${o.id}`}>
+          <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
             <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
@@ -38,7 +36,6 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
             </div>
           </a>
         ))}
-      </div>
     </div>
   </section>
 </Base>

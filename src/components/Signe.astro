@@ -1,0 +1,25 @@
+---
+// Une petite présence : un de tes glyphes. Tous les réglages se font sur
+// /essais-signes et se rangent dans src/data/signes.json.
+import REGLAGES from '../data/signes.json';
+const { id, n: nDonne, mode: modeDonne, taille: tDonne, force: fDonne } = Astro.props;
+const r = (REGLAGES as Record<string, any>)[id] ?? {};
+const n = nDonne ?? r.n ?? 'indigo-1';
+const mode = modeDonne ?? r.mode ?? 'fin';
+const force = fDonne ?? r.force ?? 1;
+const t = tDonne ?? r.taille ?? (mode === 'fin' ? 2.3 : 80);
+const taille = mode === 'fin' ? `${t}em` : `${t}px`;
+const dx = r.dx ?? 0, dy = r.dy ?? 0, tour = r.tour ?? 0, miroir = r.miroir ?? false;
+// Deux réglages distincts : le placement, qui ne vaut que pour la pose réglée,
+// et l'attitude du dessin, qui le suit partout.
+const place = `translate(${dx}px, ${dy}px)`;
+const attitude = `rotate(${tour}deg)${miroir ? ' scaleX(-1)' : ''}`;
+---
+<img
+  class:list={['signe', `signe--${mode}`]}
+  src={`/img/signes/${n}.png`}
+  alt=""
+  aria-hidden="true"
+  loading="lazy"
+  style={`--signe-t:${taille}; --signe-place:${place}; --signe-attitude:${attitude}; opacity:${force}`}
+/>

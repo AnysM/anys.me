@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import { getEntry } from 'astro:content';
 import Lettre from '../components/Lettre.astro';
 const qc = (await getEntry('pages', 'quintessence')).data;
@@ -8,7 +10,8 @@ const pratiques = qc.pratiques ?? [];
 ---
 <Base title="Quintessence — retraite de silence et de créativité | Anys Mechkar" description="Quintessence : 3 jours de silence, 2 jours de créativité. Méditation, danse Butô, chant, cercles de parole et rituels, en France. Inscris-toi pour la prochaine édition.">
   <!-- HERO -->
-  <section class="page-hero" style="min-height:64vh;">{qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style={`min-height:64vh; padding-bottom:${airSousBord('page-bas')}`}>{qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {qc.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap"><p class="eyebrow">{qc.hero_eyebrow}</p><h1 style="font-size:clamp(2.4rem,6vw,4rem);">{qc.hero_titre}</h1><p class="lead" style="margin-top:1rem;">{qc.hero_lead}</p></div>
   </section>
 
@@ -20,7 +23,7 @@ const pratiques = qc.pratiques ?? [];
   </section>
 
   <!-- RESPIRATION -->
-  <section class="breath" style="min-height:52vh;">{qc.resp_image ? <img src={qc.resp_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(qc.citation)}></div></section>
+  <section class="breath">{qc.resp_image ? <img src={qc.resp_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(qc.citation)}></div></section>
 
   <!-- LE VOYAGE (image + texte) -->
   <section style="padding:0;">

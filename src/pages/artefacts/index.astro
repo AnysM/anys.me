@@ -1,13 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Separateur from '../../components/Separateur.astro';
+import { airSousBord } from '../../lib/bords';
 import Lettre from '../../components/Lettre.astro';
 import { getCollection } from 'astro:content';
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const statut = (d) => d.original === 'disponible' ? `Original disponible${d.original_prix ? ` · ${d.original_prix}` : ''}` : d.tirages_statut === 'disponible' ? 'Reproductions disponibles' : d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'acquis' ? 'Acquis' : 'Collection personnelle';
 ---
 <Base title="Artefacts — les œuvres nées du chemin | Indigo Enoqii · Anys Mechkar" description="Chaque œuvre d'Indigo Enoqii est née d'un passage : une cérémonie, une initiation, une rencontre. Des artefacts à accueillir chez soi, originaux et reproductions.">
-  <section class="page-hero fiche-hero">
+  <section class="page-hero fiche-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
     <img src="/img/tex-cosmic.jpg" alt="" />
+    <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />
     <div class="wrap">
       <p class="eyebrow">Indigo Enoqii</p>
       <h1>Les artefacts</h1>

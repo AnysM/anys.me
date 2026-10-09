@@ -1,0 +1,84 @@
+/* ── Le cadre : la page devient le repère des éléments posés dessus ── */
+html, body { overflow-x: clip; }
+main { position: relative; }
+main > section, main > div { position: relative; }
+main > section > .wrap,
+main > section > .narrow,
+main > section > .large,
+main > section > div { position: relative; z-index: 2; }
+
+/* Les seuils : pas de trait, un creux d'ombre à la place, sans bord net. */
+#seuils { background: linear-gradient(to bottom,
+  rgba(0,0,0,0) 0%, rgba(0,0,0,0.26) 16%, rgba(0,0,0,0.26) 84%, rgba(0,0,0,0) 100%); }
+
+/* ── Les séparations : un bord de pinceau, de la couleur de la section d'en face ──
+   La bande prend le format du bord photographié : la forme traverse la page
+   une fois, entière, et se réduit avec elle sans jamais se compresser. */
+.brosse {
+  position: absolute; left: 0; right: 0; z-index: 2;
+  background-color: currentColor;
+  pointer-events: none;
+  -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
+  mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
+}
+/* Le masque a son bord de pinceau en haut et le plein en dessous.
+   En pied de section on le pose tel quel ; en tête on le retourne. */
+.brosse--bas { bottom: -1px; }
+.brosse--haut { top: -1px; transform: scaleY(-1); }
+.brosse--bas.brosse--retournee { transform: scaleX(-1); }
+.brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
+
+/* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
+.trace { position: absolute; top: 0; height: calc(100% + var(--debord, 0px));
+  width: auto; max-width: none; z-index: 1; pointer-events: none; user-select: none;
+  /* Les deux bouts se dissolvent : aucune coupure droite au bord d'une section. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 86%, transparent 100%); }
+/* La section garde son trait chez elle : le débord passe sous la section suivante. */
+main > section:has(> .trace) { isolation: isolate; }
+@media (max-width: 760px) { .trace { opacity: 0.06 !important; } }
+
+/* ── Une photo derrière une section, sous son voile ── */
+.fond { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.fond img { width: 100%; height: 100%; object-fit: cover;
+  object-position: var(--fond-x, 50%) var(--fond-y, 50%);
+  filter: saturate(1.06) brightness(var(--fond-lum, 0.74)) contrast(1.02); }
+/* En écran étroit la photo est recadrée serré : elle a son propre cadrage
+   et son propre voile, pour que le sujet reste dans l'image. */
+@media (max-width: 760px) {
+  .fond img { object-position: var(--fond-x-m, 50%) var(--fond-y-m, 50%);
+    filter: saturate(1.06) brightness(var(--fond-lum-m, 0.74)) contrast(1.02); }
+  .fond::after { background: linear-gradient(180deg,
+    rgba(10,15,32,calc(var(--fond-voile-m, 0.72) + 0.12)) 0%,
+    rgba(10,15,32,var(--fond-voile-m, 0.72)) 42%,
+    rgba(10,15,32,var(--fond-voile-m, 0.72)) 62%,
+    rgba(10,15,32,calc(var(--fond-voile-m, 0.72) + 0.14)) 100%); }
+}
+.fond::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg,
+  rgba(10,15,32,calc(var(--fond-voile, 0.72) + 0.12)) 0%,
+  rgba(10,15,32,var(--fond-voile, 0.72)) 42%,
+  rgba(10,15,32,var(--fond-voile, 0.72)) 62%,
+  rgba(10,15,32,calc(var(--fond-voile, 0.72) + 0.14)) 100%); }
+
+/* ── Les petites présences : tes glyphes, en ponctuation ── */
+.signe { display: block; height: var(--signe-t, 34px); width: auto; pointer-events: none;
+  user-select: none;
+  transform: var(--signe-place, translate(0, 0)) var(--signe-attitude, rotate(0deg)); }
+/* Au-dessus d'un titre, centré. */
+.signe--haut { margin: 0 auto 1rem; }
+/* En bout de titre : juste après le dernier mot. */
+.signe--fin { display: inline-block; margin: 0 0 0 0.3em; vertical-align: -0.8em;
+  position: relative; z-index: 0; }
+/* Libre : il tient sa propre place dans la mise en page. */
+.signe--libre { margin: 0; }
+/* Quand le signe fait lui-même partie d'une apparition, il garde sa pose :
+   seule son opacité s'anime, sinon il saute en place une seconde plus tard. */
+.signe.apparait, .signe.apparait.vu {
+  transform: var(--signe-place, translate(0, 0)) var(--signe-attitude, rotate(0deg)); }
+
+/* Un titre qui porte un signe : la pose choisie dans l'atelier décide de la mise en place. */
+.avec-signe--haut { display: flex; flex-direction: column; align-items: center; }
+.avec-signe--haut .signe { order: -1; margin: 0 0 0.3em; }
+.avec-signe--libre { display: flex; align-items: center; gap: clamp(0.7rem, 1.8vw, 1.5rem); }
+.avec-signe--libre .signe { flex: none; }
+@media (max-width: 760px) { .signe--haut { margin-bottom: 0.7rem; } }

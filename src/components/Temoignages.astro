@@ -1,15 +1,22 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { temoignages = [], titre = 'Ils et elles l’ont traversé', eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const { bordHaut = true, reglage = undefined, temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+import Separateur from './Separateur.astro';
 const carrousel = temoignages.length > 3;
+const seul = temoignages.length === 1;
+// Un seul témoignage : un titre au singulier et une grande citation, au lieu d'une carte isolée.
+const titre = titreDonne ?? (seul ? 'Témoignage' : '*Ils et elles* l’ont traversé');
+const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 ---
 {temoignages.length > 0 && (
-  <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`}>
+  <section class={`temoins-offre${fond && !image ? ' bloc' : ''}${image ? ' temoins-offre--photo' : ''}`} style={reglage}>
     {image && <img class="temoins-offre__fond" src={image} alt="" loading="lazy" />}
+    {image && bordHaut && <Separateur id="temoins-haut" cote="haut" couleur="var(--navy)" />}
+    {image && <Separateur id="temoins-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{eyebrow}</p>
-        {titre && <h2>{titre}</h2>}
+        {titre && <h2 set:html={avecScript(titre)}></h2>}
         {note && (
           <a class="avis-google" href={lien} target="_blank" rel="noopener">
             <span class="avis-google__etoiles" aria-hidden="true">★★★★★</span>
@@ -17,7 +24,7 @@ const carrousel = temoignages.length > 3;
           </a>
         )}
       </div>
-      <div class={carrousel ? 'carrousel' : 'temoins-offre__grille'} data-carrousel={carrousel ? '' : undefined}>
+      <div class={carrousel ? 'carrousel' : `temoins-offre__grille${seul ? ' temoins-offre__grille--seul' : ''}`} data-carrousel={carrousel ? '' : undefined}>
         <div class={carrousel ? 'carrousel__piste' : 'temoins-offre__cartes'}>
         {temoignages.map((x) => (
           <figure class="temoin-carte">

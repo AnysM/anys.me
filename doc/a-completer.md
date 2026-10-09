@@ -23,7 +23,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 
 **Accompagnement individuel**
 - [ ] Relire les étapes, les bénéfices (« Ce que tu y trouves ») et la FAQ, que j'ai rédigés à partir de tes textes.
-- [ ] Paiement en plusieurs fois possible ?
+- [x] Paiement en plusieurs fois : oui, à caler lors de l'appel (FAQ ajoutée le 22/09).
 - [ ] Conditions d'annulation ou de report d'une séance ?
 - [ ] La formule mise en avant (« Recommandé ») : 3 mois, c'est bien celle-là ?
 - [ ] Immersion « Nouveau souffle » : où se passe-t-elle ? Logement possible ?
@@ -44,7 +44,7 @@ Liste de travail (non publiée). Coche au fur et à mesure : `[x]`.
 - [ ] Infloressence, « Avant de venir » : tenue, arriver à l'avance, matériel ?
 - [ ] **Quintessence** : lieu, dates, tarif de la prochaine édition.
 - [ ] **Brotherhood Circle** (Portugal, printemps 2027) : dates exactes, tarif, lieu précis.
-- [ ] **Desert Mirage Journey** : prix normal (pour montrer l'avantage de l'early bird).
+- [x] **Desert Mirage Journey** : photo, résumé et lien vers le site (20/09).
 - [ ] **Le Chaudron** : le lien WhatsApp est-il fait pour être public ?
 
 ## 4. Codex

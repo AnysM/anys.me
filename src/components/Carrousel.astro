@@ -1,0 +1,43 @@
+---
+// Un carrousel sans bibliothèque : les cartes défilent à l'horizontale, aimantées,
+// avec des flèches et des puces dessous. Le contenu vient du slot.
+const { n = 0, label = 'Éléments', classe = '' } = Astro.props;
+---
+<div class={`carrousel${classe ? ' ' + classe : ''}`} data-carrousel>
+  <div class="carrousel__piste"><slot /></div>
+  {n > 1 && (
+    <div class="carrousel__nav">
+      <button type="button" class="carrousel__btn" data-sens="-1" aria-label="Précédent"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="carrousel__puces" role="tablist" aria-label={label}>
+        {Array.from({ length: n }).map((_, i) => <button type="button" class="carrousel__puce" data-i={i} aria-label={`${label} ${i + 1} sur ${n}`} aria-current={i === 0 ? 'true' : undefined}></button>)}
+      </div>
+      <button type="button" class="carrousel__btn" data-sens="1" aria-label="Suivant"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  )}
+</div>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-carrousel]').forEach(function (c) {
+      if (c.dataset.pret) return; c.dataset.pret = '1';
+      var piste = c.querySelector('.carrousel__piste');
+      var cartes = Array.prototype.slice.call(piste.children);
+      var puces = Array.prototype.slice.call(c.querySelectorAll('.carrousel__puce'));
+      function aller(i) {
+        i = Math.max(0, Math.min(cartes.length - 1, i));
+        piste.scrollTo({ left: cartes[i].offsetLeft - piste.offsetLeft, behavior: 'smooth' });
+      }
+      function actuel() {
+        var x = piste.scrollLeft, meilleur = 0;
+        cartes.forEach(function (k, i) { if (Math.abs(k.offsetLeft - piste.offsetLeft - x) < Math.abs(cartes[meilleur].offsetLeft - piste.offsetLeft - x)) meilleur = i; });
+        // En bout de piste, la dernière carte est la courante
+        if (x + piste.clientWidth >= piste.scrollWidth - 4) meilleur = cartes.length - 1;
+        return meilleur;
+      }
+      function maj() { var i = actuel(); puces.forEach(function (p, j) { if (j === i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current'); }); }
+      c.querySelectorAll('.carrousel__btn').forEach(function (b) { b.addEventListener('click', function () { aller(actuel() + Number(b.dataset.sens)); }); });
+      puces.forEach(function (p) { p.addEventListener('click', function () { aller(Number(p.dataset.i)); }); });
+      piste.addEventListener('scroll', function () { requestAnimationFrame(maj); }, { passive: true });
+    });
+  })();
+</script>

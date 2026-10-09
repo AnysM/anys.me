@@ -19,19 +19,6 @@ section { padding: var(--section) 0; }
 .ico { display: inline-block; flex-shrink: 0; vertical-align: -0.12em; }
 .bloc { background: var(--surface); }
 
-/* ── Étoiles discrètes sur les grands visuels ── */
-.etoiles { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0.7;
-  background-image:
-    radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 27% 62%, #fff 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 41% 28%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 55% 74%, #fff 50%, transparent 51%),
-    radial-gradient(1px 1px at 68% 14%, #fff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 79% 46%, #fff 50%, transparent 51%),
-    radial-gradient(1px 1px at 88% 82%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 93% 22%, #fff 50%, transparent 51%),
-    radial-gradient(1px 1px at 6% 88%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 90%, #fff 50%, transparent 51%);
-  animation: scintille 7s ease-in-out infinite alternate; }
-.etoiles + .etoiles { opacity: 0.45; transform: translate(3%, 6%) scale(1.1); animation-duration: 11s; animation-delay: -4s; }
-@keyframes scintille { from { opacity: 0.25; } to { opacity: 0.8; } }
-@media (prefers-reduced-motion: reduce) { .etoiles { animation: none; } }
-
 /* ── Boutons : pilules, flèche dans un cercle ── */
 .btn { border-radius: var(--pill); padding: 0.95em 1.9em; letter-spacing: 0.18em; font-size: 0.76rem; border-color: rgba(216,162,76,0.7); transition: background 0.35s var(--ease), color 0.35s, border-color 0.35s; }
 .btn--solid { gap: 14px; padding: 0.55em 0.55em 0.55em 1.8em; border: 0; }
@@ -58,12 +45,18 @@ section { padding: var(--section) 0; }
 /* ── Composants arrondis : cartes, encarts, champs, étiquettes ── */
 .ecard, .evt, .allie, .tarif, .tl-echos, .orient button { border-radius: var(--r-lg); }
 .ecard__tag { background: rgba(107,107,255,0.22); border: 1px solid rgba(163,168,255,0.28); color: var(--cream); letter-spacing: 0.16em; padding: 6px 12px; }
-.ecard { background: linear-gradient(180deg, rgba(255,255,255,0.025), transparent 40%), var(--surface); transition: border-color 0.4s, transform 0.5s var(--ease); }
+/* La carte se détache du fond : un bleu nuit plus profond, et un liseré un peu plus net */
+.ecard { background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%), #06091A; border-color: rgba(236,231,222,0.12); box-shadow: 0 18px 40px -28px rgba(0,0,0,0.9); transition: border-color 0.4s, transform 0.5s var(--ease); }
 .ecard:hover { transform: translateY(-4px); border-color: rgba(163,168,255,0.35); }
-.ecard__body { padding: 1.5rem 1.6rem 1.7rem; }
+/* L'air se prend au-dessus du titre, pas entre le texte et le bouton. */
+.ecard__body { padding: clamp(2.4rem, 3.6vw, 3.4rem) clamp(1.8rem, 3vw, 3rem) clamp(1.7rem, 2.2vw, 2.2rem); }
 .evt:hover { border-color: rgba(163,168,255,0.35); }
-.form input, .form select, .form textarea { border-radius: var(--r-md); padding: 1em 1.15em; background: rgba(255,255,255,0.03); transition: border-color 0.3s, background 0.3s; }
-.form input:focus, .form select:focus, .form textarea:focus { background: rgba(255,255,255,0.05); }
+/* Les champs ont leur propre fond, assez dense pour qu'on lise ce qu'on écrit
+   même quand une photo passe derrière. */
+.form input, .form select, .form textarea { border-radius: var(--r-md); padding: 1em 1.15em;
+  background: rgba(10,15,32,0.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: border-color 0.3s, background 0.3s; }
+.form input:focus, .form select:focus, .form textarea:focus { background: rgba(10,15,32,0.88); }
 .form select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D8A24C' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 16px; padding-right: 2.8rem; }
 .form button[type="submit"] { margin-top: 0.4rem; }
 
@@ -73,7 +66,9 @@ section { padding: var(--section) 0; }
 .ecard__meta .ico { color: var(--muted); }
 .infos .k { display: flex; align-items: center; gap: 7px; }
 .infos .k .ico { color: var(--gold); }
-.infos > div { padding: 1rem 1.1rem; border-radius: var(--r-md); background: rgba(255,255,255,0.03); border: 1px solid var(--faint); }
+/* Pas des cartes : trois informations posées côte à côte, séparées par un filet. La valeur domine, l'étiquette accompagne. */
+.infos > div { padding: 0.2rem 0 0.2rem 1.6rem; border-left: 1px solid var(--faint); }
+.infos > div:first-child { padding-left: 0; border-left: 0; }
 .quete__quand { display: flex; align-items: center; gap: 7px; }
 .filtre small { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
 .filtre[aria-pressed="true"] small { color: var(--indigo-soft); }
@@ -95,11 +90,12 @@ section { padding: var(--section) 0; }
 
 /* La manuscrite reste pour les titres et les grandes phrases ;
    dans un paragraphe, *mot* devient un italique Garamond lisible */
-p .script { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1em; letter-spacing: 0; color: var(--cream); }
+/* Un mot mis en valeur dans un paragraphe : la même police que le texte, en italique et en blanc (pas de Garamond au milieu du Jost). */
+p .script { font-family: inherit; font-style: italic; font-size: 1em; font-weight: 400; letter-spacing: 0; color: var(--cream); }
 p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 
 /* Respiration : titres, blocs et schémas prennent de l'air */
-.rosace { margin-top: clamp(7rem, 15vw, 11rem); margin-bottom: clamp(2rem, 5vw, 4rem); }
+.rangee { margin-top: clamp(4rem, 9vw, 7rem); margin-bottom: clamp(2rem, 5vw, 4rem); }
 .group + .group { margin-top: clamp(4rem, 9vw, 7rem); }
 .group__title { margin-bottom: clamp(1.2rem, 3vw, 2rem); }
 .cgroupe { margin-top: clamp(3.5rem, 8vw, 6rem); }
@@ -107,12 +103,13 @@ p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 .split { gap: clamp(2.5rem, 8vw, 6.5rem); }
 .tl-row { margin-bottom: clamp(4rem, 9vw, 7rem); }
-@media (max-width: 640px) { .rosace { margin-top: 2rem; } }
+@media (max-width: 640px) { .rangee { margin-top: 2rem; } }
 
-/* Voile du hero : dense sous le texte à gauche, léger à droite pour laisser respirer l'œuvre */
-#hero::before { background: linear-gradient(90deg, rgba(10,18,58,0.94) 0%, rgba(10,18,58,0.86) 32%, rgba(12,24,72,0.45) 62%, rgba(12,24,72,0.12) 100%); }
+/* Voile du hero : il se multiplie à l'image, dense sous le texte à gauche,
+   transparent à droite — le soleil et les couleurs traversent. */
+#hero::before { background: linear-gradient(94deg, #2E3760 0%, #5A638C 34%, #BFC4D2 66%, #FFFFFF 100%); mix-blend-mode: multiply; }
 @media (max-width: 760px) {
-  #hero::before { background: linear-gradient(180deg, rgba(10,18,58,0.55) 0%, rgba(10,18,58,0.82) 40%, rgba(10,18,58,0.9) 100%); }
+  #hero::before { background: linear-gradient(180deg, #6E7590 0%, #2A3150 45%, #1B2238 100%); }
 }
 
 /* Texte des boutons plus lisible */
@@ -134,3 +131,49 @@ h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 /* Pop-in Calendly : voile aux couleurs du site */
 .calendly-overlay { background-color: rgba(10, 15, 32, 0.86) !important; backdrop-filter: blur(6px); }
 .calendly-overlay .calendly-popup { border-radius: 14px; overflow: hidden; }
+
+/* Dans un titre : <span class="serif"> passe en Garamond, en minuscules, pour jouer avec le manuscrit. */
+h2 .serif { display: inline-block; margin-top: 0.25em; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 1.15em; }
+/* Couleurs de sens dans un texte : le bleu (l'intérieur, la relation), le corail (le corps, l'élan). */
+.en-bleu { color: var(--bleu, #5C7CFF); }
+.en-corail { color: var(--coral); }
+/* Une seconde ligne de titre sous un mot manuscrit : même style que le titre, avec un peu d'air. */
+h2 .ligne { display: inline-block; margin-top: 0.3em; }
+
+/* ── Types d'événement : une pastille pleine et lisible, une couleur par type ──
+   Atelier : corail (le corps). Cercle : bleu (la parole, le lien). Voyage sonore : lavande.
+   Résidence : jaune (la création). Retraite et immersion : crème (le temps long). */
+.ecard__tag { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; padding: 6px 13px; border: 0; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: 0 2px 10px rgba(10,15,32,0.35); color: var(--navy); background: var(--cream); }
+.ecard__tag.type-atelier { background: var(--coral); }
+.ecard__tag.type-cercle { background: #5C7CFF; color: #fff; }
+.ecard__tag.type-voyage-sonore { background: var(--indigo-soft); }
+.ecard__tag.type-residence { background: #FFC53D; }
+.ecard__tag.type-retraite, .ecard__tag.type-immersion { background: var(--cream); }
+/* Dans la vue d'ensemble, la même pastille que sur les cartes, posée dans la ligne. */
+.apercu__type .ecard__tag { position: static; display: inline-block; box-shadow: none; white-space: nowrap; }
+
+/* ── Pied de page : la colonne de gauche (logo, nom, phrase) centrée sur elle-même ── */
+.foot__brand { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.foot__logo { width: 90px; margin-bottom: 1.2rem; }
+.foot__tag { margin-inline: auto; }
+
+/* Agenda : la liste commence juste sous l'en-tête. */
+.agenda-liste { padding-top: clamp(2.4rem, 5vw, 3.6rem); }
+/* La bascule des vues se pose sur la ligne du premier titre, à droite, sans ajouter de ligne. */
+.agenda-liste .wrap { position: relative; }
+.vues-barre { position: absolute; top: 0; right: 0; z-index: 2; }
+.vues-barre .vues { margin-bottom: 0; background: var(--navy); }
+#vue-cartes > .group:first-child .group__title, #vue-liste > .apercu__groupe:first-child .group__title { min-height: 44px; padding-right: 235px; }
+@media (max-width: 700px) {
+  .vues-barre { position: static; display: flex; justify-content: flex-start; margin-bottom: 1.6rem; }
+  #vue-cartes > .group:first-child .group__title, #vue-liste > .apercu__groupe:first-child .group__title { padding-right: 0; }
+}
+.foot__role { font-weight: 400; font-style: italic; color: #C2C5D2; }
+
+/* Apparitions au défilement (accueil) : un léger fondu qui monte, sans flou sur le texte long. */
+.apparait { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); }
+.apparait.vu { opacity: 1; transform: none; }
+/* Le mot manuscrit au début d'un titre : un peu d'air pour qu'il ne touche pas le mot suivant. */
+h2 .script { margin-inline: 0.06em 0.14em; }
+/* Une offre peut n'avoir aucun texte libre : le bloc ne laisse alors pas de vide. */
+.prose:empty { display: none; }

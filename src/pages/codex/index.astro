@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Separateur from '../../components/Separateur.astro';
+import { airSousBord } from '../../lib/bords';
 import Sigils from '../../components/Sigils.astro';
 import { codex } from '../../lib/monde';
 import { UNIVERS, TYPES } from '../../lib/univers.mjs';
@@ -25,8 +27,9 @@ const jsonld = [
 ];
 ---
 <Base title="Le Codex — méditation, Butô, chamanisme, soin énergétique | Anys Mechkar" description="Le paysage intérieur d'Anys Mechkar : méditation, danse Butô, chamanisme, soin énergétique, Human Design… Des fiches pour comprendre, et où les vivre à Lyon." jsonld={jsonld}>
-  <section class="page-hero fiche-hero">
+  <section class="page-hero fiche-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
     <img src="/img/tex-cosmic.jpg" alt="" />
+    <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />
     <div class="wrap">
       <p class="eyebrow">Le paysage intérieur</p>
       <h1>Le Codex</h1>

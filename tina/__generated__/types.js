@@ -17,14 +17,48 @@ export const AgendaPartsFragmentDoc = gql`
   lieu
   prix
   earlybird
+  seances {
+    __typename
+    date
+    heure
+    note
+  }
+  tarifs {
+    __typename
+    label
+    prix
+    detail
+    avant
+  }
   cta
   site
   lien
   resume
+  citations {
+    __typename
+    texte
+    source
+    image
+  }
   image
+  image_hero
+  accroche
   reservable
   ordre
   publie
+  temoignages {
+    __typename
+    t
+    n
+    c
+  }
+  faq {
+    __typename
+    q
+    r
+  }
+  accueil
+  seuil
   body
 }
     `;
@@ -35,6 +69,7 @@ export const OffresPartsFragmentDoc = gql`
   categorie
   tag
   resume
+  accroche
   prix
   duree
   format
@@ -43,10 +78,838 @@ export const OffresPartsFragmentDoc = gql`
     label
     prix
     detail
+    groupe
+    avant
+  }
+  etapes {
+    __typename
+    titre
+    texte
+    picto
   }
   image
   lien
   reservable
+  ordre
+  publie
+  temoignages {
+    __typename
+    t
+    n
+    c
+  }
+  faq {
+    __typename
+    q
+    r
+  }
+  benefices
+  pourqui_titre
+  pourqui
+  pourtoi
+  pourtoi_note
+  places
+  pourtoi_contre_titre
+  pourtoi_contre
+  masques_titre
+  masques
+  chemin_eyebrow
+  chemin_titre
+  chemin
+  chemin_appuis
+  approche_eyebrow
+  approche_titre
+  approche_intro
+  approche {
+    __typename
+    titre
+    cadence
+    texte
+  }
+  cap_eyebrow
+  cap_titre
+  cap {
+    __typename
+    titre
+    posture
+    texte
+  }
+  cadre
+  cadre_items {
+    __typename
+    titre
+    texte
+  }
+  explore
+  action
+  cta
+  logo
+  page
+  intention_eyebrow
+  intention
+  nom_titre
+  nom_texte
+  cap_note
+  temoins_titre
+  invite_titre
+  invite_texte
+  accueil
+  seuil
+  body
+}
+    `;
+export const CodexPartsFragmentDoc = gql`
+    fragment CodexParts on Codex {
+  __typename
+  titre
+  type
+  univers
+  question
+  resume
+  alias
+  offres {
+    __typename
+    offre {
+      ... on Offres {
+        __typename
+        titre
+        categorie
+        tag
+        resume
+        accroche
+        prix
+        duree
+        format
+        tarifs {
+          __typename
+          label
+          prix
+          detail
+          groupe
+          avant
+        }
+        etapes {
+          __typename
+          titre
+          texte
+          picto
+        }
+        image
+        lien
+        reservable
+        ordre
+        publie
+        temoignages {
+          __typename
+          t
+          n
+          c
+        }
+        faq {
+          __typename
+          q
+          r
+        }
+        benefices
+        pourqui_titre
+        pourqui
+        pourtoi
+        pourtoi_note
+        places
+        pourtoi_contre_titre
+        pourtoi_contre
+        masques_titre
+        masques
+        chemin_eyebrow
+        chemin_titre
+        chemin
+        chemin_appuis
+        approche_eyebrow
+        approche_titre
+        approche_intro
+        approche {
+          __typename
+          titre
+          cadence
+          texte
+        }
+        cap_eyebrow
+        cap_titre
+        cap {
+          __typename
+          titre
+          posture
+          texte
+        }
+        cadre
+        cadre_items {
+          __typename
+          titre
+          texte
+        }
+        explore
+        action
+        cta
+        logo
+        page
+        intention_eyebrow
+        intention
+        nom_titre
+        nom_texte
+        cap_note
+        temoins_titre
+        invite_titre
+        invite_texte
+        accueil
+        seuil
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  agenda {
+    __typename
+    evenement {
+      ... on Agenda {
+        __typename
+        titre
+        categorie
+        date
+        date_fin
+        rythme
+        heure
+        lieu
+        prix
+        earlybird
+        seances {
+          __typename
+          date
+          heure
+          note
+        }
+        tarifs {
+          __typename
+          label
+          prix
+          detail
+          avant
+        }
+        cta
+        site
+        lien
+        resume
+        citations {
+          __typename
+          texte
+          source
+          image
+        }
+        image
+        image_hero
+        accroche
+        reservable
+        ordre
+        publie
+        temoignages {
+          __typename
+          t
+          n
+          c
+        }
+        faq {
+          __typename
+          q
+          r
+        }
+        accueil
+        seuil
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  liens {
+    __typename
+    fiche {
+      ... on Codex {
+        __typename
+        titre
+        type
+        univers
+        question
+        resume
+        alias
+        offres {
+          __typename
+          offre {
+            ... on Offres {
+              __typename
+              titre
+              categorie
+              tag
+              resume
+              accroche
+              prix
+              duree
+              format
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                groupe
+                avant
+              }
+              etapes {
+                __typename
+                titre
+                texte
+                picto
+              }
+              image
+              lien
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              benefices
+              pourqui_titre
+              pourqui
+              pourtoi
+              pourtoi_note
+              places
+              pourtoi_contre_titre
+              pourtoi_contre
+              masques_titre
+              masques
+              chemin_eyebrow
+              chemin_titre
+              chemin
+              chemin_appuis
+              approche_eyebrow
+              approche_titre
+              approche_intro
+              approche {
+                __typename
+                titre
+                cadence
+                texte
+              }
+              cap_eyebrow
+              cap_titre
+              cap {
+                __typename
+                titre
+                posture
+                texte
+              }
+              cadre
+              cadre_items {
+                __typename
+                titre
+                texte
+              }
+              explore
+              action
+              cta
+              logo
+              page
+              intention_eyebrow
+              intention
+              nom_titre
+              nom_texte
+              cap_note
+              temoins_titre
+              invite_titre
+              invite_texte
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        agenda {
+          __typename
+          evenement {
+            ... on Agenda {
+              __typename
+              titre
+              categorie
+              date
+              date_fin
+              rythme
+              heure
+              lieu
+              prix
+              earlybird
+              seances {
+                __typename
+                date
+                heure
+                note
+              }
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                avant
+              }
+              cta
+              site
+              lien
+              resume
+              citations {
+                __typename
+                texte
+                source
+                image
+              }
+              image
+              image_hero
+              accroche
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        liens {
+          __typename
+          fiche {
+            ... on Codex {
+              __typename
+              titre
+              type
+              univers
+              question
+              resume
+              alias
+              offres {
+                __typename
+              }
+              agenda {
+                __typename
+              }
+              liens {
+                __typename
+              }
+              image
+              lien_externe
+              logo
+              logo_blanc
+              date
+              seo_titre
+              seo_description
+              ordre
+              publie
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        image
+        lien_externe
+        logo
+        logo_blanc
+        date
+        seo_titre
+        seo_description
+        ordre
+        publie
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  image
+  lien_externe
+  logo
+  logo_blanc
+  date
+  seo_titre
+  seo_description
+  ordre
+  publie
+  body
+}
+    `;
+export const ArtefactsPartsFragmentDoc = gql`
+    fragment ArtefactsParts on Artefacts {
+  __typename
+  titre
+  sous_titre
+  images
+  naissance
+  annee
+  technique
+  dimensions
+  codex {
+    __typename
+    fiche {
+      ... on Codex {
+        __typename
+        titre
+        type
+        univers
+        question
+        resume
+        alias
+        offres {
+          __typename
+          offre {
+            ... on Offres {
+              __typename
+              titre
+              categorie
+              tag
+              resume
+              accroche
+              prix
+              duree
+              format
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                groupe
+                avant
+              }
+              etapes {
+                __typename
+                titre
+                texte
+                picto
+              }
+              image
+              lien
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              benefices
+              pourqui_titre
+              pourqui
+              pourtoi
+              pourtoi_note
+              places
+              pourtoi_contre_titre
+              pourtoi_contre
+              masques_titre
+              masques
+              chemin_eyebrow
+              chemin_titre
+              chemin
+              chemin_appuis
+              approche_eyebrow
+              approche_titre
+              approche_intro
+              approche {
+                __typename
+                titre
+                cadence
+                texte
+              }
+              cap_eyebrow
+              cap_titre
+              cap {
+                __typename
+                titre
+                posture
+                texte
+              }
+              cadre
+              cadre_items {
+                __typename
+                titre
+                texte
+              }
+              explore
+              action
+              cta
+              logo
+              page
+              intention_eyebrow
+              intention
+              nom_titre
+              nom_texte
+              cap_note
+              temoins_titre
+              invite_titre
+              invite_texte
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        agenda {
+          __typename
+          evenement {
+            ... on Agenda {
+              __typename
+              titre
+              categorie
+              date
+              date_fin
+              rythme
+              heure
+              lieu
+              prix
+              earlybird
+              seances {
+                __typename
+                date
+                heure
+                note
+              }
+              tarifs {
+                __typename
+                label
+                prix
+                detail
+                avant
+              }
+              cta
+              site
+              lien
+              resume
+              citations {
+                __typename
+                texte
+                source
+                image
+              }
+              image
+              image_hero
+              accroche
+              reservable
+              ordre
+              publie
+              temoignages {
+                __typename
+                t
+                n
+                c
+              }
+              faq {
+                __typename
+                q
+                r
+              }
+              accueil
+              seuil
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        liens {
+          __typename
+          fiche {
+            ... on Codex {
+              __typename
+              titre
+              type
+              univers
+              question
+              resume
+              alias
+              offres {
+                __typename
+              }
+              agenda {
+                __typename
+              }
+              liens {
+                __typename
+              }
+              image
+              lien_externe
+              logo
+              logo_blanc
+              date
+              seo_titre
+              seo_description
+              ordre
+              publie
+              body
+            }
+            ... on Document {
+              _sys {
+                filename
+                basename
+                hasReferences
+                breadcrumbs
+                path
+                relativePath
+                extension
+              }
+              id
+            }
+          }
+        }
+        image
+        lien_externe
+        logo
+        logo_blanc
+        date
+        seo_titre
+        seo_description
+        ordre
+        publie
+        body
+      }
+      ... on Document {
+        _sys {
+          filename
+          basename
+          hasReferences
+          breadcrumbs
+          path
+          relativePath
+          extension
+        }
+        id
+      }
+    }
+  }
+  original
+  original_prix
+  lien_boutique
+  tirages_statut
+  tirages {
+    __typename
+    format
+    prix
+    detail
+  }
   ordre
   publie
   body
@@ -62,6 +925,12 @@ export const PagesPartsFragmentDoc = gql`
   resp1_image
   resp2_image
   resp3_image
+  danse_image
+  seuils_image
+  contact_image
+  art_fond
+  art_fonds
+  art_phrase
   art1_image
   art2_image
   art3_image
@@ -72,35 +941,59 @@ export const PagesPartsFragmentDoc = gql`
   parcours_titre
   parcours_texte
   parcours_cta
+  coeur_eyebrow
+  coeur_titre
+  coeur
+  venir_eyebrow
+  venir_titre
+  venir_items
+  posture
+  difference_eyebrow
+  difference_titre
+  difference {
+    __typename
+    titre
+    piege
+    texte
+  }
   piliers_eyebrow
   agenda_eyebrow
+  agenda_titre
   art_eyebrow
   art_titre
   temoins_eyebrow
+  temoins_image
+  avis_note
+  avis_nombre
+  avis_lien
   temoins {
     __typename
     t
     n
     c
   }
-  partenaires_eyebrow
   form_eyebrow
   piliers_titre
+  piliers_centre
   piliers {
     __typename
     nom
     note
+    picto
   }
   citation1
-  propositions_titre
-  propositions {
+  seuils_eyebrow
+  seuils_titre
+  seuils {
     __typename
     titre
     texte
-    cta
-    image
   }
+  codex_eyebrow
+  codex_titre
+  codex_texte
   citation2
+  citation3
   citation_contact
   form_titre
   form_intro
@@ -117,6 +1010,270 @@ export const Page_AproposPartsFragmentDoc = gql`
     titre
     texte
     image
+    echos {
+      __typename
+      fiche {
+        ... on Codex {
+          __typename
+          titre
+          type
+          univers
+          question
+          resume
+          alias
+          offres {
+            __typename
+            offre {
+              ... on Offres {
+                __typename
+                titre
+                categorie
+                tag
+                resume
+                accroche
+                prix
+                duree
+                format
+                tarifs {
+                  __typename
+                  label
+                  prix
+                  detail
+                  groupe
+                  avant
+                }
+                etapes {
+                  __typename
+                  titre
+                  texte
+                  picto
+                }
+                image
+                lien
+                reservable
+                ordre
+                publie
+                temoignages {
+                  __typename
+                  t
+                  n
+                  c
+                }
+                faq {
+                  __typename
+                  q
+                  r
+                }
+                benefices
+                pourqui_titre
+                pourqui
+                pourtoi
+                pourtoi_note
+                places
+                pourtoi_contre_titre
+                pourtoi_contre
+                masques_titre
+                masques
+                chemin_eyebrow
+                chemin_titre
+                chemin
+                chemin_appuis
+                approche_eyebrow
+                approche_titre
+                approche_intro
+                approche {
+                  __typename
+                  titre
+                  cadence
+                  texte
+                }
+                cap_eyebrow
+                cap_titre
+                cap {
+                  __typename
+                  titre
+                  posture
+                  texte
+                }
+                cadre
+                cadre_items {
+                  __typename
+                  titre
+                  texte
+                }
+                explore
+                action
+                cta
+                logo
+                page
+                intention_eyebrow
+                intention
+                nom_titre
+                nom_texte
+                cap_note
+                temoins_titre
+                invite_titre
+                invite_texte
+                accueil
+                seuil
+                body
+              }
+              ... on Document {
+                _sys {
+                  filename
+                  basename
+                  hasReferences
+                  breadcrumbs
+                  path
+                  relativePath
+                  extension
+                }
+                id
+              }
+            }
+          }
+          agenda {
+            __typename
+            evenement {
+              ... on Agenda {
+                __typename
+                titre
+                categorie
+                date
+                date_fin
+                rythme
+                heure
+                lieu
+                prix
+                earlybird
+                seances {
+                  __typename
+                  date
+                  heure
+                  note
+                }
+                tarifs {
+                  __typename
+                  label
+                  prix
+                  detail
+                  avant
+                }
+                cta
+                site
+                lien
+                resume
+                citations {
+                  __typename
+                  texte
+                  source
+                  image
+                }
+                image
+                image_hero
+                accroche
+                reservable
+                ordre
+                publie
+                temoignages {
+                  __typename
+                  t
+                  n
+                  c
+                }
+                faq {
+                  __typename
+                  q
+                  r
+                }
+                accueil
+                seuil
+                body
+              }
+              ... on Document {
+                _sys {
+                  filename
+                  basename
+                  hasReferences
+                  breadcrumbs
+                  path
+                  relativePath
+                  extension
+                }
+                id
+              }
+            }
+          }
+          liens {
+            __typename
+            fiche {
+              ... on Codex {
+                __typename
+                titre
+                type
+                univers
+                question
+                resume
+                alias
+                offres {
+                  __typename
+                }
+                agenda {
+                  __typename
+                }
+                liens {
+                  __typename
+                }
+                image
+                lien_externe
+                logo
+                logo_blanc
+                date
+                seo_titre
+                seo_description
+                ordre
+                publie
+                body
+              }
+              ... on Document {
+                _sys {
+                  filename
+                  basename
+                  hasReferences
+                  breadcrumbs
+                  path
+                  relativePath
+                  extension
+                }
+                id
+              }
+            }
+          }
+          image
+          lien_externe
+          logo
+          logo_blanc
+          date
+          seo_titre
+          seo_description
+          ordre
+          publie
+          body
+        }
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+      }
+    }
   }
 }
     `;
@@ -186,6 +1343,8 @@ export const Page_ContactPartsFragmentDoc = gql`
   appel_eyebrow
   appel_texte
   appel_cta
+  appel_lien
+  appel_mention
 }
     `;
 export const Page_AgendaPartsFragmentDoc = gql`
@@ -194,23 +1353,6 @@ export const Page_AgendaPartsFragmentDoc = gql`
   hero_eyebrow
   hero_titre
   hero_image
-}
-    `;
-export const Page_PartenairesPartsFragmentDoc = gql`
-    fragment Page_partenairesParts on Page_partenaires {
-  __typename
-  hero_eyebrow
-  hero_titre
-  hero_image
-  partenaires {
-    __typename
-    n
-    d
-    lien
-    logo
-    logoWhite
-    image
-  }
 }
     `;
 export const AgendaDocument = gql`
@@ -327,6 +1469,120 @@ export const OffresConnectionDocument = gql`
   }
 }
     ${OffresPartsFragmentDoc}`;
+export const CodexDocument = gql`
+    query codex($relativePath: String!) {
+  codex(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...CodexParts
+  }
+}
+    ${CodexPartsFragmentDoc}`;
+export const CodexConnectionDocument = gql`
+    query codexConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: CodexFilter) {
+  codexConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...CodexParts
+      }
+    }
+  }
+}
+    ${CodexPartsFragmentDoc}`;
+export const ArtefactsDocument = gql`
+    query artefacts($relativePath: String!) {
+  artefacts(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ArtefactsParts
+  }
+}
+    ${ArtefactsPartsFragmentDoc}`;
+export const ArtefactsConnectionDocument = gql`
+    query artefactsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ArtefactsFilter) {
+  artefactsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ArtefactsParts
+      }
+    }
+  }
+}
+    ${ArtefactsPartsFragmentDoc}`;
 export const PagesDocument = gql`
     query pages($relativePath: String!) {
   pages(relativePath: $relativePath) {
@@ -726,63 +1982,6 @@ export const Page_AgendaConnectionDocument = gql`
   }
 }
     ${Page_AgendaPartsFragmentDoc}`;
-export const Page_PartenairesDocument = gql`
-    query page_partenaires($relativePath: String!) {
-  page_partenaires(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...Page_partenairesParts
-  }
-}
-    ${Page_PartenairesPartsFragmentDoc}`;
-export const Page_PartenairesConnectionDocument = gql`
-    query page_partenairesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: Page_partenairesFilter) {
-  page_partenairesConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...Page_partenairesParts
-      }
-    }
-  }
-}
-    ${Page_PartenairesPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     agenda(variables, options) {
@@ -796,6 +1995,18 @@ export function getSdk(requester) {
     },
     offresConnection(variables, options) {
       return requester(OffresConnectionDocument, variables, options);
+    },
+    codex(variables, options) {
+      return requester(CodexDocument, variables, options);
+    },
+    codexConnection(variables, options) {
+      return requester(CodexConnectionDocument, variables, options);
+    },
+    artefacts(variables, options) {
+      return requester(ArtefactsDocument, variables, options);
+    },
+    artefactsConnection(variables, options) {
+      return requester(ArtefactsConnectionDocument, variables, options);
     },
     pages(variables, options) {
       return requester(PagesDocument, variables, options);
@@ -838,12 +2049,6 @@ export function getSdk(requester) {
     },
     page_agendaConnection(variables, options) {
       return requester(Page_AgendaConnectionDocument, variables, options);
-    },
-    page_partenaires(variables, options) {
-      return requester(Page_PartenairesDocument, variables, options);
-    },
-    page_partenairesConnection(variables, options) {
-      return requester(Page_PartenairesConnectionDocument, variables, options);
     }
   };
 }
@@ -867,7 +2072,7 @@ const generateRequester = (client) => {
 export const ExperimentalGetTinaClient = () => getSdk(
   generateRequester(
     createClient({
-      url: "https://content.tinajs.io/3.0/content/ac005920-bdf5-45df-a7d6-5d99cc50423a/github/tina",
+      url: "http://localhost:4001/graphql",
       queries
     })
   )

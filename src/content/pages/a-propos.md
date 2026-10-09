@@ -7,13 +7,13 @@ chapitres:
 
 
     Mais au fond, je sentais que quelque chose n''allait pas. Et mon rapport aux paradis artificiels, la fête, l''alcool, les substances, en disait long sur ce vide intérieur que je ne savais pas encore regarder ni nommer.'
-  image: ''
+  image: /img/photos/dscf2304.jpg
 - titre: Le réveil
   texte: 'Comme souvent, la vie m''a amené l''événement électrochoc pour enfin regarder au bon endroit. Ça a été le début d''une quête de soi qui a conduit à une rupture profonde avec mon ancienne vie.
 
 
     Deux ans plus tard, je quittais mon job, mon appart et la France pour partir voyager. Je suis devenu nomade pendant près de cinq ans, à explorer le monde de la spiritualité, des philosophies orientales et des traditions indigènes ancestrales.'
-  image: /img/breath-desert.jpg
+  image: /img/photos/dscf1975.jpg
   echos:
   - fiche: src/content/codex/choisir-sa-vie.md
   - fiche: src/content/codex/chamanisme.md
@@ -22,13 +22,13 @@ chapitres:
 
 
     Toutes ces préoccupations, ces questions qui revenaient sans cesse, avaient toujours la même source : la peur. M''asseoir tous les jours pour observer ce paysage m''a permis de prendre conscience d''à quel point j''avais besoin d''apprendre à m''aimer. Et pour ça, j''avais besoin de redescendre dans mon corps et de sortir de la tête.'
-  image: ''
+  image: /img/photos/dscf1769.jpg
 - titre: La quête de compréhension
   texte: 'À la méditation s''est ajoutée une quête de compréhension, comme si un savoir plus grand, plus complexe, m''avait toujours été caché. J''ai toujours été fasciné par la science, et surtout par ses limites. Enfant, je voulais être astrophysicien, comprendre comment cette folie qu''est la vie est possible.
 
 
     Cette exploration des limites m''a amené vers le paranormal, la physique quantique, le pouvoir de l''esprit et de la conscience. J''étais persuadé que ce vide que je cherchais à combler dans la débauche était un vide existentiel auquel je trouverais bientôt des réponses.'
-  image: /img/IMG_20230103_182213.jpg
+  image: /img/photos/dscf1374.jpg
   echos:
   - fiche: src/content/codex/human-design.md
   - fiche: src/content/codex/tzolkin.md
@@ -38,26 +38,26 @@ chapitres:
 
 
     C''est dans ces initiations que j''ai retrouvé la connexion à cette force invisible qui donne forme à notre réalité. J''ai pu sentir, avec la plus profonde des joies mêlée à la plus profonde des tristesses, la mémoire de l''univers. Me rappeler pourquoi je suis là, et me reconnecter à une foi inaltérable en la vie. Un tournant majeur.'
-  image: ''
+  image: /img/photos/dscf2503.jpg
 - titre: La transformation
   texte: 'Ma pratique s''est intensifiée, j''ai complètement arrêté de boire, je me suis remis au sport et j''ai perdu 30 kilos en six mois. Mes méditations me montraient toutes les tensions, les peurs, les croyances que j''avais laissées constituer ma structure.
 
 
     Une véritable révélation sur le lien entre corps et esprit. J''ai pu modifier ma posture, mon corps, simplement en méditant et en laissant l''énergie circuler là où elle doit aller.'
-  image: /img/portrait.jpg
+  image: /img/photos/dscf2348.jpg
 - titre: Les arts énergétiques
   texte: Ces nouvelles compréhensions ont amené une sensibilité accrue aux sensations du corps et aux ressentis énergétiques. Ça m'a donné envie de découvrir les arts énergétiques, à travers le magnétisme, le Reiki, et les arts énergétiques chinois, le tai-chi et le qi gong.
-  image: ''
+  image: /img/photos/dscf2240.jpg
   echos:
   - fiche: src/content/codex/corps-energetique.md
 - titre: Dharamsala
   texte: 'J''ai passé deux mois à Dharamsala, la ville du Dalaï-Lama, avec des moines bouddhistes tibétains. Cela m''a permis de parfaire ma pratique et de mieux comprendre la science de l''esprit : comment la maîtrise des pensées peut permettre de vivre plus en paix, plus présent.'
-  image: ''
+  image: /img/photos/dscf1718.jpg
 - titre: Le Butô
   texte: 'C''est aussi pendant ce voyage que s''est ouverte à moi la voie du Butô. Cette danse japonaise qui accueille l''inesthétique pour récupérer toutes les parts de soi, parfois laissées à l''abandon par jugement : le bizarre, le sombre, l''inexpliqué, l''inconnu.
 
 
     Un mois de pratiques intensives m''a permis de redéfinir complètement mon rapport au corps, au mouvement et à l''autre. Petit à petit, je reprends ma place de cellule dans le grand organisme vivant.'
-  image: ''
-hero_image: ''
+  image: /img/photos/dscf2308.jpg
+hero_image: /img/photos/dscf1308.jpg
 ---

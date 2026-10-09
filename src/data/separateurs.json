@@ -1,0 +1,135 @@
+{
+  "coeur-haut": {
+    "bord": 4,
+    "retourne": false,
+    "hauteur": 46,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "nenuphar-haut": {
+    "bord": 1,
+    "retourne": false,
+    "hauteur": 30,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "nenuphar-bas": {
+    "bord": 2,
+    "retourne": false,
+    "hauteur": 48,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "paon-haut": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 32,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "paon-bas": {
+    "bord": 4,
+    "retourne": false,
+    "hauteur": 48,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "cellule-haut": {
+    "bord": 1,
+    "retourne": true,
+    "hauteur": 30,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "cellule-bas": {
+    "bord": 3,
+    "retourne": true,
+    "hauteur": 42,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "temoins-bas": {
+    "bord": 1,
+    "retourne": true,
+    "hauteur": 40,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "art-haut": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 46,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "hero-bas": {
+    "bord": 2,
+    "retourne": true,
+    "hauteur": 45,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "seuils-haut": {
+    "bord": 3,
+    "retourne": false,
+    "hauteur": 62,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "danse-bas": {
+    "bord": 1,
+    "retourne": true,
+    "hauteur": 58,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "contact-bas": {
+    "bord": 2,
+    "retourne": false,
+    "hauteur": 34,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "seuils-bas": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 54,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "pied-haut": {
+    "bord": 3,
+    "retourne": true,
+    "hauteur": 40,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "page-bas": {
+    "bord": 2,
+    "retourne": true,
+    "hauteur": 45,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "carte-haut": {
+    "bord": 3,
+    "retourne": false,
+    "hauteur": 14,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "photo-haut": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 38,
+    "largeur": 100,
+    "decalage": 0
+  },
+  "photo-bas": {
+    "bord": 1,
+    "retourne": false,
+    "hauteur": 38,
+    "largeur": 100,
+    "decalage": 30
+  }
+}

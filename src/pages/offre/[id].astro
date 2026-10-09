@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Separateur from '../../components/Separateur.astro';
+import { airSousBord } from '../../lib/bords';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
@@ -14,7 +16,7 @@ import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 const ICONES = { 'Durée': 'duree', 'Tarif': 'prix', 'Format': 'format', 'Modalité': 'format' };
 export async function getStaticPaths() {
-  const offres = (await getCollection('offres')).filter((o) => o.data.publie);
+  const offres = (await getCollection('offres')).filter((o) => o.data.publie && !o.data.page);
   return offres.map((o) => {
     const sameCat = offres.filter((x) => x.data.categorie === o.data.categorie).sort((a, b) => a.data.ordre - b.data.ordre);
     const idx = sameCat.findIndex((x) => x.id === o.id);
@@ -38,8 +40,19 @@ const touche = lies.filter((f) => f.data.type !== 'allie');
 const avec = lies.filter((f) => f.data.type === 'allie');
 const sigils = [...new Set(touche.flatMap((f) => f.data.univers))];
 const fmt = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+const titreScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+const fmtO = (t = '') => t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
 const s = seuil(seuilDe(d));
+const aDuTexte = (o.body ?? '').trim().length > 0;
 const contact = `/contact?pour=${encodeURIComponent(d.titre)}`;
+// Le bouton principal dépend de l'offre : un appel découverte pour un accompagnement,
+// un rendez-vous pour un soin, une réservation directe pour une lecture comme le Prisme.
+const mode = d.action ?? (soin ? 'rdv' : 'appel');
+const lienAction = d.lien || (mode === 'reserver' ? `/contact?pour=${encodeURIComponent(`Réservation : ${d.titre}`)}&interet=approfondir` : contact);
+const labelAction = d.cta ?? (mode === 'reserver' ? 'Réserver' : 'Prendre rendez-vous');
+const externeAction = /^https?:/.test(lienAction);
+const inviteTitre = d.invite_titre ?? (mode === 'appel' ? 'Commençons par un appel' : soin ? 'Envie de prendre soin de toi ?' : 'On *commence* ?');
+const inviteTexte = d.invite_texte ?? (mode === 'appel' ? 'Un appel découverte pour faire le point sur ta situation, sentir si ce chemin est fait pour toi, et voir quel accompagnement serait le plus adapté.' : 'Dis-moi quand tu es disponible, on trouve un créneau ensemble.');
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
 // Formules regroupées (ex. : En ligne / Immersion) pour une lecture hiérarchisée
 const groupes = Object.entries((d.tarifs ?? []).reduce((acc, t) => { (acc[t.groupe ?? ''] ??= []).push(t); return acc; }, {} as Record<string, NonNullable<typeof d.tarifs>>));
@@ -65,44 +78,109 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class="page-hero">{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`padding-bottom:${airSousBord('page-bas')}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    {d.image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
-      {!enPreparation && (
-        <div class="offre-action">
-          {prixDepart && <span class="offre-action__prix">{prixDepart}{d.duree && <small> · {d.duree}</small>}</span>}
-          {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} />}
-        </div>
-      )}
+      {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}
     </div>
   </section>
 
-  <section>
-    <div class="narrow"><div class="prose"><Content /></div>
-      {touche.length > 0 && (
-        <div class="touche">
-          <p class="rune">Ce que ça touche</p>
-          <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+  {aDuTexte && (
+    <section>
+      <div class="narrow"><div class="prose"><Content /></div>
+        {!enPreparation && !(d.benefices?.length > 0) && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
+      </div>
+    </section>
+  )}
+
+
+  {d.pourqui?.length > 0 && (
+    <section class="pourqui">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Pour qui</p><h2 set:html={titreScript(d.pourqui_titre ?? "C'est *pour toi* si…")}></h2></div>
+        <ul class="pourqui__liste">{d.pourqui.map((x) => <li set:html={fmtO(x)}></li>)}</ul>
+      </div>
+    </section>
+  )}
+
+  {d.approche?.length > 0 && (
+    <section class="bloc approche">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">{d.approche_eyebrow ?? 'Mon approche'}</p><h2 set:html={titreScript(d.approche_titre ?? '*Comment* on avance')}></h2></div>
+        {d.approche_intro && <p class="approche__intro" set:html={fmtO(d.approche_intro)}></p>}
+        <div class={`approche__grille approche__grille--${d.approche.length}`}>{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
+        {d.cadre && !(d.cap?.length > 0) && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
+      </div>
+    </section>
+  )}
+
+  {d.intention && (
+    <section class="intention">
+      <div class="narrow">
+        <p class="eyebrow">{d.intention_eyebrow ?? "Note d'intention"}</p>
+        <div class="intention__texte">{d.intention.split(/\n\n+/).map((par) => <p set:html={fmtO(par)}></p>)}</div>
+      </div>
+      <script is:inline>
+        // Le texte se dévoile paragraphe après paragraphe, à mesure qu'on descend.
+        (function () {
+          var els = document.querySelectorAll('.intention__texte p');
+          if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          els.forEach(function (el) { el.classList.add('devoile'); });
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('vu'); io.unobserve(en.target); } });
+          }, { rootMargin: '0px 0px -15% 0px' });
+          els.forEach(function (el) { io.observe(el); });
+        })();
+      </script>
+    </section>
+  )}
+
+  {d.nom_texte && (
+    <section class="bloc nom-offre">
+      <div class="wrap nom-offre__grille">
+        {d.logo && <div class="nom-offre__sigil"><img src={d.logo} alt="" /></div>}
+        <div>
+          <h2 set:html={titreScript(d.nom_titre ?? d.titre)}></h2>
+          <p set:html={fmtO(d.nom_texte)}></p>
         </div>
-      )}
-      {avec.length > 0 && (
-        <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
+
+  {d.cap?.length > 0 && (
+    <section class="cap">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">{d.cap_eyebrow ?? 'Par étapes'}</p><h2 set:html={titreScript(d.cap_titre ?? '*Ce vers quoi* on va')}></h2></div>
+        <ol class={`cap__etapes${d.cap.length > 4 ? ' cap__etapes--chemin' : ''}`}>{d.cap.map((c, i) => <li><span class="cap__num">{i + 1}</span><h3>{c.titre}</h3>{c.posture && <span class="cap__posture">{c.posture}</span>}<p set:html={fmtO(c.texte)}></p></li>)}</ol>
+        {d.cap_note && <p class="cap__note" set:html={fmtO(d.cap_note)}></p>}
+        {d.cadre && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
+      </div>
+    </section>
+  )}
+
+  {d.explore?.length > 0 && (
+    <section class="explore">
+      <div class="wrap">
+        <div class="tete"><p class="eyebrow">Pendant la lecture</p><h2><span class="script">Ce qu'on</span> explore ensemble</h2></div>
+        <div class="explore__grille">{d.explore.map((x) => { const [t, desc] = x.split('|').map((y) => y.trim()); return <div class="explore__item"><h3>{t}</h3>{desc && <p>{desc}</p>}</div>; })}</div>
+      </div>
+    </section>
+  )}
 
   {d.benefices?.length > 0 && (
     <section class="bloc benefices">
       <div class="narrow">
-        <div class="tete"><p class="eyebrow">Ce que tu y trouves</p><h2>Ce que ça peut <span class="script">ouvrir</span></h2></div>
+        <div class="tete"><p class="eyebrow">Ce que tu y trouves</p><h2><span class="script">Ce que</span> ça peut ouvrir</h2></div>
         <ul class="benefices__liste">{d.benefices.map((b) => <li><Icone nom="etoile" taille={16} /><span>{b}</span></li>)}</ul>
+        {!enPreparation && <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>}
       </div>
     </section>
   )}
 
   <Etapes etapes={d.etapes} />
 
-  <Temoignages temoignages={d.temoignages} />
+  <Temoignages temoignages={d.temoignages} titre={d.temoins_titre} />
 
   {enPreparation ? (
     <Lettre eyebrow="En préparation" titre="Être *prévenu*" texte={`${d.titre} se prépare. Laisse ton email : tu seras parmi les premiers informés, avant l'annonce publique.`} bouton="Préviens-moi" source={`attente-${o.id}`} />
@@ -131,25 +209,42 @@ const jsonld = [
                 </div>
               </div>
             ))}
+            <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>
           </div>
         </section>
       )}
 
       <Faq faq={d.faq} />
 
+      {(touche.length > 0 || avec.length > 0) && (
+        <section class="lore-offre">
+          <div class="narrow">
+            {touche.length > 0 && (
+              <div class="touche">
+                <p class="rune">Ce que ça touche</p>
+                <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
+              </div>
+            )}
+            {avec.length > 0 && (
+              <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
+            )}
+          </div>
+        </section>
+      )}
+
       <section class="invite">
         <div class="narrow">
           <p class="eyebrow">Un premier pas</p>
-          <h2>{soin ? 'Envie de prendre soin de toi ?' : 'Commençons par un appel'}</h2>
-          <p class="muted" style="margin:0.9rem auto 0; max-width:50ch;">{soin ? 'Dis-moi quand tu es disponible, on trouve un créneau ensemble. Je te réponds sous 48 h.' : 'Un appel découverte pour faire le point sur ta situation, sentir si ce chemin est fait pour toi, et voir quel accompagnement serait le plus adapté.'}</p>
+          <h2 set:html={titreScript(inviteTitre)}></h2>
+          <p class="muted" style="margin:0.9rem auto 0; max-width:50ch;">{inviteTexte}</p>
           <div class="invite__btns">
-            {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Prendre rendez-vous</a> : <Appel pour={d.titre} centre />}
+            {mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}
           </div>
         </div>
       </section>
 
       <BarreAction titre={d.titre} sous={prixDepart ?? ''}>
-        {soin ? <a class="btn btn--solid" href={contact} data-evt="Contact">Réserver</a> : <Appel pour={d.titre} secondaire={false} court />}
+        {mode === 'appel' ? <Appel pour={d.titre} secondaire={false} court /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{soin ? 'Réserver' : labelAction}</a>}
       </BarreAction>
     </Fragment>
   )}

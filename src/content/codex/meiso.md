@@ -9,6 +9,8 @@ logo: /img/logo-meiso.png
 offres:
   - offre: src/content/offres/soin-energetique.md
   - offre: src/content/offres/massage-a-l-huile.md
+agenda:
+  - evenement: src/content/agenda/sept-interlocuteurs.md
 ordre: 41
 date: 2026-09-18
 image: /img/meiso-salle.jpg

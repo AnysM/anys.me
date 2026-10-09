@@ -1,10 +1,13 @@
 ---
+import P from '../data/pied.json';
+import '../styles/fonts.css';
 import '../styles/global.css';
 import '../styles/nav.css';
 import '../styles/monde.css';
 import '../styles/finition.css';
+import '../styles/mouvement.css';
 import { getCollection } from 'astro:content';
-import { personne, siteWeb } from '../lib/seo';
+import { personne, siteWeb, lieu } from '../lib/seo';
 import { typeLabel } from '../lib/univers.mjs';
 const {
   title = 'Anys Mechkar',
@@ -17,14 +20,17 @@ const {
   noindex = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(image, Astro.site);
+// L'image de partage doit être joignable là où la page est servie : sur un aperçu Netlify,
+// anys.me pointe encore ailleurs, donc on prend l'adresse du déploiement.
+const origineImages = process.env.CONTEXT && process.env.CONTEXT !== 'production' && process.env.DEPLOY_PRIME_URL ? process.env.DEPLOY_PRIME_URL : Astro.site;
+const ogImage = new URL(image, origineImages);
 // Lexique du Codex pour l'aperçu au survol des mots tissés dans les textes
 const lexique = JSON.stringify(Object.fromEntries(
   (await getCollection('codex')).filter((c) => c.data.publie).map((c) => [c.id, { t: c.data.titre, y: typeLabel(c.data.type), r: c.data.resume ?? '' }]),
 )).replace(/</g, '\\u003c');
 // Statistiques sans cookies : actives seulement si PUBLIC_PLAUSIBLE_DOMAIN est défini (Netlify › variables)
 const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
-const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, ...jsonld] });
+const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, lieu, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
 const accs = offres.filter((o) => o.data.categorie === 'accompagnement');
@@ -52,6 +58,9 @@ const links = [
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={title} />
   {type === 'article' && publie && <meta property="article:published_time" content={publie.toISOString()} />}
   {type === 'article' && modifie && <meta property="article:modified_time" content={modifie.toISOString()} />}
   {type === 'article' && <meta property="article:author" content="https://anys.me/a-propos" />}
@@ -62,10 +71,11 @@ const links = [
   {plausible && <script is:inline>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };</script>}
   <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="preload" href="/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/EBGaramond-400-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Biloxi_Script.ttf" as="font" type="font/ttf" crossorigin />
+  <!-- Mesure d'audience sans cookie ni identifiant : rien à consentir. -->
+  <script defer data-domain="anys.me" src="https://plausible.io/js/script.js"></script>
   <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -76,11 +86,11 @@ const links = [
       <a href="/a-propos">À propos</a>
       <div class="has-sub">
         <a href="/soins">Soins</a>
-        <div class="subnav">{soins.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
+        <div class="subnav">{soins.map((o) => <a href={o.data.page ?? `/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
       <div class="has-sub">
         <a href="/accompagnement">Accompagnement</a>
-        <div class="subnav">{accs.map((o) => <a href={`/offre/${o.id}`}>{o.data.titre}</a>)}</div>
+        <div class="subnav">{accs.map((o) => <a href={o.data.page ?? `/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
       <a href="/codex">Codex</a>
       <a class="ext" href="/artefacts">Artefacts</a>
@@ -109,12 +119,13 @@ const links = [
     <slot />
   </main>
 
-  <footer class="foot">
+  <footer class="foot" style={`--pied-fusion:${P.fusion}; --pied-op:${P.opacite}; --pied-sat:${P.saturation}; --pied-lum:${P.luminosite}; --pied-con:${P.contraste}`}>
+    <img class="foot__fond" src="/img/univers-art.jpg" alt="" loading="lazy" />
     <div class="wrap foot__grid">
       <div class="foot__brand">
         <img class="foot__logo" src="/img/logo.png" alt="" />
         <p class="foot__name">Anys Mechkar</p>
-        <p class="foot__tag">Guide, créateur, initiateur. Un chemin par la présence, le mouvement et la créativité.</p>
+        <p class="foot__tag"><strong class="foot__role">Artiste &amp; Accompagnant</strong><br />Un chemin par la présence, le mouvement et la créativité.</p>
       </div>
       <div class="foot__col">
         <p class="foot__h">Contact</p>
@@ -130,12 +141,12 @@ const links = [
       </div>
       <div class="foot__col">
         <p class="foot__h">Art</p>
-        <a href="https://enoqii.art" target="_blank" rel="noopener">enoqii.art</a>
+        <a href="/artefacts">Les artefacts</a>
         <a href="https://www.instagram.com/indigo.enoqii/" target="_blank" rel="noopener">@indigo.enoqii</a>
       </div>
     </div>
     <div class="wrap foot__bottom">
-      <span>© {new Date().getFullYear()} Anys Mechkar</span>
+      <span>© {new Date().getFullYear()} Anys Mechkar · <a href="/mentions-legales">Mentions légales</a> · <a href="/confidentialite">Confidentialité</a></span>
       <span class="foot__signature">Site réalisé avec <span class="foot__coeur" aria-label="amour">♥</span> par moi-même · <a href={`/contact?pour=${encodeURIComponent('Création de site')}&interet=autre`} data-evt="Création de site">Un projet de site ? Parlons-en</a></span>
     </div>
   </footer>
@@ -146,7 +157,10 @@ const links = [
       var burger = document.querySelector('.site-nav__burger');
       var body = document.body;
       if (!nav || !burger) return;
-      window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        document.body.classList.toggle('a-defile', window.scrollY > 40);
+      }, { passive: true });
       function close() { body.classList.remove('nav-open'); burger.setAttribute('aria-expanded', 'false'); body.style.overflow = ''; }
       burger.addEventListener('click', function () {
         var open = body.classList.toggle('nav-open');
@@ -163,8 +177,15 @@ const links = [
       if (!secs.length) return;
       if (reduce) { secs.forEach(function (x) { x.classList.add('is-in'); }); return; }
       var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
-      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          // Une section très haute n'atteint jamais 10 % de visible : le récit
+          // d'À propos fait 4500 px et restait blanc à l'arrivée sur la page.
+          // On l'accepte aussi dès qu'une bonne hauteur en est à l'écran.
+          if (en.intersectionRatio < 0.1 && en.intersectionRect.height < 180) return;
+          en.target.classList.add('is-in'); io.unobserve(en.target);
+        });
+      }, { threshold: [0, 0.05, 0.1], rootMargin: '0px 0px -6% 0px' });
       var started = false;
       function go() { if (started) return; started = true; secs.forEach(function (x) { io.observe(x); }); }
       if (document.fonts && document.fonts.ready) { document.fonts.ready.then(go); } else { go(); }
@@ -174,9 +195,15 @@ const links = [
   <script is:inline>
     (function () {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // parallax-vivant
-      var items = Array.prototype.slice.call(document.querySelectorAll('.hero-bg img, .breath img'));
+      var items = Array.prototype.slice.call(document.querySelectorAll('.breath img'));
       if (!items.length) return;
-      items.forEach(function (el, i) { el.style.willChange = 'transform'; el.dataset.ph = (i * 1.7).toFixed(2); });
+      items.forEach(function (el) {
+        el.style.willChange = 'transform';
+        // Les bandes de respiration voyagent franchement ; le hero reste sage.
+        var large = !!el.closest('.breath');
+        el.dataset.course = large ? 92 : 10;
+        el.dataset.zoom = large ? 1.26 : 1.03;
+      });
       function loop(t) {
         var H = window.innerHeight;
         for (var k = 0; k < items.length; k++) {
@@ -184,11 +211,10 @@ const links = [
           if (r.bottom < -80 || r.top > H + 80) continue;
           var prog = (r.top + r.height / 2 - H / 2) / H;
           prog = Math.max(-1, Math.min(1, prog));
-          var py = prog * -32;
-          var ph = parseFloat(el.dataset.ph) || 0;
-          var dx = Math.sin(t / 3400 + ph) * 12;
-          var dy = Math.cos(t / 4200 + ph) * 8;
-          el.style.transform = 'translate3d(' + dx.toFixed(1) + 'px,' + (py + dy).toFixed(1) + 'px,0) scale(1.18)';
+          // La course verticale au défilement : il faut de la marge sous l'image
+          // pour la parcourir, d'où l'agrandissement qui l'accompagne.
+          var py = prog * -(parseFloat(el.dataset.course) || 24);
+          el.style.transform = 'translate3d(0,' + py.toFixed(1) + 'px,0) scale(' + (el.dataset.zoom || 1.26) + ')';
         }
         requestAnimationFrame(loop);
       }
@@ -259,10 +285,6 @@ const links = [
   </script>
   <script is:inline>
     (function () {
-      // Étoiles discrètes sur les grands visuels
-      document.querySelectorAll('#hero, .page-hero').forEach(function (el) {
-        for (var i = 0; i < 2; i++) { var d = document.createElement('div'); d.className = 'etoiles'; d.setAttribute('aria-hidden', 'true'); el.appendChild(d); }
-      });
       // Phrases des respirations : les mots s'allument au fil du défilement
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var phrases = Array.prototype.slice.call(document.querySelectorAll('.breath .phrase'));

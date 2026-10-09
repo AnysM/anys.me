@@ -1,0 +1,92 @@
+{
+  "hero_photo": {
+    "voile": 0.5,
+    "lumiere": 1,
+    "x": 50,
+    "y": 50,
+    "xm": 88,
+    "ym": 46,
+    "voilem": 0.5,
+    "lumierem": 1
+  },
+  "resp1_image": {
+    "voile": 0.62,
+    "lumiere": 0.56,
+    "x": 50,
+    "y": 50,
+    "xm": 72,
+    "ym": 46,
+    "voilem": 0.76,
+    "lumierem": 0.5
+  },
+  "resp2_image": {
+    "voile": 0.62,
+    "lumiere": 0.8,
+    "x": 50,
+    "y": 50,
+    "xm": 50,
+    "ym": 50,
+    "voilem": 0.62,
+    "lumierem": 0.8
+  },
+  "resp3_image": {
+    "voile": 0.62,
+    "lumiere": 0.8,
+    "x": 50,
+    "y": 50,
+    "xm": 50,
+    "ym": 50,
+    "voilem": 0.62,
+    "lumierem": 0.8
+  },
+  "danse_image": {
+    "voile": 0.82,
+    "lumiere": 1.32,
+    "x": 50,
+    "y": 18,
+    "xm": 44,
+    "ym": 32,
+    "voilem": 0.72,
+    "lumierem": 1.32
+  },
+  "seuils_image": {
+    "voile": 0.66,
+    "lumiere": 1.4,
+    "x": 50,
+    "y": 0,
+    "xm": 50,
+    "ym": 46,
+    "voilem": 0.66,
+    "lumierem": 1.4
+  },
+  "contact_image": {
+    "voile": 0.7,
+    "lumiere": 0.96,
+    "x": 50,
+    "y": 50,
+    "xm": 38,
+    "ym": 50,
+    "voilem": 0.7,
+    "lumierem": 0.96
+  },
+  "temoins_image": {
+    "voile": 0.62,
+    "lumiere": 0.36,
+    "x": 61,
+    "y": 39,
+    "xm": 61,
+    "ym": 39,
+    "voilem": 0.62,
+    "lumierem": 0.36
+  },
+  "portrait_image": {
+    "voile": 0.62,
+    "lumiere": 0.8,
+    "x": 50,
+    "y": 50,
+    "xm": 50,
+    "ym": 50,
+    "voilem": 0.62,
+    "lumierem": 0.8
+  }
+}

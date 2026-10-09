@@ -42,6 +42,13 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 @media (hover: none) { .pilier__more { opacity: 1; } }
 
 /* ── Les seuils : du premier pas à la transformation ── */
+/* Le contenu des seuils occupe la moitié basse de la section : un voile s'y
+   renforce, par-dessus la photo et sous le texte, pour qu'il se détache. */
+#seuils { position: relative; }
+#seuils::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(10,15,32,0) 20%, rgba(10,15,32,0.58) 46%,
+    rgba(10,15,32,0.84) 70%, rgba(10,15,32,0.88) 100%); }
+
 .seuils { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem); margin-top: 3rem; }
 .seuils::before { content: ''; position: absolute; top: 1.35rem; left: 0; right: 0; height: 1px; background: linear-gradient(to right, rgba(216,162,76,0.15), var(--gold) 45%, var(--coral)); }
 .seuil { position: relative; display: flex; flex-direction: column; }
@@ -55,6 +62,12 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .quete__titre { font-family: 'EB Garamond', serif; font-size: 1.2rem; color: var(--cream); line-height: 1.2; }
 .quete__prix { font-family: 'Jost', sans-serif; font-size: 0.85rem; color: var(--gold); white-space: nowrap; }
 .quete__quand { grid-column: 1 / -1; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+/* Une vignette à gauche : on reconnaît la proposition d'un coup d'œil */
+.quete--vignette { grid-template-columns: auto 1fr auto; column-gap: 1rem; }
+.quete--vignette .quete__quand { grid-column: 2 / -1; }
+.quete__vignette { grid-row: span 2; align-self: center; width: 56px; height: 56px; border-radius: 12px; overflow: hidden; background: var(--fond-symbole); }
+.quete__vignette img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s var(--ease, ease); }
+.quete:hover .quete__vignette img { transform: scale(1.06); }
 .quete:hover { padding-left: 0.5rem; }
 .quete:hover .quete__titre { color: var(--coral); }
 @media (max-width: 900px) {
@@ -178,39 +191,14 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 
 /* ── Rosace : un cercle au centre, cinq tuiles autour ── */
-.rosace { position: relative; width: min(100%, 900px); margin: 0 auto; aspect-ratio: 100 / 88; }
-.rosace__fils { position: absolute; inset: 0; width: 100%; height: 100%; }
-.rosace__fils line { stroke: rgba(236,231,222,0.28); stroke-width: 1.4; stroke-dasharray: 0.1 5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.rosace__anneau { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 44%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(236,231,222,0.08); }
-.rosace__anneau svg { width: 100%; height: 100%; display: block; }
-.rosace__anneau text { fill: rgba(236,231,222,0.4); font-family: 'Jost', sans-serif; font-size: 7.2px; letter-spacing: 0.2em; text-transform: uppercase; }
-.rosace__centre { position: absolute; left: 50%; top: calc(45 / 88 * 100%); width: 29%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at 50% 35%, #2A3170, #1A2250 70%); box-shadow: 0 0 0 10px var(--surface), 0 0 60px rgba(107,107,255,0.18); }
-.rosace__mot { font-size: clamp(1.7rem, 3.4vw, 2.7rem); line-height: 1; color: var(--cream); }
-.rosace__note { margin-top: 0.7rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: clamp(0.5rem, 0.9vw, 0.64rem); color: var(--gold); }
 
-.rosace__tuile { position: absolute; width: 15%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; text-align: center; }
-.rosace__picto { display: grid; place-items: center; width: 100%; aspect-ratio: 1; border-radius: 50%; color: var(--cream); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
-.rosace__picto svg { width: 44%; height: 44%; }
-.rosace__picto img { width: 52%; height: 52%; object-fit: contain; }
-.rosace__picto { background: var(--fond-symbole); color: var(--u-trait); border: 1px solid rgba(236,231,222,0.14); transition: transform 0.4s var(--ease, ease), border-color 0.4s; }
-.rosace__centre { background: var(--fond-symbole); border: 1px solid rgba(236,231,222,0.25); box-shadow: 0 0 0 10px var(--surface); }
-.rosace__nom { margin-top: 0.8rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-size: clamp(0.62rem, 1vw, 0.78rem); color: var(--cream); line-height: 1.35; }
-.rosace__desc { margin-top: 0.3rem; font-size: 0.8rem; line-height: 1.45; color: var(--muted); max-width: 18ch; }
-.rosace__tuile:hover .rosace__picto { transform: translateY(-4px); border-color: var(--u-trait); }
 /* Libellés sous les tuiles du bas et sur les côtés : on les garde courts */
-@media (max-width: 1000px) { .rosace__desc { display: none; } }
 
 
 /* Symboles des univers aux couleurs du code (partout sur le site) */
 .sigils span[class^="u-"], .filtre span[class^="u-"] { color: var(--u-trait); }
 .filtre[aria-pressed="true"] { border-color: rgba(236,231,222,0.35); background: rgba(236,231,222,0.06); }
-.rosace__picto svg { filter: url(#encre); }
-.rosace__mot { font-size: clamp(2rem, 4.2vw, 3.2rem); }
 /* Chaque cercle est centré sur son point ; le libellé pend en dessous sans le décaler */
-.rosace__tuile { display: block; }
-.rosace__legende { position: absolute; top: calc(100% + 0.9rem); left: 50%; transform: translateX(-50%); width: 190px; display: flex; flex-direction: column; align-items: center; }
-.rosace__legende .rosace__nom { margin-top: 0; }
-.rosace__legende .rosace__nom { background: var(--surface); padding: 0.15rem 0.5rem; }
 
 /* ════════════════════════════════
    CONVERSION — appel, lettre, preuves, questions
@@ -227,12 +215,13 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 
 /* Action visible dès le haut d'une offre */
 .offre-action { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin-top: 1.8rem; }
+.offre-relance { display: flex; justify-content: center; margin-top: clamp(2.8rem, 6vw, 4rem); }
 .offre-action__prix { font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--cream); }
 .offre-action__prix small { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); }
 
 /* Ce que tu repars avec */
-.benefices__liste { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.1rem 2rem; }
-.benefices__liste li { display: flex; gap: 0.8rem; align-items: baseline; color: #D5D6E0; font-size: 1.02rem; line-height: 1.6; }
+.benefices__liste { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.6rem 3rem; padding: 0; }
+.benefices__liste li { display: flex; gap: 0.9rem; align-items: baseline; color: var(--cream); font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 1.8vw, 1.38rem); line-height: 1.45; }
 .benefices__liste .ico { color: var(--gold); transform: translateY(2px); }
 
 /* Témoignages sur les offres */
@@ -305,8 +294,8 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .billet__quand { display: flex; flex-direction: column; justify-content: center; padding: clamp(1.8rem, 4vw, 2.8rem); border-right: 1px dashed rgba(236,231,222,0.18); }
 .billet__jour { font-family: 'EB Garamond', serif; font-size: clamp(4rem, 9vw, 6rem); line-height: 0.9; color: var(--cream); }
 .billet__fin { font-size: 0.55em; color: var(--muted); margin-left: 0.15em; }
-.billet__mois { margin-top: 0.6rem; font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; color: var(--coral); }
-.billet__detail { margin-top: 0.5rem; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; color: #C9CBD8; text-transform: capitalize; }
+.billet__mois { margin-top: 0.6rem; font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem; color: var(--cream); }
+.billet__detail { margin-top: 0.6rem; font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.95rem; color: rgba(236,231,222,0.72); text-transform: capitalize; }
 .billet__rythme { font-family: 'EB Garamond', serif; font-size: clamp(1.7rem, 3.2vw, 2.3rem); line-height: 1.15; color: var(--cream); }
 .billet__reste { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1.1rem; padding: clamp(1.8rem, 4vw, 2.8rem); }
 .billet__lieu { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.98rem; }
@@ -330,8 +319,6 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .seuil__tout { margin-top: 1.4rem; font-size: 0.7rem; }
 
 /* Centre du schéma en sans serif, lisible ; libellés des univers plus grands */
-.rosace__mot { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.22em; font-size: clamp(0.85rem, 1.6vw, 1.15rem); color: var(--cream); padding-left: 0.22em; }
-.rosace__nom { font-size: clamp(0.78rem, 1.15vw, 0.92rem); letter-spacing: 0.08em; }
 
 /* Invitation au Codex sous le schéma : on explique avant de proposer */
 .codex-invite { max-width: 46ch; margin: clamp(4rem, 9vw, 6.5rem) auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
@@ -368,27 +355,31 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 /* Posture, dans « Qui suis-je ? » */
 .posture { margin-top: 1.6rem; padding-left: 1.3rem; border-left: 2px solid var(--gold); font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.18rem; line-height: 1.55; color: var(--cream); }
 /* Pourquoi on vient me voir : liste courte, sur deux colonnes */
-.venir__liste { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem 3rem; max-width: 880px; margin: 0 auto; }
-.venir__liste li { font-family: 'EB Garamond', serif; font-size: 1.28rem; line-height: 1.45; color: var(--cream); }
-@media (max-width: 700px) { .venir__liste { grid-template-columns: 1fr; } }
+.venir__liste { grid-template-columns: 1fr; gap: clamp(2.2rem, 4.5vw, 3.4rem); max-width: 1000px; margin: 0 auto; padding: 0; }
+/* Quatre phrases qui comptent : l'action en Jost (capitales fines, en couleur), la finalité en grand Garamond italique.
+   Chacune se dévoile quand elle entre à l'écran, l'action d'abord, puis la finalité. */
+.venir__liste { gap: clamp(4rem, 9vw, 7rem); max-width: 1040px; }
+/* En quinconce : une phrase à gauche, la suivante à droite, pour garder du mouvement. */
+.venir__liste li { display: flex; flex-direction: column; gap: 0.7rem; max-width: 30ch; }
+.venir__liste li:nth-child(odd) { align-items: flex-start; text-align: left; margin-right: auto; }
+.venir__liste li:nth-child(even) { align-items: flex-end; text-align: right; margin-left: auto; }
+@media (max-width: 700px) { .venir__liste li:nth-child(n) { align-items: center; text-align: center; margin: 0 auto; } }
+.venir__action { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.82rem, 1.1vw, 0.95rem); line-height: 1.6; }
+.venir__liste li:nth-child(odd) .venir__action { color: var(--bleu, #5C7CFF); }
+.venir__liste li:nth-child(even) .venir__action { color: var(--coral); }
+.venir__fin { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.6rem, 3vw, 2.35rem); line-height: 1.22; color: var(--cream); }
+html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 0; filter: blur(6px); transform: translateX(-36px); transition: opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1), filter 1s ease; }
+html.js .venir__liste li:nth-child(even) .venir__action, html.js .venir__liste li:nth-child(even) .venir__fin { transform: translateX(36px); }
+html.js .venir__liste li .venir__fin { transition-delay: 0.35s; }
+html.js .venir__liste li.vu .venir__action, html.js .venir__liste li.vu .venir__fin { opacity: 1; filter: blur(0); transform: none; }
+@media (prefers-reduced-motion: reduce) { html.js .venir__liste li .venir__action, html.js .venir__liste li .venir__fin { opacity: 1; filter: none; transform: none; transition: none; } }
 .reconnaitre__liste li { font-size: 1.28rem; }
 
 /* Schéma sur petit écran : toujours en cercle, simplement resserré */
 @media (max-width: 640px) {
-  .rosace { aspect-ratio: 100 / 100; }
-  .rosace__tuile { width: 19%; }
-  .rosace__legende { width: 30vw; top: calc(100% + 0.5rem); }
-  .rosace__legende .rosace__nom { font-size: 0.68rem; letter-spacing: 0.04em; padding: 0.1rem 0.3rem; }
-  .rosace__desc { display: none; }
-  .rosace__mot { font-size: 0.6rem; letter-spacing: 0.1em; padding-left: 0.1em; }
-  .rosace__centre { width: 30%; }
 }
 
 /* Info-bulle au survol d'un univers */
-.rosace__bulle { position: absolute; bottom: calc(100% + 0.8rem); left: 50%; transform: translate(-50%, 6px); white-space: nowrap; padding: 0.5em 0.9em; border-radius: 10px; background: var(--cream); color: var(--navy); font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.06em; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; z-index: 5; }
-.rosace__bulle::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--cream); }
-.rosace__tuile:hover .rosace__bulle, .rosace__tuile:focus-visible .rosace__bulle { opacity: 1; transform: translate(-50%, 0); }
-@media (hover: none) { .rosace__bulle { display: none; } }
 
 /* ── Témoignages : grille (≤ 3) ou carrousel (> 3) ── */
 .temoins-offre__cartes { columns: 3 300px; column-gap: 1.4rem; }
@@ -406,22 +397,28 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .egrid { grid-template-columns: 1fr !important; gap: 1.4rem; max-width: 1000px; margin-inline: auto; }
 .ecard { display: grid; grid-template-columns: minmax(220px, 38%) 1fr; }
 .ecard__img { aspect-ratio: auto; min-height: 240px; }
-.ecard__body { justify-content: center; padding: 1.8rem 2rem; }
-.ecard__when { font-size: 1rem; color: var(--coral); }
-.ecard__when .ico { color: var(--coral); }
-.ecard__title { font-size: 1.7rem; }
-.ecard__foot { padding-top: 0.4rem; margin-top: 0.4rem; }
-.ecard__btn { margin-top: 0.6rem; }
+/* Hiérarchie de la carte : le titre domine, puis la date, puis le reste, avec de l'air entre les niveaux. */
+.ecard__body { justify-content: flex-start; padding: clamp(2.6rem, 4vw, 3.8rem) clamp(2rem, 3vw, 3rem) clamp(1.8rem, 2.4vw, 2.4rem); gap: 0; }
+.ecard__title { font-size: clamp(1.9rem, 2.7vw, 2.5rem); line-height: 1.04; letter-spacing: 0.005em; }
+.ecard__when { font-size: 0.92rem; color: var(--cream); margin-top: 1.5rem; padding-bottom: 1.4rem; }
+.ecard__when-sub { font-weight: 300; color: rgba(236,231,222,0.72); }
+.ecard__desc { margin-top: 1.3rem; max-width: 52ch; }
+.ecard__meta { margin-top: 1.1rem; }
+.ecard__foot { padding-top: 0.9rem; margin-top: 0.9rem; }
+.ecard__price { font-size: 1.6rem; }
+.ecard__btn { margin-top: 1rem; }
 @media (max-width: 700px) {
   .ecard { grid-template-columns: 1fr; }
   .ecard__img { aspect-ratio: 16 / 9; min-height: 0; }
-  .ecard__body { padding: 1.4rem 1.4rem 1.6rem; }
+  .ecard__body { padding: 1.6rem 1.5rem 1.9rem; }
+  .ecard__title { font-size: clamp(1.6rem, 6.5vw, 2rem); }
 }
 .temoins-offre__grille { columns: auto; }
 
 /* ── Témoignages sur photo : cartes en verre dépoli ── */
 .temoins-offre--photo { position: relative; overflow: hidden; isolation: isolate; }
-.temoins-offre__fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.temoins-offre__fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;
+  filter: brightness(var(--lum, 1)); object-position: var(--posx, 50%) var(--posy, 50%); }
 .temoins-offre--photo::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10,15,32,0.82), rgba(10,18,58,0.62) 45%, rgba(10,15,32,0.85)); }
 .temoins-offre--photo .temoin-carte { background: rgba(14,21,48,0.5); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(16px) saturate(1.1); -webkit-backdrop-filter: blur(16px) saturate(1.1); }
 .temoins-offre--photo .temoin-carte figcaption { border-top-color: rgba(255,255,255,0.14); }
@@ -443,18 +440,22 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .lettre .eyebrow { color: var(--gold); }
 .lettre .tete h2 { color: #fff; }
 .lettre .tete p.muted { color: rgba(236,231,222,0.85); }
-.lettre__form input { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.28); color: #fff; }
+.lettre__form input { background: rgba(10,15,32,0.5); border-color: rgba(255,255,255,0.34); color: #fff; }
 .lettre__form input::placeholder { color: rgba(236,231,222,0.7); }
-.lettre__form input:focus { border-color: var(--gold); background: rgba(255,255,255,0.14); }
+.lettre__form input:focus { border-color: var(--gold); background: rgba(10,15,32,0.72); }
 .lettre__note { color: rgba(236,231,222,0.7); }
-.temoins-offre--photo::before { background: linear-gradient(180deg, rgba(10,15,32,0.78) 0%, rgba(10,15,32,0.3) 38%, rgba(10,15,32,0.3) 70%, rgba(10,15,32,0.8) 100%); }
-.temoins-offre__fond { object-position: center 62%; }
+.temoins-offre--photo::before { background: linear-gradient(180deg,
+  rgba(10,15,32,calc(var(--voile, 0.62) * 1.38)) 0%, rgba(10,15,32,var(--voile, 0.62)) 38%,
+  rgba(10,15,32,var(--voile, 0.62)) 70%, rgba(10,15,32,calc(var(--voile, 0.62) * 1.42)) 100%); }
+
 .temoins-offre--photo .temoin-carte { background: rgba(12,18,44,0.58); }
 .temoins-offre__fond { object-position: center 45%; }
 
 /* La lettre en bandeau compact : le texte à gauche, le formulaire à droite */
 section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
-.lettre__rangee { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 1.4rem clamp(2rem, 5vw, 4rem); align-items: center; }
+/* Le signe tient sa colonne à gauche, le texte au milieu, le formulaire à droite. */
+.lettre__rangee { display: grid; grid-template-columns: auto minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 1.4rem clamp(1.6rem, 4vw, 3.2rem); align-items: center; }
 .lettre__texte .eyebrow { font-size: 0.66rem; }
 .lettre__texte h2 { margin: 0.5rem 0 0; font-size: clamp(1.3rem, 2.4vw, 1.7rem); color: #fff; }
 .lettre__texte h2 .script { font-size: 1.7em; }
@@ -464,7 +465,11 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .lettre__form .btn { flex: 0 0 auto; }
 .lettre__note { text-align: left; margin: 0.6rem 0 0; font-size: 0.75rem; }
 @media (max-width: 820px) {
-  .lettre__rangee { grid-template-columns: 1fr; }
+  .lettre__rangee { grid-template-columns: 1fr; justify-items: center; text-align: center;
+    gap: 0.5rem clamp(1.6rem, 4vw, 3.2rem); }
+  /* Le signe est seul au centre : son décalage, réglé pour la rangée à trois
+     colonnes, le pousserait à droite. Son attitude le suit. */
+  .lettre__rangee > .signe { transform: var(--signe-attitude, rotate(0deg)); margin: 0 0 -0.5em; }
   .lettre__form { flex-wrap: wrap; }
   .lettre__form input { flex: 1 1 100%; }
   .lettre__form .btn { width: 100%; justify-content: space-between; }
@@ -476,20 +481,68 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .carrousel__puce:hover { background: rgba(236,231,222,0.7); }
 .carrousel__puce[aria-current="true"]:hover { background: var(--gold); }
 
+/* ── La tête de l'agenda, centrée comme les autres têtes de section ── */
+.tete-agenda { text-align: center; margin-bottom: clamp(2.6rem, 5vw, 4rem); }
+.tete-agenda h2 { margin-bottom: 0; }
+.tete-agenda .cta { margin-top: 1.1rem; }
+
 /* ── Ce qui change tout : trois différences, courtes ── */
-.difference__liste { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.6rem, 4vw, 3.2rem); max-width: 1080px; margin: 0 auto; }
-.difference__liste li { position: relative; padding-top: 1.4rem; border-top: 1px solid rgba(216,162,76,0.45); }
-.difference__num { font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.1rem; }
-.difference__liste h3 { margin-top: 0.4rem; font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.12em; font-size: 1.05rem; color: var(--cream); }
-.difference__liste p { margin-top: 0.8rem; color: #C9CBD8; line-height: 1.75; font-size: 1rem; }
-@media (max-width: 820px) { .difference__liste { grid-template-columns: 1fr; gap: 2.2rem; } }
+/* Les signes de la première rangée montent haut dans l'espace sous le titre :
+   cette tête-là respire plus que les autres. */
+.difference .tete { margin-bottom: clamp(6rem, 13vw, 10rem); }
+.difference__liste { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(5rem, 10vw, 8.5rem) clamp(3.5rem, 8vw, 7.5rem); max-width: 960px; margin: 0 auto; padding: 0; }
+/* La colonne de droite descend d'un cran : la lecture part en biais, en Z */
+.difference__liste li { position: relative; align-self: start; }
+.difference__liste li:nth-child(even) { margin-top: clamp(2.5rem, 6vw, 5rem); }
+@media (max-width: 820px) { .difference__liste li:nth-child(even) { margin-top: 0; } }
+.difference__liste h3 { margin: 0; font-family: 'EB Garamond', serif; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: clamp(1.45rem, 2.2vw, 1.75rem); line-height: 1.2; color: var(--cream); }
+/* Le signe déborde vers le haut sans pousser le titre : sa marge négative annule
+   ce qu'il ajoute au-dessus de la ligne (sa hauteur est en em, donc le calcul suit).
+   Sans ça, chaque signe décalait son titre d'une valeur différente et le décalage
+   en Z entre les deux colonnes se trouvait mangé. */
+.difference__liste .avec-signe--fin .signe { margin-top: calc(1.5em - var(--signe-t)); }
+/* On lui laisse quand même de l'air en haut (l'écart entre les rangées) et en bas
+   (avant « le piège »). */
+.difference__liste h3 + p { margin-top: 2.1rem; }
+.difference__liste p { margin-top: 0.9rem; color: var(--cream); line-height: 1.7; font-size: 1rem; max-width: 40ch; }
+/* Le piège d'abord, en une ligne plus discrète ; puis ce que j'apporte, en clair. */
+.difference__piege { color: #A9AEC2 !important; font-size: clamp(1.02rem, 1.3vw, 1.1rem) !important; line-height: 1.6 !important; }
+.difference__piege span { display: block; margin-bottom: 0.4rem; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.78rem; color: var(--coral); }
+@media (max-width: 820px) {
+  /* En une colonne, le signe prend sa propre ligne au-dessus du titre : sa place
+     ne dépend plus de la longueur du titre, et il cesse de mordre sur le bloc
+     d'avant. Son décalage, réglé pour le bout de titre, n'a plus lieu d'être —
+     seule son attitude, rotation et miroir, le suit ici. */
+  .difference__liste { grid-template-columns: 1fr; gap: clamp(3.4rem, 9vw, 4.6rem); }
+  .difference__liste .avec-signe--fin { display: flex; flex-direction: column; align-items: flex-start; }
+  .difference__liste .avec-signe--fin .signe { order: -1; margin: 0 0 0.35em;
+    transform: var(--signe-attitude, rotate(0deg)); }
+  .difference__liste h3 + p { margin-top: 1.2rem; }
+  /* Un bloc sur deux bascule à droite : la lecture zigzague au lieu de tomber droit. */
+  .difference__liste li:nth-child(even) { text-align: right; }
+  .difference__liste li:nth-child(even) .avec-signe--fin { align-items: flex-end; }
+  .difference__liste li:nth-child(even) p { margin-left: auto; margin-right: 0; }
+}
+
+/* ── L'entrée d'une page d'offres : un seul niveau, puis les propositions ── */
+/* Le bord de pinceau sépare déjà de l'en-tête : l'entrée démarre serré. Et elle
+   laisse la section suivante poser seule sa respiration, au lieu de l'additionner. */
+.entree { padding-top: clamp(1.6rem, 3.4vw, 3rem); padding-bottom: 0; }
+.entree__tete { text-align: center; }
+.entree__tete h2 { margin-top: 0.8rem; }
+.entree__chapeau { margin-top: 0.9rem; }
+/* Ses mots gardent leur alignement à gauche : c'est du texte suivi, pas un chapô. */
+.entree__mot { margin: clamp(1.8rem, 4vw, 2.8rem) auto 0; max-width: 62ch; text-align: left; }
+.entree__mot p { margin-top: 0.9rem; line-height: 1.8; }
+.entree__mot p:first-child { margin-top: 0; }
+.entree__cartes { margin-top: clamp(2.6rem, 6vw, 4.2rem); display: grid; gap: 1.4rem; }
 
 /* ── Témoignages : texte en sans serif (lisible), nom en serif italique ── */
 .temoin-carte blockquote p { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 1.02rem; line-height: 1.75; color: #E4E1DA; }
 .temoin-carte figcaption b { font-family: 'EB Garamond', serif; font-style: italic; font-weight: 400; font-size: 1.25rem; color: var(--cream); }
-.difference__liste { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); max-width: 1180px; }
+
 /* Événement : titre, puis date juste dessous, puis le trait doré */
-.ecard__when { position: relative; margin-top: 0.1rem; padding-bottom: 0.9rem; }
+.ecard__when { position: relative; margin-top: 1.4rem; padding-bottom: 1.3rem; }
 .ecard__when::after { content: ''; position: absolute; left: 0; bottom: 0; width: 36px; height: 1px; background: var(--gold); opacity: 0.6; }
 .fiche-question { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: none; letter-spacing: 0.01em; font-size: clamp(1.25rem, 2.2vw, 1.55rem); line-height: 1.3; color: var(--cream); margin-bottom: 1.4rem; }
 
@@ -588,4 +641,329 @@ section.artefact { padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 @media (min-width: 1100px) {
   .artefact__corps .artefact-details { align-items: flex-start; }
+}
+
+.rangee { width: min(100%, 1120px); margin: 0 auto; }
+.rangee__centre { text-align: center; margin-bottom: clamp(2rem, 4vw, 3rem); display: flex; align-items: center; gap: 1rem; justify-content: center; }
+.rangee__centre::before, .rangee__centre::after { content: ''; height: 1px; flex: 1; max-width: 90px; background: linear-gradient(to right, transparent, rgba(236,231,222,0.3)); }
+.rangee__centre::after { background: linear-gradient(to left, transparent, rgba(236,231,222,0.3)); }
+.rangee__centre span { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.82rem; color: var(--cream); }
+.rangee__roue { position: relative; width: min(100%, 520px); margin: 0 auto clamp(4rem, 9vw, 6rem); aspect-ratio: 1; }
+.rangee__trame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* Chaque rayon se trace depuis le centre, l'un après l'autre */
+.rangee__moyeu { fill: #070B1B; }
+.rangee__rayon { stroke: #070B1B; stroke-width: 0.34; stroke-dasharray: var(--long); stroke-dashoffset: var(--long); transition: stroke-dashoffset 1.15s cubic-bezier(.3,.7,.3,1); transition-delay: calc(var(--i) * 0.72s); }
+.rangee__roue.est-vue .rangee__rayon { stroke-dashoffset: 0; }
+
+/* Le placement passe par les marges : l'apparition au défilement garde sa translation */
+.rangee__item { position: absolute; width: 176px; margin: -32px 0 0 -88px; opacity: 0; transform: translateY(10px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i) * 0.72s + 0.85s); }
+.rangee__roue.est-vue .rangee__item { opacity: 1; transform: none; }
+.rangee__item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; padding: 0.4rem; }
+.rangee__picto { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--fond-symbole); border: 0; color: var(--u-trait); transition: transform 0.35s var(--ease, ease); }
+/* Tes pictos portent déjà la main : aucun filtre par-dessus.
+   Et ils sortent par le haut : le cercle les porte au lieu de les enfermer.
+   Le pas de côté dépend du dessin, pour que ce soit sa pointe qui dépasse. */
+/* Chaque signe a sa densité : l'ensō remplit son carré, les autres respirent.
+   Un facteur propre à chacun les ramène au même poids à l'œil. */
+.rangee__picto svg { width: 142%; height: 142%;
+  transform: translate(var(--picto-x, 0%), -14%) scale(var(--picto-k, 1)); }
+.u-presence .rangee__picto svg { --picto-k: 0.84; }
+.u-presence .rangee__picto svg { --picto-x: 1%; }
+.u-connaissance .rangee__picto svg { --picto-x: 2%; }
+.u-mouvement .rangee__picto svg { --picto-x: 0%; }
+.u-vivant .rangee__picto svg { --picto-x: 7%; }
+.u-art .rangee__picto svg { --picto-x: -8%; }
+.rangee__picto img { width: 142%; height: 142%; object-fit: contain;
+  transform: translate(var(--picto-x, 0%), -14%) scale(var(--picto-k, 1)); }
+/* Au repos : pas de bordure. Au survol : un anneau de 2 px à la couleur de l'univers, avec un léger halo. */
+.rangee__item:hover .rangee__picto, .rangee__item:focus-visible .rangee__picto { transform: translateY(-4px); }
+.rangee__nom { white-space: nowrap; padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 18px var(--surface); font-family: 'Jost', sans-serif; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; font-size: clamp(0.8rem, 1vw, 0.88rem); line-height: 1.35; color: var(--cream); }
+.rangee__note { padding: 0.1rem 0.5rem; text-shadow: 0 1px 10px var(--surface), 0 0 16px var(--surface); font-style: italic; font-size: clamp(0.9rem, 1.05vw, 0.98rem); line-height: 1.5; color: #B4B8C8; max-width: 22ch; }
+@media (max-width: 760px) {
+  .rangee__roue { aspect-ratio: auto; width: 100%; }
+  .rangee__anneau, .rangee__point, .rangee__trame { display: none; }
+  .rangee__liste { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.2rem 1.2rem; }
+  .rangee__item { position: static; transform: none; width: auto; margin: 0; }
+  .rangee__item:last-child { grid-column: 1 / -1; }
+}
+
+/* ── Cœur à cœur : un seul texte, porté par la voix, à la place des listes ── */
+.coeur-mot__texte { max-width: 54ch; margin: 0 auto; text-align: center; }
+/* Le constat en Jost, la réponse (dernier paragraphe) en Garamond, plus grande. */
+.coeur-mot__texte p { font-family: 'Jost', sans-serif; font-weight: 300; font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.8; color: #CDD0DC; }
+.coeur-mot__texte p:last-child { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.45rem, 2.6vw, 1.9rem); line-height: 1.45; color: var(--cream); margin-top: 2.2rem; }
+.coeur-mot__texte p + p { margin-top: 1.4rem; }
+.coeur-mot__texte strong { color: var(--gold); font-weight: 400; }
+.coeur-mot__texte .script { font-size: 1em; }
+.billet__ics { font-size: 0.85rem; }
+
+/* ── Agenda : deux vues, les cartes ou la vue d'ensemble ── */
+.vues { display: inline-flex; border: 1px solid var(--line, rgba(236,231,222,0.14)); border-radius: 99px; padding: 3px; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.vues button { font: inherit; font-family: 'Jost', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--muted); background: none; border: 0; border-radius: 99px; padding: 0.45rem 1.1rem; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.vues button[aria-pressed='true'] { background: var(--cream); color: var(--navy); }
+.apercu { display: block; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--faint); }
+.apercu__ligne { border-bottom: 1px solid var(--faint); }
+.apercu__ligne a { display: grid; grid-template-columns: 3.6rem 10.5rem 1fr 9.5rem 9.5rem 4.5rem 8rem; align-items: center; gap: 1rem; padding: 0.9rem 0.4rem; color: var(--cream); transition: background 0.25s, padding 0.25s; }
+/* Une vignette carrée ouvre la ligne : on reconnaît l'évènement d'un coup d'œil. */
+.apercu__vignette { display: block; width: 3.6rem; height: 3.6rem; border-radius: 10px; overflow: hidden; background: var(--surface); }
+.apercu__vignette img { width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.4s var(--ease, ease); }
+.apercu__ligne a:hover .apercu__vignette img { transform: scale(1.06); }
+.apercu__vignette--vide { display: block; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(163,168,255,0.14), rgba(216,162,76,0.1)); }
+.apercu__ligne a:hover { background: rgba(236,231,222,0.04); padding-left: 0.9rem; }
+.apercu__quand { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; font-weight: 500; }
+.apercu__heure { font-weight: 300; color: rgba(236,231,222,0.7); }
+.apercu__titre { font-family: 'EB Garamond', serif; font-size: 1.28rem; }
+.apercu__type { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--indigo-soft); }
+.apercu__lieu, .apercu__prix { font-size: 0.88rem; color: var(--muted); }
+.apercu__prix { text-align: right; font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--cream); }
+@media (max-width: 900px) {
+  .apercu__ligne a { grid-template-columns: 3rem 1fr auto; gap: 0.35rem 0.9rem; padding: 1rem 0.2rem; align-items: start; }
+  .apercu__vignette { width: 3rem; height: 3rem; grid-row: 1 / span 2; }
+  .apercu__quand { grid-column: 2; }
+  .apercu__prix { grid-column: 3; grid-row: 1; }
+  .apercu__titre { grid-column: 2 / -1; }
+  .apercu__type, .apercu__lieu { grid-column: auto; }
+}
+
+.apercu__groupe + .apercu__groupe { margin-top: clamp(2.6rem, 5vw, 3.6rem); }
+.apercu__groupe .group__title { margin-bottom: 1rem; }
+.apercu__cta { justify-self: end; white-space: nowrap; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; color: var(--gold); transition: transform 0.25s; }
+.apercu__ligne a:hover .apercu__cta { transform: translateX(4px); }
+@media (max-width: 900px) { .apercu__cta { grid-column: 1 / -1; justify-self: start; margin-top: 0.3rem; } }
+.vues button { display: inline-flex; align-items: center; gap: 0.5rem; }
+.vues__ico { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; }
+.vues__ico circle { fill: currentColor; stroke: none; }
+
+/* ── Offre : pour qui, approche, étapes ── */
+.pourqui__liste { list-style: none; padding: 0; margin: 0 auto; max-width: 1000px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 2rem; }
+.pourqui__liste li { position: relative; padding: 1.6rem 1.6rem 1.6rem 3.4rem; border-radius: var(--r-lg, 18px); background: rgba(255,255,255,0.025); border: 1px solid var(--faint); font-family: 'EB Garamond', serif; font-size: clamp(1.15rem, 1.7vw, 1.32rem); line-height: 1.45; color: var(--cream); }
+.pourqui__liste li::before { content: ''; position: absolute; left: 1.5rem; top: 2.05rem; width: 9px; height: 9px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 12px rgba(240,122,95,0.6); }
+.pourqui__liste li:nth-child(even)::before { background: #5C7CFF; box-shadow: 0 0 12px rgba(92,124,255,0.6); }
+
+.approche__intro { max-width: 60ch; margin: 0 auto clamp(2.4rem, 5vw, 3.4rem); text-align: center; color: #C9CBD8; line-height: 1.8; font-size: 1.05rem; }
+.approche__intro strong { color: var(--gold); font-weight: 400; }
+.approche__grille { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3rem) clamp(2rem, 6vw, 4.5rem); max-width: 900px; margin: 0 auto; }
+.approche__pilier h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.45rem, 2.2vw, 1.75rem); color: var(--cream); padding-bottom: 0.7rem; margin-bottom: 0.7rem; border-bottom: 1px solid var(--faint); position: relative; }
+.approche__pilier h3::after { content: ''; position: absolute; left: 0; bottom: -1px; width: 40px; height: 1px; background: #5C7CFF; }
+.approche__pilier:nth-child(even) h3::after { background: var(--coral); }
+.approche__pilier p { color: #C9CBD8; line-height: 1.75; }
+
+.cap__etapes { list-style: none; padding: 0; margin: 0 auto; max-width: 1040px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.6rem, 4vw, 3rem); counter-reset: none; }
+.cap__etapes li { text-align: center; }
+.cap__num { display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(216,162,76,0.55); font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--gold); margin-bottom: 1rem; }
+.cap__etapes h3 { font-family: 'EB Garamond', serif; font-weight: 400; font-size: clamp(1.35rem, 2vw, 1.6rem); color: var(--cream); margin-bottom: 0.5rem; }
+.cap__etapes p { color: #C9CBD8; line-height: 1.7; max-width: 30ch; margin: 0 auto; }
+.cap__cadre { max-width: 680px; margin: clamp(3rem, 6vw, 4.5rem) auto 0; padding: 1.8rem 2rem; border-left: 2px solid var(--gold); background: rgba(216,162,76,0.05); border-radius: 0 14px 14px 0; }
+.cap__cadre p:last-child { margin-top: 0.6rem; color: var(--cream); line-height: 1.75; }
+.cap__cadre strong { color: var(--gold); font-weight: 400; }
+
+.approche__grille--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1100px; }
+.approche__pilier em { display: block; margin-top: 0.9rem; font-family: 'EB Garamond', serif; font-size: 1.15rem; color: var(--cream); }
+@media (max-width: 760px) {
+  .pourqui__liste, .approche__grille, .cap__etapes { grid-template-columns: 1fr; }
+}
+
+/* Ce qu'on explore ensemble : des repères courts, en grille */
+.explore__grille { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; max-width: 1000px; margin: 0 auto; }
+@media (max-width: 900px) { .explore__grille { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .explore__grille { grid-template-columns: 1fr; } }
+.explore__item { padding: 1.4rem 1.5rem; border-radius: var(--r-lg, 18px); border: 1px solid var(--faint); background: rgba(255,255,255,0.02); }
+.explore__item h3 { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.82rem; color: var(--indigo-soft); margin-bottom: 0.6rem; }
+.explore__item p { font-family: 'EB Garamond', serif; font-size: 1.15rem; line-height: 1.45; color: var(--cream); }
+
+/* Un seul témoignage : une grande citation centrée */
+.temoins-offre__grille--seul .temoins-offre__cartes { display: block; columns: auto; max-width: 760px; margin: 0 auto; }
+.temoins-offre__grille--seul .temoin-carte { background: none; border: 0; box-shadow: none; text-align: center; padding: 0; }
+.temoins-offre__grille--seul .temoin-carte__guillemet { position: static; display: block; font-size: 4rem; line-height: 0.6; margin-bottom: 0.4rem; }
+.temoins-offre__grille--seul blockquote p { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.35rem, 2.4vw, 1.8rem); line-height: 1.5; color: var(--cream); }
+.temoins-offre__grille--seul figcaption { align-items: center; border-top: 0; margin-top: 1.2rem; padding-top: 0; }
+
+/* Calendrier des séances d'un rendez-vous régulier */
+.seances__mois { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem 3rem; }
+.seances__bloc h3 { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.82rem; color: var(--gold); padding-bottom: 0.7rem; border-bottom: 1px solid var(--faint); margin-bottom: 0.4rem; }
+.seances__bloc ul { list-style: none; margin: 0; padding: 0; }
+.seances__bloc li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.9rem; padding: 0.75rem 0; border-bottom: 1px solid var(--faint); }
+.seances__jour { font-family: 'EB Garamond', serif; font-size: 1.2rem; color: var(--cream); text-transform: capitalize; min-width: 9.5rem; }
+.seances__heure { font-family: 'Jost', sans-serif; font-weight: 300; color: rgba(236,231,222,0.75); }
+.seances__note { flex-basis: 100%; font-size: 0.78rem; letter-spacing: 0.06em; color: var(--coral); }
+
+/* « Ajouter à mon agenda » : un vrai bouton, bien visible, à côté de la réservation */
+.btn-agenda { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8em 1.4em; border-radius: 999px; border: 1px solid rgba(236,231,222,0.55); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; transition: background 0.3s, border-color 0.3s, color 0.3s; }
+.btn-agenda .ico { color: var(--gold); }
+.btn-agenda:hover { background: var(--cream); color: var(--navy); border-color: var(--cream); }
+.seances__action { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.8rem); }
+/* La promesse de l'offre, juste sous le titre */
+.page-hero .offre-lead { margin-top: 1.2rem; max-width: 46ch; font-family: 'EB Garamond', serif; font-size: clamp(1.2rem, 2vw, 1.45rem); line-height: 1.45; color: var(--cream); }
+
+/* En-tête d'une offre avec son sigil : l'ombre en bas, la lumière autour du signe */
+.page-hero--sigil::after { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(60% 55% at 50% 22%, rgba(216,162,76,0.22), transparent 70%), linear-gradient(to bottom, rgba(5,7,16,0.55), rgba(5,7,16,0.9)); }
+.page-hero--sigil .narrow { position: relative; z-index: 2; }
+.offre-logo { width: clamp(64px, 9vw, 96px); height: auto; margin-bottom: 1.4rem; filter: drop-shadow(0 0 26px rgba(216,162,76,0.45)); }
+
+/* ── Note d'intention : un texte qui se lit en grand et se dévoile ── */
+.intention__texte { max-width: 62ch; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+.intention__texte p { font-family: 'EB Garamond', serif; font-size: clamp(1.18rem, 1.7vw, 1.4rem); line-height: 1.65; color: var(--cream); }
+.intention__texte p + p { margin-top: 1.5rem; }
+.intention__texte strong { color: var(--gold); font-weight: 400; }
+.intention__texte .devoile { opacity: 0; transform: translateY(20px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.intention__texte .devoile.vu { opacity: 1; transform: none; }
+
+/* ── Le nom de l'offre, avec son sigil ── */
+.nom-offre__grille { display: grid; grid-template-columns: auto 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; max-width: 900px; }
+.nom-offre__sigil img { width: clamp(90px, 12vw, 140px); height: auto; filter: drop-shadow(0 0 30px rgba(216,162,76,0.4)); }
+.nom-offre h2 { margin-bottom: 0.9rem; }
+.nom-offre p { color: #C9CBD8; line-height: 1.8; max-width: 52ch; }
+@media (max-width: 700px) { .nom-offre__grille { grid-template-columns: 1fr; justify-items: center; text-align: center; } }
+
+/* ── Le chemin en sept mouvements : une descente, pas une grille ── */
+.cap__etapes--chemin { display: block; max-width: 720px; }
+.cap__etapes--chemin li { display: grid; grid-template-columns: auto 1fr; gap: 0 1.6rem; text-align: left; padding-bottom: 2.2rem; position: relative; }
+.cap__etapes--chemin li::before { content: ''; position: absolute; left: 25px; top: 52px; bottom: 0; width: 1px; background: linear-gradient(to bottom, rgba(216,162,76,0.5), rgba(216,162,76,0.05)); }
+.cap__etapes--chemin li:last-child { padding-bottom: 0; }
+.cap__etapes--chemin li:last-child::before { display: none; }
+.cap__etapes--chemin .cap__num { grid-row: span 2; margin-bottom: 0; }
+.cap__etapes--chemin h3 { margin-bottom: 0.3rem; }
+.cap__etapes--chemin p { margin: 0; max-width: 46ch; }
+.cap__note { max-width: 46ch; margin: clamp(1.6rem, 3vw, 2.4rem) auto 0; text-align: center; font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; color: #C9CBD8; }
+.cap__posture { display: block; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.74rem; color: var(--gold); margin-bottom: 0.5rem; }
+.cap__etapes--chemin .cap__posture { margin-top: 0.1rem; }
+/* Les liens vers le Codex, en fin de page */
+.lore-offre { padding-top: 0; }
+
+/* ── Les rendez-vous de l'accueil défilent, une carte à la fois ── */
+.agenda-carrousel { margin-top: clamp(2rem, 5vw, 3rem); }
+.agenda-carrousel .carrousel__piste { gap: 1.4rem; }
+.agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 min(860px, 88%); scroll-snap-align: start; }
+@media (max-width: 700px) { .agenda-carrousel .carrousel__piste > .ecard { flex: 0 0 86%; } }
+/* Les flèches sur les côtés, en grand, posées sur les cartes */
+.carrousel { position: relative; }
+.carrousel__btn { position: absolute; top: calc((100% - 4.4rem) / 2); transform: translateY(-50%); z-index: 3; width: 52px; height: 52px; border-radius: 50%; padding: 0; background: rgba(8,12,28,0.55) !important; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(236,231,222,0.16); color: var(--cream); transition: background 0.3s, color 0.3s, border-color 0.3s; }
+.carrousel__btn:hover { background: var(--gold) !important; border-color: var(--gold); color: var(--navy); }
+.carrousel__btn svg { width: 30px; height: 30px; stroke-width: 1.8; }
+.carrousel__btn[data-sens="-1"] { left: 4px; }
+.carrousel__btn[data-sens="1"] { right: 4px; }
+@media (max-width: 760px) { .carrousel__btn { display: none; } }
+/* Dès que la page est assez large, les flèches sortent dans la marge :
+   elles accompagnent les cartes au lieu de se poser dessus. */
+@media (min-width: 1100px) {
+  .carrousel { margin-inline: -82px; padding-inline: 82px; }
+  .carrousel__btn { background: rgba(8,12,28,0.3) !important; }
+  .carrousel__btn[data-sens="-1"] { left: 2px; }
+  .carrousel__btn[data-sens="1"] { right: 2px; }
+}
+
+/* ── Toutes les formules dans le billet, comme une carte de prix ── */
+.billet__formules { list-style: none; margin: 0 0 0.4rem; padding: 0; display: grid; gap: 0.7rem; }
+.billet__formules li { display: flex; align-items: baseline; justify-content: space-between; gap: 1.4rem; padding-bottom: 0.7rem; border-bottom: 1px solid rgba(236,231,222,0.12); }
+.billet__formules li:last-child { border-bottom: 0; padding-bottom: 0; }
+.billet__formule-nom { font-family: 'Jost', sans-serif; font-weight: 300; text-transform: uppercase; letter-spacing: 0.13em; font-size: 0.78rem; color: rgba(236,231,222,0.7); }
+.billet__formule-prix { font-family: 'EB Garamond', serif; font-size: 1.5rem; line-height: 1; color: var(--gold); white-space: nowrap; }
+.billet__formules .est-mise .billet__formule-nom { color: var(--cream); }
+.billet__formules .est-mise .billet__formule-prix { font-size: 1.85rem; }
+
+.breath__source { display: block; margin-top: 1.4rem; font-family: 'Jost', sans-serif; font-style: normal; font-weight: 300; text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.72rem; color: rgba(236,231,222,0.6); }
+
+/* ── Le hero d'un événement : une photo qui prend la page, comme sur IN CARNE ── */
+.page-hero--grand { min-height: 88svh; align-items: center; justify-content: center; text-align: center; padding: 140px 0 110px; }
+.page-hero--grand > img { opacity: 0.85; filter: saturate(1.12) brightness(0.66) contrast(1.02); }
+.page-hero--grand::before { background: radial-gradient(58% 48% at 50% 38%, rgba(216,162,76,0.16), transparent 72%), linear-gradient(to bottom, rgba(5,7,16,0.72), rgba(5,7,16,0.45) 42%, rgba(10,15,32,0.97)); }
+.page-hero--grand h1 { text-shadow: 0 2px 34px rgba(5,7,16,0.6); margin-top: 1.2rem; font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.02; }
+.page-hero--grand .seuil-tag { justify-content: center; }
+.page-hero__phrase { text-shadow: 0 2px 26px rgba(5,7,16,0.8); margin: 2.2rem auto 0; max-width: 36ch; font-size: clamp(1.22rem, 2.2vw, 1.62rem); line-height: 1.5; color: var(--cream); }
+.page-hero__quoi { display: block; font-family: 'Jost', sans-serif; font-weight: 300; text-transform: uppercase; font-size: 0.72em; line-height: 1.6; letter-spacing: 0.12em; }
+.page-hero__invite { display: block; margin-top: 1.1rem; font-family: 'EB Garamond', serif; line-height: 1.45; }
+.page-hero__note { display: block; margin-top: 0.9rem; font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.74em; color: var(--gold); }
+.ph-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.24em; font-size: 0.6rem; color: var(--muted); }
+.ph-scroll span { width: 1px; height: 34px; background: linear-gradient(to bottom, var(--gold), transparent); }
+@media (max-width: 760px) { .page-hero--grand { min-height: 80svh; padding: 110px 0 90px; } }
+
+/* ── Le prochain rendez-vous : une bande, juste après « qui suis-je » ── */
+/* Le prochain rendez-vous prolonge la bio : pas de palier de couleur,
+   pas de ligne droite. La seule frontière est le bord de pinceau d'en dessous. */
+.prochain { padding: 0; border: 0; background: transparent;
+  margin-top: calc(-1 * clamp(2rem, 5vw, 4rem)); }
+.prochain__dedans { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem 2rem; padding-block: 1.1rem; }
+.prochain__lien { display: flex; align-items: center; gap: 1.1rem; min-width: 0; }
+.prochain__img { flex: none; width: 64px; height: 64px; border-radius: 14px; overflow: hidden; background: var(--fond-symbole); }
+.prochain__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s var(--ease, ease); }
+.prochain__lien:hover .prochain__img img { transform: scale(1.06); }
+.prochain__txt { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+.prochain__label { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.66rem; color: var(--gold); }
+.prochain__titre { font-family: 'EB Garamond', serif; font-size: clamp(1.22rem, 2vw, 1.5rem); line-height: 1.2; color: var(--cream); transition: color 0.3s; }
+.prochain__lien:hover .prochain__titre { color: var(--coral); }
+.prochain__quand { font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--muted); }
+@media (max-width: 620px) { .prochain__dedans { flex-direction: column; align-items: flex-start; } .prochain__tout { width: 100%; justify-content: center; } }
+
+/* ── La carte de Lyon, en fond de section ── */
+.carte { height: 100%; background: #0A0F20; }
+.carte--fond { position: absolute; inset: 0; z-index: 0; }
+.carte .leaflet-container { background: #0A0F20; font-family: 'Jost', sans-serif; }
+/* Le fond de carte reste discret : ni couleur, ni contraste — seules l'eau et les lieux parlent */
+.carte .leaflet-tile-pane { filter: grayscale(1) sepia(1) hue-rotate(188deg) saturate(2.4) brightness(0.95) contrast(1.15); opacity: 0.95; }
+.carte__epingle span { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--teinte, var(--gold)); border: 2px solid #0A0F20; box-shadow: 0 0 0 5px color-mix(in srgb, var(--teinte, #D8A24C) 28%, transparent); cursor: pointer; }
+.carte .leaflet-popup-content-wrapper { background: #0A0F20; color: var(--cream); border: 1px solid var(--faint); border-radius: 12px; }
+.carte .leaflet-popup-tip { background: #0A0F20; }
+.carte__bulle { display: flex; flex-direction: column; gap: 0.2rem; }
+.carte__bulle a, .carte__bulle b { font-family: 'EB Garamond', serif; font-size: 1.1rem; font-weight: 400; color: var(--cream); }
+.carte__bulle a:hover { color: var(--coral); }
+.carte__bulle small { font-family: 'Jost', sans-serif; font-size: 0.76rem; color: var(--muted); }
+.carte .leaflet-control-attribution { background: rgba(10,15,32,0.6); color: rgba(236,231,222,0.35); font-size: 0.6rem; }
+.carte .leaflet-control-attribution a { color: rgba(236,231,222,0.5); }
+.carte .leaflet-control-zoom a { background: rgba(10,15,32,0.8); color: var(--cream); border-color: var(--faint); }
+.carte .leaflet-control-zoom a:hover { background: var(--gold); color: var(--navy); }
+
+/* La section qui porte la carte : le contenu se pose dessus */
+.territoire { position: relative; overflow: hidden; }
+.territoire__voile { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(to right, rgba(10,15,32,0.92) 0%, rgba(10,15,32,0.55) 34%, rgba(10,15,32,0.08) 62%, rgba(10,15,32,0) 100%),
+              linear-gradient(to bottom, var(--navy), rgba(10,15,32,0) 16%, rgba(10,15,32,0) 84%, var(--navy)); }
+.territoire .wrap { position: relative; z-index: 2; pointer-events: none; }
+.territoire .wrap h2, .territoire .wrap p, .territoire .wrap li, .territoire .wrap a { pointer-events: auto; }
+.territoire__liste { list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0; padding: 0; display: grid; gap: 1.1rem; max-width: 30ch; }
+.territoire__liste li { display: flex; flex-direction: column; gap: 0.15rem; padding-left: 1.1rem; position: relative; }
+.territoire__liste li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--teinte, var(--gold)); box-shadow: 0 0 10px color-mix(in srgb, var(--teinte, #D8A24C) 60%, transparent); }
+.territoire__liste a, .territoire__liste span { font-family: 'EB Garamond', serif; font-size: 1.16rem; color: var(--cream); }
+.territoire__liste a:hover { color: var(--coral); }
+.territoire__liste small { font-family: 'Jost', sans-serif; font-size: 0.78rem; color: var(--muted); }
+@media (max-width: 760px) { .territoire__voile { background: linear-gradient(to bottom, rgba(10,15,32,0.95) 0%, rgba(10,15,32,0.75) 45%, rgba(10,15,32,0.9) 100%); } }
+
+.carte__mot { max-width: 44ch; margin: clamp(1.6rem, 3vw, 2.2rem) 0 0; text-align: left; font-family: 'EB Garamond', serif; font-size: clamp(1.1rem, 1.6vw, 1.26rem); line-height: 1.6; color: #C9CBD8; }
+.carte__mot strong { color: var(--gold); font-weight: 400; }
+
+/* ── Indigo Enoqii : la dernière respiration, une œuvre en pleine page ── */
+.art-signature { position: relative; min-height: 86svh; display: flex; align-items: center;
+  justify-content: center; text-align: center; overflow: hidden; }
+.art-signature__fond { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(1.1) brightness(0.52) contrast(1.04);
+  opacity: 0; transition: opacity 2.6s ease; }
+.art-signature__fond.vu { opacity: 1; }
+.art-signature::before { content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, rgba(10,16,48,0.72), rgba(10,18,56,0.4) 48%, rgba(8,12,26,0.86)); }
+.art-signature .wrap { position: relative; z-index: 2; max-width: 46ch; }
+.art-signature h2 { margin-top: 0.9rem; }
+.art-signature__phrase { margin: 1.6rem auto 2.2rem; font-family: 'EB Garamond', serif;
+  font-size: clamp(1.15rem, 2vw, 1.42rem); line-height: 1.6; color: #D6D9E4;
+  text-shadow: 0 2px 22px rgba(5,7,16,0.8); }
+
+/* ── Le portrait et son texte dans une même carte ──
+   Dans un cadre de 400 px la photo était posée là ; sur toute la largeur elle
+   coupait au carré. En carte, les deux moitiés se tiennent, et les angles
+   ronds répondent aux courbes des bords de pinceau. */
+.split.split--carte { width: min(91%, 1300px); padding: 0; display: grid;
+  grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch;
+  border-radius: clamp(20px, 2.4vw, 34px); overflow: hidden; }
+/* Elle vient presque toucher le bord de pinceau de l'en-tête, et le prochain
+   rendez-vous se rapproche en dessous. */
+.carte-portrait { padding: clamp(0.6rem, 1.4vw, 1.4rem) 0 clamp(5rem, 9vw, 7.5rem) !important; }
+.split.split--carte .photo { aspect-ratio: auto; min-height: 56vh; border: 0;
+  border-radius: 0; background: var(--surface); }
+.split.split--carte .photo img { object-position: 50% var(--img-y, 50%); }
+.split.split--carte > div:last-child { background: var(--navy2);
+  padding: clamp(2.2rem, 4.5vw, 4rem) clamp(1.8rem, 4vw, 3.6rem);
+  display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 860px) {
+  .split.split--carte { grid-template-columns: 1fr; }
+  .split.split--carte .photo { min-height: 52vh; order: 0; }
 }

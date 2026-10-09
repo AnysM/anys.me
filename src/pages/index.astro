@@ -5,19 +5,34 @@
 import Base from '../layouts/Base.astro';
 import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
-import Rosace from '../components/Rosace.astro';
+import Rangee from '../components/Rangee.astro';
 import Appel from '../components/Appel.astro';
 import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
+import Carrousel from '../components/Carrousel.astro';
+import Carte from '../components/Carte.astro';
+import Separateur from '../components/Separateur.astro';
+import Trace from '../components/Trace.astro';
+import Fond from '../components/Fond.astro';
+import Signe from '../components/Signe.astro';
+import SIGNES from '../data/signes.json';
+// La pose choisie dans l'atelier : le titre qui porte le signe s'arrange en conséquence.
+const pose = (id: string) => ((SIGNES as Record<string, any>)[id]?.mode ?? 'fin');
+import FONDS from '../data/fonds.json';
+import SEPS from '../data/separateurs.json';
+import { BORDS } from '../lib/bords';
+import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { propositions } from '../lib/monde';
+import { propositions, ligneDate, hrefAgenda } from '../lib/monde';
 import { UNIVERS, SEUILS } from '../lib/univers.mjs';
 import { tisser, contexte } from '../lib/lore.mjs';
 
 const acc = (await getEntry('pages', 'accueil'))!.data;
-const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+// **gras doré**, *manuscrit*, {bleu:texte} et {corail:texte} pour les couleurs de sens
+const saut = (t) => t.replace(/&lt;br\s*\/?&gt;/g, '<br>');
+const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>').replace(/\{(bleu|corail):(.+?)\}/g, '<span class="en-$1">$2</span>');
 const ctx = contexte();
 
 const piliers = UNIVERS.map((u, i) => ({ ...u, nom: acc.piliers?.[i]?.nom ?? u.nom, note: acc.piliers?.[i]?.note ?? '', image: acc.piliers?.[i]?.picto || null }));
@@ -27,42 +42,84 @@ const seuils = SEUILS.map((s, i) => ({
   ...s,
   nom: acc.seuils?.[i]?.titre ?? s.nom,
   texte: acc.seuils?.[i]?.texte ?? '',
-  // L'accueil ne montre que les propositions « à la une » (2 max par seuil) ; le reste vit dans l'agenda et les pages dédiées
+  // L'accueil montre deux propositions par seuil : celles « à la une » d'abord, complétées
+  // par les suivantes ; le reste vit dans l'agenda et les pages dédiées.
   total: toutes.filter((p) => p.seuil === s.id).length,
   items: toutes
-    .filter((p) => p.seuil === s.id && p.accueil)
-    .sort((a, b) => (a.date ? 0 : 1) - (b.date ? 0 : 1) || (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0) || a.ordre - b.ordre)
+    .filter((p) => p.seuil === s.id)
+    .sort((a, b) =>
+      (a.accueil ? 0 : 1) - (b.accueil ? 0 : 1) ||
+      (a.date ? 0 : 1) - (b.date ? 0 : 1) ||
+      (a.date?.getTime() ?? 0) - (b.date?.getTime() ?? 0) ||
+      a.ordre - b.ordre)
     .slice(0, 2),
   tout: { decouvrir: { href: '/agenda', label: 'Tout l’agenda' }, approfondir: { href: '/soins', label: 'Tous les soins' }, transformer: { href: '/accompagnement', label: 'Accompagnements et immersions' } }[s.id],
 }));
 
 const aujourdhui = new Date(new Date().toDateString());
-const dates = (await getCollection('agenda'))
-  .filter((e) => e.data.publie && e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
+const agendaPublie = (await getCollection('agenda')).filter((e) => e.data.publie);
+// Les prochaines dates d'abord, puis les rendez-vous réguliers.
+const reguliers = agendaPublie
+  .filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie))
+  .sort((a, b) => a.data.ordre - b.data.ordre)
+  .slice(0, 2);
+const prochaines = agendaPublie
+  .filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
   .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
-  .slice(0, 3);
+  .slice(0, 4);
+const dates = [...prochaines, ...reguliers];
+// Le prochain rendez-vous daté : de quoi voir tout de suite ce qui vient, même en revenant.
+const prochain = prochaines[0];
 
 const temoins = acc.temoins ?? [];
 const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
+// Le voile et la lumière de chaque photo de fond, réglés sur /essais-photos.
+const F = FONDS as Record<string, { voile: number; lumiere: number }>;
+// Après une bande de respiration, le bord de pinceau tient déjà lieu d'air.
+const apresBande = 'padding-top: clamp(1.2rem, 2.6vw, 2.6rem)';
+// L'air qu'une section doit se donner d'un côté : la hauteur exacte du bord
+// de pinceau qu'elle y porte, plus de quoi respirer. Le bord occupe toute la
+// largeur, donc sa hauteur suit le format du masque.
+const S = SEPS as Record<string, { bord: number; hauteur: number }>;
+const hauteurBord = (id: string) => {
+  const r = S[id]; if (!r) return '0px';
+  const f = BORDS[r.bord] ?? BORDS[1];
+  return `calc(100vw * ${((f.h * (r.hauteur / 100)) / f.l).toFixed(4)})`;
+};
+const air = (id: string) => {
+  const r = S[id]; if (!r) return '';
+  const f = BORDS[r.bord] ?? BORDS[1];
+  const k = (f.h * (r.hauteur / 100)) / f.l;
+  return `calc(100vw * ${k.toFixed(4)} + clamp(2rem, 4.5vw, 4.5rem))`;
+};
+const reglage = (c: string) => {
+  const r = F[c] ?? ({} as any);
+  return `--voile:${r.voile ?? 0.62}; --lum:${r.lumiere ?? 0.8}; --posx:${r.x ?? 50}%; --posy:${r.y ?? 50}%;`
+    + ` --voile-m:${r.voilem ?? r.voile ?? 0.62}; --lum-m:${r.lumierem ?? r.lumiere ?? 0.8};`
+    + ` --posx-m:${r.xm ?? r.x ?? 50}%; --posy-m:${r.ym ?? r.y ?? 50}%`;
+};
 
 ---
-<Base title="Anys Mechkar — Présence, mouvement, créativité">
+<Base title="Anys Mechkar — accompagnement, soins et ateliers à Lyon" description="Accompagnement des transitions de vie, soins énergétiques et massages, ateliers de méditation, de danse Butô et voyages sonores, à Lyon et à domicile.">
   <!-- L'APPEL -->
-  <section id="hero">
-    <div class="hero-bg"><img src={acc.hero_image ?? '/img/univers-art.jpg'} alt="Œuvre d'Indigo Enoqii" /></div>
+  <section id="hero" style={reglage('hero_photo')}>
+    <Separateur id="hero-bas" cote="bas" couleur="var(--navy)" />
+    <div class="hero-bg">
+      <img src={acc.hero_photo ?? '/img/hero-fusion.jpg'} alt="" />
+    </div>
     <div class="hero-left">
       <p class="eyebrow">{acc.hero_eyebrow}</p>
       <h1 class="hero-name" style="margin-top:14px;"><span class="top">{acc.hero_titre}</span><span class="serif-i script">{acc.hero_accent}</span></h1>
       <p class="lead" style="margin-top:18px;" set:html={fmt(acc.hero_paragraphe)}></p>
-      <div class="hero-actions"><Appel secondaire={false} /><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
+      <div class="hero-actions"><a class="cta" href="#seuils">{acc.hero_cta} <span class="line"></span></a></div>
     </div>
-    <div class="hero-scroll"><span class="l"></span>Scroll</div>
+    <div class="hero-scroll" style="bottom: clamp(1.6rem, 3vw, 2.8rem)"><span class="l"></span>Scroll</div>
   </section>
 
   <!-- 1. LE CHEMIN : mon parcours, dans lequel on se reconnaît -->
-  <section>
-    <div class="wrap split">
-      <div class="photo">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
+  <section class="carte-portrait">
+    <div class="wrap split split--carte">
+      <div class="photo" style="--img-y:38%;">{acc.portrait_image ? <img class="slot-img" src={acc.portrait_image} alt="Anys Mechkar" /> : <div class="imgph"></div>}</div>
       <div>
         <h2 set:html={fmt(acc.parcours_titre)}></h2>
         <p class="muted" set:html={tisser(acc.parcours_texte, ctx)}></p>
@@ -72,43 +129,102 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 2. CE QUI REVIENT SOUVENT : ce que beaucoup traversent -->
-  {acc.reconnaitre_items?.length > 0 && (
-    <section class="bloc reconnaitre">
-      <div class="wrap">
-        <div class="tete">
-          <p class="eyebrow">{acc.reconnaitre_eyebrow}</p>
-          <h2 set:html={fmt(acc.reconnaitre_titre)}></h2>
-        </div>
-        <ul class="reconnaitre__liste">
-          {acc.reconnaitre_items.map((x) => <li set:html={tisser(x, ctx)}></li>)}
-        </ul>
-        {acc.reconnaitre_passage && <p class="reconnaitre__passage" set:html={tisser(acc.reconnaitre_passage, ctx)}></p>}
+  {prochain && (
+    <section class="prochain">
+      <div class="wrap prochain__dedans">
+        <a class="prochain__lien" href={hrefAgenda(prochain)}>
+          {prochain.data.image && <span class="prochain__img"><img src={prochain.data.image} alt="" loading="lazy" /></span>}
+          <span class="prochain__txt">
+            <span class="prochain__label">Prochain rendez-vous</span>
+            <span class="prochain__titre">{prochain.data.titre}</span>
+            <span class="prochain__quand">{ligneDate(prochain.data)}{prochain.data.lieu ? ` · ${prochain.data.lieu.split(',')[0]}` : ''}</span>
+          </span>
+        </a>
+        <a class="btn btn--bleu prochain__tout" href="/agenda">Voir tous les événements</a>
       </div>
     </section>
   )}
 
-  <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher, ma posture -->
+  <!-- 2. CŒUR À CŒUR : ce qu'on traverse, dit d'une seule voix -->
+  {acc.coeur && (
+    <section class="bloc coeur-mot" style={`padding-top:${air('coeur-haut')}; padding-bottom:${air('danse-bas')}`}>
+      <Separateur id="danse-bas" cote="bas" couleur="var(--navy)" />
+      <Fond src={acc.danse_image} force={F.danse_image?.voile} lumiere={F.danse_image?.lumiere} x={F.danse_image?.x} y={F.danse_image?.y} xm={F.danse_image?.xm} ym={F.danse_image?.ym} voilem={F.danse_image?.voilem} lumierem={F.danse_image?.lumierem} />
+      <Separateur id="coeur-haut" cote="haut" couleur="var(--navy)" />
+      <Trace n={1} x={50} entree={83} force={0.07} />
+      <div class="narrow">
+        <div class="tete">
+          <p class="eyebrow">{acc.coeur_eyebrow}</p>
+          <h2 set:html={fmt(acc.coeur_titre)}></h2>
+        </div>
+        <div class="coeur-mot__texte">
+          {acc.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(tisser(par, ctx)).replace(/\n/g, '<br>')}></p>)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 3. POURQUOI ON VIENT ME VOIR : ce qu'on vient chercher. Elle s'intercale
+       entre deux photos, pour qu'aucune séparation ne tombe entre deux images. -->
   {acc.venir_items?.length > 0 && (
     <section class="venir">
+      <Trace n={2} x={35} entree={40} force={0.08} />
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.venir_eyebrow}</p>
-          <h2 set:html={fmt(acc.venir_titre)}></h2>
+          <h2 class:list={['avec-signe', `avec-signe--${pose('venir')}`]}><span set:html={fmt(acc.venir_titre)}></span><Signe id="venir" /></h2>
         </div>
-        <ul class="venir__liste">{acc.venir_items.map((x) => <li><Icone nom="etoile" taille={16} /><span set:html={tisser(x, ctx)}></span></li>)}</ul>
+        <ul class="venir__liste">{acc.venir_items.map((x) => {
+          const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
+          return <li><span class="venir__action" set:html={saut(tisser(action, ctx))}></span>{fin && <span class="venir__fin" set:html={saut(tisser(fin, ctx))}></span>}</li>;
+        })}</ul>
+        <script is:inline>
+          // Chaque phrase se dévoile quand elle arrive à l'écran : l'action d'abord, puis ce à quoi elle mène.
+          (function () {
+            var items = document.querySelectorAll('.venir__liste li');
+            if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach(function (li) { li.classList.add('vu'); }); return; }
+            var io = new IntersectionObserver(function (entries) {
+              entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('vu'); io.unobserve(en.target); } });
+            }, { rootMargin: '0px 0px -18% 0px' });
+            items.forEach(function (li) { io.observe(li); });
+          })();
+        </script>
       </div>
     </section>
   )}
 
-  <!-- 4. L'APPROCHE : ce qui nourrit le chemin (les offres en découlent) -->
-  <section class="bloc">
+  <!-- RESPIRATION : la fleur -->
+  <section class="breath" style={reglage('resp1_image')}>{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="nenuphar-haut" cote="haut" couleur="var(--navy)" /><Separateur id="nenuphar-bas" cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation1)}></div></section>
+
+
+  <!-- 4. PROCHAINS RENDEZ-VOUS : une porte pour qui veut me rencontrer avant de s’engager -->
+  {dates.length > 0 && (
+    <section class="bloc" style={apresBande}>
+      <div class="wrap">
+        <div class="tete-agenda">
+          <h2 set:html={fmt(acc.agenda_titre ?? 'Prochains *rendez-vous*')}></h2>
+          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
+        </div>
+        <Carrousel n={dates.length} label="Rendez-vous" classe="agenda-carrousel">{dates.map((e) => <CarteEvenement e={e} />)}</Carrousel>
+        <div style="display:flex; justify-content:center; margin-top:clamp(2.4rem, 5vw, 3.6rem);">
+          <a class="btn btn--bleu" href="/agenda">Voir tous les événements</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- RESPIRATION : le paon -->
+  <section class="breath" style={reglage('resp2_image')}>{acc.resp2_image ? <img src={acc.resp2_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="paon-haut" cote="haut" couleur="var(--surface)" /><Separateur id="paon-bas" cote="bas" couleur="var(--surface)" /><div class="phrase" set:html={fmt(acc.citation2)}></div></section>
+
+  <!-- 5. L'APPROCHE : ce dans quoi je puise, et le Codex -->
+  <section class="bloc" style={apresBande}>
+    <Trace n={3} x={85} entree={71} force={0.09} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
-      <Rosace univers={piliers} centre={acc.piliers_centre ?? 'Quintessence'} />
+      <Rangee univers={piliers} centre={''} />
       <div class="codex-invite">
         <p class="rune">Le Codex</p>
         <p class="codex-invite__texte">{acc.codex_texte ?? "Les pratiques, les notions, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre."}</p>
@@ -117,9 +233,13 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 4 bis. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
+  <!-- RESPIRATION : la cellule -->
+  <section class="breath" style={reglage('resp3_image')}>{acc.resp3_image ? <img src={acc.resp3_image} alt="" /> : <div class="ph-band"></div>}<Separateur id="cellule-haut" cote="haut" couleur="var(--surface)" /><Separateur id="cellule-bas" cote="bas" couleur="var(--navy)" /><div class="phrase" set:html={fmt(acc.citation3)}></div></section>
+
+  <!-- 6. CE QUI CHANGE TOUT : en quoi l'approche est différente -->
   {acc.difference?.length > 0 && (
-    <section class="difference">
+    <section class="difference" style={apresBande}>
+      <Trace n={4} x={30} entree={14} force={0.09} />
       <div class="wrap">
         <div class="tete">
           <p class="eyebrow">{acc.difference_eyebrow}</p>
@@ -128,8 +248,8 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
         <ol class="difference__liste">
           {acc.difference.map((x, i) => (
             <li>
-              <span class="difference__num">{['I', 'II', 'III', 'IV'][i]}</span>
-              <h3>{x.titre}</h3>
+              <h3 class:list={['avec-signe', `avec-signe--${pose(`difference-${(i % 4) + 1}`)}`]}><span>{x.titre}</span><Signe id={`difference-${(i % 4) + 1}`} /></h3>
+              {x.piege && <p class="difference__piege"><span>Le piège</span>{x.piege}</p>}
               <p set:html={tisser(x.texte, ctx)}></p>
             </li>
           ))}
@@ -138,11 +258,11 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </section>
   )}
 
-  <!-- RESPIRATION -->
-  <section class="breath">{acc.resp1_image ? <img src={acc.resp1_image} alt="" /> : <div class="ph-band"></div>}<div class="phrase" set:html={fmt(acc.citation1)}></div></section>
-
-  <!-- 5. LES SEUILS : les propositions, en conséquence -->
-  <section id="seuils">
+  <!-- 7. LES SEUILS : par où entrer -->
+  <section id="seuils" style={`padding-top:${air('seuils-haut')}; padding-bottom:${air('seuils-bas')}`}>
+    <Separateur id="seuils-haut" cote="haut" couleur="var(--navy)" />
+    <Separateur id="seuils-bas" cote="bas" couleur="var(--navy)" />
+    <Fond src={acc.seuils_image} force={F.seuils_image?.voile} lumiere={F.seuils_image?.lumiere} x={F.seuils_image?.x} y={F.seuils_image?.y} xm={F.seuils_image?.xm} ym={F.seuils_image?.ym} voilem={F.seuils_image?.voilem} lumierem={F.seuils_image?.lumierem} />
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">{acc.seuils_eyebrow ?? 'Les seuils'}</p>
@@ -155,7 +275,7 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
             <h3 class="seuil__nom">{s.nom}</h3>
             <p class="seuil__format">{s.format}</p>
             {s.texte && <p class="seuil__texte" set:html={tisser(s.texte, ctx)}></p>}
-            <div class="seuil__items">{s.items.map((p) => <Quete p={p} />)}</div>
+            <div class="seuil__items">{s.items.map((p) => <Quete p={p} vignette />)}</div>
             {s.total > s.items.length && <a class="cta seuil__tout" href={s.tout.href}>{s.tout.label} <span class="line"></span></a>}
           </div>
         ))}
@@ -163,24 +283,35 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
     </div>
   </section>
 
-  <!-- 6. PROCHAINES DATES -->
-  {dates.length > 0 && (
-    <section class="bloc">
-      <div class="wrap">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-          <p class="eyebrow">{acc.agenda_eyebrow}</p>
-          <a class="cta" href="/agenda">Voir tout l'agenda <span class="line"></span></a>
-        </div>
-        <div class="egrid">{dates.map((e) => <CarteEvenement e={e} />)}</div>
-      </div>
-    </section>
-  )}
 
-  <!-- 7. TRAVERSÉES -->
-  <Temoignages temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={acc.temoins_image ?? '/img/traversees-dune-vent.jpg'} />
+  <!-- 8. TRAVERSÉES -->
+  <Temoignages bordHaut={false} reglage={reglage('temoins_image')} temoignages={temoins} eyebrow={acc.temoins_eyebrow ?? 'Traversées'} titre="Ce qu'ils et elles en disent" note={acc.avis_note} nombre={acc.avis_nombre} lien={acc.avis_lien} image={null} />
 
-  <!-- 8. L'INVITATION : un premier pas -->
-  <section id="contact">
+  <!-- 9. L'INVITATION : un premier pas -->
+  <!-- 9. LE TERRITOIRE : où ça se vit, à Lyon -->
+  <section class="territoire" style="position:relative; min-height:min(78svh, 680px); display:flex; align-items:center;">
+    <Carte fond />
+    <Separateur id="carte-haut" cote="haut" couleur="var(--navy)" />
+    <div class="territoire__voile"></div>
+    <div class="wrap">
+      <p class="eyebrow">Le territoire</p>
+      <h2>Basé à <span class="script">Lyon</span></h2>
+      <ul class="territoire__liste">
+        {LIEUX.map((l) => (
+          <li style={`--teinte: ${l.couleur}`}>
+            {l.href ? <a href={l.href}>{l.nom}</a> : <span>{l.nom}</span>}
+            <small>{l.quoi}</small>
+          </li>
+        ))}
+      </ul>
+      <p class="carte__mot">Je me déplace aussi <strong>à domicile</strong>, sur Lyon et sa métropole. Les accompagnements se vivent en présence ou en ligne.</p>
+    </div>
+  </section>
+
+  <section id="contact" style={`padding-bottom:${air('contact-bas')}`}>
+    <Separateur id="contact-bas" cote="bas" couleur="#2B3088" />
+    <Fond src={acc.contact_image} force={F.contact_image?.voile} lumiere={F.contact_image?.lumiere} x={F.contact_image?.x} y={F.contact_image?.y} xm={F.contact_image?.xm} ym={F.contact_image?.ym} voilem={F.contact_image?.voilem} lumierem={F.contact_image?.lumierem} />
+    <Trace n={7} x={20} entree={37} force={0.06} />
     <div class="narrow">
       <div class="tete">
         <p class="eyebrow">{acc.form_eyebrow}</p>
@@ -195,16 +326,67 @@ const appelLien = (await getEntry('pages', 'contact'))!.data.appel_lien;
   <!-- Pas encore prêt : la lettre -->
   <Lettre source="accueil" eyebrow="Pas encore prêt ?" />
 
-  <!-- 9. INDIGO ENOQII : l'art, en signature (deviendra les Artefacts) -->
-  <section class="art-signature">
+  <!-- 10. INDIGO ENOQII : l'art, en dernière respiration, juste avant la signature -->
+  <section class="art-signature" style={`padding-top:${air('art-haut')}`}>
+    {(acc.art_fonds?.length ? acc.art_fonds : [acc.art_fond ?? '/img/oeuvres/spirale-glyphes.jpg']).map((src, i) => (
+      <img class:list={['art-signature__fond', i === 0 && 'vu']} src={src} alt="" loading="lazy" />
+    ))}
+    <Separateur id="art-haut" cote="haut" couleur="#2B3088" />
+    <Separateur id="pied-haut" cote="bas" couleur="#0A0F20" />
     <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:1rem;">
-        <div><p class="eyebrow">{acc.art_eyebrow}</p><h2 style="margin-top:0.8rem;" set:html={fmt(acc.art_titre)}></h2></div>
-        <a class="cta" href="/artefacts">Voir les artefacts <span class="line"></span></a>
-      </div>
-      <div class="gallery" style="margin-top:2rem;">
-        {[acc.art1_image, acc.art2_image, acc.art3_image, acc.art4_image].filter(Boolean).map((src) => <img class="slot-img" src={src} alt="Œuvre d'Indigo Enoqii" loading="lazy" />)}
-      </div>
+      <p class="eyebrow">{acc.art_eyebrow}</p>
+      <h2 set:html={fmt(acc.art_titre)}></h2>
+      {acc.art_phrase && <p class="art-signature__phrase">{acc.art_phrase}</p>}
+      <a class="btn" href="/artefacts">Voir les artefacts</a>
     </div>
   </section>
+  <script is:inline>
+    // Les œuvres de la bande finale se succèdent en fondu, sans rien précipiter.
+    (function () {
+      var fonds = document.querySelectorAll('.art-signature__fond');
+      if (fonds.length < 2) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var i = 0;
+      setInterval(function () {
+        fonds[i].classList.remove('vu');
+        i = (i + 1) % fonds.length;
+        fonds[i].classList.add('vu');
+      }, 7000);
+    })();
+  </script>
+  <script is:inline>
+    // Apparitions au défilement : chaque élément important se dévoile quand il arrive à l'écran,
+    // et les éléments frères arrivent l'un après l'autre.
+    (function () {
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var cibles = [
+        'main > section:not(#hero) .tete',
+        '.split .photo', '.split > div > *',
+        '.coeur-mot__texte p',
+        '.codex-invite > *',
+        '.difference__liste li',
+        '.seuil', '.seuil .quete',
+        '#contact .appel', '.contact-bloc',
+        '.lettre__rangee > *',
+        '.art-signature .wrap > *'
+      ].join(',');
+      var els = Array.prototype.slice.call(document.querySelectorAll(cibles)).filter(function (el) { return !el.closest('#hero'); });
+      els.forEach(function (el) {
+        var freres = Array.prototype.filter.call(el.parentNode.children, function (x) { return els.indexOf(x) !== -1; });
+        el.style.transitionDelay = Math.min(freres.indexOf(el) * 0.12, 0.6) + 's';
+        el.classList.add('apparait');
+      });
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var el = en.target;
+          el.classList.add('vu');
+          io.unobserve(el);
+          // Une fois apparu, l'élément retrouve ses effets de survol normaux.
+          setTimeout(function () { el.classList.remove('apparait', 'vu'); el.style.transitionDelay = ''; }, 1000 + parseFloat(el.style.transitionDelay || 0) * 1000);
+        });
+      }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+  </script>
 </Base>

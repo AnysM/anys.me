@@ -1,8 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import CarteEvenement from '../components/CarteEvenement.astro';
 import Lettre from '../components/Lettre.astro';
 import { getCollection, getEntry } from 'astro:content';
+import { hrefAgenda, estExterne, ligneDate, seancesAVenir, texteSeance } from '../lib/monde';
 const ag = (await getEntry('pages', 'agenda'))!.data;
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
@@ -11,26 +14,98 @@ const aVenir = all.filter((e) => e.data.date && (e.data.date_fin ?? e.data.date)
 const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
+// Trois temps : ce qui a une date, ce qui revient chaque semaine ou chaque mois, ce qui s'annonce.
 const groupes = [
-  { titre: 'À venir', items: aVenir },
+  { titre: 'Rendez-vous ponctuels', items: aVenir },
   { titre: 'Rendez-vous réguliers', items: reguliers },
-  { titre: 'Retraites & immersions', items: retraites },
+  { titre: 'À venir', items: retraites },
 ].filter((g) => g.items.length > 0);
+
+// Vue d'ensemble : c'est le calendrier. Chaque séance à venir d'un rendez-vous
+// régulier y prend sa place parmi les dates, au lieu de rester cachée derrière
+// un « prochaine : … ». Les cartes, elles, gardent une fiche par rendez-vous.
+const datees = [
+  ...aVenir.map((e) => ({ e, quand: e.data.date, texte: ligneDate(e.data) })),
+  ...reguliers.flatMap((e) => seancesAVenir(e.data).map((s) => ({ e, quand: s.date, texte: texteSeance(s) }))),
+].sort((a, b) => a.quand.getTime() - b.quand.getTime());
+const sansDate = reguliers.filter((e) => seancesAVenir(e.data).length === 0);
+
+const groupesListe = [
+  { titre: 'Les prochaines dates', items: datees },
+  { titre: 'Rendez-vous réguliers', items: sansDate.map((e) => ({ e, texte: ligneDate(e.data) })) },
+  { titre: 'À venir', items: retraites.map((e) => ({ e, texte: ligneDate(e.data) })) },
+].filter((g) => g.items.length > 0);
+
+// Vue d'ensemble : tout sur une ligne, dans le même ordre que les groupes.
+const CATEGORIES = { atelier: 'Atelier', 'voyage-sonore': 'Voyage sonore', retraite: 'Retraite', immersion: 'Immersion', residence: 'Résidence', cercle: 'Cercle', accompagnement: 'Accompagnement', soin: 'Soin' };
 ---
 <Base title="Agenda — ateliers, voyages sonores, retraites à Lyon | Anys Mechkar" description="Les prochaines dates d'Anys Mechkar : ateliers de méditation et de danse Butô, voyages sonores, cercles de parole et retraites, à Lyon et ailleurs.">
-  <section class="page-hero">{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
+  <section class="page-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>{ag.hero_image ? <img src={ag.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {ag.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap"><p class="eyebrow">{ag.hero_eyebrow}</p><h1>{ag.hero_titre}</h1></div>
   </section>
 
-  <section>
+  <section class="agenda-liste">
     <div class="wrap">
+      <div class="vues-barre"><div class="vues" role="group" aria-label="Affichage">
+        <button type="button" data-vue="cartes" aria-pressed="true"><svg class="vues__ico" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1"/><rect x="9" y="9" width="5.5" height="5.5" rx="1"/></svg>Cartes</button>
+        <button type="button" data-vue="liste" aria-pressed="false"><svg class="vues__ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5h9M5.5 8h9M5.5 12.5h9"/><circle cx="2" cy="3.5" r="0.9"/><circle cx="2" cy="8" r="0.9"/><circle cx="2" cy="12.5" r="0.9"/></svg>Vue d'ensemble</button>
+      </div></div>
+
+      <div id="vue-liste" hidden>
+        {groupesListe.map((g) => (
+          <div class="apercu__groupe">
+            <h2 class="group__title">{g.titre}</h2>
+            <ul class="apercu">
+              {g.items.map(({ e, texte: ligne }) => {
+                const href = hrefAgenda(e);
+                const externe = estExterne(href);
+                const sep = ligne.includes(' · ') ? ' · ' : ', ';
+                const [quand, ...suite] = ligne.includes(' · ') ? ligne.split(' · ') : ligne.split(/,\s*(?=\d{1,2}\s*h)/);
+                return (
+                  <li class="apercu__ligne">
+                    <a href={href} target={externe ? '_blank' : undefined} rel={externe ? 'noopener' : undefined}>
+                      <span class="apercu__vignette">{e.data.image
+                        ? <img src={e.data.image} alt="" loading="lazy" />
+                        : <span class="apercu__vignette--vide" aria-hidden="true"></span>}</span>
+                      <span class="apercu__quand">{quand}{suite.length > 0 && <span class="apercu__heure">{sep}{suite.join(' · ')}</span>}</span>
+                      <span class="apercu__titre">{e.data.titre}</span>
+                      <span class="apercu__type"><span class={`ecard__tag type-${e.data.categorie}`}>{CATEGORIES[e.data.categorie] ?? e.data.categorie}</span></span>
+                      <span class="apercu__lieu">{e.data.lieu}</span>
+                      <span class="apercu__prix">{e.data.prix}</span>
+                      <span class="apercu__cta">{externe ? (e.data.cta ?? 'En savoir plus') : 'Voir les infos'} <span aria-hidden="true">→</span></span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div id="vue-cartes">
       {groupes.map((g) => (
         <div class="group">
           <h2 class="group__title">{g.titre}</h2>
           <div class="egrid">{g.items.map((e) => <CarteEvenement e={e} />)}</div>
         </div>
       ))}
+      </div>
     </div>
   </section>
+  <script is:inline>
+    (function () {
+      var boutons = document.querySelectorAll('.vues button');
+      var vues = { cartes: document.getElementById('vue-cartes'), liste: document.getElementById('vue-liste') };
+      function montrer(nom) {
+        vues.cartes.hidden = nom !== 'cartes';
+        vues.liste.hidden = nom !== 'liste';
+        boutons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.vue === nom)); });
+        try { localStorage.setItem('vue-agenda', nom); } catch (e) {}
+      }
+      boutons.forEach(function (b) { b.addEventListener('click', function () { montrer(b.dataset.vue); }); });
+      try { var m = localStorage.getItem('vue-agenda'); if (m === 'liste') montrer('liste'); } catch (e) {}
+    })();
+  </script>
   <Lettre source="agenda" texte="Les nouvelles dates arrivent d'abord dans la lettre, avant d'être annoncées ailleurs. Une fois par mois, rien d'autre." />
 </Base>
