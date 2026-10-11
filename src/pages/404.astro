@@ -1,0 +1,37 @@
+---
+// Une adresse qui n'existe pas. On ne s'excuse pas, on remet sur le chemin.
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+---
+<Base title="Page introuvable — Anys Mechkar" description="Cette page n'existe pas ou plus." noindex>
+  <section class="perdu">
+    <div class="narrow">
+      <p class="eyebrow">Erreur 404</p>
+      <h1>Cette page s'est <span class="script">égarée</span></h1>
+      <p class="lead">L'adresse n'existe pas, ou la page a changé de nom depuis.
+        Voici par où reprendre.</p>
+
+      <div class="suite">
+        <a href="/"><Icone nom="seuil" taille={20} /><b>L'accueil</b><span>Le chemin depuis le début</span></a>
+        <a href="/agenda"><Icone nom="date" taille={20} /><b>Les prochaines dates</b><span>Ateliers, voyages sonores, cercles, retraites</span></a>
+        <a href="/soins"><Icone nom="mains" taille={20} /><b>Les soins</b><span>Massage à l'huile, soin énergétique</span></a>
+        <a href="/accompagnement"><Icone nom="format" taille={20} /><b>L'accompagnement</b><span>Traverser une transition, donner forme</span></a>
+      </div>
+
+      <p class="perdu__mot">Si tu cherchais quelque chose de précis et que tu ne le trouves pas,
+        <a href="/contact">écris-moi</a>, je te réponds.</p>
+    </div>
+  </section>
+
+  <style>
+    .perdu { min-height: 70vh; display: flex; align-items: center; text-align: center; }
+    .perdu .eyebrow { justify-content: center; }
+    .perdu h1 { margin-top: 1rem; }
+    .perdu .lead { margin: 1.4rem auto 0; }
+    .perdu .suite { margin-top: clamp(2.4rem, 5vw, 3.4rem);
+      grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 560px) { .perdu .suite { grid-template-columns: 1fr; } }
+    .perdu__mot { margin-top: 2.6rem; font-size: 0.95rem; color: var(--muted); }
+    .perdu__mot a { color: var(--gold); }
+  </style>
+</Base>
