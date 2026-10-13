@@ -10,13 +10,22 @@ const ag = (await getEntry('pages', 'agenda'))!.data;
 
 const all = (await getCollection('agenda')).filter((e) => e.data.publie);
 const aujourdhui = new Date(new Date().toDateString());
-const aVenir = all.filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui).sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
-const retraites = all.filter((e) => !e.data.date && ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
-const reguliers = all.filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
+// Chaque rendez-vous est daté par ce qui arrive en premier : sa date s'il en a
+// une, sinon sa prochaine séance. Un atelier hebdomadaire prend ainsi sa place
+// dans la file, au lieu d'attendre derrière les dates uniques.
+const quandDe = (d: any) => d.date ?? seancesAVenir(d)[0]?.date;
+const aVenir = all
+  .map((e) => ({ e, quand: quandDe(e.data) }))
+  .filter((x) => x.quand && (x.e.data.date_fin ?? x.quand) >= aujourdhui)
+  .sort((a, b) => a.quand.getTime() - b.quand.getTime())
+  .map((x) => x.e);
+const attendent = all.filter((e) => !quandDe(e.data));
+const retraites = attendent.filter((e) => ['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
+const reguliers = attendent.filter((e) => !['retraite', 'immersion', 'residence'].includes(e.data.categorie)).sort((a, b) => a.data.ordre - b.data.ordre);
 
-// Trois temps : ce qui a une date, ce qui revient chaque semaine ou chaque mois, ce qui s'annonce.
+// Trois temps : ce qui a une date, ce qui revient sans date annoncée, ce qui s'annonce.
 const groupes = [
-  { titre: 'Rendez-vous ponctuels', items: aVenir },
+  { titre: 'Les prochaines dates', items: aVenir },
   { titre: 'Rendez-vous réguliers', items: reguliers },
   { titre: 'À venir', items: retraites },
 ].filter((g) => g.items.length > 0);
@@ -25,10 +34,12 @@ const groupes = [
 // régulier y prend sa place parmi les dates, au lieu de rester cachée derrière
 // un « prochaine : … ». Les cartes, elles, gardent une fiche par rendez-vous.
 const datees = [
-  ...aVenir.map((e) => ({ e, quand: e.data.date, texte: ligneDate(e.data) })),
-  ...reguliers.flatMap((e) => seancesAVenir(e.data).map((s) => ({ e, quand: s.date, texte: texteSeance(s) }))),
+  ...all.filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
+    .map((e) => ({ e, quand: e.data.date, texte: ligneDate(e.data) })),
+  ...all.filter((e) => !e.data.date)
+    .flatMap((e) => seancesAVenir(e.data).map((s) => ({ e, quand: s.date, texte: texteSeance(s) }))),
 ].sort((a, b) => a.quand.getTime() - b.quand.getTime());
-const sansDate = reguliers.filter((e) => seancesAVenir(e.data).length === 0);
+const sansDate = reguliers;
 
 const groupesListe = [
   { titre: 'Les prochaines dates', items: datees },

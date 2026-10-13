@@ -25,7 +25,7 @@ import { LIEUX } from '../lib/lieux';
 import Icone from '../components/Icone.astro';
 import Temoignages from '../components/Temoignages.astro';
 import { getCollection, getEntry } from 'astro:content';
-import { propositions, ligneDate, hrefAgenda } from '../lib/monde';
+import { propositions, ligneDate, hrefAgenda, seancesAVenir } from '../lib/monde';
 import { UNIVERS, SEUILS } from '../lib/univers.mjs';
 import { tisser, contexte } from '../lib/lore.mjs';
 
@@ -58,15 +58,22 @@ const seuils = SEUILS.map((s, i) => ({
 
 const aujourdhui = new Date(new Date().toDateString());
 const agendaPublie = (await getCollection('agenda')).filter((e) => e.data.publie);
-// Les prochaines dates d'abord, puis les rendez-vous réguliers.
+// Chaque rendez-vous est daté par ce qui arrive en premier : sa date s'il en a
+// une, sinon sa prochaine séance. Un atelier hebdomadaire prend ainsi sa place
+// dans la file, au lieu d'attendre derrière les dates uniques.
+const quandDe = (d: any) => d.date ?? seancesAVenir(d)[0]?.date;
+const prochaines = agendaPublie
+  .map((e) => ({ e, quand: quandDe(e.data) }))
+  .filter((x) => x.quand && (x.e.data.date_fin ?? x.quand) >= aujourdhui)
+  .sort((a, b) => a.quand.getTime() - b.quand.getTime())
+  .map((x) => x.e)
+  .slice(0, 5);
+// Les rendez-vous réguliers dont aucune séance n'est encore annoncée ferment la marche.
 const reguliers = agendaPublie
-  .filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie))
+  .filter((e) => !e.data.date && !['retraite', 'immersion', 'residence'].includes(e.data.categorie)
+    && seancesAVenir(e.data).length === 0)
   .sort((a, b) => a.data.ordre - b.data.ordre)
   .slice(0, 2);
-const prochaines = agendaPublie
-  .filter((e) => e.data.date && (e.data.date_fin ?? e.data.date) >= aujourdhui)
-  .sort((a, b) => a.data.date!.getTime() - b.data.date!.getTime())
-  .slice(0, 4);
 const dates = [...prochaines, ...reguliers];
 // Le prochain rendez-vous daté : de quoi voir tout de suite ce qui vient, même en revenant.
 const prochain = prochaines[0];
@@ -137,7 +144,7 @@ const reglage = (c: string) => {
           <span class="prochain__txt">
             <span class="prochain__label">Prochain rendez-vous</span>
             <span class="prochain__titre">{prochain.data.titre}</span>
-            <span class="prochain__quand">{ligneDate(prochain.data)}{prochain.data.lieu ? ` · ${prochain.data.lieu.split(',')[0]}` : ''}</span>
+            <span class="prochain__quand">{ligneDate(prochain.data).replace('Prochaine : ', '')}{prochain.data.lieu ? ` · ${prochain.data.lieu.split(',')[0]}` : ''}</span>
           </span>
         </a>
         <a class="btn btn--bleu prochain__tout" href="/agenda">Voir tous les événements</a>
