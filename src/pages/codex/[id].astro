@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { CODEX_OUVERT } from '../../lib/etat.mjs';
 import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
 import Sigils from '../../components/Sigils.astro';
@@ -76,7 +77,7 @@ const jsonld = [
 ];
 const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length > 170 ? p.slice(0, p.lastIndexOf(' ', 170)) + '…' : p; };
 ---
-<Base title={titreSeo} description={desc} image={image} type="article" publie={publie} modifie={modifie} jsonld={jsonld} noindex={mince}>
+<Base title={titreSeo} description={desc} image={image} type="article" publie={publie} modifie={modifie} jsonld={jsonld} noindex={mince || !CODEX_OUVERT}>
   <article>
   <section class="page-hero fiche-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
     <img src={d.image ?? '/img/tex-cosmic.jpg'} alt="" />

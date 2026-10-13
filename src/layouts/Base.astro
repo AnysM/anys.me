@@ -39,7 +39,6 @@ const links = [
   { href: '/a-propos', label: 'À propos' },
   { href: '/soins', label: 'Soins' },
   { href: '/accompagnement', label: 'Accompagnement' },
-  { href: '/codex', label: 'Codex' },
 ];
 ---
 <!DOCTYPE html>
@@ -92,7 +91,6 @@ const links = [
         <a href="/accompagnement">Accompagnement</a>
         <div class="subnav">{accs.map((o) => <a href={o.data.page ?? `/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
-      <a href="/codex">Codex</a>
       <a class="ext" href="/artefacts">Artefacts</a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">

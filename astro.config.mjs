@@ -3,8 +3,10 @@ import sitemap from '@astrojs/sitemap';
 import optimizeImages from './src/integrations/optimize-images.mjs';
 import reglages from './src/integrations/reglages.mjs';
 import { rehypeLore, fichesMinces } from './src/lib/lore.mjs';
+import { CODEX_OUVERT } from './src/lib/etat.mjs';
 
-const exclues = ['/merci', '/admin', '/ateliers', '/reglages', '/essais', ...fichesMinces().map((id) => `/codex/${id}/`)];
+const exclues = ['/merci', '/admin', '/ateliers', '/reglages', '/essais',
+  ...(CODEX_OUVERT ? fichesMinces().map((id) => `/codex/${id}/`) : ['/codex'])];
 
 export default defineConfig({
   site: 'https://anys.me',

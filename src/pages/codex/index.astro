@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { CODEX_OUVERT } from '../../lib/etat.mjs';
 import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
 import Sigils from '../../components/Sigils.astro';
@@ -26,7 +27,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Le Codex', url: '/codex' }]),
 ];
 ---
-<Base title="Le Codex — méditation, Butô, chamanisme, soin énergétique | Anys Mechkar" description="Le paysage intérieur d'Anys Mechkar : méditation, danse Butô, chamanisme, soin énergétique, Human Design… Des fiches pour comprendre, et où les vivre à Lyon." jsonld={jsonld}>
+<Base title="Le Codex — méditation, Butô, chamanisme, soin énergétique | Anys Mechkar" description="Le paysage intérieur d'Anys Mechkar : méditation, danse Butô, chamanisme, soin énergétique, Human Design… Des fiches pour comprendre, et où les vivre à Lyon." jsonld={jsonld} noindex={!CODEX_OUVERT}>
   <section class="page-hero fiche-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
     <img src="/img/tex-cosmic.jpg" alt="" />
     <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />

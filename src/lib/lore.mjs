@@ -4,6 +4,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import { visit, SKIP } from 'unist-util-visit';
+import { CODEX_OUVERT } from './etat.mjs';
 
 const DIR = join(process.cwd(), 'src/content/codex');
 
@@ -74,7 +75,7 @@ const html = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g,
  */
 export function tisser(texte, ctx) {
   return decouper(texte ?? '', ctx)
-    .map((x) => (x.id ? `<a class="lore" href="/codex/${x.id}">${html(x.t)}</a>` : html(x.t)))
+    .map((x) => (x.id && CODEX_OUVERT ? `<a class="lore" href="/codex/${x.id}">${html(x.t)}</a>` : html(x.t)))
     .join('')
     .replace(/&lt;br&gt;/g, '<br>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -85,6 +86,7 @@ const INTOUCHABLES = new Set(['a', 'h1', 'h2', 'h3', 'h4', 'code', 'pre']);
 
 /** Plugin rehype : tisse les liens dans les contenus Markdown (offres, agenda, fiches). */
 export function rehypeLore() {
+  if (!CODEX_OUVERT) return () => {};
   return (arbre, fichier) => {
     const chemin = String(fichier.path ?? '');
     const soi = chemin.includes('/content/codex/') ? chemin.split('/').pop().replace(/\.md$/, '') : null;

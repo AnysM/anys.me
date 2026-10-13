@@ -8,11 +8,14 @@ import BarreAction from '../components/BarreAction.astro';
 import Carrousel from '../components/Carrousel.astro';
 import { getEntry } from 'astro:content';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../lib/seo';
+import { CODEX_OUVERT } from '../lib/etat.mjs';
 
 const o = (await getEntry('offres', 'in-carne'))!;
 const d = o.data;
 const fmt = (t = '') => t
-  .replace(/\[(.+?)\]\((.+?)\)/g, '<a class="lore" href="$2">$1</a>')
+  // Tant que le Codex est fermé, un lien qui y mène redevient du texte.
+  .replace(/\[(.+?)\]\((.+?)\)/g, (_m, mot, ou) =>
+    !CODEX_OUVERT && ou.startsWith('/codex') ? mot : `<a class="lore" href="${ou}">${mot}</a>`)
   .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
   .replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const intention = (d.intention ?? '').split(/\n\n+/).filter(Boolean);

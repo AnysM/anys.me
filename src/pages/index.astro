@@ -6,6 +6,7 @@ import Base from '../layouts/Base.astro';
 import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
 import Rangee from '../components/Rangee.astro';
+import { CODEX_OUVERT } from '../lib/etat.mjs';
 import Appel from '../components/Appel.astro';
 import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
@@ -231,12 +232,14 @@ const reglage = (c: string) => {
         <p class="eyebrow">{acc.piliers_eyebrow}</p>
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
-      <Rangee univers={piliers} centre={''} />
-      <div class="codex-invite">
-        <p class="rune">Le Codex</p>
-        <p class="codex-invite__texte">{acc.codex_texte ?? "Les pratiques, les notions, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre."}</p>
-        <a class="btn btn--bleu" href="/codex">Explorer le Codex</a>
-      </div>
+      <Rangee univers={piliers} centre={''} lien={CODEX_OUVERT} />
+      {CODEX_OUVERT && (
+        <div class="codex-invite">
+          <p class="rune">Le Codex</p>
+          <p class="codex-invite__texte">{acc.codex_texte ?? "Les pratiques, les notions, les rencontres et les réalisations qui ont nourri mon chemin. Chaque fiche te dit où tu peux venir les vivre."}</p>
+          <a class="btn btn--bleu" href="/codex">Explorer le Codex</a>
+        </div>
+      )}
     </div>
   </section>
 

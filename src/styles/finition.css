@@ -96,6 +96,8 @@ p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 
 /* Respiration : titres, blocs et schémas prennent de l'air */
 .rangee { margin-top: clamp(4rem, 9vw, 7rem); margin-bottom: clamp(2rem, 5vw, 4rem); }
+/* Sans l'invitation du Codex sous elle, la roue n'a plus de marge basse à combler. */
+.rangee--seule { margin-bottom: 0; }
 .group + .group { margin-top: clamp(4rem, 9vw, 7rem); }
 .group__title { margin-bottom: clamp(1.2rem, 3vw, 2rem); }
 .cgroupe { margin-top: clamp(3.5rem, 8vw, 6rem); }

@@ -1,4 +1,5 @@
 // Les lieux où se vit le travail, à Lyon : le studio, les partenaires, l'île.
+import { CODEX_OUVERT } from './etat.mjs';
 export type Lieu = {
   id: string;
   nom: string;
@@ -18,3 +19,6 @@ export const LIEUX: Lieu[] = [
 ];
 
 export const lieuDe = (texte = '') => LIEUX.find((l) => texte.toLowerCase().includes(l.nom.toLowerCase().split(' ')[0].toLowerCase()));
+
+// Tant que le Codex est fermé, un point nomme son lieu sans y mener.
+if (!CODEX_OUVERT) for (const l of LIEUX) if (l.href?.startsWith('/codex')) delete l.href;

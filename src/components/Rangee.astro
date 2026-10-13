@@ -1,6 +1,7 @@
 ---
 // Les cinq dimensions, en roue : chacune reliée au point sombre du centre.
-const { univers = [], centre = '' } = Astro.props;
+const { univers = [], centre = '', lien = true } = Astro.props;
+const Pastille = lien ? 'a' : 'div';
 const ORDRE = ['presence', 'connaissance', 'mouvement', 'vivant', 'art'];
 const rangs = ORDRE.map((id) => univers.find((u) => u.id === id)).filter(Boolean);
 // Tout est exprimé en pourcentage du carré : le SVG et les pastilles partagent la même géométrie.
@@ -14,7 +15,7 @@ const points = rangs.map((u, i) => {
   return { u, x: 50 + R * Math.sin(a), y: 50 - R * Math.cos(a), dx: Math.sin(a), dy: -Math.cos(a) };
 });
 ---
-<div class="rangee">
+<div class:list={['rangee', !lien && 'rangee--seule']}>
   <!-- Filtre « encre » : le trait tremble et s'épaissit légèrement, comme au pinceau -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <filter id="encre" x="-10%" y="-10%" width="120%" height="120%">
@@ -35,11 +36,11 @@ const points = rangs.map((u, i) => {
     </svg>
     <div class="rangee__liste">
       {points.map(({ u, x, y }, i) => (
-        <a class={`rangee__item u-${u.id}`} href={`/codex#${u.id}`} style={`left:${x.toFixed(2)}%; top:${y.toFixed(2)}%; --i:${i};`}>
+        <Pastille class={`rangee__item u-${u.id}`} href={lien ? `/codex#${u.id}` : undefined} style={`left:${x.toFixed(2)}%; top:${y.toFixed(2)}%; --i:${i};`}>
           <span class="rangee__picto">{u.image ? <img src={u.image} alt="" /> : <Fragment set:html={u.icon} />}</span>
           <span class="rangee__nom" set:html={u.nom}></span>
           {u.note && <span class="rangee__note">{u.note}</span>}
-        </a>
+        </Pastille>
       ))}
     </div>
   </div>

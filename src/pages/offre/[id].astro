@@ -14,6 +14,7 @@ import BarreAction from '../../components/BarreAction.astro';
 import { codexDe } from '../../lib/monde';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
+import { CODEX_OUVERT } from '../../lib/etat.mjs';
 const ICONES = { 'Durée': 'duree', 'Tarif': 'prix', 'Format': 'format', 'Modalité': 'format' };
 export async function getStaticPaths() {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie && !o.data.page);
@@ -219,14 +220,14 @@ const jsonld = [
       {(touche.length > 0 || avec.length > 0) && (
         <section class="lore-offre">
           <div class="narrow">
-            {touche.length > 0 && (
+            {CODEX_OUVERT && touche.length > 0 && (
               <div class="touche">
                 <p class="rune">Ce que ça touche</p>
                 <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
               </div>
             )}
             {avec.length > 0 && (
-              <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}<a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a></Fragment>)}</p>
+              <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}{CODEX_OUVERT ? <a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a> : a.data.titre}</Fragment>)}</p>
             )}
           </div>
         </section>
