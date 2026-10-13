@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
 import Lettre from '../../components/Lettre.astro';
+import Icone from '../../components/Icone.astro';
 import { getCollection } from 'astro:content';
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const statut = (d) => d.original === 'disponible' ? `Original disponible${d.original_prix ? ` · ${d.original_prix}` : ''}` : d.tirages_statut === 'disponible' ? 'Reproductions disponibles' : d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'acquis' ? 'Acquis' : 'Collection personnelle';
@@ -31,6 +32,14 @@ const statut = (d) => d.original === 'disponible' ? `Original disponible${d.orig
             </span>
           </a>
         ))}
+        <div class="artefact-carte artefact-carte--venir">
+          <span class="artefact-carte__img"><Icone nom="graine" taille={56} /></span>
+          <span class="artefact-carte__corps">
+            <span class="artefact-carte__titre">D'autres arrivent</span>
+            <span class="artefact-carte__sous">Les œuvres rejoignent la collection une à une, à mesure qu'elles sont photographiées et racontées.</span>
+            <span class="artefact-carte__statut">Bientôt</span>
+          </span>
+        </div>
       </div>
     </div>
   </section>
