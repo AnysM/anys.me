@@ -60,10 +60,10 @@
     "miroir": false
   },
   "artefacts-venir": {
-    "n": "comete",
+    "n": "oeil",
     "mode": "libre",
-    "taille": 110,
-    "force": 0.55,
+    "taille": 52,
+    "force": 0.5,
     "dx": 0,
     "dy": 0,
     "tour": 0,
