@@ -557,7 +557,9 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .artefact-carte__titre { font-family: 'EB Garamond', serif; font-size: 1.6rem; color: var(--cream); line-height: 1.15; }
 .artefact-carte__sous { font-family: 'EB Garamond', serif; font-style: italic; color: #C9CBD8; font-size: 1.02rem; }
 .artefact-carte--venir { border-style: dashed; border-color: rgba(236,231,222,0.16); background: transparent; }
-.artefact-carte--venir .artefact-carte__img { display: grid; place-items: center; background: rgba(255,255,255,0.016); color: var(--gold); opacity: 0.42; }
+.artefact-carte--venir .artefact-carte__img { display: grid; place-items: center; background: rgba(255,255,255,0.016); }
+/* Le glyphe garde sa taille réglée : la vignette ne le recadre pas. */
+.artefact-carte--venir .artefact-carte__img .signe { width: auto; height: var(--signe-t, 110px); object-fit: contain; }
 .artefact-carte--venir .artefact-carte__titre { color: #C9CBD8; }
 .artefact-carte--venir .artefact-carte__statut { color: var(--muted); }
 .artefact-carte__statut { margin-top: 0.5rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }

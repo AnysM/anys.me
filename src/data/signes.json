@@ -58,5 +58,15 @@
     "dy": -33,
     "tour": 25,
     "miroir": false
+  },
+  "artefacts-venir": {
+    "n": "comete",
+    "mode": "libre",
+    "taille": 110,
+    "force": 0.55,
+    "dx": 0,
+    "dy": 0,
+    "tour": 0,
+    "miroir": false
   }
 }
