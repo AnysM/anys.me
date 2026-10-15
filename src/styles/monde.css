@@ -556,7 +556,13 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .artefact-carte__corps { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.4rem 1.5rem 1.6rem; }
 .artefact-carte__titre { font-family: 'EB Garamond', serif; font-size: 1.6rem; color: var(--cream); line-height: 1.15; }
 .artefact-carte__sous { font-family: 'EB Garamond', serif; font-style: italic; color: #C9CBD8; font-size: 1.02rem; }
-.artefact-carte--venir { border-style: dashed; border-color: rgba(236,231,222,0.16); background: transparent; }
+.artefact-carte--venir { position: relative; border-style: dashed; border-color: rgba(236,231,222,0.16); background: transparent; }
+/* Le même œil, très grand et presque effacé : il déborde la carte, qui le
+   recadre, et il ne reste qu'une forme au fond. */
+.artefact-carte__fond { position: absolute; left: 50%; top: 46%; height: 168%; width: auto;
+  transform: translate(-46%, -50%) rotate(-8deg); opacity: 0.07; z-index: 0;
+  filter: brightness(0) invert(1); pointer-events: none; }
+.artefact-carte--venir > .artefact-carte__img, .artefact-carte--venir > .artefact-carte__corps { position: relative; z-index: 1; }
 .artefact-carte--venir .artefact-carte__img { display: grid; place-items: center; background: rgba(255,255,255,0.016); }
 /* Une petite touche blanche : le glyphe garde sa taille réglée, la vignette
    ne le recadre pas, et ses couleurs passent au blanc. */
