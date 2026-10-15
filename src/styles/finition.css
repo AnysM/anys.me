@@ -104,7 +104,7 @@ p a.lore .script, p .script a.lore { color: var(--indigo-soft); }
 .seuils { margin-top: clamp(3rem, 7vw, 5rem); }
 h2 + .egrid, .eyebrow + .egrid { margin-top: clamp(2rem, 5vw, 3rem); }
 .split { gap: clamp(2.5rem, 8vw, 6.5rem); }
-.tl-row { margin-bottom: clamp(4rem, 9vw, 7rem); }
+.tl-row { margin-bottom: clamp(4.5rem, 9vw, 8rem); }
 @media (max-width: 640px) { .rangee { margin-top: 2rem; } }
 
 /* Voile du hero : il se multiplie à l'image, dense sous le texte à gauche,
