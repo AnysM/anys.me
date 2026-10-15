@@ -388,6 +388,9 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 /* Un chapitre : son texte dans une colonne lisible, qui alterne de bord, et
    sa photo en grand dessous, à ses proportions d'origine. */
 .tl { position: relative; width: min(94%, 1480px); margin: 0 auto; }
+/* Le chemin traverse chaque chapitre, derrière son texte et sa photo. */
+.tl-row { isolation: isolate; }
+.tl-row > .tl-text, .tl-row > div { position: relative; z-index: 2; }
 .tl-row { position: relative; margin-bottom: clamp(4.5rem, 9vw, 8rem); }
 .tl-row:last-child { margin-bottom: 0; }
 .tl-text { position: relative; max-width: 58ch; padding-left: 2.2rem; }
