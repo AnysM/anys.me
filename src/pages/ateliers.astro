@@ -1,0 +1,94 @@
+---
+// La porte d'entrée des ateliers. Page de travail : hors menu, hors plan du
+// site, et les enregistrements ne marchent qu'en local (npm run dev).
+import REGLAGES from '../data/separateurs.json';
+import FONDS from '../data/fonds.json';
+import SIGNES from '../data/signes.json';
+
+const ATELIERS = [
+  {
+    lien: '/reglages',
+    nom: 'Les séparations',
+    quoi: 'Les bords au pinceau entre les sections : quelle forme, dans quel sens, quelle hauteur, quel débord.',
+    compte: `${Object.keys(REGLAGES).length} frontières réglées`,
+  },
+  {
+    lien: '/essais-photos',
+    nom: 'Les photos',
+    quoi: "Les photos de fond de l'accueil : en choisir une, régler son voile, sa lumière et son cadrage, sur grand écran et sur téléphone.",
+    compte: `${Object.keys(FONDS).length} emplacements`,
+  },
+  {
+    lien: '/essais-pied',
+    nom: 'Le pied de page',
+    quoi: 'Ta toile sous le pied : son mode de fusion, sa présence, sa couleur, sa lumière. Les réglages agissent sur le vrai pied, en bas de la page.',
+    compte: 'en direct',
+  },
+  {
+    lien: '/essais-signes',
+    nom: 'Les signes',
+    quoi: 'Tes glyphes posés sur la page : lequel, sa pose, sa taille, son opacité, son décalage, sa rotation.',
+    compte: `${Object.keys(SIGNES).length} présences`,
+  },
+];
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Les ateliers</title>
+</head>
+<body class="atelier">
+  <header class="tete">
+    <h1>Les ateliers</h1>
+    <p>Les pages où tu règles le site toi-même. Elles ne sont dans aucun menu et
+      n'apparaissent pas dans les moteurs de recherche. L'enregistrement passe par
+      le serveur local : il faut que <code>npm run dev</code> tourne.</p>
+  </header>
+
+  <main class="liste">
+    {ATELIERS.map((a) => (
+      <a class="carte" href={a.lien}>
+        <p class="carte__compte">{a.compte}</p>
+        <h2>{a.nom}</h2>
+        <p class="carte__quoi">{a.quoi}</p>
+        <p class="carte__lien">{a.lien}</p>
+      </a>
+    ))}
+  </main>
+
+  <footer class="pied">
+    <a href="/">Voir la page d'accueil</a>
+    <a href="/admin/index.html">Le contenu, dans Tina</a>
+  </footer>
+
+  <style is:global>
+    :root { --navy: #0A0F20; --cream: #ECE7DE; --gold: #D8A24C; }
+    * { box-sizing: border-box; }
+    body.atelier { background: #080C1A; color: var(--cream); margin: 0;
+      padding: 0 clamp(1rem, 5vw, 4rem) 5rem;
+      font-family: 'Jost', system-ui, sans-serif; font-weight: 300; line-height: 1.7; }
+    .tete { padding: 3rem 0 2rem; max-width: 60ch; }
+    .tete h1 { font-size: 1.7rem; font-weight: 400; letter-spacing: 0.06em; margin: 0 0 0.6rem; }
+    .tete p { color: #9AA0B4; margin: 0; }
+    .tete code { font-family: ui-monospace, monospace; font-size: 0.86em; color: var(--cream);
+      background: #16204A; border-radius: 4px; padding: 0.1em 0.4em; }
+
+    .liste { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+    .carte { display: block; background: #111A38; border: 1px solid rgba(236,231,222,0.1);
+      border-radius: 12px; padding: 1.6rem 1.5rem 1.3rem; text-decoration: none; color: inherit;
+      transition: border-color 0.25s, transform 0.3s; }
+    .carte:hover { border-color: rgba(216,162,76,0.55); transform: translateY(-3px); }
+    .carte__compte { margin: 0 0 0.5rem; font-size: 0.68rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); }
+    .carte h2 { margin: 0 0 0.6rem; font-size: 1.25rem; font-weight: 400; letter-spacing: 0.03em; }
+    .carte__quoi { margin: 0 0 1.2rem; color: #9AA0B4; font-size: 0.94rem; }
+    .carte__lien { margin: 0; font-family: ui-monospace, monospace; font-size: 0.78rem; color: #6E7489; }
+
+    .pied { display: flex; gap: 1.6rem; flex-wrap: wrap; margin-top: 2.6rem; }
+    .pied a { color: var(--gold); font-size: 0.84rem; letter-spacing: 0.06em; }
+  </style>
+</body>
+</html>

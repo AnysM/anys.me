@@ -1,0 +1,20 @@
+---
+// Un fragment de ton tracé : il prend toute la hauteur de la section,
+// entre par le bord du haut et ressort par le bord du bas.
+// La hauteur commande, la largeur suit : l'encre n'est jamais déformée.
+// « x » place le point d'entrée sur la largeur de la page,
+// « entree » dit où ce point se trouve dans l'image elle-même.
+// Ses deux bouts se dissolvent : il entre et il sort sans jamais se couper net.
+// « miroir » le retourne pour qu'il parte dans l'autre sens ; son point d'entrée
+// se retourne avec lui, on n'a donc rien d'autre à changer.
+const { n, x = 50, entree = 50, force = 0.1, debord = 0, miroir = false } = Astro.props;
+const place = miroir ? 100 - entree : entree;
+---
+<img
+  class="trace"
+  src={`/img/chemin/t${n}.png`}
+  alt=""
+  aria-hidden="true"
+  loading="lazy"
+  style={`left:${x}%; transform:translateX(-${place}%)${miroir ? ' scaleX(-1)' : ''}; opacity:${force}; --debord:${debord}px`}
+/>

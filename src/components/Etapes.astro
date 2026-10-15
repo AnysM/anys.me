@@ -1,14 +1,16 @@
 ---
 // « Comment ça se passe » : les étapes d'un soin ou d'un accompagnement, illustrées.
 import Icone from './Icone.astro';
-const { etapes = [], titre = 'Comment ça se passe' } = Astro.props;
+const { etapes = [], titre = '*Comment* ça se passe' } = Astro.props;
+const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+
 ---
 {etapes.length > 0 && (
   <section class="etapes-bloc">
     <div class="wrap">
       <div class="tete">
         <p class="eyebrow">Le déroulé</p>
-        <h2>{titre}</h2>
+        <h2 set:html={avecScript(titre)}></h2>
       </div>
       <ol class="etapes" style={`--n:${etapes.length}`}>
         {etapes.map((e, i) => (

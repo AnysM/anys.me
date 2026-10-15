@@ -1,0 +1,47 @@
+---
+// Un seul geste : un trait d'encre qui descend toute la page et se trace au défilement.
+// Pas de halo, pas de flou — une ligne, comme au pinceau.
+---
+<div class="fil" aria-hidden="true">
+  <svg viewBox="0 0 100 1000" preserveAspectRatio="none">
+    <path
+      class="fil__trait fil__trait--large"
+      d="M 70 0 C 82 60, 26 96, 22 150 C 18 206, 78 224, 80 282 C 82 342, 20 352, 18 414 C 16 474, 74 492, 76 548 C 78 606, 22 620, 20 678 C 18 736, 70 752, 72 806 C 74 858, 30 874, 28 920 C 27 956, 44 978, 52 1000"
+    />
+    <path
+      class="fil__trait fil__trait--fin"
+      d="M 70 0 C 82 60, 26 96, 22 150 C 18 206, 78 224, 80 282 C 82 342, 20 352, 18 414 C 16 474, 74 492, 76 548 C 78 606, 22 620, 20 678 C 18 736, 70 752, 72 806 C 74 858, 30 874, 28 920 C 27 956, 44 978, 52 1000"
+    />
+  </svg>
+</div>
+
+<script is:inline>
+  (function () {
+    var fil = document.querySelector('.fil');
+    if (!fil) return;
+    var traits = fil.querySelectorAll('.fil__trait');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      traits.forEach(function (t) { t.style.strokeDashoffset = 0; });
+      return;
+    }
+    var longueurs = [];
+    traits.forEach(function (t, i) {
+      var l = t.getTotalLength();
+      longueurs[i] = l;
+      t.style.strokeDasharray = l;
+      t.style.strokeDashoffset = l;
+    });
+    var tic = false;
+    function trace() {
+      tic = false;
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+      // Le trait prend un peu d'avance sur la lecture
+      var avance = Math.min(1, p * 1.12 + 0.04);
+      traits.forEach(function (t, i) { t.style.strokeDashoffset = longueurs[i] * (1 - avance); });
+    }
+    window.addEventListener('scroll', function () { if (!tic) { tic = true; requestAnimationFrame(trace); } }, { passive: true });
+    window.addEventListener('resize', trace);
+    trace();
+  })();
+</script>

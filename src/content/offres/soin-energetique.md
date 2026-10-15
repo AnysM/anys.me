@@ -3,7 +3,7 @@ titre: "Soin énergétique"
 categorie: soin
 duree: "1h30"
 prix: "80€"
-format: "Sur rendez-vous"
+format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin subtil"
 resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
 accueil: true
@@ -27,8 +27,8 @@ faq:
   - q: "Où ont lieu les soins ?"
     r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
-    r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble. Je te réponds sous 48 h."
-image: /img/soin-energetique.jpg
+    r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble."
+image: /img/photos/dscf1640.jpg
 ---
 Un soin profond de purification et de réharmonisation de la sphère énergétique.
 

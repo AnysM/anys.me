@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Separateur from '../components/Separateur.astro';
+import { airSousBord } from '../lib/bords';
 import { getCollection, getEntry } from 'astro:content';
 import Appel from '../components/Appel.astro';
 const items = (await getCollection('offres')).filter((o) => o.data.publie && o.data.categorie === 'accompagnement').sort((a, b) => a.data.ordre - b.data.ordre);
@@ -7,16 +9,33 @@ const ac = (await getEntry('pages', 'accompagnement')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const outils = ac.outils ?? [];
 ---
-<Base title="Accompagnement — Anys Mechkar">
-  <section class="page-hero">{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band"></div>}
+<Base title="Accompagnement des transitions de vie à Lyon — Anys Mechkar" description="Accompagnement individuel, Prisme Origine et parcours initiatiques, à Lyon ou en ligne, pour traverser une transition et donner forme à ce qui te tient à cœur.">
+  <section class="page-hero" style={`min-height:52vh; --hero-y:62%; padding-bottom:${airSousBord('page-bas')}`}>{ac.hero_image ? <img src={ac.hero_image} alt="" /> : <div class="ph-band"></div>}
+    {ac.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{ac.hero_eyebrow}</p><h1>{ac.hero_titre}</h1></div>
   </section>
 
-  <!-- CŒUR À CŒUR -->
-  <section class="coeur">
-    <div class="wrap split">
-      <div class="photo">{ac.portrait_image ? <img class="slot-img" src={ac.portrait_image} alt="" /> : <div class="imgph"><span>ACCOMP-PORTRAIT</span></div>}</div>
-      <div class="coeur__text">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
+  <!-- Un seul niveau : l'intention, puis les propositions. On arrive au choix
+       après un écran, sans détour par un portrait — il est déjà sur l'accueil. -->
+  <section class="entree">
+    <div class="narrow entree__tete">
+      {ac.formules_eyebrow && <p class="eyebrow">{ac.formules_eyebrow}</p>}
+      <h2 set:html={fmt(ac.formules_titre)}></h2>
+      <div class="entree__mot">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
+    </div>
+    <div class="wrap entree__cartes">
+        {items.map((o) => (
+          <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
+            <div class="evt__img">{o.data.image ? <img src={o.data.image} alt={o.data.titre} /> : <div class="imgph"><span>Photo</span></div>}</div>
+            <div class="evt__body">
+              <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
+              <div class="evt__title">{o.data.titre}</div>
+              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
+              {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
+              <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
+            </div>
+          </a>
+        ))}
     </div>
   </section>
 
@@ -32,7 +51,7 @@ const outils = ac.outils ?? [];
   <!-- LES OUTILS -->
   <section style="padding:0;">
     <div class="univers rev">
-      <div class="univers__img">{ac.outils_image ? <img class="slot-img" src={ac.outils_image} alt="" /> : <div class="imgph"><span>ACCOMP-UNIVERS</span></div>}</div>
+      <div class="univers__img" style="--img-x:62%;">{ac.outils_image ? <img class="slot-img" src={ac.outils_image} alt="" /> : <div class="imgph"><span>ACCOMP-UNIVERS</span></div>}</div>
       <div class="univers__body">
         <p class="eyebrow" style="margin-bottom:0.6rem;">{ac.outils_eyebrow}</p>
         <h2 set:html={fmt(ac.outils_titre)}></h2>
@@ -48,32 +67,11 @@ const outils = ac.outils ?? [];
     </div>
   </section>
 
-  <!-- LES FORMULES -->
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">{ac.formules_eyebrow}</p>
-      <h2 style="margin-top:0.8rem;" set:html={fmt(ac.formules_titre)}></h2>
-      <div style="margin-top:2.4rem;">
-        {items.map((o) => (
-          <a class="evt" href={`/offre/${o.id}`}>
-            <div class="evt__img">{o.data.image ? <img src={o.data.image} alt={o.data.titre} /> : <div class="imgph"><span>Photo</span></div>}</div>
-            <div class="evt__body">
-              <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
-              <div class="evt__title">{o.data.titre}</div>
-              <div class="evt__desc" set:html={fmt(o.data.resume)}></div>
-              {o.data.prix && <div class="evt__meta">{o.data.prix}</div>}
-              <span class="cta" style="margin-top:0.4rem;">Découvrir <span class="line"></span></span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
   <section class="invite">
     <div class="narrow">
       <p class="eyebrow">Un premier pas</p>
       <h2>Et si on en parlait ?</h2>
-      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Un premier échange pour sentir ce que tu traverses et le cadre juste pour toi. Je te réponds sous 48 h.</p>
+      <p class="muted" style="margin:0.9rem auto 0; max-width:46ch;">Un premier échange pour sentir ce que tu traverses et le cadre juste pour toi.</p>
       <div class="invite__btns"><Appel pour="Accompagnement" centre /></div>
     </div>
   </section>
