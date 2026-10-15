@@ -20,20 +20,38 @@ const chapitres = (await recit()).map((c) => ({ ...c, html: c.texte.split(/\n\n+
 
   <section>
     <div class="tl">
-      {chapitres.map((c, i) => (
-        <div class={`tl-row ${i % 2 === 0 ? 'text-left' : 'text-right'}`} id={c.ancre}>
-          <Trace n={(i % 9) + 1} x={i % 2 === 0 ? 80 : 20} entree={i % 2 === 0 ? 24 : 76}
-            force={0.085} miroir={i % 2 === 1} />
-          <div class="tl-text"><span class="tl-dot"></span><h2>{c.titre}</h2>{c.html.map((par) => <p set:html={par}></p>)}</div>
-          <div>{c.image && (
-            <div class="tl-media">
-              <Separateur id={i % 2 === 0 ? 'photo-haut' : 'photo2-haut'} cote="haut" couleur="var(--navy)" />
+      {chapitres.map((c, i) => {
+        const allure = c.allure ?? 'pleine';
+        const cote = i % 2 === 0 ? 'text-left' : 'text-right';
+        // Où la photo se glisse dans le texte : après le Nième paragraphe, ou à la fin.
+        const coupe = Math.min(Math.max(c.apres ?? c.html.length, 0), c.html.length);
+        const avant = allure === 'face' ? c.html : c.html.slice(0, coupe);
+        const suite = allure === 'face' ? [] : c.html.slice(coupe);
+        const media = c.image && (
+          <div class:list={['tl-media', `tl-media--${allure}`]}>
+            {allure !== 'face' && <Separateur id={i % 2 === 0 ? 'photo-haut' : 'photo2-haut'} cote="haut" couleur="var(--navy)" />}
+            <div class="tl-media__vues">
               <img src={c.image} alt={c.titre} loading="lazy" />
-              <Separateur id={i % 2 === 0 ? 'photo-bas' : 'photo2-bas'} cote="bas" couleur="var(--navy)" />
+              {allure === 'paire' && c.image2 && <img src={c.image2} alt="" loading="lazy" />}
             </div>
-          )}</div>
-        </div>
-      ))}
+            {allure === 'souffle' && c.phrase && <div class="tl-media__phrase"><span class="script">{c.phrase}</span></div>}
+            {allure !== 'face' && <Separateur id={i % 2 === 0 ? 'photo-bas' : 'photo2-bas'} cote="bas" couleur="var(--navy)" />}
+          </div>
+        );
+        return (
+          <div class:list={['tl-row', `tl-row--${allure}`, cote]} id={c.ancre}>
+            <Trace n={(i % 9) + 1} x={i % 2 === 0 ? 80 : 20} entree={i % 2 === 0 ? 24 : 76}
+              force={0.085} miroir={i % 2 === 1} />
+            <div class="tl-text">
+              <span class="tl-dot"></span>
+              <h2>{c.titre}</h2>
+              {avant.map((par) => <p set:html={par}></p>)}
+            </div>
+            {media}
+            {suite.length > 0 && <div class="tl-text tl-text--suite">{suite.map((par) => <p set:html={par}></p>)}</div>}
+          </div>
+        );
+      })}
     </div>
     <p class="tl-end script">La suite s'écrit encore.</p>
     <div class="wrap" style="text-align:center; margin-top:2.4rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">

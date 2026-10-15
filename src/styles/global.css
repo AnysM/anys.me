@@ -402,9 +402,36 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .tl-text p + p { margin-top: 0.8rem; }
 /* La photo n'est pas encadrée : elle traverse la page d'un bord à l'autre. */
 .tl-media { position: relative; width: 100vw; margin-left: calc(50% - 50vw); margin-top: clamp(2.4rem, 4.5vw, 3.6rem); }
+.tl-media__vues { display: flex; }
 .tl-media img { display: block; width: 100%; height: clamp(360px, 68vh, 820px);
   object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 50%); }
-.tl-end { text-align: center; color: var(--muted); font-size: clamp(1.5rem, 3vw, 2.1rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+.tl-text--suite { margin-top: clamp(2.4rem, 4.5vw, 3.6rem); }
+.tl-row.text-right .tl-text--suite { margin-left: auto; }
+
+/* Deux photos côte à côte, sans rien entre elles. */
+.tl-media--paire img { width: 50%; height: clamp(300px, 56vh, 680px); }
+.tl-media--paire .tl-media__vues > img:only-child { width: 100%; }
+
+/* Une bande qui porte une phrase : la photo s'assombrit pour la laisser lire. */
+.tl-media--souffle img { filter: brightness(0.62); }
+.tl-media__phrase { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
+  margin: 0; padding: 0 8vw; width: 100%; max-width: none; text-align: center; color: var(--cream);
+  font-size: clamp(1.6rem, 3.6vw, 3rem); line-height: 1.25;
+  text-shadow: 0 2px 24px rgba(7,11,24,0.6); pointer-events: none; }
+.tl-media__phrase span { display: block; max-width: 15em; }
+
+/* La photo en face du texte : elle tient sa moitié et sort par le bord. */
+@media (min-width: 821px) {
+  .tl-row--face { display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+  .tl-row--face .tl-text { max-width: none; }
+  .tl-row--face .tl-media { width: auto; margin: 0; }
+  .tl-row--face .tl-media img { height: clamp(420px, 74vh, 900px); }
+  .tl-row--face.text-left .tl-media { margin-right: calc(50% - 50vw); }
+  .tl-row--face.text-right .tl-text { order: 2; }
+  .tl-row--face.text-right .tl-media { order: 1; margin-left: calc(50% - 50vw); }
+}
+.tl-end { text-align: center; max-width: none; color: var(--muted); font-size: clamp(1.5rem, 3vw, 2.1rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
 
 /* ════════════════════════════════
    OPTIMISATION MOBILE
@@ -448,6 +475,8 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   .tl-row { margin-bottom: 3.4rem; }
   .tl-text { padding-left: 1.6rem; }
   .tl-media img { height: clamp(260px, 52vh, 460px); }
+  .tl-media--paire img { height: clamp(200px, 38vh, 340px); }
+  .tl-text--suite { padding-left: 1.6rem; }
   .tl-end { text-align: left; padding-left: 1.6rem; }
 
   /* Sections numérotées d'accueil */

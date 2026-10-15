@@ -137,7 +137,18 @@ const pages = defineCollection({
     appel_texte: z.string().optional(),
     appel_cta: z.string().optional(),
     temoins: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
-    chapitres: z.array(z.object({ titre: z.string(), texte: z.string(), image: z.string().optional(), echos: refs.optional() })).optional(),
+    chapitres: z.array(z.object({
+      titre: z.string(), texte: z.string(),
+      image: z.string().optional(),
+      // L'allure de la photo : une bande pleine largeur, posée en face du texte,
+      // en paire, ou portant une phrase. Rien d'indiqué : la bande.
+      allure: z.enum(['pleine', 'face', 'paire', 'souffle']).optional(),
+      image2: z.string().optional(),
+      phrase: z.string().optional(),
+      // Après quel paragraphe la photo se pose. Rien d'indiqué : à la fin.
+      apres: z.number().optional(),
+      echos: refs.optional(),
+    })).optional(),
     seuils: z.array(z.object({ titre: z.string().optional(), texte: z.string().optional() })).optional(),
     seuils_eyebrow: z.string().optional(),
     coeur_eyebrow: z.string().optional(),
