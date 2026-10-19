@@ -9,6 +9,7 @@ import '../styles/mouvement.css';
 import { getCollection } from 'astro:content';
 import { personne, siteWeb, lieu } from '../lib/seo';
 import { typeLabel } from '../lib/univers.mjs';
+import { CODEX_OUVERT } from '../lib/etat.mjs';
 const {
   title = 'Anys Mechkar',
   description = "Soins, accompagnement et espaces de présence. Anys Mechkar, guide, créateur et initiateur.",
@@ -39,6 +40,7 @@ const links = [
   { href: '/a-propos', label: 'À propos' },
   { href: '/soins', label: 'Soins' },
   { href: '/accompagnement', label: 'Accompagnement' },
+  ...(CODEX_OUVERT ? [{ href: '/codex', label: 'Codex' }] : []),
 ];
 ---
 <!DOCTYPE html>
@@ -91,6 +93,7 @@ const links = [
         <a href="/accompagnement">Accompagnement</a>
         <div class="subnav">{accs.map((o) => <a href={o.data.page ?? `/offre/${o.id}`}>{o.data.titre}</a>)}</div>
       </div>
+      {CODEX_OUVERT && <a href="/codex">Codex</a>}
       <a class="ext" href="/artefacts">Artefacts</a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
