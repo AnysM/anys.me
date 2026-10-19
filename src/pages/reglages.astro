@@ -1,0 +1,242 @@
+---
+// Atelier des séparations. Page de travail : elle n'apparaît ni dans le menu,
+// ni dans le plan du site, et l'enregistrement ne marche qu'en local (npm run dev).
+import { getEntry } from 'astro:content';
+import { BORDS } from '../lib/bords';
+import REGLAGES from '../data/separateurs.json';
+// Pas d'import des feuilles du site : il décalerait l'ordre du CSS global.
+// L'atelier porte les quelques règles dont il a besoin.
+
+const acc = (await getEntry('pages', 'accueil'))!.data;
+
+// Chaque séparation, avec ce qu'il y a de part et d'autre : l'aperçu est fidèle.
+const SEPS = [
+  { id: 'hero-bas', titre: 'Sortie du hero', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.hero_photo ?? '/img/hero-fusion.jpg' },
+  { id: 'coeur-haut', titre: 'Sous le prochain rendez-vous', cote: 'haut',
+    couleur: 'var(--navy)', dessus: '#0A0F20', dessous: '#111A38' },
+  { id: 'nenuphar-haut', titre: 'Entrée du nénuphar', cote: 'haut',
+    couleur: 'var(--navy)', dessus: '#0A0F20', photo: acc.resp1_image },
+  { id: 'nenuphar-bas', titre: 'Sortie du nénuphar', cote: 'bas',
+    couleur: 'var(--surface)', dessous: '#111A38', photo: acc.resp1_image },
+  { id: 'seuils-haut', titre: 'Entrée de Par où entrer', cote: 'haut',
+    couleur: 'var(--navy)', dessus: '#0A0F20', photo: acc.seuils_image },
+  { id: 'paon-haut', titre: 'Entrée du paon', cote: 'haut',
+    couleur: 'var(--surface)', dessus: '#111A38', photo: acc.resp2_image },
+  { id: 'paon-bas', titre: 'Sortie du paon', cote: 'bas',
+    couleur: 'var(--surface)', dessous: '#111A38', photo: acc.resp2_image },
+  { id: 'cellule-haut', titre: 'Entrée de la cellule', cote: 'haut',
+    couleur: 'var(--surface)', dessus: '#111A38', photo: acc.resp3_image },
+  { id: 'cellule-bas', titre: 'Sortie de la cellule', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.resp3_image },
+  { id: 'temoins-bas', titre: 'Sortie des témoignages', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.temoins_image ?? '/img/traversees-dune-vent.jpg' },
+  { id: 'seuils-bas', titre: 'Sortie de Par où entrer', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.seuils_image },
+  { id: 'danse-bas', titre: 'Sortie d’Apprendre à danser', cote: 'bas',
+    couleur: 'var(--navy)', dessous: '#0A0F20', photo: acc.danse_image },
+  { id: 'contact-bas', titre: 'Sortie d’Écris-moi', cote: 'bas',
+    couleur: '#2B3088', dessous: '#2B3088', photo: acc.contact_image },
+  { id: 'pied-haut', titre: 'Entrée du pied de page', cote: 'bas',
+    couleur: '#0A0F20', dessous: '#0A0F20', photo: '/img/univers-art.jpg' },
+  { id: 'art-haut', titre: 'Entrée de l’univers artistique', cote: 'haut',
+    couleur: '#2B3088', dessus: '#2B3088', dessous: '#0A0F20' },
+];
+const R: Record<string, any> = REGLAGES as any;
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Atelier des séparations</title>
+</head>
+<body class="atelier">
+  <header class="atelier__tete">
+    <h1>Atelier des séparations</h1>
+    <p>Chaque frontière de la page d'accueil. Choisis la forme, son sens, sa hauteur
+      et sa largeur. L'aperçu est à la largeur réelle de la page.</p>
+    <div class="atelier__actions">
+      <button id="enregistrer" class="bouton">Enregistrer</button>
+      <a class="bouton bouton--creux" href="/" target="_blank">Voir la page d'accueil</a>
+      <label class="atelier__bascule"><input type="checkbox" id="contraste" checked /> Voir la forme en clair</label>
+      <span id="etat" class="atelier__etat"></span>
+    </div>
+  </header>
+
+  {SEPS.map((s) => {
+    const r = R[s.id] ?? {};
+    return (
+      <section class="sep" data-id={s.id} data-cote={s.cote} data-couleur={s.couleur}>
+        <h2>{s.titre}</h2>
+
+        <div class="apercu" style={`--dessus:${s.dessus ?? 'transparent'}; --dessous:${s.dessous ?? 'transparent'}`}>
+          {s.photo && <img class="apercu__photo" src={s.photo} alt="" />}
+          <div class={`brosse brosse--${s.cote}`} data-brosse data-couleur={s.couleur}></div>
+        </div>
+
+        <div class="reglages">
+          <div class="champ champ--formes">
+            <label>Forme</label>
+            <div class="formes">
+              {[1, 2, 3, 4].map((n) => (
+                <button type="button" class="forme" data-bord={n}
+                  style={`--img:url(/img/brosses/bord-${n}.png)`} aria-pressed={String((r.bord ?? 1) === n)}>
+                  <span>{n}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="champ">
+            <label><input type="checkbox" data-retourne checked={!!r.retourne} /> Retourner le trait</label>
+          </div>
+
+          <div class="champ">
+            <label>Hauteur <b data-sortie="hauteur">{r.hauteur ?? 100} %</b></label>
+            <input type="range" data-reglage="hauteur" min="30" max="220" step="2" value={r.hauteur ?? 100} />
+            <small>100 % = les proportions exactes de ton trait</small>
+          </div>
+
+          <div class="champ">
+            <label>Largeur <b data-sortie="largeur">{r.largeur ?? 100} %</b></label>
+            <input type="range" data-reglage="largeur" min="50" max="260" step="2" value={r.largeur ?? 100} />
+            <small>100 % = le trait traverse la page une fois</small>
+          </div>
+
+          <div class="champ">
+            <label>Décalage <b data-sortie="decalage">{r.decalage ?? 0} %</b></label>
+            <input type="range" data-reglage="decalage" min="0" max="100" step="1" value={r.decalage ?? 0} />
+            <small>par où on entre dans le trait</small>
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <style is:global>
+    /* Les mêmes règles que sur le site, recopiées ici pour ne rien déplacer. */
+    .brosse { position: absolute; left: 0; right: 0; z-index: 2; background-color: currentColor;
+      pointer-events: none;
+      -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
+      mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x; }
+    .brosse--bas { bottom: -1px; }
+    .brosse--haut { top: -1px; transform: scaleY(-1); }
+    .brosse--bas.brosse--retournee { transform: scaleX(-1); }
+    .brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
+    :root { --navy: #0A0F20; --navy2: #0E1530; --surface: #111A38; }
+    * { box-sizing: border-box; }
+    body.atelier { background: #080C1A; color: #ECE7DE; font-family: 'Jost', system-ui, sans-serif; padding: 0 0 6rem; }
+    .atelier__tete { padding: 2.4rem clamp(1rem, 4vw, 3rem) 1.6rem; border-bottom: 1px solid rgba(236,231,222,0.12); }
+    .atelier__tete h1 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0.06em; margin: 0 0 0.5rem; }
+    .atelier__tete p { color: #9AA0B4; max-width: 60ch; margin: 0 0 1.2rem; line-height: 1.6; }
+    .atelier__actions { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+    .bouton { background: #D8A24C; color: #0A0F20; border: 1px solid #D8A24C; border-radius: 999px;
+      padding: 0.6rem 1.4rem; font: inherit; letter-spacing: 0.08em; text-transform: uppercase;
+      font-size: 0.74rem; cursor: pointer; text-decoration: none; }
+    .bouton--creux { background: transparent; color: #D8A24C; }
+    .atelier__etat { color: #8FB3FF; font-size: 0.82rem; }
+
+    .sep { padding: 2.4rem clamp(1rem, 4vw, 3rem); border-bottom: 1px solid rgba(236,231,222,0.08); }
+    .sep h2 { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #D8A24C; font-weight: 500; margin: 0 0 1rem; }
+
+    .apercu { position: relative; width: 100%; min-height: 220px; overflow: hidden;
+      background: linear-gradient(to bottom, var(--dessus) 0 50%, var(--dessous) 50% 100%); }
+    .apercu__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    /* En contraste, la forme passe en crème sur un fond sourd : on la lit sans hésiter. */
+    .apercu--clair .apercu__photo { opacity: 0.25; }
+
+    .atelier__bascule { display: inline-flex; align-items: center; gap: 0.45rem;
+      color: #9AA0B4; font-size: 0.76rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+    .atelier__bascule input { accent-color: #D8A24C; }
+
+    .reglages { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1.4rem 2rem; margin-top: 1.4rem; align-items: start; }
+    .champ label { display: block; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #9AA0B4; margin-bottom: 0.5rem; }
+    .champ label b { color: #ECE7DE; font-weight: 500; }
+    .champ small { display: block; color: #6E7489; font-size: 0.72rem; margin-top: 0.35rem; }
+    .champ input[type=range] { width: 100%; accent-color: #D8A24C; }
+    .champ input[type=checkbox] { accent-color: #D8A24C; margin-right: 0.4rem; }
+
+    .formes { display: flex; gap: 0.5rem; }
+    .forme { position: relative; width: 74px; height: 42px; border-radius: 6px; cursor: pointer;
+      border: 1px solid rgba(236,231,222,0.18); background: #111A38; overflow: hidden; }
+    .forme::after { content: ''; position: absolute; inset: 0; background: #ECE7DE;
+      -webkit-mask: var(--img) 0 0 / 100% 100% no-repeat; mask: var(--img) 0 0 / 100% 100% no-repeat; opacity: 0.55; }
+    .forme[aria-pressed=true] { border-color: #D8A24C; }
+    .forme[aria-pressed=true]::after { opacity: 1; }
+    .forme span { position: absolute; left: 4px; top: 2px; font-size: 0.66rem; color: #6E7489; z-index: 1; }
+  </style>
+
+  <script is:inline define:vars={{ BORDS, REGLAGES }}>
+    const etat = JSON.parse(JSON.stringify(REGLAGES));
+
+    function applique(sec) {
+      const id = sec.dataset.id;
+      const r = etat[id];
+      const f = BORDS[r.bord] || BORDS[1];
+      const b = sec.querySelector('[data-brosse]');
+      const h = Math.round(f.h * (r.hauteur / 100) * 100 / r.largeur);
+      b.style.aspectRatio = f.l + ' / ' + h;
+      b.style.setProperty('--brosse-img', 'url(/img/brosses/bord-' + r.bord + '.png)');
+      b.style.setProperty('--brosse-l', r.largeur + '%');
+      b.style.setProperty('--brosse-x', r.decalage + '%');
+      b.classList.toggle('brosse--retournee', !!r.retourne);
+      // en contraste, la forme passe en crème : on la lit même entre deux bleus voisins
+      const clair = document.getElementById('contraste').checked;
+      b.style.color = clair ? '#ECE7DE' : b.dataset.couleur;
+      sec.querySelectorAll('.forme').forEach((x) =>
+        x.setAttribute('aria-pressed', String(Number(x.dataset.bord) === r.bord)));
+      sec.querySelector('[data-sortie=hauteur]').textContent = r.hauteur + ' %';
+      sec.querySelector('[data-sortie=largeur]').textContent = r.largeur + ' %';
+      sec.querySelector('[data-sortie=decalage]').textContent = r.decalage + ' %';
+      // le cadre s'ouvre assez pour montrer toute la bande, et un peu d'avant-après
+      requestAnimationFrame(() => {
+        const ap = sec.querySelector('.apercu');
+        ap.style.height = Math.max(220, Math.round(b.getBoundingClientRect().height) + 150) + 'px';
+      });
+    }
+
+    document.querySelectorAll('.sep').forEach((sec) => {
+      const id = sec.dataset.id;
+      if (!etat[id]) etat[id] = { bord: 1, retourne: false, hauteur: 100, largeur: 100, decalage: 0 };
+      sec.querySelectorAll('.forme').forEach((btn) => {
+        btn.addEventListener('click', () => { etat[id].bord = Number(btn.dataset.bord); applique(sec); });
+      });
+      sec.querySelector('[data-retourne]').addEventListener('change', (e) => {
+        etat[id].retourne = e.target.checked; applique(sec);
+      });
+      sec.querySelectorAll('[data-reglage]').forEach((inp) => {
+        inp.addEventListener('input', () => { etat[id][inp.dataset.reglage] = Number(inp.value); applique(sec); });
+      });
+      applique(sec);
+    });
+
+    const bascule = document.getElementById('contraste');
+    function contraste() {
+      document.querySelectorAll('.apercu').forEach((a) => a.classList.toggle('apercu--clair', bascule.checked));
+    }
+    bascule.addEventListener('change', () => { contraste(); document.querySelectorAll('.sep').forEach(applique); });
+    contraste();
+    document.querySelectorAll('.sep').forEach(applique);
+
+    document.getElementById('enregistrer').addEventListener('click', async () => {
+      const dire = document.getElementById('etat');
+      dire.textContent = 'Enregistrement…';
+      try {
+        const rep = await fetch('/__reglages', {
+          method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(etat, null, 2),
+        });
+        const j = await rep.json();
+        dire.textContent = j.ok ? 'Enregistré. Recharge la page d’accueil.' : 'Échec : ' + j.erreur;
+      } catch (e) {
+        dire.textContent = 'Échec : cette page n’enregistre qu’en local (npm run dev).';
+      }
+    });
+  </script>
+</body>
+</html>

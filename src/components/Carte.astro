@@ -1,0 +1,68 @@
+---
+// La carte de Lyon : un fond sombre et nu, les deux rivières reprises en indigo,
+// et les lieux en points d'or. Leaflet est servi depuis le site.
+import { LIEUX } from '../lib/lieux';
+
+const { lieux = LIEUX, zoom = 13, fond = false } = Astro.props;
+const centre = {
+  lat: (Math.max(...lieux.map((l) => l.lat)) + Math.min(...lieux.map((l) => l.lat))) / 2,
+  lon: (Math.max(...lieux.map((l) => l.lon)) + Math.min(...lieux.map((l) => l.lon))) / 2,
+};
+---
+<div
+  class={`carte${fond ? ' carte--fond' : ''}`}
+  data-carte
+  data-lieux={JSON.stringify(lieux)}
+  data-centre={JSON.stringify(centre)}
+  data-zoom={zoom}
+></div>
+
+<link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+<script is:inline>
+  (function () {
+    var plans = document.querySelectorAll('[data-carte]');
+    if (!plans.length) return;
+
+    function dessine(plan) {
+      var lieux = JSON.parse(plan.dataset.lieux);
+      var centre = JSON.parse(plan.dataset.centre);
+      var carte = L.map(plan, {
+        center: [centre.lat, centre.lon],
+        zoom: Number(plan.dataset.zoom),
+        scrollWheelZoom: false,
+        zoomControl: false,
+        attributionControl: true,
+      });
+      L.control.zoom({ position: 'bottomright' }).addTo(carte);
+      L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 16,
+        attribution: 'Esri · © OpenStreetMap',
+      }).addTo(carte);
+      lieux.forEach(function (l) {
+        var point = L.marker([l.lat, l.lon], {
+          icon: L.divIcon({ className: 'carte__epingle', html: '<span style="--teinte:' + l.couleur + '"></span>', iconSize: [18, 18] }),
+          title: l.nom,
+        }).addTo(carte);
+        var lien = l.href ? '<a href="' + l.href + '">' + l.nom + '</a>' : '<b>' + l.nom + '</b>';
+        point.bindPopup('<span class="carte__bulle">' + lien + '<small>' + l.quoi + '</small></span>');
+      });
+      if (lieux.length > 1) carte.fitBounds(lieux.map(function (l) { return [l.lat, l.lon]; }), { padding: [130, 130], maxZoom: 13 });
+    }
+
+    function charge(plan) {
+      if (window.L) return dessine(plan);
+      if (!document.getElementById('leaflet-js')) {
+        var s = document.createElement('script');
+        s.id = 'leaflet-js';
+        s.src = '/vendor/leaflet/leaflet.js';
+        s.onload = function () { document.querySelectorAll('[data-carte]').forEach(dessine); };
+        document.head.appendChild(s);
+      }
+    }
+
+    // On charge dès que le navigateur est disponible : la carte doit être prête quand on arrive dessus.
+    function lance() { plans.forEach(charge); }
+    if ('requestIdleCallback' in window) requestIdleCallback(lance, { timeout: 2500 });
+    else setTimeout(lance, 600);
+  })();
+</script>

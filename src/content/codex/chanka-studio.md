@@ -14,4 +14,8 @@ offres:
 ordre: 40
 date: 2026-09-18
 ---
-Un studio d'arts et de pratiques, sur les quais de Saône à Lyon. C'est là que se tiennent chaque dimanche les ateliers Infloressence, et que je donne une partie des soins.
+Un studio d'arts et de pratiques sur les quais de Saône, au 51 quai Saint-Vincent, dans le premier arrondissement de Lyon. Clara l'a ouvert autour d'une idée simple : des groupes de six personnes au maximum, pour que chacun soit vu.
+
+On y pratique le yoga, le pilates, la danse contemporaine et la danse somatique. S'y donnent aussi des soins individuels — massage sur mesure, massage thaï, soin psycho-corporel, soin des fascias — et des rituels une fois par mois.
+
+C'est là que se tiennent les ateliers Infloressence, et que je donne une partie de mes soins.

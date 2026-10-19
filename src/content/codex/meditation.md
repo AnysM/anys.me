@@ -18,6 +18,6 @@ date: 2026-09-18
 ---
 C'est par elle que tout a commencé. En m'asseyant chaque jour pour observer, j'ai vu à quel point mon énergie était concentrée dans l'activité mentale, et surtout à quel point elle était gaspillée.
 
-La pleine conscience n'est pas une technique pour faire le vide. C'est un entraînement à **revenir** : au souffle, au corps, à ce qui est là. Petit à petit, le paysage intérieur devient visible, et avec lui la possibilité de choisir.
+La pleine conscience est un entraînement à **revenir** : au souffle, au corps, à ce qui est là. Petit à petit, le paysage intérieur devient visible, et avec lui la possibilité de choisir.
 
 Elle est au cœur des ateliers, des retraites et de l'accompagnement : c'est le socle sur lequel tout le reste peut se poser.

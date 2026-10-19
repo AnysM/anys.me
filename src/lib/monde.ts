@@ -22,7 +22,18 @@ export type Proposition = {
 
 const fmtCourt = (d: Date) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(d).replace('.', '');
 
+const aujourdhuiMinuit = () => new Date(new Date().toDateString());
+const fmtSeance = (x: Date) => `${new Intl.DateTimeFormat('fr-FR', { weekday: 'short' }).format(x).replace('.', '')} ${x.getDate() === 1 ? '1er' : x.getDate()} ${new Intl.DateTimeFormat('fr-FR', { month: 'short' }).format(x).replace('.', '')}`;
+/** Une séance isolée, telle qu'elle s'écrit dans le calendrier. */
+export const texteSeance = (s: any) =>
+  fmtSeance(s.date) + (s.heure ? ` · ${s.heure}` : '') + (s.note ? ` · ${s.note}` : '');
+
+/** Les séances à venir d'un rendez-vous régulier, dans l'ordre. */
+export const seancesAVenir = (d: any) => (d.seances ?? []).filter((s: any) => s.date >= aujourdhuiMinuit()).sort((a: any, b: any) => a.date.getTime() - b.date.getTime());
+
 export function ligneDate(d: any): string {
+  const prochaine = !d.date && seancesAVenir(d)[0];
+  if (prochaine) return `Prochaine : ${fmtSeance(prochaine.date)}` + (prochaine.heure ? ` · ${prochaine.heure}` : '');
   if (!d.date) return d.rythme ?? 'Sur inscription';
   if (d.date_fin) {
     const j = Math.round((d.date_fin.getTime() - d.date.getTime()) / 86400000) + 1;
@@ -47,7 +58,7 @@ export async function propositions(): Promise<Proposition[]> {
   const agenda = (await getCollection('agenda')).filter((e) => e.data.publie);
   return [
     ...offres.map((o) => ({
-      cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: `/offre/${o.id}`, externe: false,
+      cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: o.data.page ?? `/offre/${o.id}`, externe: false,
       seuil: seuilDe(o.data), categorie: o.data.categorie, resume: o.data.resume, image: o.data.image, ordre: o.data.ordre,
       accueil: o.data.accueil, prix: o.data.prix ?? (o.data.tarifs?.length ? `dès ${o.data.tarifs.map((t) => t.prix).sort((a, b) => parseInt(a) - parseInt(b))[0]}` : undefined),
       quand: o.data.duree ?? o.data.format,
