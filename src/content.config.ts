@@ -147,6 +147,9 @@ const pages = defineCollection({
       phrase: z.string().optional(),
       // Après quel paragraphe la photo se pose. Rien d'indiqué : à la fin.
       apres: z.number().optional(),
+      // Les petites photos du chemin : elles se posent dans la marge laissée
+      // libre par le texte, comme des souvenirs épinglés.
+      vignettes: z.array(z.string()).optional(),
       echos: refs.optional(),
     })).optional(),
     seuils: z.array(z.object({ titre: z.string().optional(), texte: z.string().optional() })).optional(),

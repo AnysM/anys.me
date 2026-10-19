@@ -379,6 +379,7 @@ export default defineConfig({
               { type: "image", name: "image2", label: "Deuxieme photo (allure : paire)" },
               { type: "string", name: "phrase", label: "Phrase posee sur la photo (allure : souffle)" },
               { type: "number", name: "apres", label: "Poser la photo apres le Nieme paragraphe (vide : a la fin)" },
+              { type: "image", name: "vignettes", label: "Petites photos du chemin (dans la marge, a cote du texte)", list: true },
               { type: "object", name: "echos", label: "Échos dans le Codex (en plus des mots détectés dans le texte)", list: true,
                 ui: { itemProps: (i) => ({ label: i?.fiche?.split("/").pop()?.replace(".md", "") ?? "Fiche" }) },
                 fields: [{ type: "reference", name: "fiche", label: "Fiche", collections: ["codex"] }] },

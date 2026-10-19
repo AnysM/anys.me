@@ -403,13 +403,13 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 /* La photo n'est pas encadrée : elle traverse la page d'un bord à l'autre. */
 .tl-media { position: relative; width: 100vw; margin-left: calc(50% - 50vw); margin-top: clamp(2.4rem, 4.5vw, 3.6rem); }
 .tl-media__vues { display: flex; }
-.tl-media img { display: block; width: 100%; height: clamp(360px, 68vh, 820px);
-  object-fit: cover; object-position: var(--img-x, 50%) var(--img-y, 50%); }
+/* La photo garde ses proportions : on voit le sujet entier, jamais recadré. */
+.tl-media img { display: block; width: 100%; height: auto; }
 .tl-text--suite { margin-top: clamp(2.4rem, 4.5vw, 3.6rem); }
 .tl-row.text-right .tl-text--suite { margin-left: auto; }
 
 /* Deux photos côte à côte, sans rien entre elles. */
-.tl-media--paire img { width: 50%; height: clamp(300px, 56vh, 680px); }
+.tl-media--paire img { width: 50%; height: auto; object-fit: cover; aspect-ratio: 1 / 1; }
 .tl-media--paire .tl-media__vues > img:only-child { width: 100%; }
 
 /* Une bande qui porte une phrase : la photo s'assombrit pour la laisser lire. */
@@ -420,13 +420,33 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   text-shadow: 0 2px 24px rgba(7,11,24,0.6); pointer-events: none; }
 .tl-media__phrase span { display: block; max-width: 15em; }
 
+/* Les petites photos du chemin : des souvenirs posés dans la marge libre,
+   décalés les uns des autres, sans cadre. */
+.tl-vignettes { display: flex; gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: clamp(1.8rem, 3vw, 2.6rem); }
+.tl-vignettes img { display: block; width: 100%; height: auto; object-fit: cover; }
+@media (min-width: 821px) {
+  .tl-row--vignettes { display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem); align-items: start; }
+  .tl-row--vignettes > .tl-media, .tl-row--vignettes > .tl-text--suite { grid-column: 1 / -1; }
+  .tl-row--vignettes.text-right .tl-text { order: 2; }
+  .tl-row--vignettes.text-right .tl-vignettes { order: 1; }
+  .tl-vignettes { flex-direction: column; align-items: flex-start; margin-top: 0.4rem;
+    gap: clamp(1.4rem, 2.6vw, 2.4rem); }
+  .tl-row--vignettes.text-right .tl-vignettes { align-items: flex-end; }
+  /* Chacune sa taille : elles ne s'alignent pas comme une galerie. */
+  .tl-vignettes img:nth-child(1) { width: 78%; }
+  .tl-vignettes img:nth-child(2) { width: 58%; margin-left: 16%; }
+  .tl-vignettes img:nth-child(3) { width: 66%; }
+  .tl-row--vignettes.text-right .tl-vignettes img:nth-child(2) { margin-left: 0; margin-right: 16%; }
+}
+
 /* La photo en face du texte : elle tient sa moitié et sort par le bord. */
 @media (min-width: 821px) {
   .tl-row--face { display: grid; grid-template-columns: 1fr 1fr;
     gap: clamp(2rem, 4vw, 4rem); align-items: center; }
   .tl-row--face .tl-text { max-width: none; }
   .tl-row--face .tl-media { width: auto; margin: 0; }
-  .tl-row--face .tl-media img { height: clamp(420px, 74vh, 900px); }
+  .tl-row--face .tl-media img { height: auto; }
   .tl-row--face.text-left .tl-media { margin-right: calc(50% - 50vw); }
   .tl-row--face.text-right .tl-text { order: 2; }
   .tl-row--face.text-right .tl-media { order: 1; margin-left: calc(50% - 50vw); }
@@ -474,8 +494,6 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   .tl::before { left: 0.45rem; }
   .tl-row { margin-bottom: 3.4rem; }
   .tl-text { padding-left: 1.6rem; }
-  .tl-media img { height: clamp(260px, 52vh, 460px); }
-  .tl-media--paire img { height: clamp(200px, 38vh, 340px); }
   .tl-text--suite { padding-left: 1.6rem; }
   .tl-end { text-align: left; padding-left: 1.6rem; }
 
