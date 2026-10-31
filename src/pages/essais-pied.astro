@@ -1,0 +1,127 @@
+---
+// Atelier du pied de page. Les réglages agissent sur le vrai pied, en bas de
+// cette page : ce que tu vois ici est ce que tu verras partout.
+// Page de travail : hors menu, hors plan du site, enregistrement en local.
+import Base from '../layouts/Base.astro';
+import P from '../data/pied.json';
+
+const FUSIONS = [
+  ['normal', 'posée telle quelle'],
+  ['overlay', 'les traits sortent, le fond fonce'],
+  ['screen', 'le sombre disparaît, les traits restent'],
+  ['soft-light', 'une lumière douce par-dessus'],
+  ['luminosity', 'la matière sans la couleur'],
+  ['multiply', 'tout s’assombrit'],
+];
+const CURSEURS = [
+  { cle: 'opacite', nom: 'Présence', min: 10, max: 100, pas: 2, facteur: 100, unite: '%' },
+  { cle: 'saturation', nom: 'Couleur', min: 0, max: 220, pas: 5, facteur: 100, unite: '%' },
+  { cle: 'luminosite', nom: 'Lumière', min: 20, max: 220, pas: 5, facteur: 100, unite: '%' },
+  { cle: 'contraste', nom: 'Contraste', min: 50, max: 200, pas: 5, facteur: 100, unite: '%' },
+];
+---
+<Base title="Atelier du pied de page" description="Page de travail.">
+  <section class="atelier-pied">
+    <div class="narrow">
+      <p class="eyebrow">Atelier</p>
+      <h1>Le fond du pied de page</h1>
+      <p class="muted">Tes réglages agissent en direct sur le vrai pied, tout en bas.
+        Fais défiler pour le voir pendant que tu tournes les boutons.</p>
+
+      <div class="ap-champ">
+        <label>Mode de fusion</label>
+        <div class="ap-modes">
+          {FUSIONS.map(([m, quoi]) => (
+            <button type="button" data-fusion={m} aria-pressed={String(P.fusion === m)}>
+              <b>{m}</b><small>{quoi}</small>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="ap-grille">
+        {CURSEURS.map((c) => (
+          <div class="ap-champ">
+            <label>{c.nom} <b data-sortie={c.cle}>{Math.round((P as any)[c.cle] * c.facteur)}{c.unite}</b></label>
+            <input type="range" data-reg={c.cle} min={c.min} max={c.max} step={c.pas}
+              value={Math.round((P as any)[c.cle] * c.facteur)} />
+          </div>
+        ))}
+      </div>
+
+      <div class="ap-actions">
+        <button id="enregistrer" class="btn btn--solid">Enregistrer</button>
+        <button id="revenir" class="btn btn--bleu">Revenir aux valeurs enregistrées</button>
+        <span id="etat" class="ap-etat"></span>
+      </div>
+    </div>
+  </section>
+
+  <style is:global>
+    .atelier-pied { padding: clamp(2.4rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 5rem); }
+    .atelier-pied h1 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); margin: 0.6rem 0 0.7rem; }
+    .atelier-pied .muted { max-width: 54ch; }
+    .ap-champ { margin-top: 1.8rem; }
+    .ap-champ > label { display: block; font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .ap-champ > label b { color: var(--cream); font-weight: 500; letter-spacing: 0; }
+    .ap-champ input[type=range] { width: 100%; accent-color: var(--gold); }
+    .ap-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0 2rem; }
+    .ap-modes { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .ap-modes button { display: flex; flex-direction: column; gap: 0.15rem; text-align: left;
+      border: 1px solid var(--faint); background: rgba(255,255,255,0.02); color: var(--muted);
+      border-radius: 12px; padding: 0.6rem 0.9rem; font: inherit; cursor: pointer; }
+    .ap-modes button b { font-family: ui-monospace, monospace; font-size: 0.82rem; color: var(--cream); font-weight: 400; }
+    .ap-modes button small { font-size: 0.74rem; }
+    .ap-modes button[aria-pressed=true] { border-color: var(--gold); background: rgba(216,162,76,0.1); }
+    .ap-actions { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; margin-top: 2.2rem; }
+    .ap-etat { font-size: 0.82rem; color: var(--indigo-soft); }
+  </style>
+
+  <script is:inline define:vars={{ DEPART: P }}>
+    (function () {
+      var pied = document.querySelector('.foot');
+      var etat = document.getElementById('etat');
+      var R = Object.assign({}, DEPART);
+
+      function peindre() {
+        pied.style.setProperty('--pied-fusion', R.fusion);
+        pied.style.setProperty('--pied-op', R.opacite);
+        pied.style.setProperty('--pied-sat', R.saturation);
+        pied.style.setProperty('--pied-lum', R.luminosite);
+        pied.style.setProperty('--pied-con', R.contraste);
+        document.querySelectorAll('[data-fusion]').forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.dataset.fusion === R.fusion));
+        });
+        document.querySelectorAll('[data-reg]').forEach(function (i) {
+          var v = Math.round(R[i.dataset.reg] * 100);
+          i.value = v;
+          document.querySelector('[data-sortie=' + i.dataset.reg + ']').textContent = v + '%';
+        });
+      }
+
+      document.querySelectorAll('[data-fusion]').forEach(function (b) {
+        b.addEventListener('click', function () { R.fusion = b.dataset.fusion; peindre(); });
+      });
+      document.querySelectorAll('[data-reg]').forEach(function (i) {
+        i.addEventListener('input', function () { R[i.dataset.reg] = Number(i.value) / 100; peindre(); });
+      });
+      document.getElementById('revenir').addEventListener('click', function () {
+        R = Object.assign({}, DEPART); peindre(); etat.textContent = '';
+      });
+      document.getElementById('enregistrer').addEventListener('click', function () {
+        etat.textContent = 'Enregistrement…';
+        fetch('/__pied', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(R) })
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+          .then(function () { etat.textContent = 'Enregistré'; })
+          .catch(function (e) {
+            etat.textContent = e === 404
+              ? 'route absente — coupe et relance npm run dev'
+              : 'échec : ' + e;
+          });
+      });
+
+      peindre();
+    })();
+  </script>
+</Base>

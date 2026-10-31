@@ -15,7 +15,29 @@ export const personne = {
   jobTitle: 'Accompagnant, praticien de soins énergétiques et artiste',
   address: { '@type': 'PostalAddress', addressLocality: 'Lyon', addressCountry: 'FR' },
   knowsAbout: ['Méditation de pleine conscience', 'Danse Butô', 'Soin énergétique', 'Chamanisme', 'Human Design', 'Accompagnement des transitions de vie'],
-  sameAs: ['https://www.instagram.com/anys.mechkar/', 'https://www.youtube.com/@anys.mechkar', 'https://www.facebook.com/anys.mechkar/', 'https://enoqii.art'],
+  sameAs: ['https://www.instagram.com/anys.mechkar/', 'https://www.youtube.com/@anys.mechkar', 'https://www.facebook.com/anys.mechkar/'],
+};
+
+// Le lieu d'exercice : Lyon et son agglomération, plus les soins à domicile.
+export const LIEU_ID = `${SITE}/#lieu`;
+export const lieu = {
+  '@type': ['LocalBusiness', 'HealthAndBeautyBusiness'],
+  '@id': LIEU_ID,
+  name: 'Anys Mechkar — accompagnement, soins et ateliers à Lyon',
+  url: SITE,
+  image: `${SITE}/img/soins-table.jpg`,
+  description: "Soins énergétiques, massages, accompagnement des transitions de vie, ateliers de méditation, de danse Butô et voyages sonores à Lyon, en studio ou à domicile.",
+  founder: { '@id': PERSONNE_ID },
+  email: 'contact@anys.me',
+  priceRange: '€€',
+  address: { '@type': 'PostalAddress', addressLocality: 'Lyon', postalCode: '69001', addressRegion: 'Auvergne-Rhône-Alpes', addressCountry: 'FR' },
+  geo: { '@type': 'GeoCoordinates', latitude: 45.7687, longitude: 4.8275 },
+  areaServed: [
+    { '@type': 'City', name: 'Lyon' },
+    { '@type': 'AdministrativeArea', name: 'Métropole de Lyon' },
+  ],
+  availableLanguage: ['fr', 'en'],
+  sameAs: personne.sameAs,
 };
 
 export const siteWeb = {

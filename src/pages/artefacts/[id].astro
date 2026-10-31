@@ -6,6 +6,7 @@ import { getCollection, render } from 'astro:content';
 import { codex } from '../../lib/monde';
 import { typeLabel } from '../../lib/univers.mjs';
 import { abs, fil, PERSONNE_ID } from '../../lib/seo';
+import { CODEX_OUVERT } from '../../lib/etat.mjs';
 
 export async function getStaticPaths() {
   const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie);
@@ -31,7 +32,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Artefacts', url: '/artefacts' }, { nom: d.titre, url: `/artefacts/${a.id}` }]),
 ];
 ---
-<Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre née de : ${d.naissance ?? 'un passage'}.`.trim()} image={d.images[0]} jsonld={jsonld}>
+<Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre originale d'Indigo Enoqii.`.trim()} image={d.images[0]} jsonld={jsonld}>
   <section class="artefact">
     <div class="wrap artefact__entete">
       <p class="eyebrow"><a href="/artefacts">Artefact</a></p>
@@ -92,7 +93,7 @@ const jsonld = [
     <div class="narrow">
       <p class="eyebrow">Le récit</p>
       <div class="prose" style="margin-top:1.4rem;"><Content /></div>
-      {fiches.length > 0 && (
+      {CODEX_OUVERT && fiches.length > 0 && (
         <div class="touche">
           <p class="rune">Dans le Codex</p>
           <div class="echos">{fiches.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>

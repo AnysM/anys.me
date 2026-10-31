@@ -5,7 +5,6 @@ univers: [art]
 alias: [Indigo Enoqii, Enoqii]
 question: "Qui est Indigo Enoqii ?"
 resume: "Mon nom et mon identité d'artiste : celui qui peint, danse et performe le langage magique."
-lien_externe: https://enoqii.art
 liens:
   - fiche: src/content/codex/nogomos.md
   - fiche: src/content/codex/narita.md

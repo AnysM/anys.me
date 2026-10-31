@@ -1,8 +1,8 @@
 ---
 titre: Le BaZi
-type: notion
+type: pratique
 univers: [connaissance]
-alias: [BaZi]
+alias: [BaZi, Geng, Métal Yang]
 question: "Qu'est-ce que le BaZi ?"
 resume: "Les quatre piliers de la destinée, dans la tradition chinoise des cinq éléments."
 offres:

@@ -1,0 +1,470 @@
+---
+// L'atelier du Codex : les fiches rangées par dimension, qu'on attrape et qu'on
+// dépose. Route de développement seulement — elle n'existe pas dans le site publié.
+import Base from '../layouts/Base.astro';
+---
+<Base noindex title="Atelier — le Codex par dimension" description="">
+  <section class="atelier">
+    <div class="barre">
+      <h1>Le Codex</h1>
+      <p class="barre__note" id="compte">Chargement…</p>
+      <span id="etat" class="barre__etat">Enregistrement automatique</span>
+    </div>
+    <p class="atelier__note">Attrape une fiche et dépose-la dans une autre case : elle change
+      de dimension et de type. Clique dessus pour l'ouvrir et l'écrire : titre, résumé, alias, dimensions et texte. Le <strong>+</strong> de chaque case crée une fiche à cet
+      endroit précis.</p>
+    <div id="grille"></div>
+  </section>
+  <aside id="tiroir" class="tiroir" hidden></aside>
+  <div id="voile" class="voile" hidden></div>
+</Base>
+
+<style is:global>
+  /* L'atelier n'est pas une page de lecture : pas d'apparition au défilement. */
+  html.js main > section.atelier > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .atelier { padding: 1.2rem max(2vw, calc((100% - 1700px) / 2)) 6rem; }
+  .atelier__note { color: var(--muted); font-size: 0.88rem; line-height: 1.6; max-width: 86ch; margin: 1rem 0 1.8rem; }
+
+  .atelier > .barre { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 1rem;
+    flex-wrap: wrap; padding: 0.9rem 0; background: var(--navy); border-bottom: 1px solid var(--faint); }
+  .barre h1 { font-size: 1.3rem; margin: 0; }
+  .barre__note { flex: 1; min-width: 14rem; color: var(--muted); font-size: 0.82rem; margin: 0; }
+  .barre__etat { color: var(--gold); font-size: 0.84rem; }
+  .barre .btn { margin: 0; }
+
+  .dim { border-top: 1px solid var(--faint); padding: 1.3rem 0 0.4rem; }
+  .dim__tete { display: flex; align-items: baseline; gap: 0.8rem; margin-bottom: 0.9rem; }
+  .dim__tete h2 { font-size: 1.05rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .dim__n { color: var(--muted); font-size: 0.8rem; }
+  .colonnes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; align-items: start; }
+  @media (max-width: 1000px) { .colonnes { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .colonnes { grid-template-columns: 1fr; } }
+
+  .col { background: var(--surface); border: 1px solid var(--faint); border-radius: 8px;
+    padding: 0.8rem; min-height: 5.5rem; transition: border-color 0.15s, background 0.15s; }
+  .col--vide { border-style: dashed; }
+  .col--vide .col__titre { color: var(--coral); }
+  .col--cible { border-color: var(--gold); background: rgba(216,162,76,0.08); }
+  .col__tete { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.65rem; }
+  .col__titre { flex: 1; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .col__plus { width: 1.4rem; height: 1.4rem; flex: none; display: grid; place-items: center;
+    background: transparent; border: 1px solid var(--faint); border-radius: 5px; color: var(--muted);
+    font-size: 0.95rem; line-height: 1; cursor: pointer; font-family: inherit; }
+  .col__plus:hover { border-color: var(--gold); color: var(--gold); }
+  .col__neuf { width: 100%; background: var(--navy); border: 1px solid var(--gold); border-radius: 5px;
+    padding: 0.4rem 0.5rem; margin-bottom: 0.5rem; color: var(--cream); font-family: inherit; font-size: 0.85rem; }
+
+  .col__msg { font-size: 0.74rem; color: var(--muted); line-height: 1.4; margin: 0 0 0.5rem; }
+  .col__msg--erreur { color: var(--coral); }
+  .props { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.45rem; }
+  .prop { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+    width: 100%; text-align: left; background: rgba(216,162,76,0.1); border: 1px solid var(--gold);
+    border-radius: 5px; padding: 0.35rem 0.5rem; color: var(--cream); font-family: inherit;
+    font-size: 0.83rem; cursor: pointer; }
+  .prop small { color: var(--muted); font-size: 0.7rem; }
+
+  .puce { display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.04);
+    border: 1px solid var(--faint); border-radius: 6px; padding: 0.42rem 0.55rem;
+    margin-bottom: 0.4rem; color: var(--cream); font-size: 0.86rem; cursor: grab; user-select: none; }
+  .puce:hover { border-color: var(--gold); }
+  .puce--ouverte { border-color: var(--gold); }
+  .puce--vol { opacity: 0.35; }
+  .puce__nom { flex: 1; }
+  .puce__vide { color: var(--coral); font-size: 0.72rem; }
+  .puce__n { color: var(--muted); font-size: 0.72rem; }
+
+  .voile { position: fixed; inset: 0; background: rgba(5,8,18,0.6); z-index: 40; }
+  .tiroir { position: fixed; top: 0; right: 0; bottom: 0; width: min(620px, 94vw); z-index: 50;
+    background: var(--navy); border-left: 1px solid var(--faint); overflow-y: auto;
+    padding: 1.4rem 1.5rem 3rem; box-shadow: -24px 0 60px rgba(5,8,18,0.5); }
+  .tiroir h2 { font-size: 1.15rem; margin: 0 0 0.2rem; }
+  .tiroir__id { color: var(--muted); font-size: 0.76rem; font-family: monospace; margin-bottom: 1.1rem; }
+  .tiroir__fermer { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none;
+    color: var(--muted); font-size: 1.4rem; line-height: 1; cursor: pointer; font-family: inherit; }
+  .tiroir__fermer:hover { color: var(--gold); }
+  .champ { margin-bottom: 0.9rem; }
+  .champ > label { display: block; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 0.3rem; }
+  .champ input, .champ select, .champ textarea { width: 100%; background: var(--surface);
+    border: 1px solid var(--faint); border-radius: 5px; padding: 0.5rem 0.6rem; color: var(--cream);
+    font-family: inherit; font-size: 0.9rem; line-height: 1.6; }
+  .champ textarea { min-height: 20rem; resize: vertical; font-size: 0.88rem; }
+  .champ--ligne { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .tiroir__pied { position: sticky; bottom: -3rem; display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.9rem 0 0; margin-top: 0.6rem; background: var(--navy); border-top: 1px solid var(--faint); }
+  .tiroir__etat { font-size: 0.82rem; color: var(--gold); flex: 1; }
+  .tiroir__sup { background: none; border: 1px solid var(--faint); border-radius: 5px;
+    padding: 0.45rem 0.7rem; color: var(--muted); font-family: inherit; font-size: 0.8rem; cursor: pointer; }
+  .tiroir__sup:hover { border-color: var(--coral); color: var(--coral); }
+  .tiroir__sup--arme { border-color: var(--coral); color: var(--coral); background: rgba(240,122,95,0.12); }
+  .bascule { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.84rem;
+    color: var(--cream); cursor: pointer; }
+
+  .editeur { background: rgba(216,162,76,0.07); border: 1px solid var(--gold);
+    border-radius: 6px; padding: 0.7rem; margin: -0.2rem 0 0.6rem; }
+  .editeur label { display: block; font-size: 0.7rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .editeur select { width: 100%; background: var(--navy); border: 1px solid var(--faint);
+    border-radius: 5px; padding: 0.4rem 0.5rem; color: var(--cream); font-family: inherit; font-size: 0.85rem; }
+  .cases { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.55rem; }
+  .cases label { display: inline-flex; align-items: center; gap: 0.3rem; margin: 0;
+    background: var(--navy); border: 1px solid var(--faint); border-radius: 20px;
+    padding: 0.22rem 0.55rem; font-size: 0.75rem; text-transform: none; letter-spacing: 0;
+    color: var(--cream); cursor: pointer; }
+  .cases label:has(input:checked) { border-color: var(--gold); color: var(--gold); }
+  .editeur a { display: inline-block; margin-top: 0.55rem; font-size: 0.78rem; color: var(--indigo-soft); }
+</style>
+
+<script is:inline>
+  (async function () {
+    const $ = (s) => document.querySelector(s);
+    const etat = await (await fetch('/__codex/etat')).json();
+    if (!etat.ok) { $('#compte').textContent = 'Erreur : ' + etat.erreur; return; }
+
+    const UNIVERS = etat.univers;
+    const TYPES = etat.types;
+    const TRIO = ['realisation', 'pratique', 'rencontre'];
+    const AUTRES = TYPES.filter((t) => !TRIO.includes(t.id)).map((t) => t.id);
+    let fiches = etat.fiches;
+    const depart = JSON.stringify(fiches.map((f) => [f.id, f.type, [...f.univers].sort()]));
+    let ouverte = null;
+    let saisie = null;   // { univers, type } : la case où l'on tape un nouveau titre
+    const par = (id) => fiches.find((f) => f.id === id);
+    const sansAccent = (t) => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    // Chaque déplacement part tout seul sur le disque, après une courte pause
+    // pour ne pas écrire dix fois pendant qu'on range.
+    let minuteur = null;
+    function enregistrer() {
+      clearTimeout(minuteur);
+      $('#etat').textContent = 'Modifié…';
+      minuteur = setTimeout(async () => {
+        $('#etat').textContent = 'Enregistrement…';
+        // Astro recharge la page dès qu'un fichier change : on retient où on en était.
+        try {
+          sessionStorage.setItem('codex-place', JSON.stringify({ y: window.scrollY, ouverte }));
+        } catch (e) { /* navigation privée */ }
+        const r = await (await fetch('/__codex/poser', {
+          method: 'POST',
+          body: JSON.stringify(fiches.map((f) => ({ id: f.id, type: f.type, univers: f.univers }))),
+        })).json();
+        $('#etat').textContent = r.ok ? 'Enregistré' : 'Erreur : ' + r.erreur;
+      }, 700);
+    }
+
+    function compter() {
+      const vides = fiches.filter((f) => f.signes < 200).length;
+      $('#compte').textContent = fiches.length + ' fiches · ' + vides + ' à écrire';
+    }
+
+    // ── Le tiroir : tout le contenu d'une fiche ────────────────────────
+    async function ouvrir(id) {
+      ouverte = id; location.hash = id; rendre();
+      const t = document.querySelector('#tiroir');
+      const v = document.querySelector('#voile');
+      t.hidden = false; v.hidden = false;
+      t.textContent = 'Chargement…';
+      v.onclick = fermer;
+      const d = await (await fetch('/__codex/fiche?id=' + id)).json();
+      if (!d.ok) { t.textContent = 'Erreur : ' + d.erreur; return; }
+      const f = par(id);
+      t.textContent = '';
+
+      const x = document.createElement('button');
+      x.className = 'tiroir__fermer'; x.textContent = '×'; x.title = 'Fermer (Échap)';
+      x.onclick = fermer;
+      const h = document.createElement('h2'); h.textContent = d.titre;
+      const sid = document.createElement('p');
+      sid.className = 'tiroir__id'; sid.textContent = '/codex/' + id;
+      t.append(x, h, sid);
+
+      const faire = (etiq, el) => {
+        const c = document.createElement('div'); c.className = 'champ';
+        const l = document.createElement('label'); l.textContent = etiq;
+        c.append(l, el); t.appendChild(c); return el;
+      };
+      const texte = (v2) => { const e = document.createElement('input'); e.type = 'text'; e.value = v2 ?? ''; return e; };
+
+      const fTitre = faire('Titre', texte(d.titre));
+      const fQuestion = faire('La question à laquelle elle répond', texte(d.question));
+      const fResume = faire('Résumé', texte(d.resume));
+      const fAlias = faire('Alias — les mots qui renvoient ici, séparés par des virgules', texte(d.alias));
+
+      const ligne = document.createElement('div'); ligne.className = 'champ champ--ligne';
+      const cT = document.createElement('div'); cT.className = 'champ';
+      const lT = document.createElement('label'); lT.textContent = 'Type';
+      const fType = document.createElement('select');
+      for (const ty of TYPES) {
+        const o = document.createElement('option');
+        o.value = ty.id; o.textContent = ty.label; o.selected = ty.id === f.type;
+        fType.appendChild(o);
+      }
+      cT.append(lT, fType);
+      const cP = document.createElement('div'); cP.className = 'champ';
+      const lP = document.createElement('label'); lP.textContent = 'Publication';
+      const bas = document.createElement('label'); bas.className = 'bascule';
+      const fPublie = document.createElement('input');
+      fPublie.type = 'checkbox'; fPublie.checked = d.publie;
+      bas.append(fPublie, document.createTextNode('Visible sur le site'));
+      cP.append(lP, bas);
+      ligne.append(cT, cP); t.appendChild(ligne);
+
+      const cU = document.createElement('div'); cU.className = 'champ';
+      const lU = document.createElement('label'); lU.textContent = 'Dimensions';
+      const cases = document.createElement('div'); cases.className = 'cases';
+      const coches = {};
+      for (const u of UNIVERS) {
+        const lab = document.createElement('label');
+        const c2 = document.createElement('input');
+        c2.type = 'checkbox'; c2.checked = f.univers.includes(u.id);
+        coches[u.id] = c2;
+        lab.append(c2, document.createTextNode(u.nom));
+        cases.appendChild(lab);
+      }
+      cU.append(lU, cases); t.appendChild(cU);
+
+      const ta = document.createElement('textarea');
+      ta.value = d.corps;
+      faire('Le texte de la fiche — Markdown', ta);
+
+      const pied = document.createElement('div'); pied.className = 'tiroir__pied';
+      const enr = document.createElement('button');
+      enr.className = 'btn btn--solid'; enr.textContent = 'Enregistrer la fiche';
+      const etat2 = document.createElement('span'); etat2.className = 'tiroir__etat';
+      const voir = document.createElement('a');
+      voir.href = '/codex/' + id; voir.target = '_blank';
+      voir.style.cssText = 'font-size:0.82rem;color:var(--indigo-soft)';
+      voir.textContent = 'Voir la page →';
+      enr.onclick = async () => {
+        etat2.textContent = 'Enregistrement…';
+        const univers = UNIVERS.filter((u) => coches[u.id].checked).map((u) => u.id);
+        const r = await (await fetch('/__codex/fiche?id=' + id, {
+          method: 'POST',
+          body: JSON.stringify({ titre: fTitre.value, question: fQuestion.value,
+            resume: fResume.value, alias: fAlias.value, type: fType.value,
+            univers, publie: fPublie.checked, corps: ta.value }),
+        })).json();
+        if (!r.ok) { etat2.textContent = 'Erreur : ' + r.erreur; return; }
+        etat2.textContent = 'Enregistré.';
+        f.titre = fTitre.value.trim() || f.titre;
+        f.type = fType.value; f.univers = univers; f.signes = r.signes;
+        fiches.sort((a, b) => a.titre.localeCompare(b.titre, 'fr'));
+        rendre();
+      };
+      const sup = document.createElement('button');
+      sup.className = 'tiroir__sup'; sup.textContent = 'Supprimer';
+      let arme = false;
+      sup.onclick = async () => {
+        if (!arme) {
+          arme = true; sup.textContent = 'Confirmer la suppression';
+          sup.classList.add('tiroir__sup--arme');
+          setTimeout(() => { arme = false; sup.textContent = 'Supprimer';
+            sup.classList.remove('tiroir__sup--arme'); }, 4000);
+          return;
+        }
+        const r = await (await fetch('/__codex/supprimer', {
+          method: 'POST', body: JSON.stringify({ id }),
+        })).json();
+        if (!r.ok) { etat2.textContent = 'Erreur : ' + r.erreur; return; }
+        fiches = fiches.filter((x) => x.id !== id);
+        $('#etat').textContent = 'Fiche retirée. Elle est dans .corbeille/codex/';
+        fermer();
+      };
+      pied.append(enr, etat2, voir, sup);
+      t.appendChild(pied);
+    }
+
+    function fermer() {
+      document.querySelector('#tiroir').hidden = true;
+      document.querySelector('#voile').hidden = true;
+      ouverte = null;
+      history.replaceState(null, '', location.pathname);
+      rendre();
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !document.querySelector('#tiroir').hidden) fermer();
+    });
+
+    function puce(f, uid) {
+      const b = document.createElement('div');
+      b.className = 'puce' + (ouverte === f.id ? ' puce--ouverte' : '');
+      b.draggable = true;
+      b.tabIndex = 0;
+      const n = document.createElement('span');
+      n.className = 'puce__nom'; n.textContent = f.titre;
+      b.appendChild(n);
+      if (f.univers.length > 1) {
+        const m = document.createElement('span');
+        m.className = 'puce__n'; m.textContent = '×' + f.univers.length;
+        m.title = 'Cette fiche tient dans ' + f.univers.length + ' dimensions';
+        b.appendChild(m);
+      }
+      if (f.signes < 200) {
+        const v = document.createElement('span');
+        v.className = 'puce__vide'; v.textContent = 'à écrire';
+        b.appendChild(v);
+      }
+      b.onclick = () => { if (ouverte === f.id) fermer(); else ouvrir(f.id); };
+      b.ondragstart = (e) => {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', f.id + '|' + (uid ?? ''));
+        b.classList.add('puce--vol');
+      };
+      b.ondragend = () => b.classList.remove('puce--vol');
+      return b;
+    }
+
+    function colonne(uid, tid, titre, liste) {
+      const c = document.createElement('div');
+      c.className = 'col' + (liste.length ? '' : ' col--vide');
+      const tete = document.createElement('div'); tete.className = 'col__tete';
+      const t = document.createElement('div');
+      t.className = 'col__titre';
+      t.textContent = titre + (liste.length ? ' · ' + liste.length : ' · vide');
+      const plus = document.createElement('button');
+      plus.className = 'col__plus'; plus.textContent = '+';
+      plus.title = 'Créer une fiche ici';
+      plus.onclick = (e) => {
+        e.stopPropagation();
+        saisie = { univers: uid, type: TRIO.includes(tid) ? tid : 'notion' };
+        rendre();
+      };
+      tete.append(t, plus);
+      c.appendChild(tete);
+
+      if (saisie && saisie.univers === uid && (saisie.type === tid || (tid === 'autres' && saisie.type === 'notion'))) {
+        const boite = document.createElement('div');
+        const i = document.createElement('input');
+        i.className = 'col__neuf'; i.placeholder = 'Chercher une fiche, ou taper un nouveau titre';
+        i.value = saisie.texte ?? '';
+        const msg = document.createElement('p');
+        msg.className = 'col__msg';
+        const props = document.createElement('div');
+        props.className = 'props';
+
+        // Déplace une fiche qui existe déjà dans cette case.
+        const amener = (f) => {
+          if (tid === 'autres') { if (!AUTRES.includes(f.type)) f.type = 'notion'; }
+          else f.type = tid;
+          if (uid) f.univers = [...new Set([...f.univers, uid])];
+          saisie = null; rendre(); enregistrer();
+        };
+
+        const creer = async () => {
+          const titre_ = i.value.trim();
+          if (!titre_) return;
+          i.disabled = true;
+          const r = await (await fetch('/__codex/creer', {
+            method: 'POST',
+            body: JSON.stringify({ titre: titre_, type: saisie.type, univers: uid ? [uid] : [] }),
+          })).json();
+          if (!r.ok) {
+            msg.textContent = r.erreur.replace('Error: ', '');
+            msg.className = 'col__msg col__msg--erreur';
+            i.disabled = false; i.focus();
+            return;
+          }
+          fiches.push({ id: r.id, titre: titre_, type: saisie.type, univers: uid ? [uid] : [], alias: [titre_], signes: 0 });
+          fiches.sort((a, b) => a.titre.localeCompare(b.titre, 'fr'));
+          saisie = null; rendre();
+        };
+
+        const proposer = () => {
+          props.textContent = '';
+          const q = sansAccent(i.value.trim());
+          if (!q) return;
+          const deja = new Set(liste.map((f) => f.id));
+          const trouves = fiches.filter((f) => !deja.has(f.id) && sansAccent(f.titre).includes(q)).slice(0, 6);
+          for (const f of trouves) {
+            const b = document.createElement('button');
+            b.className = 'prop';
+            b.textContent = f.titre;
+            const ou = document.createElement('small');
+            ou.textContent = (TYPES.find((t) => t.id === f.type) || {}).label || f.type;
+            b.appendChild(ou);
+            b.onmousedown = (e) => { e.preventDefault(); amener(f); };
+            props.appendChild(b);
+          }
+          if (trouves.length) {
+            msg.textContent = 'Clique une fiche pour l\u2019amener ici, ou Entrée pour en créer une nouvelle.';
+            msg.className = 'col__msg';
+          } else { msg.textContent = ''; }
+        };
+
+        i.oninput = () => { saisie.texte = i.value; proposer(); };
+        i.onkeydown = (e) => {
+          if (e.key === 'Escape') { saisie = null; return rendre(); }
+          if (e.key === 'Enter') {
+            const q = sansAccent(i.value.trim());
+            const exact = fiches.find((f) => sansAccent(f.titre) === q);
+            if (exact) return amener(exact);
+            creer();
+          }
+        };
+        boite.append(i, props, msg);
+        c.appendChild(boite);
+        setTimeout(() => { i.focus(); i.setSelectionRange(i.value.length, i.value.length); proposer(); }, 0);
+      }
+
+      for (const f of liste) {
+        c.appendChild(puce(f, uid));
+      }
+
+      c.ondragover = (e) => { e.preventDefault(); c.classList.add('col--cible'); };
+      c.ondragleave = () => c.classList.remove('col--cible');
+      c.ondrop = (e) => {
+        e.preventDefault();
+        c.classList.remove('col--cible');
+        const [id, source] = String(e.dataTransfer.getData('text/plain')).split('|');
+        const f = par(id);
+        if (!f) return;
+        if (tid === 'autres') { if (!AUTRES.includes(f.type)) f.type = 'notion'; }
+        else f.type = tid;
+        if (uid) {
+          const sans = source ? f.univers.filter((x) => x !== source) : f.univers;
+          f.univers = [...new Set([...sans, uid])];
+        } else if (source) {
+          f.univers = f.univers.filter((x) => x !== source);
+        }
+        rendre(); enregistrer();
+      };
+      return c;
+    }
+
+    function rendre() {
+      const g = $('#grille');
+      g.textContent = '';
+      const groupes = [...UNIVERS.map((u) => [u.id, u.nom]), [null, 'Sans dimension']];
+      for (const [uid, unom] of groupes) {
+        const dans = fiches.filter((f) => (uid ? f.univers.includes(uid) : !f.univers.length));
+        if (!uid && !dans.length && !(saisie && saisie.univers === null)) continue;
+        const sec = document.createElement('section');
+        sec.className = 'dim';
+        const tete = document.createElement('div'); tete.className = 'dim__tete';
+        const h = document.createElement('h2'); h.textContent = unom;
+        const n = document.createElement('span');
+        n.className = 'dim__n'; n.textContent = dans.length + ' fiches';
+        tete.append(h, n);
+        const cols = document.createElement('div'); cols.className = 'colonnes';
+        for (const t of TRIO) {
+          const lab = TYPES.find((x) => x.id === t);
+          cols.appendChild(colonne(uid, t, lab.pluriel, dans.filter((f) => f.type === t)));
+        }
+        cols.appendChild(colonne(uid, 'autres', 'Notions, alliés, magiques',
+          dans.filter((f) => AUTRES.includes(f.type))));
+        sec.append(tete, cols);
+        g.appendChild(sec);
+      }
+      compter();
+    }
+
+    rendre();
+    // Écrire une fiche fait recharger la page : on rouvre celle qu'on avait sous les yeux.
+    let place = null;
+    try { place = JSON.parse(sessionStorage.getItem('codex-place') || 'null'); } catch (e) { place = null; }
+    sessionStorage.removeItem('codex-place');
+    const depuisAdresse = decodeURIComponent(location.hash.slice(1)) || (place && place.ouverte) || '';
+    if (depuisAdresse && par(depuisAdresse)) ouvrir(depuisAdresse);
+    if (place && place.y) window.scrollTo(0, place.y);
+  })();
+</script>

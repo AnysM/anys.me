@@ -2,7 +2,7 @@
 titre: Le cercle de parole
 type: pratique
 univers: [vivant, presence]
-alias: [cercles de parole, cercle de parole]
+alias: [cercles de parole, cercle de parole, cercles d'hommes, cercle d'hommes]
 question: "Qu'est-ce qu'un cercle de parole ?"
 resume: "Déposer les masques, écouter, partager. Se rappeler qu'on ne marche pas seul."
 agenda:

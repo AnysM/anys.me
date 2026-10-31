@@ -4,6 +4,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import matter from 'gray-matter';
 import { visit, SKIP } from 'unist-util-visit';
+import { CODEX_OUVERT } from './etat.mjs';
 
 const DIR = join(process.cwd(), 'src/content/codex');
 
@@ -42,7 +43,8 @@ function construire() {
 let cache;
 const lexique = () => (cache ??= construire());
 
-/** Contexte de page : chaque fiche n'est liée qu'une fois, et jamais depuis sa propre page. */
+/** Contexte de page : tout mot du Codex est cliquable, à chaque fois qu'il apparaît.
+ *  Seule exception : une fiche ne se lie jamais vers elle-même. */
 export const contexte = (soi = null) => ({ deja: new Set(soi ? [soi] : []) });
 
 /** Découpe un texte en morceaux { t } ou { t, id } selon les mots du Codex trouvés. */
@@ -54,7 +56,6 @@ export function decouper(texte, ctx) {
   for (const m of texte.matchAll(re)) {
     const id = parForme.get(m[0].toLowerCase());
     if (!id || ctx.deja.has(id)) continue;
-    ctx.deja.add(id);
     if (m.index > dernier) out.push({ t: texte.slice(dernier, m.index) });
     out.push({ t: m[0], id });
     dernier = m.index + m[0].length;
@@ -72,19 +73,30 @@ const html = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g,
  * Texte brut saisi dans Tina → HTML : échappe, tisse les liens du Codex,
  * puis applique *manuscrite* et **doré**.
  */
+// Les noms de réglage reconnus (police, taille, couleur), tirés d'une liste
+// fermée : on choisit un nom, jamais une valeur.
+import { DE_NOM as REGLAGES } from './styles-texte.mjs';
+
 export function tisser(texte, ctx) {
   return decouper(texte ?? '', ctx)
-    .map((x) => (x.id ? `<a class="lore" href="/codex/${x.id}">${html(x.t)}</a>` : html(x.t)))
+    .map((x) => (x.id && CODEX_OUVERT ? `<a class="lore" href="/codex/${x.id}">${html(x.t)}</a>` : html(x.t)))
     .join('')
     .replace(/&lt;br&gt;/g, '<br>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
+    .replace(/_(.+?)_/g, '<em>$1</em>')
+    .replace(/\*(.+?)\*/g, '<span class="script">$1</span>')
+    // Les réglages fins : [le texte]{doré grand}
+    .replace(/\[([^\]\n]+)\]\{([a-zéè ]+)\}/g, (tout, t, noms) => {
+      const c = noms.trim().split(/\s+/).filter((n) => REGLAGES[n]).map((n) => 't-' + n);
+      return c.length ? `<span class="${c.join(' ')}">${t}</span>` : tout;
+    });
 }
 
 const INTOUCHABLES = new Set(['a', 'h1', 'h2', 'h3', 'h4', 'code', 'pre']);
 
 /** Plugin rehype : tisse les liens dans les contenus Markdown (offres, agenda, fiches). */
 export function rehypeLore() {
+  if (!CODEX_OUVERT) return () => {};
   return (arbre, fichier) => {
     const chemin = String(fichier.path ?? '');
     const soi = chemin.includes('/content/codex/') ? chemin.split('/').pop().replace(/\.md$/, '') : null;

@@ -1,8 +1,8 @@
 ---
 titre: Le Human Design
-type: notion
+type: pratique
 univers: [connaissance]
-alias: [Human Design]
+alias: [Human Design, projecteur, croix d'incarnation]
 question: "Qu'est-ce que le Human Design ?"
 resume: "Une carte de ta mécanique énergétique, calculée à partir de ta naissance."
 offres:

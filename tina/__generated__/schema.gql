@@ -61,6 +61,10 @@ type Query {
   agendaConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: AgendaFilter): AgendaConnection!
   offres(relativePath: String): Offres!
   offresConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: OffresFilter): OffresConnection!
+  codex(relativePath: String): Codex!
+  codexConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: CodexFilter): CodexConnection!
+  artefacts(relativePath: String): Artefacts!
+  artefactsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ArtefactsFilter): ArtefactsConnection!
   pages(relativePath: String): Pages!
   pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
   page_apropos(relativePath: String): Page_apropos!
@@ -75,13 +79,13 @@ type Query {
   page_contactConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_contactFilter): Page_contactConnection!
   page_agenda(relativePath: String): Page_agenda!
   page_agendaConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_agendaFilter): Page_agendaConnection!
-  page_partenaires(relativePath: String): Page_partenaires!
-  page_partenairesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: Page_partenairesFilter): Page_partenairesConnection!
 }
 
 input DocumentFilter {
   agenda: AgendaFilter
   offres: OffresFilter
+  codex: CodexFilter
+  artefacts: ArtefactsFilter
   pages: PagesFilter
   page_apropos: Page_aproposFilter
   page_soins: Page_soinsFilter
@@ -89,7 +93,6 @@ input DocumentFilter {
   page_quintessence: Page_quintessenceFilter
   page_contact: Page_contactFilter
   page_agenda: Page_agendaFilter
-  page_partenaires: Page_partenairesFilter
 }
 
 type DocumentConnectionEdges {
@@ -115,7 +118,37 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Agenda | Offres | Pages | Page_apropos | Page_soins | Page_accompagnement | Page_quintessence | Page_contact | Page_agenda | Page_partenaires | Folder
+union DocumentNode = Agenda | Offres | Codex | Artefacts | Pages | Page_apropos | Page_soins | Page_accompagnement | Page_quintessence | Page_contact | Page_agenda | Folder
+
+type AgendaSeances {
+  date: String
+  heure: String
+  note: String
+}
+
+type AgendaTarifs {
+  label: String
+  prix: String
+  detail: String
+  avant: Boolean
+}
+
+type AgendaCitations {
+  texte: String
+  source: String
+  image: String
+}
+
+type AgendaTemoignages {
+  t: String
+  n: String
+  c: String
+}
+
+type AgendaFaq {
+  q: String
+  r: String
+}
 
 type Agenda implements Node & Document {
   titre: String!
@@ -127,14 +160,23 @@ type Agenda implements Node & Document {
   lieu: String
   prix: String
   earlybird: String
+  seances: [AgendaSeances]
+  tarifs: [AgendaTarifs]
   cta: String
   site: String
   lien: String
   resume: String
+  citations: [AgendaCitations]
   image: String
+  image_hero: String
+  accroche: String
   reservable: Boolean
   ordre: Float
   publie: Boolean
+  temoignages: [AgendaTemoignages]
+  faq: [AgendaFaq]
+  accueil: Boolean
+  seuil: String
   body: RichText
   id: ID!
   _sys: SystemInfo!
@@ -156,6 +198,24 @@ input DatetimeFilter {
   in: [String]
 }
 
+input AgendaSeancesFilter {
+  date: DatetimeFilter
+  heure: StringFilter
+  note: StringFilter
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input AgendaTarifsFilter {
+  label: StringFilter
+  prix: StringFilter
+  detail: StringFilter
+  avant: BooleanFilter
+}
+
 input ImageFilter {
   startsWith: String
   eq: String
@@ -163,9 +223,10 @@ input ImageFilter {
   in: [String]
 }
 
-input BooleanFilter {
-  eq: Boolean
-  exists: Boolean
+input AgendaCitationsFilter {
+  texte: StringFilter
+  source: StringFilter
+  image: ImageFilter
 }
 
 input NumberFilter {
@@ -176,6 +237,17 @@ input NumberFilter {
   eq: Float
   exists: Boolean
   in: [Float]
+}
+
+input AgendaTemoignagesFilter {
+  t: StringFilter
+  n: StringFilter
+  c: StringFilter
+}
+
+input AgendaFaqFilter {
+  q: StringFilter
+  r: StringFilter
 }
 
 input RichTextFilter {
@@ -194,14 +266,23 @@ input AgendaFilter {
   lieu: StringFilter
   prix: StringFilter
   earlybird: StringFilter
+  seances: AgendaSeancesFilter
+  tarifs: AgendaTarifsFilter
   cta: StringFilter
   site: StringFilter
   lien: StringFilter
   resume: StringFilter
+  citations: AgendaCitationsFilter
   image: ImageFilter
+  image_hero: ImageFilter
+  accroche: StringFilter
   reservable: BooleanFilter
   ordre: NumberFilter
   publie: BooleanFilter
+  temoignages: AgendaTemoignagesFilter
+  faq: AgendaFaqFilter
+  accueil: BooleanFilter
+  seuil: StringFilter
   body: RichTextFilter
 }
 
@@ -220,6 +301,42 @@ type OffresTarifs {
   label: String
   prix: String
   detail: String
+  groupe: String
+  avant: Boolean
+}
+
+type OffresEtapes {
+  titre: String
+  texte: String
+  picto: String
+}
+
+type OffresTemoignages {
+  t: String
+  n: String
+  c: String
+}
+
+type OffresFaq {
+  q: String
+  r: String
+}
+
+type OffresApproche {
+  titre: String
+  cadence: String
+  texte: String
+}
+
+type OffresCap {
+  titre: String
+  posture: String
+  texte: String
+}
+
+type OffresCadre_items {
+  titre: String
+  texte: String
 }
 
 type Offres implements Node & Document {
@@ -227,15 +344,57 @@ type Offres implements Node & Document {
   categorie: String!
   tag: String
   resume: String
+  accroche: String
   prix: String
   duree: String
   format: String
   tarifs: [OffresTarifs]
+  etapes: [OffresEtapes]
   image: String
   lien: String
   reservable: Boolean
   ordre: Float
   publie: Boolean
+  temoignages: [OffresTemoignages]
+  faq: [OffresFaq]
+  benefices: [String]
+  pourqui_titre: String
+  pourqui: [String]
+  pourtoi: [String]
+  pourtoi_note: String
+  places: String
+  pourtoi_contre_titre: String
+  pourtoi_contre: [String]
+  masques_titre: String
+  masques: [String]
+  chemin_eyebrow: String
+  chemin_titre: String
+  chemin: String
+  chemin_appuis: [String]
+  approche_eyebrow: String
+  approche_titre: String
+  approche_intro: String
+  approche: [OffresApproche]
+  cap_eyebrow: String
+  cap_titre: String
+  cap: [OffresCap]
+  cadre: String
+  cadre_items: [OffresCadre_items]
+  explore: [String]
+  action: String
+  cta: String
+  logo: String
+  page: String
+  intention_eyebrow: String
+  intention: String
+  nom_titre: String
+  nom_texte: String
+  cap_note: String
+  temoins_titre: String
+  invite_titre: String
+  invite_texte: String
+  accueil: Boolean
+  seuil: String
   body: RichText
   id: ID!
   _sys: SystemInfo!
@@ -246,6 +405,42 @@ input OffresTarifsFilter {
   label: StringFilter
   prix: StringFilter
   detail: StringFilter
+  groupe: StringFilter
+  avant: BooleanFilter
+}
+
+input OffresEtapesFilter {
+  titre: StringFilter
+  texte: StringFilter
+  picto: StringFilter
+}
+
+input OffresTemoignagesFilter {
+  t: StringFilter
+  n: StringFilter
+  c: StringFilter
+}
+
+input OffresFaqFilter {
+  q: StringFilter
+  r: StringFilter
+}
+
+input OffresApprocheFilter {
+  titre: StringFilter
+  cadence: StringFilter
+  texte: StringFilter
+}
+
+input OffresCapFilter {
+  titre: StringFilter
+  posture: StringFilter
+  texte: StringFilter
+}
+
+input OffresCadre_itemsFilter {
+  titre: StringFilter
+  texte: StringFilter
 }
 
 input OffresFilter {
@@ -253,15 +448,57 @@ input OffresFilter {
   categorie: StringFilter
   tag: StringFilter
   resume: StringFilter
+  accroche: StringFilter
   prix: StringFilter
   duree: StringFilter
   format: StringFilter
   tarifs: OffresTarifsFilter
+  etapes: OffresEtapesFilter
   image: ImageFilter
   lien: StringFilter
   reservable: BooleanFilter
   ordre: NumberFilter
   publie: BooleanFilter
+  temoignages: OffresTemoignagesFilter
+  faq: OffresFaqFilter
+  benefices: StringFilter
+  pourqui_titre: StringFilter
+  pourqui: StringFilter
+  pourtoi: StringFilter
+  pourtoi_note: StringFilter
+  places: StringFilter
+  pourtoi_contre_titre: StringFilter
+  pourtoi_contre: StringFilter
+  masques_titre: StringFilter
+  masques: StringFilter
+  chemin_eyebrow: StringFilter
+  chemin_titre: StringFilter
+  chemin: StringFilter
+  chemin_appuis: StringFilter
+  approche_eyebrow: StringFilter
+  approche_titre: StringFilter
+  approche_intro: StringFilter
+  approche: OffresApprocheFilter
+  cap_eyebrow: StringFilter
+  cap_titre: StringFilter
+  cap: OffresCapFilter
+  cadre: StringFilter
+  cadre_items: OffresCadre_itemsFilter
+  explore: StringFilter
+  action: StringFilter
+  cta: StringFilter
+  logo: ImageFilter
+  page: StringFilter
+  intention_eyebrow: StringFilter
+  intention: StringFilter
+  nom_titre: StringFilter
+  nom_texte: StringFilter
+  cap_note: StringFilter
+  temoins_titre: StringFilter
+  invite_titre: StringFilter
+  invite_texte: StringFilter
+  accueil: BooleanFilter
+  seuil: StringFilter
   body: RichTextFilter
 }
 
@@ -276,6 +513,190 @@ type OffresConnection implements Connection {
   edges: [OffresConnectionEdges]
 }
 
+union CodexOffresOffre = Offres
+
+type CodexOffres {
+  offre: CodexOffresOffre
+}
+
+union CodexAgendaEvenement = Agenda
+
+type CodexAgenda {
+  evenement: CodexAgendaEvenement
+}
+
+union CodexLiensFiche = Codex
+
+type CodexLiens {
+  fiche: CodexLiensFiche
+}
+
+type Codex implements Node & Document {
+  titre: String!
+  type: String!
+  univers: [String]
+  question: String
+  resume: String
+  alias: [String]
+  offres: [CodexOffres]
+  agenda: [CodexAgenda]
+  liens: [CodexLiens]
+  image: String
+  lien_externe: String
+  logo: String
+  logo_blanc: Boolean
+  date: String
+  seo_titre: String
+  seo_description: String
+  ordre: Float
+  publie: Boolean
+  body: RichText
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input CodexOffresOffreFilter {
+  offres: OffresFilter
+}
+
+input CodexOffresFilter {
+  offre: CodexOffresOffreFilter
+}
+
+input CodexAgendaEvenementFilter {
+  agenda: AgendaFilter
+}
+
+input CodexAgendaFilter {
+  evenement: CodexAgendaEvenementFilter
+}
+
+input CodexLiensFicheFilter {
+  codex: CodexFilter
+}
+
+input CodexLiensFilter {
+  fiche: CodexLiensFicheFilter
+}
+
+input CodexFilter {
+  titre: StringFilter
+  type: StringFilter
+  univers: StringFilter
+  question: StringFilter
+  resume: StringFilter
+  alias: StringFilter
+  offres: CodexOffresFilter
+  agenda: CodexAgendaFilter
+  liens: CodexLiensFilter
+  image: ImageFilter
+  lien_externe: StringFilter
+  logo: ImageFilter
+  logo_blanc: BooleanFilter
+  date: DatetimeFilter
+  seo_titre: StringFilter
+  seo_description: StringFilter
+  ordre: NumberFilter
+  publie: BooleanFilter
+  body: RichTextFilter
+}
+
+type CodexConnectionEdges {
+  cursor: String!
+  node: Codex
+}
+
+type CodexConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [CodexConnectionEdges]
+}
+
+union ArtefactsCodexFiche = Codex
+
+type ArtefactsCodex {
+  fiche: ArtefactsCodexFiche
+}
+
+type ArtefactsTirages {
+  format: String
+  prix: String
+  detail: String
+}
+
+type Artefacts implements Node & Document {
+  titre: String!
+  sous_titre: String
+  images: [String]
+  naissance: String
+  annee: String
+  technique: String
+  dimensions: String
+  codex: [ArtefactsCodex]
+  original: String
+  original_prix: String
+  lien_boutique: String
+  tirages_statut: String
+  tirages: [ArtefactsTirages]
+  ordre: Float
+  publie: Boolean
+  body: RichText
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input ArtefactsCodexFicheFilter {
+  codex: CodexFilter
+}
+
+input ArtefactsCodexFilter {
+  fiche: ArtefactsCodexFicheFilter
+}
+
+input ArtefactsTiragesFilter {
+  format: StringFilter
+  prix: StringFilter
+  detail: StringFilter
+}
+
+input ArtefactsFilter {
+  titre: StringFilter
+  sous_titre: StringFilter
+  images: ImageFilter
+  naissance: StringFilter
+  annee: StringFilter
+  technique: StringFilter
+  dimensions: StringFilter
+  codex: ArtefactsCodexFilter
+  original: StringFilter
+  original_prix: StringFilter
+  lien_boutique: StringFilter
+  tirages_statut: StringFilter
+  tirages: ArtefactsTiragesFilter
+  ordre: NumberFilter
+  publie: BooleanFilter
+  body: RichTextFilter
+}
+
+type ArtefactsConnectionEdges {
+  cursor: String!
+  node: Artefacts
+}
+
+type ArtefactsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [ArtefactsConnectionEdges]
+}
+
+type PagesDifference {
+  titre: String
+  piege: String
+  texte: String
+}
+
 type PagesTemoins {
   t: String
   n: String
@@ -285,13 +706,12 @@ type PagesTemoins {
 type PagesPiliers {
   nom: String
   note: String
+  picto: String
 }
 
-type PagesPropositions {
+type PagesSeuils {
   titre: String
   texte: String
-  cta: String
-  image: String
 }
 
 type Pages implements Node & Document {
@@ -302,6 +722,12 @@ type Pages implements Node & Document {
   resp1_image: String
   resp2_image: String
   resp3_image: String
+  danse_image: String
+  seuils_image: String
+  contact_image: String
+  art_fond: String
+  art_fonds: [String]
+  art_phrase: String
   art1_image: String
   art2_image: String
   art3_image: String
@@ -312,26 +738,52 @@ type Pages implements Node & Document {
   parcours_titre: String
   parcours_texte: String
   parcours_cta: String
+  coeur_eyebrow: String
+  coeur_titre: String
+  coeur: String
+  venir_eyebrow: String
+  venir_titre: String
+  venir_items: [String]
+  posture: String
+  difference_eyebrow: String
+  difference_titre: String
+  difference: [PagesDifference]
   piliers_eyebrow: String
   agenda_eyebrow: String
+  agenda_titre: String
   art_eyebrow: String
   art_titre: String
   temoins_eyebrow: String
+  temoins_image: String
+  avis_note: String
+  avis_nombre: Float
+  avis_lien: String
   temoins: [PagesTemoins]
-  partenaires_eyebrow: String
   form_eyebrow: String
   piliers_titre: String
+  piliers_centre: String
   piliers: [PagesPiliers]
   citation1: String
-  propositions_titre: String
-  propositions: [PagesPropositions]
+  seuils_eyebrow: String
+  seuils_titre: String
+  seuils: [PagesSeuils]
+  codex_eyebrow: String
+  codex_titre: String
+  codex_texte: String
   citation2: String
+  citation3: String
   citation_contact: String
   form_titre: String
   form_intro: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input PagesDifferenceFilter {
+  titre: StringFilter
+  piege: StringFilter
+  texte: StringFilter
 }
 
 input PagesTemoinsFilter {
@@ -343,13 +795,12 @@ input PagesTemoinsFilter {
 input PagesPiliersFilter {
   nom: StringFilter
   note: StringFilter
+  picto: ImageFilter
 }
 
-input PagesPropositionsFilter {
+input PagesSeuilsFilter {
   titre: StringFilter
   texte: StringFilter
-  cta: StringFilter
-  image: ImageFilter
 }
 
 input PagesFilter {
@@ -360,6 +811,12 @@ input PagesFilter {
   resp1_image: ImageFilter
   resp2_image: ImageFilter
   resp3_image: ImageFilter
+  danse_image: ImageFilter
+  seuils_image: ImageFilter
+  contact_image: ImageFilter
+  art_fond: ImageFilter
+  art_fonds: ImageFilter
+  art_phrase: StringFilter
   art1_image: ImageFilter
   art2_image: ImageFilter
   art3_image: ImageFilter
@@ -370,20 +827,40 @@ input PagesFilter {
   parcours_titre: StringFilter
   parcours_texte: StringFilter
   parcours_cta: StringFilter
+  coeur_eyebrow: StringFilter
+  coeur_titre: StringFilter
+  coeur: StringFilter
+  venir_eyebrow: StringFilter
+  venir_titre: StringFilter
+  venir_items: StringFilter
+  posture: StringFilter
+  difference_eyebrow: StringFilter
+  difference_titre: StringFilter
+  difference: PagesDifferenceFilter
   piliers_eyebrow: StringFilter
   agenda_eyebrow: StringFilter
+  agenda_titre: StringFilter
   art_eyebrow: StringFilter
   art_titre: StringFilter
   temoins_eyebrow: StringFilter
+  temoins_image: ImageFilter
+  avis_note: StringFilter
+  avis_nombre: NumberFilter
+  avis_lien: StringFilter
   temoins: PagesTemoinsFilter
-  partenaires_eyebrow: StringFilter
   form_eyebrow: StringFilter
   piliers_titre: StringFilter
+  piliers_centre: StringFilter
   piliers: PagesPiliersFilter
   citation1: StringFilter
-  propositions_titre: StringFilter
-  propositions: PagesPropositionsFilter
+  seuils_eyebrow: StringFilter
+  seuils_titre: StringFilter
+  seuils: PagesSeuilsFilter
+  codex_eyebrow: StringFilter
+  codex_titre: StringFilter
+  codex_texte: StringFilter
   citation2: StringFilter
+  citation3: StringFilter
   citation_contact: StringFilter
   form_titre: StringFilter
   form_intro: StringFilter
@@ -400,10 +877,17 @@ type PagesConnection implements Connection {
   edges: [PagesConnectionEdges]
 }
 
+union Page_aproposChapitresEchosFiche = Codex
+
+type Page_aproposChapitresEchos {
+  fiche: Page_aproposChapitresEchosFiche
+}
+
 type Page_aproposChapitres {
   titre: String
   texte: String
   image: String
+  echos: [Page_aproposChapitresEchos]
 }
 
 type Page_apropos implements Node & Document {
@@ -416,10 +900,19 @@ type Page_apropos implements Node & Document {
   _values: JSON!
 }
 
+input Page_aproposChapitresEchosFicheFilter {
+  codex: CodexFilter
+}
+
+input Page_aproposChapitresEchosFilter {
+  fiche: Page_aproposChapitresEchosFicheFilter
+}
+
 input Page_aproposChapitresFilter {
   titre: StringFilter
   texte: StringFilter
   image: ImageFilter
+  echos: Page_aproposChapitresEchosFilter
 }
 
 input Page_aproposFilter {
@@ -590,6 +1083,8 @@ type Page_contact implements Node & Document {
   appel_eyebrow: String
   appel_texte: String
   appel_cta: String
+  appel_lien: String
+  appel_mention: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -603,6 +1098,8 @@ input Page_contactFilter {
   appel_eyebrow: StringFilter
   appel_texte: StringFilter
   appel_cta: StringFilter
+  appel_lien: StringFilter
+  appel_mention: StringFilter
 }
 
 type Page_contactConnectionEdges {
@@ -642,52 +1139,6 @@ type Page_agendaConnection implements Connection {
   edges: [Page_agendaConnectionEdges]
 }
 
-type Page_partenairesPartenaires {
-  n: String
-  d: String
-  lien: String
-  logo: String
-  logoWhite: Boolean
-  image: String
-}
-
-type Page_partenaires implements Node & Document {
-  hero_eyebrow: String
-  hero_titre: String
-  hero_image: String
-  partenaires: [Page_partenairesPartenaires]
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input Page_partenairesPartenairesFilter {
-  n: StringFilter
-  d: StringFilter
-  lien: StringFilter
-  logo: ImageFilter
-  logoWhite: BooleanFilter
-  image: ImageFilter
-}
-
-input Page_partenairesFilter {
-  hero_eyebrow: StringFilter
-  hero_titre: StringFilter
-  hero_image: ImageFilter
-  partenaires: Page_partenairesPartenairesFilter
-}
-
-type Page_partenairesConnectionEdges {
-  cursor: String!
-  node: Page_partenaires
-}
-
-type Page_partenairesConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [Page_partenairesConnectionEdges]
-}
-
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -698,6 +1149,10 @@ type Mutation {
   createAgenda(relativePath: String!, params: AgendaMutation!): Agenda!
   updateOffres(relativePath: String!, params: OffresMutation!): Offres!
   createOffres(relativePath: String!, params: OffresMutation!): Offres!
+  updateCodex(relativePath: String!, params: CodexMutation!): Codex!
+  createCodex(relativePath: String!, params: CodexMutation!): Codex!
+  updateArtefacts(relativePath: String!, params: ArtefactsMutation!): Artefacts!
+  createArtefacts(relativePath: String!, params: ArtefactsMutation!): Artefacts!
   updatePages(relativePath: String!, params: PagesMutation!): Pages!
   createPages(relativePath: String!, params: PagesMutation!): Pages!
   updatePage_apropos(relativePath: String!, params: Page_aproposMutation!): Page_apropos!
@@ -712,13 +1167,13 @@ type Mutation {
   createPage_contact(relativePath: String!, params: Page_contactMutation!): Page_contact!
   updatePage_agenda(relativePath: String!, params: Page_agendaMutation!): Page_agenda!
   createPage_agenda(relativePath: String!, params: Page_agendaMutation!): Page_agenda!
-  updatePage_partenaires(relativePath: String!, params: Page_partenairesMutation!): Page_partenaires!
-  createPage_partenaires(relativePath: String!, params: Page_partenairesMutation!): Page_partenaires!
 }
 
 input DocumentUpdateMutation {
   agenda: AgendaMutation
   offres: OffresMutation
+  codex: CodexMutation
+  artefacts: ArtefactsMutation
   pages: PagesMutation
   page_apropos: Page_aproposMutation
   page_soins: Page_soinsMutation
@@ -726,13 +1181,14 @@ input DocumentUpdateMutation {
   page_quintessence: Page_quintessenceMutation
   page_contact: Page_contactMutation
   page_agenda: Page_agendaMutation
-  page_partenaires: Page_partenairesMutation
   relativePath: String
 }
 
 input DocumentMutation {
   agenda: AgendaMutation
   offres: OffresMutation
+  codex: CodexMutation
+  artefacts: ArtefactsMutation
   pages: PagesMutation
   page_apropos: Page_aproposMutation
   page_soins: Page_soinsMutation
@@ -740,7 +1196,36 @@ input DocumentMutation {
   page_quintessence: Page_quintessenceMutation
   page_contact: Page_contactMutation
   page_agenda: Page_agendaMutation
-  page_partenaires: Page_partenairesMutation
+}
+
+input AgendaSeancesMutation {
+  date: String
+  heure: String
+  note: String
+}
+
+input AgendaTarifsMutation {
+  label: String
+  prix: String
+  detail: String
+  avant: Boolean
+}
+
+input AgendaCitationsMutation {
+  texte: String
+  source: String
+  image: String
+}
+
+input AgendaTemoignagesMutation {
+  t: String
+  n: String
+  c: String
+}
+
+input AgendaFaqMutation {
+  q: String
+  r: String
 }
 
 input AgendaMutation {
@@ -753,14 +1238,23 @@ input AgendaMutation {
   lieu: String
   prix: String
   earlybird: String
+  seances: [AgendaSeancesMutation]
+  tarifs: [AgendaTarifsMutation]
   cta: String
   site: String
   lien: String
   resume: String
+  citations: [AgendaCitationsMutation]
   image: String
+  image_hero: String
+  accroche: String
   reservable: Boolean
   ordre: Float
   publie: Boolean
+  temoignages: [AgendaTemoignagesMutation]
+  faq: [AgendaFaqMutation]
+  accueil: Boolean
+  seuil: String
   body: RichText
 }
 
@@ -768,6 +1262,42 @@ input OffresTarifsMutation {
   label: String
   prix: String
   detail: String
+  groupe: String
+  avant: Boolean
+}
+
+input OffresEtapesMutation {
+  titre: String
+  texte: String
+  picto: String
+}
+
+input OffresTemoignagesMutation {
+  t: String
+  n: String
+  c: String
+}
+
+input OffresFaqMutation {
+  q: String
+  r: String
+}
+
+input OffresApprocheMutation {
+  titre: String
+  cadence: String
+  texte: String
+}
+
+input OffresCapMutation {
+  titre: String
+  posture: String
+  texte: String
+}
+
+input OffresCadre_itemsMutation {
+  titre: String
+  texte: String
 }
 
 input OffresMutation {
@@ -775,16 +1305,127 @@ input OffresMutation {
   categorie: String
   tag: String
   resume: String
+  accroche: String
   prix: String
   duree: String
   format: String
   tarifs: [OffresTarifsMutation]
+  etapes: [OffresEtapesMutation]
   image: String
   lien: String
   reservable: Boolean
   ordre: Float
   publie: Boolean
+  temoignages: [OffresTemoignagesMutation]
+  faq: [OffresFaqMutation]
+  benefices: [String]
+  pourqui_titre: String
+  pourqui: [String]
+  pourtoi: [String]
+  pourtoi_note: String
+  places: String
+  pourtoi_contre_titre: String
+  pourtoi_contre: [String]
+  masques_titre: String
+  masques: [String]
+  chemin_eyebrow: String
+  chemin_titre: String
+  chemin: String
+  chemin_appuis: [String]
+  approche_eyebrow: String
+  approche_titre: String
+  approche_intro: String
+  approche: [OffresApprocheMutation]
+  cap_eyebrow: String
+  cap_titre: String
+  cap: [OffresCapMutation]
+  cadre: String
+  cadre_items: [OffresCadre_itemsMutation]
+  explore: [String]
+  action: String
+  cta: String
+  logo: String
+  page: String
+  intention_eyebrow: String
+  intention: String
+  nom_titre: String
+  nom_texte: String
+  cap_note: String
+  temoins_titre: String
+  invite_titre: String
+  invite_texte: String
+  accueil: Boolean
+  seuil: String
   body: RichText
+}
+
+input CodexOffresMutation {
+  offre: String
+}
+
+input CodexAgendaMutation {
+  evenement: String
+}
+
+input CodexLiensMutation {
+  fiche: String
+}
+
+input CodexMutation {
+  titre: String
+  type: String
+  univers: [String]
+  question: String
+  resume: String
+  alias: [String]
+  offres: [CodexOffresMutation]
+  agenda: [CodexAgendaMutation]
+  liens: [CodexLiensMutation]
+  image: String
+  lien_externe: String
+  logo: String
+  logo_blanc: Boolean
+  date: String
+  seo_titre: String
+  seo_description: String
+  ordre: Float
+  publie: Boolean
+  body: RichText
+}
+
+input ArtefactsCodexMutation {
+  fiche: String
+}
+
+input ArtefactsTiragesMutation {
+  format: String
+  prix: String
+  detail: String
+}
+
+input ArtefactsMutation {
+  titre: String
+  sous_titre: String
+  images: [String]
+  naissance: String
+  annee: String
+  technique: String
+  dimensions: String
+  codex: [ArtefactsCodexMutation]
+  original: String
+  original_prix: String
+  lien_boutique: String
+  tirages_statut: String
+  tirages: [ArtefactsTiragesMutation]
+  ordre: Float
+  publie: Boolean
+  body: RichText
+}
+
+input PagesDifferenceMutation {
+  titre: String
+  piege: String
+  texte: String
 }
 
 input PagesTemoinsMutation {
@@ -796,13 +1437,12 @@ input PagesTemoinsMutation {
 input PagesPiliersMutation {
   nom: String
   note: String
+  picto: String
 }
 
-input PagesPropositionsMutation {
+input PagesSeuilsMutation {
   titre: String
   texte: String
-  cta: String
-  image: String
 }
 
 input PagesMutation {
@@ -813,6 +1453,12 @@ input PagesMutation {
   resp1_image: String
   resp2_image: String
   resp3_image: String
+  danse_image: String
+  seuils_image: String
+  contact_image: String
+  art_fond: String
+  art_fonds: [String]
+  art_phrase: String
   art1_image: String
   art2_image: String
   art3_image: String
@@ -823,29 +1469,54 @@ input PagesMutation {
   parcours_titre: String
   parcours_texte: String
   parcours_cta: String
+  coeur_eyebrow: String
+  coeur_titre: String
+  coeur: String
+  venir_eyebrow: String
+  venir_titre: String
+  venir_items: [String]
+  posture: String
+  difference_eyebrow: String
+  difference_titre: String
+  difference: [PagesDifferenceMutation]
   piliers_eyebrow: String
   agenda_eyebrow: String
+  agenda_titre: String
   art_eyebrow: String
   art_titre: String
   temoins_eyebrow: String
+  temoins_image: String
+  avis_note: String
+  avis_nombre: Float
+  avis_lien: String
   temoins: [PagesTemoinsMutation]
-  partenaires_eyebrow: String
   form_eyebrow: String
   piliers_titre: String
+  piliers_centre: String
   piliers: [PagesPiliersMutation]
   citation1: String
-  propositions_titre: String
-  propositions: [PagesPropositionsMutation]
+  seuils_eyebrow: String
+  seuils_titre: String
+  seuils: [PagesSeuilsMutation]
+  codex_eyebrow: String
+  codex_titre: String
+  codex_texte: String
   citation2: String
+  citation3: String
   citation_contact: String
   form_titre: String
   form_intro: String
+}
+
+input Page_aproposChapitresEchosMutation {
+  fiche: String
 }
 
 input Page_aproposChapitresMutation {
   titre: String
   texte: String
   image: String
+  echos: [Page_aproposChapitresEchosMutation]
 }
 
 input Page_aproposMutation {
@@ -913,28 +1584,14 @@ input Page_contactMutation {
   appel_eyebrow: String
   appel_texte: String
   appel_cta: String
+  appel_lien: String
+  appel_mention: String
 }
 
 input Page_agendaMutation {
   hero_eyebrow: String
   hero_titre: String
   hero_image: String
-}
-
-input Page_partenairesPartenairesMutation {
-  n: String
-  d: String
-  lien: String
-  logo: String
-  logoWhite: Boolean
-  image: String
-}
-
-input Page_partenairesMutation {
-  hero_eyebrow: String
-  hero_titre: String
-  hero_image: String
-  partenaires: [Page_partenairesPartenairesMutation]
 }
 
 schema {

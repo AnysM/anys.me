@@ -1,0 +1,381 @@
+---
+// Atelier du récit : pour chaque paragraphe de l'À propos, choisir son côté
+// et ses photos. Les numéros suivent les actes — 4.1, 4.2, 4.3.
+// Page de travail : hors menu, hors plan du site, enregistrement en local.
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Le récit</title>
+</head>
+<body>
+  <header class="tete">
+    <h1>Le récit</h1>
+    <p>Chaque bloc porte son numéro d'acte. Écris directement dans le texte :
+      une ligne vide fait un paragraphe, un simple retour à la ligne fait un saut
+      de ligne. À droite, le côté et les photos.</p>
+    <p class="codes"><b>**gras**</b> · <b>_italique_</b> · <b>*manuscrit*</b> ·
+      un paragraphe entier entre <b>**</b> devient un souffle, détaché et en grand.</p>
+    <div class="actions">
+      <button id="enregistrer" class="solide">Enregistrer</button>
+      <a href="/a-propos" target="_blank">Voir la page</a>
+      <span id="etat"></span>
+    </div>
+  </header>
+
+  <main id="blocs"><p class="vide">Chargement…</p></main>
+
+  <div class="barre" id="barre" hidden>
+    <button data-mise="souffle">Souffle</button>
+    <button data-mise="gras">Gras</button>
+    <button data-mise="italique">Italique</button>
+    <button data-mise="manuscrit">Manuscrit</button>
+    <button data-mise="rien" class="rien">Enlever</button>
+  </div>
+
+  <aside class="tiroir" id="tiroir" hidden>
+    <div class="tiroir__tete">
+      <span id="cible"></span>
+      <div class="tiroir__onglets">
+        <button data-vivier="recit" class="on">Tes photos</button>
+        <button data-vivier="photos">Photos de Julia</button>
+      </div>
+      <button id="fermer">Fermer</button>
+    </div>
+    <div class="tiroir__photos" id="viviers"></div>
+  </aside>
+
+  <style is:global>
+    :root { --navy:#0A0F20; --cream:#ECE7DE; --gold:#D8A24C; --muted:#8A90A8;
+      --faint:rgba(236,231,222,0.12); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:#080C1A; color:var(--cream); font-family:'Jost',system-ui,sans-serif;
+      font-weight:300; line-height:1.6; padding:0 clamp(1rem,4vw,3rem) 42vh; }
+    .tete { padding:2.5rem 0 1.5rem; max-width:70ch; }
+    .tete h1 { font-size:1.6rem; font-weight:400; letter-spacing:0.05em; margin-bottom:0.5rem; }
+    .tete p { color:var(--muted); font-size:0.95rem; }
+    .actions { display:flex; gap:1rem; align-items:center; margin-top:1.4rem; flex-wrap:wrap; }
+    button, .actions a { font:inherit; font-size:0.84rem; letter-spacing:0.08em; cursor:pointer;
+      background:transparent; color:var(--cream); border:1px solid var(--faint);
+      border-radius:40px; padding:0.55rem 1.2rem; text-decoration:none; }
+    button.solide { background:var(--gold); color:#20160A; border-color:var(--gold); }
+    #etat { font-size:0.84rem; color:var(--muted); }
+
+    .acte { margin-top:2.6rem; padding-bottom:0.6rem; border-bottom:1px solid var(--faint); }
+    .acte h2 { font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase;
+      color:var(--gold); font-weight:400; }
+
+    .codes { margin-top:0.8rem; font-size:0.82rem; color:#7E8498; }
+    .codes b { font-family:ui-monospace,monospace; font-weight:400; color:var(--gold); }
+    .champ { width:100%; min-height:6rem; resize:vertical; font:inherit; font-size:0.9rem;
+      line-height:1.7; color:#D7DAE4; background:rgba(255,255,255,0.025);
+      border:1px solid var(--faint); border-radius:10px; padding:0.9rem 1.1rem; }
+    .champ:focus { outline:none; border-color:var(--gold); background:rgba(216,162,76,0.04); }
+    .bloc { display:grid; grid-template-columns:3.4rem minmax(0,1fr) 250px; gap:1.4rem;
+      padding:1.4rem 0; border-bottom:1px solid rgba(236,231,222,0.06); align-items:start; }
+    .bloc__n { font-size:0.9rem; color:var(--gold); font-variant-numeric:tabular-nums; }
+    .bloc__p { color:#AFB4C6; font-size:0.9rem; line-height:1.7; }
+    .bloc__p + .bloc__p { margin-top:0.6rem; }
+    .bloc__quoi { font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:0.5rem; }
+
+    .cotes { display:flex; gap:0.3rem; margin-bottom:0.9rem; }
+    .cotes button { padding:0.3rem 0.7rem; font-size:0.7rem; letter-spacing:0.06em; border-radius:6px; }
+    .cotes button[aria-pressed=true] { background:rgba(216,162,76,0.14); border-color:var(--gold); color:var(--gold); }
+
+    .grappe { display:flex; gap:0.5rem; flex-wrap:wrap; }
+    .case { width:68px; border:1px dashed var(--faint); border-radius:8px; overflow:hidden;
+      background:rgba(255,255,255,0.02); cursor:pointer; position:relative; display:block; }
+    .case--bande { width:100%; }
+    .case::after { content:attr(data-vide); position:absolute; inset:0; display:grid; place-items:center;
+      font-size:0.6rem; letter-spacing:0.1em; color:#5A6078; text-align:center; padding:0 0.3rem; }
+    .case.pleine::after { content:none; }
+    .case img { display:block; width:100%; aspect-ratio:4/5; object-fit:cover; }
+    .case--bande img { aspect-ratio:16/9; }
+    .case--vide { aspect-ratio:4/5; }
+    .case--bande.case--vide { aspect-ratio:16/9; }
+    .allure { margin-top:0.6rem; width:100%; font:inherit; font-size:0.74rem; background:#111A38;
+      color:var(--cream); border:1px solid var(--faint); border-radius:8px; padding:0.35rem; }
+
+    .tiroir { position:fixed; left:0; right:0; bottom:0; max-height:40vh; overflow:auto;
+      background:#0C1226; border-top:1px solid var(--faint); padding:0.9rem clamp(1rem,4vw,3rem) 1.4rem; }
+    .tiroir__tete { display:flex; justify-content:space-between; align-items:center;
+      gap:1rem; margin-bottom:0.8rem; flex-wrap:wrap; }
+    .tiroir__tete > span { font-size:0.8rem; letter-spacing:0.1em; color:var(--gold); }
+    .tiroir__onglets { display:flex; gap:0.4rem; }
+    .tiroir__onglets button.on { background:rgba(216,162,76,0.14); border-color:var(--gold); color:var(--gold); }
+    .tiroir__photos { display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:0.6rem; }
+    .tiroir__photos figure { cursor:pointer; }
+    .tiroir__photos img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;
+      border:1px solid transparent; display:block; }
+    .tiroir__photos figure:hover img { border-color:var(--gold); }
+    .tiroir__photos figcaption { font-size:0.6rem; color:#5A6078; margin-top:0.2rem;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .bloc__texte { user-select:text; }
+    .m { background:none; padding:0; }
+    .m--souffle { font-family:'EB Garamond',serif; font-style:italic; font-size:1.25em;
+      color:var(--cream); display:inline-block; }
+    .m--gras { font-weight:500; color:var(--cream); }
+    .m--italique { font-style:italic; color:#D9DCE6; }
+    .m--manuscrit { font-family:'Biloxi Script',cursive; font-size:1.5em; color:var(--gold); }
+
+    .barre { position:absolute; z-index:50; display:flex; gap:0.25rem; padding:0.3rem;
+      background:#16204A; border:1px solid var(--faint); border-radius:10px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+    .barre button { padding:0.35rem 0.7rem; font-size:0.72rem; border-radius:6px; }
+    .barre button:hover { background:rgba(216,162,76,0.16); border-color:var(--gold); }
+    .barre .rien { color:#D98A8A; }
+    .vide { color:var(--muted); }
+  </style>
+
+  <script is:inline>
+  // La page du récit sur laquelle l'atelier travaille : ?page=… dans l'adresse.
+  var PAGE = new URLSearchParams(location.search).get('page') || 'a-propos-2';
+    (function () {
+      var E = { chapitres: [], photos: [], actes: [] }, vise = null, vivier = 'recit';
+      var blocs = document.getElementById('blocs');
+      var tiroir = document.getElementById('tiroir');
+      var etat = document.getElementById('etat');
+      var COTES = [['gauche', 'gauche'], ['centre', 'centre'], ['droite', 'droite']];
+
+      // ── Les mises en valeur ────────────────────────────────────────
+      // Une source « **gras** _italique_ *manuscrit* » se lit en texte nu
+      // plus une liste de marques, et se réécrit à l'identique.
+      var MARQUES = { souffle: ['**', '**'], gras: ['**', '**'],
+                      italique: ['_', '_'], manuscrit: ['*', '*'] };
+
+      function lire(src) {
+        var nu = '', marques = [], i = 0;
+        while (i < src.length) {
+          var m = /^(\*\*|_|\*)/.exec(src.slice(i));
+          if (m) {
+            var ouvre = m[1], fin = src.indexOf(ouvre, i + ouvre.length);
+            if (fin > 0) {
+              var dedans = src.slice(i + ouvre.length, fin);
+              marques.push({ a: nu.length, b: nu.length + dedans.length,
+                             t: ouvre === '**' ? 'gras' : ouvre === '_' ? 'italique' : 'manuscrit' });
+              nu += dedans; i = fin + ouvre.length; continue;
+            }
+          }
+          nu += src[i]; i++;
+        }
+        // Un gras qui couvre tout le paragraphe est un souffle.
+        marques.forEach(function (x) { if (x.t === 'gras' && x.a === 0 && x.b === nu.length) x.t = 'souffle'; });
+        return { nu: nu, marques: marques };
+      }
+
+      function ecrire(d) {
+        var out = '', ms = d.marques.slice().sort(function (a, b) { return a.a - b.a; });
+        var pos = 0;
+        ms.forEach(function (x) {
+          out += echappe(d.nu.slice(pos, x.a));
+          var p = MARQUES[x.t] || MARQUES.gras;
+          out += p[0] + d.nu.slice(x.a, x.b) + p[1];
+          pos = x.b;
+        });
+        return out + d.nu.slice(pos);
+      }
+      function echappe(x) { return x; }
+
+      function rendu(src) {
+        var d = lire(src), out = '', pos = 0;
+        d.marques.sort(function (a, b) { return a.a - b.a; }).forEach(function (x) {
+          out += html(d.nu.slice(pos, x.a));
+          out += '<mark class="m m--' + x.t + '" data-a="' + x.a + '">' + html(d.nu.slice(x.a, x.b)) + '</mark>';
+          pos = x.b;
+        });
+        return out + html(d.nu.slice(pos));
+      }
+      function html(x) { return x.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+      // Décalage du curseur dans le texte nu du paragraphe.
+      function decalage(p, noeud, off) {
+        var n = 0, w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+        while (w.nextNode()) {
+          if (w.currentNode === noeud) return n + off;
+          n += w.currentNode.length;
+        }
+        return n;
+      }
+
+      var vise2 = null;
+      document.addEventListener('selectionchange', function () {
+        var sel = document.getSelection();
+        var barre = document.getElementById('barre');
+        if (!sel || sel.isCollapsed) { barre.hidden = true; vise2 = null; return; }
+        var p = sel.anchorNode && sel.anchorNode.parentElement
+          && sel.anchorNode.parentElement.closest('.bloc__p');
+        if (!p || !p.contains(sel.focusNode)) { barre.hidden = true; vise2 = null; return; }
+        var a = decalage(p, sel.anchorNode, sel.anchorOffset);
+        var b = decalage(p, sel.focusNode, sel.focusOffset);
+        vise2 = { p: p, a: Math.min(a, b), b: Math.max(a, b) };
+        var r = sel.getRangeAt(0).getBoundingClientRect();
+        barre.hidden = false;
+        barre.style.left = Math.max(8, r.left + r.width / 2 - barre.offsetWidth / 2) + 'px';
+        barre.style.top = (r.top + window.scrollY - barre.offsetHeight - 10) + 'px';
+      });
+
+      document.getElementById('barre').addEventListener('mousedown', function (e) {
+        var b = e.target.closest('[data-mise]');
+        if (!b || !vise2) return;
+        e.preventDefault();
+        var i = Number(vise2.p.dataset.b), k = Number(vise2.p.dataset.k);
+        var pars = E.chapitres[i].texte.split(/\n\n+/);
+        var d = lire(pars[k]);
+        // on enlève ce qui chevauche la sélection
+        d.marques = d.marques.filter(function (x) { return x.b <= vise2.a || x.a >= vise2.b; });
+        if (b.dataset.mise === 'souffle') d.marques = [{ a: 0, b: d.nu.length, t: 'souffle' }];
+        else if (b.dataset.mise !== 'rien') d.marques.push({ a: vise2.a, b: vise2.b, t: b.dataset.mise });
+        pars[k] = ecrire(d);
+        E.chapitres[i].texte = pars.join('\n\n');
+        document.getElementById('barre').hidden = true; vise2 = null;
+        peindre();
+      });
+
+      function numero(i) {
+        var c = E.chapitres[i], rang = 1;
+        for (var k = 0; k < i; k++) if (E.chapitres[k].acte === c.acte) rang++;
+        return (c.acte || '?') + '.' + rang;
+      }
+      function titreActe(n) {
+        var a = (E.actes || []).find(function (x) { return x.n === n; });
+        return a ? 'Acte ' + n + ' · ' + a.titre : 'Acte ' + n;
+      }
+      function src(c, quoi) {
+        if (quoi === 'image') return c.image || '';
+        return (c.vignettes || [])[Number(quoi.slice(1))] || '';
+      }
+      function case1(s, i, quoi, nom) {
+        return '<span class="case' + (nom === 'bande' ? ' case--bande' : '') +
+          (s ? ' pleine' : ' case--vide') + '" data-bloc="' + i + '" data-quoi="' + quoi +
+          '" data-vide="' + nom + '">' + (s ? '<img src="' + s + '" alt="" />' : '') + '</span>';
+      }
+
+      function peindre() {
+        var h = '', acte = null;
+        E.chapitres.forEach(function (c, i) {
+          if (c.acte !== acte) { acte = c.acte; h += '<div class="acte"><h2>' + titreActe(acte) + '</h2></div>'; }
+          var vg = (c.vignettes || []).filter(Boolean);
+          var d = '<div class="cotes">' + COTES.map(function (x) {
+            return '<button data-cote="' + i + '" value="' + x[0] + '" aria-pressed="' +
+              ((c.cote || '') === x[0]) + '">' + x[1] + '</button>';
+          }).join('') + '</div>';
+          if (c.image) {
+            d += '<p class="bloc__quoi">Grande photo, pleine largeur</p>' + case1(c.image, i, 'image', 'bande') +
+              '<select class="allure" data-allure="' + i + '">' +
+              ['pleine', 'face'].map(function (a) {
+                return '<option value="' + a + '"' + ((c.allure || 'pleine') === a ? ' selected' : '') + '>' + a + '</option>';
+              }).join('') + '</select>';
+          } else if (vg.length) {
+            d += '<p class="bloc__quoi">Petites photos, à côté du texte</p><div class="grappe">' +
+              vg.map(function (v, k) { return case1(v, i, 'v' + k, 'vignette'); }).join('') +
+              (vg.length < 3 ? case1('', i, 'v' + vg.length, 'ajouter') : '') + '</div>';
+          } else {
+            d += '<p class="bloc__quoi">Aucune photo</p><div class="grappe">' +
+              case1('', i, 'image', 'une grande') + case1('', i, 'v0', 'des petites') + '</div>';
+          }
+          h += '<div class="bloc"><p class="bloc__n">' + numero(i) + '</p>' +
+            '<textarea class="champ" data-b="' + i + '" spellcheck="false">' +
+            html(c.texte) + '</textarea>' +
+            '<div>' + d + '</div></div>';
+        });
+        blocs.innerHTML = h;
+        blocs.querySelectorAll('.champ').forEach(ajuste);
+      }
+
+      blocs.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-cote]');
+        if (b) { E.chapitres[Number(b.dataset.cote)].cote = b.value; peindre(); return; }
+        var c = e.target.closest('.case');
+        if (!c) return;
+        var i = Number(c.dataset.bloc), quoi = c.dataset.quoi;
+        if (src(E.chapitres[i], quoi)) { poser(i, quoi, ''); return; }
+        if (quoi === 'image' && (E.chapitres[i].vignettes || []).length) {
+          etat.textContent = 'Enlève d’abord les petites photos.'; return;
+        }
+        if (quoi !== 'image' && E.chapitres[i].image) {
+          etat.textContent = 'Enlève d’abord la grande photo.'; return;
+        }
+        vise = { i: i, quoi: quoi };
+        document.getElementById('cible').textContent = numero(i) + ' · ' + c.dataset.vide;
+        tiroir.hidden = false;
+      });
+
+      function ajuste(t) { t.style.height = 'auto'; t.style.height = (t.scrollHeight + 2) + 'px'; }
+      blocs.addEventListener('input', function (e) {
+        var t = e.target.closest('.champ');
+        if (!t) return;
+        E.chapitres[Number(t.dataset.b)].texte = t.value;
+        ajuste(t);
+      });
+
+      blocs.addEventListener('change', function (e) {
+        var s = e.target.closest('[data-allure]');
+        if (s) E.chapitres[Number(s.dataset.allure)].allure = s.value;
+      });
+
+      function poser(i, quoi, url) {
+        var c = E.chapitres[i];
+        if (quoi === 'image') { c.image = url; if (!url) delete c.allure; }
+        else {
+          var k = Number(quoi.slice(1));
+          c.vignettes = c.vignettes || [];
+          c.vignettes[k] = url;
+          c.vignettes = c.vignettes.filter(Boolean);
+        }
+        peindre();
+      }
+
+      function tiroirPhotos() {
+        document.getElementById('viviers').innerHTML = E.photos
+          .filter(function (p) { return p.indexOf('/img/' + vivier + '/') === 0; })
+          .map(function (p) {
+            return '<figure data-p="' + p + '"><img src="' + p + '" alt="" />' +
+              '<figcaption>' + p.split('/').pop().replace(/\.\w+$/, '') + '</figcaption></figure>';
+          }).join('');
+      }
+
+      document.querySelectorAll('[data-vivier]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          vivier = b.dataset.vivier;
+          document.querySelectorAll('[data-vivier]').forEach(function (x) { x.classList.toggle('on', x === b); });
+          tiroirPhotos();
+        });
+      });
+      document.getElementById('fermer').addEventListener('click', function () { tiroir.hidden = true; });
+      document.getElementById('viviers').addEventListener('click', function (e) {
+        var f = e.target.closest('[data-p]');
+        if (!f || !vise) return;
+        poser(vise.i, vise.quoi, f.dataset.p);
+        tiroir.hidden = true; vise = null;
+      });
+
+      document.getElementById('enregistrer').addEventListener('click', function () {
+        etat.textContent = 'Enregistrement…';
+        fetch('/__recit/poser?page=' + PAGE, {
+          method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(E.chapitres.map(function (c) {
+            return { image: c.image || '', allure: c.allure || 'pleine',
+                     vignettes: (c.vignettes || []).filter(Boolean), cote: c.cote || '',
+                     texte: c.texte };
+          })),
+        }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+          .then(function (d) { etat.textContent = d.ok ? 'Enregistré' : 'échec : ' + d.erreur; })
+          .catch(function (e) {
+            etat.textContent = e === 404 ? 'route absente — coupe et relance npm run dev' : 'échec : ' + e;
+          });
+      });
+
+      fetch('/__recit/etat?page=' + PAGE).then(function (r) { return r.json(); }).then(function (d) {
+        if (!d.ok) { blocs.innerHTML = '<p class="vide">' + d.erreur + '</p>'; return; }
+        E = d; tiroirPhotos(); peindre();
+      }).catch(function () {
+        blocs.innerHTML = '<p class="vide">Route absente — coupe et relance npm run dev.</p>';
+      });
+    })();
+  </script>
+</body>
+</html>

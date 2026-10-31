@@ -7,7 +7,7 @@ question: "Comment choisir vraiment sa vie ?"
 resume: "Une vie réussie en apparence n'est pas forcément une vie choisie."
 offres:
   - offre: src/content/offres/accompagnement-individuel.md
-  - offre: src/content/offres/accompagnement-collectif.md
+  - offre: src/content/offres/in-carne.md
 liens:
   - fiche: src/content/codex/la-peur.md
 ordre: 33

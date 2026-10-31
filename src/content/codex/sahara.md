@@ -2,7 +2,7 @@
 titre: Le désert
 type: rencontre
 univers: [presence, vivant]
-alias: [désert marocain, Sahara]
+alias: [désert marocain, Sahara, le désert, désert]
 question: "Pourquoi partir dans le désert ?"
 resume: "Là où il ne reste que l'essentiel. Un lieu de retraite et de création."
 agenda:
