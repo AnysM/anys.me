@@ -1,8 +1,8 @@
 ---
 titre: TAMAKEAPA
-type: allie
-univers: [connaissance, vivant]
-alias: [TAMAKEAPA]
+type: rencontre
+univers: [vivant, connaissance]
+alias: [TAMAKEAPA, John Peiremans]
 resume: "L'univers de John Peiremans, créateur du jeu des 7 interlocuteurs."
 lien_externe: https://tamakeapa.com/le-jeu-des-7-interlocuteurs-tamakeapa/
 agenda:

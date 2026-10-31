@@ -137,8 +137,14 @@ const pages = defineCollection({
     appel_texte: z.string().optional(),
     appel_cta: z.string().optional(),
     temoins: z.array(z.object({ t: z.string(), n: z.string(), c: z.string().optional() })).optional(),
+    manifeste: z.string().optional(),
+    invitation: z.string().optional(),
+    actes: z.array(z.object({ n: z.number(), titre: z.string().optional(), respiration: z.string().optional() })).optional(),
     chapitres: z.array(z.object({
-      titre: z.string(), texte: z.string(),
+      titre: z.string().optional(), texte: z.string(),
+      // À quel acte ce bloc appartient, et de quel côté il se pose.
+      acte: z.number().optional(),
+      cote: z.enum(['gauche', 'droite', 'centre']).optional(),
       image: z.string().optional(),
       // L'allure de la photo : une bande pleine largeur, posée en face du texte,
       // en paire, ou portant une phrase. Rien d'indiqué : la bande.

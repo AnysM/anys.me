@@ -12,7 +12,7 @@ export const univers = (id) => UNIVERS.find((u) => u.id === id);
 
 // Les types de fiches du Codex.
 export const TYPES = [
-  { id: 'pratique', label: 'Pratique', pluriel: 'Pratiques' },
+  { id: 'pratique', label: 'Pratique ou outil', pluriel: 'Pratiques et outils' },
   { id: 'notion', label: 'Notion', pluriel: 'Notions' },
   { id: 'rencontre', label: 'Rencontre', pluriel: 'Rencontres' },
   { id: 'realisation', label: 'Réalisation', pluriel: 'Réalisations intérieures' },

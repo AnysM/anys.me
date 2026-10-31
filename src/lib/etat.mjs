@@ -9,4 +9,4 @@
  *
  * Repasse à true et tout revient d'un coup.
  */
-export const CODEX_OUVERT = true;
+export const CODEX_OUVERT = false;

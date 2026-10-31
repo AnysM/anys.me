@@ -7,7 +7,9 @@
 // Ses deux bouts se dissolvent : il entre et il sort sans jamais se couper net.
 // « miroir » le retourne pour qu'il parte dans l'autre sens ; son point d'entrée
 // se retourne avec lui, on n'a donc rien d'autre à changer.
-const { n, x = 50, entree = 50, force = 0.1, debord = 0, miroir = false } = Astro.props;
+// « haut » et « hauteur » servent quand plusieurs fragments se suivent dans une
+// même section : chacun prend sa part de la hauteur, le chemin la traverse en entier.
+const { n, x = 50, entree = 50, force = 0.1, debord = 0, miroir = false, haut = null, hauteur = null, gauche = null, masque = true } = Astro.props;
 const place = miroir ? 100 - entree : entree;
 ---
 <img
@@ -16,5 +18,7 @@ const place = miroir ? 100 - entree : entree;
   alt=""
   aria-hidden="true"
   loading="lazy"
-  style={`left:${x}%; transform:translateX(-${place}%)${miroir ? ' scaleX(-1)' : ''}; opacity:${force}; --debord:${debord}px`}
+  style={`left:${gauche ?? `${x}%`}; transform:translateX(-${place}%)${miroir ? ' scaleX(-1)' : ''}; opacity:${force}; --debord:${debord}px`
+    + (haut ? `; top:${haut}` : '') + (hauteur ? `; height:${hauteur}` : '')
+    + (masque ? '' : '; -webkit-mask-image:none; mask-image:none')}
 />

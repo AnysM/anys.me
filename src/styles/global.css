@@ -384,24 +384,139 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 /* description des cartes d'offre plus lisible */
 .evt__desc { color: #C2C5D2; font-size: 0.98rem; line-height: 1.6; }
 
+/* ── Le manifeste : pourquoi je fais ça, avant toute histoire ── */
+.manifeste { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
+.manifeste p { font-family: 'EB Garamond', serif; font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+  line-height: 1.72; color: var(--cream); }
+.manifeste p + p { margin-top: clamp(1.4rem, 2.4vw, 2rem); }
+.manifeste strong { font-weight: 600; }
+/* Sa main au milieu d'une phrase : même corps que les têtes de litanie, pour
+   que toute l'écriture manuscrite du manifeste tienne à une seule taille. */
+.manifeste p .script { font-family: 'Biloxi Script', cursive; font-style: normal;
+  font-size: 3.5em; line-height: 0.85; color: var(--gold); }
+/* La signature garde le sien. */
+.manifeste p:last-child .script { font-size: 2.45em; line-height: 0.9; }
+/* « Le temps », écrit une seule fois à la main, en tête de la première ligne :
+   la litanie le continue sans jamais le répéter. */
+.manifeste p .litanie__tete { font-family: 'Biloxi Script', cursive; font-style: normal;
+  font-size: 3.5em; line-height: 0.85; color: var(--gold); margin-right: 0.08em; }
+.manifeste .litanie { position: relative; padding-left: clamp(1.6rem, 3vw, 2.6rem); }
+/* Une petite flèche ouvre chaque moment de la litanie. */
+.manifeste .litanie::before { content: '\2192'; position: absolute; left: 0;
+  top: 0.08em; color: var(--gold); font-size: 0.9em; opacity: 0.75; }
+/* La première ligne s'ouvre par le mot manuscrit : sa flèche descend d'une
+   ligne pour se poser dans la marge en face du texte, alignée sur celles des
+   lignes suivantes, au lieu de rester collée au grand mot. */
+.manifeste .litanie--premiere::before { top: 3.3em; }
+.manifeste .litanie--premiere { margin-top: clamp(2.2rem, 4vw, 3.2rem); }
+.manifeste .litanie + .litanie { margin-top: 0.7rem; }
+.manifeste p:last-child { font-style: italic; color: var(--gold);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.45;
+  margin-top: clamp(2.4rem, 4vw, 3.4rem); }
+
+/* L'invitation : la porte entre le manifeste et le récit. */
+.invite-recit { width: min(94%, 1480px); margin: clamp(3rem, 7vw, 6rem) auto clamp(1rem, 2vw, 2rem);
+  max-width: none; text-align: center; font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem); color: var(--muted); }
+.invite-recit::after { content: ''; display: block; width: 1px; height: clamp(2rem, 4vw, 3.5rem);
+  margin: clamp(1.2rem, 2.5vw, 2rem) auto 0; background: linear-gradient(to bottom, var(--faint), transparent); }
+
+/* La signature, à la main, juste après la dernière phrase. */
+.signature { width: min(94%, 1480px); margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+  max-width: none; text-align: center; font-size: clamp(2rem, 4vw, 3rem); color: var(--gold); }
+
+/* Le numéro et le titre d'un chapitre : un repère, pas un titre de magazine. */
+/* Une ouverture de chapitre, pas une étiquette : le titre est une phrase du
+   chapitre lui-même, dans l'italienne du récit. Le numéro se tient en retrait. */
+.tl-text p.acte-tete, .acte-tete { position: relative; z-index: 2; display: flex; align-items: baseline;
+  gap: clamp(0.7rem, 1.4vw, 1.1rem);
+  /* Le titre ouvre la section : il lui faut de l'air sous le bord de pinceau.
+     En padding, pas en marge — une marge de premier enfant s'échappe de la
+     section quand celle-ci n'a pas de bord de pinceau en haut. */
+  margin: 0 0 clamp(2.2rem, 4vw, 3.4rem); padding-top: clamp(2rem, 4vw, 3.6rem);
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: clamp(1.55rem, 2.5vw, 2.1rem); line-height: 1.25;
+  letter-spacing: 0.005em; text-transform: none; color: var(--gold); }
+.tl-text p.acte-tete .acte-n, .acte-tete .acte-n { font-size: 0.62em; letter-spacing: 0.12em;
+  color: var(--muted); opacity: 0.8; }
+
+/* Il signe au bout de son texte, à la main — pas dans une section à part
+   après la photo. La classe est à lui : « .signature » sert ailleurs. */
+.tl-text .recit-signature { font-family: 'Biloxi Script', cursive; font-style: normal;
+  font-size: clamp(2.9rem, 5.6vw, 4.4rem); line-height: 1; color: var(--gold);
+  margin-top: clamp(1.8rem, 3.4vw, 2.8rem); }
+
+/* La fin : une invitation, pas un bouton posé dans le vide. */
+.fin-recit { padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 7rem); text-align: center; }
+.fin-recit p { max-width: 46ch; margin: 0 auto clamp(1.6rem, 3vw, 2.2rem);
+  font-family: 'EB Garamond', serif; font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  line-height: 1.7; color: #C9CCD8; }
+
 /* ── Le récit (À propos) ── */
 /* Un chapitre : son texte dans une colonne lisible, qui alterne de bord, et
    sa photo en grand dessous, à ses proportions d'origine. */
-.tl { position: relative; width: min(94%, 1480px); margin: 0 auto; }
-/* Le chemin traverse chaque chapitre, derrière son texte et sa photo. */
-.tl-row { isolation: isolate; }
+.tl { position: relative; width: 100%; margin: 0 auto; }
+/* Le chemin traverse chaque chapitre, derrière son texte et sa photo.
+   Sa hauteur est bornée : sur un bloc très long, un trait à 100 % deviendrait
+   une tache de deux mille pixels de large. */
+
 .tl-row > .tl-text, .tl-row > div { position: relative; z-index: 2; }
+/* Un temps du récit : son propre fond, ses bords de pinceau, et un seul grand
+   tracé d'encre qui le traverse — comme les sections de la page d'accueil. */
+.recit-part { position: relative; isolation: isolate;
+  padding-inline: max(3vw, calc((100% - 1480px) / 2)); }
 .tl-row { position: relative; margin-bottom: clamp(4.5rem, 9vw, 8rem); }
 .tl-row:last-child { margin-bottom: 0; }
-.tl-text { position: relative; max-width: 58ch; padding-left: 2.2rem; }
+/* Une seule largeur de colonne pour tout le récit : à gauche elle part du même
+   bord, à droite elle finit sur le même bord, au centre elle est au milieu.
+   Trois positions, une seule mesure. */
+.tl-text { position: relative; max-width: 58ch; }
+.tl-row.text-centre .tl-text { margin-left: auto; margin-right: auto; }
+/* Rien en face : le texte ne reste pas collé à un bord avec la moitié de la page vide. */
+.tl-row--seul .tl-text { margin-left: auto; margin-right: auto; }
 .tl-row.text-right .tl-text { margin-left: auto; }
 .tl-dot { position: absolute; left: 0; top: 0.75rem; width: 0.7rem; height: 0.7rem;
   border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px var(--navy); z-index: 2; }
 .tl-text h2 { font-size: clamp(1.35rem, 2.4vw, 1.8rem); margin-bottom: 0.7rem; }
-.tl-text p { color: #C2C5D2; line-height: 1.85; }
-.tl-text p + p { margin-top: 0.8rem; }
+.tl-text p { color: #C9CCD8; font-size: clamp(1.05rem, 1.25vw, 1.2rem); line-height: 1.8; }
+/* Ce qui compte dans le fil du texte : l'œil l'attrape en balayant, comme dans
+   le manifeste. Le crème se confondait avec le texte courant. */
+/* Le gras met en gras, rien d'autre : la couleur se choisit à part. Et il
+   compte aussi quand il est emboîté dans un réglage — d'où le descendant. */
+.tl-text p strong { font-weight: 600; letter-spacing: 0.01em; }
+/* La manuscrite dans le récit : elle doit l'emporter sur « p .script ». */
+.tl-text p .script { font-family: 'Biloxi Script', cursive; font-style: normal;
+  font-size: 2.35em; line-height: 0.82; color: var(--gold); }
+
+/* Une phrase entière écrite à la main : elle a besoin d'air. Ses jambages
+   descendent, et elle ne doit pas toucher le paragraphe qui la suit. */
+.tl-text p.main-levee { margin-block: clamp(2rem, 3.6vw, 3.2rem); }
+
+/* Ce qui se vit — la difficulté, l'état intérieur — en italique. */
+/* L'italique met en italique. La couleur reste celle du texte autour. */
+.tl-text p em { font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 1.12em; }
+
+/* Un souffle : une phrase entière, seule sur sa ligne, en serif italique, avec
+   de l'air autour. Elle se marque dans le texte par un paragraphe tout en gras. */
+/* Un seul corps : « souffle » veut dire une chose, pas deux selon la longueur
+   de la phrase. Pour en rapetisser un, on lui donne une taille à la main. */
+.tl-text p.souffle, .tl-text p.souffle--court, .tl-text p.souffle--long {
+  font-family: 'EB Garamond', serif; font-style: italic; line-height: 1.3;
+  color: var(--cream); max-width: 38ch; margin-block: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem); }
+/* Les deux anciennes classes servent encore aux premières pages À propos. */
+.tl-text p.souffle--court { max-width: 34ch; }
+.tl-text p.souffle--long { font-size: clamp(1.2rem, 1.8vw, 1.6rem); max-width: 46ch; }
+.tl-text p.souffle strong, .tl-text p.souffle--court strong, .tl-text p.souffle--long strong { font-weight: 400; color: inherit; }
+.tl-text p.souffle + p, .tl-text p.souffle--court + p, .tl-text p.souffle--long + p { margin-top: 0; }
+/* Une phrase seule sur sa ligne : c'est le silence autour d'elle qui la met en
+   valeur, pas sa taille ni sa couleur. */
+.tl-text p.seule { margin-block: clamp(1.9rem, 3.4vw, 2.9rem); }
+.tl-text p + p { margin-top: clamp(1.1rem, 1.8vw, 1.5rem); }
 /* La photo n'est pas encadrée : elle traverse la page d'un bord à l'autre. */
-.tl-media { position: relative; width: 100vw; margin-left: calc(50% - 50vw); margin-top: clamp(2.4rem, 4.5vw, 3.6rem); }
+.tl-media { position: relative; width: 100vw; margin-left: calc(50% - 50vw);
+  margin-top: clamp(2.4rem, 4.5vw, 3.6rem); }
 .tl-media__vues { display: flex; }
 /* La photo garde ses proportions : on voit le sujet entier, jamais recadré. */
 .tl-media img { display: block; width: 100%; height: auto; }
@@ -412,6 +527,13 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .tl-media--paire img { width: 50%; height: auto; object-fit: cover; aspect-ratio: 1 / 1; }
 .tl-media--paire .tl-media__vues > img:only-child { width: 100%; }
 
+/* Les photos de Julia qui ferment un acte : elles débordent de chaque côté pour
+   gagner en hauteur. Les sources sont en 16/9 — la seule façon de donner plus
+   d'image sans recadrer en haut et en bas, c'est d'élargir. */
+.tl-media--souffle-acte { overflow: hidden; --deborde: 12%; }
+.tl-media--souffle-acte .tl-media__vues {
+  width: calc(100% + 2 * var(--deborde)); margin-left: calc(-1 * var(--deborde)); }
+
 /* Une bande qui porte une phrase : la photo s'assombrit pour la laisser lire. */
 .tl-media--souffle img { filter: brightness(0.62); }
 .tl-media__phrase { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
@@ -420,24 +542,44 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   text-shadow: 0 2px 24px rgba(7,11,24,0.6); pointer-events: none; }
 .tl-media__phrase span { display: block; max-width: 15em; }
 
-/* Les petites photos du chemin : des souvenirs posés dans la marge libre,
-   décalés les uns des autres, sans cadre. */
-.tl-vignettes { display: flex; gap: clamp(0.8rem, 1.6vw, 1.4rem); margin-top: clamp(1.8rem, 3vw, 2.6rem); }
-.tl-vignettes img { display: block; width: 100%; height: auto; object-fit: cover; }
+/* Les petites photos du chemin : une grappe qui se chevauche et ne fait qu'un
+   seul objet, dans la marge laissée libre par le texte. */
+.tl-vignettes { position: relative; margin-top: clamp(1.8rem, 3vw, 2.6rem); }
+.tl-vignettes::after { content: ''; display: block; padding-bottom: 104%; }
+.tl-vignettes img { position: absolute; display: block; object-fit: cover;
+  box-shadow: 0 18px 50px rgba(5, 8, 18, 0.5); }
+.tl-vignettes img:nth-child(1) { left: 0; top: 0; width: 68%; aspect-ratio: 4 / 5; }
+.tl-vignettes img:nth-child(2) { right: 0; top: 34%; width: 48%; aspect-ratio: 4 / 5; }
+.tl-vignettes img:nth-child(3) { left: 14%; bottom: 0; width: 40%; aspect-ratio: 1 / 1; }
+/* Une seule photo, ou deux : la grappe se resserre. */
+.tl-vignettes--1::after { padding-bottom: 74%; }
+.tl-vignettes--1 img:nth-child(1) { width: 58%; left: 10%; }
+.tl-vignettes--2::after { padding-bottom: 88%; }
+
 @media (min-width: 821px) {
-  .tl-row--vignettes { display: grid; grid-template-columns: 1fr 1fr;
-    gap: clamp(2rem, 4vw, 4rem); align-items: start; }
-  .tl-row--vignettes > .tl-media, .tl-row--vignettes > .tl-text--suite { grid-column: 1 / -1; }
-  .tl-row--vignettes.text-right .tl-text { order: 2; }
-  .tl-row--vignettes.text-right .tl-vignettes { order: 1; }
-  .tl-vignettes { flex-direction: column; align-items: flex-start; margin-top: 0.4rem;
-    gap: clamp(1.4rem, 2.6vw, 2.4rem); }
-  .tl-row--vignettes.text-right .tl-vignettes { align-items: flex-end; }
-  /* Chacune sa taille : elles ne s'alignent pas comme une galerie. */
-  .tl-vignettes img:nth-child(1) { width: 78%; }
-  .tl-vignettes img:nth-child(2) { width: 58%; margin-left: 16%; }
-  .tl-vignettes img:nth-child(3) { width: 66%; }
-  .tl-row--vignettes.text-right .tl-vignettes img:nth-child(2) { margin-left: 0; margin-right: 16%; }
+  /* minmax(0,…) : la bande pleine largeur posée dans la grille ne doit pas
+     élargir les colonnes à sa taille, sinon la colonne de droite part de travers. */
+  .tl-row--vignettes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem); align-items: stretch; }
+  /* Placement explicite : avec « order » seul, une bande pleine largeur posée dans
+     la grille décalait la colonne de droite d'une rangée. */
+  .tl-row--vignettes > .tl-text { grid-column: 1; grid-row: 1; }
+  .tl-row--vignettes > .tl-vignettes { grid-column: 2; grid-row: 1; }
+  .tl-row--vignettes.text-right > .tl-text { grid-column: 2; }
+  .tl-row--vignettes.text-right > .tl-vignettes { grid-column: 1; }
+  .tl-row--vignettes > .tl-media, .tl-row--vignettes > .tl-text--suite { grid-column: 1 / -1;
+    grid-row: 2;
+    /* L'écart entre les lignes de la grille tient déjà lieu de marge. */
+    margin-top: 0; }
+  /* La grappe prend la hauteur du texte, jamais l'inverse : sinon le paragraphe
+     flotte au milieu d'une colonne de photos et l'interligne du récit saute. */
+  .tl-vignettes { margin-top: 0; height: 100%; }
+  .tl-vignettes::after { content: none; }
+  .tl-vignettes img { width: auto; max-width: 68%; }
+  .tl-vignettes img:nth-child(1) { height: 62%; }
+  .tl-vignettes img:nth-child(2) { height: 44%; max-width: 48%; }
+  .tl-vignettes img:nth-child(3) { height: 38%; max-width: 40%; }
+  .tl-vignettes--1 img:nth-child(1) { height: 76%; top: 12%; max-width: 58%; }
 }
 
 /* La photo en face du texte : elle tient sa moitié et sort par le bord. */
@@ -519,8 +661,8 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 
 /* ── Mise en valeur dans les textes ── */
 .prose > p:first-child { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(1.12rem, 2vw, 1.32rem); line-height: 1.55; color: var(--cream); }
-.prose strong, .coeur__text strong, .passage strong, .lead strong, .tl-text strong, .univers__body strong { color: var(--gold); font-weight: 500; }
-.prose em, .coeur__text em, .tl-text em { color: var(--cream); font-style: italic; }
+.prose strong, .coeur__text strong, .passage strong, .lead strong, .univers__body strong { color: var(--gold); font-weight: 500; }
+.prose em, .coeur__text em { color: var(--cream); font-style: italic; }
 
 
 /* ── Piliers (univers) : icône + nom + note ── */
@@ -592,3 +734,20 @@ html.js main > article > section.is-in > *:not(.brosse):not(.trace):not(img) {
 .imgph { filter: saturate(0.8) brightness(0.7); }
 .ph-band::after, .imgph span { display: none; }
 /* Le nénuphar est en portrait : on cadre sur la fleur plutôt qu'au centre. */
+
+
+/* ── Les réglages fins : police, taille, couleur ──────────────────────
+   Une liste fermée, tirée des polices et des couleurs du site. Posés depuis
+   l'atelier avec la syntaxe [texte]{doré grand}. */
+.t-jost{font-family:'Jost', sans-serif}
+.t-garamond{font-family:'EB Garamond', serif}
+.t-biloxi{font-family:'Biloxi Script', cursive}
+.t-minuscule{font-size:0.78em}
+.t-petit{font-size:0.9em}
+.t-grand{font-size:1.3em}
+.t-immense{font-size:1.9em}
+.t-creme{color:var(--cream)}
+.t-dore{color:var(--gold)}
+.t-gris{color:var(--muted)}
+.t-indigo{color:var(--indigo-soft)}
+.t-corail{color:var(--coral)}

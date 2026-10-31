@@ -269,6 +269,8 @@ export default defineConfig({
           { type: "string", name: "hero_eyebrow", label: "Hero — sur-titre" },
           { type: "string", name: "hero_titre", label: "Hero — titre (sans-serif)" },
           { type: "image", name: "hero_image", label: "Fond du hero" },
+          { type: "string", name: "manifeste", label: "Le manifeste, en haut de page (paragraphes separes par une ligne vide)", ui: { component: "textarea" } },
+          { type: "string", name: "invitation", label: "L'invitation qui ouvre le recit" },
           { type: "image", name: "portrait_image", label: "Photo — Qui je suis" },
           { type: "image", name: "resp1_image", label: "Respiration 1 (fond)" },
           { type: "image", name: "resp2_image", label: "Respiration 2 (fond)" },

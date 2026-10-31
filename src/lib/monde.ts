@@ -84,10 +84,26 @@ export async function propositionsDe(fiche: any) {
   return toutes.filter((p) => cles.has(p.cle));
 }
 
+/**
+ * Le contenu d'une page. En développement, on relit le fichier à chaque appel :
+ * l'atelier y écrit en continu, et le serveur ne surveille pas ces fichiers —
+ * sans ça, la page servirait une version périmée de ce qu'on vient d'écrire.
+ */
+export async function pageContenu(page: string) {
+  if (import.meta.env.DEV) {
+    const [{ readFile }, { fileURLToPath }, matter] = await Promise.all([
+      import('node:fs/promises'), import('node:url'), import('gray-matter'),
+    ]);
+    const f = fileURLToPath(new URL(`../content/pages/${page}.md`, import.meta.url));
+    return matter.default(await readFile(f, 'utf8')).data as any;
+  }
+  return (await getEntry('pages', page as 'a-propos'))!.data as any;
+}
+
 /** Chapitres du récit, avec pour chacun les fiches du Codex qu'il évoque. */
-export async function recit() {
-  const ap = (await getEntry('pages', 'a-propos'))!.data;
-  return (ap.chapitres ?? []).map((c, i) => ({
+export async function recit(page = 'a-propos') {
+  const ap = await pageContenu(page);
+  return (ap.chapitres ?? []).map((c: any, i: number) => ({
     ...c,
     ancre: `chapitre-${i + 1}`,
     echos: [...new Set([...(c.echos ?? []), ...evoques(c.texte)])],

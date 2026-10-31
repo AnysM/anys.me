@@ -1,0 +1,683 @@
+---
+// L'atelier : l'édition en place, sur la page réelle, en développement seulement.
+//
+// Le moteur est Tiptap (ProseMirror), servi par la route /__editeur.js. Il tient
+// un document à part du DOM : le curseur, l'annulation, Entrée, le collage et
+// les claviers internationaux deviennent des comportements décrits.
+//
+// La page hôte pose `data-edit` sur ses zones et appelle ce composant avec le
+// nom de l'entrée de contenu.
+interface Props { page: string; relecture?: boolean }
+const { page, relecture = false } = Astro.props;
+// L'atelier vit en développement. En « relecture », il sort aussi sur le site
+// publié : même outil, mais il n'écrit dans aucun fichier — les corrections
+// restent dans le navigateur de qui relit, et s'en repartent par le presse-papier.
+const actif = import.meta.env.DEV || relecture;
+
+// En relecture, le texte de départ ne peut pas venir d'une route de dev : on le
+// pose dans la page au moment du build.
+let etatFige: any = null;
+if (relecture) {
+  const { pageContenu, recit } = await import('../lib/monde');
+  const p: any = await pageContenu(page);
+  etatFige = {
+    ok: true,
+    chapitres: (await recit(page)).map((c: any) => ({ texte: c.texte })),
+    manifeste: p.manifeste ?? '',
+    invitation: p.invitation ?? '',
+  };
+}
+---
+{actif && (
+  <div id="atelier" hidden>
+    <div class="at-bar" role="toolbar" aria-label="Mise en valeur">
+      <button class="at-decl" data-pop="styles"><span class="at-courant">Texte courant</span><i>▾</i></button>
+      <span class="at-sep"></span>
+      <button data-m="bold" class="at-g" title="Gras (⌘B)">G</button>
+      <button data-m="italic" class="at-i" title="Italique (⌘I)">I</button>
+      <span class="at-sep"></span>
+      <button class="at-decl at-decl--court" data-pop="police" title="Police"><span class="at-vu-police">Aa</span><i>▾</i></button>
+      <button class="at-decl at-decl--court" data-pop="taille" title="Taille"><span class="at-vu-taille">16</span><i>▾</i></button>
+      <button class="at-decl at-decl--court" data-pop="teinte" title="Couleur"><span class="at-pastille at-vu-teinte"></span><i>▾</i></button>
+      <span class="at-sep"></span>
+      <button data-a="net" class="at-n" title="Tout enlever">✕</button>
+      <button data-a="annuler" title="Annuler (⌘Z)">↶</button>
+      <button data-a="refaire" title="Refaire (⌘⇧Z)">↷</button>
+      <span class="at-sep"></span>
+      <span class="at-mot"></span>
+    </div>
+    <div class="at-pop" data-pour="styles" hidden></div>
+    <div class="at-pop at-pop--mince" data-pour="police" hidden></div>
+    <div class="at-pop at-pop--mince" data-pour="taille" hidden></div>
+    <div class="at-pop at-pop--pastilles" data-pour="teinte" hidden></div>
+  </div>
+)}
+
+{actif && relecture && (
+  <div id="relecture">
+    <p class="rl-mode">Le texte est modifiable : clique dans un paragraphe et corrige.
+      Chaque passage retouché se marque d'un trait doré.</p>
+    <div class="rl-actions">
+      <span class="rl-n">0 passage retouché</span>
+      <button class="rl-voir" disabled>Voir les corrections</button>
+      <button class="rl-copier" disabled>Copier les corrections</button>
+    </div>
+  </div>
+)}
+
+{actif && relecture && (
+  <dialog id="rl-dlg">
+    <div class="rl-tete"><strong>Ce qui a changé</strong><button class="rl-fermer">Fermer</button></div>
+    <div class="rl-liste"></div>
+  </dialog>
+)}
+
+{actif && (
+  <script is:inline type="module" define:vars={{ page, relecture, etatFige }}>
+    // Le moteur : rassemblé à la volée par le serveur de dev, ou posé une fois
+    // pour toutes à côté de la page quand elle est en ligne.
+    const { monter, FAMILLES, versDoc, versMarkdown } =
+      await import(relecture ? '/relecture/editeur.js' : '/__editeur.js');
+
+    const boite = document.getElementById('atelier');
+    const boite_rl = document.getElementById('relecture');
+    const barre = boite.querySelector('.at-bar');
+    const menu = boite.querySelector('.at-menu');
+    const mot = boite.querySelector('.at-mot');
+    const courant = boite.querySelector('.at-courant');
+
+    // L'éditeur part du fichier, pas de ce que le rendu a fait du texte.
+    const etat = etatFige ?? await (await fetch('/__recit/etat?page=' + page)).json();
+    if (!etat.ok) throw new Error(etat.erreur);
+
+    const editeurs = new Map();
+    const derniers = new Map();
+    const origines = new Map();
+    const hotes = new Map();
+    const envois = new Map();
+    const idDe = new Map();
+    let actifEd = null;
+
+    // Toute la page passe sous l'éditeur : les blocs du récit, le manifeste,
+    // l'invitation, le titre, et les titres de chapitre.
+    let suivant = 0;
+    function poser(hote, md, envoiAvecTexte, options = {}) {
+      const id = 'z' + (suivant++);
+      derniers.set(id, md);
+      origines.set(id, md);
+      hotes.set(id, hote);
+      hote.dataset.genre = options.genre ?? 'bloc';
+      const { genre, ...pour } = options; void genre;
+      const ed = monter({
+        element: hote, markdown: md, ...pour,
+        surChangement: (t) => { derniers.set(id, t); planifier(id); },
+        // L'éditeur actif, c'est celui qui a le curseur — pas le dernier à
+        // avoir signalé un changement : avec cinquante éditeurs sur la page,
+        // un autre écrasait la référence au moment du clic.
+        surFocus: (e) => { actifEd = e; placer(e); },
+        surSelection: (e) => { actifEd = e; placer(e); },
+      });
+      editeurs.set(id, ed);
+      idDe.set(ed, id);
+      envois.set(id, envoiAvecTexte);
+      return ed;
+    }
+
+    // ── Les blocs du récit ───────────────────────────────────────────
+    const groupes = new Map();
+    for (const p of document.querySelectorAll('p[data-b]')) {
+      const n = Number(p.dataset.b);
+      if (!groupes.has(n)) groupes.set(n, []);
+      groupes.get(n).push(p);
+    }
+    for (const [n, paras] of groupes) {
+      const parent = paras[0].parentElement;
+      if (paras.some((p) => p.parentElement !== parent)) continue;  // bloc coupé par une photo
+      const hote = document.createElement('div');
+      parent.insertBefore(hote, paras[0]);
+      for (const p of paras) p.remove();
+      poser(hote, etat.chapitres[n]?.texte ?? '',
+        (t) => ({ action: 'bloc', champ: 'chapitres', bloc: n, markdown: t }));
+    }
+
+    // ── Le manifeste et l'invitation ─────────────────────────────────
+    for (const z of document.querySelectorAll('[data-edit="champ"]')) {
+      const champ = z.dataset.champ;
+      // L'invitation est un paragraphe unique posé dans un <p> : l'éditeur y
+      // écrit en ligne, sinon il met un paragraphe dans un paragraphe. Elle
+      // peut tout de même descendre d'une ligne — d'où `souple`.
+      const seule = champ === 'invitation';
+      const hote = document.createElement(seule ? 'span' : 'div');
+      z.replaceChildren(hote);
+      poser(hote, etat[champ] ?? '',
+        (t) => ({ action: 'bloc', champ, markdown: t }),
+        seule ? { ligne: true, souple: true, genre: 'ligne' }
+              : { manifeste: champ === 'manifeste', genre: 'champ' });
+    }
+
+    // ── Les valeurs d'une seule ligne : le titre, l'amorce, les chapitres ──
+    for (const z of document.querySelectorAll('[data-edit="ligne"]')) {
+      const cle = z.dataset.cle;
+      const acte = z.dataset.acte ? Number(z.dataset.acte) : undefined;
+      const texte = z.textContent;
+      const hote = document.createElement('span');
+      z.replaceChildren(hote);
+      poser(hote, texte,
+        (t) => ({ action: 'ligne-valeur', cle, acte, markdown: t.replace(/\n+/g, ' ') }),
+        { ligne: true, genre: 'ligne' });
+    }
+
+    // ── Enregistrer, sans recharger ───────────────────────────────────
+    const attentes = new Map();
+    // Tout changement s'enregistre. Le court délai ne sert qu'à ne pas écrire
+    // une fois par touche quand tu tapes ; un clic sur un style part aussitôt.
+    function planifier(n, tout_de_suite) {
+      clearTimeout(attentes.get(n));
+      if (tout_de_suite) { attentes.set(n, null); return envoyer(n); }
+      attentes.set(n, setTimeout(() => envoyer(n), 400));
+    }
+    const maintenant = (ed) => { const id = idDe.get(ed); if (id !== undefined) planifier(id, true); };
+    async function envoyer(n) {
+      if (relecture) return garder(n);
+      dire('…');
+      try {
+        const r = await fetch('/__texte', {
+          method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ page, ...envois.get(n)(derniers.get(n)) }),
+        });
+        const d = await r.json();
+        if (!d.ok) throw new Error(d.erreur);
+        attentes.delete(n);          // plus rien en attente pour cette zone
+        dire('enregistré');
+      } catch (e) { dire(String(e.message ?? e), true); }
+    }
+    const dire = (t, rate) => {
+      mot.textContent = t;
+      mot.className = 'at-mot at-mot--vu' + (rate ? ' at-mot--raté' : '');
+    };
+    // ── Les menus ─────────────────────────────────────────────────────
+    // Un bouton, un panneau. Chaque choix s'écrit dans son propre rendu :
+    // on choisit ce qu'on voit, pas un nom.
+    const STYLES = [
+      { a: 'courant',   dit: 'Texte courant', cls: 'at-ex--courant', par: true },
+      { a: 'souffle',   dit: 'Souffle',       cls: 'at-ex--souffle',  par: true },
+      { a: 'mainlevee', dit: 'Main levée',    cls: 'at-ex--main',     par: true },
+      { sep: true },
+      { a: 'grasdore',  dit: 'Gras doré', cls: 'at-ex--gras' },
+      { a: 'italique',  dit: 'Italique',  cls: 'at-ex--ital' },
+      // Le manuscrit sur la sélection : quelques mots de sa main au milieu
+      // d'une phrase, sans basculer tout le paragraphe en main levée.
+      { a: 'manuscrit', dit: 'Manuscrit',  cls: 'at-ex--manu' },
+      { a: 'net',       dit: 'Normal',     cls: 'at-ex--net' },
+    ];
+
+    // Un style, c'est une combinaison exacte de propriétés. L'appliquer, c'est
+    // repartir de rien et poser celles-là — pas ajouter une couche de plus sur
+    // ce qui traînait. Les boutons de la barre, eux, ne touchent qu'à une
+    // propriété et laissent les autres tranquilles.
+    const PROPRIETES = ['bold', 'italic', 'manuscrit', 'police', 'taille', 'teinte'];
+    const POSE = {
+      courant:   [],
+      souffle:   [['bold']],
+      mainlevee: [['manuscrit']],
+      grasdore:  [['bold'], ['teinte', { valeur: 'dore' }]],
+      italique:  [['italic']],
+      manuscrit: [['manuscrit']],
+      net:       [],
+    };
+    // Ces trois-là prennent le paragraphe entier : la page ne rend le grand
+    // Garamond que si tout le paragraphe porte la marque.
+    const PARAGRAPHE = new Set(['courant', 'souffle', 'mainlevee']);
+    const pops = Object.fromEntries([...boite.querySelectorAll('.at-pop')]
+      .map((x) => [x.dataset.pour, x]));
+
+    for (const x of STYLES) {
+      if (x.sep) { pops.styles.append(document.createElement('hr')); continue; }
+      const b = document.createElement('button');
+      b.className = 'at-ex ' + x.cls + (x.par ? ' at-ex--par' : '');
+      b.textContent = x.dit;
+      if (x.par) b.title = 'Tout le paragraphe';
+      if (x.a) b.dataset.a = x.a; else b.dataset.m = x.m;
+      pops.styles.append(b);
+    }
+    for (const [famille, liste] of Object.entries(FAMILLES)) {
+      const pop = pops[famille];
+      const rien = document.createElement('button');
+      rien.dataset.famille = famille;
+      rien.className = famille === 'teinte' ? 'at-pastille at-pastille--rien' : 'at-ex';
+      rien.title = 'Aucun';
+      if (famille !== 'teinte') rien.textContent = 'Aucun';
+      pop.append(rien);
+      for (const v of liste) {
+        const b = document.createElement('button');
+        b.dataset.famille = famille; b.dataset.valeur = v.nom;
+        if (famille === 'teinte') {
+          b.className = 'at-pastille t-fond-' + v.nom;
+          b.title = v.dit;
+        } else {
+          b.className = 'at-ex t-' + v.nom;   // écrit dans sa police / à sa taille
+          b.textContent = v.dit;
+        }
+        pop.append(b);
+      }
+    }
+
+    const fermerPops = (sauf) => {
+      for (const [k, p] of Object.entries(pops)) if (k !== sauf) p.hidden = true;
+      for (const b of barre.querySelectorAll('.at-decl')) {
+        b.classList.toggle('at-ouvert', b.dataset.pop === sauf);
+      }
+    };
+
+    // ── La barre ──────────────────────────────────────────────────────
+    const NOMS = { souffle: 'Souffle',
+                   'main-levee': 'Main levée', 'seule': 'Phrase seule' };
+
+    function placer(ed) {
+      const { from } = ed.state.selection;
+      const dom = ed.view.domAtPos(from).node;
+      const par = (dom.nodeType === 1 ? dom : dom.parentElement)?.closest('.at-zone > p')
+        ?? ed.view.dom.firstElementChild;
+      if (!par) return;
+      boite.hidden = false;
+      // Elle se pose au-dessus du paragraphe où tu es, et ne se replace que si
+      // tu changes de paragraphe — jamais quand la souris est dessus.
+      if (placer._ou !== par && !survol) { placer._ou = par; }
+      caler();
+      courant.textContent = [...par.classList].map((c) => NOMS[c]).find(Boolean) ?? 'Texte courant';
+      const vide = ed.state.selection.empty;
+      for (const x of boite.querySelectorAll('[data-m]')) {
+        x.disabled = vide && x.closest('.at-bar');
+        x.classList.toggle('at-on', ed.isActive(x.dataset.m));
+      }
+      for (const x of boite.querySelectorAll('[data-famille]')) {
+        x.classList.toggle('at-on', x.dataset.valeur
+          ? ed.isActive(x.dataset.famille, { valeur: x.dataset.valeur })
+          : !ed.isActive(x.dataset.famille));
+      }
+      const c = par.className;
+      for (const x of pops.styles.querySelectorAll('[data-a]')) {
+        const a = x.dataset.a;
+        // Un style de sélection n'a rien à mordre tant que rien n'est pris.
+        x.disabled = vide && !PARAGRAPHE.has(a);
+        x.classList.toggle('at-on',
+          a === 'souffle' ? /\bsouffle\b/.test(c)
+          : a === 'mainlevee' ? /main-levee/.test(c)
+          // Un style est porté quand ses propriétés y sont toutes, et qu'il
+          // n'en traîne aucune autre : c'est ce qui le distingue d'un empilement.
+          : POSE[a]?.length ? POSE[a].every(([n, at]) => ed.isActive(n, at))
+              && PROPRIETES.every((n) => POSE[a].some(([m]) => m === n) || !ed.isActive(n))
+          : false);
+      }
+      // Ce que montrent les trois boutons : l'état de la sélection.
+      const quoi = (f) => FAMILLES[f].find((v) => ed.isActive(f, { valeur: v.nom }));
+      const pol = quoi('police'), tai = quoi('taille'), tei = quoi('teinte');
+      const vuP = barre.querySelector('.at-vu-police');
+      vuP.className = 'at-vu-police' + (pol ? ' t-' + pol.nom : '');
+      barre.querySelector('.at-vu-taille').textContent = tai ? tai.dit : 'Taille';
+      barre.querySelector('.at-vu-teinte').className =
+        'at-pastille at-vu-teinte ' + (tei ? 't-fond-' + tei.nom : 't-fond-creme');
+    }
+
+    // La barre suit le paragraphe, mais ne sort jamais de l'écran : un panneau
+    // à moitié dehors fait cliquer sur la mauvaise ligne — c'est comme ça qu'un
+    // paragraphe entier se fait écraser par erreur.
+    function caler() {
+      const par = placer._ou;
+      if (!par || !par.isConnected || boite.hidden) return;
+      const b = par.getBoundingClientRect();
+      const l = barre.getBoundingClientRect();
+      const pop = [...boite.querySelectorAll('.at-pop')].find((x) => !x.hidden);
+      const hPop = pop ? pop.getBoundingClientRect().height + 6 : 0;
+      const large = Math.max(l.width, pop ? pop.getBoundingClientRect().width : 0);
+
+      // En relecture, la barre du bas occupe le pied de l'écran : la barre de
+      // mise en valeur s'arrête au-dessus d'elle, sinon elle cache les boutons.
+      const basUtile = innerHeight - (boite_rl ? boite_rl.offsetHeight + 8 : 0);
+
+      let x = Math.min(b.left, innerWidth - large - 10);
+      let y = b.top - l.height - 10;                     // au-dessus par défaut
+      if (y < 10 || y + l.height + hPop > basUtile) {
+        const dessous = b.bottom + 10;                   // sinon en dessous
+        y = (dessous + l.height + hPop <= basUtile) ? dessous
+          : Math.max(10, basUtile - l.height - hPop - 10);
+      }
+      const gx = Math.max(10, Math.round(x)), gy = Math.max(10, Math.round(y));
+      if (Math.abs(gx - (parseFloat(boite.style.left) || 0)) > 1) boite.style.left = gx + 'px';
+      if (Math.abs(gy - (parseFloat(boite.style.top) || 0)) > 1) boite.style.top = gy + 'px';
+    }
+    // On recale à chaque image : une photo qui finit de charger décale le
+    // paragraphe sans prévenir, et la barre resterait à l'ancienne place —
+    // le clic suivant tomberait dans le texte au lieu du bouton.
+    // Gelée tant qu'un bouton de souris est enfoncé : si la barre bouge entre
+    // l'appui et le relâchement, le navigateur n'envoie plus le clic au bouton
+    // visé — et rien ne se passe.
+    let appui = false;
+    addEventListener('pointerdown', () => { appui = true; }, true);
+    addEventListener('pointerup', () => { setTimeout(() => { appui = false; }, 120); }, true);
+    // Replacée seulement quand tu changes d'endroit ou que tu fais défiler.
+    // Une barre recalculée à chaque image bougeait entre l'appui et le
+    // relâchement du clic, et le bouton ne recevait rien.
+    addEventListener('scroll', () => { if (!survol && !appui) caler(); }, { passive: true });
+    addEventListener('resize', () => { if (!survol && !appui) caler(); });
+
+    // L'éditeur visé : celui qui a le curseur clavier, sinon le dernier où tu
+    // as travaillé. Cliquer dans la barre fait perdre le focus — il faut donc
+    // les deux.
+    const vise = () => [...editeurs.values()].find((e) => e.isFocused) ?? actifEd;
+
+    function regler(famille, valeur) {
+      const ed = vise();
+      if (!ed) return;
+      // Surtout pas de .focus() dans la chaîne : s'il échoue — et il échoue
+      // dès que la zone n'a plus le curseur clavier — toute la commande est
+      // annulée et le style ne s'applique pas.
+      const c = ed.chain();
+      if (valeur) c.setMark(famille, { valeur }); else c.unsetMark(famille);
+      c.run();
+      ed.commands.focus();
+      maintenant(ed);
+      placer(ed);
+    }
+
+    function agir(action, marque) {
+      const ed = vise();
+      if (!ed) return;
+      if (marque) ed.chain().toggleMark(marque).run();
+      else if (action === 'annuler') ed.chain().undo().run();
+      else if (action === 'refaire') ed.chain().redo().run();
+      else if (action in POSE) {
+        const { $from, from, to } = ed.state.selection;
+        const [debut, fin] = PARAGRAPHE.has(action)
+          ? [$from.start($from.depth), $from.start($from.depth) + $from.parent.content.size]
+          : [from, to];
+        if (debut === fin) return;
+        // Recliquer sur le style qu'on porte déjà le retire : on retombe sur
+        // du texte nu.
+        const deja = POSE[action].length && POSE[action].every(([n, a]) => ed.isActive(n, a));
+        const c = ed.chain().setTextSelection({ from: debut, to: fin });
+        for (const n of PROPRIETES) c.unsetMark(n);
+        if (!deja) for (const [n, a] of POSE[action]) c.setMark(n, a);
+        c.setTextSelection({ from: debut, to: fin }).run();
+      }
+      ed.commands.focus();
+      maintenant(ed);
+      placer(ed);
+    }
+
+    let survol = false;
+    boite.addEventListener('pointerenter', () => { survol = true; });
+    boite.addEventListener('pointerleave', () => { survol = false; });
+    boite.addEventListener('mousedown', (e) => e.preventDefault());
+    boite.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      if (b.dataset.pop) { const o = pops[b.dataset.pop].hidden; fermerPops(o ? b.dataset.pop : null);
+        pops[b.dataset.pop].hidden = !o; caler(); return; }
+      if (b.dataset.famille) { regler(b.dataset.famille, b.dataset.valeur); return; }
+      fermerPops(null);
+      agir(b.dataset.a, b.dataset.m);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { fermerPops(null); boite.hidden = true; placer._ou = null; }
+      // Les raccourcis marchent même si le clavier a perdu la zone de texte.
+      if ((e.metaKey || e.ctrlKey) && actifEd) {
+        const k = { b: 'bold', i: 'italic', e: 'manuscrit' }[e.key.toLowerCase()];
+        if (k) { e.preventDefault(); agir(null, k); }
+      }
+    });
+    // La barre ne se ferme que sur Échap. Elle se fermait aussi au moindre
+    // clic ailleurs — et comme un clic la faisait disparaître avant d'arriver
+    // au bouton, le style ne s'appliquait pas.
+    document.addEventListener('pointerdown', (e) => {
+      if (!boite.contains(e.target)) fermerPops(null);
+    }, true);
+    // En quittant la page, on n'envoie que ce qui n'a pas encore été écrit.
+    // Avant, on réécrivait aussi des zones déjà enregistrées et intactes.
+    addEventListener('beforeunload', () => {
+      if (relecture) return;
+      for (const [n, t] of attentes) {
+        clearTimeout(t);
+        navigator.sendBeacon?.('/__texte', new Blob([JSON.stringify({
+          page, ...envois.get(n)(derniers.get(n)),
+        })], { type: 'application/json' }));
+      }
+    });
+
+    // ── La relecture : ce qui a bougé, et comment le renvoyer ─────────
+    // En ligne, l'atelier n'écrit dans aucun fichier. Chaque passage retouché
+    // est gardé dans le navigateur de qui relit, marqué d'un trait doré, et
+    // s'en repart par le presse-papier — texte d'origine et texte corrigé
+    // côte à côte, pour qu'on voie ce qu'on accepte.
+    const CLE_LOCALE = 'relecture:' + page;
+    const nEl = boite_rl?.querySelector('.rl-n');
+    const voirB = boite_rl?.querySelector('.rl-voir');
+    const copierB = boite_rl?.querySelector('.rl-copier');
+    const dlg = document.getElementById('rl-dlg');
+
+    function lireLocal() {
+      try { return JSON.parse(localStorage.getItem(CLE_LOCALE) || '{}'); } catch { return {}; }
+    }
+    // La clé d'une zone doit survivre à un rechargement : elle vient de ce que
+    // la zone est, pas de l'ordre où l'éditeur l'a montée.
+    function cleDe(n) {
+      const d = envois.get(n)('');
+      return d.action === 'ligne-valeur'
+        ? 'ligne:' + d.cle + (d.acte !== undefined ? ':' + d.acte : '')
+        : d.champ === 'chapitres' ? 'bloc:' + d.bloc : 'champ:' + d.champ;
+    }
+    let corrections = lireLocal();
+
+    function garder(n) {
+      const cle = cleDe(n);
+      const avant = origines.get(n);
+      const apres = derniers.get(n);
+      if (apres === avant) delete corrections[cle];
+      else corrections[cle] = { avant, apres, quoi: nomDe(n) };
+      try { localStorage.setItem(CLE_LOCALE, JSON.stringify(corrections)); } catch {}
+      compter();
+      dire(apres === avant ? 'inchangé' : 'gardé');
+    }
+
+    // De quoi se repérer dans la liste : le nom du passage, pas son numéro.
+    function nomDe(n) {
+      const d = envois.get(n)('');
+      if (d.action === 'ligne-valeur') return d.acte !== undefined ? 'Titre de chapitre' : 'Titre';
+      if (d.champ === 'manifeste') return 'Ouverture';
+      if (d.champ === 'invitation') return 'Invitation';
+      const debut = (origines.get(n) || '').replace(/\[([^\]]*)\]\{[^}]*\}/g, '$1')
+        .replace(/[*_]/g, '').replace(/\s+/g, ' ').trim().slice(0, 40);
+      return 'Passage « ' + debut + '… »';
+    }
+
+    function compter() {
+      const n = Object.keys(corrections).length;
+      if (nEl) nEl.textContent = n + (n > 1 ? ' passages retouchés' : ' passage retouché');
+      if (voirB) voirB.disabled = copierB.disabled = n === 0;
+      for (const [id, hote] of hotes) hote.classList.toggle('rl-touchee', !!corrections[cleDe(id)]);
+    }
+
+    function enTexte() {
+      return Object.values(corrections).map((c) =>
+        '── ' + c.quoi + '\n\nAVANT :\n' + c.avant + '\n\nAPRÈS :\n' + c.apres + '\n'
+      ).join('\n');
+    }
+
+    if (relecture) {
+      // Ce qui avait été corrigé avant de fermer l'onglet revient dans la page.
+      for (const [id] of hotes) {
+        const c = corrections[cleDe(id)];
+        if (c && c.apres !== origines.get(id)) {
+          editeurs.get(id)?.commands?.setContent?.(versDoc(c.apres));
+          derniers.set(id, c.apres);
+        }
+      }
+      compter();
+      voirB?.addEventListener('click', () => {
+        dlg.querySelector('.rl-liste').replaceChildren(...Object.values(corrections).map((c) => {
+          const d = document.createElement('div');
+          d.className = 'rl-item';
+          const t = document.createElement('p'); t.className = 'rl-quoi'; t.textContent = c.quoi;
+          const a = document.createElement('pre'); a.className = 'rl-avant'; a.textContent = c.avant;
+          const b = document.createElement('pre'); b.className = 'rl-apres'; b.textContent = c.apres;
+          d.append(t, a, b);
+          return d;
+        }));
+        dlg.showModal();
+      });
+      copierB?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(enTexte());
+          copierB.textContent = 'Copié !';
+          setTimeout(() => { copierB.textContent = 'Copier les corrections'; }, 2200);
+        } catch { voirB.click(); }
+      });
+      dlg?.querySelector('.rl-fermer')?.addEventListener('click', () => dlg.close());
+    }
+
+    // De quoi inspecter l'atelier depuis la console, en développement.
+    window.__atelier = { editeurs, derniers, versDoc, versMarkdown };
+  </script>
+)}
+
+{actif && (
+  <style is:global>
+    /* La barre se pose au-dessus du paragraphe où l'on travaille, et ne se
+       replace qu'en changeant de paragraphe — jamais sous le curseur. */
+    #atelier { position: fixed; z-index: 9000; }
+    #atelier[hidden] { display: none; }
+    .at-bar { display: flex; align-items: center; gap: 2px; padding: 4px;
+      background: #11162a; border: 1px solid rgba(255,255,255,.14); border-radius: 10px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.55); }
+    .at-bar button { height: 32px; min-width: 32px; display: grid; place-items: center;
+      padding: 0 6px; background: none; border: 0; border-radius: 7px; cursor: pointer;
+      color: #C9CCD8; font-size: .95rem; line-height: 1; font-family: 'Jost', sans-serif; }
+    .at-bar button:hover:not(:disabled) { background: rgba(255,255,255,.1); color: #fff; }
+    .at-bar button:disabled { opacity: .28; cursor: default; }
+    .at-bar .at-on, .at-bar .at-ouvert { background: rgba(201,166,106,.22); color: #fff; }
+    .at-bar .at-g { font-weight: 700; }
+    .at-bar .at-i { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; }
+    .at-bar .at-m { font-family: 'Biloxi Script', cursive; font-size: 1.3rem; color: var(--gold); }
+    .at-sep { width: 1px; height: 20px; margin: 0 3px; background: rgba(255,255,255,.16); }
+    .at-decl { display: flex !important; align-items: center; gap: 6px; font-size: .78rem; }
+    .at-decl > i { font-style: normal; font-size: .58rem; opacity: .55; }
+    .at-decl--court { gap: 3px; }
+    .at-courant { color: #ECE7DE; white-space: nowrap; }
+    .at-vu-police { font-size: 1rem; }
+    .at-vu-taille { font-size: .74rem; letter-spacing: .02em; }
+
+    /* Les panneaux : un bouton, un panneau, rien d'autre que les choix. */
+    .at-pop { position: absolute; top: 100%; left: 0; margin-top: 6px; z-index: 9001;
+      min-width: 210px; padding: 5px; background: #11162a;
+      border: 1px solid rgba(255,255,255,.14); border-radius: 11px;
+      box-shadow: 0 18px 44px rgba(0,0,0,.6); }
+    .at-pop[hidden] { display: none; }
+    .at-pop--mince { min-width: 150px; }
+    /* Chaque taille s'écrit à sa taille : on choisit ce qu'on voit. */
+    .at-pop[data-pour="taille"] .at-ex { line-height: 1.15; font-size: 1rem; }
+    .at-pop[data-pour="taille"] .at-ex.t-minuscule { font-size: 0.78rem; }
+    .at-pop[data-pour="taille"] .at-ex.t-petit     { font-size: 0.9rem; }
+    .at-pop[data-pour="taille"] .at-ex.t-grand     { font-size: 1.3rem; }
+    .at-pop[data-pour="taille"] .at-ex.t-immense   { font-size: 1.9rem; }
+    /* Et chaque police dans sa police. */
+    .at-pop[data-pour="police"] .at-ex.t-garamond { font-size: 1.15rem; }
+    .at-pop[data-pour="police"] .at-ex.t-biloxi   { font-size: 1.6rem; color: var(--gold); }
+    .at-pop--pastilles { min-width: 0; display: flex; gap: 5px; padding: 7px; }
+    .at-pop hr { height: 1px; margin: 5px 8px; border: 0; background: rgba(255,255,255,.12); }
+    .at-ex { display: block; width: 100%; padding: 6px 10px; text-align: left;
+      background: none; border: 0; border-radius: 8px; cursor: pointer; color: #ECE7DE;
+      font-size: .95rem; line-height: 1.25; }
+    .at-ex:hover:not(:disabled) { background: rgba(255,255,255,.08); }
+    .at-ex:disabled { opacity: .3; cursor: default; }
+    /* Le ¶ dit sans phrase que ces styles-là prennent tout le paragraphe. */
+    .at-ex--par { position: relative; padding-left: 26px; }
+    .at-ex--par::before { content: '¶'; position: absolute; left: 9px; top: 50%;
+      transform: translateY(-50%); font-family: 'Jost', sans-serif; font-size: .8rem;
+      font-style: normal; color: var(--muted); }
+    .at-ex.at-on { background: rgba(201,166,106,.2); }
+    .at-ex--courant { font-family: 'Jost', sans-serif; font-weight: 300; color: #C9CCD8; }
+    .at-ex--souffle { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.4rem; }
+    .at-ex--main    { font-family: 'Biloxi Script', cursive; font-size: 1.6rem; color: var(--gold); }
+    .at-ex--manu    { font-family: 'Biloxi Script', cursive; font-size: 1.6rem; color: var(--gold); }
+    .at-ex--gras    { font-family: 'Jost', sans-serif; font-weight: 600; color: var(--gold); }
+    .at-ex--ital    { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.15rem; }
+    .at-ex--manu    { font-family: 'Biloxi Script', cursive; font-size: 1.6rem; color: var(--gold); }
+    .at-ex--net     { font-family: 'Jost', sans-serif; font-weight: 300; color: #C9CCD8; }
+
+    /* Les couleurs se montrent, elles ne se nomment pas. */
+    .at-pastille { width: 22px; height: 22px; padding: 0; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.22); cursor: pointer; }
+    .at-pastille.at-on { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .at-pastille--rien { background: none; position: relative; }
+    .at-pastille--rien::after { content: ''; position: absolute; inset: 3px 0 auto;
+      height: 1px; background: rgba(255,255,255,.4); transform: rotate(-45deg);
+      transform-origin: center; top: 50%; }
+    .t-fond-creme  { background: var(--cream); }
+    .t-fond-dore   { background: var(--gold); }
+    .t-fond-gris   { background: var(--muted); }
+    .t-fond-indigo { background: var(--indigo-soft); }
+    .t-fond-corail { background: var(--coral); }
+
+    .at-mot { padding: 0 8px 0 2px; font-size: .64rem; letter-spacing: .1em;
+      text-transform: uppercase; white-space: nowrap; color: var(--muted);
+      opacity: 0; transition: opacity .2s; }
+    .at-mot--vu { opacity: 1; }
+    .at-mot--raté { color: #E9765B; text-transform: none; letter-spacing: 0; font-size: .72rem; }
+
+    /* La zone d'édition se fond dans la page : c'est le texte du site. */
+    .at-zone { outline: none; caret-color: var(--gold); }
+    .at-zone:focus-within { outline: 1px solid rgba(201,166,106,.26); outline-offset: 12px; border-radius: 3px; }
+    [data-genre="ligne"] > .at-zone, [data-genre="ligne"] > .at-zone > p {
+      display: inline; margin: 0; font: inherit; color: inherit; letter-spacing: inherit; }
+    [data-genre="ligne"] > .at-zone:focus-within { outline-offset: 4px; }
+    /* Les deux mots de tête d'une litanie de suite : dans le fichier, pas à l'écran. */
+    .at-cache { display: none; }
+
+    /* ── La relecture : la barre du bas, le trait doré, la liste ─────── */
+    #relecture { position: fixed; left: 0; right: 0; bottom: 0; z-index: 8900;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: .6rem 1.2rem; padding: .7rem clamp(1rem, 4vw, 2rem);
+      background: rgba(10,15,32,.94); backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(216,162,76,.26);
+      font-family: 'Jost', sans-serif; color: #C9CCD8; }
+    .rl-mode { margin: 0; font-size: .82rem; line-height: 1.4; max-width: 46ch; opacity: .82; }
+    .rl-actions { display: flex; align-items: center; gap: .6rem; margin-left: auto; }
+    .rl-n { font-size: .78rem; letter-spacing: .04em; white-space: nowrap; }
+    #relecture button { padding: .5rem .95rem; border-radius: 999px; cursor: pointer;
+      font-family: inherit; font-size: .82rem; white-space: nowrap;
+      background: none; color: #ECE7DE; border: 1px solid rgba(236,231,222,.3); }
+    #relecture button:disabled { opacity: .3; cursor: default; }
+    .rl-copier:not(:disabled) { background: #D8A24C; border-color: #D8A24C; color: #0A0F20; }
+    /* La page garde de l'air sous elle : la barre ne recouvre pas la signature. */
+    body:has(#relecture) { padding-bottom: 7rem; }
+    @media (max-width: 760px) { .rl-mode { display: none; } .rl-actions { margin: 0 auto; } }
+
+    /* Un passage retouché porte son trait, pour qu'on voie d'un coup d'œil
+       ce qu'on a touché en remontant la page. */
+    .rl-touchee { border-left: 2px solid var(--gold); padding-left: clamp(.7rem, 2vw, 1.1rem);
+      margin-left: calc(-1 * clamp(.7rem, 2vw, 1.1rem) - 2px); }
+    [data-genre="ligne"].rl-touchee { border: 0; margin: 0; padding: 0 .2em;
+      background: rgba(216,162,76,.16); border-radius: 3px; }
+
+    #rl-dlg { width: min(66rem, 92vw); max-height: 84vh; padding: 0; border: 0;
+      border-radius: 14px; background: #11162a; color: #ECE7DE;
+      font-family: 'Jost', sans-serif; }
+    #rl-dlg::backdrop { background: rgba(5,8,18,.72); }
+    .rl-tete { display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.3rem; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .rl-tete button { padding: .4rem .9rem; border-radius: 999px; cursor: pointer;
+      background: none; color: #ECE7DE; border: 1px solid rgba(236,231,222,.3);
+      font-family: inherit; font-size: .82rem; }
+    .rl-liste { padding: 1.1rem 1.3rem 1.6rem; overflow: auto; max-height: calc(84vh - 4rem); }
+    .rl-item + .rl-item { margin-top: 1.6rem; padding-top: 1.6rem;
+      border-top: 1px solid rgba(255,255,255,.08); }
+    .rl-quoi { margin: 0 0 .6rem; font-size: .76rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--gold); }
+    .rl-item pre { margin: 0 0 .5rem; padding: .7rem .9rem; border-radius: 8px;
+      white-space: pre-wrap; word-break: break-word;
+      font-family: 'EB Garamond', serif; font-size: .95rem; line-height: 1.5; }
+    .rl-avant { background: rgba(233,118,91,.1); color: #C9CCD8; }
+    .rl-apres { background: rgba(216,162,76,.12); color: #ECE7DE; }
+  </style>
+)}

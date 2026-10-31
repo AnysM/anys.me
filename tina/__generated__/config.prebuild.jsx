@@ -375,6 +375,8 @@ var config_default = defineConfig({
           { type: "string", name: "hero_eyebrow", label: "Hero \u2014 sur-titre" },
           { type: "string", name: "hero_titre", label: "Hero \u2014 titre (sans-serif)" },
           { type: "image", name: "hero_image", label: "Fond du hero" },
+          { type: "string", name: "manifeste", label: "Le manifeste, en haut de page (paragraphes separes par une ligne vide)", ui: { component: "textarea" } },
+          { type: "string", name: "invitation", label: "L'invitation qui ouvre le recit" },
           { type: "image", name: "portrait_image", label: "Photo \u2014 Qui je suis" },
           { type: "image", name: "resp1_image", label: "Respiration 1 (fond)" },
           { type: "image", name: "resp2_image", label: "Respiration 2 (fond)" },
@@ -499,6 +501,21 @@ var config_default = defineConfig({
               { type: "string", name: "titre", label: "Titre du chapitre" },
               { type: "string", name: "texte", label: "Texte (paragraphes separes par une ligne vide)", ui: { component: "textarea" } },
               { type: "image", name: "image", label: "Photo du chapitre" },
+              {
+                type: "string",
+                name: "allure",
+                label: "Allure de la photo",
+                options: [
+                  { value: "pleine", label: "Bande pleine largeur" },
+                  { value: "face", label: "En face du texte" },
+                  { value: "paire", label: "Deux photos cote a cote" },
+                  { value: "souffle", label: "Bande avec une phrase par-dessus" }
+                ]
+              },
+              { type: "image", name: "image2", label: "Deuxieme photo (allure : paire)" },
+              { type: "string", name: "phrase", label: "Phrase posee sur la photo (allure : souffle)" },
+              { type: "number", name: "apres", label: "Poser la photo apres le Nieme paragraphe (vide : a la fin)" },
+              { type: "image", name: "vignettes", label: "Petites photos du chemin (dans la marge, a cote du texte)", list: true },
               {
                 type: "object",
                 name: "echos",

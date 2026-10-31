@@ -145,5 +145,33 @@
     "hauteur": 34,
     "largeur": 100,
     "decalage": 18
+  },
+  "acte-haut": {
+    "bord": 1,
+    "retourne": true,
+    "hauteur": 30,
+    "largeur": 100,
+    "decalage": 40
+  },
+  "acte2-haut": {
+    "bord": 3,
+    "retourne": false,
+    "hauteur": 26,
+    "largeur": 100,
+    "decalage": 12
+  },
+  "acte-bas": {
+    "bord": 2,
+    "retourne": false,
+    "hauteur": 28,
+    "largeur": 100,
+    "decalage": 55
+  },
+  "acte2-bas": {
+    "bord": 4,
+    "retourne": true,
+    "hauteur": 24,
+    "largeur": 100,
+    "decalage": 20
   }
 }
