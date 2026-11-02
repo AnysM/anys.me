@@ -31,9 +31,10 @@ main > section > div { position: relative; z-index: 2; }
 /* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
 .trace { position: absolute; top: 0; height: calc(100% + var(--debord, 0px));
   width: auto; max-width: none; z-index: 1; pointer-events: none; user-select: none;
-  /* Les deux bouts se dissolvent : aucune coupure droite au bord d'une section. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 86%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 86%, transparent 100%); }
+  /* Le fondu court toujours dans le sens de la lecture : une ligne horizontale
+     en haut, la même en bas. Même course des deux côtés. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.15) 7%, rgba(0,0,0,.6) 17%, #000 30%, #000 70%, rgba(0,0,0,.6) 83%, rgba(0,0,0,.15) 93%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.15) 7%, rgba(0,0,0,.6) 17%, #000 30%, #000 70%, rgba(0,0,0,.6) 83%, rgba(0,0,0,.15) 93%, transparent 100%); }
 /* La section garde son trait chez elle : le débord passe sous la section suivante. */
 main > section:has(> .trace) { isolation: isolate; }
 @media (max-width: 760px) { .trace { opacity: 0.06 !important; } }
