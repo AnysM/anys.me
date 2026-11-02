@@ -155,13 +155,13 @@ actes:
     titre: Face à l'auto-destruction
   - 'n': 2
     titre: De la tête au corps
-    respiration: /img/photos/dscf1872.jpg
+    respiration: /img/photos/dscf2503.jpg
   - 'n': 3
     titre: Trouver ma place
-    respiration: /img/photos/dscf2503.jpg
+    respiration: /img/photos/dscf2304.jpg
   - 'n': 4
     titre: Amourir
-    respiration: /img/photos/dscf2304.jpg
+    respiration: /img/photos/dscf1872.jpg
   - 'n': 5
     titre: Danser son chemin
 ---
