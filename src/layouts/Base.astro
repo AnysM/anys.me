@@ -29,8 +29,9 @@ const ogImage = new URL(image, origineImages);
 const lexique = JSON.stringify(Object.fromEntries(
   (await getCollection('codex')).filter((c) => c.data.publie).map((c) => [c.id, { t: c.data.titre, y: typeLabel(c.data.type), r: c.data.resume ?? '' }]),
 )).replace(/</g, '\\u003c');
-// Statistiques sans cookies : actives seulement si PUBLIC_PLAUSIBLE_DOMAIN est défini (Netlify › variables)
-const plausible = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+// Mesure d'audience sans cookie : active dès que PUBLIC_UMAMI_ID porte l'identifiant
+// du site chez Umami (Netlify › Site configuration › Environment variables).
+const umami = import.meta.env.PUBLIC_UMAMI_ID;
 const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, lieu, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
@@ -68,15 +69,13 @@ const links = [
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <script type="application/ld+json" set:html={graphe} />
-  {plausible && <script defer data-domain={plausible} src="https://plausible.io/js/script.outbound-links.js"></script>}
-  {plausible && <script is:inline>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };</script>}
   <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
   <link rel="preload" href="/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/EBGaramond-400-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Biloxi_Script.ttf" as="font" type="font/ttf" crossorigin />
   <!-- Mesure d'audience sans cookie ni identifiant : rien à consentir. -->
-  <script defer data-domain="anys.me" src="https://plausible.io/js/script.js"></script>
+  {umami && <script defer src="https://cloud.umami.is/script.js" data-website-id={umami}></script>}
   <script is:inline>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -111,7 +110,7 @@ const links = [
       <div class="site-nav__sep"></div>
       <div class="site-nav__sub">
         <a class="site-nav__sub-link" href="/artefacts">Artefacts</a>
-        <a class="site-nav__sub-link" href="mailto:contact@anys.me">Contact</a>
+        <a class="site-nav__sub-link" href="/contact">Contact</a>
       </div>
     </div>
   </div>
@@ -225,7 +224,7 @@ const links = [
   <script is:inline>
     (function () {
       // Conversions : clics sur les actions et envois de formulaires marqués data-evt
-      function envoyer(nom, props) { if (window.plausible) window.plausible(nom, { props: props }); }
+      function envoyer(nom, props) { if (window.umami) window.umami.track(nom, props); }
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[data-evt]');
         if (a) envoyer(a.dataset.evt, { page: location.pathname });

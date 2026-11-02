@@ -4,9 +4,13 @@ import optimizeImages from './src/integrations/optimize-images.mjs';
 import reglages from './src/integrations/reglages.mjs';
 import { rehypeLore, fichesMinces } from './src/lib/lore.mjs';
 import { CODEX_OUVERT } from './src/lib/etat.mjs';
+import { agendaPasse } from './src/lib/passe.mjs';
 
+// Les pages qui portent déjà noindex n'ont rien à faire dans le plan du site :
+// l'annoncer à Google puis lui dire de ne pas la garder, c'est se contredire.
 const exclues = ['/merci', '/admin', '/ateliers', '/reglages', '/essais', '/a-propos-2', '/a-propos-court',
-  '/relecture',
+  '/relecture', '/a-propos-bref', '/mentions-legales', '/confidentialite',
+  ...agendaPasse().map((id) => `/agenda/${id}/`),
   ...(CODEX_OUVERT ? fichesMinces().map((id) => `/codex/${id}/`) : ['/codex'])];
 
 export default defineConfig({

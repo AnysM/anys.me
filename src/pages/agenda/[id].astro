@@ -14,6 +14,7 @@ import BarreAction from '../../components/BarreAction.astro';
 import { seuil, seuilDe, typeLabel } from '../../lib/univers.mjs';
 import { fil, description, PERSONNE_ID, SITE, abs } from '../../lib/seo';
 import { CODEX_OUVERT } from '../../lib/etat.mjs';
+import { estPasse } from '../../lib/passe.mjs';
 const ICONES = { 'Quand': 'date', 'Lieu': 'lieu', 'Tarif': 'prix', 'Early bird': 'duree' };
 export async function getStaticPaths() {
   const all = (await getCollection('agenda')).filter((e) => e.data.publie && !e.data.site);
@@ -96,7 +97,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Agenda', url: '/agenda' }, { nom: d.titre, url: `/agenda/${e.id}` }]),
 ];
 ---
-<Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
+<Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld} noindex={estPasse(d)}>
   <section class="page-hero page-hero--grand" style={`padding-bottom:${airSousBord('page-bas')}`}>{(d.image_hero ?? d.image) ? <img src={d.image_hero ?? d.image} alt="" /> : <div class="ph-band"></div>}
     {(d.image_hero ?? d.image) && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap">
