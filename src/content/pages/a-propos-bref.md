@@ -65,9 +65,9 @@ chapitres:
       - /img/recit/ruelle.jpg
   - acte: 4
     texte: |-
-      Quelques années plus tard, cette relation se termine et je tombe amoureux d'une autre femme. _Fonder une famille, acheter un lieu, en faire un espace d'accueil, de retraites et de résidence artistique._ Nous quittons le nomadisme pour la ville, et je reprends un travail salarié dans l'informatique pour soutenir ce projet.
+      Quelques années plus tard, une nouvelle histoire commence. _Fonder une famille, acheter un lieu, en faire un espace d'accueil, de retraites et de résidence artistique._ Nous quittons le nomadisme pour la ville, et je reprends un travail salarié dans l'informatique pour soutenir ce projet.
 
-      Au bout d'un an, après six mois sous le même toit, [**elle me quitte**]{dore}. **Je vis un véritable effondrement.** Je ne m'y attendais pas du tout. J'ai besoin de comprendre, et tout finit par se mettre bout à bout.
+      Et puis l'histoire s'arrête. [**Je ne m'y attendais pas du tout**]{dore}, et **je vis un véritable effondrement.** J'ai besoin de comprendre, et tout finit par se mettre bout à bout.
 
       **Je n'ai pas su m'affirmer, exprimer et nourrir mes besoins, poser mes limites.**
 
