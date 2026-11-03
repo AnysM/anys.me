@@ -1,6 +1,7 @@
 ---
-// Inscription à la lettre (ou liste d'attente d'une retraite). Formulaire Netlify « lettre »,
-// en attendant un outil d'emailing (Brevo, MailerLite…). La source dit d'où vient l'inscription.
+// Inscription à la lettre (ou liste d'attente d'une retraite). Le formulaire poste
+// vers netlify/functions/formulaire, qui range dans Airtable, prévient le téléphone
+// et inscrit chez Brevo. La source dit d'où vient l'inscription.
 const {
   eyebrow = 'La lettre',
   titre = 'Rester *relié*',
@@ -21,7 +22,7 @@ const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>'
       {texte && <p class="lettre__intro">{texte}</p>}
     </div>
     <div class="lettre__action">
-      <form class="lettre__form" name="lettre" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci?pour=lettre" data-evt="Lettre">
+      <form class="lettre__form" name="lettre" method="POST" action="/.netlify/functions/formulaire" data-evt="Lettre">
         <input type="hidden" name="form-name" value="lettre" />
         <input type="hidden" name="source" value={source} />
         <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>

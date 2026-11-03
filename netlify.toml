@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Les formulaires postent ici : la fonction range dans Airtable, prévient le
+# téléphone, et inscrit à la lettre chez Brevo.
+[functions]
+  directory = "netlify/functions"
+
 [[redirects]]
   from = "/partenaires"
   to = "/codex#allies"

@@ -14,8 +14,9 @@ const questions = {
       <button type="button" data-seuil={s.id} aria-pressed="false"><b>{s.num} · {s.nom}</b><span>{questions[s.id]}</span></button>
     ))}
   </div>
-  <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci">
+  <form class="form" name="contact" method="POST" action="/.netlify/functions/formulaire">
     <input type="hidden" name="form-name" value="contact" />
+    <input type="hidden" name="page" />
     <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
     <div><label for="c-nom">Ton nom</label><input id="c-nom" type="text" name="nom" autocomplete="name" required /></div>
     <div><label for="c-email">Ton email</label><input id="c-email" type="email" name="email" autocomplete="email" required /></div>
@@ -40,6 +41,8 @@ const questions = {
     }
     boutons.forEach(function (b) { b.addEventListener('click', function () { choisir(b.dataset.seuil); bloc.querySelector('input[name="nom"]').focus(); }); });
     select.addEventListener('change', function () { choisir(select.value); });
+    var page = bloc.querySelector('input[name="page"]');
+    if (page) page.value = location.pathname + location.search;
     var params = new URLSearchParams(location.search);
     var interet = params.get('interet');
     if (interet && select.querySelector('option[value="' + interet + '"]')) choisir(interet);
