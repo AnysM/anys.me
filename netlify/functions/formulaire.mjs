@@ -38,6 +38,19 @@ const APPELS = {
   autre: 'Autre',
 };
 
+/**
+ * Pourquoi quelqu'un laisse son email. Une seule liste chez Brevo, et cette
+ * envie posée à côté : on écrit ensuite à tout le monde, ou seulement à ceux
+ * qui attendaient Quintessence. Vingt listes diraient la même chose en pire,
+ * avec la même personne comptée plusieurs fois.
+ */
+function envieDe(source) {
+  if (source.startsWith('attente-')) return 'Attente';
+  if (source === 'artefacts' || source.startsWith('artefact-')) return 'Œuvres';
+  if (source.startsWith('codex-')) return 'Codex';
+  return 'Lettre';
+}
+
 const texte = (v) => (typeof v === 'string' ? v.trim() : '');
 
 /** Lit le corps de la requête, qu'il arrive en formulaire ou en JSON. */
@@ -80,18 +93,34 @@ async function versNtfy({ titre, corps, priorite = 'default', etiquettes = '' })
 }
 
 /** Un contact dans la liste Brevo, qui lui envoie la confirmation. */
-async function versBrevo({ email, prenom }) {
+async function versBrevo({ email, prenom, source, envie }) {
   if (!BREVO_API_KEY || !BREVO_LISTE) return { saute: true };
-  const r = await fetch('https://api.brevo.com/v3/contacts', {
+
+  const envoyer = (attributs) => fetch('https://api.brevo.com/v3/contacts', {
     method: 'POST',
     headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
     body: JSON.stringify({
       email,
-      ...(prenom ? { attributes: { PRENOM: prenom } } : {}),
+      ...(attributs ? { attributes: attributs } : {}),
       listIds: [Number(BREVO_LISTE)],
       updateEnabled: true,
     }),
   });
+
+  let r = await envoyer({
+    ...(prenom ? { PRENOM: prenom } : {}),
+    ...(source ? { SOURCE: source } : {}),
+    ...(envie ? { ENVIE: envie } : {}),
+  });
+  // Un compte Brevo en anglais nomme ses champs FIRSTNAME, et SOURCE n'existe
+  // que si on l'a créé. Plutôt que de perdre l'inscription sur un nom de
+  // colonne, on réessaie sans rien : l'adresse entre dans la liste, et le
+  // journal dit ce qui a été refusé.
+  if (r.status === 400) {
+    const refus = await r.text();
+    console.error('[brevo] attributs refusés, nouvelle tentative sans :', refus);
+    r = await envoyer(null);
+  }
   // 204 quand le contact existait déjà et vient d'être mis à jour.
   if (!r.ok && r.status !== 204) throw new Error(`Brevo ${r.status} : ${await r.text()}`);
   return { ajoute: true };
@@ -135,8 +164,9 @@ export default async function handler(request) {
   const source = texte(champs.source);
   const page = texte(champs.page);
 
+  const envie = envieDe(source || 'site');
   const ligne = quel === 'lettre'
-    ? { Prénom: nom, Email: email, Source: source || 'site', Reçu: new Date().toISOString() }
+    ? { Prénom: nom, Email: email, Source: source || 'site', Envie: envie, Reçu: new Date().toISOString() }
     : {
         Nom: nom,
         Email: email,
@@ -156,7 +186,7 @@ export default async function handler(request) {
   }
 
   const notif = quel === 'lettre'
-    ? { titre: `Inscription à la lettre${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
+    ? { titre: `${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
     : {
         titre: `Message de ${nom || email}`,
         corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${APPELS[interet] ?? interet}`].filter(Boolean).join('\n'),
@@ -174,7 +204,7 @@ export default async function handler(request) {
 
   if (quel === 'lettre') {
     try {
-      await versBrevo({ email, prenom: nom });
+      await versBrevo({ email, prenom: nom, source: source || 'site', envie });
     } catch (e) {
       soucis.push(String(e.message ?? e));
     }
