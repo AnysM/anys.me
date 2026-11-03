@@ -159,7 +159,7 @@ export default async function handler(request) {
     ? { titre: `Inscription à la lettre${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
     : {
         titre: `Message de ${nom || email}`,
-        corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${interet}`].filter(Boolean).join('\n'),
+        corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${APPELS[interet] ?? interet}`].filter(Boolean).join('\n'),
         priorite: 'high',
         etiquettes: 'speech_balloon',
       };
