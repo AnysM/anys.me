@@ -194,6 +194,9 @@ export default async function handler(request) {
 
   const soucis = [];
   let range = false;
+  if (!AIRTABLE_TOKEN || !AIRTABLE_BASE) {
+    soucis.push(`Airtable non configuré (jeton ${AIRTABLE_TOKEN ? 'posé' : 'absent'}, base ${AIRTABLE_BASE ? AIRTABLE_BASE : 'absente'})`);
+  }
   try {
     const r = await versAirtable(forme.table, ligne);
     range = !r.saute;
@@ -210,7 +213,13 @@ export default async function handler(request) {
         etiquettes: 'speech_balloon',
       };
   // Si Airtable n'a pas voulu, la notification porte tout : rien ne se perd.
-  if (soucis.length) notif.corps += `\n\n⚠️ Pas rangé dans Airtable.\n${JSON.stringify(ligne)}`;
+  if (soucis.length) {
+    // On dit pourquoi, pas seulement que ça a raté : sans le message d'Airtable
+    // il faut aller fouiller le journal de Netlify pour apprendre qu'un jeton
+    // est périmé ou qu'une colonne manque.
+    notif.corps += `\n\n⚠️ Pas rangé.\n${soucis.join('\n')}\n\n${JSON.stringify(ligne)}`;
+    notif.priorite = 'urgent';
+  }
 
   try {
     await versNtfy(notif);
