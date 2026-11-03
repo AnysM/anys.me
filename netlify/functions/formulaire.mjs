@@ -23,6 +23,10 @@ const NTFY_TOPIC = process.env.NTFY_TOPIC;
 const NTFY_SERVEUR = process.env.NTFY_SERVEUR ?? 'https://ntfy.sh';
 const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const BREVO_LISTE = process.env.BREVO_LISTE;
+// Avec un modèle de confirmation, l'adresse n'entre dans la liste qu'une fois le
+// lien cliqué. Sans lui, elle entre directement et personne ne reçoit de mail.
+const BREVO_DOI_MODELE = process.env.BREVO_DOI_MODELE;
+const SITE = process.env.URL ?? 'https://anysme.netlify.app';
 
 /** Les deux formulaires du site, et la table Airtable de chacun. */
 const FORMULAIRES = {
@@ -96,16 +100,28 @@ async function versNtfy({ titre, corps, priorite = 'default', etiquettes = '' })
 async function versBrevo({ email, prenom, source, envie }) {
   if (!BREVO_API_KEY || !BREVO_LISTE) return { saute: true };
 
-  const envoyer = (attributs) => fetch('https://api.brevo.com/v3/contacts', {
-    method: 'POST',
-    headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
-    body: JSON.stringify({
-      email,
-      ...(attributs ? { attributes: attributs } : {}),
-      listIds: [Number(BREVO_LISTE)],
-      updateEnabled: true,
-    }),
-  });
+  const doi = !!BREVO_DOI_MODELE;
+  const envoyer = (attributs) => fetch(
+    doi ? 'https://api.brevo.com/v3/contacts/doubleOptinConfirmation' : 'https://api.brevo.com/v3/contacts',
+    {
+      method: 'POST',
+      headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify(doi
+        ? {
+            email,
+            ...(attributs ? { attributes: attributs } : {}),
+            includeListIds: [Number(BREVO_LISTE)],
+            templateId: Number(BREVO_DOI_MODELE),
+            redirectionUrl: `${SITE}/merci?pour=lettre`,
+          }
+        : {
+            email,
+            ...(attributs ? { attributes: attributs } : {}),
+            listIds: [Number(BREVO_LISTE)],
+            updateEnabled: true,
+          }),
+    },
+  );
 
   let r = await envoyer({
     ...(prenom ? { PRENOM: prenom } : {}),
@@ -123,7 +139,7 @@ async function versBrevo({ email, prenom, source, envie }) {
   }
   // 204 quand le contact existait déjà et vient d'être mis à jour.
   if (!r.ok && r.status !== 204) throw new Error(`Brevo ${r.status} : ${await r.text()}`);
-  return { ajoute: true };
+  return { ajoute: true, doi };
 }
 
 export default async function handler(request) {
