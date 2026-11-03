@@ -18,6 +18,6 @@ ordre: 4
 publie: true
 ---
 
-Une retraite d'hommes, au Maroc.
+Une retraite d'hommes, au Portugal.
 
 Les dates du printemps 2027 seront annoncées prochainement.

@@ -6,7 +6,7 @@ heure: "20h - 22h"
 lieu: "Oasis Meïsō, à l'étage, Lyon"
 prix: "20€"
 cta: "Réserver ma place"
-lien: "/contact?pour=Atelier%20%C2%AB%20Et%20si%20tu%20%C3%A9tais%20une%20tribu%20%3F%20%C2%BB%20%E2%80%94%207%20octobre&interet=decouvrir"
+lien: "/contact?pour=Atelier%20%C2%AB%20Et%20si%20tu%20%C3%A9tais%20une%20tribu%20%3F%20%C2%BB%20%E2%80%94%2021%20octobre&interet=decouvrir"
 image: /img/meiso-salle.jpg
 resume: "Atelier autour du jeu des 7 interlocuteurs. Sept voix intérieures, un conseil à réunir, pour éclairer une situation, un choix ou une émotion. 6 personnes maximum."
 reservable: true
@@ -22,7 +22,7 @@ faq:
   - q: "Combien de personnes ?"
     r: "Six personnes maximum, pour que chaque voix ait le temps d'être entendue."
   - q: "Où et quand ?"
-    r: "Mercredi 7 octobre, de 20h à 22h, à l'Oasis Meïsō, à l'étage."
+    r: "Mercredi 21 octobre, de 20h à 22h, à l'Oasis Meïsō, à l'étage."
 ---
 *Atelier autour du jeu des 7 interlocuteurs.*
 
