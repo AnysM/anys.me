@@ -223,6 +223,11 @@ export default async function handler(request) {
   // Brevo passe avant la notification : sinon son refus arriverait trop tard
   // pour être dit, et il faudrait aller le lire dans le journal de Netlify.
   if (quel === 'lettre') {
+    // Le silence est pire que l'erreur : sans ces deux variables, l'inscription
+    // ne part nulle part et rien ne le signale. On le dit.
+    if (!BREVO_API_KEY || !BREVO_LISTE) {
+      soucis.push(`Brevo non configuré (clé ${BREVO_API_KEY ? 'posée' : 'absente'}, liste ${BREVO_LISTE ?? 'absente'})`);
+    }
     try {
       await versBrevo({ email, prenom: nom, source: source || 'site', envie });
     } catch (e) {
