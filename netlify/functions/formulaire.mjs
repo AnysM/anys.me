@@ -180,6 +180,10 @@ export default async function handler(request) {
     }
   }
 
+  // Dernier filet : si aucune destination n'est configurée, l'envoi n'irait
+  // nulle part et personne ne le saurait. On le pose en entier dans le journal
+  // de la fonction (Netlify › Logs › Functions), d'où il reste récupérable.
+  if (!range && !NTFY_TOPIC) console.error(`[${quel}] AUCUNE DESTINATION`, JSON.stringify(ligne));
   if (soucis.length) console.error(`[${quel}] rangé: ${range} ·`, soucis.join(' | '));
 
   return redirige(forme.retour);
