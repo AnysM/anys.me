@@ -29,9 +29,13 @@ const ogImage = new URL(image, origineImages);
 const lexique = JSON.stringify(Object.fromEntries(
   (await getCollection('codex')).filter((c) => c.data.publie).map((c) => [c.id, { t: c.data.titre, y: typeLabel(c.data.type), r: c.data.resume ?? '' }]),
 )).replace(/</g, '\\u003c');
-// Mesure d'audience sans cookie : active dès que PUBLIC_UMAMI_ID porte l'identifiant
-// du site chez Umami (Netlify › Site configuration › Environment variables).
-const umami = import.meta.env.PUBLIC_UMAMI_ID;
+// Mesure d'audience sans cookie. PUBLIC_UMAMI_ID l'emporte si elle est posée
+// dans Netlify ; sinon l'identifiant écrit ici prend le relais, et le site est
+// mesuré quoi qu'il arrive. Ce n'est pas un secret : il s'écrit dans la page.
+// Seul le site en ligne compte : ni le serveur de développement, ni les aperçus
+// de déploiement ne viennent gonfler les chiffres.
+const UMAMI = import.meta.env.PUBLIC_UMAMI_ID ?? '9b9a8dbb-4343-4789-bef1-ac222289e0a2';
+const umami = import.meta.env.PROD && (process.env.CONTEXT ?? 'production') === 'production' ? UMAMI : null;
 const graphe = JSON.stringify({ '@context': 'https://schema.org', '@graph': [siteWeb, personne, lieu, ...jsonld] });
 const offres = (await getCollection('offres')).filter((o) => o.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const soins = offres.filter((o) => o.data.categorie === 'soin');
