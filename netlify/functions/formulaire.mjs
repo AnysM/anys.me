@@ -17,12 +17,17 @@
  * pris le temps d'écrire ne doit pas disparaître dans un silo en panne.
  */
 
-const AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN;
-const AIRTABLE_BASE = process.env.AIRTABLE_BASE;
-const NTFY_TOPIC = process.env.NTFY_TOPIC;
-const NTFY_SERVEUR = process.env.NTFY_SERVEUR ?? 'https://ntfy.sh';
-const BREVO_API_KEY = process.env.BREVO_API_KEY;
-const BREVO_LISTE = process.env.BREVO_LISTE;
+// On nettoie ce qui est collé à la main : une valeur copiée depuis une page web
+// emporte souvent une espace, un retour à la ligne, parfois des guillemets. Un
+// jeton ainsi décoré se fait refuser, et le message d'erreur ne dit pas pourquoi.
+const propre = (v) => v?.trim().replace(/^["']|["']$/g, '') || undefined;
+
+const AIRTABLE_TOKEN = propre(process.env.AIRTABLE_TOKEN);
+const AIRTABLE_BASE = propre(process.env.AIRTABLE_BASE);
+const NTFY_TOPIC = propre(process.env.NTFY_TOPIC);
+const NTFY_SERVEUR = propre(process.env.NTFY_SERVEUR) ?? 'https://ntfy.sh';
+const BREVO_API_KEY = propre(process.env.BREVO_API_KEY);
+const BREVO_LISTE = propre(process.env.BREVO_LISTE);
 // Avec un modèle de confirmation, l'adresse n'entre dans la liste qu'une fois le
 // lien cliqué. Sans lui, elle entre directement et personne ne reçoit de mail.
 const BREVO_DOI_MODELE = process.env.BREVO_DOI_MODELE;
@@ -72,7 +77,18 @@ async function versAirtable(table, champs) {
     headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ records: [{ fields: champs }], typecast: true }),
   });
-  if (!r.ok) throw new Error(`Airtable ${r.status} : ${await r.text()}`);
+  if (!r.ok) {
+    const detail = await r.text();
+    // 401 : le jeton lui-même n'est pas reconnu. 403 ou 404 : il est valable
+    // mais n'a pas cette base, ou pas la portée d'écriture. La nuance fait
+    // gagner un quart d'heure, donc on la dit.
+    const piste = r.status === 401
+      ? ' — le jeton n’est pas reconnu : il doit commencer par « pat », et les anciennes clés « key… » ne marchent plus'
+      : r.status === 403 || r.status === 404
+        ? ' — jeton valable, mais sans accès à cette base ou sans la portée data.records:write'
+        : '';
+    throw new Error(`Airtable ${r.status}${piste} : ${detail}`);
+  }
   return await r.json();
 }
 
