@@ -30,7 +30,7 @@ var config_default = defineConfig({
           { type: "string", name: "heure", label: "Heure" },
           { type: "string", name: "lieu", label: "Lieu" },
           { type: "string", name: "prix", label: "Prix" },
-          { type: "string", name: "earlybird", label: "Early bird \u2014 date limite" },
+          { type: "datetime", name: "earlybird", label: "Early bird \u2014 date limite" },
           {
             type: "object",
             name: "seances",

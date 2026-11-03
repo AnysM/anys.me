@@ -14,3 +14,77 @@
   from = "/partenaires"
   to = "/codex#allies"
   status = 301
+
+# ── L'ancien WordPress ────────────────────────────────────────────────────────
+# Ce que servait anys.me avant la bascule. Les pages qui existent toujours sous
+# le même nom (/a-propos, /agenda, /ateliers, /contact, /soins) répondent déjà
+# d'elles-mêmes : Astro génère un dossier par page, la version avec slash final
+# marche. Il ne reste que les noms qui ont changé et les restes de WordPress.
+
+[[redirects]]
+  from = "/agenda-2/*"
+  to = "/agenda"
+  status = 301
+
+[[redirects]]
+  from = "/immersions"
+  to = "/in-carne"
+  status = 301
+
+[[redirects]]
+  from = "/immersions-2"
+  to = "/in-carne"
+  status = 301
+
+# Le sitemap de WordPress, pour que Google retrouve le neuf. Les sous-sitemaps
+# du plugin, eux, répondent 404 : c'est ce qui dit à Google de les oublier.
+[[redirects]]
+  from = "/sitemap_index.xml"
+  to = "/sitemap-index.xml"
+  status = 301
+
+# Les pages d'exemple et les restes de l'installation : vers l'accueil.
+[[redirects]]
+  from = "/hello-world"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/sample-page"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/category/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/form/*"
+  to = "/contact"
+  status = 301
+
+[[redirects]]
+  from = "/feed/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-content/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-includes/*"
+  to = "/"
+  status = 301
