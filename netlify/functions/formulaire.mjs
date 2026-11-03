@@ -220,6 +220,16 @@ export default async function handler(request) {
     soucis.push(String(e.message ?? e));
   }
 
+  // Brevo passe avant la notification : sinon son refus arriverait trop tard
+  // pour être dit, et il faudrait aller le lire dans le journal de Netlify.
+  if (quel === 'lettre') {
+    try {
+      await versBrevo({ email, prenom: nom, source: source || 'site', envie });
+    } catch (e) {
+      soucis.push(String(e.message ?? e));
+    }
+  }
+
   const notif = quel === 'lettre'
     ? { titre: `${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
     : {
@@ -243,13 +253,6 @@ export default async function handler(request) {
     soucis.push(String(e.message ?? e));
   }
 
-  if (quel === 'lettre') {
-    try {
-      await versBrevo({ email, prenom: nom, source: source || 'site', envie });
-    } catch (e) {
-      soucis.push(String(e.message ?? e));
-    }
-  }
 
   // Dernier filet : si aucune destination n'est configurée, l'envoi n'irait
   // nulle part et personne ne le saurait. On le pose en entier dans le journal
