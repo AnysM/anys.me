@@ -4,7 +4,7 @@ categorie: residence
 date: 2026-12-10
 date_fin: 2026-12-21
 lieu: "Sahara marocain, départ de Marrakech"
-earlybird: "17 octobre"
+earlybird: 2026-10-17
 cta: "En savoir plus"
 site: "https://desertmiragejourney.com/index-fr.html"
 image: /img/desert-mirage-danse.webp

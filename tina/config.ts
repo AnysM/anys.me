@@ -32,7 +32,7 @@ export default defineConfig({
           { type: "string", name: "heure", label: "Heure" },
           { type: "string", name: "lieu", label: "Lieu" },
           { type: "string", name: "prix", label: "Prix" },
-          { type: "string", name: "earlybird", label: "Early bird — date limite" },
+          { type: "datetime", name: "earlybird", label: "Early bird — date limite" },
           { type: "object", name: "seances", label: "Séances (rendez-vous réguliers)", list: true,
             description: "Les dates des prochaines séances : la prochaine s'affiche sur la carte, toutes s'affichent sur la page.",
             ui: { itemProps: (i) => ({ label: i?.date ? `${String(i.date).slice(0, 10)} ${i.heure ?? ""}` : "Séance" }) },

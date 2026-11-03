@@ -7,6 +7,7 @@ import Quete from '../components/Quete.astro';
 import Contact from '../components/Contact.astro';
 import Rangee from '../components/Rangee.astro';
 import { CODEX_OUVERT } from '../lib/etat.mjs';
+import { estPasse } from '../lib/passe.mjs';
 import Appel from '../components/Appel.astro';
 import Lettre from '../components/Lettre.astro';
 import CarteEvenement from '../components/CarteEvenement.astro';
@@ -58,7 +59,7 @@ const seuils = SEUILS.map((s, i) => ({
 }));
 
 const aujourdhui = new Date(new Date().toDateString());
-const agendaPublie = (await getCollection('agenda')).filter((e) => e.data.publie);
+const agendaPublie = (await getCollection('agenda')).filter((e) => e.data.publie && !estPasse(e.data));
 // Chaque rendez-vous est daté par ce qui arrive en premier : sa date s'il en a
 // une, sinon sa prochaine séance. Un atelier hebdomadaire prend ainsi sa place
 // dans la file, au lieu d'attendre derrière les dates uniques.

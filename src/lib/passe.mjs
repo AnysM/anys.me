@@ -19,6 +19,21 @@ export function estPasse(d, le = minuit()) {
   return false; // ni date ni séance : il s'annonce, il n'est pas passé
 }
 
+/**
+ * L'early bird court-il encore ? Sans date limite, il n'y en a pas : le tarif
+ * réduit et son badge disparaissent d'eux-mêmes le lendemain de l'échéance.
+ */
+export function earlyBirdOuvert(d, le = minuit()) {
+  const fin = jour(d.earlybird);
+  return !!fin && fin >= le;
+}
+
+/** La date limite de l'early bird, telle qu'elle s'écrit. */
+export function dateEarlyBird(d) {
+  const fin = jour(d.earlybird);
+  return fin ? new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(fin) : null;
+}
+
 /** Les identifiants des rendez-vous passés, pour les retirer du plan du site. */
 export function agendaPasse() {
   let files = [];

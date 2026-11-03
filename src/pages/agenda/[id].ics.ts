@@ -1,10 +1,11 @@
 import { getCollection } from 'astro:content';
 import { SITE } from '../../lib/seo';
+import { estPasse } from '../../lib/passe.mjs';
 
 // Un fichier .ics par événement daté, ou par rendez-vous régulier avec des séances :
 // la personne l'ouvre, et les dates entrent dans son agenda.
 export async function getStaticPaths() {
-  const tous = (await getCollection('agenda')).filter((e) => e.data.publie && (e.data.date || e.data.seances?.length));
+  const tous = (await getCollection('agenda')).filter((e) => e.data.publie && !estPasse(e.data) && (e.data.date || e.data.seances?.length));
   return tous.map((e) => ({ params: { id: e.id }, props: { e } }));
 }
 

@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import { seuilDe } from './univers.mjs';
 import { evoques } from './lore.mjs';
+import { estPasse } from './passe.mjs';
 
 export type Proposition = {
   cle: string; // "offres/x" ou "agenda/x"
@@ -55,7 +56,10 @@ export async function codex() {
 
 export async function propositions(): Promise<Proposition[]> {
   const offres = (await getCollection('offres')).filter((o) => o.data.publie);
-  const agenda = (await getCollection('agenda')).filter((e) => e.data.publie);
+  // Un rendez-vous dont la dernière date est derrière nous sort de partout :
+  // l'accueil, les fiches du Codex, les pages d'offre. Le calendrier se tient
+  // à jour tout seul, sans qu'on ait à dépublier quoi que ce soit à la main.
+  const agenda = (await getCollection('agenda')).filter((e) => e.data.publie && !estPasse(e.data));
   return [
     ...offres.map((o) => ({
       cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: o.data.page ?? `/offre/${o.id}`, externe: false,
