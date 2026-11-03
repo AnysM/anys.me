@@ -17,7 +17,8 @@ seances:
   - date: 2026-11-01
     heure: "19h - 20h30"
   - date: 2026-11-06
-    heure: "18h30 - 20h"
+    heure: "19h - 20h30"
+    note: "horaire exceptionnel"
   - date: 2026-11-15
     heure: "19h - 20h30"
   - date: 2026-11-20
