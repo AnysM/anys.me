@@ -1,0 +1,16 @@
+{
+  "name": "Anys Mechkar",
+  "short_name": "Anys",
+  "description": "Accompagnement des transitions de vie, soins énergétiques et ateliers, à Lyon.",
+  "lang": "fr-FR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0F20",
+  "theme_color": "#0A0F20",
+  "icons": [
+    { "src": "/icones/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icones/icone-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icones/icone-512-masquable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -75,6 +75,11 @@ const links = [
   <script type="application/ld+json" set:html={graphe} />
   <meta name="theme-color" content="#0A0F20" />
   <link rel="icon" type="image/png" href="/img/logo.png" />
+  <!-- Ajouté à l'écran d'accueil, le site s'ouvre sans la barre du navigateur.
+       L'étoile du logo porte des éléments blancs, invisibles sur fond clair :
+       les icônes la posent donc sur le bleu nuit du site. -->
+  <link rel="apple-touch-icon" href="/icones/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.json" />
   <link rel="preload" href="/fonts/Jost-400-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/EBGaramond-400-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Biloxi_Script.ttf" as="font" type="font/ttf" crossorigin />
@@ -98,6 +103,7 @@ const links = [
       </div>
       {CODEX_OUVERT && <a href="/codex">Codex</a>}
       <a class="ext" href="/artefacts">Artefacts</a>
+      <a href="/contact">Contact</a>
     </div>
     <button class="site-nav__burger" aria-label="Menu" aria-expanded="false">
       <span class="site-nav__burger-line"></span>
