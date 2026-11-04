@@ -31,7 +31,11 @@ const BREVO_LISTE = propre(process.env.BREVO_LISTE);
 // Avec un modèle de confirmation, l'adresse n'entre dans la liste qu'une fois le
 // lien cliqué. Sans lui, elle entre directement et personne ne reçoit de mail.
 const BREVO_DOI_MODELE = process.env.BREVO_DOI_MODELE;
-const SITE = process.env.URL ?? 'https://anysme.netlify.app';
+// Là où renvoyer quelqu'un qui vient de confirmer son inscription. On le
+// déduit de la requête elle-même : la variable d'environnement de Netlify
+// garde l'ancienne adresse jusqu'au déploiement qui suit un changement de
+// domaine, et enverrait alors les gens sur l'adresse technique du site.
+const SITE_REPLI = process.env.URL ?? 'https://anysme.netlify.app';
 
 /** Les deux formulaires du site, et la table Airtable de chacun. */
 const FORMULAIRES = {
@@ -113,7 +117,7 @@ async function versNtfy({ titre, corps, priorite = 'default', etiquettes = '' })
 }
 
 /** Un contact dans la liste Brevo, qui lui envoie la confirmation. */
-async function versBrevo({ email, prenom, source, envie }) {
+async function versBrevo({ email, prenom, source, envie, site }) {
   if (!BREVO_API_KEY || !BREVO_LISTE) return { saute: true };
 
   const doi = !!BREVO_DOI_MODELE;
@@ -128,7 +132,7 @@ async function versBrevo({ email, prenom, source, envie }) {
             ...(attributs ? { attributes: attributs } : {}),
             includeListIds: [Number(BREVO_LISTE)],
             templateId: Number(BREVO_DOI_MODELE),
-            redirectionUrl: `${SITE}/merci?pour=lettre`,
+            redirectionUrl: `${site ?? SITE_REPLI}/merci?pour=lettre`,
           }
         : {
             email,
@@ -229,7 +233,8 @@ export default async function handler(request) {
       soucis.push(`Brevo non configuré (clé ${BREVO_API_KEY ? 'posée' : 'absente'}, liste ${BREVO_LISTE ?? 'absente'})`);
     }
     try {
-      await versBrevo({ email, prenom: nom, source: source || 'site', envie });
+      await versBrevo({ email, prenom: nom, source: source || 'site', envie,
+        site: new URL(request.url).origin });
     } catch (e) {
       soucis.push(String(e.message ?? e));
     }
