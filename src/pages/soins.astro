@@ -26,7 +26,8 @@ const soins = (await getCollection('offres')).filter((o) => o.data.publie && o.d
     <div class="wrap entree__cartes">
         {soins.map((o) => (
           <a class="evt" href={o.data.page ?? `/offre/${o.id}`}>
-            <div class="evt__img"><img src={o.data.image} alt={o.data.titre} /></div>
+            {/* Une colonne de 240 px à côté du texte, pleine largeur sous 640. */}
+            <div class="evt__img"><img src={o.data.image} alt={o.data.titre} sizes="(max-width: 640px) 100vw, 240px" /></div>
             <div class="evt__body">
               <div class="evt__date"><span class="soon">{o.data.tag}</span></div>
               <div class="evt__title">{o.data.titre}</div>
