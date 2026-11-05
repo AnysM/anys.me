@@ -71,6 +71,11 @@ affiche exactement la même chose que `anys.me`.
       navigateur quand on l'ajoute à l'écran d'accueil
 - ⚡ **Images adaptatives** · cinq largeurs par photo, le téléphone prend la
       plus petite qui lui suffit, le PC garde la pleine définition
+- 🛡️ **Les robots du formulaire** · rangés à part, sans sonner
+- 📨 **Les messages par mail** · vérifié de bout en bout le 5 novembre.
+      `dkim=pass · spf=pass · dmarc=pass`, boîte de réception, et le
+      « répondre à » porte l'adresse de la personne : tu réponds au mail, ta
+      réponse lui arrive.
 
 ## 🟡 Ce qui reste
 
@@ -80,17 +85,16 @@ affiche exactement la même chose que `anys.me`.
 - [ ] 📬 Le mail de confirmation d'inscription · créer un modèle **double
       opt-in** chez Brevo, noter son ID, le poser dans `BREVO_DOI_MODELE` chez
       Netlify, **puis redéployer**
-- [ ] 📨 **Recevoir les messages par mail** · `MAIL_VERS` est posée, mais la
-      clé Brevo n'a pas le droit d'envoyer des mails :
-      `403 · api key is not authorized for resource "transactional.email"`.
-      Chez Brevo › **SMTP & API** › **Clés API**, crée une clé qui a la portée
-      *Transactional emails*, pose-la dans `BREVO_SMTP_KEY` chez Netlify,
-      **puis redéploie**.
-      · une seconde clé plutôt que d'élargir la première : si elle fuit, elle
-        ne peut qu'envoyer, pas vider ta liste de contacts
-      · ensuite seulement se posera la question de l'expéditeur validé
-        (Brevo › Réglages › Expéditeurs) — le refus le dira s'il arrive
-      · `MAIL_DE` reste facultative : sans elle on expédie depuis `MAIL_VERS`
+- [ ] ✉️ **L'expéditeur** · le mail part de
+      `a.mechkar@6479158.brevosend.com`, l'adresse de repli de Brevo, parce
+      qu'on expédie depuis une adresse Gmail et que Gmail interdit qu'on
+      écrive en son nom. Pour un `De :` propre : valide `contact@anys.me`
+      chez Brevo (Réglages › Expéditeurs), pose-la dans `MAIL_DE`, redéploie.
+      Facultatif — ces mails ne vont qu'à toi.
+
+> ⚠️ **Ne clique pas sur « Se désabonner »** en haut d'un de ces mails. Brevo
+> l'ajoute d'office, et il mettrait ton adresse sur sa liste noire : tu ne
+> recevrais plus aucun message du formulaire, sans que rien ne te prévienne.
 
 ---
 
