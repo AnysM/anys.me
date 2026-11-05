@@ -52,7 +52,13 @@ const MAIL_DE = propre(process.env.MAIL_DE) ?? MAIL_VERS;
 // ce droit à la clé existante, ou en faire une seconde et la poser ici. La
 // seconde vaut mieux — une clé qui ne peut qu'envoyer ne peut pas vider ta
 // liste de contacts si elle fuit un jour.
-const BREVO_SMTP_KEY = propre(process.env.BREVO_SMTP_KEY) ?? BREVO_API_KEY;
+// Le nom de cette variable est un piège que j'ai tendu moi-même : chez Brevo,
+// « clé SMTP » désigne le mot de passe du relais SMTP, qui n'ouvre pas l'API.
+// Ce qu'il faut est une clé API v3, celle qui commence par « xkeysib- ».
+// BREVO_MAIL_KEY porte le bon nom ; l'autre reste accepté.
+const BREVO_SMTP_KEY = propre(process.env.BREVO_MAIL_KEY)
+  ?? propre(process.env.BREVO_SMTP_KEY)
+  ?? BREVO_API_KEY;
 // Là où renvoyer quelqu'un qui vient de confirmer son inscription. On le
 // déduit de la requête elle-même : la variable d'environnement de Netlify
 // garde l'ancienne adresse jusqu'au déploiement qui suit un changement de
@@ -188,8 +194,16 @@ async function versMail({ sujet, lignes, repondreA, repondreNom }) {
     // 400 avec « sender » dedans : l'adresse d'expédition n'est pas validée
     // chez Brevo. C'est l'erreur qu'on fait la première fois, et son message
     // d'origine ne le dit pas clairement.
-    const piste = /transactional\.email|permission_denied/i.test(detail)
-      ? ' — la clé Brevo n’a pas le droit d’envoyer des mails : donne-lui la portée « transactional.email », ou pose une seconde clé dans BREVO_SMTP_KEY'
+    // On dit la forme de la clé, jamais la clé. « xkeysib- » est le préfixe
+    // d'une clé API v3 ; son absence désigne une clé SMTP, l'erreur la plus
+    // facile à faire puisque les deux vivent sur la même page chez Brevo.
+    const forme = BREVO_SMTP_KEY.startsWith('xkeysib-')
+      ? 'la clé commence bien par « xkeysib- », donc elle est périmée, supprimée, ou d’un autre compte'
+      : 'la clé ne commence pas par « xkeysib- » : c’est une clé SMTP (le relais), pas une clé API v3';
+    const piste = r.status === 401
+      ? ` — ${forme}`
+      : /transactional\.email|permission_denied/i.test(detail)
+      ? ' — la clé Brevo n’a pas le droit d’envoyer des mails : donne-lui la portée « transactional.email », ou pose une seconde clé dans BREVO_MAIL_KEY'
       : /sender/i.test(detail)
         ? ` — l’expéditeur ${MAIL_DE} n’est pas validé chez Brevo (Réglages › Expéditeurs)`
         : '';
