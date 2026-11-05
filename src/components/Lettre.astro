@@ -25,7 +25,13 @@ const fmt = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>'
       <form class="lettre__form" name="lettre" method="POST" action="/.netlify/functions/formulaire" data-evt="Lettre">
         <input type="hidden" name="form-name" value="lettre" />
         <input type="hidden" name="source" value={source} />
+        <input type="hidden" name="duree" />
+        {/* Les deux pièges, invisibles à l'œil comme au lecteur d'écran. Voir
+            le commentaire de Contact.astro. */}
         <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
+        <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+          <label>Site web <input type="text" name="url" tabindex="-1" autocomplete="off" /></label>
+        </div>
         <label class="sr" for={`l-prenom-${source}`}>Ton prénom</label>
         <input id={`l-prenom-${source}`} type="text" name="prenom" placeholder="Ton prénom" autocomplete="given-name" />
         <label class="sr" for={`l-email-${source}`}>Ton email</label>

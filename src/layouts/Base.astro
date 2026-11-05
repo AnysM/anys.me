@@ -326,6 +326,25 @@ const links = [
     })();
   </script>
   <script is:inline>
+    // Combien de temps la page est restée ouverte avant l'envoi, en
+    // millisecondes, écrit dans un champ caché au moment du clic. La fonction
+    // s'en sert pour reconnaître un robot : personne n'écrit son nom, son mail
+    // et son message en deux secondes.
+    //
+    // On mesure le temps écoulé depuis le chargement, pas l'heure qu'il est :
+    // une horloge déréglée de trois heures ne change alors rien au résultat.
+    // Un formulaire envoyé sans JavaScript laisse le champ vide, ce qui compte
+    // pour un soupçon léger et jamais pour un refus.
+    (function () {
+      var depart = (window.performance && performance.now) ? performance.now() : null;
+      document.addEventListener('submit', function (e) {
+        var champ = e.target.querySelector && e.target.querySelector('input[name="duree"]');
+        if (champ && depart !== null) champ.value = String(Math.round(performance.now() - depart));
+      }, true);
+    })();
+  </script>
+
+  <script is:inline>
     // Calendly en pop-in : les liens calendly.com s'ouvrent par-dessus la page.
     // Le widget n'est chargé qu'au premier clic ; s'il ne charge pas, le lien s'ouvre normalement dans un nouvel onglet.
     (function () {

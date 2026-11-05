@@ -17,7 +17,16 @@ const questions = {
   <form class="form" name="contact" method="POST" action="/.netlify/functions/formulaire">
     <input type="hidden" name="form-name" value="contact" />
     <input type="hidden" name="page" />
+    <input type="hidden" name="duree" />
+    {/* Les deux pièges. Un humain ne voit ni l'un ni l'autre, donc ne les
+        remplit jamais ; un robot remplit tout ce qu'il trouve, et celui nommé
+        « url » est irrésistible à ceux qui viennent placer un lien. Le premier
+        est caché par l'attribut `hidden`, que certains robots savent lire ; le
+        second est posé hors de l'écran, ce qui se repère moins. */}
     <p hidden><label>Ne pas remplir <input name="bot-field" /></label></p>
+    <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+      <label>Site web <input type="text" name="url" tabindex="-1" autocomplete="off" /></label>
+    </div>
     <div><label for="c-nom">Ton nom</label><input id="c-nom" type="text" name="nom" autocomplete="name" required /></div>
     <div><label for="c-email">Ton email</label><input id="c-email" type="email" name="email" autocomplete="email" required /></div>
     <div><label for="c-interet">Ce qui t'appelle</label><select id="c-interet" name="interet">

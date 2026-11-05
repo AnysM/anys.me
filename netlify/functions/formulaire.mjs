@@ -1,11 +1,17 @@
 /**
  * Ce que les formulaires du site deviennent.
  *
- * Un message arrive ici, et repart vers trois endroits à la fois :
+ * Un message arrive ici, et repart vers quatre endroits à la fois :
  *   — Airtable, où il se range dans une ligne qu'on peut trier, filtrer, annoter ;
  *   — ntfy, qui le pose sur le téléphone en deux secondes ;
+ *   — ta boîte mail, par Brevo, avec le « répondre à » réglé sur la personne :
+ *     répondre depuis le mail lui écrit directement ;
  *   — Brevo, pour les inscriptions à la lettre, qui envoie la confirmation
  *     et porte le lien de désinscription au bas de chaque envoi.
+ *
+ * Un envoi jugé robot (voir `netlify/lib/spam.mjs`) ne va qu'à Airtable, avec
+ * la raison écrite à côté. Ni téléphone, ni mail. Rien n'est jeté : une erreur
+ * de jugement se retrouve dans la base, donc se voit et se corrige.
  *
  * Chaque destination est facultative : tant que sa variable d'environnement
  * n'existe pas, elle est sautée sans bruit. Le site peut donc se brancher
@@ -16,6 +22,8 @@
  * la notification part quand même avec le message entier : ce que quelqu'un a
  * pris le temps d'écrire ne doit pas disparaître dans un silo en panne.
  */
+
+import { noter, estSpam } from '../lib/spam.mjs';
 
 // On nettoie ce qui est collé à la main : une valeur copiée depuis une page web
 // emporte souvent une espace, un retour à la ligne, parfois des guillemets. Un
@@ -31,6 +39,13 @@ const BREVO_LISTE = propre(process.env.BREVO_LISTE);
 // Avec un modèle de confirmation, l'adresse n'entre dans la liste qu'une fois le
 // lien cliqué. Sans lui, elle entre directement et personne ne reçoit de mail.
 const BREVO_DOI_MODELE = process.env.BREVO_DOI_MODELE;
+// Ta boîte mail. Tant qu'elle n'est pas posée, aucun mail ne part et la
+// notification du téléphone le dit : un silence vaudrait moins qu'une plainte.
+const MAIL_VERS = propre(process.env.MAIL_VERS);
+// L'adresse d'expédition. Brevo n'envoie que depuis un expéditeur qu'il a
+// validé : reprends celui de la lettre, il l'est déjà. À défaut on expédie
+// depuis l'adresse de destination, ce qui marche si elle est validée aussi.
+const MAIL_DE = propre(process.env.MAIL_DE) ?? MAIL_VERS;
 // Là où renvoyer quelqu'un qui vient de confirmer son inscription. On le
 // déduit de la requête elle-même : la variable d'environnement de Netlify
 // garde l'ancienne adresse jusqu'au déploiement qui suit un changement de
@@ -76,13 +91,24 @@ async function lireChamps(request) {
 /** Une ligne dans Airtable. */
 async function versAirtable(table, champs) {
   if (!AIRTABLE_TOKEN || !AIRTABLE_BASE) return { saute: true };
-  const r = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(table)}`, {
+  const poster = (fields) => fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${encodeURIComponent(table)}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ records: [{ fields: champs }], typecast: true }),
+    body: JSON.stringify({ records: [{ fields }], typecast: true }),
   });
+
+  let r = await poster(champs);
+  let detail = r.ok ? '' : await r.text();
+  // La colonne « Spam » est arrivée après coup. Sur une base qui ne l'a pas,
+  // Airtable refuse la ligne entière : on la renvoie sans elle plutôt que de
+  // perdre un message pour une colonne manquante.
+  if (!r.ok && detail.includes('UNKNOWN_FIELD_NAME') && 'Spam' in champs) {
+    const { Spam, ...sansSpam } = champs;
+    console.error('[airtable] colonne « Spam » absente, ligne renvoyée sans elle');
+    r = await poster(sansSpam);
+    detail = r.ok ? '' : await r.text();
+  }
   if (!r.ok) {
-    const detail = await r.text();
     // 401 : le jeton lui-même n'est pas reconnu. 403 ou 404 : il est valable
     // mais n'a pas cette base, ou pas la portée d'écriture. La nuance fait
     // gagner un quart d'heure, donc on la dit.
@@ -113,6 +139,53 @@ async function versNtfy({ titre, corps, priorite = 'default', etiquettes = '' })
     }),
   });
   if (!r.ok) throw new Error(`ntfy ${r.status} : ${await r.text()}`);
+  return { envoye: true };
+}
+
+const echappe = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
+));
+
+/**
+ * Le mail dans ta boîte, par Brevo, qui a déjà sa clé pour la lettre.
+ *
+ * Le « répondre à » porte l'adresse de la personne : tu réponds depuis ton
+ * téléphone sans recopier son adresse ni rouvrir Airtable. L'expéditeur, lui,
+ * reste le tien — c'est la seule adresse que Brevo accepte d'expédier, et un
+ * mail prétendant venir de la personne serait refusé par les filtres.
+ */
+async function versMail({ sujet, lignes, repondreA, repondreNom }) {
+  if (!BREVO_API_KEY || !MAIL_VERS) return { saute: true };
+
+  const texteBrut = lignes.filter((l) => l !== null).join('\n');
+  const html = lignes
+    .map((l) => (l === null
+      ? '<hr style="border:none;border-top:1px solid #d8d2c4;margin:18px 0">'
+      : `<p style="margin:0 0 10px">${echappe(l).replace(/\n/g, '<br>')}</p>`))
+    .join('');
+
+  const r = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({
+      sender: { email: MAIL_DE, name: 'Site anys.me' },
+      to: [{ email: MAIL_VERS }],
+      ...(repondreA ? { replyTo: { email: repondreA, ...(repondreNom ? { name: repondreNom } : {}) } } : {}),
+      subject: sujet,
+      textContent: texteBrut,
+      htmlContent: `<div style="font:16px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;max-width:34em">${html}</div>`,
+    }),
+  });
+  if (!r.ok) {
+    const detail = await r.text();
+    // 400 avec « sender » dedans : l'adresse d'expédition n'est pas validée
+    // chez Brevo. C'est l'erreur qu'on fait la première fois, et son message
+    // d'origine ne le dit pas clairement.
+    const piste = /sender/i.test(detail)
+      ? ` — l’expéditeur ${MAIL_DE} n’est pas validé chez Brevo (Réglages › Expéditeurs)`
+      : '';
+    throw new Error(`Mail ${r.status}${piste} : ${detail}`);
+  }
   return { envoye: true };
 }
 
@@ -165,10 +238,9 @@ async function versBrevo({ email, prenom, source, envie, site }) {
 export default async function handler(request) {
   if (request.method !== 'POST') return new Response('Méthode non autorisée', { status: 405 });
 
-  // Netlify filtrait le spam à notre place. Ici, deux gardes suffisent pour
-  // l'essentiel : le piège plus bas, et le fait qu'un envoi vienne bien d'une
-  // page du site. Un navigateur envoie son origine sur un POST de formulaire ;
-  // un script lancé d'ailleurs en envoie une autre, ou aucune.
+  // La première garde : un envoi vient bien d'une page du site. Un navigateur
+  // envoie son origine sur un POST de formulaire ; un script lancé d'ailleurs
+  // en envoie une autre, ou aucune. Les suivantes sont plus bas.
   const origine = request.headers.get('origin');
   if (origine) {
     const ici = new URL(request.url).host;
@@ -187,9 +259,13 @@ export default async function handler(request) {
   const forme = FORMULAIRES[quel];
   if (!forme) return new Response('Formulaire inconnu', { status: 400 });
 
-  // Le piège : un robot remplit tout ce qu'il trouve, un humain ne voit pas ce
-  // champ. On répond comme si de rien n'était, et on n'écrit rien.
-  if (texte(champs['bot-field'])) return redirige(forme.retour);
+  // La note du filtre. Un envoi jugé robot suit exactement le même chemin
+  // jusqu'à Airtable, où la raison s'écrit dans la colonne « Spam ». On ne
+  // refuse rien : refuser apprendrait au robot à recommencer autrement, et
+  // ferait disparaître un vrai message mal noté.
+  const note = noter(champs);
+  const robot = estSpam(note);
+  const pourquoi = note.raisons.join(' · ');
 
   const email = texte(champs.email);
   if (!email || !email.includes('@')) return new Response('Email manquant', { status: 400 });
@@ -201,8 +277,9 @@ export default async function handler(request) {
   const page = texte(champs.page);
 
   const envie = envieDe(source || 'site');
+  const marque = robot ? { Spam: `${note.score} pts · ${pourquoi}` } : {};
   const ligne = quel === 'lettre'
-    ? { Prénom: nom, Email: email, Source: source || 'site', Envie: envie, Reçu: new Date().toISOString() }
+    ? { Prénom: nom, Email: email, Source: source || 'site', Envie: envie, Reçu: new Date().toISOString(), ...marque }
     : {
         Nom: nom,
         Email: email,
@@ -210,6 +287,7 @@ export default async function handler(request) {
         Message: message,
         Page: page,
         Reçu: new Date().toISOString(),
+        ...marque,
       };
 
   const soucis = [];
@@ -222,6 +300,15 @@ export default async function handler(request) {
     range = !r.saute;
   } catch (e) {
     soucis.push(String(e.message ?? e));
+  }
+
+  // Un robot n'entre pas dans la liste de la lettre, et ne sonne pas. La ligne
+  // est rangée, la raison écrite à côté, et on s'arrête là. Le navigateur reçoit
+  // la même page de remerciement : un robot à qui l'on dit non revient déguisé.
+  if (robot) {
+    console.warn(`[${quel}] robot · ${note.score} pts · ${pourquoi} · ${email}`);
+    if (!range) console.error(`[${quel}] ROBOT PAS RANGÉ`, JSON.stringify(ligne));
+    return redirige(forme.retour);
   }
 
   // Brevo passe avant la notification : sinon son refus arriverait trop tard
@@ -239,6 +326,10 @@ export default async function handler(request) {
       soucis.push(String(e.message ?? e));
     }
   }
+
+  // Sans cette variable, aucun mail ne part. Dit ici, avant la notification,
+  // pour que le téléphone le porte : une boîte mail muette ne se remarque pas.
+  if (BREVO_API_KEY && !MAIL_VERS) soucis.push('Mail non envoyé : MAIL_VERS absent chez Netlify');
 
   const notif = quel === 'lettre'
     ? { titre: `${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
@@ -263,6 +354,43 @@ export default async function handler(request) {
     soucis.push(String(e.message ?? e));
   }
 
+  // Le mail. Le sujet commence par le nom du site pour qu'une règle de tri
+  // l'attrape, et `null` dessine un trait de séparation dans la version HTML.
+  const courrier = quel === 'lettre'
+    ? {
+        sujet: `[anys.me] ${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`,
+        lignes: [
+          `${nom ? `${nom} — ` : ''}${email}`,
+          source && `Depuis : ${source}`,
+          envie !== 'Lettre' && `Envie : ${envie}`,
+        ].filter(Boolean),
+      }
+    : {
+        sujet: `[anys.me] Message de ${nom || email}`,
+        repondreA: email,
+        repondreNom: nom || undefined,
+        lignes: [
+          message || '(sans message)',
+          null,
+          `De : ${nom || '—'} · ${email}`,
+          APPELS[interet] && `Ce qui appelle : ${APPELS[interet]}`,
+          page && `Depuis la page : ${page}`,
+          null,
+          'Réponds à ce mail : ta réponse part directement à cette personne.',
+        ].filter((l) => l !== false && l !== undefined && l !== ''),
+      };
+  // Les indices restés sous le seuil voyagent avec le message. Trois envois de
+  // suite marqués « deux points » disent qu'il faut regarder le seuil de plus
+  // près, et c'est une information qu'on n'a pas si elle reste dans le journal.
+  if (note.score) courrier.lignes.push(`(Indices de robot, sous le seuil : ${pourquoi})`);
+  if (soucis.length) courrier.lignes.push(null, `⚠️ Pas rangé dans Airtable.\n${soucis.join('\n')}`);
+  try {
+    await versMail(courrier);
+  } catch (e) {
+    // Le mail échoue après la notification : le téléphone a déjà le message,
+    // donc rien n'est perdu, et l'erreur part dans le journal pour la suite.
+    soucis.push(String(e.message ?? e));
+  }
 
   // Dernier filet : si aucune destination n'est configurée, l'envoi n'irait
   // nulle part et personne ne le saurait. On le pose en entier dans le journal
