@@ -46,6 +46,13 @@ const MAIL_VERS = propre(process.env.MAIL_VERS);
 // validé : reprends celui de la lettre, il l'est déjà. À défaut on expédie
 // depuis l'adresse de destination, ce qui marche si elle est validée aussi.
 const MAIL_DE = propre(process.env.MAIL_DE) ?? MAIL_VERS;
+// Chez Brevo, une clé porte des droits précis. Celle de la lettre sait inscrire
+// un contact sans avoir celui d'envoyer un mail, et le refus est alors un 403
+// qui ne parle que de « transactional.email ». Deux chemins, au choix : donner
+// ce droit à la clé existante, ou en faire une seconde et la poser ici. La
+// seconde vaut mieux — une clé qui ne peut qu'envoyer ne peut pas vider ta
+// liste de contacts si elle fuit un jour.
+const BREVO_SMTP_KEY = propre(process.env.BREVO_SMTP_KEY) ?? BREVO_API_KEY;
 // Là où renvoyer quelqu'un qui vient de confirmer son inscription. On le
 // déduit de la requête elle-même : la variable d'environnement de Netlify
 // garde l'ancienne adresse jusqu'au déploiement qui suit un changement de
@@ -155,7 +162,7 @@ const echappe = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => (
  * mail prétendant venir de la personne serait refusé par les filtres.
  */
 async function versMail({ sujet, lignes, repondreA, repondreNom }) {
-  if (!BREVO_API_KEY || !MAIL_VERS) return { saute: true };
+  if (!BREVO_SMTP_KEY || !MAIL_VERS) return { saute: true };
 
   const texteBrut = lignes.filter((l) => l !== null).join('\n');
   const html = lignes
@@ -166,7 +173,7 @@ async function versMail({ sujet, lignes, repondreA, repondreNom }) {
 
   const r = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
-    headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
+    headers: { 'api-key': BREVO_SMTP_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
     body: JSON.stringify({
       sender: { email: MAIL_DE, name: 'Site anys.me' },
       to: [{ email: MAIL_VERS }],
@@ -181,9 +188,11 @@ async function versMail({ sujet, lignes, repondreA, repondreNom }) {
     // 400 avec « sender » dedans : l'adresse d'expédition n'est pas validée
     // chez Brevo. C'est l'erreur qu'on fait la première fois, et son message
     // d'origine ne le dit pas clairement.
-    const piste = /sender/i.test(detail)
-      ? ` — l’expéditeur ${MAIL_DE} n’est pas validé chez Brevo (Réglages › Expéditeurs)`
-      : '';
+    const piste = /transactional\.email|permission_denied/i.test(detail)
+      ? ' — la clé Brevo n’a pas le droit d’envoyer des mails : donne-lui la portée « transactional.email », ou pose une seconde clé dans BREVO_SMTP_KEY'
+      : /sender/i.test(detail)
+        ? ` — l’expéditeur ${MAIL_DE} n’est pas validé chez Brevo (Réglages › Expéditeurs)`
+        : '';
     throw new Error(`Mail ${r.status}${piste} : ${detail}`);
   }
   return { envoye: true };
@@ -362,7 +371,7 @@ export default async function handler(request) {
   if (soucis.length) courrier.lignes.push(null, `⚠️ Pas rangé dans Airtable.\n${soucis.join('\n')}`);
   // Sans cette variable aucun mail ne part, et une boîte muette ne se
   // remarque pas : on le dit, pour que le téléphone le porte.
-  if (BREVO_API_KEY && !MAIL_VERS) soucis.push('Mail non envoyé : MAIL_VERS absent chez Netlify');
+  if (BREVO_SMTP_KEY && !MAIL_VERS) soucis.push('Mail non envoyé : MAIL_VERS absent chez Netlify');
 
   // Le mail part avant la notification, pour la même raison que Brevo : son
   // refus arriverait sinon trop tard pour être dit, et une boîte mail muette
