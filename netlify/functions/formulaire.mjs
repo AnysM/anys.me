@@ -244,8 +244,11 @@ export default async function handler(request) {
   const origine = request.headers.get('origin');
   if (origine) {
     const ici = new URL(request.url).host;
+    // Une origine illisible compte comme étrangère : un navigateur en envoie
+    // toujours une, et une seule. Deux en-têtes collés ou une valeur tordue
+    // viennent d'un outil, pas d'une page du site.
     const la = (() => { try { return new URL(origine).host; } catch { return null; } })();
-    if (la && la !== ici) return new Response('Origine inattendue', { status: 403 });
+    if (la !== ici) return new Response('Origine inattendue', { status: 403 });
   }
 
   let champs;
@@ -327,33 +330,6 @@ export default async function handler(request) {
     }
   }
 
-  // Sans cette variable, aucun mail ne part. Dit ici, avant la notification,
-  // pour que le téléphone le porte : une boîte mail muette ne se remarque pas.
-  if (BREVO_API_KEY && !MAIL_VERS) soucis.push('Mail non envoyé : MAIL_VERS absent chez Netlify');
-
-  const notif = quel === 'lettre'
-    ? { titre: `${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
-    : {
-        titre: `Message de ${nom || email}`,
-        corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${APPELS[interet] ?? interet}`].filter(Boolean).join('\n'),
-        priorite: 'high',
-        etiquettes: 'speech_balloon',
-      };
-  // Si Airtable n'a pas voulu, la notification porte tout : rien ne se perd.
-  if (soucis.length) {
-    // On dit pourquoi, pas seulement que ça a raté : sans le message d'Airtable
-    // il faut aller fouiller le journal de Netlify pour apprendre qu'un jeton
-    // est périmé ou qu'une colonne manque.
-    notif.corps += `\n\n⚠️ Pas rangé.\n${soucis.join('\n')}\n\n${JSON.stringify(ligne)}`;
-    notif.priorite = 'urgent';
-  }
-
-  try {
-    await versNtfy(notif);
-  } catch (e) {
-    soucis.push(String(e.message ?? e));
-  }
-
   // Le mail. Le sujet commence par le nom du site pour qu'une règle de tri
   // l'attrape, et `null` dessine un trait de séparation dans la version HTML.
   const courrier = quel === 'lettre'
@@ -384,11 +360,41 @@ export default async function handler(request) {
   // près, et c'est une information qu'on n'a pas si elle reste dans le journal.
   if (note.score) courrier.lignes.push(`(Indices de robot, sous le seuil : ${pourquoi})`);
   if (soucis.length) courrier.lignes.push(null, `⚠️ Pas rangé dans Airtable.\n${soucis.join('\n')}`);
+  // Sans cette variable aucun mail ne part, et une boîte muette ne se
+  // remarque pas : on le dit, pour que le téléphone le porte.
+  if (BREVO_API_KEY && !MAIL_VERS) soucis.push('Mail non envoyé : MAIL_VERS absent chez Netlify');
+
+  // Le mail part avant la notification, pour la même raison que Brevo : son
+  // refus arriverait sinon trop tard pour être dit, et une boîte mail muette
+  // ne se remarque pas. Ici, le téléphone porte l'erreur.
   try {
     await versMail(courrier);
   } catch (e) {
-    // Le mail échoue après la notification : le téléphone a déjà le message,
-    // donc rien n'est perdu, et l'erreur part dans le journal pour la suite.
+    soucis.push(String(e.message ?? e));
+  }
+
+  const notif = quel === 'lettre'
+    ? { titre: `${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
+    : {
+        titre: `Message de ${nom || email}`,
+        corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${APPELS[interet] ?? interet}`].filter(Boolean).join('\n'),
+        priorite: 'high',
+        etiquettes: 'speech_balloon',
+      };
+  // La notification porte ce qui a raté, et dit quoi : sans le message d'origine
+  // il faut aller fouiller le journal de Netlify pour apprendre qu'un jeton est
+  // périmé, qu'une colonne manque ou qu'un expéditeur n'est pas validé. Et si
+  // c'est le rangement qui a échoué, elle emporte la ligne entière : le message
+  // existe alors sur ton téléphone, et nulle part ailleurs.
+  if (soucis.length) {
+    notif.corps += `\n\n⚠️ ${range ? 'Rangé, mais' : 'Pas rangé.'}\n${soucis.join('\n')}`;
+    if (!range) notif.corps += `\n\n${JSON.stringify(ligne)}`;
+    notif.priorite = 'urgent';
+  }
+
+  try {
+    await versNtfy(notif);
+  } catch (e) {
     soucis.push(String(e.message ?? e));
   }
 
