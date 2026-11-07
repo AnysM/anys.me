@@ -72,6 +72,11 @@ affiche exactement la même chose que `anys.me`.
 - ⚡ **Images adaptatives** · cinq largeurs par photo, le téléphone prend la
       plus petite qui lui suffit, le PC garde la pleine définition
 - 🛡️ **Les robots du formulaire** · rangés à part, sans sonner
+- 🔏 **`anys.me` authentifié chez Brevo** · 7 novembre. Le `brevo-code`, les
+      deux CNAME `brevo1/brevo2._domainkey` et un `_dmarc` en `p=none` ont été
+      ajoutés ; les MX, le SPF et les DKIM d'OVH n'ont pas bougé. Ta lettre
+      part désormais signée au nom du domaine, ce qui la fait mieux arriver.
+      Le `De :` des messages du formulaire est `contact@anys.me`.
 - 📨 **Les messages par mail** · vérifié de bout en bout le 5 novembre.
       `dkim=pass · spf=pass · dmarc=pass`, boîte de réception, et le
       « répondre à » porte l'adresse de la personne : tu réponds au mail, ta
@@ -85,13 +90,6 @@ affiche exactement la même chose que `anys.me`.
 - [ ] 📬 Le mail de confirmation d'inscription · créer un modèle **double
       opt-in** chez Brevo, noter son ID, le poser dans `BREVO_DOI_MODELE` chez
       Netlify, **puis redéployer**
-- [ ] ✉️ **L'expéditeur** · le mail part de
-      `a.mechkar@6479158.brevosend.com`, l'adresse de repli de Brevo, parce
-      qu'on expédie depuis une adresse Gmail et que Gmail interdit qu'on
-      écrive en son nom. Pour un `De :` propre : valide `contact@anys.me`
-      chez Brevo (Réglages › Expéditeurs), pose-la dans `MAIL_DE`, redéploie.
-      Facultatif — ces mails ne vont qu'à toi.
-
 > ⚠️ **Ne clique pas sur « Se désabonner »** en haut d'un de ces mails. Brevo
 > l'ajoute d'office, et il mettrait ton adresse sur sa liste noire : tu ne
 > recevrais plus aucun message du formulaire, sans que rien ne te prévienne.
