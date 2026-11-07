@@ -16,6 +16,9 @@
     2. Le modèle doit porter l'étiquette « optin » dans Brevo, sinon l'API
        refuse de s'en servir.
 
+  Le titre est en serif, le texte courant en sans-serif : un paragraphe en
+  Georgia se lit mal sur un écran de téléphone, là où le titre y gagne.
+
   Tout est en tableaux et en styles posés sur chaque balise : les logiciels de
   messagerie ignorent les feuilles de style, et Outlook ne connaît pas la
   moitié du CSS moderne. Ce qui ressemble ici à de la maladresse est ce qui
@@ -36,13 +39,17 @@
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"
                style="width:100%; max-width:600px; background-color:#0A0F20; border-radius:14px;">
 
-          <!-- Le nom, en haut, espacé comme sur le site -->
+          <!-- Le logo. Beaucoup de logiciels de messagerie ne chargent pas les
+               images sans l'accord du lecteur : le texte de remplacement porte
+               alors le nom, dans la couleur et l'espacement du site, pour que
+               le mail reste reconnaissable même sans image. -->
           <tr>
             <td align="center" style="padding:40px 32px 0 32px;">
-              <p style="margin:0; font-family:Helvetica,Arial,sans-serif; font-size:12px;
-                        letter-spacing:4px; text-transform:uppercase; color:#D8A24C;">
-                Anys&nbsp;Mechkar
-              </p>
+              <img src="https://anys.me/courrier/logo-lettre.png"
+                   width="120" height="105" alt="Anys Mechkar"
+                   style="display:block; border:0; width:120px; height:auto;
+                          font-family:Helvetica,Arial,sans-serif; font-size:13px;
+                          letter-spacing:3px; text-transform:uppercase; color:#D8A24C;">
             </td>
           </tr>
 
@@ -57,12 +64,12 @@
 
           <tr>
             <td style="padding:22px 32px 0 32px;">
-              <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-size:17px;
-                        line-height:1.7; color:#C2C5D2;">
+              <p style="margin:0; font-family:Helvetica,Arial,sans-serif; font-size:16px;
+                        line-height:1.75; color:#C2C5D2;">
                 Bonjour,
               </p>
-              <p style="margin:16px 0 0 0; font-family:Georgia,'Times New Roman',serif; font-size:17px;
-                        line-height:1.7; color:#C2C5D2;">
+              <p style="margin:16px 0 0 0; font-family:Helvetica,Arial,sans-serif; font-size:16px;
+                        line-height:1.75; color:#C2C5D2;">
                 Tu as laissé ton email sur anys.me. Confirme-le, et tu recevras
                 les prochaines dates et les ouvertures en premier.
               </p>
