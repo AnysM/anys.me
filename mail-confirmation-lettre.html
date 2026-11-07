@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confirme ton inscription à la lettre</title>
+</head>
+<!--
+  Le mail de confirmation de la lettre.
+
+  À coller dans Brevo › Campagnes › Modèles › Nouveau modèle › « Coder le mien ».
+
+  Deux choses à ne pas changer :
+    1. {{ params.DOIurl }} est le lien unique de chaque personne. C'est Brevo
+       qui le fabrique à l'envoi. Un lien écrit à la main ne confirmerait rien.
+    2. Le modèle doit porter l'étiquette « optin » dans Brevo, sinon l'API
+       refuse de s'en servir.
+
+  Tout est en tableaux et en styles posés sur chaque balise : les logiciels de
+  messagerie ignorent les feuilles de style, et Outlook ne connaît pas la
+  moitié du CSS moderne. Ce qui ressemble ici à de la maladresse est ce qui
+  fait que le mail s'affiche pareil partout.
+-->
+<body style="margin:0; padding:0; background-color:#070B16;">
+
+  <!-- La ligne que certains logiciels affichent sous l'objet, dans la liste. -->
+  <div style="display:none; max-height:0; overflow:hidden; opacity:0;">
+    Un clic et tu reçois les prochaines dates en premier.
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+         style="background-color:#070B16; margin:0; padding:0;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"
+               style="width:100%; max-width:600px; background-color:#0A0F20; border-radius:14px;">
+
+          <!-- Le nom, en haut, espacé comme sur le site -->
+          <tr>
+            <td align="center" style="padding:40px 32px 0 32px;">
+              <p style="margin:0; font-family:Helvetica,Arial,sans-serif; font-size:12px;
+                        letter-spacing:4px; text-transform:uppercase; color:#D8A24C;">
+                Anys&nbsp;Mechkar
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td align="center" style="padding:28px 32px 0 32px;">
+              <h1 style="margin:0; font-family:Georgia,'Times New Roman',serif; font-weight:normal;
+                         font-size:30px; line-height:1.25; color:#ECE7DE;">
+                Encore un clic
+              </h1>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:22px 32px 0 32px;">
+              <p style="margin:0; font-family:Georgia,'Times New Roman',serif; font-size:17px;
+                        line-height:1.7; color:#C2C5D2;">
+                Bonjour,
+              </p>
+              <p style="margin:16px 0 0 0; font-family:Georgia,'Times New Roman',serif; font-size:17px;
+                        line-height:1.7; color:#C2C5D2;">
+                Tu as laissé ton email sur anys.me. Confirme-le, et tu recevras
+                les prochaines dates et les ouvertures en premier.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Le bouton, en tableau : un lien stylé ne tient pas dans Outlook. -->
+          <tr>
+            <td align="center" style="padding:34px 32px 0 32px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" bgcolor="#D8A24C" style="border-radius:999px;">
+                    <a href="{{ params.DOIurl }}"
+                       style="display:inline-block; padding:16px 34px; font-family:Helvetica,Arial,sans-serif;
+                              font-size:13px; font-weight:bold; letter-spacing:2px; text-transform:uppercase;
+                              color:#0A0F20; text-decoration:none; border-radius:999px;">
+                      Je confirme
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Le lien en clair : des logiciels d'entreprise neutralisent les boutons. -->
+          <tr>
+            <td align="center" style="padding:22px 32px 0 32px;">
+              <p style="margin:0; font-family:Helvetica,Arial,sans-serif; font-size:12px;
+                        line-height:1.6; color:#6E7489;">
+                Si le bouton ne répond pas, ouvre ce lien :<br>
+                <a href="{{ params.DOIurl }}" style="color:#8C93A8; word-break:break-all;">{{ params.DOIurl }}</a>
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:32px 32px 0 32px;">
+              <div style="height:1px; background-color:#1B2340; line-height:1px; font-size:0;">&nbsp;</div>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:24px 32px 40px 32px;">
+              <p style="margin:0; font-family:Helvetica,Arial,sans-serif; font-size:13px;
+                        line-height:1.7; color:#6E7489;">
+                Si ce n'est pas toi, ignore ce message : rien ne se passera, et
+                ton adresse n'entrera nulle part.
+              </p>
+              <p style="margin:14px 0 0 0; font-family:Helvetica,Arial,sans-serif; font-size:13px;
+                        line-height:1.7; color:#6E7489;">
+                Une fois par mois, pas plus. Un mot et je te sors de la liste, à
+                tout moment.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+
+        <p style="margin:24px 0 0 0; font-family:Helvetica,Arial,sans-serif; font-size:11px;
+                  letter-spacing:1px; color:#4A5068;">
+          anys.me
+        </p>
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
