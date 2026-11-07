@@ -83,6 +83,28 @@ affiche exactement la même chose que `anys.me`.
       « répondre à » porte l'adresse de la personne : tu réponds au mail, ta
       réponse lui arrive.
 
+## 🧪 À vérifier sur le vieux Mac
+
+Les séparations en pinceau ne sont plus retournées par CSS : chaque bord a
+maintenant son image dans les quatre sens. Il n'y a donc plus aucune
+transformation, et plus rien qu'un vieux WebKit puisse rater.
+
+**Quoi regarder** · l'accueil, en descendant. Les traits de pinceau entre les
+sections doivent alterner de sens au lieu de se répéter à l'identique. Les plus
+parlants sont le bas du hero et l'entrée du paon.
+
+Si c'est encore faux, le suspect suivant est `Trace` — tes fragments d'encre,
+qui combinent eux aussi un masque et un retournement. Son masque n'étant que
+deux dégradés de fondu presque symétriques, l'erreur y serait discrète.
+
+Pour refabriquer les images après avoir changé un pinceau :
+
+```bash
+cd /Users/anys/Code/anys.me && node scripts/pinceaux.mjs
+```
+
+---
+
 ## 🟡 Ce qui reste
 
 - [ ] 📖 **Relire tous les contenus** page par page · c'est ton travail
