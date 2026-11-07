@@ -72,6 +72,12 @@ affiche exactement la même chose que `anys.me`.
 - ⚡ **Images adaptatives** · cinq largeurs par photo, le téléphone prend la
       plus petite qui lui suffit, le PC garde la pleine définition
 - 🛡️ **Les robots du formulaire** · rangés à part, sans sonner
+- 📬 **Double opt-in** · modèle Brevo n° 30, expéditeur `contact@anys.me`.
+      Parcours vérifié en entier le 7 novembre : inscription → la liste reste
+      vide → mail reçu → clic → la personne entre, prénom conservé.
+- ☑️ **La case « je veux aussi la lettre »** sur le formulaire de contact,
+      décochée par défaut. Cochée, elle range dans la table Lettre avec
+      `contact` pour origine. Un robot qui la coche n'atteint pas Brevo.
 - 🔏 **`anys.me` authentifié chez Brevo** · 7 novembre. Le `brevo-code`, les
       deux CNAME `brevo1/brevo2._domainkey` et un `_dmarc` en `p=none` ont été
       ajoutés ; les MX, le SPF et les DKIM d'OVH n'ont pas bougé. Ta lettre
@@ -110,12 +116,35 @@ cd /Users/anys/Code/anys.me && node scripts/pinceaux.mjs
 - [ ] 📖 **Relire tous les contenus** page par page · c'est ton travail
 - [ ] ✍️ **Finaliser `a-propos-court`**, puis supprimer les trois autres
       brouillons (`a-propos`, `-2`, `-bref`)
-- [ ] 📬 Le mail de confirmation d'inscription · créer un modèle **double
-      opt-in** chez Brevo, noter son ID, le poser dans `BREVO_DOI_MODELE` chez
-      Netlify, **puis redéployer**
 > ⚠️ **Ne clique pas sur « Se désabonner »** en haut d'un de ces mails. Brevo
 > l'ajoute d'office, et il mettrait ton adresse sur sa liste noire : tu ne
 > recevrais plus aucun message du formulaire, sans que rien ne te prévienne.
+
+---
+
+## 📬 La lettre, comment ça marche
+
+```
+formulaire  →  Brevo envoie le mail de confirmation
+            →  /merci?pour=lettre-a-confirmer   « Presque »
+clic        →  la personne entre dans la liste 15
+            →  /merci?pour=lettre               « Inscription confirmée »
+```
+
+Tant que personne n'a cliqué, **rien n'entre dans ta liste** — ce qui arrête
+aussi les robots qui s'inscrivent.
+
+Pour changer le texte du mail : modifie `mail-confirmation-lettre.html` à la
+racine, puis
+
+```bash
+cd /Users/anys/Code/anys.me && node scripts/modele-doi.mjs
+```
+
+Il retrouve le modèle par son nom et le met à jour, sans en créer un second.
+Deux choses à ne pas toucher dedans : la balise `{{ params.DOIurl }}`, qui
+porte le lien unique de chaque personne, et l'étiquette `optin` du modèle,
+sans laquelle Brevo refuse de s'en servir.
 
 ---
 
