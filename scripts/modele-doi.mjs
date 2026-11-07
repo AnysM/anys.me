@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url';
 const RACINE = join(dirname(fileURLToPath(import.meta.url)), '..');
 const NOM = 'Lettre — confirmation d’inscription';
 const OBJET = 'Confirme ton inscription à la lettre';
-const EXPEDITEUR = { name: 'Anys Mechkar', email: 'contact@anys.me' };
+const EXPEDITEUR_VOULU = 'contact@anys.me';
 
 // Un .env se lit en trois lignes ; une dépendance pour ça serait du luxe.
 async function env() {
@@ -63,6 +63,22 @@ const brevo = async (chemin, options = {}) => {
   return texte ? JSON.parse(texte) : {};
 };
 
+// L'expéditeur se lit chez Brevo plutôt que de s'écrire ici : l'API des
+// modèles n'accepte qu'une adresse déclarée et active, et le refus qu'elle
+// renvoie sinon — « Sender is invalid / inactive » — ne dit pas lesquelles le
+// sont. On prend celle qu'on veut si elle existe, sinon une autre du domaine.
+const { senders = [] } = await brevo('/senders');
+const actifs = senders.filter((s) => s.active);
+const expediteur = actifs.find((s) => s.email === EXPEDITEUR_VOULU)
+  ?? actifs.find((s) => s.email.endsWith('@anys.me'));
+
+if (!expediteur) {
+  console.error(`Aucun expéditeur actif sur anys.me. Déclarés : ${senders.map((s) => `${s.email}${s.active ? '' : ' (inactif)'}`).join(', ') || 'aucun'}`);
+  console.error('Brevo › Expéditeurs, domaines & IP › Expéditeurs.');
+  process.exit(1);
+}
+console.log(`Expéditeur : ${expediteur.name} <${expediteur.email}>`);
+
 const html = await readFile(join(RACINE, 'mail-confirmation-lettre.html'), 'utf8');
 
 if (!html.includes('{{ params.DOIurl }}')) {
@@ -78,7 +94,7 @@ const existant = templates.find((t) => t.name === NOM);
 const corps = {
   templateName: NOM,
   subject: OBJET,
-  sender: EXPEDITEUR,
+  sender: { name: expediteur.name, email: expediteur.email },
   htmlContent: html,
   isActive: true,
   tag: 'optin',
