@@ -7,9 +7,13 @@ import Icone from '../components/Icone.astro';
     <div class="narrow" style="text-align:center;">
       <p class="eyebrow" style="justify-content:center;" data-msg="contact">Message envoyé</p>
       <p class="eyebrow" style="justify-content:center;" data-msg="lettre" hidden>Inscription confirmée</p>
+      <p class="eyebrow" style="justify-content:center;" data-msg="a-confirmer" hidden>Presque</p>
       <h1 style="margin-top:1rem;">Merci</h1>
       <p class="lead" style="margin:1.4rem auto 0;" data-msg="contact">J'ai bien reçu ton message. Je te réponds dès que je peux.</p>
       <p class="lead" style="margin:1.4rem auto 0;" data-msg="lettre" hidden>Tu fais maintenant partie de la lettre. Tu recevras les prochaines dates et les ouvertures en premier.</p>
+      <p class="lead" style="margin:1.4rem auto 0;" data-msg="a-confirmer" hidden>Je viens de t'envoyer un mail. Un clic sur le lien qu'il contient, et tu fais partie de la lettre.</p>
+      <p style="margin:1rem auto 0; color:var(--muted); font-size:0.95rem;" data-msg="a-confirmer" hidden>Rien ne part tant que tu n'as pas cliqué. Si le mail ne vient pas, regarde dans les indésirables.</p>
+      <p style="margin:1.2rem auto 0; color:var(--muted); font-size:0.95rem;" data-note="lettre" hidden>Pour la lettre, un mail t'attend : un clic sur son lien et c'est fait.</p>
 
       <p class="rune" style="margin-top:3.2rem;">En attendant</p>
       <div class="suite">
@@ -22,9 +26,24 @@ import Icone from '../components/Icone.astro';
   </section>
   <script is:inline>
     (function () {
-      if (new URLSearchParams(location.search).get('pour') !== 'lettre') return;
-      document.querySelectorAll('[data-msg="contact"]').forEach(function (e) { e.hidden = true; });
-      document.querySelectorAll('[data-msg="lettre"]').forEach(function (e) { e.hidden = false; });
+      // Trois états, et c'est le double opt-in qui les rend nécessaires :
+      // après l'envoi du formulaire la personne n'est pas encore inscrite, elle
+      // doit d'abord cliquer dans son mail. Lui annoncer « inscription
+      // confirmée » à ce moment-là, c'est garantir qu'elle ne cliquera jamais.
+      // Brevo, lui, renvoie sur « lettre » une fois le lien suivi.
+      var p = new URLSearchParams(location.search);
+      var etats = { 'lettre': 'lettre', 'lettre-a-confirmer': 'a-confirmer' };
+      var etat = etats[p.get('pour')] || 'contact';
+      ['contact', 'lettre', 'a-confirmer'].forEach(function (nom) {
+        document.querySelectorAll('[data-msg="' + nom + '"]').forEach(function (e) {
+          e.hidden = nom !== etat;
+        });
+      });
+      // La case cochée sur le formulaire de contact : le message est parti, et
+      // la lettre attend une confirmation. Les deux se disent ensemble.
+      if (p.get('lettre') === 'confirmer') {
+        document.querySelectorAll('[data-note="lettre"]').forEach(function (e) { e.hidden = false; });
+      }
     })();
   </script>
 </Base>

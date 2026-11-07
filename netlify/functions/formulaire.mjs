@@ -289,6 +289,19 @@ export default async function handler(request) {
   // jusqu'à Airtable, où la raison s'écrit dans la colonne « Spam ». On ne
   // refuse rien : refuser apprendrait au robot à recommencer autrement, et
   // ferait disparaître un vrai message mal noté.
+  // La case du formulaire de contact. Décochée par défaut, donc toujours un
+  // geste de la personne : l'abonner parce qu'elle t'a écrit serait interdit.
+  const veutLettre = quel === 'contact' && !!texte(champs.lettre);
+
+  // Avec un modèle de confirmation, personne n'entre dans la liste avant
+  // d'avoir cliqué. La page de retour doit le dire, sans quoi elle annoncerait
+  // une inscription faite à quelqu'un qui n'a encore rien confirmé — et qui ne
+  // cliquerait donc jamais.
+  const parDoi = !!(BREVO_DOI_MODELE && BREVO_API_KEY && BREVO_LISTE);
+  const retour = quel === 'lettre'
+    ? (parDoi ? '/merci?pour=lettre-a-confirmer' : forme.retour)
+    : (veutLettre && parDoi ? '/merci?lettre=confirmer' : forme.retour);
+
   const note = noter(champs);
   const robot = estSpam(note);
   const pourquoi = note.raisons.join(' · ');
@@ -302,7 +315,7 @@ export default async function handler(request) {
   const source = texte(champs.source);
   const page = texte(champs.page);
 
-  const envie = envieDe(source || 'site');
+  const envie = envieDe(veutLettre ? 'contact' : (source || 'site'));
   const marque = robot ? { Spam: `${note.score} pts · ${pourquoi}` } : {};
   const ligne = quel === 'lettre'
     ? { Prénom: nom, Email: email, Source: source || 'site', Envie: envie, Reçu: new Date().toISOString(), ...marque }
@@ -334,19 +347,32 @@ export default async function handler(request) {
   if (robot) {
     console.warn(`[${quel}] robot · ${note.score} pts · ${pourquoi} · ${email}`);
     if (!range) console.error(`[${quel}] ROBOT PAS RANGÉ`, JSON.stringify(ligne));
-    return redirige(forme.retour);
+    return redirige(retour);
   }
 
   // Brevo passe avant la notification : sinon son refus arriverait trop tard
   // pour être dit, et il faudrait aller le lire dans le journal de Netlify.
-  if (quel === 'lettre') {
+  if (quel === 'lettre' || veutLettre) {
     // Le silence est pire que l'erreur : sans ces deux variables, l'inscription
     // ne part nulle part et rien ne le signale. On le dit.
     if (!BREVO_API_KEY || !BREVO_LISTE) {
       soucis.push(`Brevo non configuré (clé ${BREVO_API_KEY ? 'posée' : 'absente'}, liste ${BREVO_LISTE ?? 'absente'})`);
     }
+    // Une case cochée vaut une inscription : elle se range dans la même table
+    // que les autres, avec « contact » pour origine. Sans ça, ta liste Airtable
+    // et ta liste Brevo diraient deux choses différentes.
+    if (veutLettre) {
+      try {
+        await versAirtable(FORMULAIRES.lettre.table, {
+          Prénom: nom, Email: email, Source: 'contact', Envie: 'Lettre',
+          Reçu: new Date().toISOString(),
+        });
+      } catch (e) {
+        soucis.push(String(e.message ?? e));
+      }
+    }
     try {
-      await versBrevo({ email, prenom: nom, source: source || 'site', envie,
+      await versBrevo({ email, prenom: nom, source: veutLettre ? 'contact' : (source || 'site'), envie,
         site: new URL(request.url).origin });
     } catch (e) {
       soucis.push(String(e.message ?? e));
@@ -374,6 +400,7 @@ export default async function handler(request) {
           `De : ${nom || '—'} · ${email}`,
           APPELS[interet] && `Ce qui appelle : ${APPELS[interet]}`,
           page && `Depuis la page : ${page}`,
+          veutLettre && `A coché « je veux aussi la lettre »${parDoi ? ' — la confirmation lui a été envoyée' : ''}`,
           null,
           'Réponds à ce mail : ta réponse part directement à cette personne.',
         ].filter((l) => l !== false && l !== undefined && l !== ''),
@@ -400,7 +427,7 @@ export default async function handler(request) {
     ? { titre: `${envie === 'Lettre' ? 'Inscription à la lettre' : `Inscription · ${envie}`}${nom ? ` — ${nom}` : ''}`, corps: `${email}${source ? `\nDepuis : ${source}` : ''}`, etiquettes: 'envelope' }
     : {
         titre: `Message de ${nom || email}`,
-        corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${APPELS[interet] ?? interet}`].filter(Boolean).join('\n'),
+        corps: [message || '(sans message)', '', email, interet && `Ce qui appelle : ${APPELS[interet] ?? interet}`, veutLettre && '✉️ Veut aussi la lettre'].filter(Boolean).join('\n'),
         priorite: 'high',
         etiquettes: 'speech_balloon',
       };
@@ -427,7 +454,7 @@ export default async function handler(request) {
   if (!range && !NTFY_TOPIC) console.error(`[${quel}] AUCUNE DESTINATION`, JSON.stringify(ligne));
   if (soucis.length) console.error(`[${quel}] rangé: ${range} ·`, soucis.join(' | '));
 
-  return redirige(forme.retour);
+  return redirige(retour);
 }
 
 /** On répond au navigateur par la page de remerciement. */

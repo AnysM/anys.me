@@ -36,6 +36,12 @@ const questions = {
       <option value="autre">Autre chose</option>
     </select></div>
     <div><label for="c-message">Ton message</label><textarea id="c-message" name="message"></textarea></div>
+    {/* Décochée, toujours. Abonner quelqu'un parce qu'il t'a écrit serait
+        interdit, et surtout déloyal : on demande, on ne suppose pas. */}
+    <label class="form__case" for="c-lettre">
+      <input id="c-lettre" type="checkbox" name="lettre" value="oui" />
+      <span>Je veux aussi recevoir la lettre : les prochaines dates et un texte, une fois par mois.</span>
+    </label>
     <button class="btn btn--solid" type="submit" style="justify-self:start;">Envoyer</button>
   </form>
 </div>
