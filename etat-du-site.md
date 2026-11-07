@@ -142,6 +142,9 @@ cd /Users/anys/Code/anys.me && node scripts/modele-doi.mjs
 ```
 
 Il retrouve le modèle par son nom et le met à jour, sans en créer un second.
+Il lit ta clé Brevo dans le fichier `.env`, à la racine — hors de Git, donc il
+ne part jamais sur GitHub, mais c'est bien une clé en clair sur ta machine. Si
+tu changes de clé chez Brevo un jour, pense à la remplacer là aussi.
 Deux choses à ne pas toucher dedans : la balise `{{ params.DOIurl }}`, qui
 porte le lien unique de chaque personne, et l'étiquette `optin` du modèle,
 sans laquelle Brevo refuse de s'en servir.
