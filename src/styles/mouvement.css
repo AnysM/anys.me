@@ -21,12 +21,11 @@ main > section > div { position: relative; z-index: 2; }
   -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
   mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
 }
-/* Le masque a son bord de pinceau en haut et le plein en dessous.
-   En pied de section on le pose tel quel ; en tête on le retourne. */
+/* Le sens vient du fichier, pas d'une transformation : le composant pointe sur
+   bord-N, -haut, -retourne ou -haut-retourne selon le cas. Il ne reste donc ici
+   que l'endroit où la bande se pose. */
 .brosse--bas { bottom: -1px; }
-.brosse--haut { top: -1px; transform: scaleY(-1); }
-.brosse--bas.brosse--retournee { transform: scaleX(-1); }
-.brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
+.brosse--haut { top: -1px; }
 
 /* ── Le chemin : tes fragments d'encre, toute la hauteur de la section ── */
 .trace { position: absolute; top: 0; height: calc(100% + var(--debord, 0px));

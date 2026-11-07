@@ -52,7 +52,7 @@ const R: Record<string, any> = REGLAGES as any;
   <meta name="robots" content="noindex, nofollow" />
   <title>Atelier des séparations</title>
 </head>
-<body class="atelier">
+<body class="atelier" data-ext={import.meta.env.DEV ? '.png' : '.webp'}>
   <header class="atelier__tete">
     <h1>Atelier des séparations</h1>
     <p>Chaque frontière de la page d'accueil. Choisis la forme, son sens, sa hauteur
@@ -122,9 +122,7 @@ const R: Record<string, any> = REGLAGES as any;
       -webkit-mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x;
       mask: var(--brosse-img) var(--brosse-x, 0) 0 / var(--brosse-l, 100%) 100% repeat-x; }
     .brosse--bas { bottom: -1px; }
-    .brosse--haut { top: -1px; transform: scaleY(-1); }
-    .brosse--bas.brosse--retournee { transform: scaleX(-1); }
-    .brosse--haut.brosse--retournee { transform: scaleY(-1) scaleX(-1); }
+    .brosse--haut { top: -1px; }
     :root { --navy: #0A0F20; --navy2: #0E1530; --surface: #111A38; }
     * { box-sizing: border-box; }
     body.atelier { background: #080C1A; color: #ECE7DE; font-family: 'Jost', system-ui, sans-serif; padding: 0 0 6rem; }
@@ -181,10 +179,11 @@ const R: Record<string, any> = REGLAGES as any;
       const b = sec.querySelector('[data-brosse]');
       const h = Math.round(f.h * (r.hauteur / 100) * 100 / r.largeur);
       b.style.aspectRatio = f.l + ' / ' + h;
-      b.style.setProperty('--brosse-img', 'url(/img/brosses/bord-' + r.bord + '.png)');
+      const sens = (b.classList.contains('brosse--haut') ? '-haut' : '') + (r.retourne ? '-retourne' : '');
+      const ext = document.body.dataset.ext || '.png';
+      b.style.setProperty('--brosse-img', 'url(/img/brosses/bord-' + r.bord + sens + ext + ')');
       b.style.setProperty('--brosse-l', r.largeur + '%');
       b.style.setProperty('--brosse-x', r.decalage + '%');
-      b.classList.toggle('brosse--retournee', !!r.retourne);
       // en contraste, la forme passe en crème : on la lit même entre deux bleus voisins
       const clair = document.getElementById('contraste').checked;
       b.style.color = clair ? '#ECE7DE' : b.dataset.couleur;

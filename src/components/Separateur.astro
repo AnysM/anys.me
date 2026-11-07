@@ -14,10 +14,16 @@ const largeur = r.largeur ?? 100;     // 100 = le trait traverse la page une foi
 const decalage = r.decalage ?? 0;     // par où on entre dans le trait, en %
 const f = BORDS[bord] ?? BORDS[1];
 const rapport = `${f.l} / ${Math.round(f.h * hauteur / 100 * 100 / largeur)}`;
+// Chaque sens a son image, fabriquée par scripts/pinceaux.mjs. Le fond d'une
+// séparation est un aplat uni : retourner l'élément ne retournait donc que le
+// masque, et un vieux WebKit peint le masque dans le repère d'avant
+// transformation — la bande s'affichait à l'endroit. En choisissant le fichier,
+// il n'y a plus rien à transformer, donc plus rien qui puisse échouer.
+const sens = `${cote === 'haut' ? '-haut' : ''}${retourne ? '-retourne' : ''}`;
 ---
 <div
-  class:list={['brosse', `brosse--${cote}`, retourne && 'brosse--retournee']}
+  class:list={['brosse', `brosse--${cote}`]}
   data-sep={id}
-  style={`color:${couleur}; --brosse-img:url(/img/brosses/bord-${bord}.png); aspect-ratio:${rapport}; --brosse-l:${largeur}%; --brosse-x:${decalage}%`}
+  style={`color:${couleur}; --brosse-img:url(/img/brosses/bord-${bord}${sens}.png); aspect-ratio:${rapport}; --brosse-l:${largeur}%; --brosse-x:${decalage}%`}
   aria-hidden="true"
 ></div>
