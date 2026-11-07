@@ -76,7 +76,8 @@ affiche exactement la même chose que `anys.me`.
       deux CNAME `brevo1/brevo2._domainkey` et un `_dmarc` en `p=none` ont été
       ajoutés ; les MX, le SPF et les DKIM d'OVH n'ont pas bougé. Ta lettre
       part désormais signée au nom du domaine, ce qui la fait mieux arriver.
-      Le `De :` des messages du formulaire est `contact@anys.me`.
+      Le `De :` des messages du formulaire est `contact@anys.me`, signé
+      `d=anys.me` et `dmarc=pass` aligné — vérifié dans les en-têtes reçus.
 - 📨 **Les messages par mail** · vérifié de bout en bout le 5 novembre.
       `dkim=pass · spf=pass · dmarc=pass`, boîte de réception, et le
       « répondre à » porte l'adresse de la personne : tu réponds au mail, ta
@@ -114,6 +115,25 @@ Le contenu se compte en points, et **trois points** rangent à part. Un seul
 indice ne suffit presque jamais : quelqu'un peut vouloir te montrer son site.
 
 Pour voir tes vrais messages dans Airtable : filtre **« Spam est vide »**.
+
+### Ce que ça a donné en deux jours
+
+Sept envois de robots, tous attrapés, aucun n'a fait sonner le téléphone :
+
+| Pris par | Combien |
+|---|---|
+| Le champ invisible (`99 pts`) | 6 |
+| Le comptage de points | 1 — démarchage anglais, `6 pts · durée absente · 2 liens · mots de démarchage : unsubscribe` |
+
+Et aucun vrai message n'a été rangé à part. Celui à `6 pts` est le plus
+parlant : il imitait une vraie demande, et c'est le cumul des trois indices
+qui l'a démasqué, aucun ne suffisait seul.
+
+> 📥 **Gmail range ces mails dans « Promotions »**, parce que Brevo y ajoute
+> d'office des en-têtes de publipostage (`List-Unsubscribe`, `Feedback-ID`,
+> un pixel de suivi). Fais glisser un de ces mails vers l'onglet
+> **Principale** : Gmail propose de faire pareil pour les suivants, et c'est
+> réglé. La notification sur le téléphone, elle, arrive quoi qu'il arrive.
 
 Pour éprouver le filtre après une retouche :
 
