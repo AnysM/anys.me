@@ -364,6 +364,19 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .venir__liste li:nth-child(odd) { align-items: flex-start; text-align: left; margin-right: auto; }
 .venir__liste li:nth-child(even) { align-items: flex-end; text-align: right; margin-left: auto; }
 @media (max-width: 700px) { .venir__liste li:nth-child(n) { align-items: center; text-align: center; margin: 0 auto; } }
+/* Les situations, en une phrase où seules elles sont en pleine lumière : on se
+   reconnaît avant de lire ce que ça ouvre. L'aparté, en retrait, dit qu'on peut
+   venir sans être en crise. */
+.venir__crises { max-width: 44ch; margin: 0 auto 2.2rem; text-align: center;
+  font-family: 'Jost', sans-serif; font-size: clamp(1rem, 1.5vw, 1.1rem);
+  line-height: 1.95; color: #6E7489; }
+.venir__crises b { font-weight: 400; color: var(--cream);
+  font-size: clamp(1.08rem, 1.7vw, 1.22rem); }
+/* Le pont reste en sans : l'italique serif appartient aux quatre grandes
+   phrases, et le lui prêter l'aurait fait passer pour l'une d'elles. */
+.venir__pont { max-width: 42ch; margin: 0 auto clamp(3rem, 6vw, 5rem);
+  text-align: center; font-family: 'Jost', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.1rem); line-height: 1.8; color: #D5D6E0; }
 .venir__action { font-family: 'Jost', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; font-size: clamp(0.82rem, 1.1vw, 0.95rem); line-height: 1.6; }
 .venir__liste li:nth-child(odd) .venir__action { color: var(--bleu, #5C7CFF); }
 .venir__liste li:nth-child(even) .venir__action { color: var(--coral); }

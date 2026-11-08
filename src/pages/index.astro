@@ -183,6 +183,13 @@ const reglage = (c: string) => {
           <p class="eyebrow">{acc.venir_eyebrow}</p>
           <h2 class:list={['avec-signe', `avec-signe--${pose('venir')}`]}><span set:html={fmt(acc.venir_titre)}></span><Signe id="venir" /></h2>
         </div>
+        {acc.venir_crises?.length > 0 && (
+          <p class="venir__crises" set:html={
+            acc.venir_crises.map((c) => `<b>${c}</b>`).join(' ')
+            + (acc.venir_crises_aparte ? ` <span>${acc.venir_crises_aparte}</span>` : '')
+          }></p>
+        )}
+        {acc.venir_pont && <p class="venir__pont">{acc.venir_pont}</p>}
         <ul class="venir__liste">{acc.venir_items.map((x) => {
           const [action, fin] = x.replace(/\*\*/g, '').split('|').map((t) => t.trim());
           return <li><span class="venir__action" set:html={saut(tisser(action, ctx))}></span>{fin && <span class="venir__fin" set:html={saut(tisser(fin, ctx))}></span>}</li>;
