@@ -1,6 +1,8 @@
 ---
-// Le récit bref : cinq mouvements, cinq respirations. Hors sitemap,
-// hors navigation, noindex — elle sert à comparer les deux versions.
+// Le récit : cinq mouvements, cinq respirations. Ce gabarit vient de la page
+// d'aperçu du brouillon bref, devenue la page officielle le 8 novembre 2026 :
+// c'est là qu'avaient été mis au point les titres d'acte et le chemin d'encre
+// planifié, restés absents de l'ancienne page À propos.
 import Atelier from '../components/Atelier.astro';
 import Base from '../layouts/Base.astro';
 import Separateur from '../components/Separateur.astro';
@@ -182,7 +184,7 @@ const AVEC_POINT = new Set([1, 2, 3, 5, 8, 9]);
 // Un fond sur deux : le bord de pinceau porte la couleur d'en face.
 const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
 ---
-<Base noindex title="À propos (bref) — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
+<Base title="À propos — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
   <section class="page-hero" style={`min-height:64vh; --hero-y:32%; padding-bottom:${airSousBord('page-bas')}`}>{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
     {ap.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow" data-edit={DEV ? "ligne" : undefined} data-cle="hero_eyebrow">{ap.hero_eyebrow}</p><h1 data-edit={DEV ? "ligne" : undefined} data-cle="hero_titre">{ap.hero_titre}</h1></div>
