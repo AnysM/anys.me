@@ -463,6 +463,15 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .tl-row > .tl-text, .tl-row > div { position: relative; z-index: 2; }
 /* Un temps du récit : son propre fond, ses bords de pinceau, et un seul grand
    tracé d'encre qui le traverse — comme les sections de la page d'accueil. */
+/* La fin du chemin se dissout dans le fond de la section, quelle que soit la
+   place qu'y occupe l'encre. Masquer l'image elle-même ne suffisait pas : son
+   fondu tombe là où finit le fragment, pas là où finit la section, et le coup
+   de pinceau se coupait net au milieu. Ce voile-ci est posé sur la section,
+   au-dessus du tracé (z-index 1, peint après lui) et sous le texte (z-index 2). */
+.recit-part::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: clamp(180px, 24vh, 360px); z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--fond)); }
+
 .recit-part { position: relative; isolation: isolate;
   padding-inline: max(3vw, calc((100% - 1480px) / 2)); }
 .tl-row { position: relative; margin-bottom: clamp(4.5rem, 9vw, 8rem); }
