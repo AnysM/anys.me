@@ -27,7 +27,7 @@ benefices:
   - "De la confiance, dans ton corps"
 faq:
   - q: "Où ont lieu les soins ?"
-    r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
+    r: "À Lyon : chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
     r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble."
 image: /img/photos/dscf2256.jpg

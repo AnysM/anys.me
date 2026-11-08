@@ -25,7 +25,7 @@ faq:
   - q: "Y a-t-il du contact ?"
     r: "Le soin se fait majoritairement sans contact. Il peut y avoir des contacts ponctuels, à la tête et aux pieds, et ailleurs au cas par cas."
   - q: "Où ont lieu les soins ?"
-    r: "À Lyon : à Chanka Studio, chez Meïsō ou à l'Île Barbe."
+    r: "À Lyon : chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
     r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble."
 image: /img/photos/dscf1640.jpg
