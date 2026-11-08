@@ -995,3 +995,8 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   .split.split--carte .photo { min-height: 52vh; order: 0; }
 }
 
+
+/* Le même emplacement que l'invitation au Codex, sans son texte : il n'y a
+   qu'un bouton, et il ne doit pas flotter au milieu d'une respiration faite
+   pour trois éléments. */
+.codex-invite--nue { padding-top: clamp(2rem, 4vw, 3rem); }

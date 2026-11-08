@@ -241,6 +241,13 @@ const reglage = (c: string) => {
         <h2 set:html={fmt(acc.piliers_titre)}></h2>
       </div>
       <Rangee univers={piliers} centre={''} lien={CODEX_OUVERT} />
+      {/* Tant que le Codex est fermé, les cinq dimensions ne mènent nulle part :
+          on ouvre vers le parcours, où elles ont été traversées pour de vrai. */}
+      {!CODEX_OUVERT && (
+        <div class="codex-invite codex-invite--nue">
+          <a class="btn btn--bleu" href="/a-propos">Mon parcours</a>
+        </div>
+      )}
       {CODEX_OUVERT && (
         <div class="codex-invite">
           <p class="rune">Le Codex</p>
