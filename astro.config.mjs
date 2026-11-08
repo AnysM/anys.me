@@ -9,7 +9,7 @@ import { agendaPasse } from './src/lib/passe.mjs';
 // Les pages qui portent déjà noindex n'ont rien à faire dans le plan du site :
 // l'annoncer à Google puis lui dire de ne pas la garder, c'est se contredire.
 const exclues = ['/merci', '/admin', '/ateliers', '/reglages', '/essais', '/a-propos-2', '/a-propos-court',
-  '/relecture', '/a-propos-bref', '/manifeste', '/mentions-legales', '/confidentialite',
+  '/relecture', '/manifeste', '/mentions-legales', '/confidentialite',
   ...agendaPasse().map((id) => `/agenda/${id}/`),
   ...(CODEX_OUVERT ? fichesMinces().map((id) => `/codex/${id}/`) : ['/codex'])];
 
