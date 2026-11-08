@@ -146,8 +146,6 @@ manifeste: |-
   Et c'est dans ces espaces que nous trouvons les ressources et le sens pour traverser nos vies avec plus de sagesse, et faire de nos crises des [**opportunités de grandir ensemble**]{dore}.
 
   _Avec douceur, poésie et détermination._
-
-  *Anys*
 actes:
   - 'n': 1
     titre: Face à l'auto-destruction
