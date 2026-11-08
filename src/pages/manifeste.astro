@@ -1,0 +1,48 @@
+---
+// Le manifeste, sorti de la page À propos le 8 novembre 2026 : l'histoire se
+// suffisait, et le pourquoi méritait d'être repris à part plutôt que coupé.
+// La page n'est liée nulle part et reste hors du plan du site, le temps
+// qu'Anys décide ce qu'il en fait.
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { tisser, contexte } from '../lib/lore.mjs';
+
+const page = (await getEntry('pages', 'manifeste'))!.data;
+const ctx = contexte();
+---
+<Base title="Manifeste — Anys Mechkar" noindex>
+  <section class="page-hero page-hero--nu">
+    <div class="narrow">
+      <p class="eyebrow">{page.hero_eyebrow}</p>
+      <h1>{page.hero_titre}</h1>
+    </div>
+  </section>
+
+  {page.manifeste && (
+    <section class="manifeste">
+      <div class="narrow">
+        {(() => {
+          const pars = page.manifeste.split(/\n\n+/);
+          // « Le temps » ne se répète pas : il s'écrit une fois, à la main, et la
+          // litanie le continue ligne après ligne.
+          return pars.map((par, k) => {
+            const lit = par.startsWith('Le temps ');
+            const premier = lit && !pars[k - 1]?.startsWith('Le temps ');
+            return (
+              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>
+                {premier && <span class="litanie__tete script">Le temps</span>}
+                <Fragment set:html={tisser(lit ? par.replace(/^Le temps /, '') : par, ctx)} />
+              </p>
+            );
+          });
+        })()}
+      </div>
+    </section>
+  )}
+
+</Base>
+
+<style>
+  /* Sans photo, le titre a besoin de sa propre respiration. */
+  .page-hero--nu { padding: clamp(5rem, 12vw, 9rem) 0 clamp(2rem, 5vw, 3.5rem); min-height: 0; }
+</style>
