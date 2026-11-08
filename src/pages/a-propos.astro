@@ -1,11 +1,14 @@
 ---
+// Le récit bref : cinq mouvements, cinq respirations. Hors sitemap,
+// hors navigation, noindex — elle sert à comparer les deux versions.
 import Atelier from '../components/Atelier.astro';
 import Base from '../layouts/Base.astro';
 import Separateur from '../components/Separateur.astro';
 import Trace from '../components/Trace.astro';
 import { airSousBord } from '../lib/bords';
+import { allure as allure2 } from '../lib/allure.mjs';
 import { getEntry } from 'astro:content';
-import { recit } from '../lib/monde';
+import { recit, pageContenu } from '../lib/monde';
 import { tisser, contexte } from '../lib/lore.mjs';
 import sharp from 'sharp';
 
@@ -26,18 +29,7 @@ async function mesure(src: string) {
   return mesures.get(src)!;
 }
 
-// Un paragraphe entièrement en gras devient un souffle ; un paragraphe
-// entièrement à la main garde sa place à lui. Le reste est du texte courant.
-function allure2(par: string) {
-  const nu = par.trim();
-  if (/^<strong>[^<]*<\/strong>$/.test(nu)) {
-    return nu.replace(/<[^>]+>/g, '').length > 120 ? 'souffle--long' : 'souffle--court';
-  }
-  if (/^<span class="script">[^<]*<\/span>$/.test(nu)) return 'main-levee';
-  return null;
-}
-
-const ap = (await getEntry('pages', 'a-propos'))!.data;
+const ap = await pageContenu('a-propos');
 const ctx = contexte();
 
 // Le texte relie déjà au Codex (mots liés) : à côté, seulement la photo du chapitre.
@@ -51,7 +43,7 @@ const actes = await Promise.all((ap.actes ?? []).map(async (a) => ({
 const HAUTEUR_VISEE = 1250;
 const hauteurDe = (b: any) => b.texte.length * 0.62 + 170 + (b.image ? 820 : 0);
 
-const chapitres = await Promise.all((await recit()).map(async (c) => ({
+const chapitres = await Promise.all((await recit('a-propos')).map(async (c) => ({
   ...c,
   // Un contexte par bloc : sinon le manifeste épuise les liens du Codex et le
   // récit, quinze mille signes plus bas, n'en a plus aucun.
@@ -85,8 +77,8 @@ for (const g of groupes) {
   sections[sections.length - 1].ferme = true;
 }
 
-// Le premier morceau d'un acte porte son numéro et son titre. Un acte long reste
-// un seul chapitre, même coupé en deux sections.
+// Le premier morceau d'un acte porte son numéro et son titre ; le dernier porte
+// le signe de fin. Un acte long reste un seul chapitre, même coupé en deux sections.
 {
   let vu = new Set();
   for (const sec of sections) {
@@ -108,40 +100,122 @@ for (const sec of sections) {
     || (!!d.image && (d.allure ?? 'pleine') !== 'face');
 }
 
+// Le chemin est un seul tracé continu : une section, un fragment. Il n'y en a
+// deux que si la section est vraiment très haute — l'encre, étirée sur toute sa
+// hauteur, deviendrait alors deux fois plus large que la page. Dans ce cas les
+// deux fragments se chevauchent pour que le tracé ne se coupe pas, et se posent
+// de part et d'autre : superposés au même endroit, les deux encres se voient.
+const PAS = 3000;
+// La forme de chacun de tes neuf fragments : sa largeur rapportée à sa hauteur.
+// Un fragment couché est deux fois plus large qu'un debout à hauteur égale.
+const FORMES = [0.82, 0.59, 1.42, 1.27, 1.07, 0.95, 1.43, 1.36, 1.46];
+const LARGEUR_VISEE = 950;
+// Ceux de tes tracés qui portent un point : t4, t6 et t7 n'en ont pas.
+const AVEC_POINT = new Set([1, 2, 3, 5, 8, 9]);
+{
+  // Premier passage : combien de fragments chaque section porte, et la hauteur
+  // que chacun occupera vraiment — la photo qui ferme l'acte déduite.
+  const parts: { sec: any; k: number; m: number; h: number }[] = [];
+  for (const sec of sections) {
+    const h = sec.blocs.reduce((t: number, b: any) =>
+      t + b.texte.length + 170 + (b.image ? 820 : 0) + ((b.vignettes ?? []).length ? 500 : 0), 0);
+    const m = Math.max(1, Math.round(h / PAS));
+    // Une section qui se ferme sur la photo de l'acte : le tracé s'arrête au-dessus
+    // d'elle. Sinon tout son fondu du bas se joue derrière la photo — on ne voit
+    // que la coupe, jamais la dissolution.
+    (sec as any).photo = sec.ferme && (sec.acte as any)?.respiration ? 700 : 0;
+    for (let k = 0; k < m; k += 1) {
+      parts.push({ sec, k, m, h: h / m - (k === m - 1 ? (sec as any).photo : 0) });
+    }
+  }
+
+  // Tes fragments portent un numéro, et ce numéro est l'ordre du chemin : on les
+  // pose dans le sens croissant, du premier au neuvième, quitte à en sauter.
+  // Le neuvième ferme la page. Parmi toutes les suites croissantes possibles on
+  // garde celle dont les formes tombent le plus juste, place par place — choisir
+  // au fil de l'eau poussait les premiers numéros trop haut et laissait les
+  // derniers fragments deux fois plus larges que la page.
+  {
+    let meilleure: number[] = [];
+    let score = Infinity;
+    const essai = (suite: number[]) => {
+      if (suite.length === parts.length) {
+        if (suite[suite.length - 1] !== 9) return;
+        const s = suite.reduce((t, q, i) =>
+          t + Math.abs(parts[i].h * FORMES[q - 1] - LARGEUR_VISEE)
+            - (AVEC_POINT.has(q) ? 150 : 0), 0);
+        if (s < score) { score = s; meilleure = [...suite]; }
+        return;
+      }
+      const depart = suite.length ? suite[suite.length - 1] + 1 : 1;
+      for (let q = depart; q <= 9 - (parts.length - 1 - suite.length); q += 1) {
+        essai([...suite, q]);
+      }
+    };
+    essai([]);
+    parts.forEach((part, i) => { (part as any).n = meilleure[i]; });
+  }
+
+  // Second passage : la place de chaque fragment dans sa section.
+  for (const sec of sections) {
+    // Le chemin passe sous le texte, jamais sous une photo qui le cacherait.
+    const cotes = sec.blocs.map((b: any) =>
+      b.cote === 'droite' ? true : b.cote === 'gauche' ? false : b.i % 2 === 1);
+    const photo = (sec as any).photo;
+    (sec as any).traces = parts.filter((x) => x.sec === sec).map(({ k, m, n }: any) => {
+      const droite = m > 1 ? k % 2 === 1 : cotes[Math.min(k, cotes.length - 1)];
+      // Le chevauchement ne sert qu'aux jonctions internes : aux deux bouts de la
+      // section, le fragment s'arrête pile au bord. Déborder, c'est passer sous la
+      // section suivante qui le coupe net, là où le fondu n'a pas fini sa course.
+      const haut = k === 0 ? 0 : (k * 100) / m - 7;
+      const bas = k === m - 1 ? 100 : ((k + 1) * 100) / m + 7;
+      return {
+        n, x: droite ? 56 : 44, entree: droite ? 48 : 52, miroir: !droite,
+        haut: `${haut}%`,
+        hauteur: k === m - 1 && photo
+          ? `calc(${bas - haut}% - ${photo}px)` : `${bas - haut}%`,
+      };
+    });
+  }
+}
+
 // Un fond sur deux : le bord de pinceau porte la couleur d'en face.
 const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
 ---
-<Base title="À propos — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
+<Base noindex title="À propos (bref) — Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
   <section class="page-hero" style={`min-height:64vh; --hero-y:32%; padding-bottom:${airSousBord('page-bas')}`}>{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
     {ap.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
-    <div class="narrow"><p class="eyebrow">{ap.hero_eyebrow}</p><h1>{ap.hero_titre}</h1></div>
+    <div class="narrow"><p class="eyebrow" data-edit={DEV ? "ligne" : undefined} data-cle="hero_eyebrow">{ap.hero_eyebrow}</p><h1 data-edit={DEV ? "ligne" : undefined} data-cle="hero_titre">{ap.hero_titre}</h1></div>
   </section>
-
-
-  {ap.invitation && (
-    <p class="invite-recit">{ap.invitation}</p>
-  )}
 
   {ap.manifeste && (
     <section class="manifeste">
-      <div class="narrow">
+      <div class="narrow" data-edit={DEV ? "champ" : undefined} data-champ="manifeste">
         {(() => {
           const pars = ap.manifeste.split(/\n\n+/);
-          // « Le temps » ne se répète pas : il s'écrit une fois, à la main, et la
-          // litanie le continue ligne après ligne.
+          // Deux paragraphes de suite qui commencent par les mêmes deux mots font une
+          // litanie : la tête s'écrit une seule fois, à la main, et les lignes suivent.
+          const tete = (p: string) => p.replace(/[*_]/g, '').split(/\s+/).slice(0, 2).join(' ');
           return pars.map((par, k) => {
-            const lit = par.startsWith('Le temps ');
-            const premier = lit && !pars[k - 1]?.startsWith('Le temps ');
+            const t = tete(par);
+            const avant = k > 0 && tete(pars[k - 1]) === t;
+            const apres = k + 1 < pars.length && tete(pars[k + 1]) === t;
+            const lit = avant || apres;
+            const premier = lit && !avant;
+            const corps = lit
+              ? par.replace(/^([*_]*)\S+[ \t]+\S+[ \t]*/, '$1')
+              : par;
             return (
-              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>
-                {premier && <span class="litanie__tete script">Le temps</span>}
-                <Fragment set:html={tisser(lit ? par.replace(/^Le temps /, '') : par, ctx)} />
-              </p>
+              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>{premier && <span class="litanie__tete script">{t + ' '}</span>}<Fragment set:html={corps.split('\n').map((l) => tisser(l, ctx)).join('<br />')} /></p>
             );
           });
         })()}
       </div>
     </section>
+  )}
+
+  {ap.invitation && (
+    <p class="invite-recit" data-edit={DEV ? "champ" : undefined} data-champ="invitation"><Fragment set:html={ap.invitation.split('\n').map((l: string) => tisser(l, ctx)).join('<br />')} /></p>
   )}
 
   {sections.map((sec, si) => {
@@ -161,8 +235,10 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
           {brosseHaut && <Separateur id={hautId} cote="haut" couleur={si === 0 ? 'var(--navy)' : fond(si - 1)} />}
           {brosseBas && <Separateur id={basId} cote="bas" couleur="var(--navy)" />}
           {/* Un seul tracé par section, en grand, qui la traverse de bord à bord. */}
-          <Trace n={(si % 9) + 1} x={si % 2 ? 24 : 78} entree={si % 2 ? 72 : 28}
-            force={0.085} miroir={si % 4 >= 2} />
+          {(sec as any).traces.map((t: any) => (
+            <Trace n={t.n} x={t.x} entree={t.entree} force={0.14}
+              miroir={t.miroir} haut={t.haut} hauteur={t.hauteur} />
+          ))}
           {blocs.map((c) => {
 
         const i = c.i;
@@ -236,9 +312,13 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
     );
   })}
 
+  <style>
+    /* La photo du portail passe devant celle de la montagne ; le Butô reste au-dessus. */
+    .tl-vignettes img:nth-child(1) { z-index: 2; }
+    .tl-vignettes img:nth-child(3) { z-index: 3; }
+  </style>
+
   <Atelier page="a-propos" />
-
-
 
   <section class="fin-recit">
     <div class="narrow">
