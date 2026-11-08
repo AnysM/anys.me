@@ -102,7 +102,7 @@ venir_titre: "Oser un nouveau *chemin*"
 venir_crises:
   - Un burnout.
   - Un métier qui ne te ressemble plus.
-  - Une rupture, une trahison.
+  - Une relation qui prend fin.
   - Un projet qui n'arrive pas à naître.
 venir_crises_aparte: Ou simplement le sentiment de tourner en rond.
 venir_pont: Ces moments ne sont pas des fatalités. C'est l'occasion de faire de la place à ce qui compte vraiment pour toi.
