@@ -85,6 +85,21 @@ for (const g of groupes) {
   sections[sections.length - 1].ferme = true;
 }
 
+// Le premier morceau d'un acte porte son numéro et son titre. Un acte long reste
+// un seul chapitre, même coupé en deux sections.
+{
+  let vu = new Set();
+  for (const sec of sections) {
+    (sec as any).ouvre = !vu.has(sec.acte.n);
+    vu.add(sec.acte.n);
+  }
+}
+const ROMAIN = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV'];
+// Le numéro affiché ne compte que les chapitres qui portent un titre : enlever
+// un titre ne laisse pas de trou dans la suite.
+const NUMERO = new Map();
+actes.filter((a) => a.titre).forEach((a, i) => NUMERO.set(a.n, i + 1));
+
 // Une section qui finit sur une photo pleine largeur n'a pas besoin d'un bord de
 // pinceau en plus : le bord du bas de la photo fait déjà la jonction.
 for (const sec of sections) {
@@ -166,6 +181,9 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
         return (
           <div class:list={['tl-row', `tl-row--${allure}`, cote, seul && 'tl-row--seul', vignettes.length > 0 && 'tl-row--vignettes']} id={c.ancre}>
             <div class="tl-text">
+              {(sec as any).ouvre && acte.titre && c === blocs[0] && (
+                <p class="acte-tete"><span class="acte-n">{ROMAIN[NUMERO.get(acte.n)] ?? acte.n}</span><span data-edit={DEV ? "ligne" : undefined} data-cle="titre" data-acte={acte.n}>{acte.titre}</span></p>
+              )}
               {c.titre && <span class="tl-dot"></span>}
               {c.titre && <h2>{c.titre}</h2>}
               {avant.map((par, j) => <p data-b={DEV ? i : undefined} data-p={DEV ? j : undefined} class:list={[allure2(par)]} set:html={par}></p>)}
@@ -198,6 +216,28 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
 
   <Atelier page="a-propos" />
 
+
+  {ap.manifeste && (
+    <section class="manifeste">
+      <div class="narrow">
+        {(() => {
+          const pars = ap.manifeste.split(/\n\n+/);
+          // « Le temps » ne se répète pas : il s'écrit une fois, à la main, et la
+          // litanie le continue ligne après ligne.
+          return pars.map((par, k) => {
+            const lit = par.startsWith('Le temps ');
+            const premier = lit && !pars[k - 1]?.startsWith('Le temps ');
+            return (
+              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>
+                {premier && <span class="litanie__tete script">Le temps</span>}
+                <Fragment set:html={tisser(lit ? par.replace(/^Le temps /, '') : par, ctx)} />
+              </p>
+            );
+          });
+        })()}
+      </div>
+    </section>
+  )}
 
   <section class="fin-recit">
     <div class="narrow">

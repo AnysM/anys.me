@@ -994,3 +994,4 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   .split.split--carte { grid-template-columns: 1fr; }
   .split.split--carte .photo { min-height: 52vh; order: 0; }
 }
+
