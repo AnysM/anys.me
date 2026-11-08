@@ -108,8 +108,6 @@ chapitres:
     vignettes:
       - /img/photos/dscf2150.jpg
 manifeste: |-
-  _Avant de te parler un peu de moi, j'aimerais te dire pourquoi je fais ça._
-
   Pendant longtemps j'ai eu un seul mot en tête, comme une obsession :
   _le mot_ [*harmonie***.**]{dore}
 

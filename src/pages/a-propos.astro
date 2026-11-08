@@ -102,27 +102,6 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
     <div class="narrow"><p class="eyebrow">{ap.hero_eyebrow}</p><h1>{ap.hero_titre}</h1></div>
   </section>
 
-  {ap.manifeste && (
-    <section class="manifeste">
-      <div class="narrow">
-        {(() => {
-          const pars = ap.manifeste.split(/\n\n+/);
-          // « Le temps » ne se répète pas : il s'écrit une fois, à la main, et la
-          // litanie le continue ligne après ligne.
-          return pars.map((par, k) => {
-            const lit = par.startsWith('Le temps ');
-            const premier = lit && !pars[k - 1]?.startsWith('Le temps ');
-            return (
-              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>
-                {premier && <span class="litanie__tete script">Le temps</span>}
-                <Fragment set:html={tisser(lit ? par.replace(/^Le temps /, '') : par, ctx)} />
-              </p>
-            );
-          });
-        })()}
-      </div>
-    </section>
-  )}
 
   {ap.invitation && (
     <p class="invite-recit">{ap.invitation}</p>
@@ -218,6 +197,28 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
   })}
 
   <Atelier page="a-propos" />
+
+  {ap.manifeste && (
+    <section class="manifeste">
+      <div class="narrow">
+        {(() => {
+          const pars = ap.manifeste.split(/\n\n+/);
+          // « Le temps » ne se répète pas : il s'écrit une fois, à la main, et la
+          // litanie le continue ligne après ligne.
+          return pars.map((par, k) => {
+            const lit = par.startsWith('Le temps ');
+            const premier = lit && !pars[k - 1]?.startsWith('Le temps ');
+            return (
+              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>
+                {premier && <span class="litanie__tete script">Le temps</span>}
+                <Fragment set:html={tisser(lit ? par.replace(/^Le temps /, '') : par, ctx)} />
+              </p>
+            );
+          });
+        })()}
+      </div>
+    </section>
+  )}
 
   <section class="fin-recit">
     <div class="narrow">
