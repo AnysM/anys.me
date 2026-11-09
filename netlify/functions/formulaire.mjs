@@ -69,6 +69,9 @@ const SITE_REPLI = process.env.URL ?? 'https://anysme.netlify.app';
 const FORMULAIRES = {
   contact: { table: 'Messages', retour: '/merci' },
   lettre: { table: 'Lettre', retour: '/merci?pour=lettre' },
+  // Le vote répond en JSON : la page reste en place et affiche « c'est noté »
+  // plutôt que d'emmener quelqu'un ailleurs pour un clic.
+  vote: { table: 'Votes', retour: null },
 };
 
 /** Ce que le menu « Ce qui t'appelle » devient dans la colonne Airtable. */
@@ -307,7 +310,9 @@ export default async function handler(request) {
   const pourquoi = note.raisons.join(' · ');
 
   const email = texte(champs.email);
-  if (!email || !email.includes('@')) return new Response('Email manquant', { status: 400 });
+  if (quel !== 'vote' && (!email || !email.includes('@'))) {
+    return new Response('Email manquant', { status: 400 });
+  }
 
   const nom = texte(champs.nom) || texte(champs.prenom);
   const message = texte(champs.message);
@@ -315,9 +320,16 @@ export default async function handler(request) {
   const source = texte(champs.source);
   const page = texte(champs.page);
 
+  // Le vote : une œuvre, et l'adresse seulement si la personne l'a laissée
+  // après coup. Un vote sans adresse compte autant qu'un autre.
+  const oeuvre = texte(champs.oeuvre);
+  if (quel === 'vote' && !oeuvre) return new Response('Œuvre manquante', { status: 400 });
+
   const envie = envieDe(veutLettre ? 'contact' : (source || 'site'));
   const marque = robot ? { Spam: `${note.score} pts · ${pourquoi}` } : {};
-  const ligne = quel === 'lettre'
+  const ligne = quel === 'vote'
+    ? { 'Œuvre': oeuvre, Email: email, Page: page, Reçu: new Date().toISOString(), ...marque }
+    : quel === 'lettre'
     ? { Prénom: nom, Email: email, Source: source || 'site', Envie: envie, Reçu: new Date().toISOString(), ...marque }
     : {
         Nom: nom,
@@ -347,7 +359,25 @@ export default async function handler(request) {
   if (robot) {
     console.warn(`[${quel}] robot · ${note.score} pts · ${pourquoi} · ${email}`);
     if (!range) console.error(`[${quel}] ROBOT PAS RANGÉ`, JSON.stringify(ligne));
-    return redirige(retour);
+    return quel === 'vote' ? json({ ok: true }) : redirige(retour);
+  }
+
+  // ── Le vote ────────────────────────────────────────────────────────────
+  // Il ne sonne pas et n'envoie pas de mail : un clic ne mérite pas de
+  // réveiller quelqu'un, et le classement se lit dans Airtable. L'adresse,
+  // elle, n'est laissée que par ceux qui veulent être prévenus — eux entrent
+  // dans la lettre comme les autres.
+  if (quel === 'vote') {
+    if (email && email.includes('@')) {
+      try {
+        await versBrevo({ email, source: 'vote', envie: 'Œuvres',
+          site: new URL(request.url).origin });
+      } catch (e) {
+        soucis.push(String(e.message ?? e));
+      }
+    }
+    if (soucis.length) console.error(`[vote] ${oeuvre} ·`, soucis.join(' | '));
+    return json({ ok: range || !AIRTABLE_TOKEN, oeuvre });
   }
 
   // Brevo passe avant la notification : sinon son refus arriverait trop tard
@@ -455,6 +485,13 @@ export default async function handler(request) {
   if (soucis.length) console.error(`[${quel}] rangé: ${range} ·`, soucis.join(' | '));
 
   return redirige(retour);
+}
+
+/** Pour le vote : la page reste en place et lit cette réponse. */
+function json(corps, status = 200) {
+  return new Response(JSON.stringify(corps), {
+    status, headers: { 'Content-Type': 'application/json' },
+  });
 }
 
 /** On répond au navigateur par la page de remerciement. */

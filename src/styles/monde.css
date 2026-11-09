@@ -1051,3 +1051,41 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* La section suivait l'espacement global, qui laissait un écran de vide entre
    le bouton du portfolio et la première œuvre. */
 .art-oeuvres { padding-top: clamp(2rem, 4.5vw, 3rem); }
+
+/* ── Le vote ──────────────────────────────────────────────────────────────────
+   La boutique n'existe pas encore, mais la page peut demander. Les œuvres sont
+   des boutons : on choisit avec les yeux, sans fiche ni légende. */
+.art-vote { padding-top: clamp(2.5rem, 5vw, 3.5rem); }
+.art-vote h2 { margin-bottom: 0.3em; }
+.vote-grille { display: grid; gap: clamp(0.7rem, 1.8vw, 1.1rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 46%), 1fr)); }
+.vote-carte { position: relative; padding: 0; border: 1px solid transparent;
+  border-radius: var(--r-md, 10px); overflow: hidden; background: rgba(10,15,32,0.4);
+  cursor: pointer; display: block; transition: border-color 0.3s ease, transform 0.4s cubic-bezier(.2,.7,.2,1); }
+/* Un carré ici, et c'est assumé : on compare des choix, on ne contemple pas.
+   L'œuvre entière se voit dans le portfolio et sur sa fiche. */
+.vote-carte img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.vote-carte:hover, .vote-carte:focus-visible { border-color: var(--gold); transform: translateY(-3px); }
+.vote-carte__marque { position: absolute; inset: auto 0 0 0; padding: 0.7em 0.5em 0.6em;
+  font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em;
+  font-size: 0.7rem; color: var(--navy); background: var(--gold);
+  transform: translateY(100%); transition: transform 0.35s cubic-bezier(.2,.7,.2,1); }
+.vote-carte:hover .vote-carte__marque, .vote-carte:focus-visible .vote-carte__marque { transform: none; }
+.vote-carte--votee { border-color: var(--gold); }
+.vote-carte--votee .vote-carte__marque { transform: none; }
+.vote-carte--votee .vote-carte__marque::before { content: '✓ '; }
+@media (prefers-reduced-motion: reduce) {
+  .vote-carte, .vote-carte__marque { transition: none; }
+  .vote-carte__marque { transform: none; }
+}
+
+.vote-apres { margin-top: clamp(1.6rem, 3.5vw, 2.4rem); text-align: center; }
+.vote-apres__mot { font-family: 'Jost', sans-serif; font-size: clamp(1rem, 1.7vw, 1.12rem);
+  color: var(--cream); margin-bottom: 1rem; }
+.vote-form { display: flex; flex-wrap: wrap; gap: 0.7rem; justify-content: center;
+  max-width: 34rem; margin: 0 auto; }
+.vote-form input { flex: 1 1 15rem; min-width: 0; background: var(--surface);
+  border: 1px solid var(--faint); border-radius: var(--r-md, 10px); padding: 0.9em 1.1em;
+  color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.98rem; }
+.vote-form input:focus { outline: none; border-color: var(--gold); }
+.vote-apres__fin { font-family: 'Jost', sans-serif; color: var(--gold); }
