@@ -110,6 +110,10 @@ chapitres:
 invitation: |-
   Comment j'en suis arrivé là ? 
 manifeste: |-
+  Étant enfant, ce monde me semblait [**étrange, violent, incompréhensible**]{dore}.
+
+  Je le sens aujourd'hui [**en bascule**]{dore}, dans une période charnière : la brutalité de ce monde, nos conflits intérieurs, et l'épuisement qui va avec.
+
   Pendant longtemps j'ai eu un seul mot en tête, comme une obsession :
   _le mot_ [*harmonie***.**]{dore}
 

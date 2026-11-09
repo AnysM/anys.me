@@ -410,6 +410,17 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .manifeste .litanie--premiere::before { top: 3.3em; }
 .manifeste .litanie--premiere { margin-top: clamp(2.2rem, 4vw, 3.2rem); }
 .manifeste .litanie + .litanie { margin-top: 0.7rem; }
+/* Quinze paragraphes du même serif, au même corps : tout parlait de la même
+   voix, et ça faisait un pavé. Les lignes de litanie sont une liste, pas une
+   pensée. En sans et plus petites, elles se parcourent du regard, et le serif
+   reprend son rôle : ce qu'il dit, lui, se lit lentement. */
+.manifeste .litanie { font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: clamp(0.98rem, 1.35vw, 1.1rem); line-height: 1.8; color: #C9CBD8; }
+.manifeste .litanie strong { font-weight: 500; }
+/* Les têtes manuscrites sont en em : sur un texte devenu plus petit, elles
+   auraient rétréci avec lui, alors qu'elles tiennent le haut de la litanie. */
+.manifeste .litanie .litanie__tete { font-size: 4.5em; }
+.manifeste .litanie--premiere::before { top: 4.3em; }
 .manifeste p:last-child { font-style: italic; color: var(--gold);
   font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.45;
   margin-top: clamp(2.4rem, 4vw, 3.4rem); }
