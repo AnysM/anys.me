@@ -32,13 +32,13 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
       court parce qu'il ne se lit jamais d'un bloc. */}
   <section class="art-declaration">
     <div class="narrow">
-      <p class="art-texte">Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations.</p>
+      <p class="art-texte">Habité par un <b>langage magique</b> indéchiffrable par la raison, <b>le tao, la calligraphie, les couleurs primaires, les éléments</b> et <b>le mouvement</b> composent mes créations.</p>
     </div>
     <figure class="art-toile art-toile--large">
       <img src="/img/art-1.jpg" alt="" loading="eager" />
     </figure>
     <div class="narrow">
-      <p class="art-texte">Le mouvement qui se dépose sur le papier prend aussi forme dans l'espace du corps à travers la danse Butô. Chaque performance réalisée est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
+      <p class="art-texte">Le <b>mouvement</b> qui se dépose sur le papier prend aussi forme <b>dans l'espace du corps</b> à travers <b>la danse Butô</b>. <b>Chaque performance</b> réalisée est pensée comme <b>un rituel, un acte psychomagique</b> offert au monde pour <b>relier le personnel à l'universel</b>.</p>
     </div>
     <div class="art-paire">
       <figure class="art-toile"><img src="/img/oeuvres/eclat-bleu.jpg" alt="" loading="lazy" /></figure>
@@ -55,9 +55,12 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
   </section>
 
   {/* Les œuvres qui ont leur histoire : elles ouvrent sur une fiche entière. */}
-  <section>
+  <section class="art-oeuvres">
     <div class="wrap">
       <p class="rune">Les œuvres</p>
+      {/* Phrase de ma main, à remplacer par la tienne : elle dit seulement ce
+          que la section contient, pour qu'on sache où l'on arrive. */}
+      <p class="art-intro-oeuvres">Celles qui ont leur fiche — d'où elles sont nées, leur technique, leurs dimensions, et ce qu'elles portent.</p>
       <div class="artefacts">
         {artefacts.map((a) => (
           <a class="artefact-carte" href={`/art/${a.id}`}>

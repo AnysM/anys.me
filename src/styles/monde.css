@@ -1021,12 +1021,15 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
    s'intercalent dans le texte, qui paraît court parce qu'on ne le lit jamais
    d'un bloc. */
 .art-hero { min-height: 42vh; }
-.art-declaration { padding-top: clamp(2.2rem, 5vw, 3.4rem);
+.art-declaration { padding-top: clamp(1.8rem, 4vw, 2.8rem);
   /* Serré volontairement : un grand vide avant les œuvres laissait croire que
      la page était finie. */
   padding-bottom: clamp(1.2rem, 3vw, 2rem); }
-.art-texte { font-family: 'EB Garamond', serif; font-size: clamp(1.14rem, 1.9vw, 1.36rem);
-  line-height: 1.8; color: var(--cream); }
+/* Sans-serif : le serif en paragraphe large fatiguait, et le gras s'y voyait
+   mal. Le gras reprend l'emphase de ses propres visuels. */
+.art-texte { font-family: 'Jost', sans-serif; font-size: clamp(1.06rem, 1.7vw, 1.2rem);
+  line-height: 1.85; color: #C7CAD6; }
+.art-texte b { font-weight: 500; color: var(--cream); }
 
 /* Une toile posée entre deux phrases : elle garde ses proportions, et son
    format donne le rythme de la lecture. */
@@ -1040,6 +1043,15 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .art-paire .art-toile { margin: 0; }
 
 /* Le portfolio, annoncé avant d'être proposé. */
-.art-suite { margin-top: clamp(2rem, 4.5vw, 3rem); text-align: center; }
+.art-suite { margin-top: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+  text-align: center; }
 .art-suite__mot { font-family: 'Jost', sans-serif; font-size: clamp(0.98rem, 1.6vw, 1.08rem);
   line-height: 1.75; color: var(--muted); max-width: 44ch; margin: 0 auto 1.4rem; }
+
+/* Ce que contient la section des œuvres, dit avant la première carte. */
+.art-intro-oeuvres { font-family: 'Jost', sans-serif; font-size: clamp(0.98rem, 1.6vw, 1.06rem);
+  line-height: 1.75; color: var(--muted); max-width: 52ch; margin: 0.6rem 0 clamp(1.6rem, 3.5vw, 2.4rem); }
+
+/* La section suivait l'espacement global, qui laissait un écran de vide entre
+   le bouton du portfolio et la première œuvre. */
+.art-oeuvres { padding-top: clamp(2rem, 4.5vw, 3rem); }
