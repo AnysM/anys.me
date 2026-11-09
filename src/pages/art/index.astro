@@ -9,12 +9,17 @@ import { airSousBord } from '../../lib/bords';
 import Lettre from '../../components/Lettre.astro';
 import Signe from '../../components/Signe.astro';
 import { getCollection } from 'astro:content';
+import { comptesDesVotes } from '../../lib/votes';
 
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const statut = (d) => d.original === 'disponible' ? `Original disponible${d.original_prix ? ` · ${d.original_prix}` : ''}` : d.tirages_statut === 'disponible' ? 'Reproductions disponibles' : d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'acquis' ? 'Acquis' : 'Collection personnelle';
 
 const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
 
+
+// Les cœurs déjà donnés, écrits dans la page : la fonction met près d'une
+// seconde à répondre, et d'ici là la carte n'avait qu'un point.
+const comptes = await comptesDesVotes();
 ---
 <Base title="Art · les œuvres d'Indigo Enoqii | Anys Mechkar" description="Indigo Enoqii écrit son propre langage magique : des œuvres vivantes, vibrantes et symboliques. Originaux et reproductions à accueillir chez soi.">
   {/* Un bandeau court plutôt qu'un plein écran : la première œuvre doit se
@@ -80,7 +85,7 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
             <button class="coeur" type="button" data-oeuvre={a.id} data-titre={a.data.titre}
               aria-label={`Je veux ${a.data.titre} en reproduction`}>
               <span class="coeur__signe" aria-hidden="true">♥</span>
-              <span class="coeur__n" data-n={a.id}>·</span>
+              <span class="coeur__n" data-n={a.id}>{comptes ? (comptes[a.id] ?? 0) : '·'}</span>
             </button>
           </div>
         ))}
