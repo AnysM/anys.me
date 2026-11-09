@@ -1000,3 +1000,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
    qu'un bouton, et il ne doit pas flotter au milieu d'une respiration faite
    pour trois éléments. */
 .codex-invite--nue { padding-top: clamp(2rem, 4vw, 3rem); }
+
+/* Le bouton du portfolio, posé sous la présentation : il ouvre vers Canva,
+   le temps que ces pages vivent ici. */
+.art-portfolio { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
