@@ -116,7 +116,7 @@ const CURSEURS = [
           .then(function () { etat.textContent = 'Enregistré'; })
           .catch(function (e) {
             etat.textContent = e === 404
-              ? 'route absente — coupe et relance npm run dev'
+              ? 'route absente : coupe et relance npm run dev'
               : 'échec : ' + e;
           });
       });

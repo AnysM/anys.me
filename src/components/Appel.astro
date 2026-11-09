@@ -8,7 +8,7 @@ const { pour = '', secondaire = true, centre = false, court = false, discret = f
 const cc = (await getEntry('pages', 'contact'))!.data;
 const lien = cc.appel_lien;
 const ecrire = pour ? `/contact?pour=${encodeURIComponent(pour)}` : '/contact';
-const demande = `/contact?pour=${encodeURIComponent(`Appel découverte${pour ? ` — ${pour}` : ''}`)}&interet=transformer`;
+const demande = `/contact?pour=${encodeURIComponent(`Appel découverte${pour ? ` : ${pour}` : ''}`)}&interet=transformer`;
 const libelle = court ? 'Appel découverte' : (cc.appel_cta && cc.appel_cta !== 'Réserver un appel' ? cc.appel_cta : 'Réserver un appel découverte');
 ---
 {discret

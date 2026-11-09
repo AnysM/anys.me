@@ -23,7 +23,7 @@ export const LIEU_ID = `${SITE}/#lieu`;
 export const lieu = {
   '@type': ['LocalBusiness', 'HealthAndBeautyBusiness'],
   '@id': LIEU_ID,
-  name: 'Anys Mechkar — accompagnement, soins et ateliers à Lyon',
+  name: 'Anys Mechkar',
   url: SITE,
   image: `${SITE}/img/soins-table.jpg`,
   description: "Soins énergétiques, massages, accompagnement des transitions de vie, ateliers de méditation, de danse Butô et voyages sonores à Lyon, en studio ou à domicile.",

@@ -105,7 +105,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Agenda', url: '/agenda' }, { nom: d.titre, url: `/agenda/${e.id}` }]),
 ];
 ---
-<Base title={`${d.titre} — Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld} noindex={estPasse(d)}>
+<Base title={`${d.titre} · Agenda | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld} noindex={estPasse(d)}>
   <section class="page-hero page-hero--grand" style={`padding-bottom:${airSousBord('page-bas')}`}>{(d.image_hero ?? d.image) ? <img src={d.image_hero ?? d.image} alt="" /> : <div class="ph-band"></div>}
     {(d.image_hero ?? d.image) && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="wrap">

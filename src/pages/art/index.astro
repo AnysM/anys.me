@@ -16,7 +16,7 @@ const statut = (d) => d.original === 'disponible' ? `Original disponible${d.orig
 const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
 
 ---
-<Base title="Art — les œuvres d'Indigo Enoqii | Anys Mechkar" description="Indigo Enoqii écrit son propre langage magique : des œuvres vivantes, vibrantes et symboliques. Originaux et reproductions à accueillir chez soi.">
+<Base title="Art · les œuvres d'Indigo Enoqii | Anys Mechkar" description="Indigo Enoqii écrit son propre langage magique : des œuvres vivantes, vibrantes et symboliques. Originaux et reproductions à accueillir chez soi.">
   {/* Un bandeau court plutôt qu'un plein écran : la première œuvre doit se
       voir sans avoir à faire défiler. */}
   <section class="page-hero fiche-hero art-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
@@ -46,7 +46,7 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
         d'art et la boutique existent. Sans cette phrase, le bouton tombe sans
         qu'on sache ce qu'il y a derrière. */}
     <div class="narrow art-suite">
-      <p class="art-suite__mot">Mon site d'art et ma boutique sont en construction. En attendant, tout le travail est là.</p>
+      <p class="art-suite__mot">Mon site d'art et ma boutique sont en construction. Tu peux retrouver mes œuvres dans mon portfolio, ou voter en dessous pour celles que tu aimerais pouvoir adopter.</p>
       <a class="btn btn--solid" href={PORTFOLIO} target="_blank" rel="noopener">Voir le portfolio</a>
     </div>
   </section>
@@ -117,7 +117,7 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
 
 <script is:inline>
   // Le vote part sans quitter la page : un clic, une ligne dans Airtable, et
-  // l'adresse proposée seulement après — demander avant ferait fuir ceux qui
+  // l'adresse proposée seulement après : demander avant ferait fuir ceux qui
   // voulaient juste donner leur avis.
   (function () {
     var section = document.querySelector('.art-oeuvres');
@@ -128,6 +128,21 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
     var fin = section.querySelector('.vote-apres__fin');
     var choisie = null;
     var depart = (window.performance && performance.now) ? performance.now() : null;
+
+    // Les cœurs déjà donnés, gardés dans le navigateur de la personne. Rien
+    // ne part sur le serveur : elle retrouve ses choix cochés en revenant, et
+    // un second clic sur la même œuvre ne compte pas deux fois.
+    var CLE = 'coeurs';
+    function dejaDonnes() {
+      try { return JSON.parse(localStorage.getItem(CLE)) || []; } catch (e) { return []; }
+    }
+    function garder(id) {
+      try {
+        var l = dejaDonnes();
+        if (l.indexOf(id) < 0) l.push(id);
+        localStorage.setItem(CLE, JSON.stringify(l));
+      } catch (e) {}
+    }
 
     function envoyer(donnees) {
       var corps = new URLSearchParams(donnees);
@@ -152,12 +167,19 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
       })
       .catch(function () {});
 
+    var vus = dejaDonnes();
     section.querySelectorAll('.coeur').forEach(function (b) {
+      if (vus.indexOf(b.dataset.oeuvre) >= 0) {
+        b.classList.add('coeur--vote');
+        b.setAttribute('aria-pressed', 'true');
+      }
       b.addEventListener('click', function () {
         if (b.classList.contains('coeur--vote')) return;
         choisie = b.dataset.oeuvre;
         if (titre) titre.textContent = b.dataset.titre || '';
         b.classList.add('coeur--vote');
+        b.setAttribute('aria-pressed', 'true');
+        garder(choisie);
         // Le compteur monte tout de suite : attendre la réponse donnerait
         // l'impression que le clic n'a rien fait.
         var n = b.querySelector('.coeur__n');

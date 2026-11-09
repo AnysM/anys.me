@@ -8,7 +8,7 @@ const qc = (await getEntry('pages', 'quintessence')).data;
 const fmt = (t) => (t || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 const pratiques = qc.pratiques ?? [];
 ---
-<Base title="Quintessence — retraite de silence et de créativité | Anys Mechkar" description="Quintessence : 3 jours de silence, 2 jours de créativité. Méditation, danse Butô, chant, cercles de parole et rituels, en France. Inscris-toi pour la prochaine édition.">
+<Base title="Quintessence · retraite de silence et de créativité | Anys Mechkar" description="Quintessence : 3 jours de silence, 2 jours de créativité. Méditation, danse Butô, chant, cercles de parole et rituels, en France. Inscris-toi pour la prochaine édition.">
   <!-- HERO -->
   <section class="page-hero" style={`min-height:64vh; padding-bottom:${airSousBord('page-bas')}`}>{qc.hero_image ? <img src={qc.hero_image} alt="" /> : <div class="ph-band"></div>}
     {qc.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}

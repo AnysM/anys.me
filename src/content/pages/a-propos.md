@@ -11,7 +11,7 @@ chapitres:
 
       Un soir de décembre 2016, je sors fêter mon anniversaire avec un de mes meilleurs amis et coloc de l'époque. En fin de soirée, il vient me demander de rentrer. **C'était mon soir d'anniversaire, je voulais profiter encore.** Du coup je le laisse rentrer seul, et complètement bourré.
 
-      Le lendemain j'apprends qu'il est à l'hôpital : [**il est tombé d'un pont**]{dore}. Il a survécu, c'est un miraculé — _mais il passera plusieurs mois en fauteuil_.
+      Le lendemain j'apprends qu'il est à l'hôpital : [**il est tombé d'un pont**]{dore}. Il a survécu, c'est un miraculé, _mais il passera plusieurs mois en fauteuil_.
 
       **Je comprends alors que ce train de vie est révélateur d'un mal-être profond : je suis en train de m'auto-détruire, et je n'ai pas su protéger mon ami.**
 
@@ -86,7 +86,7 @@ chapitres:
 
       M'abandonner. M'en remettre à plus grand. Mourir à moi-même avec amour.
 
-      Puis une force commence à se faire sentir dans mon ventre, [**quelque chose de primal et de puissant**]{dore}, qui me relève tout doucement. Je récupère mon feu, ma colère, mon pouvoir de prédation — et je comprends que c'est ça qui me permet de protéger ce que j'aime.
+      Puis une force commence à se faire sentir dans mon ventre, [**quelque chose de primal et de puissant**]{dore}, qui me relève tout doucement. Je récupère mon feu, ma colère, mon pouvoir de prédation, et je comprends que c'est ça qui me permet de protéger ce que j'aime.
 
       Cette fois, ce n'est pas resté dans la tête. **C'est INCARNÉ.**
   - acte: 5

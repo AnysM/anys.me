@@ -78,7 +78,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: soin ? 'Soins' : 'Accompagnement', url: soin ? '/soins' : '/accompagnement' }, { nom: d.titre, url: `/offre/${o.id}` }]),
 ];
 ---
-<Base title={`${d.titre} — ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
+<Base title={`${d.titre} · ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
   <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`padding-bottom:${airSousBord('page-bas')}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     {d.image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>

@@ -15,7 +15,7 @@ const VARIANTES = [
   { id: 6, titre: 'Bande douce', note: 'Une brosse large et calme, à peine marquée.', bande: 'bande-d', hauteur: 90, chevauchement: 60, rotation: 0, trait: '' },
 ];
 ---
-<Base title="Banc d'essai — séparations et traits" noindex>
+<Base title="Banc d'essai · séparations et traits" noindex>
   <section class="bloc" style="padding-block: clamp(3rem,6vw,5rem);">
     <div class="wrap">
       <p class="eyebrow">Page de travail</p>
@@ -172,7 +172,7 @@ const VARIANTES = [
           if (b) b.textContent = val + (cle === 'rotation' ? '°' : cle === 'hauteur' ? 'px' : cle === 'chevauchement' ? '%' : '');
           if (b && cle === 'trait-opacite') b.textContent = (val / 100).toFixed(2);
         });
-        sortie.textContent = 'Variante ' + essai.dataset.essai + ' — ' + lignes.join(' · ');
+        sortie.textContent = 'Variante ' + essai.dataset.essai + ' · ' + lignes.join(' · ');
       }
       essai.querySelectorAll('[data-r]').forEach(function (c) { c.addEventListener('input', maj); });
       maj();

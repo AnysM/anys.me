@@ -105,7 +105,7 @@ for (const sec of sections) {
 // Un fond sur deux : le bord de pinceau porte la couleur d'en face.
 const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
 ---
-<Base noindex title="Le récit d'Anys — relecture" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
+<Base noindex title="Le récit d'Anys · relecture" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
   <section class="page-hero" style={`min-height:64vh; --hero-y:32%; padding-bottom:${airSousBord('page-bas')}`}>{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
     {ap.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow" data-edit={DEV ? "ligne" : undefined} data-cle="hero_eyebrow">{ap.hero_eyebrow}</p><h1 data-edit={DEV ? "ligne" : undefined} data-cle="hero_titre">{ap.hero_titre}</h1></div>

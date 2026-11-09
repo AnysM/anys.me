@@ -32,7 +32,7 @@ const jsonld = [
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Art', url: '/art' }, { nom: d.titre, url: `/art/${a.id}` }]),
 ];
 ---
-<Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre originale d'Indigo Enoqii.`.trim()} image={d.images[0]} jsonld={jsonld}>
+<Base title={`${d.titre} · artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre originale d'Indigo Enoqii.`.trim()} image={d.images[0]} jsonld={jsonld}>
   <section class="artefact">
     <div class="wrap artefact__entete">
       <p class="eyebrow"><a href="/art">Art</a></p>
@@ -79,7 +79,7 @@ const jsonld = [
           ) : (
             <Fragment>
               {d.original === 'disponible' && <a class="btn btn--solid" href={acquerir} data-evt="Artefact acquérir">Acquérir l'original</a>}
-              {d.tirages_statut === 'disponible' && <a class="btn btn--solid" href={`${acquerir}%20—%20reproduction`} data-evt="Artefact reproduction">Commander une reproduction</a>}
+              {d.tirages_statut === 'disponible' && <a class="btn btn--solid" href={`${acquerir}%20(reproduction)`} data-evt="Artefact reproduction">Commander une reproduction</a>}
               {d.tirages_statut === 'bientot' && <a class="btn btn--solid" href="#prevenir" data-evt="Artefact liste">Être prévenu de la sortie</a>}
             </Fragment>
           )}

@@ -75,7 +75,9 @@ Ce que ça apporte : des degrés de liberté dans le corps, et par là, **des de
 
 Ce n'est pas une expérience ponctuelle, c'est une pratique. Un parcours sur l'année, qui ancre de nouveaux chemins dans le corps et dans l'esprit. En fin de parcours, des espaces de performance seront proposés à celles et ceux qui s'y sentiront prêts : danser dehors, dans la nature ou dans la ville, pour partager le cheminement.
 
-> Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à chaque fois légère, ancrée et ressourcée. — Sonia
+> Un voyage à la fois sonore et poétique, là où le temps s'arrête, le corps se libère et l'esprit se volatilise. Ces pratiques sont devenues de véritables outils qui me servent au quotidien. J'en ressors à chaque fois légère, ancrée et ressourcée.
+>
+> Sonia
 
 ## Pour qui
 - Celles et ceux qui veulent apprendre à méditer, être plus présents à eux-mêmes, sortir du mental.
