@@ -12,7 +12,7 @@ resp2_image: /img/harshitha-b-j-XDMfaQ47Uow-unsplash.jpg
 resp3_image: /img/michael-c-Ofb4nzmv7uM-unsplash.jpg
 art_fond: /img/oeuvres/spirales-vives.jpg
 art_fonds: []
-art_phrase: 'Je peins ce que les mots ne tiennent pas. Les œuvres et les accompagnements viennent du même geste.'
+art_phrase: 'Mon nom d''artiste c''est indigo enoqii. À travers l''expression artistique je révèle l''invisible qui m''entoure et me compose. J''écris mon propre langage magique et mes œuvres sont vivantes, vibrantes et symboliques.'
 art1_image: /img/IMG_5904.PNG
 art2_image: /img/IMG_5911.PNG
 art3_image: /img/IMG_5916.PNG
