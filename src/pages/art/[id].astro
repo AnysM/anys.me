@@ -7,6 +7,8 @@ import { codex } from '../../lib/monde';
 import { typeLabel } from '../../lib/univers.mjs';
 import { abs, fil, PERSONNE_ID } from '../../lib/seo';
 import { CODEX_OUVERT } from '../../lib/etat.mjs';
+import Votes from '../../components/Votes.astro';
+import { comptesDesVotes } from '../../lib/votes';
 
 export async function getStaticPaths() {
   const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie);
@@ -31,6 +33,10 @@ const jsonld = [
   },
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Art', url: '/art' }, { nom: d.titre, url: `/art/${a.id}` }]),
 ];
+
+// Le nombre de cœurs, écrit dans la page : la fonction met près d'une
+// seconde à répondre, et d'ici là le bouton n'aurait qu'un point.
+const comptes = await comptesDesVotes();
 ---
 <Base title={`${d.titre} · artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre originale d'Indigo Enoqii.`.trim()} image={d.images[0]} jsonld={jsonld}>
   <section class="artefact">
@@ -83,6 +89,15 @@ const jsonld = [
               {d.tirages_statut === 'bientot' && <a class="btn btn--solid" href="#prevenir" data-evt="Artefact liste">Être prévenu de la sortie</a>}
             </Fragment>
           )}
+          {/* Le même geste que sur la page Art, en plus grand : là-bas une
+              pastille sur la carte, ici un bouton plein. Le cœur est commun,
+              pour qu'on reconnaisse l'action d'une page à l'autre. */}
+          <button class="vote-btn" type="button" data-oeuvre={a.id} data-titre={d.titre} aria-pressed="false">
+            <span class="vote-btn__coeur" aria-hidden="true">♥</span>
+            <span class="vote-btn__mot">Je la veux chez moi</span>
+            <span class="vote-btn__n" data-n={a.id}>{comptes ? (comptes[a.id] ?? 0) : '·'}</span>
+          </button>
+          <p class="vote-btn__mode">Dis-moi quelles œuvres tu aimerais voir sortir en reproduction : ce sont elles que je ferai tirer en premier.</p>
         </div>
       </div>
     </div>
@@ -138,4 +153,5 @@ const jsonld = [
       });
     })();
   </script>
+  <Votes />
 </Base>

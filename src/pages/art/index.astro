@@ -10,6 +10,7 @@ import Lettre from '../../components/Lettre.astro';
 import Signe from '../../components/Signe.astro';
 import { getCollection } from 'astro:content';
 import { comptesDesVotes } from '../../lib/votes';
+import Votes from '../../components/Votes.astro';
 
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const statut = (d) => d.original === 'disponible' ? `Original disponible${d.original_prix ? ` · ${d.original_prix}` : ''}` : d.tirages_statut === 'disponible' ? 'Reproductions disponibles' : d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'acquis' ? 'Acquis' : 'Collection personnelle';
@@ -82,7 +83,7 @@ const comptes = await comptesDesVotes();
                 <span class="artefact-carte__statut">{statut(a.data)}</span>
               </span>
             </a>
-            <button class="coeur" type="button" data-oeuvre={a.id} data-titre={a.data.titre}
+            <button class="coeur" type="button" data-oeuvre={a.id} data-titre={a.data.titre} aria-pressed="false"
               aria-label={`Je veux ${a.data.titre} en reproduction`}>
               <span class="coeur__signe" aria-hidden="true">♥</span>
               <span class="coeur__n" data-n={a.id}>{comptes ? (comptes[a.id] ?? 0) : '·'}</span>
@@ -119,94 +120,5 @@ const comptes = await comptesDesVotes();
 
   <Lettre eyebrow="Les prochaines œuvres" titre="Être *prévenu*" texte="Les nouvelles œuvres et les reproductions arrivent d'abord dans la lettre." bouton="Préviens-moi" source="artefacts" />
 
-<script is:inline>
-  // Le vote part sans quitter la page : un clic, une ligne dans Airtable, et
-  // l'adresse proposée seulement après : demander avant ferait fuir ceux qui
-  // voulaient juste donner leur avis.
-  (function () {
-    var section = document.querySelector('.art-oeuvres');
-    if (!section) return;
-    var apres = section.querySelector('.vote-apres');
-    var titre = section.querySelector('[data-vote-titre]');
-    var form = section.querySelector('.vote-form');
-    var fin = section.querySelector('.vote-apres__fin');
-    var choisie = null;
-    var depart = (window.performance && performance.now) ? performance.now() : null;
-
-    // Les cœurs déjà donnés, gardés dans le navigateur de la personne. Rien
-    // ne part sur le serveur : elle retrouve ses choix cochés en revenant, et
-    // un second clic sur la même œuvre ne compte pas deux fois.
-    var CLE = 'coeurs';
-    function dejaDonnes() {
-      try { return JSON.parse(localStorage.getItem(CLE)) || []; } catch (e) { return []; }
-    }
-    function garder(id) {
-      try {
-        var l = dejaDonnes();
-        if (l.indexOf(id) < 0) l.push(id);
-        localStorage.setItem(CLE, JSON.stringify(l));
-      } catch (e) {}
-    }
-
-    function envoyer(donnees) {
-      var corps = new URLSearchParams(donnees);
-      corps.set('form-name', 'vote');
-      corps.set('page', location.pathname);
-      if (depart !== null) corps.set('duree', String(Math.round(performance.now() - depart)));
-      return fetch('/.netlify/functions/formulaire', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: corps.toString(),
-      });
-    }
-
-    // Les compteurs arrivent de la fonction. S'ils n'arrivent pas, le tiret
-    // reste : mieux qu'un zéro, qui ferait croire que personne n'a voté.
-    fetch('/.netlify/functions/formulaire')
-      .then(function (r) { return r.json(); })
-      .then(function (compte) {
-        section.querySelectorAll('[data-n]').forEach(function (n) {
-          n.textContent = String(compte[n.dataset.n] || 0);
-        });
-      })
-      .catch(function () {});
-
-    var vus = dejaDonnes();
-    section.querySelectorAll('.coeur').forEach(function (b) {
-      if (vus.indexOf(b.dataset.oeuvre) >= 0) {
-        b.classList.add('coeur--vote');
-        b.setAttribute('aria-pressed', 'true');
-      }
-      b.addEventListener('click', function () {
-        if (b.classList.contains('coeur--vote')) return;
-        choisie = b.dataset.oeuvre;
-        if (titre) titre.textContent = b.dataset.titre || '';
-        b.classList.add('coeur--vote');
-        b.setAttribute('aria-pressed', 'true');
-        garder(choisie);
-        // Le compteur monte tout de suite : attendre la réponse donnerait
-        // l'impression que le clic n'a rien fait.
-        var n = b.querySelector('.coeur__n');
-        var v = parseInt(n.textContent, 10);
-        n.textContent = String((isNaN(v) ? 0 : v) + 1);
-        apres.hidden = false;
-        fin.hidden = true;
-        form.hidden = false;
-        // On range le vote sans attendre : si l'envoi échoue, la personne a
-        // quand même vu que son clic était pris, et rien n'est perdu pour elle.
-        envoyer({ oeuvre: choisie }).catch(function () {});
-      });
-    });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var champ = form.querySelector('input[name="email"]');
-      var val = (champ.value || '').trim();
-      if (!val || val.indexOf('@') < 0) { champ.focus(); return; }
-      envoyer({ oeuvre: choisie || '', email: val }).catch(function () {});
-      form.hidden = true;
-      fin.hidden = false;
-    });
-  })();
-</script>
+<Votes />
 </Base>

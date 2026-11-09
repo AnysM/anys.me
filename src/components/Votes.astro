@@ -1,0 +1,108 @@
+---
+/**
+ * Le geste du cœur, écrit une seule fois.
+ *
+ * La page Art porte des cœurs en pastille sur les cartes, les fiches portent
+ * un bouton plein. C'est la même action : si les deux pages avaient chacune
+ * leur script, un cœur donné ici ne se retrouverait pas là-bas, et les deux
+ * versions dériveraient. Tout élément qui porte `data-oeuvre` est un cœur,
+ * quelle que soit sa forme ; `data-n` marque l'endroit où s'écrit le nombre.
+ */
+---
+<script is:inline>
+  (function () {
+    var coeurs = document.querySelectorAll('[data-oeuvre]');
+    if (!coeurs.length) return;
+
+    // Les cœurs déjà donnés, gardés dans le navigateur de la personne. Rien ne
+    // part sur le serveur : elle retrouve ses choix cochés en revenant, d'une
+    // page à l'autre, et un second clic ne compte pas deux fois.
+    var CLE = 'coeurs';
+    function dejaDonnes() {
+      try { return JSON.parse(localStorage.getItem(CLE)) || []; } catch (e) { return []; }
+    }
+    function garder(id) {
+      try {
+        var l = dejaDonnes();
+        if (l.indexOf(id) < 0) l.push(id);
+        localStorage.setItem(CLE, JSON.stringify(l));
+      } catch (e) {}
+    }
+
+    var depart = (window.performance && performance.now) ? performance.now() : null;
+    function envoyer(donnees) {
+      var corps = new URLSearchParams(donnees);
+      corps.set('form-name', 'vote');
+      corps.set('page', location.pathname);
+      if (depart !== null) corps.set('duree', String(Math.round(performance.now() - depart)));
+      return fetch('/.netlify/functions/formulaire', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: corps.toString(),
+      });
+    }
+
+    // Le nombre est déjà écrit dans la page au build. Cet appel le remplace par
+    // celui du moment ; s'il échoue, le nombre du build reste, et c'est bien.
+    fetch('/.netlify/functions/formulaire')
+      .then(function (r) { return r.json(); })
+      .then(function (compte) {
+        document.querySelectorAll('[data-n]').forEach(function (n) {
+          if (n.dataset.n in compte) n.textContent = String(compte[n.dataset.n]);
+          else if (n.textContent.trim() === '·') n.textContent = '0';
+        });
+      })
+      .catch(function () {});
+
+    // Ce qui s'affiche après le vote, quand la page en a un : le panneau avec
+    // le champ email, sur la page Art.
+    var apres = document.querySelector('.vote-apres');
+    var titre = document.querySelector('[data-vote-titre]');
+    var form = document.querySelector('.vote-form');
+    var fin = document.querySelector('.vote-apres__fin');
+    var choisie = null;
+
+    var vus = dejaDonnes();
+    coeurs.forEach(function (b) {
+      if (vus.indexOf(b.dataset.oeuvre) >= 0) b.setAttribute('aria-pressed', 'true');
+
+      b.addEventListener('click', function () {
+        if (b.getAttribute('aria-pressed') === 'true') return;
+        choisie = b.dataset.oeuvre;
+        b.setAttribute('aria-pressed', 'true');
+        garder(choisie);
+
+        // Le compteur monte tout de suite : attendre la réponse donnerait
+        // l'impression que le clic n'a rien fait.
+        var n = b.querySelector('[data-n]');
+        if (n) {
+          var v = parseInt(n.textContent, 10);
+          n.textContent = String((isNaN(v) ? 0 : v) + 1);
+        }
+
+        if (apres) {
+          if (titre) titre.textContent = b.dataset.titre || '';
+          apres.hidden = false;
+          if (fin) fin.hidden = true;
+          if (form) form.hidden = false;
+        }
+
+        // On range le vote sans attendre : si l'envoi échoue, la personne a
+        // quand même vu que son clic était pris, et rien n'est perdu pour elle.
+        envoyer({ oeuvre: choisie, titre: b.dataset.titre || '' }).catch(function () {});
+      });
+    });
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var champ = form.querySelector('input[name="email"]');
+        var val = (champ.value || '').trim();
+        if (!val || val.indexOf('@') < 0) { champ.focus(); return; }
+        envoyer({ oeuvre: choisie || '', email: val }).catch(function () {});
+        form.hidden = true;
+        if (fin) fin.hidden = false;
+      });
+    }
+  })();
+</script>

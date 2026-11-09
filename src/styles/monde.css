@@ -1093,11 +1093,11 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .coeur:hover, .coeur:focus-visible { border-color: var(--gold); transform: scale(1.04); }
 .coeur:hover .coeur__signe { color: var(--gold); }
 /* Une fois voté, le cœur reste plein : la carte garde la trace du geste. */
-.coeur--vote { border-color: var(--gold); cursor: default; }
-.coeur--vote .coeur__signe { color: var(--gold); transform: scale(1.25); }
+.coeur[aria-pressed="true"] { border-color: var(--gold); cursor: default; }
+.coeur[aria-pressed="true"] .coeur__signe { color: var(--gold); transform: scale(1.25); }
 @media (prefers-reduced-motion: reduce) {
   .coeur, .coeur__signe { transition: none; }
-  .coeur--vote .coeur__signe { transform: none; }
+  .coeur[aria-pressed="true"] .coeur__signe { transform: none; }
 }
 
 .vote-apres { margin-top: clamp(1.6rem, 3.5vw, 2.4rem); text-align: center; }
@@ -1129,3 +1129,33 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* Le titre des cartes suivait la taille des listes : trop discret pour une
    œuvre qu'on vient regarder. */
 .artefact-carte__titre { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+
+
+/* ── Le cœur en grand, sur la fiche d'une œuvre ────────────────────────────
+   Sur la page Art, le cœur est une pastille au coin de la carte : on survole
+   une grille, une pastille suffit. Sur la fiche on est venu pour cette œuvre
+   précisément, et le geste mérite un bouton qu'on ne cherche pas. Le signe
+   reste le même des deux côtés, sans quoi ce serait deux actions. */
+.vote-btn { display: inline-flex; align-items: center; gap: 0.7rem;
+  padding: 0.85rem 1.4rem; margin-top: 0.9rem;
+  background: transparent; border: 1px solid var(--faint); border-radius: var(--r-lg);
+  color: var(--cream); font-family: 'Jost', sans-serif; font-size: 0.95rem;
+  letter-spacing: 0.06em; cursor: pointer;
+  transition: border-color 0.3s, background 0.3s, transform 0.3s; }
+.vote-btn__coeur { color: var(--muted); font-size: 1.15em; line-height: 1;
+  transition: color 0.3s, transform 0.3s; }
+.vote-btn__n { font-variant-numeric: tabular-nums; color: var(--muted);
+  padding-left: 0.7rem; border-left: 1px solid var(--faint); }
+.vote-btn:hover, .vote-btn:focus-visible { border-color: var(--gold); transform: translateY(-1px); }
+.vote-btn:hover .vote-btn__coeur { color: var(--gold); }
+/* Donné, le bouton cesse d'être un bouton : il devient l'état de l'œuvre. */
+.vote-btn[aria-pressed="true"] { border-color: var(--gold); cursor: default; transform: none; }
+.vote-btn[aria-pressed="true"] .vote-btn__coeur { color: var(--gold); transform: scale(1.2); }
+.vote-btn[aria-pressed="true"] .vote-btn__n { color: var(--gold); }
+.vote-btn__mode { margin-top: 0.7rem; max-width: 46ch;
+  font-family: 'Jost', sans-serif; font-size: 0.92rem; line-height: 1.7; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) {
+  .vote-btn, .vote-btn__coeur { transition: none; }
+  .vote-btn:hover { transform: none; }
+  .vote-btn[aria-pressed="true"] .vote-btn__coeur { transform: none; }
+}
