@@ -13,25 +13,13 @@ import { getCollection } from 'astro:content';
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
 const statut = (d) => d.original === 'disponible' ? `Original disponible${d.original_prix ? ` · ${d.original_prix}` : ''}` : d.tirages_statut === 'disponible' ? 'Reproductions disponibles' : d.tirages_statut === 'bientot' ? 'Reproductions bientôt' : d.original === 'acquis' ? 'Acquis' : 'Collection personnelle';
 
-// Les œuvres déjà photographiées, en attendant l'export du portfolio. Elles
-// n'ont pas encore de fiche : on les montre pour ce qu'elles sont.
-const GALERIE = [
-  '/img/oeuvres/spirales-vives.jpg',
-  '/img/art-1.jpg',
-  '/img/oeuvres/eclat-bleu.jpg',
-  '/img/art-2.jpg',
-  '/img/oeuvres/rouge-indigo.jpg',
-  '/img/art-3.jpg',
-  '/img/oeuvres/spirale-glyphes.jpg',
-  '/img/art-4.jpg',
-];
 const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
 ---
 <Base title="Art — les œuvres d'Indigo Enoqii | Anys Mechkar" description="Indigo Enoqii écrit son propre langage magique : des œuvres vivantes, vibrantes et symboliques. Originaux et reproductions à accueillir chez soi.">
   {/* Un bandeau court plutôt qu'un plein écran : la première œuvre doit se
       voir sans avoir à faire défiler. */}
   <section class="page-hero fiche-hero art-hero" style={`padding-bottom:${airSousBord('page-bas')}`}>
-    <img src="/img/tex-cosmic.jpg" alt="" />
+    <img src="/img/oeuvres/spirales-vives.jpg" alt="" />
     <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />
     <div class="wrap">
       <p class="eyebrow">Indigo Enoqii</p>
@@ -39,23 +27,19 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
     </div>
   </section>
 
-  <section class="art-galerie-bloc">
-    <div class="wrap">
-      <div class="art-galerie">
-        {GALERIE.map((src, i) => (
-          <figure class="art-galerie__item">
-            <img src={src} alt="" loading={i < 2 ? 'eager' : 'lazy'} />
-          </figure>
-        ))}
-      </div>
-      <p class="art-portfolio"><a class="btn" href={PORTFOLIO} target="_blank" rel="noopener">Voir le portfolio</a></p>
+  {/* Sa déclaration d'artiste, avant les œuvres : deux paragraphes, pas plus.
+      Le premier de sa présentation vit déjà sur l'accueil. */}
+  <section class="art-declaration">
+    <div class="narrow">
+      <p class="art-texte">Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations.</p>
+      <p class="art-texte">Le mouvement qui se dépose sur le papier prend aussi forme dans l'espace du corps à travers la danse Butô. Chaque performance réalisée est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
     </div>
   </section>
 
   {/* Les œuvres qui ont leur histoire : elles ouvrent sur une fiche entière. */}
   <section>
     <div class="wrap">
-      <p class="rune">Celles qui se racontent</p>
+      <p class="rune">Les œuvres</p>
       <div class="artefacts">
         {artefacts.map((a) => (
           <a class="artefact-carte" href={`/art/${a.id}`}>
@@ -77,16 +61,8 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
           </span>
         </div>
       </div>
-    </div>
-  </section>
-
-  {/* Le texte vient après : on a vu, on peut lire. Le premier paragraphe de sa
-      présentation vit déjà sur l'accueil — le répéter ici ne servait à rien. */}
-  <section>
-    <div class="narrow">
-      <p class="rune">Mon langage</p>
-      <p class="art-texte">Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations.</p>
-      <p class="art-texte">Le mouvement qui se dépose sur le papier prend aussi forme dans l'espace du corps à travers la danse Butô. Chaque performance réalisée est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
+      {/* Le reste du travail vit chez Canva, en attendant d'avoir sa place ici. */}
+      <p class="art-portfolio"><a class="btn" href={PORTFOLIO} target="_blank" rel="noopener">Voir le portfolio</a></p>
     </div>
   </section>
 
