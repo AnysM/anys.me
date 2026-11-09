@@ -15,9 +15,9 @@ art_fonds: []
 art_phrase: |-
   Mon nom d'artiste c'est *indigo enoqii*.
 
-  À travers l'expression artistique je révèle l'invisible qui m'entoure et me compose.
+  À travers l'expression artistique je **révèle l'invisible** qui m'entoure et me compose.
 
-  J'écris mon propre langage magique et mes œuvres sont vivantes, vibrantes et symboliques.
+  J'écris mon **propre langage magique** et mes œuvres sont **vivantes, vibrantes et symboliques**.
 art1_image: /img/IMG_5904.PNG
 art2_image: /img/IMG_5911.PNG
 art3_image: /img/IMG_5916.PNG

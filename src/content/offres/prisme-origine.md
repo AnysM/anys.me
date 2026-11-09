@@ -14,7 +14,7 @@ tarifs:
     prix: "350€"
     detail: "Préparation de ta carte, 2h de lecture et de synthèse, et un point de 30 min un mois après"
 accueil: true
-ordre: 2
+ordre: 1
 seuil: approfondir
 pourqui_titre: "C'est *pour toi* si…"
 pourqui:

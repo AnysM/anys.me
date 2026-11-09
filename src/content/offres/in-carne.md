@@ -11,7 +11,7 @@ seuil: transformer
 accroche: "Accueillir ton ombre, sortir de la demi-mesure, et donner corps à ce qui te tient à *cœur.*|En marchant avec d'autres hommes."
 resume: "Quatre mois de mentorat pour accueillir ton ombre, sortir de la demi-mesure et donner corps à ce qui te tient à cœur, en marchant avec d'autres hommes."
 accueil: true
-ordre: 3
+ordre: 2
 action: appel
 tarifs:
   - label: "Avant le 1er novembre"

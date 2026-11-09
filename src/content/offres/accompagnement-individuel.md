@@ -22,7 +22,7 @@ tarifs:
     detail: "En individuel, 5 h par jour. Hors logement et repas."
     groupe: "Immersion « Nouveau souffle »"
 accueil: true
-ordre: 1
+ordre: 3
 etapes:
   - titre: "Un premier échange"
     picto: parole

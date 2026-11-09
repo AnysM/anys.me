@@ -365,11 +365,12 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .venir__liste li:nth-child(even) { align-items: flex-end; text-align: right; margin-left: auto; }
 @media (max-width: 700px) { .venir__liste li:nth-child(n) { align-items: center; text-align: center; margin: 0 auto; } }
 /* Les situations, en une phrase où seules elles sont en pleine lumière : on se
-   reconnaît avant de lire ce que ça ouvre. L'aparté, en retrait, dit qu'on peut
-   venir sans être en crise. */
+   reconnaît avant de lire ce que ça ouvre. L'aparté dit qu'on peut venir sans être
+   en crise : il se tient en retrait par sa taille et sa place, pas par un gris
+   qu'on ne lit plus. */
 .venir__crises { max-width: 44ch; margin: 0 auto 2.2rem; text-align: center;
   font-family: 'Jost', sans-serif; font-size: clamp(1rem, 1.5vw, 1.1rem);
-  line-height: 1.95; color: #6E7489; }
+  line-height: 1.95; color: #C2C5D2; }
 .venir__crises b { font-weight: 400; color: var(--cream);
   font-size: clamp(1.08rem, 1.7vw, 1.22rem); }
 /* Le pont reste en sans : l'italique serif appartient aux quatre grandes
@@ -548,7 +549,23 @@ section.lettre { padding: clamp(2.2rem, 4.5vw, 3.2rem) 0; }
 .entree__mot { margin: clamp(1.8rem, 4vw, 2.8rem) auto 0; max-width: 62ch; text-align: left; }
 .entree__mot p { margin-top: 0.9rem; line-height: 1.8; }
 .entree__mot p:first-child { margin-top: 0; }
-.entree__cartes { margin-top: clamp(2.6rem, 6vw, 4.2rem); display: grid; gap: 1.4rem; }
+/* Les propositions, chacune dans sa colonne. En bandeaux elles se lisaient à
+   la file, et comparer deux formules demandait de remonter ; côte à côte, le
+   regard les tient ensemble. */
+.entree__cartes { margin-top: clamp(2.6rem, 6vw, 4.2rem); display: grid;
+  gap: clamp(1.2rem, 2.4vw, 1.8rem);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.entree__cartes .evt { grid-template-columns: 1fr; margin-bottom: 0; }
+.entree__cartes .evt__img { min-height: 0; aspect-ratio: 4 / 3; }
+/* Le fondu partait vers la droite, vers le texte posé à côté. Le texte est
+   maintenant dessous : le fondu descend avec lui. */
+.entree__cartes .evt__img::after {
+  background: linear-gradient(to bottom, rgba(17,26,56,0) 60%, var(--surface)); }
+.entree__cartes .evt__body { justify-content: flex-start;
+  padding: 1.4rem 1.5rem 1.6rem; }
+/* Les titres ne font pas tous le même nombre de lignes. Sans cela, les trois
+   « Découvrir » finissent à trois hauteurs différentes. */
+.entree__cartes .evt__body .cta { margin-top: auto; padding-top: 0.6rem; }
 
 /* ── Témoignages : texte en sans serif (lisible), nom en serif italique ── */
 .temoin-carte blockquote p { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 1.02rem; line-height: 1.75; color: #E4E1DA; }
@@ -968,22 +985,24 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .art-signature__fond.vu { opacity: 1; }
 .art-signature::before { content: ''; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to bottom, rgba(10,16,48,0.72), rgba(10,18,56,0.4) 48%, rgba(8,12,26,0.86)); }
-.art-signature .wrap { position: relative; z-index: 2; max-width: 46ch; }
+.art-signature .wrap { position: relative; z-index: 2; max-width: 56ch; }
 .art-signature h2 { margin-top: 0.9rem; }
 /* Trois respirations plutôt qu'un pavé. Sans largeur de lecture le texte
    s'étalait sur toute la bande, et un interlignage de 1,6 serre un serif
    centré posé sur une photo. */
-.art-signature__texte { max-width: 38ch; margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(2.2rem, 5vw, 3rem);
+.art-signature__texte { max-width: 52ch; margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(2.2rem, 5vw, 3rem);
   display: grid; gap: clamp(1rem, 2.4vw, 1.5rem); }
-.art-signature__phrase { margin: 0; font-family: 'EB Garamond', serif;
-  font-size: clamp(1.28rem, 2.6vw, 1.68rem); line-height: 1.75; color: var(--cream);
+.art-signature__phrase { margin: 0; font-family: 'Jost', sans-serif;
+  font-size: clamp(1.02rem, 1.7vw, 1.18rem); line-height: 1.85; color: var(--cream);
   text-shadow: 0 2px 22px rgba(5,7,16,0.8); text-wrap: balance; }
-/* Son nom d'artiste, de sa main — comme sa signature au bas du récit. */
+/* Ce qu'il dit de son art passe par quelques mots : l'or les tient, le reste
+   les porte. */
+.art-signature__phrase strong { font-weight: 500; color: var(--gold); }
+/* Son nom d'artiste, de sa main, comme sa signature au bas du récit. Il reste
+   dans sa ligne : à 1,9em il poussait la ligne du dessus et tombait seul. */
 .art-signature__phrase .script { font-family: 'Biloxi Script', cursive;
-  font-style: normal; font-size: 1.9em; line-height: 1.15; color: var(--gold);
-  /* Une main de cette taille au milieu d'un serif pousse la ligne du dessus :
-     on lui donne sa place plutôt que de la laisser mordre. */
-  display: inline-block; margin-top: 0.15em; }
+  font-style: normal; font-size: 1.55em; line-height: 1; color: var(--gold);
+  vertical-align: -0.05em; white-space: nowrap; }
 
 /* ── Le portrait et son texte dans une même carte ──
    Dans un cadre de 400 px la photo était posée là ; sur toute la largeur elle
@@ -1096,13 +1115,17 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
    « Les œuvres » ne demandait rien au visiteur. Ce titre lui donne un rôle,
    et la ligne dessous dit ce que le clic déclenche — un bouton doré sans
    mode d'emploi ne se presse pas. */
-.vote-tete { text-align: center; max-width: 44ch; margin: 0 auto clamp(2rem, 4.5vw, 3rem); }
+/* 44 caractères cassaient la consigne en quatre lignes courtes, et un texte
+   centré sur des lignes courtes n'a que des bords en dents de scie. Au large,
+   il tient en deux lignes pleines. */
+.vote-tete { text-align: center; max-width: 62ch; margin: 0 auto clamp(2rem, 4.5vw, 3rem); }
 .vote-tete__icone { display: inline-flex; color: var(--gold); margin-bottom: 0.9rem; }
 .vote-tete .rune { justify-content: center; }
 .vote-tete h2 { font-size: clamp(1.8rem, 5vw, 2.9rem); line-height: 1.12;
   margin: 0.5rem 0 1rem; text-wrap: balance; }
 .vote-tete__mode { font-family: 'Jost', sans-serif; font-size: clamp(0.98rem, 1.6vw, 1.08rem);
-  line-height: 1.8; color: var(--muted); margin: 0; }
+  line-height: 1.7; color: var(--muted); margin: 0; max-width: 56ch;
+  margin-inline: auto; text-wrap: pretty; }
 .vote-tete__mode b { font-weight: 500; color: var(--cream); }
 /* Le titre des cartes suivait la taille des listes : trop discret pour une
    œuvre qu'on vient regarder. */

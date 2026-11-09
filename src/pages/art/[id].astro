@@ -121,7 +121,15 @@ const jsonld = [
       var principale = document.getElementById('artefact-image');
       document.querySelectorAll('.artefact__vignette').forEach(function (b) {
         b.addEventListener('click', function () {
-          principale.src = b.querySelector('img').src;
+          // L'optimiseur d'images réécrit chaque <img> avec un srcset. Changer
+          // src seul ne montrait rien : le navigateur continuait de lire le
+          // srcset d'origine. La vignette porte le même jeu de tailles que la
+          // grande, on le lui passe avec.
+          var vign = b.querySelector('img');
+          principale.setAttribute('src', vign.getAttribute('src'));
+          var tailles = vign.getAttribute('srcset');
+          if (tailles) principale.setAttribute('srcset', tailles);
+          else principale.removeAttribute('srcset');
           // L'œuvre seule (1re image) : posée sur le mur avec son ombre ; les autres : en immersif, pleine largeur
           document.querySelector('.galerie-mur').classList.toggle('plein', b !== document.querySelector('.artefact__vignette'));
           document.querySelectorAll('.artefact__vignette').forEach(function (x) { x.removeAttribute('aria-current'); });
