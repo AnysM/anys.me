@@ -8,7 +8,6 @@ import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
 import Lettre from '../../components/Lettre.astro';
 import Signe from '../../components/Signe.astro';
-import Icone from '../../components/Icone.astro';
 import { getCollection } from 'astro:content';
 
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
@@ -57,13 +56,11 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
     <div class="wrap">
     {/* Le titre dit ce qu'on attend du visiteur. « Les œuvres » ne demandait
         rien ; ici on lui donne un rôle, et la marche à suivre tient en une
-        ligne — sans elle, un bouton doré n'explique pas ce qu'il déclenche. */}
+        ligne : sans elle, un bouton doré n'explique pas ce qu'il déclenche. */}
     <div class="vote-tete">
-      <span class="vote-tete__icone" aria-hidden="true"><Icone nom="etoile" taille={30} /></span>
-      <p class="rune">Indigo Enoqii</p>
       <h2>Les <span class="script">œuvres</span></h2>
       <p class="vote-tete__mode">En attendant que la boutique ouvre, découvre quelques œuvres et choisis celles que tu aimerais avoir chez toi.<br />
-        <b>Un cœur suffit</b> — et tu peux laisser ton email pour être prévenu le jour où elle sort.</p>
+        <b>Un cœur suffit</b>, et tu peux laisser ton email pour être prévenu le jour où elle sort.</p>
     </div>
       <div class="artefacts">
         {/* Le bouton de vote est hors du lien : un bouton dans un lien n'est
@@ -84,7 +81,7 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
             <button class="coeur" type="button" data-oeuvre={a.id} data-titre={a.data.titre}
               aria-label={`Je veux ${a.data.titre} en reproduction`}>
               <span class="coeur__signe" aria-hidden="true">♥</span>
-              <span class="coeur__n" data-n={a.id}>—</span>
+              <span class="coeur__n" data-n={a.id}>·</span>
             </button>
           </div>
         ))}
