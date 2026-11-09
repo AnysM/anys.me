@@ -1,8 +1,8 @@
 ---
-// La page des œuvres. Elle s'ouvre sur les œuvres elles-mêmes : on vient ici
-// pour regarder, pas pour lire. Le texte vient après la galerie, et la fiche
-// racontée — Narita — garde sa carte, parce qu'elle a une histoire que les
-// autres n'ont pas encore.
+// La page des œuvres. Son travail n'est pas d'exposer un catalogue — il n'y a
+// qu'une fiche pour l'instant — mais de donner envie : on traverse l'univers,
+// on va voir le portfolio, on s'abonne pour la suite. Les toiles s'intercalent
+// donc dans le texte plutôt que de l'attendre après.
 import Base from '../../layouts/Base.astro';
 import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
@@ -27,12 +27,30 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
     </div>
   </section>
 
-  {/* Sa déclaration d'artiste, avant les œuvres : deux paragraphes, pas plus.
-      Le premier de sa présentation vit déjà sur l'accueil. */}
+  {/* Sa déclaration, portée par les toiles plutôt que posée devant elles : une
+      phrase, une œuvre, une phrase. On regarde en lisant, et le texte paraît
+      court parce qu'il ne se lit jamais d'un bloc. */}
   <section class="art-declaration">
     <div class="narrow">
       <p class="art-texte">Habité par un langage magique indéchiffrable par la raison, le tao, la calligraphie, les couleurs primaires, les éléments et le mouvement composent mes créations.</p>
+    </div>
+    <figure class="art-toile art-toile--large">
+      <img src="/img/art-1.jpg" alt="" loading="eager" />
+    </figure>
+    <div class="narrow">
       <p class="art-texte">Le mouvement qui se dépose sur le papier prend aussi forme dans l'espace du corps à travers la danse Butô. Chaque performance réalisée est pensée comme un rituel, un acte psychomagique offert au monde pour relier le personnel à l'universel.</p>
+    </div>
+    <div class="art-paire">
+      <figure class="art-toile"><img src="/img/oeuvres/eclat-bleu.jpg" alt="" loading="lazy" /></figure>
+      <figure class="art-toile"><img src="/img/oeuvres/rouge-indigo.jpg" alt="" loading="lazy" /></figure>
+    </div>
+
+    {/* Le portfolio annoncé pour ce qu'il est : la suite, le temps que le site
+        d'art et la boutique existent. Sans cette phrase, le bouton tombe sans
+        qu'on sache ce qu'il y a derrière. */}
+    <div class="narrow art-suite">
+      <p class="art-suite__mot">Mon site d'art et ma boutique sont en construction. En attendant, tout le travail est là.</p>
+      <a class="btn btn--solid" href={PORTFOLIO} target="_blank" rel="noopener">Voir le portfolio</a>
     </div>
   </section>
 
@@ -61,8 +79,6 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
           </span>
         </div>
       </div>
-      {/* Le reste du travail vit chez Canva, en attendant d'avoir sa place ici. */}
-      <p class="art-portfolio"><a class="btn" href={PORTFOLIO} target="_blank" rel="noopener">Voir le portfolio</a></p>
     </div>
   </section>
 

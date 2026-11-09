@@ -1017,26 +1017,29 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .art-portfolio { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
 
 /* ── La page Art ──────────────────────────────────────────────────────────────
-   On vient y regarder avant de lire : le bandeau se raccourcit pour qu'une
-   œuvre entre dans le premier écran, et la galerie suit immédiatement. */
+   On vient y découvrir un univers, pas consulter un catalogue : les toiles
+   s'intercalent dans le texte, qui paraît court parce qu'on ne le lit jamais
+   d'un bloc. */
 .art-hero { min-height: 42vh; }
-.art-galerie-bloc { padding-top: clamp(2rem, 5vw, 3.5rem); }
-/* Chaque toile entière, dans ses proportions. Un recadrage carré en coupait
-   les bords : le format fait partie de l'œuvre, et une peinture rognée n'est
-   plus la peinture. Des colonnes plutôt qu'une grille, pour que des hauteurs
-   différentes s'empilent sans laisser de trous. */
-.art-galerie { column-gap: clamp(0.8rem, 2vw, 1.4rem); columns: 1; }
-@media (min-width: 680px) { .art-galerie { columns: 2; } }
-@media (min-width: 1180px) { .art-galerie { columns: 3; } }
-.art-galerie__item { margin: 0 0 clamp(0.8rem, 2vw, 1.4rem); break-inside: avoid;
-  border-radius: var(--r-md, 10px); overflow: hidden; background: rgba(10,15,32,0.4); }
-.art-galerie__item img { display: block; width: 100%; height: auto;
-  transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
-.art-galerie__item:hover img { transform: scale(1.04); }
-@media (prefers-reduced-motion: reduce) { .art-galerie__item img { transition: none; } }
-.art-portfolio { margin-top: clamp(1.6rem, 3vw, 2.4rem); text-align: center; }
-/* Le texte arrive après les œuvres, et se lit : plus de contraste que l'intro
-   grise qu'il remplace, une largeur de lecture, et pas d'italique en pavé. */
-.art-texte { font-family: 'EB Garamond', serif; font-size: clamp(1.08rem, 1.7vw, 1.28rem);
-  line-height: 1.85; color: var(--cream); max-width: 62ch; }
-.art-texte + .art-texte { margin-top: clamp(1.1rem, 2.4vw, 1.6rem); }
+.art-declaration { padding-top: clamp(2.2rem, 5vw, 3.4rem);
+  /* Serré volontairement : un grand vide avant les œuvres laissait croire que
+     la page était finie. */
+  padding-bottom: clamp(1.2rem, 3vw, 2rem); }
+.art-texte { font-family: 'EB Garamond', serif; font-size: clamp(1.14rem, 1.9vw, 1.36rem);
+  line-height: 1.8; color: var(--cream); }
+
+/* Une toile posée entre deux phrases : elle garde ses proportions, et son
+   format donne le rythme de la lecture. */
+.art-toile { margin: clamp(1.8rem, 4vw, 2.8rem) 0; border-radius: var(--r-md, 10px);
+  overflow: hidden; background: rgba(10,15,32,0.4); }
+.art-toile img { display: block; width: 100%; height: auto; }
+.art-toile--large { max-width: 980px; margin-inline: auto; }
+.art-paire { display: grid; gap: clamp(0.8rem, 2vw, 1.4rem);
+  grid-template-columns: 1fr; max-width: 980px; margin-inline: auto; }
+@media (min-width: 680px) { .art-paire { grid-template-columns: 1fr 1fr; } }
+.art-paire .art-toile { margin: 0; }
+
+/* Le portfolio, annoncé avant d'être proposé. */
+.art-suite { margin-top: clamp(2rem, 4.5vw, 3rem); text-align: center; }
+.art-suite__mot { font-family: 'Jost', sans-serif; font-size: clamp(0.98rem, 1.6vw, 1.08rem);
+  line-height: 1.75; color: var(--muted); max-width: 44ch; margin: 0 auto 1.4rem; }
