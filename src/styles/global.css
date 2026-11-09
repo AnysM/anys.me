@@ -386,8 +386,16 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 
 /* ── Le manifeste : pourquoi je fais ça, avant toute histoire ── */
 .manifeste { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
-.manifeste p { font-family: 'EB Garamond', serif; font-size: clamp(1.15rem, 1.6vw, 1.4rem);
-  line-height: 1.72; color: var(--cream); }
+/* Le manifeste se parcourt en sans : à quinze paragraphes de serif, plus rien
+   ne ressortait. Le serif ne porte plus que les deux phrases qu'il dit
+   lentement, et l'italique dit qu'on change de voix. */
+.manifeste p { font-family: 'Jost', sans-serif; font-weight: 300;
+  font-size: clamp(1.02rem, 1.4vw, 1.16rem); line-height: 1.85; color: #C9CBD8; }
+.manifeste .voix { font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: clamp(1.3rem, 2.1vw, 1.68rem); line-height: 1.55; color: var(--cream); }
+/* Le grand mot manuscrit est en em : sur le serif agrandi de la voix, 3,5em
+   l'aurait fait déborder de sa ligne. */
+.manifeste .voix .script { font-size: 3em; }
 .manifeste p + p { margin-top: clamp(1.4rem, 2.4vw, 2rem); }
 .manifeste strong { font-weight: 600; }
 /* Sa main au milieu d'une phrase : même corps que les têtes de litanie, pour
@@ -421,7 +429,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
    auraient rétréci avec lui, alors qu'elles tiennent le haut de la litanie. */
 .manifeste .litanie .litanie__tete { font-size: 4.5em; }
 .manifeste .litanie--premiere::before { top: 4.3em; }
-.manifeste p:last-child { font-style: italic; color: var(--gold);
+.manifeste p:last-child { font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold);
   font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.45;
   margin-top: clamp(2.4rem, 4vw, 3.4rem); }
 

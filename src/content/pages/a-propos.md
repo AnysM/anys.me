@@ -114,7 +114,7 @@ manifeste: |-
 
   Je le sens aujourd'hui [**en bascule**]{dore}, dans une période charnière : la brutalité de ce monde, nos conflits intérieurs, et l'épuisement qui va avec.
 
-  Pendant longtemps j'ai eu un seul mot en tête, comme une obsession :
+  > Pendant longtemps j'ai eu un seul mot en tête, comme une obsession :
   _le mot_ [*harmonie***.**]{dore}
 
   Ce mot harmonie résonne comme [**la mémoire**]{dore} d'un passé qui ne correspond à aucun souvenir de ce monde-ci.
@@ -126,7 +126,7 @@ manifeste: |-
 
   Une mémoire d'un monde où chacun est [**une cellule d'un grand organisme vivant**]{dore}.
 
-  [**Depuis là où je viens, je sais que c'est possible.**]{dore} Je l'ai déjà vécu, et [**je le vis encore aujourd'hui.**]{dore}
+  > [**Depuis là où je viens, je sais que c'est possible.**]{dore} Je l'ai déjà vécu, et [**je le vis encore aujourd'hui.**]{dore}
 
   Le temps
   d'une [**méditation**]{dore}, où je retrouve de l'espace dans la tête, du souffle dans le corps et de la paix dans le cœur.

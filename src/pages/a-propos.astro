@@ -194,21 +194,28 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
     <section class="manifeste">
       <div class="narrow" data-edit={DEV ? "champ" : undefined} data-champ="manifeste">
         {(() => {
-          const pars = ap.manifeste.split(/\n\n+/);
+          // Un paragraphe ouvert par « > » est une voix : ce qu'Anys dit lentement,
+          // en serif italique. Tout le reste se parcourt, en sans. Sans ce marquage
+          // il faudrait désigner les lignes par leur rang, et la moindre retouche
+          // dans Tina déplacerait la typographie.
+          const lignes = ap.manifeste.split(/\n\n+/).map((p: string) => ({
+            voix: /^>\s/.test(p), texte: p.replace(/^>\s+/, ''),
+          }));
           // Deux paragraphes de suite qui commencent par les mêmes deux mots font une
           // litanie : la tête s'écrit une seule fois, à la main, et les lignes suivent.
           const tete = (p: string) => p.replace(/[*_]/g, '').split(/\s+/).slice(0, 2).join(' ');
-          return pars.map((par, k) => {
+          return lignes.map((ligne, k) => {
+            const par = ligne.texte;
             const t = tete(par);
-            const avant = k > 0 && tete(pars[k - 1]) === t;
-            const apres = k + 1 < pars.length && tete(pars[k + 1]) === t;
+            const avant = k > 0 && tete(lignes[k - 1].texte) === t;
+            const apres = k + 1 < lignes.length && tete(lignes[k + 1].texte) === t;
             const lit = avant || apres;
             const premier = lit && !avant;
             const corps = lit
               ? par.replace(/^([*_]*)\S+[ \t]+\S+[ \t]*/, '$1')
               : par;
             return (
-              <p class:list={[lit && 'litanie', premier && 'litanie--premiere']}>{premier && <span class="litanie__tete script">{t + ' '}</span>}<Fragment set:html={corps.split('\n').map((l) => tisser(l, ctx)).join('<br />')} /></p>
+              <p class:list={[lit && 'litanie', premier && 'litanie--premiere', ligne.voix && 'voix']}>{premier && <span class="litanie__tete script">{t + ' '}</span>}<Fragment set:html={corps.split('\n').map((l) => tisser(l, ctx)).join('<br />')} /></p>
             );
           });
         })()}
