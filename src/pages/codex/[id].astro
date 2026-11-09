@@ -106,7 +106,7 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
         </div>
       )}
       {artefacts.map((x) => (
-        <a class="fiche-artefact" href={`/artefacts/${x.id}`}>
+        <a class="fiche-artefact" href={`/art/${x.id}`}>
           {x.data.images[0] && <img src={x.data.images[0]} alt={x.data.titre} loading="lazy" />}
           <span>
             <span class="rune">L'artefact né de ce chemin</span>
@@ -150,7 +150,7 @@ const extrait = (t: string) => { const p = t.split(/\n\n+/)[0]; return p.length 
   </section>
   {aGouter.length === 0 && artefacts.length > 0 && (
     <BarreAction titre="L'artefact né de ce chemin" sous={artefacts[0].data.titre}>
-      <a class="btn btn--solid" href={`/artefacts/${artefacts[0].id}`} data-evt="Codex vers artefact">Voir l'œuvre</a>
+      <a class="btn btn--solid" href={`/art/${artefacts[0].id}`} data-evt="Codex vers artefact">Voir l'œuvre</a>
     </BarreAction>
   )}
   {aGouter.length > 0 && (

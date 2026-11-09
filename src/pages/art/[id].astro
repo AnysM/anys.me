@@ -27,15 +27,15 @@ const jsonld = [
     creator: { '@id': PERSONNE_ID },
     ...(d.annee && { dateCreated: d.annee }),
     ...(d.technique && { artMedium: d.technique }),
-    url: abs(`/artefacts/${a.id}`),
+    url: abs(`/art/${a.id}`),
   },
-  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Artefacts', url: '/artefacts' }, { nom: d.titre, url: `/artefacts/${a.id}` }]),
+  fil([{ nom: 'Accueil', url: '/' }, { nom: 'Art', url: '/art' }, { nom: d.titre, url: `/art/${a.id}` }]),
 ];
 ---
 <Base title={`${d.titre} — artefact d'Indigo Enoqii | Anys Mechkar`} description={`${d.sous_titre ?? ''} Une œuvre originale d'Indigo Enoqii.`.trim()} image={d.images[0]} jsonld={jsonld}>
   <section class="artefact">
     <div class="wrap artefact__entete">
-      <p class="eyebrow"><a href="/artefacts">Artefact</a></p>
+      <p class="eyebrow"><a href="/art">Art</a></p>
       <h1>{d.titre}</h1>
       {d.sous_titre && <p class="fiche-resume">{d.sous_titre}</p>}
     </div>
@@ -108,7 +108,7 @@ const jsonld = [
 
   <section class="detail-foot">
     <div class="wrap detail-nav">
-      <a class="cta" href="/artefacts">← Tous les artefacts</a>
+      <a class="cta" href="/art">← Toutes les œuvres</a>
     </div>
   </section>
 

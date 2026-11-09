@@ -970,9 +970,20 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   background: linear-gradient(to bottom, rgba(10,16,48,0.72), rgba(10,18,56,0.4) 48%, rgba(8,12,26,0.86)); }
 .art-signature .wrap { position: relative; z-index: 2; max-width: 46ch; }
 .art-signature h2 { margin-top: 0.9rem; }
-.art-signature__phrase { margin: 1.6rem auto 2.2rem; font-family: 'EB Garamond', serif;
-  font-size: clamp(1.15rem, 2vw, 1.42rem); line-height: 1.6; color: #D6D9E4;
-  text-shadow: 0 2px 22px rgba(5,7,16,0.8); }
+/* Trois respirations plutôt qu'un pavé. Sans largeur de lecture le texte
+   s'étalait sur toute la bande, et un interlignage de 1,6 serre un serif
+   centré posé sur une photo. */
+.art-signature__texte { max-width: 34ch; margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(2.2rem, 5vw, 3rem);
+  display: grid; gap: clamp(1rem, 2.4vw, 1.5rem); }
+.art-signature__phrase { margin: 0; font-family: 'EB Garamond', serif;
+  font-size: clamp(1.15rem, 2vw, 1.42rem); line-height: 1.8; color: #D6D9E4;
+  text-shadow: 0 2px 22px rgba(5,7,16,0.8); text-wrap: balance; }
+/* Son nom d'artiste, de sa main — comme sa signature au bas du récit. */
+.art-signature__phrase .script { font-family: 'Biloxi Script', cursive;
+  font-style: normal; font-size: 1.9em; line-height: 1.15; color: var(--gold);
+  /* Une main de cette taille au milieu d'un serif pousse la ligne du dessus :
+     on lui donne sa place plutôt que de la laisser mordre. */
+  display: inline-block; margin-top: 0.15em; }
 
 /* ── Le portrait et son texte dans une même carte ──
    Dans un cadre de 400 px la photo était posée là ; sur toute la largeur elle
@@ -1004,3 +1015,27 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* Le bouton du portfolio, posé sous la présentation : il ouvre vers Canva,
    le temps que ces pages vivent ici. */
 .art-portfolio { margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+
+/* ── La page Art ──────────────────────────────────────────────────────────────
+   On vient y regarder avant de lire : le bandeau se raccourcit pour qu'une
+   œuvre entre dans le premier écran, et la galerie suit immédiatement. */
+.art-hero { min-height: 42vh; }
+.art-galerie-bloc { padding-top: clamp(2rem, 5vw, 3.5rem); }
+/* Des colonnes qui s'ajustent d'elles-mêmes : deux sur un téléphone, jusqu'à
+   quatre sur un grand écran, sans point de rupture à maintenir. */
+.art-galerie { display: grid; gap: clamp(0.6rem, 1.6vw, 1.1rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 44%), 1fr)); }
+.art-galerie__item { margin: 0; border-radius: var(--r-md, 10px); overflow: hidden;
+  background: rgba(10,15,32,0.4); }
+/* Un format carré commun : les toiles n'ont pas toutes les mêmes proportions,
+   et une grille qui saute à chaque image fatigue plus qu'elle ne montre. */
+.art-galerie__item img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
+  transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
+.art-galerie__item:hover img { transform: scale(1.04); }
+@media (prefers-reduced-motion: reduce) { .art-galerie__item img { transition: none; } }
+.art-portfolio { margin-top: clamp(1.6rem, 3vw, 2.4rem); text-align: center; }
+/* Le texte arrive après les œuvres, et se lit : plus de contraste que l'intro
+   grise qu'il remplace, une largeur de lecture, et pas d'italique en pavé. */
+.art-texte { font-family: 'EB Garamond', serif; font-size: clamp(1.08rem, 1.7vw, 1.28rem);
+  line-height: 1.85; color: var(--cream); max-width: 62ch; }
+.art-texte + .art-texte { margin-top: clamp(1.1rem, 2.4vw, 1.6rem); }

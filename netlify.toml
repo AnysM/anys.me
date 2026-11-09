@@ -10,6 +10,20 @@
 [functions]
   directory = "netlify/functions"
 
+# ── La page des œuvres s'appelle Art ──────────────────────────────────────────
+# Elle vivait à /artefacts, adresse déjà soumise à Google et peut-être partagée.
+# L'étoile ne peut se poser qu'en fin de chemin chez Netlify, d'où les deux
+# règles : la page elle-même, puis les fiches.
+[[redirects]]
+  from = "/artefacts"
+  to = "/art"
+  status = 301
+
+[[redirects]]
+  from = "/artefacts/*"
+  to = "/art/:splat"
+  status = 301
+
 [[redirects]]
   from = "/partenaires"
   to = "/codex#allies"

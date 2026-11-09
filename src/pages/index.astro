@@ -361,8 +361,16 @@ const reglage = (c: string) => {
     <div class="wrap">
       <p class="eyebrow">{acc.art_eyebrow}</p>
       <h2 set:html={fmt(acc.art_titre)}></h2>
-      {acc.art_phrase && <p class="art-signature__phrase">{acc.art_phrase}</p>}
-      <a class="btn" href="/artefacts">Découvre les œuvres</a>
+      {/* Une respiration par paragraphe, et `*mot*` passe à la main : ce champ
+          s'affichait en texte brut, seul endroit du site à ignorer ta grammaire. */}
+      {acc.art_phrase && (
+        <div class="art-signature__texte">
+          {acc.art_phrase.split(/\n\n+/).map((p) => (
+            <p class="art-signature__phrase" set:html={fmt(p)}></p>
+          ))}
+        </div>
+      )}
+      <a class="btn" href="/art">Découvre les œuvres</a>
     </div>
   </section>
   <script is:inline>
