@@ -8,6 +8,7 @@ import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
 import Lettre from '../../components/Lettre.astro';
 import Signe from '../../components/Signe.astro';
+import Icone from '../../components/Icone.astro';
 import { getCollection } from 'astro:content';
 
 const artefacts = (await getCollection('artefacts')).filter((a) => a.data.publie).sort((a, b) => a.data.ordre - b.data.ordre);
@@ -54,8 +55,16 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
   {/* Les œuvres qui ont leur histoire : elles ouvrent sur une fiche entière. */}
   <section class="art-oeuvres">
     <div class="wrap">
-      <p class="rune">Les œuvres</p>
-      <p class="art-intro-oeuvres">En attendant, retrouve les premières œuvres qui bénéficieront bientôt de reproductions.</p>
+    {/* Le titre dit ce qu'on attend du visiteur. « Les œuvres » ne demandait
+        rien ; ici on lui donne un rôle, et la marche à suivre tient en une
+        ligne — sans elle, un bouton doré n'explique pas ce qu'il déclenche. */}
+    <div class="vote-tete">
+      <span class="vote-tete__icone" aria-hidden="true"><Icone nom="etoile" taille={30} /></span>
+      <p class="rune">Ton avis compte</p>
+      <h2>Laquelle veux-tu voir <span class="script">en reproduction</span> ?</h2>
+      <p class="vote-tete__mode">En attendant, retrouve les premières œuvres qui bénéficieront bientôt de reproductions.<br />
+        <b>Un clic sur « je la veux » suffit</b> — et tu peux laisser ton email pour être prévenu le jour où elle sort.</p>
+    </div>
       <div class="artefacts">
         {/* Le bouton de vote est hors du lien : un bouton dans un lien n'est
             pas du HTML valide, et le clic ne saurait plus où aller. */}
