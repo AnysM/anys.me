@@ -1037,10 +1037,6 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   overflow: hidden; background: rgba(10,15,32,0.4); }
 .art-toile img { display: block; width: 100%; height: auto; }
 .art-toile--large { max-width: 980px; margin-inline: auto; }
-.art-paire { display: grid; gap: clamp(0.8rem, 2vw, 1.4rem);
-  grid-template-columns: 1fr; max-width: 980px; margin-inline: auto; }
-@media (min-width: 680px) { .art-paire { grid-template-columns: 1fr 1fr; } }
-.art-paire .art-toile { margin: 0; }
 
 /* Le portfolio, annoncé avant d'être proposé. */
 .art-suite { margin-top: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
