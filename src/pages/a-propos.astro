@@ -199,7 +199,7 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
           // il faudrait désigner les lignes par leur rang, et la moindre retouche
           // dans Tina déplacerait la typographie.
           const lignes = ap.manifeste.split(/\n\n+/).map((p: string) => ({
-            voix: /^>\s/.test(p), texte: p.replace(/^>\s+/, ''),
+            voix: /^>\s/.test(p), texte: p.replace(/^>[ \t]?/gm, ''),
           }));
           // Deux paragraphes de suite qui commencent par les mêmes deux mots font une
           // litanie : la tête s'écrit une seule fois, à la main, et les lignes suivent.

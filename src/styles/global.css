@@ -417,6 +417,11 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
    lignes suivantes, au lieu de rester collée au grand mot. */
 .manifeste .litanie--premiere::before { top: 3.3em; }
 .manifeste .litanie--premiere { margin-top: clamp(2.2rem, 4vw, 3.2rem); }
+/* Le mot manuscrit ouvre la litanie : il se tient au bord du bloc, pas en
+   retrait avec les lignes qu'il annonce. On lui rend la marge que la litanie
+   réserve à ses flèches. */
+.manifeste .litanie--premiere .litanie__tete {
+  margin-left: calc(-1 * clamp(1.6rem, 3vw, 2.6rem)); }
 .manifeste .litanie + .litanie { margin-top: 0.7rem; }
 /* Quinze paragraphes du même serif, au même corps : tout parlait de la même
    voix, et ça faisait un pavé. Les lignes de litanie sont une liste, pas une
