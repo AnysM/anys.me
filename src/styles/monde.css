@@ -973,10 +973,10 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* Trois respirations plutôt qu'un pavé. Sans largeur de lecture le texte
    s'étalait sur toute la bande, et un interlignage de 1,6 serre un serif
    centré posé sur une photo. */
-.art-signature__texte { max-width: 34ch; margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(2.2rem, 5vw, 3rem);
+.art-signature__texte { max-width: 38ch; margin: clamp(1.8rem, 4vw, 2.6rem) auto clamp(2.2rem, 5vw, 3rem);
   display: grid; gap: clamp(1rem, 2.4vw, 1.5rem); }
 .art-signature__phrase { margin: 0; font-family: 'EB Garamond', serif;
-  font-size: clamp(1.15rem, 2vw, 1.42rem); line-height: 1.8; color: #D6D9E4;
+  font-size: clamp(1.28rem, 2.6vw, 1.68rem); line-height: 1.75; color: var(--cream);
   text-shadow: 0 2px 22px rgba(5,7,16,0.8); text-wrap: balance; }
 /* Son nom d'artiste, de sa main — comme sa signature au bas du récit. */
 .art-signature__phrase .script { font-family: 'Biloxi Script', cursive;
@@ -1021,15 +1021,16 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
    œuvre entre dans le premier écran, et la galerie suit immédiatement. */
 .art-hero { min-height: 42vh; }
 .art-galerie-bloc { padding-top: clamp(2rem, 5vw, 3.5rem); }
-/* Des colonnes qui s'ajustent d'elles-mêmes : deux sur un téléphone, jusqu'à
-   quatre sur un grand écran, sans point de rupture à maintenir. */
-.art-galerie { display: grid; gap: clamp(0.6rem, 1.6vw, 1.1rem);
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 44%), 1fr)); }
-.art-galerie__item { margin: 0; border-radius: var(--r-md, 10px); overflow: hidden;
-  background: rgba(10,15,32,0.4); }
-/* Un format carré commun : les toiles n'ont pas toutes les mêmes proportions,
-   et une grille qui saute à chaque image fatigue plus qu'elle ne montre. */
-.art-galerie__item img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
+/* Chaque toile entière, dans ses proportions. Un recadrage carré en coupait
+   les bords : le format fait partie de l'œuvre, et une peinture rognée n'est
+   plus la peinture. Des colonnes plutôt qu'une grille, pour que des hauteurs
+   différentes s'empilent sans laisser de trous. */
+.art-galerie { column-gap: clamp(0.8rem, 2vw, 1.4rem); columns: 1; }
+@media (min-width: 680px) { .art-galerie { columns: 2; } }
+@media (min-width: 1180px) { .art-galerie { columns: 3; } }
+.art-galerie__item { margin: 0 0 clamp(0.8rem, 2vw, 1.4rem); break-inside: avoid;
+  border-radius: var(--r-md, 10px); overflow: hidden; background: rgba(10,15,32,0.4); }
+.art-galerie__item img { display: block; width: 100%; height: auto;
   transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
 .art-galerie__item:hover img { transform: scale(1.04); }
 @media (prefers-reduced-motion: reduce) { .art-galerie__item img { transition: none; } }
