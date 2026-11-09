@@ -1118,14 +1118,13 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* 44 caractères cassaient la consigne en quatre lignes courtes, et un texte
    centré sur des lignes courtes n'a que des bords en dents de scie. Au large,
    il tient en deux lignes pleines. */
-.vote-tete { text-align: center; max-width: 62ch; margin: 0 auto clamp(2rem, 4.5vw, 3rem); }
+.vote-tete { text-align: left; max-width: 62ch; margin: 0 0 clamp(2rem, 4.5vw, 3rem); }
 .vote-tete__icone { display: inline-flex; color: var(--gold); margin-bottom: 0.9rem; }
-.vote-tete .rune { justify-content: center; }
 .vote-tete h2 { font-size: clamp(1.8rem, 5vw, 2.9rem); line-height: 1.12;
   margin: 0.5rem 0 1rem; text-wrap: balance; }
 .vote-tete__mode { font-family: 'Jost', sans-serif; font-size: clamp(0.98rem, 1.6vw, 1.08rem);
   line-height: 1.7; color: var(--muted); margin: 0; max-width: 56ch;
-  margin-inline: auto; text-wrap: pretty; }
+  text-wrap: pretty; }
 .vote-tete__mode b { font-weight: 500; color: var(--cream); }
 /* Le titre des cartes suivait la taille des listes : trop discret pour une
    œuvre qu'on vient regarder. */
