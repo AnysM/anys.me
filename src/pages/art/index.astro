@@ -15,16 +15,6 @@ const statut = (d) => d.original === 'disponible' ? `Original disponible${d.orig
 
 const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
 
-// On vote avec les yeux : une image suffit, la fiche viendra après. L'id est
-// ce qui se range dans Airtable — garde-le stable, c'est lui qui compte.
-const AU_VOTE = [
-  { id: 'spirale-glyphes', src: '/img/oeuvres/spirale-glyphes.jpg' },
-  { id: 'eclat-bleu', src: '/img/oeuvres/eclat-bleu.jpg' },
-  { id: 'rouge-indigo', src: '/img/oeuvres/rouge-indigo.jpg' },
-  { id: 'art-2', src: '/img/art-2.jpg' },
-  { id: 'art-3', src: '/img/art-3.jpg' },
-  { id: 'art-4', src: '/img/art-4.jpg' },
-];
 ---
 <Base title="Art — les œuvres d'Indigo Enoqii | Anys Mechkar" description="Indigo Enoqii écrit son propre langage magique : des œuvres vivantes, vibrantes et symboliques. Originaux et reproductions à accueillir chez soi.">
   {/* Un bandeau court plutôt qu'un plein écran : la première œuvre doit se
@@ -61,53 +51,30 @@ const AU_VOTE = [
     </div>
   </section>
 
-  {/* Le vote. Cette page ne peut pas encore vendre — la boutique n'existe pas —
-      mais elle peut demander. Chaque clic dit à Anys quoi tirer en premier, et
-      l'adresse n'est proposée qu'après, à qui veut être prévenu. */}
-  <section class="art-vote" id="vote">
-    <div class="wrap">
-      <p class="rune">Ton avis</p>
-      <h2>Laquelle veux-tu voir <span class="script">en reproduction</span> ?</h2>
-      <p class="art-intro-oeuvres">Un clic suffit. Je saurai lesquelles tirer en premier quand la boutique ouvrira.</p>
-
-      <div class="vote-grille">
-        {AU_VOTE.map((o, i) => (
-          <button class="vote-carte" type="button" data-oeuvre={o.id}>
-            <img src={o.src} alt="" loading={i < 2 ? 'eager' : 'lazy'} />
-            <span class="vote-carte__marque">Je la veux</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Ce qui s'affiche une fois le vote parti. */}
-      <div class="vote-apres" hidden>
-        <p class="vote-apres__mot">C'est noté. <b data-vote-titre></b></p>
-        <form class="vote-form" novalidate>
-          <label class="sr" for="vote-email">Ton email</label>
-          <input id="vote-email" type="email" name="email" placeholder="Ton email" autocomplete="email" />
-          <button class="btn btn--solid" type="submit">Préviens-moi quand elle sort</button>
-        </form>
-        <p class="vote-apres__fin" hidden>Merci, je te préviens.</p>
-      </div>
-    </div>
-  </section>
-
   {/* Les œuvres qui ont leur histoire : elles ouvrent sur une fiche entière. */}
   <section class="art-oeuvres">
     <div class="wrap">
       <p class="rune">Les œuvres</p>
       <p class="art-intro-oeuvres">En attendant, retrouve les premières œuvres qui bénéficieront bientôt de reproductions.</p>
       <div class="artefacts">
+        {/* Le bouton de vote est hors du lien : un bouton dans un lien n'est
+            pas du HTML valide, et le clic ne saurait plus où aller. */}
         {artefacts.map((a) => (
-          <a class="artefact-carte" href={`/art/${a.id}`}>
-            <span class="artefact-carte__img">{a.data.images[0] && <img src={a.data.images[0]} alt={a.data.titre} loading="lazy" />}</span>
-            <span class="artefact-carte__corps">
-              <span class="artefact-carte__titre">{a.data.titre}</span>
-              {a.data.sous_titre && <span class="artefact-carte__sous">{a.data.sous_titre}</span>}
-              <span class="artefact-carte__statut">{statut(a.data)}</span>
-            </span>
-          </a>
+          <div class="artefact-bloc">
+            <a class="artefact-carte" href={`/art/${a.id}`}>
+              <span class="artefact-carte__img">{a.data.images[0] && <img src={a.data.images[0]} alt={a.data.titre} loading="lazy" />}</span>
+              <span class="artefact-carte__corps">
+                <span class="artefact-carte__titre">{a.data.titre}</span>
+                {a.data.sous_titre && <span class="artefact-carte__sous">{a.data.sous_titre}</span>}
+                <span class="artefact-carte__statut">{statut(a.data)}</span>
+              </span>
+            </a>
+            <button class="vote-bouton" type="button" data-oeuvre={a.id} data-titre={a.data.titre}>
+              Je la veux en reproduction
+            </button>
+          </div>
         ))}
+        <div class="artefact-bloc artefact-bloc--venir">
         <div class="artefact-carte artefact-carte--venir">
           <img class="artefact-carte__fond" src="/img/signes/oeil.png" alt="" aria-hidden="true" loading="lazy" />
           <span class="artefact-carte__img"><Signe id="artefacts-venir" /></span>
@@ -117,6 +84,20 @@ const AU_VOTE = [
             <span class="artefact-carte__statut">Bientôt</span>
           </span>
         </div>
+        </div>
+      </div>
+
+      {/* Ce qui s'affiche une fois le vote parti. L'adresse n'est proposée
+          qu'après : la demander avant ferait fuir ceux qui voulaient
+          seulement donner leur avis. */}
+      <div class="vote-apres" id="vote-apres" hidden>
+        <p class="vote-apres__mot">C'est noté pour <b data-vote-titre></b>.</p>
+        <form class="vote-form" novalidate>
+          <label class="sr" for="vote-email">Ton email</label>
+          <input id="vote-email" type="email" name="email" placeholder="Ton email" autocomplete="email" />
+          <button class="btn btn--solid" type="submit">Préviens-moi quand elle sort</button>
+        </form>
+        <p class="vote-apres__fin" hidden>Merci, je te préviens.</p>
       </div>
     </div>
   </section>
@@ -128,9 +109,10 @@ const AU_VOTE = [
   // l'adresse proposée seulement après — demander avant ferait fuir ceux qui
   // voulaient juste donner leur avis.
   (function () {
-    var section = document.getElementById('vote');
+    var section = document.querySelector('.art-oeuvres');
     if (!section) return;
     var apres = section.querySelector('.vote-apres');
+    var titre = section.querySelector('[data-vote-titre]');
     var form = section.querySelector('.vote-form');
     var fin = section.querySelector('.vote-apres__fin');
     var choisie = null;
@@ -148,12 +130,13 @@ const AU_VOTE = [
       });
     }
 
-    section.querySelectorAll('.vote-carte').forEach(function (b) {
+    section.querySelectorAll('.vote-bouton').forEach(function (b) {
       b.addEventListener('click', function () {
-        if (b.classList.contains('vote-carte--votee')) return;
+        if (b.classList.contains('vote-bouton--votee')) return;
         choisie = b.dataset.oeuvre;
-        section.querySelectorAll('.vote-carte').forEach(function (x) { x.classList.remove('vote-carte--votee'); });
-        b.classList.add('vote-carte--votee');
+        if (titre) titre.textContent = b.dataset.titre || '';
+        b.classList.add('vote-bouton--votee');
+        b.textContent = '✓ C\'est noté';
         apres.hidden = false;
         fin.hidden = true;
         form.hidden = false;
