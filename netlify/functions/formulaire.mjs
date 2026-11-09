@@ -261,7 +261,50 @@ async function versBrevo({ email, prenom, source, envie, site }) {
   return { ajoute: true, doi };
 }
 
+/**
+ * Le compte des votes, par œuvre.
+ *
+ * On lit la table plutôt que de tenir un compteur à part : une seule source,
+ * et un vote effacé à la main fait baisser le nombre sans rien à resynchroniser.
+ * Les lignes marquées comme robots sont écartées ici, pas à l'affichage — le
+ * nombre que voit un visiteur est donc celui qu'Anys verra dans sa table.
+ */
+async function compteDesVotes() {
+  if (!AIRTABLE_TOKEN || !AIRTABLE_BASE) return {};
+  const compte = {};
+  let offset;
+  // Airtable rend cent lignes à la fois. Dix pages suffisent très largement,
+  // et cette borne empêche une boucle sans fin si l'API se met à tourner.
+  for (let page = 0; page < 10; page += 1) {
+    const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE}/Votes`);
+    url.searchParams.set('pageSize', '100');
+    url.searchParams.set('fields[]', 'Œuvre');
+    url.searchParams.set('filterByFormula', '{Spam} = ""');
+    if (offset) url.searchParams.set('offset', offset);
+    const r = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+    if (!r.ok) throw new Error(`Airtable ${r.status} : ${await r.text()}`);
+    const data = await r.json();
+    for (const rec of data.records ?? []) {
+      const o = rec.fields?.['Œuvre'];
+      if (o) compte[o] = (compte[o] ?? 0) + 1;
+    }
+    offset = data.offset;
+    if (!offset) break;
+  }
+  return compte;
+}
+
 export default async function handler(request) {
+  // La page demande les compteurs à son chargement. Une minute de cache suffit :
+  // le nombre reste juste à l'œil, et cent visiteurs ne font pas cent lectures.
+  if (request.method === 'GET') {
+    try {
+      return json(await compteDesVotes(), 200, { 'Cache-Control': 'public, max-age=60' });
+    } catch (e) {
+      console.error('[votes] lecture impossible :', String(e.message ?? e));
+      return json({}, 200);
+    }
+  }
   if (request.method !== 'POST') return new Response('Méthode non autorisée', { status: 405 });
 
   // La première garde : un envoi vient bien d'une page du site. Un navigateur
@@ -488,9 +531,9 @@ export default async function handler(request) {
 }
 
 /** Pour le vote : la page reste en place et lit cette réponse. */
-function json(corps, status = 200) {
+function json(corps, status = 200, entetes = {}) {
   return new Response(JSON.stringify(corps), {
-    status, headers: { 'Content-Type': 'application/json' },
+    status, headers: { 'Content-Type': 'application/json', ...entetes },
   });
 }
 

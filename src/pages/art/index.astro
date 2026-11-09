@@ -60,17 +60,20 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
         ligne — sans elle, un bouton doré n'explique pas ce qu'il déclenche. */}
     <div class="vote-tete">
       <span class="vote-tete__icone" aria-hidden="true"><Icone nom="etoile" taille={30} /></span>
-      <p class="rune">Ton avis compte</p>
-      <h2>Laquelle veux-tu voir <span class="script">en reproduction</span> ?</h2>
-      <p class="vote-tete__mode">En attendant, retrouve les premières œuvres qui bénéficieront bientôt de reproductions.<br />
-        <b>Un clic sur « je la veux » suffit</b> — et tu peux laisser ton email pour être prévenu le jour où elle sort.</p>
+      <p class="rune">Indigo Enoqii</p>
+      <h2>Les <span class="script">œuvres</span></h2>
+      <p class="vote-tete__mode">En attendant que la boutique ouvre, découvre quelques œuvres et choisis celles que tu aimerais avoir chez toi.<br />
+        <b>Un cœur suffit</b> — et tu peux laisser ton email pour être prévenu le jour où elle sort.</p>
     </div>
       <div class="artefacts">
         {/* Le bouton de vote est hors du lien : un bouton dans un lien n'est
             pas du HTML valide, et le clic ne saurait plus où aller. */}
         {artefacts.map((a) => (
-          <div class="artefact-bloc">
-            <a class="artefact-carte" href={`/art/${a.id}`}>
+          <div class="artefact-carte artefact-carte--vote">
+            {/* Le lien couvre toute la carte par son ::after ; le cœur se pose
+                au-dessus. Un bouton glissé dans un lien n'est pas du HTML
+                valide, et le clic ne saurait plus s'il vote ou ouvre la fiche. */}
+            <a class="artefact-carte__lien" href={`/art/${a.id}`}>
               <span class="artefact-carte__img">{a.data.images[0] && <img src={a.data.images[0]} alt={a.data.titre} loading="lazy" />}</span>
               <span class="artefact-carte__corps">
                 <span class="artefact-carte__titre">{a.data.titre}</span>
@@ -78,8 +81,10 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
                 <span class="artefact-carte__statut">{statut(a.data)}</span>
               </span>
             </a>
-            <button class="vote-bouton" type="button" data-oeuvre={a.id} data-titre={a.data.titre}>
-              Je la veux en reproduction
+            <button class="coeur" type="button" data-oeuvre={a.id} data-titre={a.data.titre}
+              aria-label={`Je veux ${a.data.titre} en reproduction`}>
+              <span class="coeur__signe" aria-hidden="true">♥</span>
+              <span class="coeur__n" data-n={a.id}>—</span>
             </button>
           </div>
         ))}
@@ -139,13 +144,28 @@ const PORTFOLIO = 'https://canva.link/8c9ls7q4e1cmosv';
       });
     }
 
-    section.querySelectorAll('.vote-bouton').forEach(function (b) {
+    // Les compteurs arrivent de la fonction. S'ils n'arrivent pas, le tiret
+    // reste : mieux qu'un zéro, qui ferait croire que personne n'a voté.
+    fetch('/.netlify/functions/formulaire')
+      .then(function (r) { return r.json(); })
+      .then(function (compte) {
+        section.querySelectorAll('[data-n]').forEach(function (n) {
+          n.textContent = String(compte[n.dataset.n] || 0);
+        });
+      })
+      .catch(function () {});
+
+    section.querySelectorAll('.coeur').forEach(function (b) {
       b.addEventListener('click', function () {
-        if (b.classList.contains('vote-bouton--votee')) return;
+        if (b.classList.contains('coeur--vote')) return;
         choisie = b.dataset.oeuvre;
         if (titre) titre.textContent = b.dataset.titre || '';
-        b.classList.add('vote-bouton--votee');
-        b.textContent = '✓ C\'est noté';
+        b.classList.add('coeur--vote');
+        // Le compteur monte tout de suite : attendre la réponse donnerait
+        // l'impression que le clic n'a rien fait.
+        var n = b.querySelector('.coeur__n');
+        var v = parseInt(n.textContent, 10);
+        n.textContent = String((isNaN(v) ? 0 : v) + 1);
         apres.hidden = false;
         fin.hidden = true;
         form.hidden = false;
