@@ -22,7 +22,7 @@ resume: "Cercle de parole entre hommes. Se soutenir, libérer la parole, apprend
 lien: "https://chat.whatsapp.com/DGdAPAUZMAOBBNSf0pnqz7?mode=gi_t"
 reservable: false
 ordre: 3
-publie: true
+publie: false
 ---
 Cercle de parole entre hommes. Se soutenir, libérer la parole, apprendre à être vulnérable.
 
