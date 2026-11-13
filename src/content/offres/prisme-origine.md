@@ -11,7 +11,7 @@ duree: "2h"
 resume: "Une lecture croisée du Human Design, du Tzolk'in et du BaZi, pour revenir à ce qui te rend unique."
 tarifs:
   - label: "Prisme Origine"
-    prix: "350€"
+    prix: "120€"
     detail: "Préparation de ta carte, 2h de lecture et de synthèse, et un point de 30 min un mois après"
 accueil: true
 ordre: 1
