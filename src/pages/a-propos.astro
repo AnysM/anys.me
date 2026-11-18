@@ -187,7 +187,9 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
 <Base title="À propos | Anys Mechkar" description="Le récit d'Anys Mechkar : de l'ingénieur qui avait tout à la méditation, au chamanisme, au Butô et aux arts énergétiques.">
   <section class="page-hero" style={`min-height:64vh; --hero-y:32%; padding-bottom:${airSousBord('page-bas')}`}>{ap.hero_image ? <img src={ap.hero_image} alt="" /> : <div class="ph-band"></div>}
     {ap.hero_image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
-    <div class="narrow"><p class="eyebrow" data-edit={DEV ? "ligne" : undefined} data-cle="hero_eyebrow">{ap.hero_eyebrow}</p><h1 data-edit={DEV ? "ligne" : undefined} data-cle="hero_titre">{ap.hero_titre}</h1></div>
+    <div class="narrow"><p class="eyebrow" data-edit={DEV ? "ligne" : undefined} data-cle="hero_eyebrow">{ap.hero_eyebrow}</p><h1 data-edit={DEV ? "ligne" : undefined} data-cle="hero_titre">{ap.hero_titre}</h1>
+      {/* Le manifeste est long : qui vient pour l'histoire doit pouvoir y aller tout de suite. */}
+      {ap.hero_cta && <p class="hero-porte"><a class="btn btn--solid" href="#recit" data-edit={DEV ? "ligne" : undefined} data-cle="hero_cta">{ap.hero_cta}</a></p>}</div>
   </section>
 
   {ap.manifeste && (
@@ -237,7 +239,7 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
     const brosseBas = si === sections.length - 1 && !(sec as any).bande;
     const fondSuivant = si === sections.length - 1 ? 'var(--navy)' : fond(si + 1);
     return (
-        <section class="recit-part" style={`--fond:${fond(si)}; --fond-suivant:${fondSuivant}; background:var(--fond); padding-top:${brosseHaut ? airSousBord(hautId) : '0'}; padding-bottom:${(sec as any).bande ? '0' : (si === sections.length - 1 ? airSousBord(basId) : 'clamp(4rem, 8vw, 7rem)')}`}>
+        <section class="recit-part" id={si === 0 ? 'recit' : undefined} style={`--fond:${fond(si)}; --fond-suivant:${fondSuivant}; background:var(--fond); padding-top:${brosseHaut ? airSousBord(hautId) : '0'}; padding-bottom:${(sec as any).bande ? '0' : (si === sections.length - 1 ? airSousBord(basId) : 'clamp(4rem, 8vw, 7rem)')}`}>
           {/* Un seul bord de pinceau par jonction : chaque section porte le sien en
               haut, peint de la couleur de celle d'avant. Deux brosses face à face
               laissaient une ligne droite entre elles. */}
@@ -326,6 +328,17 @@ const fond = (k: number) => (k % 2 === 0 ? 'var(--surface)' : 'var(--navy)');
     .tl-vignettes img:nth-child(1) { z-index: 2; }
     .tl-vignettes img:nth-child(3) { z-index: 3; }
   </style>
+
+  {/* Les ancres natives ne défilent pas sur ce site, et le défilement doux s'y
+      fait interrompre au bout de deux pixels : la porte saute directement. */}
+  <script is:inline>
+    document.querySelector('.hero-porte a')?.addEventListener('click', function (e) {
+      var cible = document.getElementById('recit');
+      if (!cible) return;
+      e.preventDefault();
+      cible.scrollIntoView({ behavior: 'instant', block: 'start' });
+    });
+  </script>
 
   <Atelier page="a-propos" />
 

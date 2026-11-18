@@ -2,6 +2,7 @@
 hero_eyebrow: Mon histoire
 hero_titre: À propos
 hero_image: /img/photos/dscf1308.jpg
+hero_cta: Lire mon histoire
 chapitres:
   - acte: 1
     texte: |-
