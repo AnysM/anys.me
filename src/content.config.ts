@@ -48,6 +48,11 @@ const offres = defineCollection({
     titre: z.string(),
     categorie: z.enum(['soin', 'accompagnement']),
     image: z.string().optional(),
+    // Une vidéo muette en boucle derrière le titre, à la place de la photo.
+    // La photo reste : elle sert d'affiche le temps du chargement, et de vignette au partage.
+    video: z.string().optional(),
+    // Une bande de photos, posée après les étapes : on lit le déroulé, puis on le voit.
+    galerie: z.array(z.string()).optional(),
     prix: z.string().optional(),
     duree: z.string().optional(),
     format: z.string().optional(),
@@ -176,6 +181,7 @@ const pages = defineCollection({
     temoins_image: z.string().optional(),
     avis_nombre: z.number().optional(),
     avis_lien: z.string().optional(),
+    avis_ecrire: z.string().optional(),
     seuils_titre: z.string().optional(),
     codex_eyebrow: z.string().optional(),
     codex_titre: z.string().optional(),

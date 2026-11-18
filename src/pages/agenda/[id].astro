@@ -142,7 +142,7 @@ const jsonld = [
           <div class="echos">{touche.map((f) => <a class="echo" href={`/codex/${f.id}`}>{f.data.titre}<small>{typeLabel(f.data.type)}</small></a>)}</div>
         </div>
       )}
-      {avec.length > 0 && (
+      {CODEX_OUVERT && avec.length > 0 && (
         <p class="muted" style="margin-top:1.4rem; font-size:0.92rem;">Avec {avec.map((a, i) => <Fragment>{i > 0 && (i === avec.length - 1 ? ' et ' : ', ')}{CODEX_OUVERT ? <a class="lore" href={`/codex/${a.id}`}>{a.data.titre}</a> : a.data.titre}</Fragment>)}</p>
       )}
     </div>

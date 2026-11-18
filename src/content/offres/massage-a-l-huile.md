@@ -30,7 +30,11 @@ faq:
     r: "À Lyon : chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
     r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble."
-image: /img/photos/dscf2256.jpg
+image: /img/massage/mains-au-visage.jpg
+galerie:
+  - /img/massage/mains-a-l-epaule.jpg
+  - /img/massage/mains-au-pied.jpg
+  - /img/massage/la-main-ouverte.jpg
 ---
 Un massage sur mesure et intuitif, qui vient délier en profondeur les tensions et faire circuler l'énergie stagnante. Un toucher profond, doux et subtil. Un massage qui purifie, délie, harmonise et dynamise.
 

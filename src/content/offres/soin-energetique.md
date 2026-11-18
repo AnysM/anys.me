@@ -28,7 +28,15 @@ faq:
     r: "À Lyon : chez Meïsō ou à l'Île Barbe."
   - q: "Comment réserver ?"
     r: "Écris-moi avec tes disponibilités, on trouve un créneau ensemble."
-image: /img/photos/dscf1640.jpg
+image: /img/photos/soin-plan-large.jpg
+video: /video/soin-energetique.mp4
+galerie:
+  - /img/soin/06_la-fumee.jpg
+  - /img/soin/09_mains-a-la-tete-large.jpg
+  - /img/soin/10_mains-au-dessus-du-corps.jpg
+  - /img/soin/11_mains-aux-pieds-lumiere.jpg
+  - /img/soin/14_bendir-au-dessus-du-corps.jpg
+  - /img/soin/20_la-flute.jpg
 ---
 Un soin profond de purification et de réharmonisation de la sphère énergétique.
 

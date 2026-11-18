@@ -79,8 +79,10 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} · ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`padding-bottom:${airSousBord('page-bas')}`}>{d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
-    {d.image && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
+  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`padding-bottom:${airSousBord('page-bas')}`}>{d.video
+    ? <video src={d.video} poster={d.image} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    : d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
+    {(d.image || d.video) && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
     <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
       {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}
@@ -181,6 +183,14 @@ const jsonld = [
 
   <Etapes etapes={d.etapes} />
 
+  {d.galerie?.length > 0 && (
+    <section class="striptease galerie-soin">
+      {d.galerie.map((src) => (
+        <figure class="photo-slot"><img src={src} alt="" loading="lazy" /></figure>
+      ))}
+    </section>
+  )}
+
   <Temoignages temoignages={d.temoignages} titre={d.temoins_titre} />
 
   {enPreparation ? (
@@ -217,7 +227,10 @@ const jsonld = [
 
       <Faq faq={d.faq} />
 
-      {(touche.length > 0 || avec.length > 0) && (
+      {/* Tout ce bloc appartient au Codex : « Ce que ça touche » et la ligne « Avec »
+          n'ont de sens que si l'on peut cliquer vers les fiches. Codex fermé, la
+          première moitié disparaissait et la seconde restait seule, sans lien. */}
+      {CODEX_OUVERT && (touche.length > 0 || avec.length > 0) && (
         <section class="lore-offre">
           <div class="narrow">
             {CODEX_OUVERT && touche.length > 0 && (
