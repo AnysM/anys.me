@@ -5,7 +5,7 @@ date: 2027-01-22
 lieu: "Blast Art, Lyon"
 heure: "19h30"
 cta: "Réserver"
-prix: "15€"
+prix: "10€"
 resume: "Une expérience sonore et corporelle immersive, un soir de pleine lune. Une traversée que l'on vit ensemble, à la première personne."
 image: /img/dans-le-triangle.webp
 lien: "https://shotgun.live/fr/events/dans-le-triangle-2"
@@ -23,4 +23,4 @@ Le voyage est mené par Dreem Sonic, capitaine à l'univers singulier, entouré 
 
 L'expérience se vit en petit groupe, une trentaine d'âmes, pour garder l'intimité de la traversée. Les portes ouvrent trente minutes avant le départ et se ferment à l'heure du lancement. Une fois le navire parti, on ne monte plus à bord. Le costume est bienvenu, pour celles et ceux qui veulent entrer pleinement dans l'univers.
 
-Pleine lune du 26 octobre. Ouverture des portes à 19h30, départ à 20h, retour vers 21h30, puis pot de célébration jusqu'à 23h.
+Pleine lune du 22 janvier. Ouverture des portes à 19h30, départ à 20h, retour vers 21h30, puis pot de célébration jusqu'à 23h.

@@ -265,7 +265,7 @@ input AgendaFilter {
   heure: StringFilter
   lieu: StringFilter
   prix: StringFilter
-  earlybird: StringFilter
+  earlybird: DatetimeFilter
   seances: AgendaSeancesFilter
   tarifs: AgendaTarifsFilter
   cta: StringFilter
@@ -336,6 +336,7 @@ type OffresCap {
 
 type OffresCadre_items {
   titre: String
+  cadence: String
   texte: String
 }
 
@@ -351,6 +352,8 @@ type Offres implements Node & Document {
   tarifs: [OffresTarifs]
   etapes: [OffresEtapes]
   image: String
+  video: String
+  galerie: [String]
   lien: String
   reservable: Boolean
   ordre: Float
@@ -440,6 +443,7 @@ input OffresCapFilter {
 
 input OffresCadre_itemsFilter {
   titre: StringFilter
+  cadence: StringFilter
   texte: StringFilter
 }
 
@@ -455,6 +459,8 @@ input OffresFilter {
   tarifs: OffresTarifsFilter
   etapes: OffresEtapesFilter
   image: ImageFilter
+  video: StringFilter
+  galerie: ImageFilter
   lien: StringFilter
   reservable: BooleanFilter
   ordre: NumberFilter
@@ -715,9 +721,13 @@ type PagesSeuils {
 }
 
 type Pages implements Node & Document {
+  hero_photo: String
+  avis_ecrire: String
   hero_eyebrow: String
   hero_titre: String
   hero_image: String
+  manifeste: String
+  invitation: String
   portrait_image: String
   resp1_image: String
   resp2_image: String
@@ -743,6 +753,9 @@ type Pages implements Node & Document {
   coeur: String
   venir_eyebrow: String
   venir_titre: String
+  venir_crises: [String]
+  venir_crises_aparte: String
+  venir_pont: String
   venir_items: [String]
   posture: String
   difference_eyebrow: String
@@ -804,9 +817,13 @@ input PagesSeuilsFilter {
 }
 
 input PagesFilter {
+  hero_photo: ImageFilter
+  avis_ecrire: StringFilter
   hero_eyebrow: StringFilter
   hero_titre: StringFilter
   hero_image: ImageFilter
+  manifeste: StringFilter
+  invitation: StringFilter
   portrait_image: ImageFilter
   resp1_image: ImageFilter
   resp2_image: ImageFilter
@@ -832,6 +849,9 @@ input PagesFilter {
   coeur: StringFilter
   venir_eyebrow: StringFilter
   venir_titre: StringFilter
+  venir_crises: StringFilter
+  venir_crises_aparte: StringFilter
+  venir_pont: StringFilter
   venir_items: StringFilter
   posture: StringFilter
   difference_eyebrow: StringFilter
@@ -884,17 +904,35 @@ type Page_aproposChapitresEchos {
 }
 
 type Page_aproposChapitres {
+  acte: Float
   titre: String
   texte: String
   image: String
+  allure: String
+  image2: String
+  phrase: String
+  apres: Float
+  vignettes: [String]
   echos: [Page_aproposChapitresEchos]
 }
 
+type Page_aproposActes {
+  n: Float
+  titre: String
+  respiration: String
+}
+
 type Page_apropos implements Node & Document {
+  hero_photo: String
+  avis_ecrire: String
   hero_eyebrow: String
   hero_titre: String
   hero_image: String
   chapitres: [Page_aproposChapitres]
+  hero_cta: String
+  manifeste: String
+  invitation: String
+  actes: [Page_aproposActes]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -909,17 +947,35 @@ input Page_aproposChapitresEchosFilter {
 }
 
 input Page_aproposChapitresFilter {
+  acte: NumberFilter
   titre: StringFilter
   texte: StringFilter
   image: ImageFilter
+  allure: StringFilter
+  image2: ImageFilter
+  phrase: StringFilter
+  apres: NumberFilter
+  vignettes: ImageFilter
   echos: Page_aproposChapitresEchosFilter
 }
 
+input Page_aproposActesFilter {
+  n: NumberFilter
+  titre: StringFilter
+  respiration: ImageFilter
+}
+
 input Page_aproposFilter {
+  hero_photo: ImageFilter
+  avis_ecrire: StringFilter
   hero_eyebrow: StringFilter
   hero_titre: StringFilter
   hero_image: ImageFilter
   chapitres: Page_aproposChapitresFilter
+  hero_cta: StringFilter
+  manifeste: StringFilter
+  invitation: StringFilter
+  actes: Page_aproposActesFilter
 }
 
 type Page_aproposConnectionEdges {
@@ -1297,6 +1353,7 @@ input OffresCapMutation {
 
 input OffresCadre_itemsMutation {
   titre: String
+  cadence: String
   texte: String
 }
 
@@ -1312,6 +1369,8 @@ input OffresMutation {
   tarifs: [OffresTarifsMutation]
   etapes: [OffresEtapesMutation]
   image: String
+  video: String
+  galerie: [String]
   lien: String
   reservable: Boolean
   ordre: Float
@@ -1446,9 +1505,13 @@ input PagesSeuilsMutation {
 }
 
 input PagesMutation {
+  hero_photo: String
+  avis_ecrire: String
   hero_eyebrow: String
   hero_titre: String
   hero_image: String
+  manifeste: String
+  invitation: String
   portrait_image: String
   resp1_image: String
   resp2_image: String
@@ -1474,6 +1537,9 @@ input PagesMutation {
   coeur: String
   venir_eyebrow: String
   venir_titre: String
+  venir_crises: [String]
+  venir_crises_aparte: String
+  venir_pont: String
   venir_items: [String]
   posture: String
   difference_eyebrow: String
@@ -1513,17 +1579,35 @@ input Page_aproposChapitresEchosMutation {
 }
 
 input Page_aproposChapitresMutation {
+  acte: Float
   titre: String
   texte: String
   image: String
+  allure: String
+  image2: String
+  phrase: String
+  apres: Float
+  vignettes: [String]
   echos: [Page_aproposChapitresEchosMutation]
 }
 
+input Page_aproposActesMutation {
+  n: Float
+  titre: String
+  respiration: String
+}
+
 input Page_aproposMutation {
+  hero_photo: String
+  avis_ecrire: String
   hero_eyebrow: String
   hero_titre: String
   hero_image: String
   chapitres: [Page_aproposChapitresMutation]
+  hero_cta: String
+  manifeste: String
+  invitation: String
+  actes: [Page_aproposActesMutation]
 }
 
 input Page_soinsMutation {

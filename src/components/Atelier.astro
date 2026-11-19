@@ -167,6 +167,22 @@ if (relecture) {
         { ligne: true, genre: 'ligne' });
     }
 
+    // ── Tout le reste du site, par chemin ────────────────────────────
+    // « piliers.2.nom », « faq.0.r », « temoins.1.t » : une adresse suffit à
+    // atteindre n'importe quel champ de n'importe quelle page. Une valeur
+    // d'une ligne s'écrit en ligne ; un long texte garde ses paragraphes.
+    for (const z of document.querySelectorAll('[data-edit="chemin"]')) {
+      const route = z.dataset.chemin;
+      const long = z.dataset.long !== undefined;
+      const texte = etat.champs?.[route] ?? z.textContent;
+      const hote = document.createElement(long ? 'div' : 'span');
+      z.replaceChildren(hote);
+      poser(hote, texte,
+        long ? (t) => ({ action: 'bloc', chemin: route, markdown: t })
+             : (t) => ({ action: 'chemin-valeur', chemin: route, markdown: t.replace(/\n+/g, ' ') }),
+        long ? { genre: 'champ' } : { ligne: true, genre: 'ligne' });
+    }
+
     // ── Enregistrer, sans recharger ───────────────────────────────────
     const attentes = new Map();
     // Tout changement s'enregistre. Le court délai ne sert qu'à ne pas écrire

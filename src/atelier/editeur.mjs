@@ -40,6 +40,22 @@ function familleDeMarque(nom, liste) {
         { ...HTMLAttributes, valeur: undefined }), 0],
   });
 }
+// Un lien vers l'extérieur. Il porte son adresse, et se rend comme sur la page
+// publiée : un mot souligné, rien de plus. Sans cette marque, l'atelier
+// affichait la syntaxe en clair au milieu du récit.
+export const Lien = Mark.create({
+  name: 'lien',
+  priority: 1200,
+  addAttributes: () => ({ href: { default: null } }),
+  parseHTML: () => [{ tag: 'a[href]', getAttrs: (el) => ({ href: el.getAttribute('href') }) }],
+  // L'adresse se pose en dernier : la passer en second l'effaçait, et le lien
+  // s'affichait sans href — joli, et inerte.
+  renderHTML: ({ HTMLAttributes, mark }) =>
+    ['a', mergeAttributes(HTMLAttributes, { class: 'lien-dehors', href: mark.attrs.href,
+      ...(String(mark.attrs.href ?? '').startsWith('/') ? {} : { target: '_blank', rel: 'noopener' }),
+    }), 0],
+});
+
 export const Police = familleDeMarque('police', POLICES);
 export const Taille = familleDeMarque('taille', TAILLES);
 export const Teinte = familleDeMarque('teinte', TEINTES);
@@ -59,6 +75,14 @@ function enCaracteres(md, heritage = null) {
     if (md[i] === '_') { style = style === 'italique' ? null : 'italique'; i += 1; continue; }
     if (md[i] === '*') { style = style === 'manuscrit' ? null : 'manuscrit'; i += 1; continue; }
     if (md[i] === '[') {
+      // Un lien : son adresse voyage avec le texte, comme un réglage.
+      const l = /^\[([^\]\n]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/.exec(md.slice(i));
+      if (l) {
+        const r = { ...(heritage ?? {}), lien: l[2] };
+        for (const sous of enCaracteres(l[1], r)) sortie.push({ ...sous, s: sous.s ?? style });
+        i += l[0].length;
+        continue;
+      }
       const m = /^\[([^\]\n]+)\]\{([a-zéè ]+)\}/.exec(md.slice(i));
       const noms = m ? m[2].trim().split(/\s+/).filter((n) => DE_NOM[n]) : [];
       if (noms.length) {
@@ -88,7 +112,8 @@ export function versDoc(md) {
         if (!tampon) return;
         const marques = style ? [{ type: NOM[style] }] : [];
         for (const [famille, valeur] of Object.entries(reglage ?? {})) {
-          marques.push({ type: famille, attrs: { valeur } });
+          if (famille === 'lien') marques.push({ type: 'lien', attrs: { href: valeur } });
+          else marques.push({ type: famille, attrs: { valeur } });
         }
         contenu.push({ type: 'text', text: tampon, ...(marques.length ? { marks: marques } : {}) });
         tampon = '';
@@ -114,7 +139,10 @@ export function versMarkdown(doc) {
     const fermeReglage = () => {
       if (!reglage) return;
       fermeMarque();
-      t += ']{' + Object.values(reglage).join(' ') + '}';
+      // Un lien se referme sur son adresse, un réglage sur ses noms de style.
+      const { lien, ...styles } = reglage;
+      t += lien && !Object.keys(styles).length ? '](' + lien + ')'
+        : lien ? '](' + lien + ')' : ']{' + Object.values(styles).join(' ') + '}';
       reglage = null;
     };
     par.forEach((n) => {
@@ -125,6 +153,7 @@ export function versMarkdown(doc) {
         : noms.includes('manuscrit') ? 'manuscrit' : null;
       const r = {};
       for (const m of n.marks) {
+        if (m.type.name === 'lien' && m.attrs.href) r.lien = m.attrs.href;
         if (['police', 'taille', 'teinte'].includes(m.type.name) && m.attrs.valeur) {
           r[m.type.name] = m.attrs.valeur;
         }
@@ -300,7 +329,7 @@ export function monter({ element, markdown, surChangement, surSelection, surFocu
         horizontalRule: false, dropcursor: false,
         hardBreak: ligne && !souple ? false : undefined,
       }),
-      Manuscrit, Police, Taille, Teinte,
+      Manuscrit, Police, Taille, Teinte, Lien,
       Allure.configure({ manifeste: !!manifeste }),
       ...(ligne ? (souple ? [UnParagraphe] : [UneLigne]) : [Entrees]),
     ],

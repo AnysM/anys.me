@@ -21,7 +21,6 @@ const outils = ac.outils ?? [];
     <div class="narrow entree__tete">
       {ac.formules_eyebrow && <p class="eyebrow">{ac.formules_eyebrow}</p>}
       <h2 set:html={fmt(ac.formules_titre)}></h2>
-      <div class="entree__mot">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
     </div>
     <div class="wrap entree__cartes">
         {items.map((o) => (
@@ -37,6 +36,7 @@ const outils = ac.outils ?? [];
           </a>
         ))}
     </div>
+    <div class="narrow entree__mot">{ac.coeur.split(/\n\n+/).map((par) => <p set:html={fmt(par)}></p>)}</div>
   </section>
 
   <!-- POUR QUI -->

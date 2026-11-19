@@ -606,10 +606,11 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
     grid-row: 2;
     /* L'écart entre les lignes de la grille tient déjà lieu de marge. */
     margin-top: 0; }
-  /* La grappe prend la hauteur du texte, jamais l'inverse : sinon le paragraphe
-     flotte au milieu d'une colonne de photos et l'interligne du récit saute. */
-  .tl-vignettes { margin-top: 0; height: 100%; }
-  .tl-vignettes::after { content: none; }
+  /* La grappe se pose au pied du paragraphe. Elle garde ses proportions —
+     c'est son ::after qui lui donne sa hauteur — au lieu de s'étirer sur
+     toute la colonne : un chapitre long la tirait en bandes étroites, et le
+     cadrage mangeait les bords d'une photo de groupe. */
+  .tl-vignettes { margin-top: 0; align-self: end; }
   .tl-vignettes img { width: auto; max-width: 68%; }
   .tl-vignettes img:nth-child(1) { height: 62%; }
   .tl-vignettes img:nth-child(2) { height: 44%; max-width: 48%; }

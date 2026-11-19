@@ -81,10 +81,18 @@ export function tisser(texte, ctx) {
   return decouper(texte ?? '', ctx)
     .map((x) => (x.id && CODEX_OUVERT ? `<a class="lore" href="/codex/${x.id}">${html(x.t)}</a>` : html(x.t)))
     .join('')
-    .replace(/&lt;br&gt;/g, '<br>')
+    // Le retour à la ligne, sous ses trois écritures : <br>, <br/> et <br />.
+    .replace(/&lt;br\s*\/?&gt;/g, '<br>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/_(.+?)_/g, '<em>$1</em>')
     .replace(/\*(.+?)\*/g, '<span class="script">$1</span>')
+    // Un lien : [le texte](https://…) vers le dehors, [le texte](/in-carne)
+    // vers une page du site. Le premier s'ouvre dans un nouvel onglet — on ne
+    // fait pas sortir quelqu'un du récit en plein milieu. Le second reste ici.
+    .replace(/\[([^\]\n]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/g, (tout, t, url) =>
+      url.startsWith('/')
+        ? `<a class="lien-dehors" href="${url}">${t}</a>`
+        : `<a class="lien-dehors" href="${url}" target="_blank" rel="noopener">${t}</a>`)
     // Les réglages fins : [le texte]{doré grand}
     .replace(/\[([^\]\n]+)\]\{([a-zéè ]+)\}/g, (tout, t, noms) => {
       const c = noms.trim().split(/\s+/).filter((n) => REGLAGES[n]).map((n) => 't-' + n);

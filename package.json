@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
-    "build": "tinacms build --skip-cloud-checks && astro build",
+    "build": "node scripts/verifier-schema.mjs && tinacms build --skip-cloud-checks && astro build",
+    "verifier": "node scripts/verifier-schema.mjs",
     "preview": "astro preview"
   },
   "dependencies": {

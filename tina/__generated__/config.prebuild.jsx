@@ -160,6 +160,8 @@ var config_default = defineConfig({
             ]
           },
           { type: "image", name: "image", label: "Image" },
+          { type: "string", name: "video", label: "Video en bandeau (muette, en boucle)" },
+          { type: "image", name: "galerie", label: "Bande de photos, apres les etapes", list: true },
           { type: "string", name: "lien", label: "Lien" },
           { type: "boolean", name: "reservable", label: "R\xE9servable" },
           { type: "number", name: "ordre", label: "Ordre d'affichage" },
@@ -233,7 +235,7 @@ var config_default = defineConfig({
             label: "Les rendez-vous (page d\xE9di\xE9e)",
             list: true,
             ui: { itemProps: (i) => ({ label: i?.titre ?? "Rendez-vous" }) },
-            fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }]
+            fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "cadence", label: "Cadence" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }]
           },
           { type: "string", name: "explore", label: "Ce qu'on explore ensemble", list: true, description: "Titre | description. Ex. : Ton rythme | ce qui te nourrit, ce qui t'\xE9puise" },
           { type: "string", name: "action", label: "Bouton principal", options: [{ value: "appel", label: "Appel d\xE9couverte" }, { value: "rdv", label: "Prendre rendez-vous" }, { value: "reserver", label: "R\xE9server directement" }], description: "Par d\xE9faut : appel d\xE9couverte pour les accompagnements, rendez-vous pour les soins." },
@@ -372,6 +374,8 @@ var config_default = defineConfig({
         match: { include: "accueil" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
+          { type: "image", name: "hero_photo", label: "Hero \u2014 photo" },
+          { type: "string", name: "avis_ecrire", label: "Lien pour laisser un avis" },
           { type: "string", name: "hero_eyebrow", label: "Hero \u2014 sur-titre" },
           { type: "string", name: "hero_titre", label: "Hero \u2014 titre (sans-serif)" },
           { type: "image", name: "hero_image", label: "Fond du hero" },
@@ -402,6 +406,9 @@ var config_default = defineConfig({
           { type: "string", name: "coeur", label: "Coeur a coeur \u2014 texte", description: "**dore**, *manuscrite*, paragraphes = ligne vide", ui: { component: "textarea" } },
           { type: "string", name: "venir_eyebrow", label: "Pourquoi on vient me voir \u2014 sur-titre" },
           { type: "string", name: "venir_titre", label: "Pourquoi on vient me voir \u2014 titre", description: "*mot* = manuscrite" },
+          { type: "string", name: "venir_crises", label: "Pourquoi on vient me voir \u2014 les situations", list: true, description: "Une situation par ligne, avec son point final. Elles s'encha\xEEnent en une phrase, en pleine lumi\xE8re." },
+          { type: "string", name: "venir_crises_aparte", label: "Pourquoi on vient me voir \u2014 l'apart\xE9", description: "La fin de la phrase, en retrait : celle qui dit qu'on peut venir sans \xEAtre en crise." },
+          { type: "string", name: "venir_pont", label: "Pourquoi on vient me voir \u2014 le pont", description: "Ce qui relie les situations \xE0 ce qu'elles ouvrent." },
           { type: "string", name: "venir_items", label: "Pourquoi on vient me voir \u2014 raisons", list: true, description: "L'action | ce \xE0 quoi elle m\xE8ne. Le \xAB | \xBB s\xE9pare les deux : l'action en capitales fines, la finalit\xE9 en grand italique." },
           { type: "string", name: "posture", label: "Ma posture (citation)", ui: { component: "textarea" } },
           { type: "string", name: "difference_eyebrow", label: "Mon approche \u2014 sur-titre" },
@@ -488,6 +495,8 @@ var config_default = defineConfig({
         match: { include: "a-propos" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
+          { type: "image", name: "hero_photo", label: "Photo du hero" },
+          { type: "string", name: "avis_ecrire", label: "Lien pour laisser un avis" },
           { type: "string", name: "hero_eyebrow", label: "Sur-titre" },
           { type: "string", name: "hero_titre", label: "Titre" },
           { type: "image", name: "hero_image", label: "Fond du hero" },
@@ -498,6 +507,7 @@ var config_default = defineConfig({
             list: true,
             ui: { itemProps: (i) => ({ label: i && i.titre ? i.titre : "Chapitre" }) },
             fields: [
+              { type: "number", name: "acte", label: "Acte auquel ce chapitre appartient" },
               { type: "string", name: "titre", label: "Titre du chapitre" },
               { type: "string", name: "texte", label: "Texte (paragraphes separes par une ligne vide)", ui: { component: "textarea" } },
               { type: "image", name: "image", label: "Photo du chapitre" },
@@ -524,6 +534,21 @@ var config_default = defineConfig({
                 ui: { itemProps: (i) => ({ label: i?.fiche?.split("/").pop()?.replace(".md", "") ?? "Fiche" }) },
                 fields: [{ type: "reference", name: "fiche", label: "Fiche", collections: ["codex"] }]
               }
+            ]
+          },
+          { type: "string", name: "hero_cta", label: "Lien vers le recit, avant le manifeste" },
+          { type: "string", name: "manifeste", label: "Manifeste (avant le recit)", ui: { component: "textarea" } },
+          { type: "string", name: "invitation", label: "Phrase d'entree dans le recit", ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "actes",
+            label: "Actes",
+            list: true,
+            ui: { itemProps: (i) => ({ label: i && i.titre ? i.titre : "Acte" }) },
+            fields: [
+              { type: "number", name: "n", label: "Numero" },
+              { type: "string", name: "titre", label: "Titre de l'acte" },
+              { type: "image", name: "respiration", label: "Photo qui ferme l'acte" }
             ]
           }
         ]

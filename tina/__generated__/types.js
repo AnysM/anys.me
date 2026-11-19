@@ -88,6 +88,8 @@ export const OffresPartsFragmentDoc = gql`
     picto
   }
   image
+  video
+  galerie
   lien
   reservable
   ordre
@@ -138,6 +140,7 @@ export const OffresPartsFragmentDoc = gql`
   cadre_items {
     __typename
     titre
+    cadence
     texte
   }
   explore
@@ -195,6 +198,8 @@ export const CodexPartsFragmentDoc = gql`
           picto
         }
         image
+        video
+        galerie
         lien
         reservable
         ordre
@@ -245,6 +250,7 @@ export const CodexPartsFragmentDoc = gql`
         cadre_items {
           __typename
           titre
+          cadence
           texte
         }
         explore
@@ -389,6 +395,8 @@ export const CodexPartsFragmentDoc = gql`
                 picto
               }
               image
+              video
+              galerie
               lien
               reservable
               ordre
@@ -439,6 +447,7 @@ export const CodexPartsFragmentDoc = gql`
               cadre_items {
                 __typename
                 titre
+                cadence
                 texte
               }
               explore
@@ -675,6 +684,8 @@ export const ArtefactsPartsFragmentDoc = gql`
                 picto
               }
               image
+              video
+              galerie
               lien
               reservable
               ordre
@@ -725,6 +736,7 @@ export const ArtefactsPartsFragmentDoc = gql`
               cadre_items {
                 __typename
                 titre
+                cadence
                 texte
               }
               explore
@@ -918,9 +930,13 @@ export const ArtefactsPartsFragmentDoc = gql`
 export const PagesPartsFragmentDoc = gql`
     fragment PagesParts on Pages {
   __typename
+  hero_photo
+  avis_ecrire
   hero_eyebrow
   hero_titre
   hero_image
+  manifeste
+  invitation
   portrait_image
   resp1_image
   resp2_image
@@ -946,6 +962,9 @@ export const PagesPartsFragmentDoc = gql`
   coeur
   venir_eyebrow
   venir_titre
+  venir_crises
+  venir_crises_aparte
+  venir_pont
   venir_items
   posture
   difference_eyebrow
@@ -1002,14 +1021,22 @@ export const PagesPartsFragmentDoc = gql`
 export const Page_AproposPartsFragmentDoc = gql`
     fragment Page_aproposParts on Page_apropos {
   __typename
+  hero_photo
+  avis_ecrire
   hero_eyebrow
   hero_titre
   hero_image
   chapitres {
     __typename
+    acte
     titre
     texte
     image
+    allure
+    image2
+    phrase
+    apres
+    vignettes
     echos {
       __typename
       fiche {
@@ -1049,6 +1076,8 @@ export const Page_AproposPartsFragmentDoc = gql`
                   picto
                 }
                 image
+                video
+                galerie
                 lien
                 reservable
                 ordre
@@ -1099,6 +1128,7 @@ export const Page_AproposPartsFragmentDoc = gql`
                 cadre_items {
                   __typename
                   titre
+                  cadence
                   texte
                 }
                 explore
@@ -1274,6 +1304,15 @@ export const Page_AproposPartsFragmentDoc = gql`
         }
       }
     }
+  }
+  hero_cta
+  manifeste
+  invitation
+  actes {
+    __typename
+    n
+    titre
+    respiration
   }
 }
     `;

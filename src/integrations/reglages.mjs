@@ -9,6 +9,7 @@ import { join, extname, basename } from 'node:path';
 import sharp from 'sharp';
 import matter from 'gray-matter';
 import { styler, texteNu, enCaracteres, enMarkdown } from '../lib/marques.mjs';
+import { situer } from '../lib/chemin.mjs';
 import { build } from 'esbuild';
 
 // Les dossiers où l'atelier va chercher des photos à essayer.
@@ -79,7 +80,8 @@ function dequote(v) {
 }
 
 function zoneDepuis(lignes, i) {
-  const cle = lignes[i].match(/^(\s*)([A-Za-z_]+):\s*(.*)$/);
+  // La clé peut porter un tiret de liste devant elle, et des guillemets autour.
+  const cle = lignes[i].match(/^( *(?:- +)?)["']?([A-Za-z_]+)["']?:\s*(.*)$/);
   const creuxCle = cle[1].length;
   const valeur = cle[3];
   if (!/^\|-?$/.test(valeur.trim())) {
@@ -182,6 +184,13 @@ export default function reglages() {
     name: 'reglages',
     hooks: {
       'astro:server:setup': ({ server }) => {
+        // Ce que le CMS effacerait sans rien dire : on le sait en ouvrant le
+        // serveur, pas trois pages plus tard quand les titres ont disparu.
+        import('node:child_process').then(({ spawn }) => {
+          const v = spawn(process.execPath, [chemin('../scripts/verifier-schema.mjs')], { stdio: 'inherit' });
+          v.on('error', () => {});
+        });
+
         // ── Les séparations ──────────────────────────────────────────────
         server.middlewares.use('/__reglages', (req, res) => {
           if (req.method !== 'POST') { res.statusCode = 405; return res.end(); }
@@ -319,8 +328,19 @@ export default function reglages() {
               }
             }
             const f = matter.read(chemin('content/pages/' + page + '.md'));
+            // Tous les champs de l'en-tête, aplatis par chemin : « piliers.2.nom ».
+            // L'atelier a besoin de la valeur écrite dans le fichier, avec ses
+            // marques — le texte rendu dans la page les a déjà transformées en
+            // balises, et les réécrire d'après lui les effacerait.
+            const champs = {};
+            (function aplatir(v, route) {
+              if (typeof v === 'string' || typeof v === 'number') { if (route) champs[route] = String(v); return; }
+              if (Array.isArray(v)) return v.forEach((x, i) => aplatir(x, route ? route + '.' + i : String(i)));
+              if (v && typeof v === 'object') return Object.entries(v).forEach(([k, x]) => aplatir(x, route ? route + '.' + k : k));
+            })(f.data, '');
             json(res, { ok: true, photos: photos.sort(), chapitres: f.data.chapitres ?? [],
-              actes: f.data.actes ?? [], manifeste: f.data.manifeste ?? '', invitation: f.data.invitation ?? '' });
+              actes: f.data.actes ?? [], manifeste: f.data.manifeste ?? '',
+              invitation: f.data.invitation ?? '', champs });
           } catch (e) { json(res, { ok: false, erreur: String(e) }, 400); }
         });
 
@@ -411,8 +431,28 @@ export default function reglages() {
                 return json(res, { ok: true });
               }
 
+              // Une valeur d'une ligne atteinte par son chemin : « piliers.2.nom ».
+              // C'est ce qui ouvre l'atelier à toutes les pages du site, et pas
+              // seulement aux quelques clés que le récit connaissait.
+              if (d.action === 'chemin-valeur') {
+                if (typeof d.markdown !== 'string') throw new Error('texte manquant');
+                const place = situer(lignes, d.chemin);
+                const tete = lignes[place].match(/^ *(?:- +)?/)[0];
+                const nom = lignes[place].replace(/^ *(?:- +)?/, '').split(':')[0];
+                const copie = [...lignes];
+                copie[place] = tete + nom + ': ' + citer(d.markdown);
+                const abri = chemin('../.corbeille/textes');
+                if (!existsSync(abri)) await mkdir(abri, { recursive: true });
+                const quand = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                await writeFile(join(abri, page + '-' + quand + '.md'), source, 'utf8');
+                await writeFile(f, copie.join('\n'), 'utf8');
+                return json(res, { ok: true });
+              }
+
               const champ = d.champ && d.champ !== 'chapitres' ? d.champ : null;
-              const zone = champ ? champs[champ] : blocs[d.bloc];
+              // Un long texte atteint par son chemin, où qu'il soit dans l'en-tête.
+              const zone = d.chemin ? zoneDepuis(lignes, situer(lignes, d.chemin))
+                : champ ? champs[champ] : blocs[d.bloc];
               if (!zone) throw new Error(champ ? ('champ « ' + champ + ' » introuvable') : ('bloc ' + d.bloc + ' introuvable (' + blocs.length + ' blocs)'));
 
               const pars = paragraphes(zone.texte);

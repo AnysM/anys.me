@@ -79,6 +79,8 @@ fragment OffresParts on Offres {
     picto
   }
   image
+  video
+  galerie
   lien
   reservable
   ordre
@@ -129,6 +131,7 @@ fragment OffresParts on Offres {
   cadre_items {
     __typename
     titre
+    cadence
     texte
   }
   explore
@@ -185,6 +188,8 @@ fragment CodexParts on Codex {
           picto
         }
         image
+        video
+        galerie
         lien
         reservable
         ordre
@@ -235,6 +240,7 @@ fragment CodexParts on Codex {
         cadre_items {
           __typename
           titre
+          cadence
           texte
         }
         explore
@@ -379,6 +385,8 @@ fragment CodexParts on Codex {
                 picto
               }
               image
+              video
+              galerie
               lien
               reservable
               ordre
@@ -429,6 +437,7 @@ fragment CodexParts on Codex {
               cadre_items {
                 __typename
                 titre
+                cadence
                 texte
               }
               explore
@@ -664,6 +673,8 @@ fragment ArtefactsParts on Artefacts {
                 picto
               }
               image
+              video
+              galerie
               lien
               reservable
               ordre
@@ -714,6 +725,7 @@ fragment ArtefactsParts on Artefacts {
               cadre_items {
                 __typename
                 titre
+                cadence
                 texte
               }
               explore
@@ -906,9 +918,13 @@ fragment ArtefactsParts on Artefacts {
 
 fragment PagesParts on Pages {
   __typename
+  hero_photo
+  avis_ecrire
   hero_eyebrow
   hero_titre
   hero_image
+  manifeste
+  invitation
   portrait_image
   resp1_image
   resp2_image
@@ -934,6 +950,9 @@ fragment PagesParts on Pages {
   coeur
   venir_eyebrow
   venir_titre
+  venir_crises
+  venir_crises_aparte
+  venir_pont
   venir_items
   posture
   difference_eyebrow
@@ -989,14 +1008,22 @@ fragment PagesParts on Pages {
 
 fragment Page_aproposParts on Page_apropos {
   __typename
+  hero_photo
+  avis_ecrire
   hero_eyebrow
   hero_titre
   hero_image
   chapitres {
     __typename
+    acte
     titre
     texte
     image
+    allure
+    image2
+    phrase
+    apres
+    vignettes
     echos {
       __typename
       fiche {
@@ -1036,6 +1063,8 @@ fragment Page_aproposParts on Page_apropos {
                   picto
                 }
                 image
+                video
+                galerie
                 lien
                 reservable
                 ordre
@@ -1086,6 +1115,7 @@ fragment Page_aproposParts on Page_apropos {
                 cadre_items {
                   __typename
                   titre
+                  cadence
                   texte
                 }
                 explore
@@ -1261,6 +1291,15 @@ fragment Page_aproposParts on Page_apropos {
         }
       }
     }
+  }
+  hero_cta
+  manifeste
+  invitation
+  actes {
+    __typename
+    n
+    titre
+    respiration
   }
 }
 
