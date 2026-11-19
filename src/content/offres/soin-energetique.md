@@ -21,6 +21,13 @@ etapes:
   - titre: "L'intégration"
     picto: graine
     texte: "Un temps pour revenir doucement et laisser le soin continuer d'agir."
+benefices:
+  - "Dissiper les énergies lourdes"
+  - "Relâcher le stress et les tensions physiques"
+  - "Soutenir une détente profonde"
+  - "Harmoniser le système nerveux"
+  - "Ressentir de la clarté, de la paix, de la tranquillité"
+  - "Réveiller l'inspiration et la créativité"
 faq:
   - q: "Y a-t-il du contact ?"
     r: "Le soin se fait majoritairement sans contact. Il peut y avoir des contacts ponctuels, à la tête et aux pieds, et ailleurs au cas par cas."

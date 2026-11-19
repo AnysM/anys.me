@@ -21,10 +21,12 @@ etapes:
     picto: graine
     texte: "Un temps de repos pour laisser le soin s'ancrer en profondeur avant de repartir."
 benefices:
-  - "De l'ancrage et de la sécurité"
-  - "De la détente, profonde"
-  - "De la clarté et du dynamisme"
-  - "De la confiance, dans ton corps"
+  - "Délier les tensions en profondeur"
+  - "Faire circuler l'énergie stagnante"
+  - "Retrouver de l'ancrage et de la sécurité"
+  - "Revenir à une détente profonde"
+  - "Gagner en clarté et en dynamisme"
+  - "Retrouver confiance dans ton corps"
 faq:
   - q: "Où ont lieu les soins ?"
     r: "À Lyon : chez Meïsō ou à l'Île Barbe."
