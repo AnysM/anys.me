@@ -408,8 +408,12 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .manifeste p:last-child .script { font-size: 2.45em; line-height: 0.9; }
 /* « Le temps », écrit une seule fois à la main, en tête de la première ligne :
    la litanie le continue sans jamais le répéter. */
+/* La tête ne se coupe jamais en deux : « Une mémoire » sur une seule ligne, et
+   sa flèche descend juste dessous. Sur un écran étroit elle rapetisse plutôt
+   que de passer à la ligne, sinon la flèche se retrouvait entre ses deux mots. */
 .manifeste p .litanie__tete { font-family: 'Biloxi Script', cursive; font-style: normal;
-  font-size: 3.5em; line-height: 0.85; color: var(--gold); margin-right: 0.08em; }
+  font-size: 3.5em; line-height: 0.85; color: var(--gold);
+  margin-right: 0.08em; white-space: nowrap; }
 .manifeste .litanie { position: relative; padding-left: clamp(1.6rem, 3vw, 2.6rem); }
 /* Une petite flèche ouvre chaque moment de la litanie. */
 .manifeste .litanie::before { content: '\2192'; position: absolute; left: 0;
@@ -417,7 +421,7 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 /* La première ligne s'ouvre par le mot manuscrit : sa flèche descend d'une
    ligne pour se poser dans la marge en face du texte, alignée sur celles des
    lignes suivantes, au lieu de rester collée au grand mot. */
-.manifeste .litanie--premiere::before { top: 3.3em; }
+.manifeste .litanie--premiere::before { top: calc(var(--tete, 3.5em) * 0.94); }
 .manifeste .litanie--premiere { margin-top: clamp(2.2rem, 4vw, 3.2rem); }
 /* Le mot manuscrit ouvre la litanie : il se tient au bord du bloc, pas en
    retrait avec les lignes qu'il annonce. On lui rend la marge que la litanie
@@ -432,10 +436,14 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 .manifeste .litanie { font-family: 'Jost', sans-serif; font-weight: 300;
   font-size: clamp(0.98rem, 1.35vw, 1.1rem); line-height: 1.8; color: #C9CBD8; }
 .manifeste .litanie strong { font-weight: 500; }
+/* Sur un écran étroit la tête rapetisse plutôt que de passer à la ligne :
+   coupée en deux, elle laissait sa flèche tomber entre ses deux mots. */
+@media (max-width: 860px) { .manifeste .litanie { --tete: 3.7em; } }
+@media (max-width: 560px) { .manifeste .litanie { --tete: 3em; } }
 /* Les têtes manuscrites sont en em : sur un texte devenu plus petit, elles
    auraient rétréci avec lui, alors qu'elles tiennent le haut de la litanie. */
-.manifeste .litanie .litanie__tete { font-size: 4.5em; }
-.manifeste .litanie--premiere::before { top: 4.3em; }
+.manifeste .litanie .litanie__tete { font-size: var(--tete, 4.5em); }
+.manifeste .litanie--premiere::before { top: calc(var(--tete, 4.5em) * 0.955); }
 .manifeste p:last-child { font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold);
   font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.45;
   margin-top: clamp(2.4rem, 4vw, 3.4rem); }
