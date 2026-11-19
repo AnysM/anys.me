@@ -1169,7 +1169,9 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* Le sommaire de l'À propos : deux repères, avant le manifeste. Il dit où
    l'on est, et par où passer pour aller droit au récit. */
 .porte-recit { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center;
-  gap: 0.5rem 1.6rem; margin: clamp(2.6rem, 5vw, 4rem) auto 0; padding: 0 1rem;
+  /* Le hero garde déjà tout l'air qu'il faut sous son bord de pinceau : le
+     sommaire s'y pose, au lieu d'ajouter sa propre marge par-dessus. */
+  gap: 0.5rem 1.6rem; margin: clamp(0.7rem, 1.2vw, 1.1rem) auto 0; padding: 0 1rem;
   font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.72rem; }
 .porte-recit__ici { color: var(--cream); border-bottom: 1px solid var(--gold); padding-bottom: 0.4rem; }
 .porte-recit__lien { color: var(--muted); padding-bottom: 0.4rem; border-bottom: 1px solid transparent; transition: color 0.3s, border-color 0.3s; }
