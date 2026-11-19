@@ -12,7 +12,14 @@ const taille = mode === 'fin' ? `${t}em` : `${t}px`;
 const dx = r.dx ?? 0, dy = r.dy ?? 0, tour = r.tour ?? 0, miroir = r.miroir ?? false;
 // Deux réglages distincts : le placement, qui ne vaut que pour la pose réglée,
 // et l'attitude du dessin, qui le suit partout.
-const place = `translate(${dx}px, ${dy}px)`;
+// Un signe posé en bout de titre se mesure dans la lettre : sa taille est en em,
+// son décalage doit l'être aussi. En pixels, le même réglage qui l'effleure au
+// large vient se coller sur le mot dès que le titre rétrécit. REF est la taille
+// d'un titre de section dans une fenêtre large, celle où les réglages se font.
+const REF = 43.2;
+const place = mode === 'fin'
+  ? `translate(${(dx / REF).toFixed(4)}em, ${(dy / REF).toFixed(4)}em)`
+  : `translate(${dx}px, ${dy}px)`;
 const attitude = `rotate(${tour}deg)${miroir ? ' scaleX(-1)' : ''}`;
 ---
 <img

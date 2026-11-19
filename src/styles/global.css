@@ -635,7 +635,14 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
    OPTIMISATION MOBILE
    ════════════════════════════════ */
 @media (max-width: 760px) {
-  .hero-name .top { white-space: normal; }
+  /* Les titres se coupent par le milieu plutôt qu'en laissant un mot seul. */
+  .hero-name .top { white-space: normal; text-wrap: balance; }
+  /* Le manuscrit vaut deux fois le titre : au large il tient sur une ligne, sur
+     un téléphone il déborde et ses deux lignes se rentrent dedans. */
+  .hero-name .serif-i { font-size: 1.62em; line-height: 0.98; text-wrap: balance; }
+  h1, h2 { text-wrap: balance; }
+  h1 .script, h2 .script { font-size: 1.7em; }
+  .eyebrow { text-wrap: balance; }
   .foot__grid { grid-template-columns: 1fr 1fr; gap: 1.8rem; }
   .foot__brand { grid-column: 1 / -1; }
   .foot__bottom { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
@@ -659,6 +666,21 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
   /* Hero d'accueil */
   #hero { min-height: 82vh; }
   .hero-left { padding: clamp(56px, 7vh, 90px) 22px; }
+  /* Le voile de l'accueil est tracé en diagonale : dans une fenêtre large il
+     passe de l'ombre au jour sur la largeur, mais dans un écran étroit la même
+     diagonale descend presque à la verticale et noie la photo dans le bleu
+     nuit. Sur mobile, le jour se tient donc en haut à droite, là où je suis. */
+  #hero::before { background: linear-gradient(197deg, #FFFFFF 0%, #B4BACB 34%, #39415F 70%, #1E2540 100%); }
+  /* Et l'ombre revient par la gauche et par le bas, sous le texte, qui garde sa lisibilité. */
+  #hero::after { background:
+    linear-gradient(to bottom, rgba(8,13,38,0.50) 0%, rgba(8,13,38,0.14) 26%, rgba(8,13,38,0.30) 62%, var(--navy) 100%),
+    linear-gradient(to right, rgba(8,13,38,0.52) 0%, rgba(8,13,38,0.12) 62%, rgba(8,13,38,0) 100%); }
+  .hero-bg img { opacity: 0.92; }
+  /* Le trait d'or de la ligne de tête ne dit rien ici, et il casse la ligne en deux. */
+  #hero .eyebrow::after { content: none; }
+  /* L'invitation à faire défiler tombe sous le bouton : sur un téléphone on fait
+     défiler sans qu'on le demande. */
+  .hero-scroll { display: none; }
 
   /* Passages centrés et respirations : tailles adaptées */
   .passage p { font-size: clamp(1.25rem, 6vw, 1.7rem); max-width: 26ch; }

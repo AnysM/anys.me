@@ -250,7 +250,9 @@ const R = REGLAGES as Record<string, any>;
         img.src = '/img/signes/' + r.n + '.png';
         img.style.height = r.mode === 'fin' ? r.taille + 'em' : r.taille + 'px';
         img.style.opacity = r.force;
-        img.style.transform = 'translate(' + r.dx + 'px,' + r.dy + 'px) rotate(' + r.tour + 'deg)'
+        // Même mesure que sur le site : en bout de titre, le décalage suit la lettre.
+        var u = r.mode === 'fin' ? [(r.dx / 43.2) + 'em', (r.dy / 43.2) + 'em'] : [r.dx + 'px', r.dy + 'px'];
+        img.style.transform = 'translate(' + u[0] + ',' + u[1] + ') rotate(' + r.tour + 'deg)'
           + (r.miroir ? ' scaleX(-1)' : '');
         place.querySelector('[data-sortie=taille]').textContent = r.taille;
         place.querySelector('[data-unite]').textContent = r.mode === 'fin' ? ' fois le texte' : ' px';
