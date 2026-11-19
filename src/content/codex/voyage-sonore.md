@@ -13,6 +13,6 @@ liens:
 ordre: 3
 date: 2026-09-18
 ---
-Allongé, les yeux fermés, on se laisse traverser. Les vibrations délient les tensions, laissent la place aux émotions et rouvrent l'accès à sa créativité.
+On se laisse traverser par le son. Les vibrations délient les tensions, laissent la place aux émotions et rouvrent l'accès à sa créativité.
 
-Le voyage sonore clôt les ateliers Infloressence. Il prend aussi la forme d'expériences plus larges, comme « Dans le Triangle », où narration, musique spatialisée et lumière composent une traversée que l'on vit ensemble.
+Dans les ateliers Infloressence, le son fait partie de la guidance Butoh poétique : il vient soutenir le mouvement authentique. Le voyage sonore prend aussi la forme d'expériences plus larges, comme « Dans le Triangle », où narration, musique spatialisée et lumière composent une traversée que l'on vit ensemble.

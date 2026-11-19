@@ -69,7 +69,7 @@ Un rendez-vous chaque semaine, où **le corps reprend la parole**.
 
 Ce qui demande à circuler en nous reste souvent bloqué par le mental, les injonctions, les conditionnements du quotidien. Cet atelier ouvre un passage.
 
-La méditation de pleine conscience installe la présence. La danse Butoh libère le mouvement authentique et l'imaginaire. Le voyage sonore délie les tensions, laisse la place aux émotions et rouvre l'accès à sa créativité.
+La méditation de pleine conscience installe la présence. La danse Butoh libère le mouvement authentique et l'imaginaire, portée par une guidance poétique et par le voyage sonore, qui délie les tensions, laisse la place aux émotions et rouvre l'accès à sa créativité.
 
 Ce que ça apporte : des degrés de liberté dans le corps, et par là, **des degrés de liberté dans la vie**. Dans ce qu'on se croit capable d'être, d'oser, d'exprimer.
 

@@ -2,13 +2,13 @@
 
 ## Dans quel ordre
 
-1. Coller la description. 2 minutes.
-2. Créer les onze services. Compter 20 minutes, c'est le plus long.
-3. Publier les quatre posts Événement, et les cinq dates du Chaudron.
-4. Régler la catégorie principale, la zone de service, les photos.
-5. Le lien du site, le jour de la bascule, pas avant.
+1. ✅ La description est en ligne.
+2. ✅ Les onze services sont créés avec leur description, et les trois anciens services vides sont supprimés.
+3. ⏳ Infloressence et Dans le Triangle sont publiés. Restent Le Chaudron et Desert Mirage.
+4. 🔧 Régler la catégorie principale, la zone de service, les photos.
+5. 🔧 Le lien du site, le jour de la bascule, pas avant.
 
-Ce fichier ne publie rien. C'est le texte de référence : ce qui est sur la fiche doit être ici, et ce qui change ici se recolle là-bas.
+État au 10 novembre 2026. Ce fichier ne publie rien. C'est le texte de référence : ce qui est sur la fiche doit être ici, et ce qui change ici se recolle là-bas.
 
 ## La description à coller · 259 caractères
 
@@ -43,6 +43,8 @@ Deux refus automatiques : plus de 750 caractères, et tout lien ou numéro de t�
 - La phrase « ni maître, ni éveillé » reste : c'est la meilleure du site.
 
 ## Les services, un par offre
+
+✅ Les onze sont en ligne depuis le 10 novembre 2026. *Voyages initiatiques*, *Immersions en nature* et *Résidences artistiques*, qui traînaient sans description, sont supprimés.
 
 Google limite chaque description à **300 caractères**. L'ordre compte : les premiers sont les plus vus. Chaque service se crée dans **Modifier le profil · Services · Ajouter un service**, avec son nom, son prix quand il est fixe, et sa description.
 
@@ -120,15 +122,19 @@ Le titre est limité à **58 caractères**, et seules les deux premières lignes
 
 **Quand** · dim 15 nov · 19h - 20h30 · Chanka Studio, Lyon · *titre : 50 caractères*
 
+✅ Publié le 10 novembre 2026, sans photo ni bouton.
+
 > Dimanche 15 novembre, de 19h à 20h30, à Chanka Studio, 51 quai Saint-Vincent, Lyon. Méditation de pleine conscience, danse Butoh et voyage sonore, pour revenir au corps et à la présence. Aucune expérience requise. 20 € la séance.
 
 **Bouton** · Réserver
 
 ### Dans le Triangle · voyage sonore immersif
 
-**Quand** · ven 27 nov · 19h30 · Blast Art, Lyon · *titre : 41 caractères*
+**Quand** · ven 22 janvier 2027 · 19h30 - 23h · Blast Art, Lyon · *titre : 41 caractères*
 
-> Vendredi 27 novembre, portes à 19h30, chez Blast Art à Lyon. Une expérience sonore et corporelle immersive, un soir de pleine lune : narration en direct, musique spatialisée, lumière. Une trentaine de places, costume bienvenu, 15 €. Une fois le navire parti, on ne monte plus à bord.
+✅ Publié le 10 novembre 2026, sans photo ni bouton.
+
+> Vendredi 22 janvier 2027, portes à 19h30, chez Blast Art à Lyon. Une expérience sonore et corporelle immersive, un soir de pleine lune : narration en direct, musique spatialisée, lumière. Départ à 20h, retour vers 21h30, pot de célébration jusqu'à 23h. Une trentaine de places, costume bienvenu, 15 €. Une fois le navire parti, on ne monte plus à bord.
 
 **Bouton** · Réserver
 
@@ -152,10 +158,11 @@ Le titre est limité à **58 caractères**, et seules les deux premières lignes
 
 Un post par date, même texte, même bouton : dim 27 déc, dim 31 janv, dim 28 févr, dim 28 mars, tous à 20h, en ligne, gratuit.
 
-### ⚠️ Deux choses à vérifier avant de publier
+### ✅ Les deux alertes du 10 novembre sont levées
 
-- Le **vendredi 27 novembre** porte Infloressence de 18h30 à 20h à Chanka et Dans le Triangle à 19h30 chez Blast Art. Les deux sont annoncés sur ton agenda, et tu ne peux pas être aux deux.
-- La page Dans le Triangle parle de la **pleine lune du 26 octobre** alors que l'événement est daté du 27 novembre. Une des deux dates est fausse.
+- **Dans le Triangle est le 22 janvier 2027**, pas le 27 novembre. Le 27 novembre venait de `textes-du-site.md`, un export figé pris avant le commit 01a1b00 qui a déplacé la soirée en janvier. La source est `src/content/agenda/voyage-sonore.md`.
+- Donc **pas de conflit le 27 novembre** : il n'y a qu'Infloressence ce soir-là.
+- **Pleine lune du 22 janvier 2027**, vérifiée au calendrier lunaire. Le corps de la page agenda disait encore « pleine lune du 26 octobre » : corrigé.
 
 
 ## Le reste de la fiche, à vérifier en même temps
