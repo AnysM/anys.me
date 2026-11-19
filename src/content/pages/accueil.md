@@ -121,6 +121,7 @@ temoins_image: /img/photos/dscf1406.jpg
 avis_note: "4,9"
 avis_nombre: 10
 avis_lien: "https://maps.app.goo.gl/CnLaNqN29Z1cmfq96"
+avis_ecrire: "https://g.page/r/CTBEg-uNAE3QEBM/review"
 difference_eyebrow: Mon approche
 difference_titre: "Ce en quoi *je crois*"
 difference:

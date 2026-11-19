@@ -1,6 +1,6 @@
 ---
 // Témoignages en cartes lisibles, avec la note Google quand elle est connue.
-const { bordHaut = true, reglage = undefined, temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, fond = false, image = null } = Astro.props;
+const { bordHaut = true, reglage = undefined, temoignages = [], titre: titreDonne = undefined, eyebrow = 'Traversées', note = null, nombre = null, lien = null, lienAvis = null, fond = false, image = null } = Astro.props;
 import Separateur from './Separateur.astro';
 const carrousel = temoignages.length > 3;
 const seul = temoignages.length === 1;
@@ -22,6 +22,9 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
             <span class="avis-google__etoiles" aria-hidden="true">★★★★★</span>
             <span><b>{note}</b> sur Google{nombre && ` · ${nombre} avis`}</span>
           </a>
+        )}
+        {lienAvis && (
+          <a class="avis-ecrire" href={lienAvis} target="_blank" rel="noopener">Tu as traversé quelque chose avec moi ? Laisse un avis</a>
         )}
       </div>
       <div class={carrousel ? 'carrousel' : `temoins-offre__grille${seul ? ' temoins-offre__grille--seul' : ''}`} data-carrousel={carrousel ? '' : undefined}>
@@ -54,23 +57,41 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
     document.querySelectorAll('[data-carrousel]').forEach(function (c) {
       if (c.dataset.pret) return; c.dataset.pret = '1';
       var piste = c.querySelector('.carrousel__piste');
-      var cartes = Array.prototype.slice.call(piste.querySelectorAll('.temoin-carte'));
+      if (!piste) return;
+      var cartes = Array.prototype.slice.call(piste.children);
+      if (!cartes.length) return;
       var puces = Array.prototype.slice.call(c.querySelectorAll('.carrousel__puce'));
+      var fleches = Array.prototype.slice.call(c.querySelectorAll('.carrousel__btn'));
+      function pos(i) { return cartes[i].offsetLeft - piste.offsetLeft; }
       function aller(i) {
         i = Math.max(0, Math.min(cartes.length - 1, i));
-        piste.scrollTo({ left: cartes[i].offsetLeft - piste.offsetLeft, behavior: 'smooth' });
+        piste.scrollTo({ left: pos(i), behavior: 'smooth' });
       }
-      function actuel() {
+      // La carte posée contre le bord gauche. C'est d'elle qu'on avance ou qu'on recule,
+      // sinon en bout de piste les flèches viseraient une position déjà atteinte.
+      function base() {
         var x = piste.scrollLeft, meilleur = 0;
-        cartes.forEach(function (k, i) { if (Math.abs(k.offsetLeft - piste.offsetLeft - x) < Math.abs(cartes[meilleur].offsetLeft - piste.offsetLeft - x)) meilleur = i; });
-        // En bout de piste, la dernière carte est la courante
-        if (x + piste.clientWidth >= piste.scrollWidth - 4) meilleur = cartes.length - 1;
+        cartes.forEach(function (k, i) { if (Math.abs(pos(i) - x) < Math.abs(pos(meilleur) - x)) meilleur = i; });
         return meilleur;
       }
-      function maj() { var i = actuel(); puces.forEach(function (p, j) { if (j === i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current'); }); }
-      c.querySelectorAll('.carrousel__btn').forEach(function (b) { b.addEventListener('click', function () { aller(actuel() + Number(b.dataset.sens)); }); });
+      function auDebut() { return piste.scrollLeft <= 4; }
+      function aLaFin() { return piste.scrollLeft + piste.clientWidth >= piste.scrollWidth - 4; }
+      // Pour les puces : en bout de piste, la dernière carte est la courante.
+      function actuel() { return aLaFin() ? cartes.length - 1 : base(); }
+      function maj() {
+        var i = actuel();
+        puces.forEach(function (p, j) { if (j === i) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current'); });
+        fleches.forEach(function (b) {
+          var bout = Number(b.dataset.sens) < 0 ? auDebut() : aLaFin();
+          b.disabled = bout;
+          b.setAttribute('aria-disabled', bout ? 'true' : 'false');
+        });
+      }
+      fleches.forEach(function (b) { b.addEventListener('click', function () { aller(base() + Number(b.dataset.sens)); }); });
       puces.forEach(function (p) { p.addEventListener('click', function () { aller(Number(p.dataset.i)); }); });
       piste.addEventListener('scroll', function () { requestAnimationFrame(maj); }, { passive: true });
+      window.addEventListener('resize', function () { requestAnimationFrame(maj); });
+      maj();
     });
   })();
 </script>
