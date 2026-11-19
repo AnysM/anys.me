@@ -67,7 +67,7 @@ chapitres:
     vignettes:
       - /img/recit/moines-seul.jpg
       - /img/recit/himalaya-seul.jpg
-      - /img/recit/buto-seul.jpg
+      - /img/recit/buto-foret.jpg
   - acte: 3
     texte: |-
       En revenant, je m'investis à fond dans la transition écologique et sociétale et cofonde l'[Archipel Kyosei](https://archipelkyosei.com).
