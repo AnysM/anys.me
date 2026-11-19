@@ -606,16 +606,24 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
     grid-row: 2;
     /* L'écart entre les lignes de la grille tient déjà lieu de marge. */
     margin-top: 0; }
-  /* La grappe se pose au pied du paragraphe. Elle garde ses proportions —
-     c'est son ::after qui lui donne sa hauteur — au lieu de s'étirer sur
-     toute la colonne : un chapitre long la tirait en bandes étroites, et le
-     cadrage mangeait les bords d'une photo de groupe. */
-  .tl-vignettes { margin-top: 0; align-self: end; }
+  /* La grappe se tient au milieu du paragraphe. Elle garde ses proportions,
+     c'est son ::after qui lui donne sa hauteur, au lieu de s'étirer sur toute
+     la colonne : un chapitre long la tirait en bandes étroites, et le cadrage
+     mangeait les bords d'une photo de groupe. */
+  .tl-vignettes { margin-top: 0; align-self: center; }
   .tl-vignettes img { width: auto; max-width: 68%; }
   .tl-vignettes img:nth-child(1) { height: 62%; }
   .tl-vignettes img:nth-child(2) { height: 44%; max-width: 48%; }
   .tl-vignettes img:nth-child(3) { height: 38%; max-width: 40%; }
   .tl-vignettes--1 img:nth-child(1) { height: 76%; top: 12%; max-width: 58%; }
+  /* Le récit se ferme sur mon visage. Cette photo-là descend jusqu'à la
+     signature et prend toute la hauteur qu'elle peut : elle n'est plus
+     recadrée dans une boîte, c'est elle qui donne sa hauteur à la colonne. */
+  .tl-row--vignettes:has(.recit-signature) .tl-vignettes { align-self: end; }
+  .tl-row--vignettes:has(.recit-signature) .tl-vignettes::after { content: none; }
+  .tl-row--vignettes:has(.recit-signature) .tl-vignettes img:nth-child(1) {
+    position: static; width: 100%; max-width: none; height: auto;
+    object-fit: contain; aspect-ratio: auto; }
 }
 
 /* La photo en face du texte : elle tient sa moitié et sort par le bord. */
