@@ -75,6 +75,7 @@ livrable_titre: "Pas un PDF qu'on *oublie* dans un dossier."
 livrable:
   - "**Tes trois cartes, vivantes.** Chaque sceau, chaque pilier, chaque porte s'ouvre et se lit."
   - "**Un parcours en cinq temps.** De l'essentiel au concret : ce que tu es, comment tu fonctionnes, ce qui te freine, et ce que ça change dans ton travail et tes relations."
+  - "**Tes notes, mes réponses.** Tu commentes n'importe quel passage, je te réponds dessus. La séance continue après la séance."
   - "**Le replay de notre séance**, et ta visualisation, à réécouter."
   - "**Une version imprimable**, si tu préfères le papier."
   - "**Un lien à toi**, que tu gardes."
@@ -82,12 +83,18 @@ livrable_vues:
   - image: /img/prisme-parcours.webp
     alt: "Le parcours de lecture en cinq chapitres"
     largeur: 2880
+    titre: "Ta page, dans ton navigateur"
+    forme: fenetre
   - image: /img/prisme-mobile.webp
     alt: "La page personnelle sur téléphone"
     largeur: 780
+    titre: "Dans ta poche, à vie"
+    forme: telephone
   - image: /img/prisme-pdf.webp
     alt: "La version imprimable, en thème clair"
     largeur: 2200
+    titre: "Et sur papier, si tu préfères"
+    forme: papier
 calcul_eyebrow: "Le calcul est vérifié"
 calcul: |-
   Les trois cartes sont calculées, pas recopiées. Le Human Design s'appuie sur les éphémérides astronomiques, le BaZi sur le calendrier luni-solaire, le Tzolk'in sur la formule du compte Dreamspell.

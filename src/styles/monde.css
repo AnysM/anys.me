@@ -1207,16 +1207,51 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .livrable__liste li::before { content: ''; position: absolute; left: 0; top: 0.72em;
   width: 7px; height: 7px; border-radius: 50%; background: var(--gold); opacity: 0.8; }
 .livrable__liste strong { color: var(--cream); font-weight: 500; }
+/* Trois captures alignées dans le même cadre, ça ne disait pas ce qu'on reçoit.
+   Chacune devient l'objet qu'elle est : une fenêtre, un téléphone, une feuille
+   imprimée. On reconnaît la forme avant de lire la légende. */
 .livrable__vues { display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1rem, 2.4vw, 2rem); margin-top: clamp(2.4rem, 5vw, 3.6rem); align-items: start; }
-.livrable__vue { margin: 0; }
-/* Les trois captures n'ont pas le même format, le téléphone est trois fois plus
-   haut que le parcours. On leur donne un cadre commun et on montre le haut de
-   chacune : la rangée se lit d'un coup, au lieu de former un escalier. */
-.livrable__vue img { display: block; width: 100%; aspect-ratio: 3 / 4;
-  object-fit: cover; object-position: top center;
-  border: 1px solid var(--faint); border-radius: 10px; }
-@media (max-width: 760px) { .livrable__vue img { aspect-ratio: 4 / 3; } }
+  gap: clamp(1.4rem, 3vw, 2.6rem); margin-top: clamp(2.6rem, 5vw, 4rem); align-items: end; }
+.livrable__vue { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
+.livrable__objet { position: relative; width: 100%; }
+.livrable__vue img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.livrable__vue figcaption { font-family: 'Jost', sans-serif; text-transform: uppercase;
+  letter-spacing: 0.12em; font-size: 0.68rem; color: var(--muted); text-align: center; }
+
+/* La fenêtre : une barre de navigateur, et la page dessous. */
+.livrable__vue--fenetre .livrable__objet { border: 1px solid var(--faint); border-radius: 10px;
+  overflow: hidden; background: var(--navy); box-shadow: 0 22px 44px rgba(0,0,0,0.4); }
+.livrable__barre { display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px;
+  background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--faint); }
+.livrable__barre i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+.livrable__vue--fenetre img { aspect-ratio: 16 / 11; }
+
+/* Le téléphone : un boîtier étroit, posé plus bas que les deux autres. */
+.livrable__vue--telephone .livrable__objet { width: min(72%, 190px); margin: 0 auto;
+  padding: 8px; border-radius: 30px; background: #10162c;
+  border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 24px 48px rgba(0,0,0,0.5); }
+.livrable__vue--telephone .livrable__objet::before { content: ''; position: absolute;
+  top: 16px; left: 50%; transform: translateX(-50%); width: 46px; height: 5px;
+  border-radius: 100px; background: rgba(255,255,255,0.22); z-index: 2; }
+.livrable__vue--telephone img { aspect-ratio: 9 / 17; border-radius: 23px; }
+
+/* La feuille : du papier clair, posé de travers, avec une deuxième page dessous. */
+.livrable__vue--papier .livrable__objet { width: min(86%, 250px); margin: 0 auto;
+  transform: rotate(-2.2deg); transition: transform 0.4s var(--ease, ease); }
+.livrable__vue--papier .livrable__objet::before { content: ''; position: absolute;
+  inset: 0; transform: rotate(3.4deg) translate(6px, 5px); background: #EFEBE3;
+  box-shadow: 0 16px 34px rgba(0,0,0,0.42); }
+.livrable__vue--papier img { position: relative; aspect-ratio: 1 / 1.34;
+  object-position: top center; background: #FBF8F2;
+  box-shadow: 0 20px 42px rgba(0,0,0,0.46); }
+.livrable__vue--papier:hover .livrable__objet { transform: rotate(0deg); }
+@media (prefers-reduced-motion: reduce) { .livrable__vue--papier .livrable__objet { transition: none; } }
+
+@media (max-width: 760px) {
+  .livrable__vues { grid-template-columns: 1fr; gap: 2.6rem; }
+  .livrable__vue--telephone .livrable__objet { width: min(58%, 210px); }
+  .livrable__vue--papier .livrable__objet { width: min(70%, 270px); }
+}
 @media (max-width: 760px) { .livrable__vues { grid-template-columns: 1fr; } }
 
 /* Le calcul vérifié : un aparté sobre, juste avant les questions. */

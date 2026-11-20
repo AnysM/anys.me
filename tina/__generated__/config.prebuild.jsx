@@ -205,7 +205,13 @@ var config_default = defineConfig({
             fields: [
               { type: "image", name: "image", label: "Image" },
               { type: "string", name: "alt", label: "Description de l'image" },
-              { type: "number", name: "largeur", label: "Largeur r\xE9elle, en pixels" }
+              { type: "number", name: "largeur", label: "Largeur r\xE9elle, en pixels" },
+              { type: "string", name: "titre", label: "L\xE9gende sous l'image" },
+              { type: "string", name: "forme", label: "Objet \xE0 repr\xE9senter", options: [
+                { value: "fenetre", label: "Fen\xEAtre de navigateur" },
+                { value: "telephone", label: "T\xE9l\xE9phone" },
+                { value: "papier", label: "Feuille imprim\xE9e" }
+              ] }
             ]
           },
           { type: "string", name: "calcul_eyebrow", label: "Bloc confiance \u2014 sur-titre" },

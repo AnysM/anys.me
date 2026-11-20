@@ -155,6 +155,12 @@ export default defineConfig({
               { type: "image", name: "image", label: "Image" },
               { type: "string", name: "alt", label: "Description de l'image" },
               { type: "number", name: "largeur", label: "Largeur réelle, en pixels" },
+              { type: "string", name: "titre", label: "Légende sous l'image" },
+              { type: "string", name: "forme", label: "Objet à représenter", options: [
+                { value: "fenetre", label: "Fenêtre de navigateur" },
+                { value: "telephone", label: "Téléphone" },
+                { value: "papier", label: "Feuille imprimée" },
+              ] },
             ] },
           { type: "string", name: "calcul_eyebrow", label: "Bloc confiance — sur-titre" },
           { type: "string", name: "calcul", label: "Bloc confiance — texte", ui: { component: "textarea" } },

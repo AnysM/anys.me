@@ -208,7 +208,13 @@ const jsonld = [
       </div>
       {d.livrable_vues?.length > 0 && (
         <div class="wrap livrable__vues">{d.livrable_vues.map((v) => (
-          <figure class="livrable__vue"><img src={v.image} alt={v.alt ?? ''} srcset={v.largeur ? jeu(v.image, v.largeur) : undefined} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" /></figure>
+          <figure class={`livrable__vue livrable__vue--${v.forme ?? 'fenetre'}`}>
+            <div class="livrable__objet">
+              {v.forme === 'fenetre' && <span class="livrable__barre" aria-hidden="true"><i></i><i></i><i></i></span>}
+              <img src={v.image} alt={v.alt ?? ''} srcset={v.largeur ? jeu(v.image, v.largeur) : undefined} sizes="(min-width: 900px) 30vw, 80vw" loading="lazy" />
+            </div>
+            {v.titre && <figcaption>{v.titre}</figcaption>}
+          </figure>
         ))}</div>
       )}
     </section>

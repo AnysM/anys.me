@@ -96,6 +96,23 @@ fragment OffresParts on Offres {
     q
     r
   }
+  etapes_image
+  etapes_alt
+  etapes_largeur
+  hero_logo
+  livrable_eyebrow
+  livrable_titre
+  livrable
+  livrable_vues {
+    __typename
+    image
+    alt
+    largeur
+    titre
+    forme
+  }
+  calcul_eyebrow
+  calcul
   benefices
   pourqui_titre
   pourqui
@@ -118,6 +135,9 @@ fragment OffresParts on Offres {
     titre
     cadence
     texte
+    image
+    alt
+    largeur
   }
   cap_eyebrow
   cap_titre
@@ -205,6 +225,23 @@ fragment CodexParts on Codex {
           q
           r
         }
+        etapes_image
+        etapes_alt
+        etapes_largeur
+        hero_logo
+        livrable_eyebrow
+        livrable_titre
+        livrable
+        livrable_vues {
+          __typename
+          image
+          alt
+          largeur
+          titre
+          forme
+        }
+        calcul_eyebrow
+        calcul
         benefices
         pourqui_titre
         pourqui
@@ -227,6 +264,9 @@ fragment CodexParts on Codex {
           titre
           cadence
           texte
+          image
+          alt
+          largeur
         }
         cap_eyebrow
         cap_titre
@@ -402,6 +442,23 @@ fragment CodexParts on Codex {
                 q
                 r
               }
+              etapes_image
+              etapes_alt
+              etapes_largeur
+              hero_logo
+              livrable_eyebrow
+              livrable_titre
+              livrable
+              livrable_vues {
+                __typename
+                image
+                alt
+                largeur
+                titre
+                forme
+              }
+              calcul_eyebrow
+              calcul
               benefices
               pourqui_titre
               pourqui
@@ -424,6 +481,9 @@ fragment CodexParts on Codex {
                 titre
                 cadence
                 texte
+                image
+                alt
+                largeur
               }
               cap_eyebrow
               cap_titre
@@ -690,6 +750,23 @@ fragment ArtefactsParts on Artefacts {
                 q
                 r
               }
+              etapes_image
+              etapes_alt
+              etapes_largeur
+              hero_logo
+              livrable_eyebrow
+              livrable_titre
+              livrable
+              livrable_vues {
+                __typename
+                image
+                alt
+                largeur
+                titre
+                forme
+              }
+              calcul_eyebrow
+              calcul
               benefices
               pourqui_titre
               pourqui
@@ -712,6 +789,9 @@ fragment ArtefactsParts on Artefacts {
                 titre
                 cadence
                 texte
+                image
+                alt
+                largeur
               }
               cap_eyebrow
               cap_titre
@@ -1080,6 +1160,23 @@ fragment Page_aproposParts on Page_apropos {
                   q
                   r
                 }
+                etapes_image
+                etapes_alt
+                etapes_largeur
+                hero_logo
+                livrable_eyebrow
+                livrable_titre
+                livrable
+                livrable_vues {
+                  __typename
+                  image
+                  alt
+                  largeur
+                  titre
+                  forme
+                }
+                calcul_eyebrow
+                calcul
                 benefices
                 pourqui_titre
                 pourqui
@@ -1102,6 +1199,9 @@ fragment Page_aproposParts on Page_apropos {
                   titre
                   cadence
                   texte
+                  image
+                  alt
+                  largeur
                 }
                 cap_eyebrow
                 cap_titre
