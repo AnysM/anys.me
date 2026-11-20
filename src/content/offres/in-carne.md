@@ -9,7 +9,7 @@ format: "4 mois, en ligne"
 duree: "4 mois"
 seuil: transformer
 accroche: "Accueillir ton ombre, sortir de la demi-mesure, et donner corps à ce qui te tient à *cœur.*|En marchant avec d'autres hommes."
-resume: "Prendre les décisions que tu retardes, protéger sans écraser, bâtir sans forcer, et aboutir enfin ton projet le plus personnel. Quatre mois, avec d'autres hommes."
+resume: "Prendre **les décisions que tu retardes**, protéger sans écraser, bâtir sans forcer, et aboutir enfin **ton projet le plus personnel**. Quatre mois, avec d'autres hommes."
 accueil: true
 ordre: 2
 action: appel

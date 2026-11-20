@@ -7,7 +7,7 @@ import Appel from '../components/Appel.astro';
 import BarreAction from '../components/BarreAction.astro';
 import Carrousel from '../components/Carrousel.astro';
 import { getEntry } from 'astro:content';
-import { fil, description, PERSONNE_ID, SITE, abs } from '../lib/seo';
+import { fil, description, sansMarkdown, PERSONNE_ID, SITE, abs } from '../lib/seo';
 import { CODEX_OUVERT } from '../lib/etat.mjs';
 
 const o = (await getEntry('offres', 'in-carne'))!;
@@ -30,7 +30,7 @@ const jsonld = [
   {
     '@type': 'Service', '@id': abs('/in-carne/') + '#service', name: 'IN CARNE', serviceType: 'Parcours initiatique',
     provider: { '@id': PERSONNE_ID }, areaServed: 'En ligne', url: abs('/in-carne/'),
-    description: d.resume,
+    description: sansMarkdown(d.resume),
     offers: (d.tarifs ?? []).map((t) => ({ '@type': 'Offer', name: t.label, price: (t.prix.match(/\d[\d\s]*/)?.[0] ?? '').replace(/\s/g, ''), priceCurrency: 'EUR' })),
   },
   fil([{ nom: 'Accueil', url: '/' }, { nom: 'Accompagnement', url: '/accompagnement' }, { nom: 'IN CARNE', url: '/in-carne' }]),

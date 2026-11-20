@@ -3,7 +3,7 @@ titre: "Accompagnement individuel"
 categorie: accompagnement
 tag: "1:1"
 format: "En ligne ou immersion"
-resume: "Sortir du flou quand un cycle se termine, remettre du mouvement dans ton corps et dans ta vie, et donner forme à ce qui attend de naître."
+resume: "**Sortir du flou** quand un cycle se termine, remettre du mouvement dans ton corps et dans ta vie, et donner forme à **ce qui attend de naître**."
 tarifs:
   - label: "1 mois"
     prix: "800€"

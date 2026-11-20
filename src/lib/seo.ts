@@ -61,7 +61,7 @@ export const fil = (etapes: { nom: string; url: string }[]) => ({
   itemListElement: etapes.map((e, i) => ({ '@type': 'ListItem', position: i + 1, name: e.nom, item: abs(e.url) })),
 });
 
-const sansMarkdown = (t = '') => t.replace(/[*_#>`]/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\s+/g, ' ').trim();
+export const sansMarkdown = (t = '') => t.replace(/[*_#>`]/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\s+/g, ' ').trim();
 
 /** Description de 140 à 160 caractères : le résumé, complété par le début du texte si besoin. */
 export function description(resume = '', corps = '', max = 158) {

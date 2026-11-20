@@ -385,6 +385,8 @@ h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 
 /* description des cartes d'offre plus lisible */
 .evt__desc { color: #C2C5D2; font-size: 0.98rem; line-height: 1.6; }
+/* Ce que la carte promet se lit en diagonale : les mots qui portent passent à l'or. */
+.evt__desc strong { color: var(--gold); font-weight: 500; }
 
 /* ── Le manifeste : pourquoi je fais ça, avant toute histoire ── */
 .manifeste { padding: clamp(2.5rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem); }
