@@ -2,13 +2,14 @@
 titre: "Prisme Origine"
 image: /img/prisme-mandala.jpg
 categorie: accompagnement
-tag: "Lecture"
+tag: "Lecture de ta carte"
 action: reserver
 cta: "Réserver ma lecture"
 invite_titre: "On *commence* ton Prisme ?"
 invite_texte: "Réserve ta lecture : je te recontacte pour fixer un créneau de 2h, et je te demande ta date, ton heure et ton lieu de naissance."
 duree: "2h"
-resume: "Décider avec **plus de justesse**, respecter **ton rythme**, t'appuyer sur **tes forces**. Et distinguer ce qui t'appartient de ce que tu as appris à être."
+prix: "180€"
+resume: "**Tes anciens repères ne suffisent plus.** Deux heures de lecture croisée de ton Human Design, ton Tzolk'in et ton BaZi : ton rythme, tes forces, ta façon de décider."
 tarifs:
   - label: "Prisme Origine"
     prix: "180€"

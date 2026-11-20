@@ -1,9 +1,11 @@
 ---
 titre: "Accompagnement individuel"
 categorie: accompagnement
-tag: "1:1"
+tag: "En ligne ou immersion"
 format: "En ligne ou immersion"
-resume: "**Sortir du flou** quand un cycle se termine, remettre du mouvement dans ton corps et dans ta vie, et donner forme à **ce qui attend de naître**."
+duree: "1 à 6 mois, ou 3 jours"
+prix: "dès 600€"
+resume: "**Tu sais ce qui serait juste, et tu n'arrives pas à passer à l'acte.** Des séances d'1h30, chaque semaine ou tous les quinze jours, et une quête à vivre entre deux."
 tarifs:
   - label: "1 mois"
     prix: "800€"

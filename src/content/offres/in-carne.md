@@ -1,15 +1,16 @@
 ---
 titre: "IN CARNE"
 categorie: accompagnement
-tag: "Parcours initiatique"
+tag: "Parcours entre hommes"
 page: /in-carne
 logo: /img/in-carne-logo.png
 image: /img/artefact-narita-4.jpg
 format: "4 mois, en ligne"
 duree: "4 mois"
+prix: "1 200€"
 seuil: transformer
 accroche: "Accueillir ton ombre, sortir de la demi-mesure, et donner corps à ce qui te tient à *cœur.*|En marchant avec d'autres hommes."
-resume: "Prendre **les décisions que tu retardes**, protéger sans écraser, bâtir sans forcer, et aboutir enfin **ton projet le plus personnel**. Quatre mois, avec d'autres hommes."
+resume: "**Tu as compris beaucoup de choses, et rien ne tient.** Quatre mois en ligne : un rendez-vous individuel, un cercle toutes les deux semaines, et une quête entre chaque."
 accueil: true
 ordre: 2
 action: appel

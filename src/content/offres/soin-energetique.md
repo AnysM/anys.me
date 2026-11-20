@@ -5,7 +5,7 @@ duree: "1h30"
 prix: "80€"
 format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin subtil"
-resume: "Un soin profond de **purification et de réharmonisation** de la sphère énergétique."
+resume: "**Tu es vidé, et le sommeil n'y change rien.** 1h30 où tu n'as rien à faire. Le soin se donne presque sans contact, parfois porté par des chants."
 accueil: true
 ordre: 2
 etapes:
