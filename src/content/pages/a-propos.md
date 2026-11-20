@@ -55,9 +55,9 @@ chapitres:
 
       Et puis l'appel de mes racines me guide dans le désert marocain, où j'ai l'impression de **retourner à la maison.**
 
-      Et enfin 4 mois en Asie : avec les moines bouddhistes tibétains au centre [Tushita](https://tushita.info), à Dharamsala, la ville du Dalaï Lama. **Je découvre une science de l'esprit qui m'aide à comprendre le sens de mon incarnation.**
+      Et enfin quatre mois en Asie : avec les moines bouddhistes tibétains au centre [Tushita](https://tushita.info), à Dharamsala, la ville du Dalaï Lama. **Je découvre une science de l'esprit qui m'aide à comprendre le sens de mon incarnation.**
       Dans l'école de danse [Butoh Himalaya](https://www.instagram.com/butoh_himalaya/) où la présence immobile laisse place au mouvement. **J'apprends à être une cellule d'un grand organisme, un cobody, et je libère mon expression créative.**
-      Puis une retraite de dix jours de silence à méditer onze heures par jour, [Vipassana](https://www.dhamma.org/fr/index), en Thaïlande qui vient changer profondément ma perception de ce qu'est mon corps.
+      Puis une retraite de dix jours de silence à méditer onze heures par jour, [Vipassana](https://www.dhamma.org/fr/index), en Thaïlande, qui vient changer profondément ma perception de ce qu'est mon corps.
 
       _Et je prends conscience d'à quel point mon corps et mon esprit sont liés_
 
@@ -91,28 +91,37 @@ chapitres:
       - /img/recit/ruelle.jpg
   - acte: 4
     texte: |-
-      Quelques années plus tard, nous nous éloignons avec ma compagne et je fais une rencontre qui vient boulversé ma trajectoire.
+      Quelques années plus tard, nous nous éloignons avec ma compagne et je fais **une rencontre qui vient bouleverser ma trajectoire.**
 
-      Je quitte alors le nomadisme pour revenir à Lyn et je reprends un travail salarié dans l'informatique pour soutenir nos proojets de couple.
+      Je quitte alors le nomadisme pour revenir à Lyon et je reprends un travail salarié dans l'informatique pour soutenir nos projets de couple.
 
       _Fonder une famille, acheter un lieu, en faire un espace d'accueil, de retraites et de résidence artistique._
 
       Un an plus tard, l'histoire s'arrête. [**Je ne m'y attendais pas du tout**]{dore}, et je vis un véritable effondrement. J'ai besoin de comprendre, et tout finit par se mettre bout à bout.
 
-      Malgré tout mon cheminement spritiuel, **Je n'ai pas su suffisament m'affirmer, exprimer mes besoins, poser mes limites.**
+      Malgré tout mon cheminement spirituel, **je n'ai pas su suffisamment m'affirmer, exprimer mes besoins, poser mes limites.**
 
-      _Je portais encre trop souvent le masque du chic type de peur de blesser et de perdre la personne que j'aimais_ Et je créais sans le savoir un environnement insécure.
+      _Je portais encore trop souvent le masque du chic type, de peur de blesser et de perdre la personne que j'aimais._
+      [**Le chic type manipule sans en avoir conscience.**]{dore}
+      *Il n'est pas tout à fait vrai.*
+      Et je créais un environnement insécure.
 
-      Si je ne peux pas me protéger et honorer mes besoins, comment pourrais-je le faire pour ma famille ?
+      **Si je ne peux pas me protéger et honorer mes besoins, comment pourrais-je le faire pour ma famille ?**
 
       Suite à la séparation, je pars en cérémonie pour m'aider à traverser tout ça. La tête au sol, rongé par les regrets et la colère, j'accepte d'abandonner.
 
       *Amourir, comme j'aime le dire.*
-      M'abandonner. M'en remettre à plus grand. Mourir à moi-même avec amour.
+      _M'abandonner. M'en remettre à plus grand. Mourir à moi-même avec amour._
 
-      Puis une force commence à se faire sentir dans mon ventre, [**quelque chose de primal et de puissant**]{dore}, qui me relève tout doucement. Je sens un feu intérieur qui vient grandir et m'amener une sensation de fermeté et de puissance que je n'avais encore jamais ressenti. Cette colère que j'avais toujours refoulé était en train de prendre sa place dans mon corps. Pas pour blesser, mais pour me mettre en sécurité et créer un espace dans lequel je me sens souverain. Je comprends alors que c'est cette énergie masculine, primal, souveraine qui a manqué à mes 2 relations précédentes.
+      Puis une force commence à se faire sentir dans mon ventre, [**quelque chose de primal et de puissant**]{dore}, qui me relève tout doucement.
+      Je sens un feu intérieur qui vient grandir et m'amener une sensation de fermeté et de puissance que je n'avais encore jamais ressentie.
+      **Cette colère que j'avais toujours refoulée était en train de prendre sa place.**
+      _Pas pour blesser, mais pour me mettre en sécurité._
 
-      Et je sens que pour la première fois, je sens ce que c'est d'être un homme dans mon corps. Je me sens pleinement incarné.
+      C'est [**cette énergie masculine, primale, souveraine**]{dore} qui a manqué à mes deux relations précédentes.
+
+      Et pour la première fois, je sens ce que c'est d'être un homme dans mon corps.
+      [**Je me sens pleinement incarné.**]{dore grand}
   - acte: 5
     texte: |-
       Je décide alors d'accompagner des hommes dans ce chemin de retour à la souveraineté. Je crée [**IN CARNE**](/in-carne) et co-crée une retraite avec [The Brotherhood Circle](https://www.instagram.com/brotherhood.circle/).
