@@ -189,6 +189,27 @@ var config_default = defineConfig({
               { type: "string", name: "r", label: "R\xE9ponse", ui: { component: "textarea" } }
             ]
           },
+          { type: "image", name: "etapes_image", label: "D\xE9roul\xE9 \u2014 image sous les \xE9tapes" },
+          { type: "string", name: "etapes_alt", label: "D\xE9roul\xE9 \u2014 description de l'image" },
+          { type: "number", name: "etapes_largeur", label: "D\xE9roul\xE9 \u2014 largeur r\xE9elle de l'image, en pixels" },
+          { type: "string", name: "hero_logo", label: "Logo de l'offre, sous le titre", description: "Affich\xE9 dans le bandeau d'ouverture." },
+          { type: "string", name: "livrable_eyebrow", label: "Ce que tu repars avec \u2014 sur-titre" },
+          { type: "string", name: "livrable_titre", label: "Ce que tu repars avec \u2014 titre" },
+          { type: "string", name: "livrable", label: "Ce que tu repars avec (liste)", list: true, ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "livrable_vues",
+            label: "Ce que tu repars avec \u2014 images",
+            list: true,
+            ui: { itemProps: (i) => ({ label: i?.alt ?? "Image" }) },
+            fields: [
+              { type: "image", name: "image", label: "Image" },
+              { type: "string", name: "alt", label: "Description de l'image" },
+              { type: "number", name: "largeur", label: "Largeur r\xE9elle, en pixels" }
+            ]
+          },
+          { type: "string", name: "calcul_eyebrow", label: "Bloc confiance \u2014 sur-titre" },
+          { type: "string", name: "calcul", label: "Bloc confiance \u2014 texte", ui: { component: "textarea" } },
           { type: "string", name: "benefices", label: "Ce que tu y trouves (liste)", list: true },
           { type: "string", name: "pourqui_titre", label: "Pour qui \u2014 titre", description: "Par d\xE9faut : C'est *pour toi* si\u2026" },
           { type: "string", name: "pourqui", label: "C'est pour toi si\u2026 (situations)", list: true },
@@ -212,7 +233,14 @@ var config_default = defineConfig({
             label: "Mon approche \u2014 les piliers",
             list: true,
             ui: { itemProps: (i) => ({ label: i?.titre ?? "Pilier" }) },
-            fields: [{ type: "string", name: "titre", label: "Titre" }, { type: "string", name: "cadence", label: "Cadence", description: "Ex. : toutes les 2 semaines" }, { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } }]
+            fields: [
+              { type: "string", name: "titre", label: "Titre" },
+              { type: "string", name: "cadence", label: "Cadence", description: "Ex. : toutes les 2 semaines" },
+              { type: "string", name: "texte", label: "Texte", ui: { component: "textarea" } },
+              { type: "image", name: "image", label: "Image au-dessus du titre" },
+              { type: "string", name: "alt", label: "Description de l'image (pour les lecteurs d'\xE9cran)" },
+              { type: "number", name: "largeur", label: "Largeur r\xE9elle de l'image, en pixels" }
+            ]
           },
           { type: "string", name: "cap_eyebrow", label: "\xC9tapes \u2014 sur-titre", description: "Par d\xE9faut : Par \xE9tapes" },
           { type: "string", name: "cap_titre", label: "\xC9tapes \u2014 titre", description: "Par d\xE9faut : *Ce vers quoi* on va" },

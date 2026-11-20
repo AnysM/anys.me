@@ -1,7 +1,8 @@
 ---
 // « Comment ça se passe » : les étapes d'un soin ou d'un accompagnement, illustrées.
 import Icone from './Icone.astro';
-const { etapes = [], titre = '*Comment* ça se passe' } = Astro.props;
+// `image` ferme le déroulé : ce vers quoi toutes les étapes mènent, en pleine largeur.
+const { etapes = [], titre = '*Comment* ça se passe', image = null, alt = '', largeur = 0, jeu = null } = Astro.props;
 const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1</span>');
 
 ---
@@ -22,6 +23,11 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
           </li>
         ))}
       </ol>
+      {image && (
+        <figure class="etapes__vue">
+          <img src={image} alt={alt} srcset={jeu && largeur ? jeu(image, largeur) : undefined} sizes="(min-width: 900px) 72vw, 100vw" loading="lazy" />
+        </figure>
+      )}
     </div>
   </section>
 )}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 52" width="240" height="104" role="img" aria-label="Prisme Origine">
+  <title>Prisme Origine</title>
+  <defs>
+    <linearGradient id="beam" x1="0" x2="1">
+      <stop offset="0" stop-color="#ece7de" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ece7de" stop-opacity=".95"/>
+    </linearGradient>
+    <linearGradient id="r0" x1="0" x2="1"><stop offset="0" stop-color="#f2b233"/><stop offset="1" stop-color="#f2b233" stop-opacity="0"/></linearGradient>
+    <linearGradient id="r1" x1="0" x2="1"><stop offset="0" stop-color="#ec5a36"/><stop offset="1" stop-color="#ec5a36" stop-opacity="0"/></linearGradient>
+    <linearGradient id="r2" x1="0" x2="1"><stop offset="0" stop-color="#9a64f5"/><stop offset="1" stop-color="#9a64f5" stop-opacity="0"/></linearGradient>
+  </defs>
+  <path d="M0 32.05 L49 27.05" stroke="url(#beam)" stroke-width="1" fill="none"/>
+  <path d="M60 8 L80 42.64 L40 42.64 Z" fill="none" stroke="#ece7de" stroke-width="1" stroke-linejoin="round"/>
+  <g>
+    <path d="M49 27.05 L68.40 22.55" stroke="#f2b233" stroke-opacity=".5" stroke-width=".6"/>
+    <path d="M68.40 22.55 L120 14.00" stroke="url(#r0)" stroke-width="1.1" fill="none"/>
+    <path d="M49 27.05 L70.40 26.00" stroke="#ec5a36" stroke-opacity=".5" stroke-width=".6"/>
+    <path d="M70.40 26.00 L120 29.46" stroke="url(#r1)" stroke-width="1.1" fill="none"/>
+    <path d="M49 27.05 L72.40 29.50" stroke="#9a64f5" stroke-opacity=".5" stroke-width=".6"/>
+    <path d="M72.40 29.50 L120 49.57" stroke="url(#r2)" stroke-width="1.1" fill="none"/>
+  </g>
+</svg>

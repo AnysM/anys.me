@@ -1188,3 +1188,43 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .lien-dehors { cursor: pointer; }
 .tl-text .lien-dehors:hover, .manifeste .lien-dehors:hover {
   color: var(--gold); border-bottom-color: transparent; }
+
+/* ── Prisme Origine : les captures de la page livrée ──
+   Le texte de l'offre disait ce qu'on traverse ensemble, jamais ce qu'on
+   emporte. Ces images-là sont le livrable : elles se tiennent dans le même
+   cadre arrondi que les cartes du site, sans légende. */
+.approche__vue { display: block; width: 100%; height: auto; margin-bottom: 1.1rem;
+  border: 1px solid var(--faint); border-radius: 10px; background: var(--navy); }
+.etapes__vue { margin: clamp(2.4rem, 5vw, 3.6rem) 0 0; }
+.etapes__vue img { display: block; width: 100%; height: auto;
+  border: 1px solid var(--faint); border-radius: 10px; }
+
+/* Ce que tu repars avec : la liste d'abord, les trois preuves ensuite. */
+.livrable__liste { list-style: none; margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: 0.9rem; }
+.livrable__liste li { position: relative; padding-left: 1.6rem; color: #C9CCD8;
+  font-size: clamp(1rem, 1.2vw, 1.1rem); line-height: 1.7; }
+.livrable__liste li::before { content: ''; position: absolute; left: 0; top: 0.72em;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--gold); opacity: 0.8; }
+.livrable__liste strong { color: var(--cream); font-weight: 500; }
+.livrable__vues { display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.4vw, 2rem); margin-top: clamp(2.4rem, 5vw, 3.6rem); align-items: start; }
+.livrable__vue { margin: 0; }
+/* Les trois captures n'ont pas le même format, le téléphone est trois fois plus
+   haut que le parcours. On leur donne un cadre commun et on montre le haut de
+   chacune : la rangée se lit d'un coup, au lieu de former un escalier. */
+.livrable__vue img { display: block; width: 100%; aspect-ratio: 3 / 4;
+  object-fit: cover; object-position: top center;
+  border: 1px solid var(--faint); border-radius: 10px; }
+@media (max-width: 760px) { .livrable__vue img { aspect-ratio: 4 / 3; } }
+@media (max-width: 760px) { .livrable__vues { grid-template-columns: 1fr; } }
+
+/* Le calcul vérifié : un aparté sobre, juste avant les questions. */
+.calcul p { color: #C2C5D2; line-height: 1.85; max-width: 62ch; }
+.calcul p + p { margin-top: 1.1rem; }
+.calcul p:last-child { color: var(--cream); }
+
+/* Le signe de l'offre, au-dessus de la ligne de tête. Le titre dit déjà son
+   nom : c'est le prisme seul qui lui donne un visage, pas le mot répété. */
+.offre-logo { display: block; width: clamp(104px, 11vw, 140px); height: auto;
+  margin: 0 0 1.2rem; opacity: 0.95; }

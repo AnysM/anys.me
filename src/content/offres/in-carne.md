@@ -15,10 +15,6 @@ accueil: true
 ordre: 2
 action: appel
 tarifs:
-  - label: "Avant le 1er novembre"
-    prix: "999€"
-    detail: "Tarif d'engagement, pour ceux qui se décident tôt."
-    avant: true
   - label: "Le parcours"
     prix: "1 200€"
     detail: "Payable en 6 fois."

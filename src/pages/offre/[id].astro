@@ -58,6 +58,16 @@ const inviteTexte = d.invite_texte ?? (mode === 'appel' ? 'Un appel découverte 
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
 // Formules regroupées (ex. : En ligne / Immersion) pour une lecture hiérarchisée
 const groupes = Object.entries((d.tarifs ?? []).reduce((acc, t) => { (acc[t.groupe ?? ''] ??= []).push(t); return acc; }, {} as Record<string, NonNullable<typeof d.tarifs>>));
+// Les captures de l'offre arrivent découpées en 480, 768, 1024 et 1366 px.
+// On ne propose que les tailles réellement plus petites que la source : au-delà,
+// le navigateur agrandirait une image qui n'existe pas.
+const LARGEURS = [480, 768, 1024, 1366];
+const jeu = (src = '', large = 0) => {
+  const base = src.replace(/\.webp$/, '');
+  const tailles = LARGEURS.filter((l) => l < large);
+  return [...tailles.map((l) => `${base}-${l}.webp ${l}w`), `${src} ${large}w`].join(', ');
+};
+
 const prixDepart = d.prix && /\d/.test(d.prix) ? d.prix : d.tarifs?.length ? prixPlancher(d.tarifs) : null;
 const desc = description(d.resume, o.body);
 const montant = (t?: string) => (t && /\d/.test(t) ? t.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : null);
@@ -84,7 +94,8 @@ const jsonld = [
     ? <video src={d.video} poster={d.image} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
     : d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     {(d.image || d.video) && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}
-    <div class="narrow"><p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
+    <div class="narrow">{d.hero_logo && <img class="offre-logo" src={d.hero_logo} alt="" aria-hidden="true" loading="eager" />}
+      <p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
       {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}
     </div>
@@ -113,7 +124,9 @@ const jsonld = [
       <div class="wrap">
         <div class="tete"><p class="eyebrow">{d.approche_eyebrow ?? 'Mon approche'}</p><h2 set:html={titreScript(d.approche_titre ?? '*Comment* on avance')}></h2></div>
         {d.approche_intro && <p class="approche__intro" set:html={fmtO(d.approche_intro)}></p>}
-        <div class={`approche__grille approche__grille--${d.approche.length}`}>{d.approche.map((a) => <div class="approche__pilier"><h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
+        <div class={`approche__grille approche__grille--${d.approche.length}`}>{d.approche.map((a) => <div class="approche__pilier">
+          {a.image && <img class="approche__vue" src={a.image} alt={a.alt ?? ''} srcset={a.largeur ? jeu(a.image, a.largeur) : undefined} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" />}
+          <h3>{a.titre}</h3><p set:html={fmtO(a.texte)}></p></div>)}</div>
         {d.cadre && !(d.cap?.length > 0) && <div class="cap__cadre"><p class="rune">Le cadre</p><p set:html={fmtO(d.cadre)}></p></div>}
       </div>
     </section>
@@ -182,7 +195,24 @@ const jsonld = [
     </section>
   )}
 
-  <Etapes etapes={d.etapes} />
+  <Etapes etapes={d.etapes} image={d.etapes_image} alt={d.etapes_alt} largeur={d.etapes_largeur} jeu={jeu} />
+
+  {d.livrable?.length > 0 && (
+    <section class="bloc livrable">
+      <div class="narrow">
+        <div class="tete">
+          <p class="eyebrow">{d.livrable_eyebrow ?? 'Ce que tu repars avec'}</p>
+          {d.livrable_titre && <h2 set:html={titreScript(d.livrable_titre)}></h2>}
+        </div>
+        <ul class="livrable__liste">{d.livrable.map((x) => <li set:html={fmtO(x)}></li>)}</ul>
+      </div>
+      {d.livrable_vues?.length > 0 && (
+        <div class="wrap livrable__vues">{d.livrable_vues.map((v) => (
+          <figure class="livrable__vue"><img src={v.image} alt={v.alt ?? ''} srcset={v.largeur ? jeu(v.image, v.largeur) : undefined} sizes="(min-width: 900px) 33vw, 100vw" loading="lazy" /></figure>
+        ))}</div>
+      )}
+    </section>
+  )}
 
   {d.galerie?.length > 0 && (
     <section class="striptease galerie-soin">
@@ -222,6 +252,15 @@ const jsonld = [
               </div>
             ))}
             <div class="offre-relance">{mode === 'appel' ? <Appel pour={d.titre} centre /> : <a class="btn btn--solid" href={lienAction} target={externeAction ? '_blank' : undefined} rel={externeAction ? 'noopener' : undefined} data-evt="Réserver">{labelAction}</a>}</div>
+          </div>
+        </section>
+      )}
+
+      {d.calcul && (
+        <section class="bloc calcul">
+          <div class="narrow">
+            <p class="eyebrow">{d.calcul_eyebrow ?? 'Le calcul est vérifié'}</p>
+            {d.calcul.split(/\n\n+/).map((par) => <p set:html={fmtO(par)}></p>)}
           </div>
         </section>
       )}
