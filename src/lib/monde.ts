@@ -4,6 +4,20 @@ import { seuilDe } from './univers.mjs';
 import { evoques } from './lore.mjs';
 import { estPasse } from './passe.mjs';
 
+/**
+ * Le prix qu'une offre affiche quand elle n'a pas de prix à elle, seulement
+ * une grille de tarifs : le plus bas de la grille.
+ *
+ * « dès » annonce qu'il existe moins cher ailleurs dans la grille. Tant qu'il
+ * n'y a qu'un seul palier, le mot promet un tarif qui n'existe pas : on écrit
+ * le prix nu. Le jour où un deuxième palier arrive, « dès » revient tout seul.
+ */
+export const prixPlancher = (tarifs: { prix: string }[] = []) => {
+  if (!tarifs.length) return undefined;
+  const bas = [...tarifs].sort((a, b) => parseInt(a.prix) - parseInt(b.prix))[0].prix;
+  return tarifs.length > 1 ? `dès ${bas}` : bas;
+};
+
 export type Proposition = {
   cle: string; // "offres/x" ou "agenda/x"
   id: string;
@@ -64,7 +78,8 @@ export async function propositions(): Promise<Proposition[]> {
     ...offres.map((o) => ({
       cle: `offres/${o.id}`, id: o.id, titre: o.data.titre, href: o.data.page ?? `/offre/${o.id}`, externe: false,
       seuil: seuilDe(o.data), categorie: o.data.categorie, resume: o.data.resume, image: o.data.image, ordre: o.data.ordre,
-      accueil: o.data.accueil, prix: o.data.prix ?? (o.data.tarifs?.length ? `dès ${o.data.tarifs.map((t) => t.prix).sort((a, b) => parseInt(a) - parseInt(b))[0]}` : undefined),
+      // « dès » promet un palier moins cher : il ne s'écrit que s'il en existe un.
+      accueil: o.data.accueil, prix: o.data.prix ?? (o.data.tarifs?.length ? prixPlancher(o.data.tarifs) : undefined),
       quand: o.data.duree ?? o.data.format,
     })),
     ...agenda.map((e) => ({

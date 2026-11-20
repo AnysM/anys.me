@@ -11,7 +11,7 @@ duree: "2h"
 resume: "Décider avec **plus de justesse**, respecter **ton rythme**, t'appuyer sur **tes forces**. Et distinguer ce qui t'appartient de ce que tu as appris à être."
 tarifs:
   - label: "Prisme Origine"
-    prix: "120€"
+    prix: "180€"
     detail: "Préparation de ta carte, 2h de lecture et de synthèse, et un point de 30 min un mois après"
 accueil: true
 ordre: 1

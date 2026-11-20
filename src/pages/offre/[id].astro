@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Separateur from '../../components/Separateur.astro';
 import { airSousBord } from '../../lib/bords';
+import { prixPlancher } from '../../lib/monde';
 import { getCollection, getEntry, render } from 'astro:content';
 import Sigils from '../../components/Sigils.astro';
 import Icone from '../../components/Icone.astro';
@@ -57,7 +58,7 @@ const inviteTexte = d.invite_texte ?? (mode === 'appel' ? 'Un appel découverte 
 const enPreparation = /préparation|construction/i.test(d.prix ?? '') || /en construction/i.test(o.body ?? '');
 // Formules regroupées (ex. : En ligne / Immersion) pour une lecture hiérarchisée
 const groupes = Object.entries((d.tarifs ?? []).reduce((acc, t) => { (acc[t.groupe ?? ''] ??= []).push(t); return acc; }, {} as Record<string, NonNullable<typeof d.tarifs>>));
-const prixDepart = d.prix && /\d/.test(d.prix) ? d.prix : d.tarifs?.length ? `dès ${[...d.tarifs].sort((a, b) => parseInt(a.prix) - parseInt(b.prix))[0].prix}` : null;
+const prixDepart = d.prix && /\d/.test(d.prix) ? d.prix : d.tarifs?.length ? prixPlancher(d.tarifs) : null;
 const desc = description(d.resume, o.body);
 const montant = (t?: string) => (t && /\d/.test(t) ? t.match(/\d+([.,]\d+)?/)![0].replace(',', '.') : null);
 const offres = (d.tarifs ?? [{ label: d.titre, prix: d.prix ?? '' }])
