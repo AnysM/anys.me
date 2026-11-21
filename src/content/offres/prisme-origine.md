@@ -75,7 +75,7 @@ explore:
   - "Ton potentiel | ce qui demande à être reconnu, développé ou incarné"
   - "Ton fil rouge | les thèmes qui traversent les trois systèmes"
 echanges_eyebrow: "Nos échanges"
-echanges_titre: "La question se pose *là* où elle naît."
+echanges_titre: "Tu me poses tes questions, *je te réponds*"
 echanges_texte: |-
   Pendant le mois qui suit la lecture, tu relis. Et c'est là que les vraies questions arrivent, sur un passage précis.
 
