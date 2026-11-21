@@ -197,6 +197,32 @@ const jsonld = [
 
   <Etapes etapes={d.etapes} image={d.etapes_image} alt={d.etapes_alt} largeur={d.etapes_largeur} jeu={jeu} />
 
+  {d.echanges_texte && (
+    <section class="bloc echanges">
+      <div class="narrow">
+        <div class="tete">
+          <p class="eyebrow">{d.echanges_eyebrow ?? 'Nos échanges'}</p>
+          {d.echanges_titre && <h2 set:html={titreScript(d.echanges_titre)}></h2>}
+        </div>
+      </div>
+      <div class="wrap echanges__grille">
+        <div class="echanges__dire">
+          {d.echanges_texte.split(/\n\n+/).map((par) => <p set:html={fmtO(par)}></p>)}
+          {d.echanges_marqueur && (
+            <figure class="echanges__marqueur">
+              <img src={d.echanges_marqueur} alt={d.echanges_marqueur_alt ?? ''} srcset={d.echanges_marqueur_largeur ? jeu(d.echanges_marqueur, d.echanges_marqueur_largeur) : undefined} sizes="(min-width: 900px) 54vw, 100vw" loading="lazy" />
+            </figure>
+          )}
+        </div>
+        {d.echanges_fil && (
+          <figure class="echanges__fil">
+            <img src={d.echanges_fil} alt={d.echanges_fil_alt ?? ''} srcset={d.echanges_fil_largeur ? jeu(d.echanges_fil, d.echanges_fil_largeur) : undefined} sizes="(min-width: 900px) 32vw, 80vw" loading="lazy" />
+          </figure>
+        )}
+      </div>
+    </section>
+  )}
+
   {d.livrable?.length > 0 && (
     <section class="bloc livrable">
       <div class="narrow">

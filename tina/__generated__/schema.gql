@@ -322,10 +322,21 @@ type OffresFaq {
   r: String
 }
 
+type OffresLivrable_vues {
+  image: String
+  alt: String
+  largeur: Float
+  titre: String
+  forme: String
+}
+
 type OffresApproche {
   titre: String
   cadence: String
   texte: String
+  image: String
+  alt: String
+  largeur: Float
 }
 
 type OffresCap {
@@ -360,6 +371,26 @@ type Offres implements Node & Document {
   publie: Boolean
   temoignages: [OffresTemoignages]
   faq: [OffresFaq]
+  etapes_image: String
+  etapes_alt: String
+  etapes_largeur: Float
+  hero_logo: String
+  hero_voile: Float
+  echanges_eyebrow: String
+  echanges_titre: String
+  echanges_texte: String
+  echanges_marqueur: String
+  echanges_marqueur_alt: String
+  echanges_marqueur_largeur: Float
+  echanges_fil: String
+  echanges_fil_alt: String
+  echanges_fil_largeur: Float
+  livrable_eyebrow: String
+  livrable_titre: String
+  livrable: [String]
+  livrable_vues: [OffresLivrable_vues]
+  calcul_eyebrow: String
+  calcul: String
   benefices: [String]
   pourqui_titre: String
   pourqui: [String]
@@ -429,10 +460,21 @@ input OffresFaqFilter {
   r: StringFilter
 }
 
+input OffresLivrable_vuesFilter {
+  image: ImageFilter
+  alt: StringFilter
+  largeur: NumberFilter
+  titre: StringFilter
+  forme: StringFilter
+}
+
 input OffresApprocheFilter {
   titre: StringFilter
   cadence: StringFilter
   texte: StringFilter
+  image: ImageFilter
+  alt: StringFilter
+  largeur: NumberFilter
 }
 
 input OffresCapFilter {
@@ -467,6 +509,26 @@ input OffresFilter {
   publie: BooleanFilter
   temoignages: OffresTemoignagesFilter
   faq: OffresFaqFilter
+  etapes_image: ImageFilter
+  etapes_alt: StringFilter
+  etapes_largeur: NumberFilter
+  hero_logo: StringFilter
+  hero_voile: NumberFilter
+  echanges_eyebrow: StringFilter
+  echanges_titre: StringFilter
+  echanges_texte: StringFilter
+  echanges_marqueur: ImageFilter
+  echanges_marqueur_alt: StringFilter
+  echanges_marqueur_largeur: NumberFilter
+  echanges_fil: ImageFilter
+  echanges_fil_alt: StringFilter
+  echanges_fil_largeur: NumberFilter
+  livrable_eyebrow: StringFilter
+  livrable_titre: StringFilter
+  livrable: StringFilter
+  livrable_vues: OffresLivrable_vuesFilter
+  calcul_eyebrow: StringFilter
+  calcul: StringFilter
   benefices: StringFilter
   pourqui_titre: StringFilter
   pourqui: StringFilter
@@ -1339,10 +1401,21 @@ input OffresFaqMutation {
   r: String
 }
 
+input OffresLivrable_vuesMutation {
+  image: String
+  alt: String
+  largeur: Float
+  titre: String
+  forme: String
+}
+
 input OffresApprocheMutation {
   titre: String
   cadence: String
   texte: String
+  image: String
+  alt: String
+  largeur: Float
 }
 
 input OffresCapMutation {
@@ -1377,6 +1450,26 @@ input OffresMutation {
   publie: Boolean
   temoignages: [OffresTemoignagesMutation]
   faq: [OffresFaqMutation]
+  etapes_image: String
+  etapes_alt: String
+  etapes_largeur: Float
+  hero_logo: String
+  hero_voile: Float
+  echanges_eyebrow: String
+  echanges_titre: String
+  echanges_texte: String
+  echanges_marqueur: String
+  echanges_marqueur_alt: String
+  echanges_marqueur_largeur: Float
+  echanges_fil: String
+  echanges_fil_alt: String
+  echanges_fil_largeur: Float
+  livrable_eyebrow: String
+  livrable_titre: String
+  livrable: [String]
+  livrable_vues: [OffresLivrable_vuesMutation]
+  calcul_eyebrow: String
+  calcul: String
   benefices: [String]
   pourqui_titre: String
   pourqui: [String]

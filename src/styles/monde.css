@@ -1263,3 +1263,23 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
    nom : c'est le prisme seul qui lui donne un visage, pas le mot répété. */
 .offre-logo { display: block; width: clamp(104px, 11vw, 140px); height: auto;
   margin: 0 0 1.2rem; opacity: 0.95; }
+
+/* ── Nos échanges : la question posée dans le texte, la réponse au même endroit ──
+   Le texte dit le principe, le passage marqué montre où ça s'accroche, et le fil
+   se tient à côté, debout, dans son format d'origine. */
+.echanges__grille { display: grid; grid-template-columns: 1.35fr 1fr;
+  gap: clamp(1.8rem, 4vw, 3.4rem); align-items: center; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
+.echanges__dire p { color: #C2C5D2; line-height: 1.85; max-width: 52ch; }
+.echanges__dire p + p { margin-top: 1.1rem; }
+.echanges__dire strong { color: var(--cream); font-weight: 500; }
+.echanges__marqueur { margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; }
+.echanges__marqueur img { display: block; width: 100%; height: auto;
+  border: 1px solid var(--faint); border-radius: 10px; }
+.echanges__fil { margin: 0; }
+.echanges__fil img { display: block; width: 100%; height: auto;
+  border: 1px solid var(--faint); border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
+@media (max-width: 860px) {
+  .echanges__grille { grid-template-columns: 1fr; gap: 2.2rem; }
+  .echanges__fil { max-width: 420px; margin: 0 auto; }
+}

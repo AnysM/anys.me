@@ -105,6 +105,33 @@ export const OffresPartsFragmentDoc = gql`
     q
     r
   }
+  etapes_image
+  etapes_alt
+  etapes_largeur
+  hero_logo
+  hero_voile
+  echanges_eyebrow
+  echanges_titre
+  echanges_texte
+  echanges_marqueur
+  echanges_marqueur_alt
+  echanges_marqueur_largeur
+  echanges_fil
+  echanges_fil_alt
+  echanges_fil_largeur
+  livrable_eyebrow
+  livrable_titre
+  livrable
+  livrable_vues {
+    __typename
+    image
+    alt
+    largeur
+    titre
+    forme
+  }
+  calcul_eyebrow
+  calcul
   benefices
   pourqui_titre
   pourqui
@@ -127,6 +154,9 @@ export const OffresPartsFragmentDoc = gql`
     titre
     cadence
     texte
+    image
+    alt
+    largeur
   }
   cap_eyebrow
   cap_titre
@@ -215,6 +245,33 @@ export const CodexPartsFragmentDoc = gql`
           q
           r
         }
+        etapes_image
+        etapes_alt
+        etapes_largeur
+        hero_logo
+        hero_voile
+        echanges_eyebrow
+        echanges_titre
+        echanges_texte
+        echanges_marqueur
+        echanges_marqueur_alt
+        echanges_marqueur_largeur
+        echanges_fil
+        echanges_fil_alt
+        echanges_fil_largeur
+        livrable_eyebrow
+        livrable_titre
+        livrable
+        livrable_vues {
+          __typename
+          image
+          alt
+          largeur
+          titre
+          forme
+        }
+        calcul_eyebrow
+        calcul
         benefices
         pourqui_titre
         pourqui
@@ -237,6 +294,9 @@ export const CodexPartsFragmentDoc = gql`
           titre
           cadence
           texte
+          image
+          alt
+          largeur
         }
         cap_eyebrow
         cap_titre
@@ -412,6 +472,33 @@ export const CodexPartsFragmentDoc = gql`
                 q
                 r
               }
+              etapes_image
+              etapes_alt
+              etapes_largeur
+              hero_logo
+              hero_voile
+              echanges_eyebrow
+              echanges_titre
+              echanges_texte
+              echanges_marqueur
+              echanges_marqueur_alt
+              echanges_marqueur_largeur
+              echanges_fil
+              echanges_fil_alt
+              echanges_fil_largeur
+              livrable_eyebrow
+              livrable_titre
+              livrable
+              livrable_vues {
+                __typename
+                image
+                alt
+                largeur
+                titre
+                forme
+              }
+              calcul_eyebrow
+              calcul
               benefices
               pourqui_titre
               pourqui
@@ -434,6 +521,9 @@ export const CodexPartsFragmentDoc = gql`
                 titre
                 cadence
                 texte
+                image
+                alt
+                largeur
               }
               cap_eyebrow
               cap_titre
@@ -701,6 +791,33 @@ export const ArtefactsPartsFragmentDoc = gql`
                 q
                 r
               }
+              etapes_image
+              etapes_alt
+              etapes_largeur
+              hero_logo
+              hero_voile
+              echanges_eyebrow
+              echanges_titre
+              echanges_texte
+              echanges_marqueur
+              echanges_marqueur_alt
+              echanges_marqueur_largeur
+              echanges_fil
+              echanges_fil_alt
+              echanges_fil_largeur
+              livrable_eyebrow
+              livrable_titre
+              livrable
+              livrable_vues {
+                __typename
+                image
+                alt
+                largeur
+                titre
+                forme
+              }
+              calcul_eyebrow
+              calcul
               benefices
               pourqui_titre
               pourqui
@@ -723,6 +840,9 @@ export const ArtefactsPartsFragmentDoc = gql`
                 titre
                 cadence
                 texte
+                image
+                alt
+                largeur
               }
               cap_eyebrow
               cap_titre
@@ -1093,6 +1213,33 @@ export const Page_AproposPartsFragmentDoc = gql`
                   q
                   r
                 }
+                etapes_image
+                etapes_alt
+                etapes_largeur
+                hero_logo
+                hero_voile
+                echanges_eyebrow
+                echanges_titre
+                echanges_texte
+                echanges_marqueur
+                echanges_marqueur_alt
+                echanges_marqueur_largeur
+                echanges_fil
+                echanges_fil_alt
+                echanges_fil_largeur
+                livrable_eyebrow
+                livrable_titre
+                livrable
+                livrable_vues {
+                  __typename
+                  image
+                  alt
+                  largeur
+                  titre
+                  forme
+                }
+                calcul_eyebrow
+                calcul
                 benefices
                 pourqui_titre
                 pourqui
@@ -1115,6 +1262,9 @@ export const Page_AproposPartsFragmentDoc = gql`
                   titre
                   cadence
                   texte
+                  image
+                  alt
+                  largeur
                 }
                 cap_eyebrow
                 cap_titre

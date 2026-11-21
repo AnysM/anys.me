@@ -66,7 +66,7 @@ etapes:
     texte: "On revient à ta réalité : tes choix, ton travail, tes relations. Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné, et ce qui demande encore à bouger."
 etapes_image: /img/prisme-page.webp
 etapes_alt: "La page personnelle livrée après la lecture, vue sur grand écran"
-etapes_largeur: 2284
+etapes_largeur: 2330
 explore:
   - "Ton fonctionnement | ta façon de décider, d'utiliser ton énergie, d'interagir avec ton environnement"
   - "Ton énergie et ton rythme | les forces de ton terrain, ce qui te nourrit, ce qui t'épuise"
@@ -74,6 +74,18 @@ explore:
   - "Tes relations | ta façon d'entrer en lien, de t'adapter, de trouver ta place"
   - "Ton potentiel | ce qui demande à être reconnu, développé ou incarné"
   - "Ton fil rouge | les thèmes qui traversent les trois systèmes"
+echanges_eyebrow: "Nos échanges"
+echanges_titre: "La question se pose *là* où elle naît."
+echanges_texte: |-
+  Pendant le mois qui suit la lecture, tu relis. Et c'est là que les vraies questions arrivent, sur un passage précis.
+
+  Tu la poses à cet endroit-là, dans le texte. Je te réponds au même endroit. **Rien ne part dans une messagerie à côté** : la réponse reste accrochée au passage qui l'a fait naître, et on la reprend ensemble au point d'intégration.
+echanges_marqueur: /img/prisme-marqueur.webp
+echanges_marqueur_alt: "Un passage de la lecture surligné en doré, marqué d'une flèche : c'est là qu'un échange est posé"
+echanges_marqueur_largeur: 2800
+echanges_fil: /img/prisme-echanges.webp
+echanges_fil_alt: "Le fil ouvert sur le passage : la question posée, et la réponse d'Anys en dessous"
+echanges_fil_largeur: 1600
 livrable_eyebrow: "Ce que tu repars avec"
 livrable_titre: "Pas un PDF qu'on *oublie* dans un dossier."
 livrable:
