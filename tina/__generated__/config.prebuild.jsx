@@ -193,6 +193,7 @@ var config_default = defineConfig({
           { type: "string", name: "etapes_alt", label: "D\xE9roul\xE9 \u2014 description de l'image" },
           { type: "number", name: "etapes_largeur", label: "D\xE9roul\xE9 \u2014 largeur r\xE9elle de l'image, en pixels" },
           { type: "string", name: "hero_logo", label: "Logo de l'offre, sous le titre", description: "Affich\xE9 dans le bandeau d'ouverture." },
+          { type: "number", name: "hero_voile", label: "Bandeau \u2014 densit\xE9 du voile en haut", description: "Entre 0 et 1. Par d\xE9faut 0,5. Monter vers 0,8 quand la photo est claire et que le texte se lit mal." },
           { type: "string", name: "livrable_eyebrow", label: "Ce que tu repars avec \u2014 sur-titre" },
           { type: "string", name: "livrable_titre", label: "Ce que tu repars avec \u2014 titre" },
           { type: "string", name: "livrable", label: "Ce que tu repars avec (liste)", list: true, ui: { component: "textarea" } },

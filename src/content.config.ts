@@ -74,6 +74,7 @@ const offres = defineCollection({
     etapes_alt: z.string().optional(),
     etapes_largeur: z.number().optional(),
     hero_logo: z.string().optional(),
+    hero_voile: z.number().optional(),
     livrable_eyebrow: z.string().optional(),
     livrable_titre: z.string().optional(),
     livrable: z.array(z.string()).optional(),

@@ -90,7 +90,7 @@ const jsonld = [
 ];
 ---
 <Base title={`${d.titre} · ${soin ? 'Soin à Lyon' : 'Accompagnement'} | Anys Mechkar`} description={desc} image={d.image} jsonld={jsonld}>
-  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`padding-bottom:${airSousBord('page-bas')}`}>{d.video
+  <section class={`page-hero${d.intention ? ' page-hero--sigil' : ''}`} style={`${d.hero_voile ? `--voile:${d.hero_voile}; ` : ''}padding-bottom:${airSousBord('page-bas')}`}>{d.video
     ? <video src={d.video} poster={d.image} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
     : d.image ? <img src={d.image} alt="" /> : <div class="ph-band"></div>}
     {(d.image || d.video) && <Separateur id="page-bas" cote="bas" couleur="var(--navy)" />}

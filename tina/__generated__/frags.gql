@@ -100,6 +100,7 @@ fragment OffresParts on Offres {
   etapes_alt
   etapes_largeur
   hero_logo
+  hero_voile
   livrable_eyebrow
   livrable_titre
   livrable
@@ -229,6 +230,7 @@ fragment CodexParts on Codex {
         etapes_alt
         etapes_largeur
         hero_logo
+        hero_voile
         livrable_eyebrow
         livrable_titre
         livrable
@@ -446,6 +448,7 @@ fragment CodexParts on Codex {
               etapes_alt
               etapes_largeur
               hero_logo
+              hero_voile
               livrable_eyebrow
               livrable_titre
               livrable
@@ -754,6 +757,7 @@ fragment ArtefactsParts on Artefacts {
               etapes_alt
               etapes_largeur
               hero_logo
+              hero_voile
               livrable_eyebrow
               livrable_titre
               livrable
@@ -1164,6 +1168,7 @@ fragment Page_aproposParts on Page_apropos {
                 etapes_alt
                 etapes_largeur
                 hero_logo
+                hero_voile
                 livrable_eyebrow
                 livrable_titre
                 livrable

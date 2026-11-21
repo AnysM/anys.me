@@ -165,7 +165,11 @@ body.a-defile .hero-scroll { opacity: 0; pointer-events: none; }
    image verticale sert de bande large, le centre ne tombant pas sur le sujet. */
 .page-hero > img, .page-hero > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   object-position: 50% var(--hero-y, 50%); z-index: 0; }
-.page-hero::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(10,15,32,0.94), rgba(10,15,32,0.5)); }
+/* Le voile est épais en bas, sous le texte, et léger en haut pour laisser
+   voir la photo. Une image très claire, comme le mandala de Prisme Origine,
+   a besoin de plus : --voile règle ce haut-là, page par page. */
+.page-hero::before { content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(10,15,32,0.95), rgba(10,15,32,var(--voile, 0.5))); }
 .page-hero .wrap, .page-hero .narrow { position: relative; z-index: 2; }
 .page-hero h1 { margin: 0.6rem 0 0; }
 

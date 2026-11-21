@@ -146,6 +146,7 @@ export default defineConfig({
           { type: "string", name: "etapes_alt", label: "Déroulé — description de l'image" },
           { type: "number", name: "etapes_largeur", label: "Déroulé — largeur réelle de l'image, en pixels" },
           { type: "string", name: "hero_logo", label: "Logo de l'offre, sous le titre", description: "Affiché dans le bandeau d'ouverture." },
+          { type: "number", name: "hero_voile", label: "Bandeau — densité du voile en haut", description: "Entre 0 et 1. Par défaut 0,5. Monter vers 0,8 quand la photo est claire et que le texte se lit mal." },
           { type: "string", name: "livrable_eyebrow", label: "Ce que tu repars avec — sur-titre" },
           { type: "string", name: "livrable_titre", label: "Ce que tu repars avec — titre" },
           { type: "string", name: "livrable", label: "Ce que tu repars avec (liste)", list: true, ui: { component: "textarea" } },

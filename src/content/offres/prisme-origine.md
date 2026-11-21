@@ -10,6 +10,7 @@ invite_texte: "Réserve ta lecture : je te recontacte pour fixer un créneau de 
 duree: "2h"
 prix: "180€"
 hero_logo: /img/prisme-mark.svg
+hero_voile: 0.78
 resume: "**Tes anciens repères ne suffisent plus.** Deux heures de lecture croisée de ton Human Design, ton Tzolk'in et ton BaZi : ton rythme, tes forces, ta façon de décider."
 tarifs:
   - label: "Prisme Origine"
@@ -54,15 +55,18 @@ etapes:
   - titre: "La synthèse"
     picto: etoile
     texte: "On fait émerger les correspondances, les thèmes récurrents, ce qui compte le plus pour toi."
-  - titre: "L'intégration"
-    picto: graine
-    texte: "On revient à ta réalité : tes choix, ton travail, tes relations. Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné, et ce qui demande encore à bouger."
   - titre: "Ta page"
     picto: carte
     texte: "Tout ce qu'on a traversé reste chez toi, sur une page personnelle : tes trois cartes, le détail de chaque porte, de chaque pilier, de chaque sceau, et le replay de notre séance. Tu y reviens quand tu veux. Six mois plus tard, c'est souvent là que ça prend vraiment sens."
+  - titre: "Nos échanges"
+    picto: parole
+    texte: "Entre nos deux rendez-vous, tu poses tes questions directement sur la page, à l'endroit qui te fait réagir. Je te réponds là, sur le passage. Ce qui remonte dans ce mois-là, c'est souvent le plus juste : on le reprend ensemble au point de fin."
+  - titre: "L'intégration"
+    picto: graine
+    texte: "On revient à ta réalité : tes choix, ton travail, tes relations. Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné, et ce qui demande encore à bouger."
 etapes_image: /img/prisme-page.webp
 etapes_alt: "La page personnelle livrée après la lecture, vue sur grand écran"
-etapes_largeur: 2880
+etapes_largeur: 2284
 explore:
   - "Ton fonctionnement | ta façon de décider, d'utiliser ton énergie, d'interagir avec ton environnement"
   - "Ton énergie et ton rythme | les forces de ton terrain, ce qui te nourrit, ce qui t'épuise"
@@ -75,7 +79,7 @@ livrable_titre: "Pas un PDF qu'on *oublie* dans un dossier."
 livrable:
   - "**Tes trois cartes, vivantes.** Chaque sceau, chaque pilier, chaque porte s'ouvre et se lit."
   - "**Un parcours en cinq temps.** De l'essentiel au concret : ce que tu es, comment tu fonctionnes, ce qui te freine, et ce que ça change dans ton travail et tes relations."
-  - "**Tes notes, mes réponses.** Tu commentes n'importe quel passage, je te réponds dessus. La séance continue après la séance."
+  - "**Tes notes, mes réponses.** Tu commentes n'importe quel passage, je te réponds dessus. Entre nos deux rendez-vous, la séance continue."
   - "**Le replay de notre séance**, et ta visualisation, à réécouter."
   - "**Une version imprimable**, si tu préfères le papier."
   - "**Un lien à toi**, que tu gardes."
