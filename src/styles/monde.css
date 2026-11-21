@@ -343,6 +343,8 @@ a.pilier:hover .pilier__more, a.pilier:focus-visible .pilier__more { opacity: 1;
 .temoin-carte { break-inside: avoid; margin: 0 0 1.4rem; padding: 1.8rem 1.7rem 1.6rem; border: 1px solid var(--faint); border-radius: 20px; background: var(--surface); }
 .temoin-carte__guillemet { display: block; font-family: 'EB Garamond', serif; font-size: 3.4rem; line-height: 0.6; color: var(--gold); height: 1.4rem; }
 .temoin-carte blockquote p { font-family: 'EB Garamond', serif; font-style: normal; font-size: 1.15rem; line-height: 1.6; color: #E4E1DA; max-width: none; }
+/* Un témoignage long se dit en plusieurs souffles : ses paragraphes respirent. */
+.temoin-carte blockquote p + p { margin-top: 0.9rem; }
 .temoin-carte figcaption { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--faint); display: flex; flex-direction: column; gap: 0.2rem; }
 .temoin-carte figcaption b { font-family: 'Jost', sans-serif; font-weight: 500; font-size: 0.95rem; color: var(--cream); }
 .temoin-carte figcaption span { font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }

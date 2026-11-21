@@ -139,6 +139,12 @@ faq:
   - q: "Et après la lecture ?"
     r: "Un mois après la lecture, on se retrouve 30 min pour voir ce qui s'est incarné. Et si tu as envie d'aller plus loin, la lecture peut se prolonger par un accompagnement : on en parle à ce moment-là."
 temoignages:
+  - t: "J'ai vécu une expérience inédite et révélatrice. Je n'ai probablement pas encore conscience de ce que cela m'a apporté réellement.\n\nJe suis quelqu'un de très terre à terre, mais en même temps, j'aime entendre et imaginer toutes sortes de possibilités. Au quotidien, je n'ai pas pour habitude de me fier à l'astrologie, mais dans le cas du Prisme Origine, cela est venu nourrir mon feu.\n\nAnys m'a permis de trouver des réponses, qui ont résonné comme une vérité absolue. Depuis plusieurs mois, je cherche une voie, et je commence à l'entrevoir. Je commence à comprendre la quête qui est venue à moi dans mon enfance. J'ai les clés en main pour laisser s'exprimer l'être en moi qui cherche à se révéler.\n\nMerci Anys !"
+    'n': "Sacha"
+    c: "Prisme Origine"
+  - t: "Le rendu est impressionnant. Certes certaines caractéristiques sont suffisamment englobantes pour qu'on s'y identifie facilement, mais j'ai tout de même été stupéfié du résultat. Notamment de la manière dont tous ces éléments se complètent entre eux. Il y a très peu de redites, et très peu voire aucun élément qui ne résonne pas avec la manière dont je me perçois.\n\nJ'ai laissé pas mal de commentaires sous forme de questions pour toi dans la marge. Hâte de continuer."
+    'n': "Arthur"
+    c: "Prisme Origine"
   - t: "Anys m'a accompagnée pour une lecture de mon Human Design, avec beaucoup de présence, de douceur et de clarté. Je recommande fortement de partager un moment d'ouverture à soi avec lui."
     'n': "Camille"
     c: "Lecture Human Design"

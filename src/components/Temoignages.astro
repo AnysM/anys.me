@@ -32,7 +32,7 @@ const avecScript = (t = '') => t.replace(/\*(.+?)\*/g, '<span class="script">$1<
         {temoignages.map((x) => (
           <figure class="temoin-carte">
             <span class="temoin-carte__guillemet" aria-hidden="true">“</span>
-            <blockquote><p>{x.t}</p></blockquote>
+            <blockquote>{String(x.t ?? '').split(/\n\n+/).map((par) => <p>{par}</p>)}</blockquote>
             <figcaption><b>{x.n}</b>{x.c && <span>{x.c}</span>}</figcaption>
           </figure>
         ))}
