@@ -97,7 +97,7 @@ const jsonld = [
     <div class="narrow">{d.hero_logo && <img class="offre-logo" src={d.hero_logo} alt="" aria-hidden="true" loading="eager" />}
       <p class="eyebrow">{d.tag ?? (soin ? 'Soin' : 'Accompagnement')}</p><h1>{d.titre}</h1>
       <p class="seuil-tag"><i>{s?.num}</i> {s?.nom}<Sigils ids={sigils} /></p>
-      {d.resume && <p class="offre-lead" set:html={fmtO(d.resume)}></p>}
+      {d.resume?.split(/\n+/).map((l) => <p class="offre-lead" set:html={fmtO(l)}></p>)}
     </div>
   </section>
 

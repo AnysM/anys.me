@@ -10,7 +10,9 @@ duree: "4 mois"
 prix: "1 200€"
 seuil: transformer
 accroche: "Accueillir ton ombre, sortir de la demi-mesure, et donner corps à ce qui te tient à *cœur.*|En marchant avec d'autres hommes."
-resume: "Quatre mois en ligne avec un groupe d'hommes : des rendez-vous individuels, des cercles de parole, et un pas concret entre chaque."
+resume: |-
+  Quatre mois en ligne, avec un **groupe d'hommes**.
+  Des rendez-vous individuels, des cercles de parole, et un pas concret entre chaque.
 accueil: true
 ordre: 2
 action: appel

@@ -5,7 +5,9 @@ tag: "En ligne ou immersion"
 format: "En ligne ou immersion"
 duree: "1 à 6 mois, ou 3 jours"
 prix: "dès 600€"
-resume: "Des rendez-vous d'1h30, en ligne sur 1, 3 ou 6 mois, ou 3 jours en immersion. Pour traverser une transition en profondeur et la faire descendre dans ta vie concrète."
+resume: |-
+  Des rendez-vous d'1h30, en ligne sur 1, 3 ou 6 mois, ou **3 jours en immersion**.
+  Pour **traverser une transition en profondeur** et la faire descendre dans ta vie concrète.
 tarifs:
   - label: "1 mois"
     prix: "800€"

@@ -5,7 +5,9 @@ duree: "1h - 1h30"
 prix: "60€ - 90€"
 format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin du corps"
-resume: "Un massage intuitif, guidé par ce que ton corps demande. Pour retrouver de l'ancrage, de la détente, et de la confiance dans ton corps."
+resume: |-
+  Un **massage intuitif**, guidé par ce que ton corps demande.
+  Pour retrouver de l'ancrage, de la détente, et **de la confiance dans ton corps**.
 ordre: 1
 etapes:
   - titre: "L'accueil"
