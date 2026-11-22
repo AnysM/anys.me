@@ -5,7 +5,7 @@ duree: "1h30"
 prix: "80€"
 format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin subtil"
-resume: "**Tu es vidé, et le sommeil n'y change rien.** 1h30 où tu n'as rien à faire. Le soin se donne presque sans contact, parfois porté par des chants."
+resume: "Un soin profond, porté par un voyage sonore. Pour dissiper ce qui s'est accumulé, apaiser le système nerveux et retrouver de la clarté."
 accueil: true
 ordre: 2
 etapes:
@@ -14,10 +14,10 @@ etapes:
     texte: "On prend le temps d'échanger sur ce que tu traverses et sur ce qui t'amène."
   - titre: "Le soin"
     picto: mains
-    texte: "Majoritairement sans contact, parfois un contact ponctuel à la tête ou aux pieds, pour purifier et réharmoniser ta sphère énergétique."
-  - titre: "Le chant"
+    texte: "Je travaille sur ta sphère énergétique pour dissiper ce qui s'est accumulé, la purifier et la réharmoniser."
+  - titre: "Le voyage sonore"
     picto: son
-    texte: "Selon le besoin, des chants ou un instant musical viennent soutenir le processus."
+    texte: "Des chants et des instruments portent le soin et soutiennent le processus."
   - titre: "L'intégration"
     picto: graine
     texte: "Un temps pour revenir doucement et laisser le soin continuer d'agir."
@@ -56,4 +56,4 @@ Notre dimension énergétique relie notre être spirituel, ce qui a trait à l'e
 Formé au Reiki et au magnétisme, j'ai développé mon propre protocole, inspiré de mes initiations avec des guérisseurs indigènes d'Amazonie brésilienne. Mes soins portent à la fois la profondeur orientale, la structure et l'ancrage occidentaux, et la puissance de la forêt amazonienne. S'ajoutent à cet héritage mes racines marocaines, où l'on trouve des lignées de guérisseurs, notamment dans la confrérie soufie des Issawa.
 
 ## Le déroulé
-Les soins énergétiques se font majoritairement **sans contact**. Il peut y avoir des contacts ponctuels, avec la tête et les pieds, et d'autres zones du corps au cas par cas. Selon le besoin, le soin peut être accompagné de chants ou d'un instant musical pour soutenir le processus.
+Le soin est porté par un **voyage sonore** : des chants et des instruments soutiennent le processus. Le travail se fait majoritairement sans contact, avec des contacts ponctuels à la tête et aux pieds, et d'autres zones du corps au cas par cas.

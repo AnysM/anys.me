@@ -5,7 +5,7 @@ duree: "1h - 1h30"
 prix: "60€ - 90€"
 format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin du corps"
-resume: "**Ton corps est noué, et tu as fini par t'y habituer.** Un toucher sans protocole, qui suit ce qui demande à être délié. Tu repars ancré, détendu, plus clair."
+resume: "Un massage intuitif, guidé par ce que ton corps demande. Pour retrouver de l'ancrage, de la détente, et de la confiance dans ton corps."
 ordre: 1
 etapes:
   - titre: "L'accueil"

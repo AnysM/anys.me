@@ -11,7 +11,7 @@ duree: "2h"
 prix: "180€"
 hero_logo: /img/prisme-mark.svg
 hero_voile: 0.78
-resume: "**Tes anciens repères ne suffisent plus.** Deux heures de lecture croisée de ton Human Design, ton Tzolk'in et ton BaZi : ton rythme, tes forces, ta façon de décider."
+resume: "Une lecture de ton Human Design, ton Tzolk'in et ton BaZi, en deux heures. Pour comprendre ta façon de fonctionner, ton rythme, tes besoins et tes forces."
 tarifs:
   - label: "Prisme Origine"
     prix: "180€"
