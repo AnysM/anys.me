@@ -12,7 +12,8 @@ prix: "180€"
 hero_logo: /img/prisme-mark.svg
 hero_voile: 0.78
 resume: |-
-  Deux heures de lecture de **ton fonctionnement unique**, entre astrologie chinoise, calendrier maya et Human Design.
+  Deux heures de lecture de **ton fonctionnement unique**.
+  Astrologie chinoise, calendrier maya, Human Design.
   Pour comprendre **ton rythme, tes besoins et tes forces**.
 tarifs:
   - label: "Prisme Origine"
