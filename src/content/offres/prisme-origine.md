@@ -87,7 +87,7 @@ echanges_fil: /img/prisme-echanges.webp
 echanges_fil_alt: "Le fil ouvert sur le passage : la question posée, et la réponse d'Anys en dessous"
 echanges_fil_largeur: 1600
 livrable_eyebrow: "Ce que tu repars avec"
-livrable_titre: "Pas un PDF qu'on *oublie* dans un dossier."
+livrable_titre: "Ta page *reste chez toi*"
 livrable:
   - "**Tes trois cartes, vivantes.** Chaque sceau, chaque pilier, chaque porte s'ouvre et se lit."
   - "**Un parcours en cinq temps.** De l'essentiel au concret : ce que tu es, comment tu fonctionnes, ce qui te freine, et ce que ça change dans ton travail et tes relations."
