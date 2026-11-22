@@ -5,7 +5,7 @@ duree: "1h30"
 prix: "80€"
 format: "Sur rendez-vous, à Lyon ou à domicile"
 tag: "Soin subtil"
-resume: "Un soin profond, porté par un voyage sonore. Pour dissiper ce qui s'est accumulé, apaiser le système nerveux et retrouver de la clarté."
+resume: "Un soin profond, porté par le souffle et l'accompagnement sonore. Pour dissiper ce qui s'est accumulé, apaiser le système nerveux et retrouver de la clarté."
 accueil: true
 ordre: 2
 etapes:
