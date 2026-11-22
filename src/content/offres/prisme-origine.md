@@ -11,7 +11,7 @@ duree: "2h"
 prix: "180€"
 hero_logo: /img/prisme-mark.svg
 hero_voile: 0.78
-resume: "Deux heures de lecture de ta carte de naissance, croisée dans trois traditions. Pour comprendre ta façon de fonctionner, ton rythme, tes besoins et tes forces."
+resume: "Deux heures de lecture de ta carte de naissance, avec trois outils de connaissance de soi. Pour comprendre ta façon de fonctionner, ton rythme, tes besoins et tes forces."
 tarifs:
   - label: "Prisme Origine"
     prix: "180€"
@@ -151,7 +151,7 @@ temoignages:
 ---
 On passe une grande partie de sa vie à s'adapter. Aux attentes de sa famille, aux normes de la société, à son environnement, aux personnes qu'on aime, à l'image qu'on pense devoir renvoyer. Et à force, on s'éloigne doucement de soi.
 
-Le Prisme Origine est une invitation à revenir vers toi. Trois traditions de connaissance, trois regards sur ton incarnation, ton énergie et ta manière singulière d'habiter le monde : le **Human Design**, le **Tzolk'in** et le **BaZi**. Trois portes d'entrée, un même être : toi.
+Le Prisme Origine est une invitation à revenir vers toi. Trois outils de connaissance de soi, trois regards sur ton incarnation, ton énergie et ta manière singulière d'habiter le monde : le **Human Design**, le **Tzolk'in** et le **BaZi**. Trois portes d'entrée, un même être : toi.
 
 ## Revenir à toi
 Tout ce dont tu as besoin est déjà là. Le Prisme t'aide à le reconnaître : tes forces naturelles, ta manière de fonctionner, ton rythme, tes besoins, ta façon d'être en relation, ton énergie, tes potentiels. Parfois, il met simplement des mots sur ce que tu sentais déjà.
