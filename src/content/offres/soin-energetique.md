@@ -16,10 +16,10 @@ etapes:
     texte: "On prend le temps d'échanger sur ce que tu traverses et sur ce qui t'amène."
   - titre: "Le soin"
     picto: mains
-    texte: "Je travaille sur ta sphère énergétique pour dissiper ce qui s'est accumulé, la purifier et la réharmoniser."
+    texte: "Porté par le souffle, je travaille sur ta sphère énergétique pour dissiper ce qui s'est accumulé, la purifier et la réharmoniser."
   - titre: "Le voyage sonore"
     picto: son
-    texte: "Des chants et des instruments portent le soin et soutiennent le processus."
+    texte: "Après le soin, des chants et des instruments prolongent le travail et le laissent se déposer."
   - titre: "L'intégration"
     picto: graine
     texte: "Un temps pour revenir doucement et laisser le soin continuer d'agir."
@@ -58,4 +58,4 @@ Notre dimension énergétique relie notre être spirituel, ce qui a trait à l'e
 Formé au Reiki et au magnétisme, j'ai développé mon propre protocole, inspiré de mes initiations avec des guérisseurs indigènes d'Amazonie brésilienne. Mes soins portent à la fois la profondeur orientale, la structure et l'ancrage occidentaux, et la puissance de la forêt amazonienne. S'ajoutent à cet héritage mes racines marocaines, où l'on trouve des lignées de guérisseurs, notamment dans la confrérie soufie des Issawa.
 
 ## Le déroulé
-Le soin est porté par un **voyage sonore** : des chants et des instruments soutiennent le processus. Le travail se fait majoritairement sans contact, avec des contacts ponctuels à la tête et aux pieds, et d'autres zones du corps au cas par cas.
+Le soin est porté par **le souffle**. Vient ensuite **le voyage sonore** : des chants et des instruments prolongent le travail. Le soin se donne majoritairement sans contact, avec des contacts ponctuels à la tête et aux pieds, et d'autres zones du corps au cas par cas.
