@@ -38,7 +38,7 @@ approche:
     image: /img/prisme-bazi.webp
     alt: "Les quatre piliers BaZi et l'équilibre des cinq éléments"
     largeur: 1454
-    texte: "Ta structure énergétique de naissance, et l'équilibre entre les forces qui la composent. Ton énergie principale a son expression propre ; pour qu'elle se déploie, certaines énergies ont besoin d'être nourries, développées ou rééquilibrées. Une lecture très concrète de ce qui te permet d'être pleinement toi, sans être déséquilibré par ta propre énergie. *Comment équilibrer mon énergie pour l'incarner pleinement ?*"
+    texte: "L'astrologie chinoise : ta structure énergétique de naissance, et l'équilibre entre les forces qui la composent. Ton énergie principale a son expression propre ; pour qu'elle se déploie, certaines énergies ont besoin d'être nourries, développées ou rééquilibrées. Une lecture très concrète de ce qui te permet d'être pleinement toi, sans être déséquilibré par ta propre énergie. *Comment équilibrer mon énergie pour l'incarner pleinement ?*"
   - titre: "Le Human Design, le guide"
     image: /img/prisme-bodygraph.webp
     alt: "Bodygraph Human Design complet, portes et canaux"
@@ -151,7 +151,7 @@ temoignages:
 ---
 On passe une grande partie de sa vie à s'adapter. Aux attentes de sa famille, aux normes de la société, à son environnement, aux personnes qu'on aime, à l'image qu'on pense devoir renvoyer. Et à force, on s'éloigne doucement de soi.
 
-Le Prisme Origine est une invitation à revenir vers toi. Trois outils de connaissance de soi, trois regards sur ton incarnation, ton énergie et ta manière singulière d'habiter le monde : le **Human Design**, le **Tzolk'in** et le **BaZi**. Trois portes d'entrée, un même être : toi.
+Le Prisme Origine est une invitation à revenir vers toi. Trois outils de connaissance de soi, trois regards sur ton incarnation, ton énergie et ta manière singulière d'habiter le monde : le **Human Design**, le **Tzolk'in** (le calendrier maya) et le **BaZi** (l'astrologie chinoise). Trois portes d'entrée, un même être : toi.
 
 ## Revenir à toi
 Tout ce dont tu as besoin est déjà là. Le Prisme t'aide à le reconnaître : tes forces naturelles, ta manière de fonctionner, ton rythme, tes besoins, ta façon d'être en relation, ton énergie, tes potentiels. Parfois, il met simplement des mots sur ce que tu sentais déjà.
