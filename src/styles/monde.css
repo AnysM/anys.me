@@ -1204,6 +1204,9 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
   border: 1px solid var(--faint); border-radius: 10px; }
 
 /* Ce que tu repars avec : la liste d'abord, les trois preuves ensuite. */
+/* Un titre de section se coupe par le milieu plutôt que de laisser un mot
+   seul sur la deuxième ligne. */
+.bloc .tete h2 { text-wrap: balance; }
 .livrable__liste { list-style: none; margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; padding: 0;
   display: flex; flex-direction: column; gap: 0.9rem; }
 .livrable__liste li { position: relative; padding-left: 1.6rem; color: #C9CCD8;
@@ -1214,11 +1217,12 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 /* Trois captures alignées dans le même cadre, ça ne disait pas ce qu'on reçoit.
    Chacune devient l'objet qu'elle est : une fenêtre, un téléphone, une feuille
    imprimée. On reconnaît la forme avant de lire la légende. */
-.livrable__vues { display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.4rem, 3vw, 2.6rem); margin-top: clamp(2.6rem, 5vw, 4rem); align-items: end; }
+.livrable__vues { display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2rem, 4vw, 3.4rem); margin-top: clamp(2.6rem, 5vw, 4rem); align-items: end;
+  max-width: 1000px; margin-inline: auto; }
 .livrable__vue { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
 .livrable__objet { position: relative; width: 100%; }
-.livrable__vue img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.livrable__vue img { display: block; width: 100%; height: auto; }
 .livrable__vue figcaption { font-family: 'Jost', sans-serif; text-transform: uppercase;
   letter-spacing: 0.12em; font-size: 0.68rem; color: var(--muted); text-align: center; }
 
@@ -1228,33 +1232,37 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .livrable__barre { display: flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px;
   background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--faint); }
 .livrable__barre i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.22); }
-.livrable__vue--fenetre img { aspect-ratio: 16 / 11; }
+
+
+/* Le fil : la carte d'échange telle qu'elle s'ouvre, sans habillage. */
+.livrable__vue--fil .livrable__objet { border: 1px solid var(--faint); border-radius: 14px;
+  overflow: hidden; box-shadow: 0 22px 44px rgba(0,0,0,0.42); }
+
 
 /* Le téléphone : un boîtier étroit, posé plus bas que les deux autres. */
-.livrable__vue--telephone .livrable__objet { width: min(72%, 190px); margin: 0 auto;
+.livrable__vue--telephone .livrable__objet { width: min(56%, 230px); margin: 0 auto;
   padding: 8px; border-radius: 30px; background: #10162c;
   border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 24px 48px rgba(0,0,0,0.5); }
 .livrable__vue--telephone .livrable__objet::before { content: ''; position: absolute;
   top: 16px; left: 50%; transform: translateX(-50%); width: 46px; height: 5px;
   border-radius: 100px; background: rgba(255,255,255,0.22); z-index: 2; }
-.livrable__vue--telephone img { aspect-ratio: 9 / 17; border-radius: 23px; }
+.livrable__vue--telephone img { border-radius: 23px; }
 
 /* La feuille : du papier clair, posé de travers, avec une deuxième page dessous. */
-.livrable__vue--papier .livrable__objet { width: min(86%, 250px); margin: 0 auto;
+.livrable__vue--papier .livrable__objet { width: min(88%, 400px); margin: 0 auto;
   transform: rotate(-2.2deg); transition: transform 0.4s var(--ease, ease); }
 .livrable__vue--papier .livrable__objet::before { content: ''; position: absolute;
   inset: 0; transform: rotate(3.4deg) translate(6px, 5px); background: #EFEBE3;
   box-shadow: 0 16px 34px rgba(0,0,0,0.42); }
-.livrable__vue--papier img { position: relative; aspect-ratio: 1 / 1.34;
-  object-position: top center; background: #FBF8F2;
+.livrable__vue--papier img { position: relative; background: #FBF8F2;
   box-shadow: 0 20px 42px rgba(0,0,0,0.46); }
 .livrable__vue--papier:hover .livrable__objet { transform: rotate(0deg); }
 @media (prefers-reduced-motion: reduce) { .livrable__vue--papier .livrable__objet { transition: none; } }
 
 @media (max-width: 760px) {
-  .livrable__vues { grid-template-columns: 1fr; gap: 2.6rem; }
-  .livrable__vue--telephone .livrable__objet { width: min(58%, 210px); }
-  .livrable__vue--papier .livrable__objet { width: min(70%, 270px); }
+  .livrable__vues { grid-template-columns: 1fr; gap: 2.8rem; }
+  .livrable__vue--telephone .livrable__objet { width: min(62%, 240px); }
+  .livrable__vue--papier .livrable__objet { width: min(92%, 380px); }
 }
 @media (max-width: 760px) { .livrable__vues { grid-template-columns: 1fr; } }
 
@@ -1268,22 +1276,8 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 .offre-logo { display: block; width: clamp(104px, 11vw, 140px); height: auto;
   margin: 0 0 1.2rem; opacity: 0.95; }
 
-/* ── Nos échanges : la question posée dans le texte, la réponse au même endroit ──
-   Le texte dit le principe, le passage marqué montre où ça s'accroche, et le fil
-   se tient à côté, debout, dans son format d'origine. */
-.echanges__grille { display: grid; grid-template-columns: 1.35fr 1fr;
-  gap: clamp(1.8rem, 4vw, 3.4rem); align-items: center; margin-top: clamp(1.6rem, 3vw, 2.4rem); }
-.echanges__dire p { color: #C2C5D2; line-height: 1.85; max-width: 52ch; }
-.echanges__dire p + p { margin-top: 1.1rem; }
-.echanges__dire strong { color: var(--cream); font-weight: 500; }
-.echanges__marqueur { margin: clamp(1.6rem, 3vw, 2.4rem) 0 0; }
-.echanges__marqueur img { display: block; width: 100%; height: auto;
-  border: 1px solid var(--faint); border-radius: 10px; }
-.echanges__fil { margin: 0; }
-.echanges__fil img { display: block; width: 100%; height: auto;
-  border: 1px solid var(--faint); border-radius: 16px;
-  box-shadow: 0 24px 48px rgba(0,0,0,0.45); }
-@media (max-width: 860px) {
-  .echanges__grille { grid-template-columns: 1fr; gap: 2.2rem; }
-  .echanges__fil { max-width: 420px; margin: 0 auto; }
 }
+
+/* La phrase qui ouvre la liste de l'espace perso. */
+.livrable__intro { color: #C2C5D2; line-height: 1.8; margin-top: clamp(1.4rem, 2.6vw, 2rem); }
+.livrable__intro + .livrable__liste { margin-top: 0.9rem; }

@@ -58,18 +58,9 @@ etapes:
   - titre: "La synthèse"
     picto: etoile
     texte: "On fait émerger les correspondances, les thèmes récurrents, ce qui compte le plus pour toi."
-  - titre: "Ta page"
-    picto: carte
-    texte: "Tout ce qu'on a traversé reste chez toi, sur une page personnelle : tes trois cartes, le détail de chaque porte, de chaque pilier, de chaque sceau, et le replay de notre séance. Tu y reviens quand tu veux. Six mois plus tard, c'est souvent là que ça prend vraiment sens."
-  - titre: "Nos échanges"
-    picto: parole
-    texte: "Entre nos deux rendez-vous, tu poses tes questions directement sur la page, à l'endroit qui te fait réagir. Je te réponds là, sur le passage. Ce qui remonte dans ce mois-là, c'est souvent le plus juste : on le reprend ensemble au point de fin."
   - titre: "L'intégration"
     picto: graine
-    texte: "On revient à ta réalité : tes choix, ton travail, tes relations. Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné, et ce qui demande encore à bouger."
-etapes_image: /img/prisme-page.webp
-etapes_alt: "La page personnelle livrée après la lecture, vue sur grand écran"
-etapes_largeur: 2330
+    texte: "Un mois plus tard, un point de 30 min pour voir ce qui s'est incarné dans tes choix, ton travail et tes relations."
 explore:
   - "Ton fonctionnement | ta façon de décider, d'utiliser ton énergie, d'interagir avec ton environnement"
   - "Ton énergie et ton rythme | les forces de ton terrain, ce qui te nourrit, ce qui t'épuise"
@@ -77,42 +68,33 @@ explore:
   - "Tes relations | ta façon d'entrer en lien, de t'adapter, de trouver ta place"
   - "Ton potentiel | ce qui demande à être reconnu, développé ou incarné"
   - "Ton fil rouge | les thèmes qui traversent les trois systèmes"
-echanges_eyebrow: "Nos échanges"
-echanges_titre: "Tu me poses tes questions, *je te réponds*"
-echanges_texte: |-
-  Pendant le mois qui suit la lecture, tu relis. Et c'est là que les vraies questions arrivent, sur un passage précis.
-
-  Tu la poses à cet endroit-là, dans le texte. Je te réponds au même endroit. **Rien ne part dans une messagerie à côté** : la réponse reste accrochée au passage qui l'a fait naître, et on la reprend ensemble au point d'intégration.
-echanges_marqueur: /img/prisme-marqueur.webp
-echanges_marqueur_alt: "Un passage de la lecture surligné en doré, marqué d'une flèche : c'est là qu'un échange est posé"
-echanges_marqueur_largeur: 2800
-echanges_fil: /img/prisme-echanges.webp
-echanges_fil_alt: "Le fil ouvert sur le passage : la question posée, et la réponse d'Anys en dessous"
-echanges_fil_largeur: 1600
-livrable_eyebrow: "Ce que tu repars avec"
-livrable_titre: "Ta page *reste chez toi*"
+livrable_eyebrow: "Après le rendez-vous"
+livrable_titre: "Ton *espace perso*"
+livrable_intro: "Tu y retrouves ta lecture. Ça va te permettre de :"
 livrable:
-  - "**Tes trois cartes, vivantes.** Chaque sceau, chaque pilier, chaque porte s'ouvre et se lit."
-  - "**Un parcours en cinq temps.** De l'essentiel au concret : ce que tu es, comment tu fonctionnes, ce qui te freine, et ce que ça change dans ton travail et tes relations."
-  - "**Tes notes, mes réponses.** Tu commentes n'importe quel passage, je te réponds dessus. Entre nos deux rendez-vous, la séance continue."
-  - "**Le replay de notre séance**, et ta visualisation, à réécouter."
-  - "**Une version imprimable**, si tu préfères le papier."
-  - "**Un lien à toi**, que tu gardes."
+  - "Relire tranquillement chez toi, sur ton ordinateur, sur ton mobile ou sur papier (PDF imprimable)."
+  - "Revoir ou réécouter notre session."
+  - "Me poser des questions directement sur la plateforme pendant le mois de suivi."
 livrable_vues:
-  - image: /img/prisme-parcours.webp
-    alt: "Le parcours de lecture en cinq chapitres"
-    largeur: 2880
-    titre: "Ta page, dans ton navigateur"
+  - image: /img/prisme-page.webp
+    alt: "La page personnelle, vue sur grand écran"
+    largeur: 2330
+    titre: "Ta page"
     forme: fenetre
+  - image: /img/prisme-echanges.webp
+    alt: "Le fil ouvert sur un passage : la question posée, et la réponse d'Anys en dessous"
+    largeur: 1600
+    titre: "Tes questions, mes réponses"
+    forme: fil
   - image: /img/prisme-mobile.webp
     alt: "La page personnelle sur téléphone"
     largeur: 780
-    titre: "Dans ta poche, à vie"
+    titre: "Dans ta poche"
     forme: telephone
   - image: /img/prisme-pdf.webp
     alt: "La version imprimable, en thème clair"
     largeur: 2200
-    titre: "Et sur papier, si tu préfères"
+    titre: "Ou sur papier"
     forme: papier
 calcul_eyebrow: "Le calcul est vérifié"
 calcul: |-
@@ -142,6 +124,9 @@ faq:
   - q: "Et après la lecture ?"
     r: "Un mois après la lecture, on se retrouve 30 min pour voir ce qui s'est incarné. Et si tu as envie d'aller plus loin, la lecture peut se prolonger par un accompagnement : on en parle à ce moment-là."
 temoignages:
+  - t: "J’ai beaucoup apprécié l’accompagnement d’Anys, et particulièrement sa posture. Il guide avec justesse et finesse, sans complaisance, mais avec une grande douceur.\n\nJ’ai eu la chance d’expérimenter \"Prisme Origine\" avec lui, une lecture qui croise plusieurs approches de connaissance de soi. Après un échange introspectif, jalonné de questions et de réflexions pertinentes, sa méditation guidée m’a permis de déposer mes émotions, de me sentir plus légère et d’être pleinement disponible pour la suite. Un moment précieux en soi !\n\nAnys fait preuve d’acuité, de profondeur et d’authenticité. Il sait mettre en lumière ce qui demande à être regardé, dans un climat de confiance où l’on peut être pleinement soi-même.\n\nCette séance m’a permis de mieux me comprendre et de faire davantage confiance à mon corps et à mon intelligence instinctive. J’ai aussi pris conscience de mes besoins, de ce qui me nourrit véritablement et des ressources sur lesquelles m’appuyer pour soutenir mon énergie au quotidien.\n\nDepuis, je me sens plus ancrée et plus confiante dans ma manière de fonctionner. Merci Anys pour ce bel accompagnement 🙏"
+    'n': "Sarah"
+    c: "Prisme Origine"
   - t: "J'ai vécu une expérience inédite et révélatrice. Je n'ai probablement pas encore conscience de ce que cela m'a apporté réellement.\n\nJe suis quelqu'un de très terre à terre, mais en même temps, j'aime entendre et imaginer toutes sortes de possibilités. Au quotidien, je n'ai pas pour habitude de me fier à l'astrologie, mais dans le cas du Prisme Origine, cela est venu nourrir mon feu.\n\nAnys m'a permis de trouver des réponses, qui ont résonné comme une vérité absolue. Depuis plusieurs mois, je cherche une voie, et je commence à l'entrevoir. Je commence à comprendre la quête qui est venue à moi dans mon enfance. J'ai les clés en main pour laisser s'exprimer l'être en moi qui cherche à se révéler.\n\nMerci Anys !"
     'n': "Sacha"
     c: "Prisme Origine"
