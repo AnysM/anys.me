@@ -78,7 +78,7 @@ livrable:
 livrable_vues:
   - image: /img/prisme-page.webp
     alt: "Le haut de l’espace perso sur grand écran : le profil, les onglets et le bouton Échanges"
-    largeur: 2400
+    largeur: 1600
     titre: "Ta page"
     forme: fenetre
   - image: /img/prisme-echanges.webp

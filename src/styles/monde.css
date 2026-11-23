@@ -1240,7 +1240,7 @@ section.artefact-recit { padding-top: clamp(2rem, 4vw, 3rem); }
 
 
 /* Le téléphone : un boîtier étroit, posé plus bas que les deux autres. */
-.livrable__vue--telephone .livrable__objet { width: min(56%, 230px); margin: 0 auto;
+.livrable__vue--telephone .livrable__objet { width: min(60%, 280px); margin: 0 auto;
   padding: 8px; border-radius: 30px; background: #10162c;
   border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 24px 48px rgba(0,0,0,0.5); }
 .livrable__vue--telephone .livrable__objet::before { content: ''; position: absolute;
