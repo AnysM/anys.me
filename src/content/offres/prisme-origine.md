@@ -96,13 +96,6 @@ livrable_vues:
     largeur: 2200
     titre: "Ou sur papier"
     forme: papier
-calcul_eyebrow: "Le calcul est vérifié"
-calcul: |-
-  Les trois cartes sont calculées, pas recopiées. Le Human Design s'appuie sur les éphémérides astronomiques, le BaZi sur le calendrier luni-solaire, le Tzolk'in sur la formule du compte Dreamspell.
-
-  Une fois, au début, j'ai mélangé deux dates de naissance dans une même lecture. Le profil était faux. Je l'ai refait, et j'ai écrit un contrôle automatique qui m'empêche désormais de publier une lecture si les trois cartes ne viennent pas exactement de la même date, de la même heure et du même lieu.
-
-  Ça ne rend pas ces systèmes scientifiques. Ça garantit juste qu'on parle bien de toi.
 benefices:
   - "Prendre tes décisions avec plus de justesse, en suivant ta propre manière de décider"
   - "Respecter ton rythme et ton énergie, et t'épuiser beaucoup moins"
