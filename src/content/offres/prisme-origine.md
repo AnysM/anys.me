@@ -77,8 +77,8 @@ livrable:
   - "Me poser des questions directement sur la plateforme pendant le mois de suivi."
 livrable_vues:
   - image: /img/prisme-page.webp
-    alt: "La page personnelle, vue sur grand écran"
-    largeur: 2330
+    alt: "Le haut de l’espace perso sur grand écran : le profil, les onglets et le bouton Échanges"
+    largeur: 2400
     titre: "Ta page"
     forme: fenetre
   - image: /img/prisme-echanges.webp
@@ -87,13 +87,13 @@ livrable_vues:
     titre: "Tes questions, mes réponses"
     forme: fil
   - image: /img/prisme-mobile.webp
-    alt: "La page personnelle sur téléphone"
-    largeur: 780
+    alt: "L’espace perso sur téléphone, du haut de l’écran au bouton Échanges"
+    largeur: 1000
     titre: "Dans ta poche"
     forme: telephone
   - image: /img/prisme-pdf.webp
-    alt: "La version imprimable, en thème clair"
-    largeur: 2200
+    alt: "Une page du PDF au format A4, prête à imprimer"
+    largeur: 1588
     titre: "Ou sur papier"
     forme: papier
 benefices:
