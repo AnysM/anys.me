@@ -376,17 +376,9 @@ type Offres implements Node & Document {
   etapes_largeur: Float
   hero_logo: String
   hero_voile: Float
-  echanges_eyebrow: String
-  echanges_titre: String
-  echanges_texte: String
-  echanges_marqueur: String
-  echanges_marqueur_alt: String
-  echanges_marqueur_largeur: Float
-  echanges_fil: String
-  echanges_fil_alt: String
-  echanges_fil_largeur: Float
   livrable_eyebrow: String
   livrable_titre: String
+  livrable_intro: String
   livrable: [String]
   livrable_vues: [OffresLivrable_vues]
   calcul_eyebrow: String
@@ -514,17 +506,9 @@ input OffresFilter {
   etapes_largeur: NumberFilter
   hero_logo: StringFilter
   hero_voile: NumberFilter
-  echanges_eyebrow: StringFilter
-  echanges_titre: StringFilter
-  echanges_texte: StringFilter
-  echanges_marqueur: ImageFilter
-  echanges_marqueur_alt: StringFilter
-  echanges_marqueur_largeur: NumberFilter
-  echanges_fil: ImageFilter
-  echanges_fil_alt: StringFilter
-  echanges_fil_largeur: NumberFilter
   livrable_eyebrow: StringFilter
   livrable_titre: StringFilter
+  livrable_intro: StringFilter
   livrable: StringFilter
   livrable_vues: OffresLivrable_vuesFilter
   calcul_eyebrow: StringFilter
@@ -1455,17 +1439,9 @@ input OffresMutation {
   etapes_largeur: Float
   hero_logo: String
   hero_voile: Float
-  echanges_eyebrow: String
-  echanges_titre: String
-  echanges_texte: String
-  echanges_marqueur: String
-  echanges_marqueur_alt: String
-  echanges_marqueur_largeur: Float
-  echanges_fil: String
-  echanges_fil_alt: String
-  echanges_fil_largeur: Float
   livrable_eyebrow: String
   livrable_titre: String
+  livrable_intro: String
   livrable: [String]
   livrable_vues: [OffresLivrable_vuesMutation]
   calcul_eyebrow: String

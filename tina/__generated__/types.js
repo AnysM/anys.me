@@ -110,17 +110,9 @@ export const OffresPartsFragmentDoc = gql`
   etapes_largeur
   hero_logo
   hero_voile
-  echanges_eyebrow
-  echanges_titre
-  echanges_texte
-  echanges_marqueur
-  echanges_marqueur_alt
-  echanges_marqueur_largeur
-  echanges_fil
-  echanges_fil_alt
-  echanges_fil_largeur
   livrable_eyebrow
   livrable_titre
+  livrable_intro
   livrable
   livrable_vues {
     __typename
@@ -250,17 +242,9 @@ export const CodexPartsFragmentDoc = gql`
         etapes_largeur
         hero_logo
         hero_voile
-        echanges_eyebrow
-        echanges_titre
-        echanges_texte
-        echanges_marqueur
-        echanges_marqueur_alt
-        echanges_marqueur_largeur
-        echanges_fil
-        echanges_fil_alt
-        echanges_fil_largeur
         livrable_eyebrow
         livrable_titre
+        livrable_intro
         livrable
         livrable_vues {
           __typename
@@ -477,17 +461,9 @@ export const CodexPartsFragmentDoc = gql`
               etapes_largeur
               hero_logo
               hero_voile
-              echanges_eyebrow
-              echanges_titre
-              echanges_texte
-              echanges_marqueur
-              echanges_marqueur_alt
-              echanges_marqueur_largeur
-              echanges_fil
-              echanges_fil_alt
-              echanges_fil_largeur
               livrable_eyebrow
               livrable_titre
+              livrable_intro
               livrable
               livrable_vues {
                 __typename
@@ -796,17 +772,9 @@ export const ArtefactsPartsFragmentDoc = gql`
               etapes_largeur
               hero_logo
               hero_voile
-              echanges_eyebrow
-              echanges_titre
-              echanges_texte
-              echanges_marqueur
-              echanges_marqueur_alt
-              echanges_marqueur_largeur
-              echanges_fil
-              echanges_fil_alt
-              echanges_fil_largeur
               livrable_eyebrow
               livrable_titre
+              livrable_intro
               livrable
               livrable_vues {
                 __typename
@@ -1218,17 +1186,9 @@ export const Page_AproposPartsFragmentDoc = gql`
                 etapes_largeur
                 hero_logo
                 hero_voile
-                echanges_eyebrow
-                echanges_titre
-                echanges_texte
-                echanges_marqueur
-                echanges_marqueur_alt
-                echanges_marqueur_largeur
-                echanges_fil
-                echanges_fil_alt
-                echanges_fil_largeur
                 livrable_eyebrow
                 livrable_titre
+                livrable_intro
                 livrable
                 livrable_vues {
                   __typename
