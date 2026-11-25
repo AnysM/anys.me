@@ -43,17 +43,15 @@ const titres = {
   serif:     { famille: SERIF, style: 'italic', facteur: 1.0 },
 };
 
-// photoH est la hauteur maximale du bandeau. Sans recadrage, la photo garde toute
-// sa largeur et le bandeau s'arrête à sa hauteur réelle : rien n'est rogné sur les
-// côtés, donc rien n'est agrandi. Les formats verticaux, eux, recadrent : une
-// story a besoin d'un bandeau haut.
+// photoH est la hauteur du bandeau photo, et donc la part d'image dans le visuel.
+// Elle prime sur le cadrage : la photo remplit le bandeau, quitte à être recadrée.
 const formats = {
-  post:      { W: 1080, H: 1350, photoH: 600,  piedY: 1170, pas: 84, noteGap: 66 },
-  story:     { W: 1080, H: 1920, photoH: 740,  piedY: 1500, pas: 94, noteGap: 76, recadre: true },
-  calque:    { W: 1080, H: 1920, photoH: 880,  piedY: 1500, pas: 94, noteGap: 76, transparent: true },
+  post:      { W: 1080, H: 1350, photoH: 640, piedY: 1210, pas: 84, noteGap: 66 },
+  story:     { W: 1080, H: 1920, photoH: 940, piedY: 1560, pas: 94, noteGap: 76 },
+  calque:    { W: 1080, H: 1920, photoH: 940, piedY: 1560, pas: 94, noteGap: 76, transparent: true },
   // Une seule séance, annoncée en grand.
-  solo:      { W: 1080, H: 1350, photoH: 660,  piedY: 1150, solo: true },
-  soloStory: { W: 1080, H: 1920, photoH: 760,  piedY: 1480, solo: true, recadre: true },
+  solo:      { W: 1080, H: 1350, photoH: 744, piedY: 1200, solo: true },
+  soloStory: { W: 1080, H: 1920, photoH: 980, piedY: 1450, solo: true },
 };
 
 const TITRE_CORPS = 96;
@@ -155,14 +153,8 @@ async function rendre(nomFormat, variante, photo, sortie) {
     return fichier;
   }
 
-  const source = sharp(path.join('public/img', photo));
-  const { width, height } = await source.metadata();
-  // À pleine largeur, voici ce que la photo mesure. Le bandeau s'y ajuste, sauf
-  // pour les formats qui recadrent.
-  const naturelle = Math.round((L.W * height) / width);
-  const bande = L.recadre ? L.photoH : Math.min(L.photoH, naturelle);
-
-  const image = await source
+  const bande = L.photoH;
+  const image = await sharp(path.join('public/img', photo))
     .resize(L.W, bande, { fit: 'cover', position: 'centre' }).toBuffer();
   const fichier = path.join(sortie, `${base(nomFormat)}-${nomFormat.toLowerCase()}.jpg`);
   await sharp({ create: { width: L.W, height: L.H, channels: 3, background: NAVY } })
