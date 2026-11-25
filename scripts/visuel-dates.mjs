@@ -27,7 +27,7 @@ const contenu = {
     { jour: 'VENDREDI 27', heure: '18h30 → 20h' },
   ],
   lieu: 'CHANKA STUDIO  ·  51 QUAI SAINT-VINCENT  ·  LYON',
-  tarifs: '20 € la séance  ·  60 € le mois',
+  tarifs: '20 € la séance',
   site: 'ANYS.ME',
 };
 
@@ -44,19 +44,19 @@ const titres = {
 };
 
 const formats = {
-  post:   { W: 1080, H: 1350, photoH: 512, fade: 240, titreY: 628,  sousY: 700,  moisY: 778,
-            ligneY: 844,  pas: 84, noteGap: 66, piedY: 1218 },
-  story:  { W: 1080, H: 1920, photoH: 800, fade: 380, titreY: 930,  sousY: 1002, moisY: 1080,
-            ligneY: 1150, pas: 94, noteGap: 76, piedY: 1576 },
+  post:   { W: 1080, H: 1350, photoH: 668, fade: 300, titreY: 524,  sousY: 598,  moisY: 742,
+            ligneY: 812,  pas: 84, noteGap: 66, piedY: 1196 },
+  story:  { W: 1080, H: 1920, photoH: 980, fade: 440, titreY: 836,  sousY: 910,  moisY: 1054,
+            ligneY: 1124, pas: 94, noteGap: 76, piedY: 1560 },
   // Calque : mêmes repères que la story, sans photo, avec un voile dégradé pour
   // que le texte tienne sur n'importe quelle image de fond.
   calque: { W: 1080, H: 1920, photoH: 800, fade: 380, titreY: 930,  sousY: 1002, moisY: 1080,
             ligneY: 1150, pas: 94, noteGap: 76, piedY: 1576, transparent: true },
   // Une seule séance, annoncée en grand.
-  solo:      { W: 1080, H: 1350, photoH: 560, fade: 260, titreY: 676,  sousY: 744,
-               jourY: 866,  dateY: 950,  heureY: 1042, piedY: 1176, solo: true },
-  soloStory: { W: 1080, H: 1920, photoH: 920, fade: 450, titreY: 1050, sousY: 1120,
-               jourY: 1262, dateY: 1352, heureY: 1448, piedY: 1584, solo: true },
+  solo:      { W: 1080, H: 1350, photoH: 744, fade: 330, titreY: 604,  sousY: 678,
+               jourY: 868,  dateY: 952,  heureY: 1044, piedY: 1182, solo: true },
+  soloStory: { W: 1080, H: 1920, photoH: 1080, fade: 500, titreY: 940, sousY: 1014,
+               jourY: 1230, dateY: 1320, heureY: 1416, piedY: 1570, solo: true },
 };
 
 const TITRE_CORPS = 96;
@@ -78,12 +78,22 @@ function dessin(L, variante) {
       </linearGradient></defs>
       <rect x="0" y="${haut}" width="${L.W}" height="${L.H - haut}" fill="url(#v)"/>`;
   } else {
+    // Le dégradé s'arrête à mi-voile derrière le titre, pour que les fleurs
+    // restent visibles autour des lettres, puis ferme sur le navy plein.
+    const h = (y) => Math.max(0, Math.min(1, y / L.photoH)).toFixed(3);
     o += `<defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="${NAVY}" stop-opacity="0.18"/>
-        <stop offset="${(L.fade / L.photoH).toFixed(3)}" stop-color="${NAVY}" stop-opacity="0.30"/>
+        <stop offset="0" stop-color="${NAVY}" stop-opacity="0.16"/>
+        <stop offset="${h(L.fade)}" stop-color="${NAVY}" stop-opacity="0.26"/>
+        <stop offset="${h(L.titreY - 80)}" stop-color="${NAVY}" stop-opacity="0.40"/>
+        <stop offset="${h(L.titreY + 50)}" stop-color="${NAVY}" stop-opacity="0.64"/>
         <stop offset="1" stop-color="${NAVY}" stop-opacity="1"/>
-      </linearGradient></defs>
-      <rect x="0" y="0" width="${L.W}" height="${L.photoH}" fill="url(#f)"/>`;
+      </linearGradient>
+      <radialGradient id="g">
+        <stop offset="0" stop-color="${NAVY}" stop-opacity="0.60"/>
+        <stop offset="1" stop-color="${NAVY}" stop-opacity="0"/>
+      </radialGradient></defs>
+      <rect x="0" y="0" width="${L.W}" height="${L.photoH}" fill="url(#f)"/>
+      <ellipse cx="${mid}" cy="${L.titreY - 26}" rx="${Math.round(L.W * 0.46)}" ry="108" fill="url(#g)"/>`;
   }
 
   o += `<text x="${mid}" y="${L.titreY}" text-anchor="middle" font-family="${t.famille}" font-style="${t.style}" font-size="${Math.round(TITRE_CORPS * t.facteur)}" fill="${CREAM}">${contenu.titre}</text>`;
