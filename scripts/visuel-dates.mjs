@@ -47,11 +47,13 @@ const titres = {
 // Elle prime sur le cadrage : la photo remplit le bandeau, quitte à être recadrée.
 const formats = {
   post:      { W: 1080, H: 1350, photoH: 608, piedY: 1210, pas: 84, noteGap: 66 },
-  story:     { W: 1080, H: 1920, photoH: 900, piedY: 1550, pas: 94, noteGap: 76 },
-  calque:    { W: 1080, H: 1920, photoH: 900, piedY: 1550, pas: 94, noteGap: 76, transparent: true },
+  // Les formats 9:16 descendent jusqu'à 1660 : au-delà, l'interface d'Instagram
+  // recouvre le bas de la story.
+  story:     { W: 1080, H: 1920, photoH: 930,  piedY: 1570, pas: 92, noteGap: 76 },
+  calque:    { W: 1080, H: 1920, photoH: 930,  piedY: 1570, pas: 92, noteGap: 76, transparent: true },
   // Une seule séance, annoncée en grand.
-  solo:      { W: 1080, H: 1350, photoH: 744, piedY: 1210, solo: true },
-  soloStory: { W: 1080, H: 1920, photoH: 980, piedY: 1530, solo: true },
+  solo:      { W: 1080, H: 1350, photoH: 744,  piedY: 1210, solo: true },
+  soloStory: { W: 1080, H: 1920, photoH: 1030, piedY: 1580, solo: true },
 };
 
 const TITRE_CORPS = 96;
