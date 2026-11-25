@@ -92,8 +92,8 @@ function dessin(L, variante, bande) {
         <stop offset="0" stop-color="${NAVY}" stop-opacity="0.12"/>
         <stop offset="${h(bande - 320)}" stop-color="${NAVY}" stop-opacity="0.24"/>
         <stop offset="${h(bande - 170)}" stop-color="${NAVY}" stop-opacity="0.46"/>
-        <stop offset="${h(bande + 20)}" stop-color="${NAVY}" stop-opacity="0.86"/>
-        <stop offset="1" stop-color="${NAVY}" stop-opacity="0.88"/>
+        <stop offset="${h(bande + 20)}" stop-color="${NAVY}" stop-opacity="0.93"/>
+        <stop offset="1" stop-color="${NAVY}" stop-opacity="0.95"/>
       </linearGradient>
       <radialGradient id="g">
         <stop offset="0" stop-color="${NAVY}" stop-opacity="0.26"/>
