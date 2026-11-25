@@ -46,25 +46,25 @@ const titres = {
 // photoH est la hauteur du bandeau photo, et donc la part d'image dans le visuel.
 // Elle prime sur le cadrage : la photo remplit le bandeau, quitte à être recadrée.
 const formats = {
-  post:      { W: 1080, H: 1350, photoH: 640, piedY: 1210, pas: 84, noteGap: 66 },
-  story:     { W: 1080, H: 1920, photoH: 940, piedY: 1560, pas: 94, noteGap: 76 },
-  calque:    { W: 1080, H: 1920, photoH: 940, piedY: 1560, pas: 94, noteGap: 76, transparent: true },
+  post:      { W: 1080, H: 1350, photoH: 608, piedY: 1210, pas: 84, noteGap: 66 },
+  story:     { W: 1080, H: 1920, photoH: 900, piedY: 1550, pas: 94, noteGap: 76 },
+  calque:    { W: 1080, H: 1920, photoH: 900, piedY: 1550, pas: 94, noteGap: 76, transparent: true },
   // Une seule séance, annoncée en grand.
-  solo:      { W: 1080, H: 1350, photoH: 744, piedY: 1200, solo: true },
-  soloStory: { W: 1080, H: 1920, photoH: 980, piedY: 1450, solo: true },
+  solo:      { W: 1080, H: 1350, photoH: 744, piedY: 1210, solo: true },
+  soloStory: { W: 1080, H: 1920, photoH: 980, piedY: 1530, solo: true },
 };
 
 const TITRE_CORPS = 96;
 const SOUS_CORPS = 28;
 const MARGE = 118;
 
-// Le titre se pose juste sur le dégradé, à 92 px du bas du bandeau : les fleurs
-// transparaissent derrière les lettres sans leur disputer la lisibilité.
+// Le titre se pose tout en bas du bandeau, là où le dégradé a déjà presque fermé :
+// la photo l'habite sans le disputer. Le sous-titre tombe sur le navy plein.
 const repères = (L, bande) => {
-  const titreY = bande - 92;
+  const titreY = bande - 56;
   const sousY = titreY + 74;
   return L.solo
-    ? { titreY, sousY, jourY: sousY + 196, dateY: sousY + 280, heureY: sousY + 372 }
+    ? { titreY, sousY, jourY: sousY + 180, dateY: sousY + 262, heureY: sousY + 352 }
     : { titreY, sousY, moisY: sousY + 144, ligneY: sousY + 210 };
 };
 
