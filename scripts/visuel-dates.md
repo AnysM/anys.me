@@ -46,9 +46,9 @@ cp public/fonts/Biloxi_Script.ttf ~/Library/Fonts/
 ## La grammaire visuelle
 
 - 🎨 **Couleurs** : navy `#0A0F20`, crème `#ECE7DE`, or `#E0AE5E`, gris clair `#A6ADC4`, corail `#F07A5F`
-- 🖼️ **Photo** en bandeau haut, fondue vers le navy par un dégradé. `photoH` fixe la part
-  d'image dans le visuel et prime sur le cadrage : la photo remplit le bandeau, quitte à être
-  recadrée. Baisser `photoH` fait remonter le navy, ce qui déséquilibre le visuel.
+- 🖼️ **Photo** sur toute la hauteur du visuel. Un voile navy en dégradé la couvre, léger en
+  haut, dense sous le titre, et s'arrête à 0,88 : les fleurs restent présentes derrière les
+  dates. `photoH` ne découpe rien, elle dit seulement où le voile atteint sa densité.
 - ✍️ **Titre** en manuscrit, corps 146, ou en serif italique, corps 96, crème, centré,
   posé à 92 px du bas du bandeau : juste sur le dégradé, les fleurs transparaissent derrière
 - 🔠 **Sous-titre** en capitales Futura dorées, corps 28, interlettrage 4, pleine largeur

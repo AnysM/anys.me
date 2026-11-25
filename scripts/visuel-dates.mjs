@@ -84,21 +84,22 @@ function dessin(L, variante, bande) {
       </linearGradient></defs>
       <rect x="0" y="${haut}" width="${L.W}" height="${L.H - haut}" fill="url(#v)"/>`;
   } else {
-    // Le dégradé reste léger sur la photo, se densifie derrière le titre, puis
-    // ferme sur le navy plein au bas du bandeau.
-    const h = (y) => Math.max(0, Math.min(1, y / bande)).toFixed(3);
+    // La photo court jusqu'en bas. Le voile reste léger sur le bandeau, se densifie
+    // derrière le titre, et s'arrête à 0,88 : les fleurs restent présentes sous les
+    // dates au lieu de disparaître derrière un aplat.
+    const h = (y) => Math.max(0, Math.min(1, y / L.H)).toFixed(3);
     o += `<defs><linearGradient id="f" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="${NAVY}" stop-opacity="0.14"/>
-        <stop offset="${h(bande - 320)}" stop-color="${NAVY}" stop-opacity="0.26"/>
+        <stop offset="0" stop-color="${NAVY}" stop-opacity="0.12"/>
+        <stop offset="${h(bande - 320)}" stop-color="${NAVY}" stop-opacity="0.24"/>
         <stop offset="${h(bande - 170)}" stop-color="${NAVY}" stop-opacity="0.46"/>
-        <stop offset="${h(bande - 40)}" stop-color="${NAVY}" stop-opacity="0.92"/>
-        <stop offset="1" stop-color="${NAVY}" stop-opacity="1"/>
+        <stop offset="${h(bande + 20)}" stop-color="${NAVY}" stop-opacity="0.86"/>
+        <stop offset="1" stop-color="${NAVY}" stop-opacity="0.88"/>
       </linearGradient>
       <radialGradient id="g">
         <stop offset="0" stop-color="${NAVY}" stop-opacity="0.26"/>
         <stop offset="1" stop-color="${NAVY}" stop-opacity="0"/>
       </radialGradient></defs>
-      <rect x="0" y="0" width="${L.W}" height="${bande}" fill="url(#f)"/>
+      <rect x="0" y="0" width="${L.W}" height="${L.H}" fill="url(#f)"/>
       <ellipse cx="${mid}" cy="${R.titreY - 24}" rx="${Math.round(L.W * 0.46)}" ry="90" fill="url(#g)"/>`;
   }
 
@@ -154,8 +155,9 @@ async function rendre(nomFormat, variante, photo, sortie) {
   }
 
   const bande = L.photoH;
+  // La photo occupe tout le visuel, le voile fait le reste.
   const image = await sharp(path.join('public/img', photo))
-    .resize(L.W, bande, { fit: 'cover', position: 'centre' }).toBuffer();
+    .resize(L.W, L.H, { fit: 'cover', position: 'centre' }).toBuffer();
   const fichier = path.join(sortie, `${base(nomFormat)}-${nomFormat.toLowerCase()}.jpg`);
   await sharp({ create: { width: L.W, height: L.H, channels: 3, background: NAVY } })
     .composite([{ input: image, top: 0, left: 0 }, { input: Buffer.from(dessin(L, variante, bande)), top: 0, left: 0 }])
