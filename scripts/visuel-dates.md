@@ -46,8 +46,11 @@ cp public/fonts/Biloxi_Script.ttf ~/Library/Fonts/
 ## La grammaire visuelle
 
 - 🎨 **Couleurs** : navy `#0A0F20`, crème `#ECE7DE`, or `#E0AE5E`, gris clair `#A6ADC4`, corail `#F07A5F`
-- 🖼️ **Photo** en bandeau haut, fondue vers le navy par un dégradé, le texte se pose sur le navy plein
-- ✍️ **Titre** en manuscrit, corps 146, ou en serif italique, corps 96, crème, centré
+- 🖼️ **Photo** en bandeau haut, fondue vers le navy par un dégradé. Les formats carrés gardent
+  toute la largeur de la photo et laissent le bandeau s'arrêter à sa hauteur réelle, donc rien
+  n'est agrandi. Les formats verticaux recadrent, une story a besoin d'un bandeau haut.
+- ✍️ **Titre** en manuscrit, corps 146, ou en serif italique, corps 96, crème, centré,
+  posé à 92 px du bas du bandeau : juste sur le dégradé, les fleurs transparaissent derrière
 - 🔠 **Sous-titre** en capitales Futura dorées, corps 28, interlettrage 4, pleine largeur
 - 🗓️ **Mois** seul en capitales espacées, corps 26, interlettrage 12, gris clair, sans filet au-dessus
 - 🕖 **Dates** : jour à gauche en crème, heure à droite en or, même corps 39, un filet blanc à 13 % entre chaque
